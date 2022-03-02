@@ -52,6 +52,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+
+	frameDuration = new PerfTimer();
 }
 
 // Destructor
@@ -206,6 +208,10 @@ void App::FinishUpdate()
 		lastSecFrameCount = 0;
 		averageFps = (averageFps + framesPerSecond) / 2;
 	}
+
+	// Calculate the dt: differential time since last frame
+	dt = frameDuration->ReadMs();
+	frameDuration->Start();
 
 	/*static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",

@@ -50,7 +50,7 @@ bool Scene::Start()
 		imgAnim.PushBack({ N,0,195,200 });
 		N += 195;
 	}
-	imgAnim.speed = 0.1f;
+	imgAnim.speed = 0.02f;
 	imgAnim.loop = true;
 
 	return true;
@@ -98,6 +98,9 @@ bool Scene::Update(float dt)
 	//Draw GUI
 	app->guiManager->Draw();
 
+	// Update Anim
+	imgAnim.Update(dt);
+	LOG("%f",dt);
 	return true;
 }
 
@@ -106,7 +109,6 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	imgAnim.Update();
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
 			app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());

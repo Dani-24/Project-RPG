@@ -130,6 +130,8 @@ private:
 	uint32 framesPerSecond = 0;
 	uint32 lastSecFrameCount = 0;
 
+	PerfTimer* frameDuration;
+
 	float averageFps = 0.0f;
 	float dt = 0.0f;
 };
