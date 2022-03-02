@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<scene />
+	<renderer>
+		<camera x="0" y="0" />
+	</renderer>
+</game_state>
