@@ -151,5 +151,9 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
+	app->tex->UnLoad(img);
+
+	imgAnim.DeleteAnim();
+
 	return true;
 }
