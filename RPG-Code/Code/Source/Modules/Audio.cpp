@@ -31,7 +31,6 @@ bool Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	// Load support for the JPG and PNG image formats
 	int flags = MIX_INIT_OGG;
 	int init = Mix_Init(flags);
 
