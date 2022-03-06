@@ -29,7 +29,7 @@ bool Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
-	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
 		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		active = false;
@@ -40,7 +40,7 @@ bool Audio::Awake(pugi::xml_node& config)
 	int flags = MIX_INIT_OGG;
 	int init = Mix_Init(flags);
 
-	if((init & flags) != flags)
+	if ((init & flags) != flags)
 	{
 		LOG("Could not initialize Mixer lib. Mix_Init: %s", Mix_GetError());
 		active = false;
@@ -48,7 +48,7 @@ bool Audio::Awake(pugi::xml_node& config)
 	}
 
 	// Initialize SDL_mixer
-	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		active = false;
@@ -61,18 +61,18 @@ bool Audio::Awake(pugi::xml_node& config)
 // Called before quitting
 bool Audio::CleanUp()
 {
-	if(!active)
+	if (!active)
 		return true;
 
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if(music != NULL)
+	if (music != NULL)
 	{
 		Mix_FreeMusic(music);
 	}
 
 	ListItem<Mix_Chunk*>* item;
-	for(item = fx.start; item != NULL; item = item->next)
+	for (item = fx.start; item != NULL; item = item->next)
 		Mix_FreeChunk(item->data);
 
 	fx.clear();
@@ -89,14 +89,14 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
 
-	if(!active)
+	if (!active)
 		return false;
 
-	if(music != NULL)
+	if (music != NULL)
 	{
-		if(fade_time > 0.0f)
+		if (fade_time > 0.0f)
 		{
-			Mix_FadeOutMusic(int(fade_time * 1000.0f));
+			Mix_FadeOutMusic(int(fade_time * 50.0f));
 		}
 		else
 		{
@@ -109,16 +109,16 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 
 	music = Mix_LoadMUS(path);
 
-	if(music == NULL)
+	if (music == NULL)
 	{
 		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
 		ret = false;
 	}
 	else
 	{
-		if(fade_time > 0.0f)
+		if (fade_time > 0.0f)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
+			if (Mix_FadeInMusic(music, -1, (int)(fade_time * 50.0f)) < 0)
 			{
 				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -126,7 +126,7 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 		}
 		else
 		{
-			if(Mix_PlayMusic(music, -1) < 0)
+			if (Mix_PlayMusic(music, -1) < 0)
 			{
 				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
@@ -143,12 +143,12 @@ unsigned int Audio::LoadFx(const char* path)
 {
 	unsigned int ret = 0;
 
-	if(!active)
+	if (!active)
 		return 0;
 
 	Mix_Chunk* chunk = Mix_LoadWAV(path);
 
-	if(chunk == NULL)
+	if (chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
@@ -166,13 +166,23 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
 
-	if(!active)
+	if (!active)
 		return false;
 
-	if(id > 0 && id <= fx.count())
+	if (id > 0 && id <= fx.count())
 	{
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
 	return ret;
+}
+
+// Change Music volume
+void Audio::ChangeVolume(int volume) {
+	Mix_VolumeMusic(volume);
+}
+
+// Change Sound Effects volume
+void Audio::ChangeFXVolume(int volume) {
+	Mix_Volume(-1, volume);
 }
