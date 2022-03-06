@@ -13,14 +13,10 @@ class Audio : public Module
 public:
 
 	Audio(App* application, bool start_enabled = true);
-
-	// Destructor
 	virtual ~Audio();
 
-	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
-	// Called before quitting
 	bool CleanUp();
 
 	// Play a music file
