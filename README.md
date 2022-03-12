@@ -13,8 +13,8 @@ https://github.com/Dani-24/RPG
 ## Suspicious Team members:
 
 - Xavier Casadó - [Akage369](https://github.com/Akage369) - Team Lead / Art
-- Dani Toledo - [Dani24](https://github.com/Dani-24) - Vicepresidente ejecutivo en funciones / Art / Programmer
-- Laia Pachón - [laiapachon](https://github.com/laiapachon) - Art / Audio
+- Dani Toledo - [Dani24](https://github.com/Dani-24) - Vicepresidente ejecutivo en funciones / Audio / Programmer
+- Laia Pachón - [laiapachon](https://github.com/laiapachon) - Art / Narrative
 - David Benages - [Divangus](https://github.com/Divangus) - Design
 - Albert Martín - [T4skar](https://github.com/T4skar) - ª
 - Marina Albalà - [Vizalt](https://github.com/Vizalt) - Management / UI
