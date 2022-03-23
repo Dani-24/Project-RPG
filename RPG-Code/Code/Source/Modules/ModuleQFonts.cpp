@@ -44,7 +44,7 @@ void ModuleQFonts::LoadFont(const char* fontPath) {
 }
 
 // Print a lot of space or texts will fuse and random bullshit 
-void ModuleQFonts::drawText(const char* textToRender, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
+void ModuleQFonts::DrawText(const char* textToRender, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	RenderText("                                                                   ", 0, 0);
 	RenderText(textToRender, x, y, r, g, b);
 }
