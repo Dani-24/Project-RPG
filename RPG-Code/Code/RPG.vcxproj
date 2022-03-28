@@ -63,7 +63,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,7 +82,7 @@
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -103,8 +103,9 @@
     <ClCompile Include="Source\Modules\Map.cpp" />
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
     <ClCompile Include="Source\Timers\PerfTimer.cpp" />
-    <ClCompile Include="Source\Modules\Scene.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Modules\Render.cpp" />
     <ClCompile Include="Source\Modules\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
@@ -117,8 +118,9 @@
     <ClInclude Include="Source\Modules\Map.h" />
     <ClInclude Include="Source\Modules\ModuleQFonts.h" />
     <ClInclude Include="Source\Modules\Pathfinder.h" />
+    <ClInclude Include="Source\Modules\Scenes\Logo.h" />
     <ClInclude Include="Source\Timers\PerfTimer.h" />
-    <ClInclude Include="Source\Modules\Scene.h" />
+    <ClInclude Include="Source\Modules\Scenes\Scene.h" />
     <ClInclude Include="Source\Modules\Audio.h" />
     <ClInclude Include="Source\Modules\Input.h" />
     <ClInclude Include="Source\Global\App.h" />

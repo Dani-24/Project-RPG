@@ -16,6 +16,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class LogoScene;
 class Scene;
 class Map;
 class GuiManager;
@@ -92,6 +93,7 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	LogoScene* logo;
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;

@@ -9,7 +9,7 @@
     <ClCompile Include="Source\GUI\GuiManager.cpp" />
     <ClCompile Include="Source\Modules\Audio.cpp" />
     <ClCompile Include="Source\Modules\Input.cpp" />
-    <ClCompile Include="Source\Modules\Scene.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Modules\Textures.cpp" />
     <ClCompile Include="Source\Modules\Window.cpp" />
     <ClCompile Include="Source\Modules\Map.cpp" />
@@ -23,6 +23,7 @@
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -37,7 +38,7 @@
     <ClInclude Include="Source\GUI\GuiManager.h" />
     <ClInclude Include="Source\Modules\Audio.h" />
     <ClInclude Include="Source\Modules\Input.h" />
-    <ClInclude Include="Source\Modules\Scene.h" />
+    <ClInclude Include="Source\Modules\Scenes\Scene.h" />
     <ClInclude Include="Source\Modules\Textures.h" />
     <ClInclude Include="Source\Modules\Window.h" />
     <ClInclude Include="Source\Modules\Map.h" />
@@ -68,6 +69,7 @@
     <ClInclude Include="Source\Modules\FadeToBlack.h" />
     <ClInclude Include="Source\Global\Module.h" />
     <ClInclude Include="Source\Tools\Animation.h" />
+    <ClInclude Include="Source\Modules\Scenes\Logo.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
