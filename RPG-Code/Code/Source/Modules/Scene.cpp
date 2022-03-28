@@ -45,10 +45,10 @@ bool Scene::Start()
 	// Texture
 	img = app->tex->Load("Assets/textures/sample.png");
 
-	int N = 0;
-	for (int i = 0; i < 54; i++) {
-		imgAnim.PushBack({ N,0,195,200 });
-		N += 195;
+	for (int j = 0; j < 2; j++) {
+		for (int i = 0; i < 27; i++) {
+			imgAnim.PushBack({ i * 195,j * 200, 195, 200 });
+		}
 	}
 	imgAnim.speed = 0.02f;
 	imgAnim.loop = true;
