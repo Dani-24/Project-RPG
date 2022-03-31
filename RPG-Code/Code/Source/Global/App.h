@@ -17,6 +17,7 @@ class Render;
 class Textures;
 class Audio;
 class LogoScene;
+class TitleScene;
 class Scene;
 class Map;
 class GuiManager;
@@ -93,7 +94,8 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	LogoScene* logo;
+	LogoScene* logoScene;
+	TitleScene* titleScene;
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;

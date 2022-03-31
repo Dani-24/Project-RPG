@@ -104,6 +104,7 @@
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
     <ClCompile Include="Source\Timers\PerfTimer.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Modules\Render.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Source\Modules\ModuleQFonts.h" />
     <ClInclude Include="Source\Modules\Pathfinder.h" />
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
+    <ClInclude Include="Source\Modules\Scenes\Title.h" />
     <ClInclude Include="Source\Timers\PerfTimer.h" />
     <ClInclude Include="Source\Modules\Scenes\Scene.h" />
     <ClInclude Include="Source\Modules\Audio.h" />

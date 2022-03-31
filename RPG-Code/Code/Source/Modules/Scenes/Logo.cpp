@@ -12,7 +12,7 @@
 
 LogoScene::LogoScene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
-	name.Create("scene");
+	name.Create("logoScene");
 }
 
 // Destructor
@@ -22,7 +22,7 @@ LogoScene::~LogoScene()
 // Called before render is available
 bool LogoScene::Awake()
 {
-	LOG("Loading Scene");
+	LOG("Loading Logo");
 	bool ret = true;
 
 	return ret;
@@ -48,7 +48,7 @@ bool LogoScene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		app->fade->StartFadeToBlack(this, (Module*)app->scene);
+		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return ret;
@@ -62,7 +62,7 @@ bool LogoScene::Update(float dt)
 		cont += dt;
 	}
 	else {
-		app->fade->StartFadeToBlack(this, (Module*)app->scene);
+		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return true;

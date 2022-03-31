@@ -5,6 +5,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Logo.h"
+#include "Title.h"
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
@@ -29,7 +30,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(this);
 	fade = new FadeToBlack(this);
 
-	logo = new LogoScene(this);
+	logoScene = new LogoScene(this);
+	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
 	map = new Map(this);
 	guiManager = new GuiManager(this);
@@ -47,7 +49,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	AddModule(pathfinder);
 
-	AddModule(logo);
+	AddModule(logoScene);
+	AddModule(titleScene);
 	AddModule(scene);
 	AddModule(map);
 	AddModule(font);

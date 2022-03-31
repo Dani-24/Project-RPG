@@ -100,7 +100,6 @@ bool Scene::Update(float dt)
 
 	// Update Anim
 	imgAnim.Update(dt);
-	LOG("%f",dt);
 	return true;
 }
 

@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -70,6 +71,7 @@
     <ClInclude Include="Source\Global\Module.h" />
     <ClInclude Include="Source\Tools\Animation.h" />
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
+    <ClInclude Include="Source\Modules\Scenes\Title.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
