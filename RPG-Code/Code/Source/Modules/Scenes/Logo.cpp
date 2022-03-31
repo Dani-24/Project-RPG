@@ -33,7 +33,11 @@ bool LogoScene::Start()
 {
 	logo = app->tex->Load("Assets/textures/logo.png");
 
+	logofx = app->audio->LoadFx("Assets/audio/sfx/fx_logo.wav");
+
 	cont = 0;
+
+	app->audio->PlayFx(logofx);
 
 	return true;
 }

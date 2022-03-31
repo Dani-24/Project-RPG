@@ -37,6 +37,8 @@ private:
 	SDL_Texture* logo;
 
 	int cont;
+
+	int logofx;
 };
 
 #endif // !_LOGO_H_
