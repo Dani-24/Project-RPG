@@ -25,6 +25,7 @@
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
+    <ClCompile Include="Source\Modules\ModulePlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -72,6 +73,7 @@
     <ClInclude Include="Source\Tools\Animation.h" />
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
     <ClInclude Include="Source\Modules\Scenes\Title.h" />
+    <ClInclude Include="Source\Modules\ModulePlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

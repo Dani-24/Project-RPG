@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
+#include "ModulePlayer.h"
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -29,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(this);
 	audio = new Audio(this);
 	fade = new FadeToBlack(this);
+	player = new ModulePlayer(this);
 
 	logoScene = new LogoScene(this);
 	titleScene = new TitleScene(this, false);
@@ -45,7 +47,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-
+	AddModule(player);
 	AddModule(fade);
 	AddModule(pathfinder);
 

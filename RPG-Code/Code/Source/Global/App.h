@@ -21,6 +21,7 @@ class TitleScene;
 class Scene;
 class Map;
 class GuiManager;
+class ModulePlayer;
 
 class FadeToBlack;
 class Pathfinder;
@@ -99,6 +100,7 @@ public:
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;
+	ModulePlayer* player;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
