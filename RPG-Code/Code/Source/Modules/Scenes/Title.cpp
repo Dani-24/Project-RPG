@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Title.h"
 #include "FadeToBlack.h"
+#include "ModuleQFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,7 +32,17 @@ bool TitleScene::Awake()
 // Called before the first frame
 bool TitleScene::Start()
 {
-	
+	app->font->Enable();
+
+	// Load Assets
+
+	buttonsUI = app->tex->Load("Assets/gui/buttons_4x.png");
+	title = app->tex->Load("Assets/textures/title.png");
+
+	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
+
+	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 50);
+
 	return true;
 }
 
@@ -40,7 +51,13 @@ bool TitleScene::PreUpdate()
 {
 	bool ret = true;
 
-	app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		ret = false;
+	}
 
 	return ret;
 }
@@ -48,7 +65,7 @@ bool TitleScene::PreUpdate()
 // Called each loop iteration
 bool TitleScene::Update(float dt)
 {
-	LOG("TITLE SCENE VACÍA UWU");
+
 	return true;
 }
 
@@ -57,6 +74,14 @@ bool TitleScene::PostUpdate()
 {
 	bool ret = true;
 
+	// Render
+	app->render->DrawTexture(title, 350, 125);
+	app->render->DrawTexture(buttonsUI, 0, 0);
+
+	// Render Text
+
+	app->font->DrawText("Press SPACE to start", 425, 600);
+
 	return ret;
 }
 
@@ -64,6 +89,8 @@ bool TitleScene::PostUpdate()
 bool TitleScene::CleanUp()
 {
 	LOG("Freeing Title scene");
+
+	app->font->Disable();
 
 	return true;
 }

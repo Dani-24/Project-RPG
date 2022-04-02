@@ -15,26 +15,18 @@ ModuleQFonts::~ModuleQFonts()
 {
 }
 
-bool ModuleQFonts::Init() {
+bool ModuleQFonts::Start() {
 	LOG("Init Module Fonts");
 	if (TTF_Init() == -1) {
 		LOG("Fonts can't initialize || TTF_Init: %s", TTF_GetError());
 		return false;
 	}
 
-	fontTexture = nullptr;
-
 	return true;
 }
 
-bool ModuleQFonts::Start() {
-
-	LOG("Starting Fonts Module");
-	return true;
-}
-
-void ModuleQFonts::LoadFont(const char* fontPath) {
-	font = TTF_OpenFont(fontPath, 15);
+void ModuleQFonts::LoadFont(const char* fontPath, int size) {
+	font = TTF_OpenFont(fontPath, size);
 	if (!font) {
 		LOG("Error loading font || TTF_OpenFont: %s", TTF_GetError());
 	}
@@ -49,19 +41,19 @@ void ModuleQFonts::DrawText(const char* textToRender, int x, int y, Uint8 r, Uin
 	RenderText(textToRender, x, y, r, g, b);
 }
 
+// This method is private
 void ModuleQFonts::RenderText(const char* textToRender, int x, int y, Uint8 r , Uint8 g , Uint8 b) {
 	// Text Color
 	color = { r,g,b };
 
 	// Create the text on surface
-	if (!(fontSurface = TTF_RenderText_Blended(font, textToRender, color))) {	// Blended means more quality than Solid
+	if (!(fontSurface = TTF_RenderText_Blended(font, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
 		LOG("Error Rendering Text || TTF_OpenFont: %s", TTF_GetError());
 	}
 	else {
 		if (fontTexture == nullptr) {
 			// Transform the text surface to texture
 			fontTexture = SDL_CreateTextureFromSurface(app->render->renderer, fontSurface);
-			LOG("Surface to Texture");
 		}
 		else {
 			SDL_UpdateTexture(fontTexture, nullptr, fontSurface->pixels, fontSurface->pitch);
@@ -87,6 +79,9 @@ void ModuleQFonts::UnloadFont()
 bool ModuleQFonts::CleanUp() {
 
 	TTF_Quit();
+
+	fontTexture = nullptr;
+	fontSurface = NULL;
 
 	return true;
 }

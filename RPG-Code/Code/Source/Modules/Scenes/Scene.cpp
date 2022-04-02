@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
+#include "FadeToBlack.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,11 +33,11 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	// L03: DONE: Load map
+
 	//app->map->Load("iso_walk.tmx");
 	
 	// Load music
-	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
+	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
 
 	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
@@ -62,7 +63,7 @@ bool Scene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		ret = false;
+		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return ret;

@@ -35,6 +35,9 @@ public:
 
 private:
 
+	SDL_Texture* title;
+	SDL_Texture* buttonsUI;
+
 };
 
 #endif // !__TITLE_H__
