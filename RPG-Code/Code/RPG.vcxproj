@@ -101,6 +101,7 @@
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Input.cpp" />
     <ClCompile Include="Source\Modules\Map.cpp" />
+    <ClCompile Include="Source\Modules\ModulePlayer.cpp" />
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="Source\GUI\GuiManager.h" />
     <ClInclude Include="Source\Modules\FadeToBlack.h" />
     <ClInclude Include="Source\Modules\Map.h" />
+    <ClInclude Include="Source\Modules\ModulePlayer.h" />
     <ClInclude Include="Source\Modules\ModuleQFonts.h" />
     <ClInclude Include="Source\Modules\Pathfinder.h" />
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
