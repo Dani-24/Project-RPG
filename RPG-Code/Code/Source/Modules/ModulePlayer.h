@@ -42,19 +42,26 @@ private:
 
 	iPoint position;
 
+	bool PlayerElection = true;
+
 	//Direction
-	bool PlayerDirectionUp = false;
-	bool PlayerDirectionRight = false;
+	int PlayerDirectionUp = 0;
+	int PlayerDirectionRight = 0;
 
 	//cargar textura del jugador
 	SDL_Texture* PlayerMTex = nullptr;
+	SDL_Texture* PlayerFTex = nullptr;
 
 	//player animations
 	Animation* currentAnimation = nullptr;
-	Animation 
+	Animation
 		walkAnimUp,
 		walkAnimDown,
 		walkAnimR,
-		walkAnimL;
+		walkAnimL,
+		idleAnimR,
+		idleAnimL,
+		idleAnimUp,
+		idleAnimDown;
 };
 #endif
