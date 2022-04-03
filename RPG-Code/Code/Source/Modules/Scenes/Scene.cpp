@@ -9,6 +9,7 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "ModulePlayer.h"
+#include "EnemyMovement.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -33,6 +34,8 @@ bool Scene::Start()
 {
 	// Enables & idk
 	app->player->Enable();
+
+	app->enemyMovement->Enable();
 
 	//app->map->Load("iso_walk.tmx");
 	
@@ -141,6 +144,8 @@ bool Scene::CleanUp()
 	imgAnim.DeleteAnim();
 
 	app->player->Disable();
+
+	app->enemyMovement->Disable();
 
 	return true;
 }

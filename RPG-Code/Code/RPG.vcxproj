@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\GUI\GuiButton.cpp" />
     <ClCompile Include="Source\GUI\GuiManager.cpp" />
     <ClCompile Include="Source\Global\Main.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Source\Modules\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Window.cpp" />
+    <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Source\GUI\GuiButton.h" />
     <ClInclude Include="Source\GUI\GuiControl.h" />
