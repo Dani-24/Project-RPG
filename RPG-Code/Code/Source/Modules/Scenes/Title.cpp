@@ -36,12 +36,15 @@ bool TitleScene::Start()
 
 	// Load Assets
 
-	buttonsUI = app->tex->Load("Assets/gui/buttons_4x.png");
+	buttonsUI = app->tex->Load("Assets/gui/buttons_2x.png");
 	title = app->tex->Load("Assets/textures/title.png");
 
 	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
 
-	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 50);
+	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 25);
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 
 	return true;
 }
@@ -75,12 +78,12 @@ bool TitleScene::PostUpdate()
 	bool ret = true;
 
 	// Render
-	app->render->DrawTexture(title, 350, 125);
+	app->render->DrawTexture(title, 100, 20);
 	app->render->DrawTexture(buttonsUI, 0, 0);
 
 	// Render Text
 
-	app->font->DrawText("Press SPACE to start", 425, 600);
+	app->font->DrawText("Press SPACE to start", 225, 300);
 
 	return ret;
 }

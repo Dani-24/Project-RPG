@@ -73,7 +73,7 @@ bool LogoScene::PostUpdate()
 {
 	bool ret = true;
 
-	app->render->DrawTexture(logo, app->win->GetWidth()/2 -343, app->win->GetHeight()/2 - 343);
+	app->render->DrawTexture(logo, 150, 0);
 
 	return ret;
 }

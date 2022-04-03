@@ -30,7 +30,7 @@ public:
 	bool PostUpdate();
 
 	//// Called before quitting
-	//bool CleanUp();
+	bool CleanUp();
 
 	// Load / Save
 	//bool LoadState(pugi::xml_node&);
@@ -38,6 +38,9 @@ public:
 
 	//All player movement
 	void MovementPlayer(float dt);
+
+	void CameraToPlayer();
+
 private:
 
 	iPoint position;

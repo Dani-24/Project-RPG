@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "ModulePlayer.h"
 #include "Log.h"
+#include "Window.h"
 
 ModulePlayer::ModulePlayer(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -64,13 +65,16 @@ bool ModulePlayer::Start()
 	PlayerDirectionUp = 0;
 	PlayerElection = 1;
 
-	position.x = 70;
-	position.y = 70;
+	position.x = app->win->GetWidth()/2;
+	position.y = app->win->GetHeight() / 2;
 	return ret;
 }
 
 bool ModulePlayer::PreUpdate()
 {
+
+	CameraToPlayer();
+
 	return true;
 }
 
@@ -103,8 +107,19 @@ bool ModulePlayer::PostUpdate()
 
 	return true;
 }
+
+bool ModulePlayer::CleanUp() {
+	
+	app->tex->UnLoad(PlayerFTex);
+	app->tex->UnLoad(PlayerMTex);
+
+	currentAnimation = nullptr;
+
+	return true;
+}
+
 void ModulePlayer::MovementPlayer(float dt) {
-	float speed = 2 * dt * 0.09;
+	float speed = dt * 0.2f;
 
 	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
@@ -130,7 +145,7 @@ void ModulePlayer::MovementPlayer(float dt) {
 		}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)){
-		position.y -= speed ;
+		position.y -= speed;
 		if (currentAnimation != &walkAnimUp)
 		{
 			walkAnimUp.Reset();
@@ -178,4 +193,9 @@ void ModulePlayer::MovementPlayer(float dt) {
 			}
 		}
 	}
+}
+
+void ModulePlayer::CameraToPlayer() {
+	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2;
 }
