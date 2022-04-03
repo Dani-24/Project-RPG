@@ -17,11 +17,9 @@ Scene::Scene(App* application, bool start_enabled) : Module(application, start_e
 	name.Create("scene");
 }
 
-// Destructor
 Scene::~Scene()
 {}
 
-// Called before render is available
 bool Scene::Awake()
 {
 	LOG("Loading Scene");
@@ -30,7 +28,6 @@ bool Scene::Awake()
 	return ret;
 }
 
-// Called before the first frame
 bool Scene::Start()
 {
 
@@ -39,7 +36,6 @@ bool Scene::Start()
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
 
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
 
@@ -57,7 +53,6 @@ bool Scene::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool Scene::PreUpdate()
 {
 	bool ret = true;
@@ -69,45 +64,32 @@ bool Scene::PreUpdate()
 	return ret;
 }
 
-// Called each loop iteration
 bool Scene::Update(float dt)
 {
-    // L02: DONE 3: Request Load / Save when pressing L/S
-	if(app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	// ================================
+	//       SAVE / LOAD requests
+	// ================================
+
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 		app->LoadGameRequest();
+	}
 
-	if(app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 		app->SaveGameRequest();
-
-	// L08: TODO 6: Make the camera movement independent of framerate
-	float speed = 1; 
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y -= speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y += speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x -= speed;
-
-	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x += speed;
-
-	// Draw map
-	app->map->Draw();
-
-	//Draw GUI
-	app->guiManager->Draw();
-
+	}
+	
 	// Update Anim
 	imgAnim.Update(dt);
 	return true;
 }
 
-// Called each loop iteration
+// Render bullshit
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	app->map->Draw();
+	app->guiManager->Draw();
 
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {

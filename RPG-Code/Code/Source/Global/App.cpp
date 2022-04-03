@@ -41,13 +41,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	font = new ModuleQFonts(this, false);
 	pathfinder = new Pathfinder(this, false);
 
-	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
+	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(player);
+	
 	AddModule(fade);
 	AddModule(pathfinder);
 
@@ -55,6 +54,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(titleScene);
 	AddModule(scene);
 	AddModule(map);
+
+	AddModule(player);
+
 	AddModule(font);
 	AddModule(guiManager);
 
@@ -94,7 +96,9 @@ bool App::Awake()
 
 	bool ret = false;
 
-	// L01: DONE 3: Load config from XML
+	// ================================
+	//      Load config from XML
+	// ================================
 	config = LoadConfig(configFile);
 
 	if (config.empty() == false)
@@ -102,11 +106,8 @@ bool App::Awake()
 		ret = true;
 		configApp = config.child("app");
 
-		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
-	
-		// L08: TODO 1: Read from config file your framerate cap
 	}
 
 	if (ret == true)
@@ -116,10 +117,6 @@ bool App::Awake()
 
 		while ((item != NULL) && (ret == true))
 		{
-			// L01: DONE 5: Add a new argument to the Awake method to receive a pointer to an xml node.
-			// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
-			// that can be used to read all variables for that module.
-			// Send nullptr if the node does not exist in config.xml
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
@@ -190,23 +187,13 @@ void App::PrepareUpdate()
 {
 	frameCount++;
 	lastSecFrameCount++;
-
-	// L08: TODO 4: Calculate the dt: differential time since last frame
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// L02: DONE 1: This is a good place to call Load / Save methods
 	if (loadGameRequested == true) LoadGame();
 	if (saveGameRequested == true) SaveGame();
-
-	// L07: DONE 4: Now calculate:
-	// Amount of frames since startup
-	// Amount of time since game start (use a low resolution timer)
-	// Amount of ms took the last update
-	// Amount of frames during the last second
-	// Average FPS for the whole game life
 
 	float secondsSinceStartup = startupTime.ReadSec();
 
@@ -221,10 +208,9 @@ void App::FinishUpdate()
 	dt = frameDuration->ReadMs();
 	frameDuration->Start();
 
-	/*static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
-	*/
+	// ================================
+	//			 Window Title
+	// ================================
 	app->win->SetTitle("Slap Chop");
 }
 
@@ -338,15 +324,16 @@ void App::SaveGameRequest() const
 	saveGameRequested = true;
 }
 
-// ---------------------------------------
-// L02: DONE 5: Create a method to actually load an xml file
-// then call all the modules to load themselves
+// ================================
+//  		 SAVE & LOAD
+// ================================
+
 bool App::LoadGame()
 {
 	bool ret = true;
 
 	pugi::xml_document gameStateFile;
-	pugi::xml_parse_result result = gameStateFile.load_file("savegame.xml");
+	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
 
 	if (result == NULL)
 	{
@@ -370,7 +357,6 @@ bool App::LoadGame()
 	return ret;
 }
 
-// L02: DONE 7: Implement the xml save method for current state
 bool App::SaveGame() const
 {
 	bool ret = false;
@@ -387,7 +373,7 @@ bool App::SaveGame() const
 		item = item->next;
 	}
 
-	ret = saveDoc->save_file("savegame.xml");
+	ret = saveDoc->save_file("save_game.xml");
 
 	saveGameRequested = false;
 

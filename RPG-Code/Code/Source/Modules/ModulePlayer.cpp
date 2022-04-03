@@ -40,7 +40,7 @@ ModulePlayer::~ModulePlayer()
 
 bool ModulePlayer::Awake(pugi::xml_node& config)
 {
-	LOG("Init Image library");
+	LOG("Init Image library, ta guapa la libreria de imagenes llamada player");
 	bool ret = true;
 
 	return ret;

@@ -1,5 +1,4 @@
 <!-- Config file for the game -->
-<!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
     <title>Un RPG de una Torre</title>
@@ -20,7 +19,6 @@
     <fullscreen_window value="false"/>
   </window>
 
-  <!-- L03: Added maps folder as config option -->
   <map>
     <folder>Assets/maps/</folder>
   </map>
