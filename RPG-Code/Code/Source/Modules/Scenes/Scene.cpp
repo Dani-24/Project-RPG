@@ -9,6 +9,7 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "ModulePlayer.h"
+#include "EnemyMovement.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -34,10 +35,17 @@ bool Scene::Start()
 	// Enables & idk
 	app->player->Enable();
 
-	//app->map->Load("iso_walk.tmx");
+	app->enemyMovement->Enable();
+
+	app->map->Load("initial_town_map.tmx");
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
+
+	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
+
+	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
+	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
@@ -53,6 +61,8 @@ bool Scene::Start()
 	imgAnim.speed = 0.02f;
 	imgAnim.loop = true;
 
+	pause = false;
+
 	return true;
 }
 
@@ -61,6 +71,10 @@ bool Scene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+		if (pause == false) {
+			pause = true;
+			app->audio->PlayFx(backFx);
+		}
 		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
 	}
 
@@ -69,20 +83,24 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	// ================================
-	//       SAVE / LOAD requests
-	// ================================
+	if (pause == false) {
+		// ================================
+		//       SAVE / LOAD requests
+		// ================================
 
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
-		app->LoadGameRequest();
-	}
+		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+			app->audio->PlayFx(loadFx);
+			app->LoadGameRequest();
+		}
 
-	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
-		app->SaveGameRequest();
+		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+			app->audio->PlayFx(saveFx);
+			app->SaveGameRequest();
+		}
+
+		// Update Anim
+		imgAnim.Update(dt);
 	}
-	
-	// Update Anim
-	imgAnim.Update(dt);
 	return true;
 }
 
@@ -141,6 +159,8 @@ bool Scene::CleanUp()
 	imgAnim.DeleteAnim();
 
 	app->player->Disable();
+
+	app->enemyMovement->Disable();
 
 	return true;
 }

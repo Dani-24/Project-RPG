@@ -11,6 +11,7 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "ModulePlayer.h"
+#include "EnemyMovement.h"
 
 
 #include "FadeToBlack.h"
@@ -40,6 +41,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new EntityManager(this, false);
 	player = new ModulePlayer(this, false);
 
+	enemyMovement = new EnemyMovement(this, false);
+
 	map = new Map(this);
 	guiManager = new GuiManager(this);
 
@@ -62,6 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(entities);
 	AddModule(player);
+	AddModule(enemyMovement);
 
 	AddModule(font);
 	AddModule(guiManager);

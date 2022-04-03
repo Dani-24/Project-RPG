@@ -1,10 +1,12 @@
 #include "App.h"
 #include "Render.h"
+#include "Audio.h"
 #include "Textures.h"
 #include "Input.h"
 #include "ModulePlayer.h"
 #include "Log.h"
 #include "Window.h"
+#include "Scene.h"
 
 ModulePlayer::ModulePlayer(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -57,13 +59,15 @@ bool ModulePlayer::Start()
 	LOG("start Player");
 	bool ret = true;
 
+	yesFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
+
 	PlayerMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Walk/MainChM.png");
 	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 	PlayerDirectionRight = 1;//if its 1, player will be looking at the right, if it's 2, player will be looking at the left
 	PlayerDirectionUp = 0;
-	PlayerElection = 1;
+	PlayerErection = 1;
 
 	position.x = app->win->GetWidth()/2;
 	position.y = app->win->GetHeight() / 2;
@@ -80,15 +84,25 @@ bool ModulePlayer::PreUpdate()
 
 bool ModulePlayer::Update(float dt) {
 	bool ret = true;
-
-	if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
-		PlayerElection = true;
-	}
-	if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
-		PlayerElection = false;
-	}
 	
-	MovementPlayer(dt);
+	if (app->scene->pause == false) {
+
+		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
+			if (PlayerErection != true) {
+				PlayerErection = true;
+				app->audio->PlayFx(yesFx);
+			}
+		}
+		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
+			if (PlayerErection != false) {
+				PlayerErection = false;
+				app->audio->PlayFx(yesFx);
+			}
+		}
+
+		MovementPlayer(dt);
+
+	}
 
 	return ret;
 }
@@ -98,10 +112,10 @@ bool ModulePlayer::PostUpdate()
 	bool ret = true;
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	if (PlayerElection==true) {
+	if (PlayerErection==true) {
 		app->render->DrawTexture(PlayerMTex, position.x, position.y, &rect);
 	}
-	if(PlayerElection==false) {
+	if(PlayerErection==false) {
 		app->render->DrawTexture(PlayerFTex, position.x, position.y, &rect);
 	}
 

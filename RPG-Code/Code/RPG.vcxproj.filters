@@ -34,6 +34,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\NormalEnemy.cpp" />
     <ClCompile Include="Source\Modules\EntityManager.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
+    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -90,6 +91,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\NormalEnemy.h" />
     <ClInclude Include="Source\Modules\EntityManager.h" />
     <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
+    <ClInclude Include="Source\Modules\EnemyMovement.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
