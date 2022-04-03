@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "FadeToBlack.h"
+#include "ModulePlayer.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -30,6 +31,8 @@ bool Scene::Awake()
 
 bool Scene::Start()
 {
+	// Enables & idk
+	app->player->Enable();
 
 	//app->map->Load("iso_walk.tmx");
 	
@@ -136,6 +139,8 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(img);
 
 	imgAnim.DeleteAnim();
+
+	app->player->Disable();
 
 	return true;
 }

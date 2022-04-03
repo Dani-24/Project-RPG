@@ -30,11 +30,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(this);
 	audio = new Audio(this);
 	fade = new FadeToBlack(this);
-	player = new ModulePlayer(this);
 
 	logoScene = new LogoScene(this);
 	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
+
+	player = new ModulePlayer(this, false);
+
 	map = new Map(this);
 	guiManager = new GuiManager(this);
 
@@ -62,8 +64,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
-
-	frameDuration = new PerfTimer();
 }
 
 // Destructor
@@ -128,8 +128,6 @@ bool App::Awake()
 // Called before the first frame
 bool App::Start()
 {
-	startupTime.Start();
-	lastSecFrameTime.Start();
 
 	bool ret = true;
 	ListItem<Module*>* item;
@@ -168,50 +166,25 @@ bool App::Update()
 	return ret;
 }
 
-// Load config from XML file
-// NOTE: Function has been redesigned to avoid storing additional variables on the class
-pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
-{
-	pugi::xml_node ret;
-
-	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
-
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
-	else ret = configFile.child("config");
-
-	return ret;
-}
 
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-	frameCount++;
-	lastSecFrameCount++;
+	dt = (float)ms_timer.Read();
+
+	if (dt < DESIRED_DELTATIME)
+	{
+		float difDt = (DESIRED_DELTATIME - dt);
+		SDL_Delay(difDt);
+
+		dt = DESIRED_DELTATIME;
+	}
+	ms_timer.Start();
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	if (loadGameRequested == true) LoadGame();
-	if (saveGameRequested == true) SaveGame();
-
-	float secondsSinceStartup = startupTime.ReadSec();
-
-	if (lastSecFrameTime.Read() > 1000) {
-		lastSecFrameTime.Start();
-		framesPerSecond = lastSecFrameCount;
-		lastSecFrameCount = 0;
-		averageFps = (averageFps + framesPerSecond) / 2;
-	}
-
-	// Calculate the dt: differential time since last frame
-	dt = frameDuration->ReadMs();
-	frameDuration->Start();
-
-	// ================================
-	//			 Window Title
-	// ================================
-	app->win->SetTitle("Slap Chop");
 }
 
 // Call modules before each loop iteration
@@ -285,13 +258,11 @@ bool App::CleanUp()
 	return ret;
 }
 
-// ---------------------------------------
 int App::GetArgc() const
 {
 	return argc;
 }
 
-// ---------------------------------------
 const char* App::GetArgv(int index) const
 {
 	if (index < argc)
@@ -300,40 +271,50 @@ const char* App::GetArgv(int index) const
 		return NULL;
 }
 
-// ---------------------------------------
 const char* App::GetTitle() const
 {
 	return title.GetString();
 }
 
-// ---------------------------------------
 const char* App::GetOrganization() const
 {
 	return organization.GetString();
 }
 
-// Load / Save
-void App::LoadGameRequest()
+// ================================
+//  		 CONFIG XML
+// ================================
+pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 {
-	loadGameRequested = true;
-}
+	pugi::xml_node ret;
 
-// ---------------------------------------
-void App::SaveGameRequest() const
-{
-	saveGameRequested = true;
+	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
+
+	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
+	else ret = configFile.child("config");
+
+	return ret;
 }
 
 // ================================
 //  		 SAVE & LOAD
 // ================================
+void App::LoadGameRequest()
+{
+	loadGameRequested = true;
+}
+
+void App::SaveGameRequest() const
+{
+	saveGameRequested = true;
+}
 
 bool App::LoadGame()
 {
 	bool ret = true;
 
 	pugi::xml_document gameStateFile;
-	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
+	pugi::xml_parse_result result = gameStateFile.load_file(SAVE_STATE_FILENAME);
 
 	if (result == NULL)
 	{
@@ -373,7 +354,7 @@ bool App::SaveGame() const
 		item = item->next;
 	}
 
-	ret = saveDoc->save_file("save_game.xml");
+	ret = saveDoc->save_file(SAVE_STATE_FILENAME);
 
 	saveGameRequested = false;
 

@@ -10,6 +10,8 @@
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
+#define DESIRED_DELTATIME 16
+
 // Modules
 class Window;
 class Input;
@@ -115,31 +117,17 @@ private:
 
 	List<Module*> modules;
 
-	// L01: DONE 2: Create new variables from pugui namespace
-	// NOTE: Redesigned LoadConfig() to avoid storing this variables
-	//pugi::xml_document configFile;
-	//pugi::xml_node config;
-	//pugi::xml_node configApp;
-
 	mutable bool saveGameRequested;
 	bool loadGameRequested;
 
-	// L07: DONE 4: Calculate some timing measures
-	// required variables are provided:
-	PerfTimer ptimer;
+private:
 
-	Timer startupTime;
-	Timer frameTime;
-	Timer lastSecFrameTime;
+	// =================
+	//	   DeltaTime
+	// =================
 
-	uint64 frameCount = 0;
-	uint32 framesPerSecond = 0;
-	uint32 lastSecFrameCount = 0;
-
-	PerfTimer* frameDuration;
-
-	float averageFps = 0.0f;
-	float dt = 0.0f;
+	Timer	ms_timer;
+	float	dt;
 };
 
 extern App* app;
