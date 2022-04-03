@@ -106,7 +106,7 @@ bool ModulePlayer::PostUpdate()
 void ModulePlayer::MovementPlayer(float dt) {
 	float speed = 2 * dt * 0.09;
 
-	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT))
+	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
 		position.x += speed;
 		if (currentAnimation != &walkAnimR)
@@ -118,7 +118,7 @@ void ModulePlayer::MovementPlayer(float dt) {
 		}
 
 	}
-	if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
+	if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
 		position.x -= speed;
 		if (currentAnimation != &walkAnimL)
