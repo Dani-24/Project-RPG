@@ -43,8 +43,12 @@ bool TitleScene::Start()
 
 	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 25);
 
+	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
+
+	pause = false;
 
 	return true;
 }
@@ -55,13 +59,16 @@ bool TitleScene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (pause == false) {
+			pause = true;
+			app->audio->PlayFx(confirmFx);
+		}
 		app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		ret = false;
 	}
-
 	return ret;
 }
 
