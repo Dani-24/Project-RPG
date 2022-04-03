@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="1">
- <tileset firstgid="1" source="assets_taberna.tsx"/>
- <tileset firstgid="577" source="interiores2.tsx"/>
- <tileset firstgid="865" source="mercado.tsx"/>
- <tileset firstgid="929" source="interiores.tsx"/>
+ <tileset firstgid="1" source="tiles/assets_taberna.tsx"/>
+ <tileset firstgid="577" source="tiles/interiores2.tsx"/>
+ <tileset firstgid="865" source="tiles/mercado.tsx"/>
+ <tileset firstgid="929" source="tiles/interiores.tsx"/>
  <tileset firstgid="1169" source="tiles/[Base]BaseChip_pipo.tsx"/>
  <tileset firstgid="2233" source="tiles/[A]Water_pipo.tsx"/>
  <tileset firstgid="5305" source="tiles/[A]WaterFall_pipo.tsx"/>
