@@ -6,6 +6,7 @@
 #include "Animation.h"
 
 struct SDL_Texture;
+class Player;
 
 class Scene : public Module
 {
@@ -48,6 +49,8 @@ private:
 
 public:
 	bool pause;
+
+	Player* player = nullptr;
 };
 
 #endif // __SCENE_H__

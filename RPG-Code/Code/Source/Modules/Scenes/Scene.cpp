@@ -34,6 +34,8 @@ bool Scene::Start()
 {
 	// Enables & idk
 	//app->player->Enable();
+	player = new Player();
+	
 
 	app->enemyMovement->Enable();
 
@@ -159,6 +161,7 @@ bool Scene::CleanUp()
 	imgAnim.DeleteAnim();
 
 	//app->player->Disable();
+	delete player;
 
 	app->enemyMovement->Disable();
 

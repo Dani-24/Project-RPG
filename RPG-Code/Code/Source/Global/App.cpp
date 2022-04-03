@@ -10,7 +10,6 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
-#include "EntityClasses/Player.h"
 #include "EnemyMovement.h"
 
 
@@ -38,7 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
 
-	entities = new EntityManager(this, false);
+	entities = new EntityManager(this);
 
 	enemyMovement = new EnemyMovement(this, false);
 

@@ -13,6 +13,9 @@
 
 Player::Player() : Character(CharacterType::PLAYER)
 {
+	LOG("EntityList: %d", app->entities->entityList.count());
+	//app->entities->entityList.add(this);
+	LOG("EntityList: %d", app->entities->entityList.count());
 
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
@@ -42,6 +45,8 @@ Player::Player() : Character(CharacterType::PLAYER)
 	idleAnimL.PushBack({ 64,80,26,45 });
 	idleAnimUp.PushBack({ 62,221,31,46 });
 	idleAnimDown.PushBack({ 62,8,31,46 });
+
+	yesFx = 0;
 }
 
 // Destructor

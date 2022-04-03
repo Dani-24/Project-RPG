@@ -5,9 +5,10 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Render.h"
-#include "Entity.h"
 
 #include "EntityManager.h"
+#include "Entity.h"
+#include "DynamicEntity.h"
 
 #include <vector>
 

@@ -1,7 +1,3 @@
-#include "EntityManager.h"
-
-#include "Entity.h"
-#include "DynamicEntity.h"
 #include "Character.h"
 
 

@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Render.h"
+
 #include "Entity.h"
 
 #include <vector>
