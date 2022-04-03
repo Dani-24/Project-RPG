@@ -44,7 +44,7 @@ private:
 	GuiButton* btn1;
 	GuiButton* btn2;
 
-	int backFx, loadFx, saveFx, yesFx;
+	int backFx, loadFx, saveFx;
 
 public:
 	bool pause;

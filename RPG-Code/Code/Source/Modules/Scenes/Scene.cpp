@@ -34,10 +34,14 @@ bool Scene::Start()
 	// Enables & idk
 	app->player->Enable();
 
-	//app->map->Load("iso_walk.tmx");
+	//app->map->Load("inicial_town_map.tmx");
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
+
+	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
+	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
+	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);
@@ -65,6 +69,7 @@ bool Scene::PreUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (pause == false) {
 			pause = true;
+			app->audio->PlayFx(backFx);
 		}
 		app->fade->StartFadeToBlack(this, (Module*)app->titleScene, 0);
 	}
@@ -81,10 +86,12 @@ bool Scene::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->LoadGameRequest();
+			app->audio->PlayFx(loadFx);
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->SaveGameRequest();
+			app->audio->PlayFx(saveFx);
 		}
 
 		// Update Anim
@@ -109,7 +116,6 @@ bool Scene::PostUpdate()
 
 	return ret;
 }
-
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {

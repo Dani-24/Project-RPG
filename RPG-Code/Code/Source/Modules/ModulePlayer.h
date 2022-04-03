@@ -66,5 +66,7 @@ private:
 		idleAnimL,
 		idleAnimUp,
 		idleAnimDown;
+
+	int yesFx;
 };
 #endif
