@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
     <ClCompile Include="Source\Modules\ModulePlayer.cpp" />
+    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -74,6 +75,7 @@
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
     <ClInclude Include="Source\Modules\Scenes\Title.h" />
     <ClInclude Include="Source\Modules\ModulePlayer.h" />
+    <ClInclude Include="Source\Modules\EnemyMovement.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

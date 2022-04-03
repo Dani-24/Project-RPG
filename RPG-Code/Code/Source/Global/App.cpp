@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "ModulePlayer.h"
+#include "EnemyMovement.h"
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -37,6 +38,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	player = new ModulePlayer(this, false);
 
+	enemyMovement = new EnemyMovement(this, false);
+
 	map = new Map(this);
 	guiManager = new GuiManager(this);
 
@@ -58,6 +61,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(player);
+	AddModule(enemyMovement);
 
 	AddModule(font);
 	AddModule(guiManager);

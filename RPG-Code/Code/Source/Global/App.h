@@ -24,6 +24,7 @@ class Scene;
 class Map;
 class GuiManager;
 class ModulePlayer;
+class EnemyMovement;
 
 class FadeToBlack;
 class Pathfinder;
@@ -103,6 +104,7 @@ public:
 	Map* map;
 	GuiManager* guiManager;
 	ModulePlayer* player;
+	EnemyMovement* enemyMovement;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
