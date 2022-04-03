@@ -14,20 +14,20 @@ public:
 
 	~ModulePlayer();
 
-	//// Called before render is available
-	//bool Awake(pugi::xml_node&);
+	// Called before render is available
+	bool Awake(pugi::xml_node&);
 
-	//// Called before the first frame
-	//bool Start();
+	// Called before the first frame
+	bool Start();
 
-	//// Called before all Updates
-	//bool PreUpdate();
+	// Called before all Updates
+	bool PreUpdate();
 
-	//// Called each loop iteration
-	//bool Update(float dt);
+	// Called each loop iteration
+	bool Update(float dt);
 
-	//// Called before all Updates
-	//bool PostUpdate();
+	// Called before all Updates
+	bool PostUpdate();
 
 	//// Called before quitting
 	//bool CleanUp();
@@ -36,9 +36,18 @@ public:
 	//bool LoadState(pugi::xml_node&);
 	//bool SaveState(pugi::xml_node&) const;
 
+	//All player movement
+	void MovementPlayer(float dt);
 private:
+
+	iPoint position;
+
+	//Direction
+	bool PlayerDirectionUp = false;
+	bool PlayerDirectionRight = false;
+
 	//cargar textura del jugador
-	SDL_Texture* texture = nullptr;
+	SDL_Texture* PlayerMTex = nullptr;
 
 	//player animations
 	Animation* currentAnimation = nullptr;
