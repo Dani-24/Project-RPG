@@ -34,7 +34,7 @@ bool Scene::Start()
 	// Enables & idk
 	app->player->Enable();
 
-	//app->map->Load("inicial_town_map.tmx");
+	//app->map->Load("initial_town_map.tmx");
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
