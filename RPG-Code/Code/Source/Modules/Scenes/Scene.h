@@ -41,10 +41,13 @@ private:
 	SDL_Texture* img;
 	Animation imgAnim;
 
-	// L14: TODO 2: Declare a GUI Button and create it using the GuiManager
 	GuiButton* btn1;
 	GuiButton* btn2;
 
+	int backFx, loadFx, saveFx, yesFx;
+
+public:
+	bool pause;
 };
 
 #endif // __SCENE_H__

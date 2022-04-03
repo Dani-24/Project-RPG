@@ -45,7 +45,7 @@ private:
 
 	iPoint position;
 
-	bool PlayerElection = true;
+	bool PlayerErection = true;
 
 	//Direction
 	int PlayerDirectionUp = 0;

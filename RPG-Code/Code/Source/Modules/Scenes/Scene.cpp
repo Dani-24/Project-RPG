@@ -53,6 +53,8 @@ bool Scene::Start()
 	imgAnim.speed = 0.02f;
 	imgAnim.loop = true;
 
+	pause = false;
+
 	return true;
 }
 
@@ -61,7 +63,10 @@ bool Scene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
+		if (pause == false) {
+			pause = true;
+		}
+		app->fade->StartFadeToBlack(this, (Module*)app->titleScene, 0);
 	}
 
 	return ret;
@@ -69,20 +74,22 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	// ================================
-	//       SAVE / LOAD requests
-	// ================================
+	if (pause == false) {
+		// ================================
+		//       SAVE / LOAD requests
+		// ================================
 
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
-		app->LoadGameRequest();
-	}
+		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+			app->LoadGameRequest();
+		}
 
-	if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
-		app->SaveGameRequest();
+		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+			app->SaveGameRequest();
+		}
+
+		// Update Anim
+		imgAnim.Update(dt);
 	}
-	
-	// Update Anim
-	imgAnim.Update(dt);
 	return true;
 }
 
@@ -106,26 +113,27 @@ bool Scene::PostUpdate()
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-		if (control->id == 1) 
+	if (pause == false) {
+		switch (control->type)
 		{
-			LOG("Click on button 1");
-		}
-
-		if (control->id == 2)
+		case GuiControlType::BUTTON:
 		{
-			LOG("Click on button 2");
-		}
-		
-	}
-	//Other cases here
+			//Checks the GUI element ID
+			if (control->id == 1)
+			{
+				LOG("Click on button 1");
+			}
 
-	default: break;
+			if (control->id == 2)
+			{
+				LOG("Click on button 2");
+			}
+
+		}
+		//Other cases here
+
+		default: break;
+		}
 	}
 
 	return true;

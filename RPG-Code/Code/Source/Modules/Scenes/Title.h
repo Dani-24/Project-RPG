@@ -38,6 +38,10 @@ private:
 	SDL_Texture* title;
 	SDL_Texture* buttonsUI;
 
+	int confirmFx;
+
+	bool pause;
+
 };
 
 #endif // !__TITLE_H__
