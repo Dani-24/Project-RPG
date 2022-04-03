@@ -13,25 +13,30 @@ ModulePlayer::ModulePlayer(App* application, bool start_enabled) : Module(applic
 	walkAnimDown.PushBack({ 62,8,31,46 });
 	walkAnimDown.PushBack({ 114,10,31,46 });
 	walkAnimDown.loop = true;
-	walkAnimDown.speed = 0.1f;
+	walkAnimDown.speed = 0.006f;
 
 	walkAnimUp.PushBack({ 9,218,31,46 });
 	walkAnimUp.PushBack({ 62,221,31,46 });
 	walkAnimUp.PushBack({ 114,218,31,47 });
 	walkAnimUp.loop = true;
-	walkAnimUp.speed = 0.1f;
+	walkAnimUp.speed = 0.006f;
 
 	walkAnimL.PushBack({ 11,82,26,44 });
 	walkAnimL.PushBack({ 64,80,26,45 });
 	walkAnimL.PushBack({ 116,82,27,44 });
 	walkAnimL.loop = true;
-	walkAnimL.speed = 0.1f;
+	walkAnimL.speed = 0.006f;
 
 	walkAnimR.PushBack({ 11,153,27,44 });
 	walkAnimR.PushBack({ 64,150,27,44 });
 	walkAnimR.PushBack({ 116,153,27,44 });
 	walkAnimR.loop = true;
-	walkAnimR.speed = 0.1f;
+	walkAnimR.speed = 0.006f;
+
+	idleAnimR.PushBack({ 64,150,27,44 });
+	idleAnimL.PushBack({ 64,80,26,45 });
+	idleAnimUp.PushBack({ 62,221,31,46 });
+	idleAnimDown.PushBack({ 62,8,31,46 });
 }
 
 // Destructor
@@ -52,10 +57,12 @@ bool ModulePlayer::Start()
 	bool ret = true;
 
 	PlayerMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Walk/MainChM.png");
+	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
 
-	currentAnimation = &walkAnimDown; //player start with idle anim
-	PlayerDirectionRight = true;//if its true, player will be looking at the right, if not, player will be looking at the left
-	PlayerDirectionUp = true;
+	currentAnimation = &idleAnimR; //player start with idle anim
+	PlayerDirectionRight = 1;//if its 1, player will be looking at the right, if it's 2, player will be looking at the left
+	PlayerDirectionUp = 0;
+	PlayerElection = 1;
 
 	position.x = 70;
 	position.y = 70;
@@ -70,6 +77,12 @@ bool ModulePlayer::PreUpdate()
 bool ModulePlayer::Update(float dt) {
 	bool ret = true;
 
+	if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
+		PlayerElection = true;
+	}
+	if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
+		PlayerElection = false;
+	}
 	
 	MovementPlayer(dt);
 
@@ -80,10 +93,13 @@ bool ModulePlayer::PostUpdate()
 {
 	bool ret = true;
 
-	Uint8 alpha = 80;
-
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(PlayerMTex, position.x, position.y, &rect);
+	if (PlayerElection==true) {
+		app->render->DrawTexture(PlayerMTex, position.x, position.y, &rect);
+	}
+	if(PlayerElection==false) {
+		app->render->DrawTexture(PlayerFTex, position.x, position.y, &rect);
+	}
 
 	return true;
 }
@@ -97,7 +113,8 @@ void ModulePlayer::MovementPlayer(float dt) {
 		{
 			walkAnimR.Reset();
 			currentAnimation = &walkAnimR;
-			PlayerDirectionRight = true;
+			PlayerDirectionRight = 1;
+			PlayerDirectionUp = 0;
 		}
 
 	}
@@ -108,7 +125,8 @@ void ModulePlayer::MovementPlayer(float dt) {
 		{
 			walkAnimL.Reset();
 			currentAnimation = &walkAnimL;
-			PlayerDirectionRight = false;
+			PlayerDirectionRight = 2;
+			PlayerDirectionUp = 0;
 		}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)){
@@ -117,7 +135,8 @@ void ModulePlayer::MovementPlayer(float dt) {
 		{
 			walkAnimUp.Reset();
 			currentAnimation = &walkAnimUp;
-			PlayerDirectionUp = true;
+			PlayerDirectionUp = 1;
+			PlayerDirectionRight = 0;
 		}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) {
@@ -126,8 +145,37 @@ void ModulePlayer::MovementPlayer(float dt) {
 		{
 			walkAnimDown.Reset();
 			currentAnimation = &walkAnimDown;
-			PlayerDirectionUp = false;
+			PlayerDirectionUp = 2;
+			PlayerDirectionRight = 0;
 		}
 	}
 
+	currentAnimation->Update(dt);
+
+	if (PlayerDirectionRight == 1 || PlayerDirectionRight == 2) {
+		PlayerDirectionUp = 0;
+	}
+	if (PlayerDirectionUp == 1 || PlayerDirectionUp == 2) {
+		PlayerDirectionRight = 0;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE) {
+		if (currentAnimation != &idleAnimR && currentAnimation != &idleAnimL && currentAnimation != &idleAnimDown && currentAnimation != &idleAnimUp) {
+			if (PlayerDirectionRight == 1) {
+				idleAnimR.Reset();
+				currentAnimation = &idleAnimR;
+			}
+			if (PlayerDirectionRight == 2) {
+				idleAnimL.Reset();
+				currentAnimation = &idleAnimL;
+			}
+			if (PlayerDirectionUp == 1) {
+				idleAnimUp.Reset();
+				currentAnimation = &idleAnimUp;
+			}
+			if (PlayerDirectionUp == 2) {
+				idleAnimDown.Reset();
+				currentAnimation = &idleAnimDown;
+			}
+		}
+	}
 }
