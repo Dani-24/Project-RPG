@@ -9,7 +9,9 @@
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
+#include "EntityManager.h"
 #include "ModulePlayer.h"
+
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -35,6 +37,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
 
+	entities = new EntityManager(this, false);
 	player = new ModulePlayer(this, false);
 
 	map = new Map(this);
@@ -57,6 +60,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 
+	AddModule(entities);
 	AddModule(player);
 
 	AddModule(font);

@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "List.h"
 #include "PugiXml/src/pugixml.hpp"
+#include "Log.h"
 
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
@@ -23,6 +24,7 @@ class TitleScene;
 class Scene;
 class Map;
 class GuiManager;
+class EntityManager;
 class ModulePlayer;
 
 class FadeToBlack;
@@ -102,6 +104,7 @@ public:
 	Scene* scene;
 	Map* map;
 	GuiManager* guiManager;
+	EntityManager* entities;
 	ModulePlayer* player;
 
 	ModuleQFonts* font;
