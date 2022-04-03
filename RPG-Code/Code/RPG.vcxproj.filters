@@ -25,7 +25,6 @@
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
-    <ClCompile Include="Source\Modules\ModulePlayer.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\BossEnemy.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\DynamicEntity.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Enemy.cpp" />
@@ -35,6 +34,8 @@
     <ClCompile Include="Source\Modules\EntityManager.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
     <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Character.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -82,7 +83,6 @@
     <ClInclude Include="Source\Tools\Animation.h" />
     <ClInclude Include="Source\Modules\Scenes\Logo.h" />
     <ClInclude Include="Source\Modules\Scenes\Title.h" />
-    <ClInclude Include="Source\Modules\ModulePlayer.h" />
     <ClInclude Include="Source\Modules\EntityClasses\BossEnemy.h" />
     <ClInclude Include="Source\Modules\EntityClasses\DynamicEntity.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Enemy.h" />
@@ -92,6 +92,8 @@
     <ClInclude Include="Source\Modules\EntityManager.h" />
     <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
     <ClInclude Include="Source\Modules\EnemyMovement.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Character.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -99,10 +99,11 @@
     <ClCompile Include="Source\Global\Main.cpp" />
     <ClCompile Include="Source\Global\App.cpp" />
     <ClCompile Include="Source\Modules\Audio.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Character.cpp" />
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Input.cpp" />
     <ClCompile Include="Source\Modules\Map.cpp" />
-    <ClCompile Include="Source\Modules\ModulePlayer.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Player.cpp" />
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\BossEnemy.cpp" />
@@ -126,9 +127,10 @@
     <ClInclude Include="Source\GUI\GuiButton.h" />
     <ClInclude Include="Source\GUI\GuiControl.h" />
     <ClInclude Include="Source\GUI\GuiManager.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Character.h" />
     <ClInclude Include="Source\Modules\FadeToBlack.h" />
     <ClInclude Include="Source\Modules\Map.h" />
-    <ClInclude Include="Source\Modules\ModulePlayer.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Player.h" />
     <ClInclude Include="Source\Modules\ModuleQFonts.h" />
     <ClInclude Include="Source\Modules\Pathfinder.h" />
     <ClInclude Include="Source\Modules\EntityClasses\BossEnemy.h" />

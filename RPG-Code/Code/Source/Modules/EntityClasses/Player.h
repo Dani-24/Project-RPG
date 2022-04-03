@@ -1,36 +1,38 @@
-#ifndef __MODULEPLAYER_H__
-#define __MODULEPLAYER_H__
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
-#include "Module.h"
+#include "App.h"
+#include "Point.h"
+#include "Animation.h"
+#include "Render.h"
+
+#include "EntityManager.h"
+#include "Entity.h"
+#include "DynamicEntity.h"
+#include "Character.h"
+
+
+
+#include <vector>
+
 #include "Animation.h"
 
 struct SDL_Texture;
 struct SDL_Surface;
 struct Collider;
 
-class ModulePlayer :public Module {
+class Player :public Character {
 public:
-	ModulePlayer(App* application, bool start_enabled = true);
-
-	~ModulePlayer();
+	Player();
+	~Player();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
-
-	// Called before the first frame
-	bool Start();
-
-	// Called before all Updates
-	bool PreUpdate();
-
-	// Called each loop iteration
-	bool Update(float dt);
-
-	// Called before all Updates
-	bool PostUpdate();
-
-	//// Called before quitting
-	bool CleanUp();
+	bool Start() override;
+	bool PreUpdate() override;
+	bool Update(float dt) override;
+	bool PostUpdate() override;
+	bool CleanUp() override;
 
 	// Load / Save
 	//bool LoadState(pugi::xml_node&);
@@ -69,4 +71,4 @@ private:
 
 	int yesFx;
 };
-#endif
+#endif !__PLAYER_H__

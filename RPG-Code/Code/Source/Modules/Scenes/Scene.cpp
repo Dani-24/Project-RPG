@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "FadeToBlack.h"
-#include "ModulePlayer.h"
+#include "EntityClasses/Player.h"
 #include "EnemyMovement.h"
 
 #include "Defs.h"
@@ -33,7 +33,7 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	// Enables & idk
-	app->player->Enable();
+	//app->player->Enable();
 
 	app->enemyMovement->Enable();
 
@@ -158,7 +158,7 @@ bool Scene::CleanUp()
 
 	imgAnim.DeleteAnim();
 
-	app->player->Disable();
+	//app->player->Disable();
 
 	app->enemyMovement->Disable();
 

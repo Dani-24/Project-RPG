@@ -1,16 +1,18 @@
+
+#include "Player.h"
+
 #include "App.h"
 #include "Render.h"
 #include "Audio.h"
 #include "Textures.h"
 #include "Input.h"
-#include "ModulePlayer.h"
+#include "Player.h"
 #include "Log.h"
 #include "Window.h"
 #include "Scene.h"
 
-ModulePlayer::ModulePlayer(App* application, bool start_enabled) : Module(application, start_enabled)
+Player::Player() : Character(CharacterType::PLAYER)
 {
-	name.Create("player");
 
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
@@ -43,10 +45,10 @@ ModulePlayer::ModulePlayer(App* application, bool start_enabled) : Module(applic
 }
 
 // Destructor
-ModulePlayer::~ModulePlayer()
+Player::~Player()
 {}
 
-bool ModulePlayer::Awake(pugi::xml_node& config)
+bool Player::Awake(pugi::xml_node& config)
 {
 	LOG("Init Image library, ta guapa la libreria de imagenes llamada player");
 	bool ret = true;
@@ -54,7 +56,7 @@ bool ModulePlayer::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool ModulePlayer::Start()
+bool Player::Start()
 {
 	LOG("start Player");
 	bool ret = true;
@@ -74,7 +76,7 @@ bool ModulePlayer::Start()
 	return ret;
 }
 
-bool ModulePlayer::PreUpdate()
+bool Player::PreUpdate()
 {
 
 	CameraToPlayer();
@@ -82,7 +84,7 @@ bool ModulePlayer::PreUpdate()
 	return true;
 }
 
-bool ModulePlayer::Update(float dt) {
+bool Player::Update(float dt) {
 	bool ret = true;
 	
 	if (app->scene->pause == false) {
@@ -107,7 +109,7 @@ bool ModulePlayer::Update(float dt) {
 	return ret;
 }
 
-bool ModulePlayer::PostUpdate()
+bool Player::PostUpdate()
 {
 	bool ret = true;
 
@@ -122,7 +124,7 @@ bool ModulePlayer::PostUpdate()
 	return true;
 }
 
-bool ModulePlayer::CleanUp() {
+bool Player::CleanUp() {
 	
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
@@ -132,7 +134,7 @@ bool ModulePlayer::CleanUp() {
 	return true;
 }
 
-void ModulePlayer::MovementPlayer(float dt) {
+void Player::MovementPlayer(float dt) {
 	float speed = dt * 0.2f;
 
 	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
@@ -209,7 +211,7 @@ void ModulePlayer::MovementPlayer(float dt) {
 	}
 }
 
-void ModulePlayer::CameraToPlayer() {
+void Player::CameraToPlayer() {
 	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2;
 	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2;
 }

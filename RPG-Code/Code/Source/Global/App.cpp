@@ -10,7 +10,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
-#include "ModulePlayer.h"
+#include "EntityClasses/Player.h"
 #include "EnemyMovement.h"
 
 
@@ -39,7 +39,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene(this, false);
 
 	entities = new EntityManager(this, false);
-	player = new ModulePlayer(this, false);
 
 	enemyMovement = new EnemyMovement(this, false);
 
@@ -64,7 +63,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(entities);
-	AddModule(player);
 	AddModule(enemyMovement);
 
 	AddModule(font);
