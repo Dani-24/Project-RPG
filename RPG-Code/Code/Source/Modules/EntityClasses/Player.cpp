@@ -49,7 +49,6 @@ Player::Player() : Character(CharacterType::PLAYER)
 	yesFx = 0;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
-
 }
 
 // Destructor
@@ -86,7 +85,6 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
-
 	CameraToPlayer();
 
 	return true;

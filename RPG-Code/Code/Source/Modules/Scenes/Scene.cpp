@@ -35,7 +35,7 @@ bool Scene::Start()
 {
 	// Enables & idk
 	//app->player->Enable();
-	Player* player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
+	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
 
 	app->enemyMovement->Enable();
 
@@ -160,8 +160,7 @@ bool Scene::CleanUp()
 
 	imgAnim.DeleteAnim();
 
-	//app->player->Disable();
-	delete player;
+	app->entities->DestroyEntity(player);
 
 	app->enemyMovement->Disable();
 

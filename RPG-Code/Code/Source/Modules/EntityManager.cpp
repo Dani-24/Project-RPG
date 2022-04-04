@@ -81,7 +81,6 @@ bool EntityManager::Update(float dt)
 	//		ret = item->data->Update(dt);
 	//}
 
-
 	return ret;
 }
 
@@ -184,7 +183,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	return ret;
 }
 
-
 Entity* EntityManager::FindEntity(EntityType EntityType)
 {
 	Entity* ret = nullptr;
@@ -211,4 +209,12 @@ Entity* EntityManager::FindEntity(EntityType EntityType)
 
 void EntityManager::DestroyEntity(Entity* entity)
 {
+	ListItem<Entity*>* entityInList;
+	entityInList = entityList.start;
+	for (entityInList = entityList.start; entityInList != nullptr; entityInList = entityInList->next)
+	{
+		if (entityInList->data == entity) {
+			entityList.del(entityInList);
+		}
+	}
 }
