@@ -1,6 +1,12 @@
 #include "EntityManager.h"
 #include "EntityClasses/Entity.h"
 
+#include "EntityClasses/DynamicEntity.h"
+#include "EntityClasses/StaticEntity.h"
+
+#include "EntityClasses/Character.h"
+#include "EntityClasses/Player.h"
+
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -38,6 +44,9 @@ bool EntityManager::PreUpdate()
 
 	for (entityInList = entityList.start; entityInList != NULL && ret == true; entityInList = entityInList->next)
 	{
+		if (entityInList->data->hasStarted == false) {
+			continue;
+		}
 		ret = entityInList->data->PreUpdate();
 	}
 	return ret;
@@ -52,8 +61,27 @@ bool EntityManager::Update(float dt)
 
 	for (entityInList = entityList.start; entityInList != NULL && ret == true; entityInList = entityInList->next)
 	{
+		if (entityInList->data->hasStarted == false) {
+			ret = entityInList->data->Start();
+			entityInList->data->hasStarted = true;
+			continue;
+		}
 		ret = entityInList->data->Update(dt);
 	}
+
+	//bool ret = true;
+	//ListItem<Entity*>* item;
+	//Entity* pEntity = NULL;
+
+	//for (item = entityList.start; item != NULL && ret == true; item = item->next)
+	//{
+	//		pEntity = item->data;
+
+	//		if (pEntity->active == false) continue;
+	//		ret = item->data->Update(dt);
+	//}
+
+
 	return ret;
 }
 
@@ -66,10 +94,28 @@ bool EntityManager::PostUpdate()
 
 	for (entityInList = entityList.start; entityInList != NULL && ret == true; entityInList = entityInList->next)
 	{
+		if (entityInList->data->hasStarted == false) {
+			continue;
+		}
 		ret = entityInList->data->PostUpdate();
 	}
 	return ret;
 }
+
+//bool EntityManager::Draw()
+//{
+//	bool ret = true;
+//	ListItem<Entity*>* entityInList;
+//	entityInList = entityList.end;
+//
+//	while (entityInList != NULL && ret == true)
+//	{
+//		ret = entityInList->data->Draw();
+//		entityInList = entityInList->prev;
+//	}
+//
+//	return ret;
+//}
 
 // Called before quitting
 bool EntityManager::CleanUp()
@@ -102,8 +148,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	/*Player* retPlayer = new Player();
 	Enemies* retEnemy = new Enemies();
 	Items* retItem = new Items();*/
-
 	Entity* ret = nullptr;
+
+	//Player* retPlayer = new Player();
+
 
 	switch (type)
 	{
@@ -112,9 +160,14 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		/*ret = retPlayer;
 		ret->playerList.push_back(retPlayer);*/
 
+		ret = new Player();
+
+
 		break;
 	case EntityType::STATIC:
 
+
+		//ret = retPlayer;
 		/*ret = retEnemy;
 		ret->enemyList.push_back(retEnemy);*/
 
@@ -141,8 +194,8 @@ Entity* EntityManager::FindEntity(EntityType EntityType)
 
 	for (entityInList = entityList.start; entityInList != NULL; entityInList = entityInList->next)
 	{
-		if(entityInList->data->type == EntityType)
-		ret = entityInList->data;
+		if (entityInList->data->type == EntityType)
+			ret = entityInList->data;
 	}
 
 	/*for (int i = 0; i < entities.count(); i++) {

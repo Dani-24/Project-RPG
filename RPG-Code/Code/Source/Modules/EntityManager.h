@@ -22,6 +22,7 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
+	//bool Draw();
 	bool CleanUp();
 
 	bool Save(pugi::xml_node& file)const;

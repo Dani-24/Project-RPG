@@ -10,6 +10,7 @@
 #include "FadeToBlack.h"
 #include "EntityClasses/Player.h"
 #include "EnemyMovement.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -34,13 +35,12 @@ bool Scene::Start()
 {
 	// Enables & idk
 	//app->player->Enable();
-	player = new Player();
-	
+	Player* player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
 
 	app->enemyMovement->Enable();
 
-	//app->map->Load("initial_town_map.tmx");
-	
+	app->map->Load("initial_town_map.tmx");
+
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
 
@@ -132,7 +132,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		//Checks the GUI element ID
-		if (control->id == 1) 
+		if (control->id == 1)
 		{
 			LOG("Click on button 1");
 		}
@@ -141,7 +141,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("Click on button 2");
 		}
-		
+
 	}
 	//Other cases here
 
