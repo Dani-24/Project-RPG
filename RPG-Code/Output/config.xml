@@ -22,4 +22,16 @@
   <map>
     <folder>Assets/maps/</folder>
   </map>
+
+  <player>
+	<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
+	<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
+	
+  </player>
+
+	<scene>
+		<spionage path="Assets/audio/music/music_credits.ogg" />
+
+	</scene>	
+	
 </config>
