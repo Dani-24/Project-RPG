@@ -4,9 +4,14 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "Logo.h"
+#include "Title.h"
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
+#include "EntityManager.h"
+#include "EnemyMovement.h"
+
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -28,32 +33,42 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(this);
 	fade = new FadeToBlack(this);
 
-	scene = new Scene(this);
+	logoScene = new LogoScene(this);
+	titleScene = new TitleScene(this, false);
+	scene = new Scene(this, false);
+
+	entities = new EntityManager(this);
+
+	enemyMovement = new EnemyMovement(this, false);
+
 	map = new Map(this);
 	guiManager = new GuiManager(this);
 
 	font = new ModuleQFonts(this, false);
 	pathfinder = new Pathfinder(this, false);
 
-	// Ordered for awake / Start / Update
-	// Reverse order of CleanUp
+	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-
+	
 	AddModule(fade);
 	AddModule(pathfinder);
 
+	AddModule(logoScene);
+	AddModule(titleScene);
 	AddModule(scene);
 	AddModule(map);
+
+	AddModule(entities);
+	AddModule(enemyMovement);
+
 	AddModule(font);
 	AddModule(guiManager);
 
 	// Render last to swap buffer
 	AddModule(render);
-
-	frameDuration = new PerfTimer();
 }
 
 // Destructor
@@ -86,7 +101,9 @@ bool App::Awake()
 
 	bool ret = false;
 
-	// L01: DONE 3: Load config from XML
+	// ================================
+	//      Load config from XML
+	// ================================
 	config = LoadConfig(configFile);
 
 	if (config.empty() == false)
@@ -94,11 +111,8 @@ bool App::Awake()
 		ret = true;
 		configApp = config.child("app");
 
-		// L01: DONE 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		organization.Create(configApp.child("organization").child_value());
-	
-		// L08: TODO 1: Read from config file your framerate cap
 	}
 
 	if (ret == true)
@@ -108,10 +122,6 @@ bool App::Awake()
 
 		while ((item != NULL) && (ret == true))
 		{
-			// L01: DONE 5: Add a new argument to the Awake method to receive a pointer to an xml node.
-			// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
-			// that can be used to read all variables for that module.
-			// Send nullptr if the node does not exist in config.xml
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
@@ -123,8 +133,6 @@ bool App::Awake()
 // Called before the first frame
 bool App::Start()
 {
-	startupTime.Start();
-	lastSecFrameTime.Start();
 
 	bool ret = true;
 	ListItem<Module*>* item;
@@ -163,61 +171,25 @@ bool App::Update()
 	return ret;
 }
 
-// Load config from XML file
-// NOTE: Function has been redesigned to avoid storing additional variables on the class
-pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
-{
-	pugi::xml_node ret;
-
-	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
-
-	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
-	else ret = configFile.child("config");
-
-	return ret;
-}
 
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
-	frameCount++;
-	lastSecFrameCount++;
+	dt = (float)ms_timer.Read();
 
-	// L08: TODO 4: Calculate the dt: differential time since last frame
+	if (dt < DESIRED_DELTATIME)
+	{
+		float difDt = (DESIRED_DELTATIME - dt);
+		SDL_Delay(difDt);
+
+		dt = DESIRED_DELTATIME;
+	}
+	ms_timer.Start();
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
-	// L02: DONE 1: This is a good place to call Load / Save methods
-	if (loadGameRequested == true) LoadGame();
-	if (saveGameRequested == true) SaveGame();
-
-	// L07: DONE 4: Now calculate:
-	// Amount of frames since startup
-	// Amount of time since game start (use a low resolution timer)
-	// Amount of ms took the last update
-	// Amount of frames during the last second
-	// Average FPS for the whole game life
-
-	float secondsSinceStartup = startupTime.ReadSec();
-
-	if (lastSecFrameTime.Read() > 1000) {
-		lastSecFrameTime.Start();
-		framesPerSecond = lastSecFrameCount;
-		lastSecFrameCount = 0;
-		averageFps = (averageFps + framesPerSecond) / 2;
-	}
-
-	// Calculate the dt: differential time since last frame
-	dt = frameDuration->ReadMs();
-	frameDuration->Start();
-
-	/*static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last sec frames: %i Last dt: %.3f Time since startup: %.3f Frame Count: %I64u ",
-		averageFps, framesPerSecond, dt, secondsSinceStartup, frameCount);
-	*/
-	app->win->SetTitle("Slap Chop");
 }
 
 // Call modules before each loop iteration
@@ -291,13 +263,11 @@ bool App::CleanUp()
 	return ret;
 }
 
-// ---------------------------------------
 int App::GetArgc() const
 {
 	return argc;
 }
 
-// ---------------------------------------
 const char* App::GetArgv(int index) const
 {
 	if (index < argc)
@@ -306,39 +276,50 @@ const char* App::GetArgv(int index) const
 		return NULL;
 }
 
-// ---------------------------------------
 const char* App::GetTitle() const
 {
 	return title.GetString();
 }
 
-// ---------------------------------------
 const char* App::GetOrganization() const
 {
 	return organization.GetString();
 }
 
-// Load / Save
+// ================================
+//  		 CONFIG XML
+// ================================
+pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
+{
+	pugi::xml_node ret;
+
+	pugi::xml_parse_result result = configFile.load_file(CONFIG_FILENAME);
+
+	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", CONFIG_FILENAME, result.description());
+	else ret = configFile.child("config");
+
+	return ret;
+}
+
+// ================================
+//  		 SAVE & LOAD
+// ================================
 void App::LoadGameRequest()
 {
 	loadGameRequested = true;
 }
 
-// ---------------------------------------
 void App::SaveGameRequest() const
 {
 	saveGameRequested = true;
 }
 
-// ---------------------------------------
-// L02: DONE 5: Create a method to actually load an xml file
-// then call all the modules to load themselves
 bool App::LoadGame()
 {
 	bool ret = true;
 
 	pugi::xml_document gameStateFile;
-	pugi::xml_parse_result result = gameStateFile.load_file("savegame.xml");
+	pugi::xml_parse_result result = gameStateFile.load_file(SAVE_STATE_FILENAME);
 
 	if (result == NULL)
 	{
@@ -362,7 +343,6 @@ bool App::LoadGame()
 	return ret;
 }
 
-// L02: DONE 7: Implement the xml save method for current state
 bool App::SaveGame() const
 {
 	bool ret = false;
@@ -379,7 +359,7 @@ bool App::SaveGame() const
 		item = item->next;
 	}
 
-	ret = saveDoc->save_file("savegame.xml");
+	ret = saveDoc->save_file(SAVE_STATE_FILENAME);
 
 	saveGameRequested = false;
 

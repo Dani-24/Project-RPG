@@ -63,7 +63,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,7 +82,7 @@
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -93,32 +93,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\GUI\GuiButton.cpp" />
     <ClCompile Include="Source\GUI\GuiManager.cpp" />
     <ClCompile Include="Source\Global\Main.cpp" />
     <ClCompile Include="Source\Global\App.cpp" />
     <ClCompile Include="Source\Modules\Audio.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Character.cpp" />
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Input.cpp" />
     <ClCompile Include="Source\Modules\Map.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Player.cpp" />
     <ClCompile Include="Source\Modules\ModuleQFonts.cpp" />
     <ClCompile Include="Source\Modules\Pathfinder.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\BossEnemy.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\DynamicEntity.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Enemy.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Entity.cpp" />
+    <ClCompile Include="Source\Modules\EntityManager.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\Item.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Logo.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\NormalEnemy.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
     <ClCompile Include="Source\Timers\PerfTimer.cpp" />
-    <ClCompile Include="Source\Modules\Scene.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Modules\Render.cpp" />
     <ClCompile Include="Source\Modules\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Window.cpp" />
+    <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Source\GUI\GuiButton.h" />
     <ClInclude Include="Source\GUI\GuiControl.h" />
     <ClInclude Include="Source\GUI\GuiManager.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Character.h" />
     <ClInclude Include="Source\Modules\FadeToBlack.h" />
     <ClInclude Include="Source\Modules\Map.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Player.h" />
     <ClInclude Include="Source\Modules\ModuleQFonts.h" />
     <ClInclude Include="Source\Modules\Pathfinder.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\BossEnemy.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\DynamicEntity.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Enemy.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Entity.h" />
+    <ClInclude Include="Source\Modules\EntityManager.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\Item.h" />
+    <ClInclude Include="Source\Modules\Scenes\Logo.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\NormalEnemy.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
+    <ClInclude Include="Source\Modules\Scenes\Title.h" />
     <ClInclude Include="Source\Timers\PerfTimer.h" />
-    <ClInclude Include="Source\Modules\Scene.h" />
+    <ClInclude Include="Source\Modules\Scenes\Scene.h" />
     <ClInclude Include="Source\Modules\Audio.h" />
     <ClInclude Include="Source\Modules\Input.h" />
     <ClInclude Include="Source\Global\App.h" />

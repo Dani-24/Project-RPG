@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="5" height="7" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="1">
+ <tileset firstgid="1" source="tiles/LightShadow_pipo.tsx"/>
+ <tileset firstgid="49" source="tiles/[Base]BaseChip_pipo.tsx"/>
+ <layer id="4" name="suelo" width="5" height="7">
+  <data encoding="csv">
+345,345,345,345,345,
+345,345,345,345,345,
+361,361,361,361,361,
+361,361,361,361,361,
+361,361,361,361,361,
+361,361,361,361,361,
+361,361,361,361,361
+</data>
+ </layer>
+ <layer id="5" name="Capa de patrones 2" width="5" height="7">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="6" name="Capa de patrones 3" width="5" height="7">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="7" name="Capa de patrones 4" width="5" height="7">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="Capa de patrones 5" width="5" height="7">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="9" name="Capa de patrones 6" width="5" height="7">
+  <data encoding="csv">
+25,25,25,25,25,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,1073741849,0,0,
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="10" name="suelo2" width="5" height="7">
+  <data encoding="csv">
+0,0,0,0,0,
+0,0,0,0,0,
+0,0,0,726,728,
+0,0,805,0,0,
+0,0,797,0,0,
+0,0,805,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="11" name="decoraciones" width="5" height="7">
+  <data encoding="csv">
+0,0,664,0,0,
+0,0,0,1037,0,
+0,0,0,1053,1042,
+0,0,0,0,0,
+0,0,1036,0,0,
+342,0,0,0,0,
+0,0,0,0,0
+</data>
+ </layer>
+ <layer id="12" name="sombra" width="5" height="7">
+  <data encoding="csv">
+9,9,31,0,0,
+9,9,31,0,0,
+9,9,31,0,0,
+9,9,31,1073741849,1073741849,
+9,9,9,9,9,
+9,9,9,9,9,
+9,9,9,9,9
+</data>
+ </layer>
+</map>

@@ -1,5 +1,4 @@
 <!-- Config file for the game -->
-<!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
     <title>Un RPG de una Torre</title>
@@ -8,18 +7,31 @@
 
   <renderer>
     <vsync value="true"/>
+	  <musisc value="50"/>
+	  <SFX value="50"/>
   </renderer>
 
   <window>
-    <resolution width="1280" height="720" scale="1"/>
+    <resolution width="1280" height="720" scale="2"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
 
-  <!-- L03: Added maps folder as config option -->
   <map>
     <folder>Assets/maps/</folder>
   </map>
+
+  <player>
+	<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
+	<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
+	
+  </player>
+
+	<scene>
+		<spionage path="Assets/audio/music/music_credits.ogg" />
+
+	</scene>	
+	
 </config>

@@ -10,11 +10,9 @@ public:
 
 	~ModuleQFonts();
 
-	bool Init();
-
 	bool Start();
 
-	void LoadFont(const char* fontPath);
+	void LoadFont(const char* fontPath, int size = 30);
 
 	void UnloadFont();
 
@@ -28,16 +26,10 @@ public:
 	
 private:
 	SDL_Color color;
-
 	TTF_Font* font;
-	TTF_Font* lilFont;
 
 	SDL_Texture* fontTexture;
 	SDL_Surface* fontSurface;
-
-	TTF_Font* wFont;
-
-	int theS;
 };
 
 #endif

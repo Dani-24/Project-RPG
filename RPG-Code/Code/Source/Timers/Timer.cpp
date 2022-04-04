@@ -1,13 +1,5 @@
-// ----------------------------------------------------
-// Fast timer with milisecons precision
-// ----------------------------------------------------
-
 #include "Timer.h"
-#include "SDL\include\SDL_timer.h"
 
-// L07: DONE 1: Fill Start(), Read(), ReadSec() methods
-// they are simple, one line each!
-	
 Timer::Timer()
 {
 	Start();
@@ -15,16 +7,24 @@ Timer::Timer()
 
 void Timer::Start()
 {
-	//...
-	startTime = SDL_GetTicks();
+	running = true;
+	started_at = SDL_GetTicks();
 }
 
-uint32 Timer::Read() const
+void Timer::Stop()
 {
-	return SDL_GetTicks() - startTime;
+	running = false;
+	stopped_at = SDL_GetTicks();
 }
 
-float Timer::ReadSec() const
+Uint32 Timer::Read()
 {
-	return (float)(SDL_GetTicks() - startTime) / 1000.0f;
+	if (running == true)
+	{
+		return SDL_GetTicks() - started_at;
+	}
+	else
+	{
+		return stopped_at - started_at;
+	}
 }
