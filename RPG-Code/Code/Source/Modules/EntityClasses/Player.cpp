@@ -78,14 +78,16 @@ bool Player::Start()
 	PlayerDirectionUp = 0;
 	PlayerErection = 1;
 
-	position.x = app->win->GetWidth() / 2;
-	position.y = app->win->GetHeight() / 2;
+	position.x = 950;
+	position.y = 950;
 	return ret;
 }
 
 bool Player::PreUpdate()
 {
 	CameraToPlayer();
+
+	LOG("Player position X:%d Y:%d", position.x, position.y);
 
 	return true;
 }
