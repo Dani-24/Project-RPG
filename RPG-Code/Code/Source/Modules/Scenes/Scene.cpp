@@ -39,7 +39,7 @@ bool Scene::Start()
 
 	app->enemyMovement->Enable();
 
-	app->map->Load("initial_town_map.tmx");
+	//app->map->Load("initial_town_map.tmx");
 	
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");

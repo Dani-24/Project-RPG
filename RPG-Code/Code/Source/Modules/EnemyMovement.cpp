@@ -63,7 +63,8 @@ bool EnemyMovement::Start()
 	LOG("Start Enemy");
 	bool ret = true;
 
-	EnemyTex = app->tex->Load("Assets/sprites/Enemigos/EnemyMovement/EnemyMovement.png");
+	// Kirbo negro ? donde tas?
+	//EnemyTex = app->tex->Load("Assets/sprites/Enemigos/EnemyMovement/EnemyMovement.png");
 
 	currentAnimation = &idleAnim;
 
@@ -93,13 +94,13 @@ bool EnemyMovement::PostUpdate()
 	bool ret = true;
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(EnemyTex, position.x, position.y, &rect);
+	//app->render->DrawTexture(EnemyTex, position.x, position.y, &rect);
 	return true;
 }
 
 bool EnemyMovement::CleanUp()
 {
-	app->tex->UnLoad(EnemyTex);
+	//app->tex->UnLoad(EnemyTex);
 
 	currentAnimation = nullptr;
 
