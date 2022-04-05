@@ -11,6 +11,8 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "EnemyMovement.h"
+#include "Battle.h"
+#include "Stages.h"
 
 
 #include "FadeToBlack.h"
@@ -36,6 +38,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	logoScene = new LogoScene(this);
 	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
+	battle = new Battle(this, false);
+	stages = new Stages(this);
 
 	entities = new EntityManager(this);
 
@@ -53,12 +57,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 
-	AddModule(fade);
+	
 	AddModule(pathfinder);
 
 	AddModule(logoScene);
 	AddModule(titleScene);
 	AddModule(scene);
+	AddModule(stages);
+	AddModule(battle);
 	AddModule(map);
 
 	AddModule(entities);
@@ -66,6 +72,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(font);
 	AddModule(guiManager);
+
+	AddModule(fade);
 
 	// Render last to swap buffer
 	AddModule(render);

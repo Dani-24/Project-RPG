@@ -31,6 +31,9 @@ class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
 
+class Stages;
+class Battle;
+
 class App
 {
 public:
@@ -102,6 +105,8 @@ public:
 	LogoScene* logoScene;
 	TitleScene* titleScene;
 	Scene* scene;
+	Stages* stages;
+	Battle* battle;
 	Map* map;
 	GuiManager* guiManager;
 	EntityManager* entities;

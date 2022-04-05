@@ -7,6 +7,7 @@
 #include "Title.h"
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
+#include "Stages.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -64,6 +65,7 @@ bool TitleScene::PreUpdate()
 			app->audio->PlayFx(confirmFx);
 		}
 		app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
+		app->stages->ChangeStage(StageIndex::TOWN);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {

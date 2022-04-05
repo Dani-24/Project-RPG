@@ -43,7 +43,7 @@ public:
 
 	void CameraToPlayer();
 
-private:
+public:
 
 	iPoint position;
 
@@ -70,5 +70,9 @@ private:
 		idleAnimDown;
 
 	int yesFx;
+
+public:
+
+	bool canMove;
 };
 #endif !__PLAYER_H__

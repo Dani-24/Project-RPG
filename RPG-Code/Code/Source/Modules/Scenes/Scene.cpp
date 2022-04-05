@@ -11,6 +11,7 @@
 #include "EntityClasses/Player.h"
 #include "EnemyMovement.h"
 #include "EntityManager.h"
+#include "Battle.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -103,6 +104,17 @@ bool Scene::Update(float dt)
 		// Update Anim
 		imgAnim.Update(dt);
 	}
+
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+		player->canMove ? player->canMove = false : player->canMove = true;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+		//app->fade->StartFadeToBlack(this, (Module*)app->battle);
+	}
+
+
+
 	return true;
 }
 
@@ -111,14 +123,14 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	app->map->Draw();
-	app->guiManager->Draw();
+	//app->map->Draw();
+	//app->guiManager->Draw();
 
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
-			app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
-		}
-	}
+	//for (int i = 0; i < 10; i++) {
+	//	for (int j = 0; j < 10; j++) {
+	//		app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
+	//	}
+	//}
 
 	return ret;
 }

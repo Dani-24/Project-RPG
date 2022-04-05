@@ -49,6 +49,8 @@ Player::Player() : Character(CharacterType::PLAYER)
 	yesFx = 0;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
+
+	canMove = true;
 }
 
 // Destructor
@@ -95,7 +97,7 @@ bool Player::PreUpdate()
 bool Player::Update(float dt) {
 	bool ret = true;
 
-	if (app->scene->pause == false) {
+	if (app->scene->pause == false && canMove == true) {
 
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
@@ -121,13 +123,7 @@ bool Player::PostUpdate()
 {
 	bool ret = true;
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	if (PlayerErection == true) {
-		app->render->DrawTexture(PlayerMTex, position.x, position.y, &rect);
-	}
-	if (PlayerErection == false) {
-		app->render->DrawTexture(PlayerFTex, position.x, position.y, &rect);
-	}
+	
 
 	return true;
 }
@@ -220,6 +216,6 @@ void Player::MovementPlayer(float dt) {
 }
 
 void Player::CameraToPlayer() {
-	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2;
-	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w /2) * app->win->GetScale();
+	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale();
 }
