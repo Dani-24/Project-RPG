@@ -486,7 +486,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="350"/>
    <tile/>
    <tile/>
    <tile/>
@@ -740,32 +740,32 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="350"/>
+   <tile gid="350"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="350"/>
+   <tile gid="350"/>
+   <tile gid="350"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="350"/>
+   <tile gid="350"/>
+   <tile/>
+   <tile/>
    <tile gid="757"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="350"/>
-   <tile gid="350"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="350"/>
-   <tile gid="350"/>
-   <tile gid="350"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="350"/>
-   <tile gid="350"/>
-   <tile/>
-   <tile/>
-   <tile/>
   </data>
  </layer>
  <layer id="4" name="decoraciones2" width="25" height="10">
@@ -994,32 +994,32 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="1034"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
   </data>
  </layer>
  <layer id="5" name="decoraciones3" width="25" height="10">
