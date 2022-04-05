@@ -12,7 +12,7 @@ struct SDL_Texture;
 
 class Entity;
 
-enum class EntityType 
+enum class EntityType
 {
 	STATIC,
 	DYNAMIC
@@ -42,8 +42,8 @@ public:
 
 
 public:
-	
-	
+
+	bool hasStarted = false;
 
 	EntityType type;
 	iPoint position;

@@ -12,6 +12,11 @@
 
 Player::Player() : Character(CharacterType::PLAYER)
 {
+	LOG("EntityList: %d", app->entities->entityList.count());
+	//Player* ent = new Player();
+	//app->entities->entityList.add(ent);
+	LOG("EntityList: %d", app->entities->entityList.count());
+
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
 	walkAnimDown.PushBack({ 114,10,31,46 });
@@ -40,6 +45,10 @@ Player::Player() : Character(CharacterType::PLAYER)
 	idleAnimL.PushBack({ 64,80,26,45 });
 	idleAnimUp.PushBack({ 62,221,31,46 });
 	idleAnimDown.PushBack({ 62,8,31,46 });
+
+	yesFx = 0;
+
+	currentAnimation = &idleAnimR; //player start with idle anim
 }
 
 // Destructor
@@ -64,32 +73,28 @@ bool Player::Start()
 	PlayerMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Walk/MainChM.png");
 	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
 
-	currentAnimation = &idleAnimR;	//player start with idle anim
-	PlayerDirectionRight = 1;		//if its 1, player will be looking at the right, if it's 2, player will be looking at the left
+	currentAnimation = &idleAnimR; //player start with idle anim
+	PlayerDirectionRight = 1;//if its 1, player will be looking at the right, if it's 2, player will be looking at the left
 	PlayerDirectionUp = 0;
 	PlayerErection = 1;
 
-	position.x = app->win->GetWidth()/2;
-	position.y = app->win->GetHeight() / 2;
-
-	LOG("EntityList: %d", app->entities->entityList.count());
-	app->entities->entityList.add(this);
-	LOG("EntityList: %d", app->entities->entityList.count());
-
+	position.x = 950;
+	position.y = 950;
 	return ret;
 }
 
 bool Player::PreUpdate()
 {
-
 	CameraToPlayer();
+
+	LOG("Player position X:%d Y:%d", position.x, position.y);
 
 	return true;
 }
 
 bool Player::Update(float dt) {
 	bool ret = true;
-	
+
 	if (app->scene->pause == false) {
 
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
@@ -117,10 +122,10 @@ bool Player::PostUpdate()
 	bool ret = true;
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	if (PlayerErection==true) {
+	if (PlayerErection == true) {
 		app->render->DrawTexture(PlayerMTex, position.x, position.y, &rect);
 	}
-	if(PlayerErection==false) {
+	if (PlayerErection == false) {
 		app->render->DrawTexture(PlayerFTex, position.x, position.y, &rect);
 	}
 
@@ -128,7 +133,7 @@ bool Player::PostUpdate()
 }
 
 bool Player::CleanUp() {
-	
+
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 
@@ -163,7 +168,7 @@ void Player::MovementPlayer(float dt) {
 			PlayerDirectionUp = 0;
 		}
 	}
-	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)){
+	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) {
 		position.y -= speed;
 		if (currentAnimation != &walkAnimUp)
 		{
