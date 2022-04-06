@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Render.h"
+#include "Collisions.h"
 
 #include <vector>
 
@@ -33,8 +34,8 @@ public:
 	virtual bool PostUpdate() { return true; };
 
 	// Returns the enemy's collider
-	//const Collider* GetCollider() const;
-	//virtual void OnCollision(Collider* collider);
+	const Collider* GetCollider() const {};
+	virtual void OnCollision(Collider* collider1, Collider* collider2) {  };
 
 	virtual void Draw();
 	virtual void SetToDelete();
@@ -45,7 +46,7 @@ public:
 
 	bool hasStarted = false;
 
-	EntityType type;
+	EntityType entityType;
 	iPoint position;
 
 	// The entity's texture

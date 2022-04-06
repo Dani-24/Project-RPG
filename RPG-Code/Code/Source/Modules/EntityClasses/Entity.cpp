@@ -2,11 +2,11 @@
 #include "EntityManager.h"
 
 
-Entity::Entity(EntityType type) : type(type)
+Entity::Entity(EntityType entType) : entityType(entType)
 {
 }
 
-Entity::Entity(EntityType type, int x, int y) : position(x, y), type(type)
+Entity::Entity(EntityType type, int x, int y) : position(x, y), entityType(type)
 {
 	spawnPosition = position;
 }

@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Modules\Battle.cpp" />
+    <ClCompile Include="Source\Modules\Collisions.cpp" />
     <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\GUI\GuiButton.cpp" />
     <ClCompile Include="Source\GUI\GuiManager.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Window.cpp" />
     <ClInclude Include="Source\Modules\Battle.h" />
+    <ClInclude Include="Source\Modules\Collisions.h" />
     <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Source\GUI\GuiButton.h" />
@@ -158,9 +160,11 @@
     <ClInclude Include="Source\Timers\Timer.h" />
     <ClInclude Include="Source\Modules\Window.h" />
     <ClInclude Include="Source\Tools\Animation.h" />
+    <ClInclude Include="Source\Tools\Collider.h" />
     <ClInclude Include="Source\Tools\Defs.h" />
     <ClInclude Include="Source\Tools\List.h" />
     <ClInclude Include="Source\Tools\Log.h" />
+    <ClCompile Include="Source\Tools\Collider.cpp" />
     <ClCompile Include="Source\Tools\Log.cpp" />
     <ClInclude Include="Source\Tools\Point.h" />
     <ClInclude Include="Source\Tools\SString.h" />

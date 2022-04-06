@@ -192,7 +192,7 @@ Entity* EntityManager::FindEntity(EntityType EntityType)
 
 	for (entityInList = entityList.start; entityInList != NULL; entityInList = entityInList->next)
 	{
-		if (entityInList->data->type == EntityType)
+		if (entityInList->data->entityType == EntityType)
 			ret = entityInList->data;
 	}
 

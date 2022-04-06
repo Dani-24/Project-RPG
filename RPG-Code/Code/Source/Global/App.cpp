@@ -13,6 +13,7 @@
 #include "EnemyMovement.h"
 #include "Battle.h"
 #include "Stages.h"
+#include "Collisions.h"
 
 
 #include "FadeToBlack.h"
@@ -51,6 +52,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	font = new ModuleQFonts(this, false);
 	pathfinder = new Pathfinder(this, false);
 
+	collisions = new Collisions(this);
+
 	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
 	AddModule(input);
@@ -72,6 +75,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(font);
 	AddModule(guiManager);
+
+	AddModule(collisions);
 
 	AddModule(fade);
 

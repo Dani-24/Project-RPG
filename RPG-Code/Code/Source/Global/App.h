@@ -33,6 +33,7 @@ class ModuleQFonts;
 
 class Stages;
 class Battle;
+class Collisions;
 
 class App
 {
@@ -115,6 +116,7 @@ public:
 	ModuleQFonts* font;
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;
+	Collisions* collisions;
 
 private:
 
