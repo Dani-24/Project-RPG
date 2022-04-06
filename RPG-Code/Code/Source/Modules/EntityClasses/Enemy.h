@@ -43,6 +43,8 @@ public:
 
 	EnemyType enemyType;
 
+	Collider* battleCollider;
+
 };
 
 #endif // !__ENEMY_H__

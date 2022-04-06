@@ -46,6 +46,8 @@ public:
 
 	int dynamicThing;
 
+	Collider* baseCollider;
+
 };
 
 #endif // !__DYNAMIC_ENTITY_H__

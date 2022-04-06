@@ -44,6 +44,8 @@ public:
 
 	CharacterType characterType;
 
+	Collider* battleCollider;
+
 };
 
 #endif // !__ENEMY_H__

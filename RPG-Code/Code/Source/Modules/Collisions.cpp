@@ -18,35 +18,35 @@ Collisions::Collisions(App* application, bool start_enabled) : Module(applicatio
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	/*matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::INSTANT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::INTERACT] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::BATTLE] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::BATTLE] = false;
 
-	matrix[Collider::Type::WALL][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::WALL][Collider::Type::WALL] = true;
-	matrix[Collider::Type::WALL][Collider::Type::INSTANT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::INTERACT] = true;
-	matrix[Collider::Type::WALL][Collider::Type::BATTLE] = true;
+	matrix[Collider::Type::WALL][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::WALL][Collider::Type::WALL] = false;
+	matrix[Collider::Type::WALL][Collider::Type::INSTANT] = false;
+	matrix[Collider::Type::WALL][Collider::Type::INTERACT] = false;
+	matrix[Collider::Type::WALL][Collider::Type::BATTLE] = false;
 
-	matrix[Collider::Type::INSTANT][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::INSTANT][Collider::Type::WALL] = true;
-	matrix[Collider::Type::INSTANT][Collider::Type::INSTANT] = true;
-	matrix[Collider::Type::INSTANT][Collider::Type::INTERACT] = true;
-	matrix[Collider::Type::INSTANT][Collider::Type::BATTLE] = true;
+	matrix[Collider::Type::INSTANT][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::INSTANT][Collider::Type::WALL] = false;
+	matrix[Collider::Type::INSTANT][Collider::Type::INSTANT] = false;
+	matrix[Collider::Type::INSTANT][Collider::Type::INTERACT] = false;
+	matrix[Collider::Type::INSTANT][Collider::Type::BATTLE] = false;
 
-	matrix[Collider::Type::INTERACT][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::INTERACT][Collider::Type::WALL] = true;
-	matrix[Collider::Type::INTERACT][Collider::Type::INSTANT] = true;
-	matrix[Collider::Type::INTERACT][Collider::Type::INTERACT] = true;
-	matrix[Collider::Type::INTERACT][Collider::Type::BATTLE] = true;
+	matrix[Collider::Type::INTERACT][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::INTERACT][Collider::Type::WALL] = false;
+	matrix[Collider::Type::INTERACT][Collider::Type::INSTANT] = false;
+	matrix[Collider::Type::INTERACT][Collider::Type::INTERACT] = false;
+	matrix[Collider::Type::INTERACT][Collider::Type::BATTLE] = false;
 
 	matrix[Collider::Type::BATTLE][Collider::Type::PLAYER] = false;
-	matrix[Collider::Type::BATTLE][Collider::Type::WALL] = true;
-	matrix[Collider::Type::BATTLE][Collider::Type::INSTANT] = true;
-	matrix[Collider::Type::BATTLE][Collider::Type::INTERACT] = true;
-	matrix[Collider::Type::BATTLE][Collider::Type::BATTLE] = true;*/
+	matrix[Collider::Type::BATTLE][Collider::Type::WALL] = false;
+	matrix[Collider::Type::BATTLE][Collider::Type::INSTANT] = false;
+	matrix[Collider::Type::BATTLE][Collider::Type::INTERACT] = false;
+	matrix[Collider::Type::BATTLE][Collider::Type::BATTLE] = true;
 }
 
 Collisions::~Collisions()
