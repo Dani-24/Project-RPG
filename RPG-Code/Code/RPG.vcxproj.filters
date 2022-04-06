@@ -38,6 +38,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\Player.cpp" />
     <ClCompile Include="Source\Modules\Battle.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Stages.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\NPCEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -98,6 +99,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Player.h" />
     <ClInclude Include="Source\Modules\Battle.h" />
     <ClInclude Include="Source\Modules\Scenes\Stages.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\NPCEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
