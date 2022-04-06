@@ -40,6 +40,9 @@
     <ClCompile Include="Source\Modules\Scenes\Stages.cpp" />
     <ClCompile Include="Source\Tools\Collider.cpp" />
     <ClCompile Include="Source\Modules\Collisions.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\NPCEntity.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\GallinaNPC.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -102,6 +105,8 @@
     <ClInclude Include="Source\Modules\Scenes\Stages.h" />
     <ClInclude Include="Source\Tools\Collider.h" />
     <ClInclude Include="Source\Modules\Collisions.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\NPCEntity.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\GallinaNPC.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
