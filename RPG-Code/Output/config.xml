@@ -27,6 +27,8 @@
 		<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
 
+    <exampleNumber num="6"/>
+    
 	</player>
 
 	<scene>

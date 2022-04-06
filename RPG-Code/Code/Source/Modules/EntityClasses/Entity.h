@@ -47,6 +47,8 @@ public:
 	bool hasAwaken = false;
 	bool hasStarted = false;
 
+	SString configName;
+
 	EntityType entityType;
 	iPoint position;
 

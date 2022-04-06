@@ -42,7 +42,6 @@
     <ClCompile Include="Source\Modules\Collisions.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\NPCEntity.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\GallinaNPC.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">

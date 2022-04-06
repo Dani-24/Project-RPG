@@ -51,6 +51,8 @@ Player::Player() : Character(CharacterType::PLAYER)
 	currentAnimation = &idleAnimR; //player start with idle anim
 
 	canMove = true;
+
+	configName = "player";
 }
 
 // Destructor
@@ -61,6 +63,7 @@ bool Player::Awake(pugi::xml_node& config)
 {
 	LOG("Init Image library, ta guapa la libreria de imagenes llamada player");
 	bool ret = true;
+	LOG("Num in config: %d",config.child("exampleNumber").attribute("num").as_int());
 
 	return ret;
 }

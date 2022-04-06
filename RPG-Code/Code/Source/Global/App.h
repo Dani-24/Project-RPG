@@ -70,11 +70,13 @@ public:
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
-private:
+
 
 	// Load config file
 	// NOTE: It receives config document
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
+private:
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();

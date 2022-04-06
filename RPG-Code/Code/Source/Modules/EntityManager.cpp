@@ -55,6 +55,16 @@ bool EntityManager::PreUpdate()
 // Call modules on each loop iteration
 bool EntityManager::Update(float dt)
 {
+	//___________________________
+
+	pugi::xml_document configFile;
+	pugi::xml_node config;
+	pugi::xml_node configApp;
+	
+	config = app->LoadConfig(configFile);
+	//configApp = config.child("app");
+
+	//____________________________
 	bool ret = true;
 	ListItem<Entity*>* entityInList;
 	entityInList = entityList.start;
@@ -63,7 +73,7 @@ bool EntityManager::Update(float dt)
 	{
 		if (entityInList->data->hasAwaken == false) {
 			//AAAAAAAAAAAAAAAAAA//
-			//ret = entityInList->data->Awake();
+			ret = entityInList->data->Awake(config.child(entityInList->data->configName.GetString()));
 			entityInList->data->hasAwaken = true;
 			continue;
 		}

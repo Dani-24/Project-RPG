@@ -4,6 +4,7 @@
 
 Entity::Entity(EntityType entType) : entityType(entType)
 {
+	configName = "entity";
 }
 
 Entity::Entity(EntityType type, int x, int y) : position(x, y), entityType(type)
