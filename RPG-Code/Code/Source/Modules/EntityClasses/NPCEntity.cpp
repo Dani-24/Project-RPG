@@ -1,12 +1,11 @@
 #include "EntityManager.h"
 
 #include "Entity.h"
+#include "DynamicEntity.h"
 #include "NPCEntity.h"
 
-NPCEntity::NPCEntity(NPCType NPCType) : Entity(EntityType::DYNAMIC)
-{
-	
-}
+NPCEntity::NPCEntity(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
+{}
 
 NPCEntity::~NPCEntity()
 {}
