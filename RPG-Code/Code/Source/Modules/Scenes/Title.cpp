@@ -8,6 +8,7 @@
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
 #include "Stages.h"
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -64,8 +65,29 @@ bool TitleScene::PreUpdate()
 			pause = true;
 			app->audio->PlayFx(confirmFx);
 		}
-		app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
 		app->stages->ChangeStage(StageIndex::TOWN);
+		app->scene->Enable();
+		
+		//app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
+
+		
+		if (app->scene->player== nullptr) {
+			LOG("1: NULL player");
+		}
+		else {
+			LOG("1: YES player");
+		}
+		
+		app->stages->playerPtr = app->scene->player;
+
+		if (app->stages->playerPtr == nullptr) {
+			LOG("2: NULL player");
+		}
+		else {
+			LOG("2: YES player");
+		}
+
+		Disable();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {

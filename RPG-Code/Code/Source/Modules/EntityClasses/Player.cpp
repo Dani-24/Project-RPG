@@ -89,7 +89,7 @@ bool Player::PreUpdate()
 {
 	CameraToPlayer();
 
-	LOG("Player position X:%d Y:%d", position.x, position.y);
+	//LOG("Player position X:%d Y:%d", position.x, position.y);
 
 	return true;
 }

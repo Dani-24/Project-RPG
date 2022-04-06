@@ -12,6 +12,7 @@
 #include "EnemyMovement.h"
 #include "EntityManager.h"
 #include "Battle.h"
+#include "Stages.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -78,7 +79,9 @@ bool Scene::PreUpdate()
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
-		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
+		app->stages->ChangeStage(StageIndex::NONE);
+		app->fade->StartFadeToBlack(this, (Module*)app->titleScene,0);
+		
 	}
 
 	return ret;

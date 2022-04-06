@@ -117,7 +117,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\NormalEnemy.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Title.cpp" />
-    <ClCompile Include="Source\Modules\Stages.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Stages.cpp" />
     <ClCompile Include="Source\Timers\PerfTimer.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Scene.cpp" />
     <ClCompile Include="Source\Modules\Render.cpp" />
@@ -146,7 +146,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\NormalEnemy.h" />
     <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
     <ClInclude Include="Source\Modules\Scenes\Title.h" />
-    <ClInclude Include="Source\Modules\Stages.h" />
+    <ClInclude Include="Source\Modules\Scenes\Stages.h" />
     <ClInclude Include="Source\Timers\PerfTimer.h" />
     <ClInclude Include="Source\Modules\Scenes\Scene.h" />
     <ClInclude Include="Source\Modules\Audio.h" />

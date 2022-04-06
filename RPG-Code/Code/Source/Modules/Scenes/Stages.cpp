@@ -48,12 +48,15 @@ bool Stages::PreUpdate()
 {
 	bool ret = true;
 
-	if (playerPtr == nullptr) {
+	/*if (playerPtr == nullptr) {
 		playerPtr = app->scene->player;
-	}
+	}*/
 
 	switch (actualStage)
 	{
+	case StageIndex::NONE:
+		break;
+
 	case StageIndex::TOWN:
 
 		
@@ -72,6 +75,9 @@ bool Stages::Update(float dt)
 {
 	switch (actualStage)
 	{
+	case StageIndex::NONE:
+		break;
+
 	case StageIndex::TOWN:
 
 		
@@ -116,14 +122,17 @@ bool Stages::PostUpdate()
 			if (playerPtr->PlayerErection == false) {
 				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
+			//LOG("Player null = FALSE");
+		}
+		else {
+			int a = 6;
+			//LOG("Player null = TRUE");
 		}
 		
+		int i = 7;
 
 		break;
 
-	default:
-
-		break;
 	}
 	
 	
@@ -134,14 +143,14 @@ bool Stages::PostUpdate()
 void Stages::ChangeStage(StageIndex newStage) {
 	actualStage = newStage;
 
-	switch (actualStage)
+	switch (newStage)
 	{
 	case StageIndex::NONE:
 		break;
 
 	case StageIndex::TOWN:
 
-		playerPtr = app->scene->player;
+		//playerPtr = app->scene->player;
 
 		break;
 	default:
