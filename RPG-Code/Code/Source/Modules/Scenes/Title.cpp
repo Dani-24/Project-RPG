@@ -43,8 +43,6 @@ bool TitleScene::Start()
 
 	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
 
-	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 25);
-
 	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 
 	app->render->camera.x = 0;
@@ -114,7 +112,7 @@ bool TitleScene::PostUpdate()
 
 	// Render Text
 
-	app->font->DrawText("Press SPACE to start", 225, 300);
+	app->font->DrawTextDelayed("Press SPACE to start", 225, 300);
 
 	return ret;
 }

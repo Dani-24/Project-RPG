@@ -3,8 +3,18 @@
 #include "Log.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Audio.h"
 
-// Increible Modulo hecho por Dani para poner Texto, requiere una fuente y varios royos para encenderlo
+#define DELAY_TIME 5
+
+// v1.0.0
+// + Increible Modulo hecho por DANI para poner Texto, requiere una fuente y varios royos para encenderlo
+
+// v2.0.0
+// + Ahora se puede usar con hacer un Enable()/Disable() desde otro modulo
+ 
+// v3.0.0
+// + Novedad: Texto con delay
 
 ModuleQFonts::ModuleQFonts(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -15,12 +25,24 @@ ModuleQFonts::~ModuleQFonts()
 {
 }
 
+bool ModuleQFonts::Awake(pugi::xml_node& config) {
+
+	// Load audio effect path from config
+
+	return true;
+}
+
 bool ModuleQFonts::Start() {
+
 	LOG("Init Module Fonts");
 	if (TTF_Init() == -1) {
 		LOG("Fonts can't initialize || TTF_Init: %s", TTF_GetError());
 		return false;
 	}
+
+	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 25);
+
+	soundEffect = app->audio->LoadFx("Assets/audio/sfx/fx_select_next_2.wav");
 
 	return true;
 }
@@ -39,6 +61,42 @@ void ModuleQFonts::LoadFont(const char* fontPath, int size) {
 void ModuleQFonts::DrawText(const char* textToRender, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	RenderText("                                                                   ", 0, 0);
 	RenderText(textToRender, x, y, r, g, b);
+}
+
+void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, Uint8 r, Uint8 g, Uint8 b) {
+	
+	if (time <= 0) {
+
+		length.Create(textToRender);
+		sprintf_s(text, textToRender);
+
+		if (N < length.Length()) {
+
+			textToPrint[N] = text[N];
+
+			DrawText(textToPrint, x, y, r, g, b);
+
+			time = DELAY_TIME;
+			N++;
+
+			app->audio->PlayFx(soundEffect);
+		}
+		else {
+			if (showLOG == true) {
+				LOG("Text delay finished");
+				showLOG = false;
+			}
+
+			// When the delay finishes this allows us to continue seeing the text
+			DrawText(textToPrint, x, y, r, g, b);
+		}
+	}
+	else {
+		time--;
+
+		// This shows the text while delay time
+		DrawText(textToPrint, x, y, r, g, b);
+	}
 }
 
 // This method is private
@@ -80,8 +138,16 @@ bool ModuleQFonts::CleanUp() {
 
 	TTF_Quit();
 
+	showLOG = true;
+
 	fontTexture = nullptr;
 	fontSurface = NULL;
+
+	length.Clear();
+	text[100] = { };
+	textToPrint[100] = { };
+
+	time = N = soundEffect = 0;
 
 	return true;
 }

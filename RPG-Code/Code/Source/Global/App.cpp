@@ -36,7 +36,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(this);
 	fade = new FadeToBlack(this);
 
-	logoScene = new LogoScene(this);
+	logoScene = new LogoScene(this, true);
 	titleScene = new TitleScene(this, false);
 	scene = new Scene(this, false);
 	battle = new Battle(this, false);
