@@ -101,6 +101,7 @@
     <ClCompile Include="Source\Global\App.cpp" />
     <ClCompile Include="Source\Modules\Audio.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Character.cpp" />
+    <ClCompile Include="Source\Modules\EntityClasses\GallinaNPC.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\NPCEntity.cpp" />
     <ClCompile Include="Source\Modules\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Input.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Source\GUI\GuiControl.h" />
     <ClInclude Include="Source\GUI\GuiManager.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Character.h" />
+    <ClInclude Include="Source\Modules\EntityClasses\GallinaNPC.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPCEntity.h" />
     <ClInclude Include="Source\Modules\FadeToBlack.h" />
     <ClInclude Include="Source\Modules\Map.h" />

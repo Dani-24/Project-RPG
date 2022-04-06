@@ -1,5 +1,5 @@
-#ifndef __NPC_ENTITY_H__
-#define __NPC_ENTITY_H__
+#ifndef __GALLINA_NPC_H__
+#define __GALLINA_NPC_H__
 
 #include "App.h"
 #include "Point.h"
@@ -15,19 +15,12 @@ struct SDL_Texture;
 struct SDL_Surface;
 struct Collider;
 
-enum class NPCType
-{
-	GALLINA,
-	TABERNERA,
-	TENDERO
-};
-
-class NPCEntity : public Entity
+class GallinaNPC : public Entity
 {
 public:
 
-	NPCEntity(NPCType type);
-	~NPCEntity();
+	GallinaNPC();
+	~GallinaNPC();
 
 	virtual bool Awake(pugi::xml_node& config);
 	virtual bool Start();
