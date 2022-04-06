@@ -65,6 +65,8 @@ bool Player::Awake(pugi::xml_node& config)
 	bool ret = true;
 	LOG("Num in config: %d",config.child("exampleNumber").attribute("num").as_int());
 
+	MaleChar = config.child("male").attribute("path").as_string();
+
 	return ret;
 }
 
@@ -75,7 +77,7 @@ bool Player::Start()
 
 	yesFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
 
-	PlayerMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Walk/MainChM.png");
+	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
 
 	currentAnimation = &idleAnimR; //player start with idle anim

@@ -72,7 +72,7 @@ public:
 	int yesFx;
 
 public:
-
+	const char* MaleChar;
 	bool canMove;
 };
 #endif !__PLAYER_H__
