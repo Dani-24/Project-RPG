@@ -4,43 +4,46 @@
 #include "DynamicEntity.h"
 #include "NPCEntity.h"
 
-NPCEntity::NPCEntity(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
+NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
+{
+
+
+}
+
+NPC::~NPC()
 {}
 
-NPCEntity::~NPCEntity()
-{}
-
-bool NPCEntity::Awake(pugi::xml_node& config)
+bool NPC::Awake(pugi::xml_node& config)
 {
 
 	return true;
 }
 
 // Called before the first frame
-bool NPCEntity::Start()
+bool NPC::Start()
 {
 	return true;
 }
 
-bool NPCEntity::PreUpdate()
+bool NPC::PreUpdate()
 {
 	return true;
 }
 
 // Call modules on each loop iteration
-bool NPCEntity::Update(float dt)
+bool NPC::Update(float dt)
 {
 	return true;
 }
 
 // Call modules after each loop iteration
-bool NPCEntity::PostUpdate()
+bool NPC::PostUpdate()
 {
 	return true;
 }
 
 // Called before quitting
-bool NPCEntity::CleanUp()
+bool NPC::CleanUp()
 {
 	return true;
 }
