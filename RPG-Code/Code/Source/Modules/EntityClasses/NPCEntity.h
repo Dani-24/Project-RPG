@@ -1,5 +1,5 @@
-#ifndef __NPC_ENTITY_H__
-#define __NPC_ENTITY_H__
+#ifndef __NPC_H__
+#define __NPC_H__
 
 #include "App.h"
 #include "Point.h"
@@ -17,17 +17,17 @@ struct Collider;
 
 enum class NPCType
 {
-	GALLINA,
-	TABERNERA,
-	TENDERO
+	COCK,
+	BARKEEPER,
+	MERCHANT
 };
 
-class NPCEntity : public Entity
+class NPC : public DynamicEntity
 {
 public:
 
-	NPCEntity(NPCType type);
-	~NPCEntity();
+	NPC(NPCType type);
+	~NPC();
 
 	virtual bool Awake(pugi::xml_node& config);
 	virtual bool Start();
@@ -43,11 +43,15 @@ public:
 
 public:
 
-	SDL_Texture* NPC1Tex = nullptr;
+	bool isMerchant;
+
+	bool hasMovement;
+
+	SDL_Texture* NPCSprite = nullptr;
 
 	Animation* currentAnimationNPC = nullptr;
 	Animation idleAnimNPC;
 
 };
 
-#endif // !__NPC_ENTITY_H__
+#endif // !__NPC_H__
