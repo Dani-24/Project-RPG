@@ -123,6 +123,19 @@ void ModuleQFonts::RenderText(const char* textToRender, int x, int y, Uint8 r , 
 	SDL_FreeSurface(fontSurface);
 }
 
+void ModuleQFonts::CleanFonts() {
+	showLOG = true;
+
+	fontTexture = nullptr;
+	fontSurface = NULL;
+
+	length.Clear();
+	memset(text, 0, sizeof text);
+	memset(textToPrint, 0, sizeof textToPrint);
+
+	time = N = 0;
+}
+
 void ModuleQFonts::UnloadFont()
 {
 	TTF_CloseFont(font);
@@ -135,19 +148,9 @@ void ModuleQFonts::UnloadFont()
 }
 
 bool ModuleQFonts::CleanUp() {
-
+	
+	UnloadFont();
 	TTF_Quit();
-
-	showLOG = true;
-
-	fontTexture = nullptr;
-	fontSurface = NULL;
-
-	length.Clear();
-	text[100] = { };
-	textToPrint[100] = { };
-
-	time = N = soundEffect = 0;
 
 	return true;
 }

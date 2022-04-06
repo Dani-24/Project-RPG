@@ -49,7 +49,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(this);
 	guiManager = new GuiManager(this);
 
-	font = new ModuleQFonts(this, false);
+	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this, false);
 
 	collisions = new Collisions(this);

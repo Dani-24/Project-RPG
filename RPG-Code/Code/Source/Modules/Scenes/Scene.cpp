@@ -13,6 +13,7 @@
 #include "EntityManager.h"
 #include "Battle.h"
 #include "Stages.h"
+#include "ModuleQFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -135,6 +136,8 @@ bool Scene::PostUpdate()
 	//	}
 	//}
 
+	app->font->DrawTextDelayed("Prueba", 950, 950);
+
 	return ret;
 }
 
@@ -170,6 +173,8 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	app->font->CleanFonts();
 
 	app->tex->UnLoad(img);
 

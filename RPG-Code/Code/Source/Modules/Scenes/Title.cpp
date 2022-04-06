@@ -34,7 +34,6 @@ bool TitleScene::Awake()
 // Called before the first frame
 bool TitleScene::Start()
 {
-	app->font->Enable();
 
 	// Load Assets
 
@@ -122,7 +121,7 @@ bool TitleScene::CleanUp()
 {
 	LOG("Freeing Title scene");
 
-	app->font->Disable();
+	app->font->CleanFonts();
 
 	return true;
 }

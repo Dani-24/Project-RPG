@@ -14,10 +14,6 @@ public:
 
 	bool Awake(pugi::xml_node& config);
 
-	void LoadFont(const char* fontPath, int size = 30);
-
-	void UnloadFont();
-
 	void DrawText(const char* textToRender, int x, int y, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
 	void DrawTextDelayed(const char* textToRender, int x, int y, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
@@ -25,8 +21,15 @@ public:
 private:
 	void RenderText(const char* textToRender,int x, int y, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255);
 
+	void LoadFont(const char* fontPath, int size = 30);
+
+	void UnloadFont();
+
 public:
 	bool CleanUp();
+
+	// Ejectutar en el Cleanup() del modulo que use texto
+	void CleanFonts();
 	
 private:
 	SDL_Color color;
