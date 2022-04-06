@@ -61,6 +61,13 @@ bool EntityManager::Update(float dt)
 
 	for (entityInList = entityList.start; entityInList != NULL && ret == true; entityInList = entityInList->next)
 	{
+		if (entityInList->data->hasAwaken == false) {
+			//AAAAAAAAAAAAAAAAAA//
+			//ret = entityInList->data->Awake();
+			entityInList->data->hasAwaken = true;
+			continue;
+		}
+
 		if (entityInList->data->hasStarted == false) {
 			ret = entityInList->data->Start();
 			entityInList->data->hasStarted = true;

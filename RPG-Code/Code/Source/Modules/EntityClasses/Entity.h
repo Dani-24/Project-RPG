@@ -44,6 +44,7 @@ public:
 
 public:
 
+	bool hasAwaken = false;
 	bool hasStarted = false;
 
 	EntityType entityType;
