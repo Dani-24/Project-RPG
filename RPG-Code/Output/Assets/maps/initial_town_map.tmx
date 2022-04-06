@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="1">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="1">
  <tileset firstgid="1" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="tiles/[Base]BaseChip_pipo.png" width="256" height="4256"/>
  </tileset>
@@ -2532,9 +2532,9 @@
    <tile gid="2147485447"/>
    <tile gid="2147485447"/>
    <tile gid="1798"/>
-   <tile gid="2147485447"/>
-   <tile gid="2147485447"/>
-   <tile gid="2147485447"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="2147485447"/>
    <tile gid="1800"/>
    <tile gid="1798"/>
@@ -2592,9 +2592,9 @@
    <tile gid="2147485447"/>
    <tile gid="2147485447"/>
    <tile gid="1798"/>
-   <tile gid="2147485447"/>
-   <tile gid="2147485447"/>
-   <tile gid="2147485447"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
+   <tile gid="4"/>
    <tile gid="2147485447"/>
    <tile gid="1800"/>
    <tile gid="1798"/>
