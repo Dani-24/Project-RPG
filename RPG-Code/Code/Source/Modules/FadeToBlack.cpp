@@ -82,27 +82,3 @@ bool FadeToBlack::DoFadeToBlack(Module* moduleToDisable, Module* moduleToEnable,
 	}
 	return ret;
 }
-
-
-//================================================
-//		Función en proceso de construcción
-//================================================
-bool FadeToBlack::FadeWithoutDisabling(float frames) {
-
-	bool ret = false;
-
-	if (currentStep == Fade_Step::NONE)
-	{
-		currentStep = Fade_Step::TO_BLACK;
-		frameCount = 0;
-		maxFadeFrames = frames;
-
-		moduleToDisable = moduleToEnable = nullptr;
-	}
-
-	if (currentStep == Fade_Step::FROM_BLACK) {
-		return true;
-	}
-
-	return ret;
-}

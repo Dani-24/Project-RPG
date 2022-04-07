@@ -63,12 +63,14 @@ bool TitleScene::PreUpdate()
 			app->audio->PlayFx(confirmFx);
 		}
 		app->stages->ChangeStage(StageIndex::TOWN);
-		app->scene->Enable();
+
+		app->fade->DoFadeToBlack(this, (Module*)app->scene);
+
+		//app->scene->Enable();
 		
 		//app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
 
-		
-		if (app->scene->player== nullptr) {
+		/*if (app->scene->player== nullptr) {
 			LOG("1: NULL player");
 		}
 		else {
@@ -82,9 +84,9 @@ bool TitleScene::PreUpdate()
 		}
 		else {
 			LOG("2: YES player");
-		}
+		}*/
 
-		Disable();
+		//Disable();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {

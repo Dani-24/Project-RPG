@@ -22,8 +22,6 @@ public:
 	//call another module and starts the proces to fade
 	bool DoFadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
 
-	bool FadeWithoutDisabling(float frames = 60);
-
 private:
 
 	enum Fade_Step

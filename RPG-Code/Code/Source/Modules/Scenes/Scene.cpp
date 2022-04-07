@@ -37,7 +37,8 @@ bool Scene::Awake()
 bool Scene::Start()
 {
 	// Enables & idk
-	//app->player->Enable();
+	app->map->Enable();
+
 	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
 
 	app->enemyMovement->Enable();
@@ -68,6 +69,8 @@ bool Scene::Start()
 
 	pause = false;
 
+	app->stages->playerPtr = player;
+
 	return true;
 }
 
@@ -80,7 +83,6 @@ bool Scene::PreUpdate()
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
-		app->stages->ChangeStage(StageIndex::NONE);
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 
@@ -182,6 +184,10 @@ bool Scene::CleanUp()
 	app->entities->DestroyEntity(player);
 
 	app->enemyMovement->Disable();
+
+	app->stages->ChangeStage(StageIndex::NONE);
+
+	app->map->Disable();
 
 	return true;
 }

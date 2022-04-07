@@ -80,8 +80,6 @@ bool Stages::Update(float dt)
 
 	case StageIndex::TOWN:
 
-		
-
 		break;
 
 	default:
@@ -146,6 +144,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 	switch (newStage)
 	{
 	case StageIndex::NONE:
+
 		break;
 
 	case StageIndex::TOWN:
