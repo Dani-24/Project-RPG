@@ -6,7 +6,7 @@
 #include "Animation.h"
 #include "Render.h"
 #include "Entity.h"
-
+#include "NPCEntity.h"
 #include "EntityManager.h"
 
 #include <vector>
@@ -15,10 +15,9 @@ struct SDL_Texture;
 struct SDL_Surface;
 struct Collider;
 
-class GallinaNPC : public Entity
+class GallinaNPC : public NPC
 {
 public:
-
 	GallinaNPC();
 	~GallinaNPC();
 
@@ -35,11 +34,12 @@ public:
 	virtual bool CleanUp();
 
 public:
+	iPoint position;
 
-	SDL_Texture* NPC1Tex = nullptr;
+	SDL_Texture* CockTex = nullptr;
 
-	Animation* currentAnimationNPC = nullptr;
-	Animation idleAnimNPC;
+	Animation* currentAnimation = nullptr;
+	Animation idleAnim;
 
 };
 

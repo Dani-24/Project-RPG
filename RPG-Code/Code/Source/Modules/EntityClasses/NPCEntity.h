@@ -8,6 +8,7 @@
 #include "Entity.h"
 
 #include "EntityManager.h"
+#include "DynamicEntity.h"
 
 #include <vector>
 
@@ -46,6 +47,8 @@ public:
 	bool isMerchant;
 
 	bool hasMovement;
+
+	NPCType NpcType;
 
 	SDL_Texture* NPCSprite = nullptr;
 

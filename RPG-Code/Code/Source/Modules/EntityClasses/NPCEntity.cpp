@@ -6,8 +6,7 @@
 
 NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 {
-
-
+	this->NpcType = NPCType;
 }
 
 NPC::~NPC()

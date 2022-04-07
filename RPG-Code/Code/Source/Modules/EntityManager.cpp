@@ -7,6 +7,9 @@
 #include "EntityClasses/Character.h"
 #include "EntityClasses/Player.h"
 
+#include "EntityClasses/GallinaNPC.h"
+#include "EntityClasses/NPCEntity.h"
+
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
