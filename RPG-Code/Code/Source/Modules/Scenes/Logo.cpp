@@ -48,7 +48,7 @@ bool LogoScene::PreUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
+		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return ret;
@@ -62,7 +62,7 @@ bool LogoScene::Update(float dt)
 		cont += dt;
 	}
 	else {
-		app->fade->StartFadeToBlack(this, (Module*)app->titleScene);
+		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return true;

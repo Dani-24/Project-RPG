@@ -1,35 +1,21 @@
 #include "FadeToBlack.h"
-
-#include "Render.h"
-#include "App.h"
 #include "Window.h"
+#include "Render.h"
 
 #include "SDL/include/SDL_render.h"
 
-#include "Defs.h"
-#include "Log.h"
-
 FadeToBlack::FadeToBlack(App* application, bool start_enabled) : Module(application, start_enabled)
 {
-	name.Create("FadeToBlack");
-	if (app != nullptr) {
-		int x, y, scale; uint x2, y2;
-
-		app->win->GetWindowSize(x2, y2);
-		scale = app->win->GetScale();
-
-		x = x2; y = y2;
-		screenRect = { 0,0, x * y * scale };
-	}
 }
 FadeToBlack::~FadeToBlack()
 {
 
 }
-
 bool FadeToBlack::Start()
 {
 	LOG("Preparing Fade Screen");
+
+	screenRect = { 0,0, app->win->GetWidth() * (int)app->win->GetScale(), app->win->GetHeight() * (int)app->win->GetScale() };
 
 	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
@@ -47,8 +33,10 @@ bool FadeToBlack::Update(float dt)
 		++frameCount;
 		if (frameCount >= maxFadeFrames)
 		{
-			moduleToDisable->Disable();
-			moduleToEnable->Enable();
+			if (moduleToDisable != nullptr) {
+				moduleToDisable->Disable();
+				moduleToEnable->Enable();
+			}
 
 			currentStep = Fade_Step::FROM_BLACK;
 		}
@@ -78,7 +66,7 @@ bool FadeToBlack::PostUpdate()
 	return true;
 }
 
-bool FadeToBlack::StartFadeToBlack(Module* moduleToDisable, Module* moduleToEnable, float frames)
+bool FadeToBlack::DoFadeToBlack(Module* moduleToDisable, Module* moduleToEnable, float frames)
 {
 	bool ret = false;
 
@@ -92,5 +80,29 @@ bool FadeToBlack::StartFadeToBlack(Module* moduleToDisable, Module* moduleToEnab
 		this->moduleToEnable = moduleToEnable;
 		ret = true;
 	}
+	return ret;
+}
+
+
+//================================================
+//		Función en proceso de construcción
+//================================================
+bool FadeToBlack::FadeWithoutDisabling(float frames) {
+
+	bool ret = false;
+
+	if (currentStep == Fade_Step::NONE)
+	{
+		currentStep = Fade_Step::TO_BLACK;
+		frameCount = 0;
+		maxFadeFrames = frames;
+
+		moduleToDisable = moduleToEnable = nullptr;
+	}
+
+	if (currentStep == Fade_Step::FROM_BLACK) {
+		return true;
+	}
+
 	return ret;
 }

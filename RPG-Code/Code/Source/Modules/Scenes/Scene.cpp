@@ -81,8 +81,7 @@ bool Scene::PreUpdate()
 			app->audio->PlayFx(backFx);
 		}
 		app->stages->ChangeStage(StageIndex::NONE);
-		app->fade->StartFadeToBlack(this, (Module*)app->titleScene,0);
-		
+		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 
 	return ret;
@@ -136,7 +135,7 @@ bool Scene::PostUpdate()
 	//	}
 	//}
 
-	app->font->DrawTextDelayed("Prueba", 950, 950);
+	app->font->DrawTextDelayed("Sos putasoo", 950, 950);
 
 	return ret;
 }
