@@ -11,8 +11,6 @@
 #include "DynamicEntity.h"
 #include "Character.h"
 
-
-
 #include <vector>
 
 #include "Animation.h"
@@ -34,19 +32,19 @@ public:
 	bool PostUpdate() override;
 	bool CleanUp() override;
 
-	// Load / Save
-	//bool LoadState(pugi::xml_node&);
-	//bool SaveState(pugi::xml_node&) const;
-
 	//All player movement
 	void MovementPlayer(float dt);
 
-	void CameraToPlayer();
+	void CameraFollowingPlayer(float dt);
+
+	void CameraOnPlayer();
 
 public:
 
 	iPoint position;
+	float playerSpeed;
 
+	// Current Sprite
 	bool PlayerErection = true;
 
 	//Direction
@@ -74,5 +72,8 @@ public:
 public:
 	const char* MaleChar;
 	bool canMove;
+
+	fPoint cameraSpeed = { 0.1f , 0.1f };
+
 };
 #endif !__PLAYER_H__

@@ -87,12 +87,14 @@ bool Player::Start()
 
 	position.x = 950;
 	position.y = 950;
+
+	CameraOnPlayer();
+
 	return ret;
 }
 
 bool Player::PreUpdate()
 {
-	CameraToPlayer();
 
 	//LOG("Player position X:%d Y:%d", position.x, position.y);
 
@@ -101,6 +103,8 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt) {
 	bool ret = true;
+
+	CameraFollowingPlayer(dt);
 
 	if (app->scene->pause == false && canMove == true) {
 
@@ -128,8 +132,6 @@ bool Player::PostUpdate()
 {
 	bool ret = true;
 
-	
-
 	return true;
 }
 
@@ -144,11 +146,11 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	float speed = dt * 0.2f;
+	playerSpeed = dt * 0.2f;
 
 	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
-		position.x += speed;
+		position.x += playerSpeed;
 		if (currentAnimation != &walkAnimR)
 		{
 			walkAnimR.Reset();
@@ -156,11 +158,10 @@ void Player::MovementPlayer(float dt) {
 			PlayerDirectionRight = 1;
 			PlayerDirectionUp = 0;
 		}
-
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
-		position.x -= speed;
+		position.x -= playerSpeed;
 		if (currentAnimation != &walkAnimL)
 		{
 			walkAnimL.Reset();
@@ -170,7 +171,7 @@ void Player::MovementPlayer(float dt) {
 		}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) {
-		position.y -= speed;
+		position.y -= playerSpeed;
 		if (currentAnimation != &walkAnimUp)
 		{
 			walkAnimUp.Reset();
@@ -180,7 +181,7 @@ void Player::MovementPlayer(float dt) {
 		}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) {
-		position.y += speed;
+		position.y += playerSpeed;
 		if (currentAnimation != &walkAnimDown)
 		{
 			walkAnimDown.Reset();
@@ -220,7 +221,45 @@ void Player::MovementPlayer(float dt) {
 	}
 }
 
-void Player::CameraToPlayer() {
-	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w /2) * app->win->GetScale();
+void Player::CameraFollowingPlayer(float dt) {
+
+	// ========== X axis ==========
+	if (app->render->camera.x != -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale()) {
+		int distance = -app->render->camera.x + -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale();
+		if (distance > 0) {
+			app->render->camera.x += cameraSpeed.x * dt;
+		}
+		else{
+			app->render->camera.x -= cameraSpeed.x * dt;
+		}
+		if (cameraSpeed.x < playerSpeed) {
+			cameraSpeed.x += 0.01f;
+		}
+	}
+	else {
+		cameraSpeed.x = 0.1f;
+	}
+
+	// ========== Y axis ==========
+
+	if (app->render->camera.y != -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale()) {
+		int distance = -app->render->camera.y + -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale();
+		if (distance > 0) {
+			app->render->camera.y += cameraSpeed.y * dt;
+		}
+		else {
+			app->render->camera.y -= cameraSpeed.y * dt;
+		}
+		if (cameraSpeed.y < playerSpeed) {
+			cameraSpeed.y += 0.01f;
+		}
+	}
+	else {
+		cameraSpeed.y = 0.1f;
+	}
+}
+
+void Player::CameraOnPlayer() {
+	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale();
 	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale();
 }
