@@ -30,10 +30,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Load / Save
-	bool LoadState(pugi::xml_node&);
-	bool SaveState(pugi::xml_node&) const;
-
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 
@@ -49,7 +45,6 @@ public:
 public:
 
 	SDL_Renderer* renderer;
-	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
 };

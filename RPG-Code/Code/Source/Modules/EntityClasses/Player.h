@@ -35,13 +35,8 @@ public:
 	//All player movement
 	void MovementPlayer(float dt);
 
-	void CameraFollowingPlayer(float dt);
-
-	void CameraOnPlayer();
-
 public:
 
-	iPoint position;
 	float playerSpeed;
 
 	// Current Sprite

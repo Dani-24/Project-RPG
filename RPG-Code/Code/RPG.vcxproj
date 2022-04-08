@@ -94,6 +94,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Modules\Battle.cpp" />
+    <ClCompile Include="Source\Modules\Camera.cpp" />
     <ClCompile Include="Source\Modules\Collisions.cpp" />
     <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\GUI\GuiButton.cpp" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Window.cpp" />
     <ClInclude Include="Source\Modules\Battle.h" />
+    <ClInclude Include="Source\Modules\Camera.h" />
     <ClInclude Include="Source\Modules\Collisions.h" />
     <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Resource\resource.h" />

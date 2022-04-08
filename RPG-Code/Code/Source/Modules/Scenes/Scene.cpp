@@ -14,6 +14,7 @@
 #include "Battle.h"
 #include "Stages.h"
 #include "ModuleQFonts.h"
+#include "Camera.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -38,10 +39,9 @@ bool Scene::Start()
 {
 	// Enables & idk
 	app->map->Enable();
+	app->enemyMovement->Enable();
 
 	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
-
-	app->enemyMovement->Enable();
 
 	app->map->Load("initial_town_map.tmx");
 
@@ -49,15 +49,11 @@ bool Scene::Start()
 	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
-
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
-
-	// Texture
-	img = app->tex->Load("Assets/textures/sample.png");
 
 	for (int j = 0; j < 2; j++) {
 		for (int i = 0; i < 27; i++) {
@@ -70,6 +66,8 @@ bool Scene::Start()
 	pause = false;
 
 	app->stages->playerPtr = player;
+
+	app->camera->SetTarget(player);
 
 	return true;
 }
@@ -96,12 +94,12 @@ bool Scene::Update(float dt)
 		//       SAVE / LOAD requests
 		// ================================
 
-		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->audio->PlayFx(loadFx);
 			app->LoadGameRequest();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
 		}
@@ -117,9 +115,6 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 		//app->fade->StartFadeToBlack(this, (Module*)app->battle);
 	}
-
-
-
 	return true;
 }
 
@@ -127,15 +122,6 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
-
-	//app->map->Draw();
-	//app->guiManager->Draw();
-
-	//for (int i = 0; i < 10; i++) {
-	//	for (int j = 0; j < 10; j++) {
-	//		app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
-	//	}
-	//}
 
 	app->font->DrawTextDelayed("Sos putasoo", 950, 950);
 
@@ -145,7 +131,6 @@ bool Scene::PostUpdate()
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
-
 	switch (control->type)
 	{
 	case GuiControlType::BUTTON:
@@ -160,7 +145,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("Click on button 2");
 		}
-
 	}
 	//Other cases here
 
@@ -177,17 +161,14 @@ bool Scene::CleanUp()
 
 	app->font->CleanFonts();
 
-	app->tex->UnLoad(img);
-
 	imgAnim.DeleteAnim();
 
 	app->entities->DestroyEntity(player);
 
-	app->enemyMovement->Disable();
-
 	app->stages->ChangeStage(StageIndex::NONE);
 
 	app->map->Disable();
+	app->enemyMovement->Disable();
 
 	return true;
 }

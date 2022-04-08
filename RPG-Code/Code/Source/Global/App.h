@@ -27,6 +27,7 @@ class GuiManager;
 class EntityManager;
 class EnemyMovement;
 
+class Camera;
 class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
@@ -70,8 +71,6 @@ public:
 	void LoadGameRequest();
 	void SaveGameRequest() const;
 
-
-
 	// Load config file
 	// NOTE: It receives config document
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
@@ -114,6 +113,7 @@ public:
 	GuiManager* guiManager;
 	EntityManager* entities;
 	EnemyMovement* enemyMovement;
+	Camera* camera;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
@@ -128,9 +128,6 @@ private:
 	SString organization;
 
 	List<Module*> modules;
-
-	mutable bool saveGameRequested;
-	bool loadGameRequested;
 
 private:
 

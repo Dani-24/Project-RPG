@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Camera.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -40,13 +41,6 @@ bool Render::Awake(pugi::xml_node& config)
 	{
 		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}
-	else
-	{
-		camera.w = app->win->screenSurface->w;
-		camera.h = app->win->screenSurface->h;
-		camera.x = 0;
-		camera.y = 0;
 	}
 
 	return ret;
@@ -88,28 +82,6 @@ bool Render::CleanUp()
 	return true;
 }
 
-// L02: DONE 6: Implement a method to load the state, for now load camera's x and y
-// Load Game State
-bool Render::LoadState(pugi::xml_node& data)
-{
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
-
-	return true;
-}
-
-// L02: DONE 8: Create a method to save the state of the renderer
-// Save Game State
-bool Render::SaveState(pugi::xml_node& data) const
-{
-	pugi::xml_node cam = data.append_child("camera");
-
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
-
-	return true;
-}
-
 void Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
@@ -132,8 +104,8 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 	uint scale = app->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.x = (int)(app->camera->cam.x * speed) + x * scale;
+	rect.y = (int)(app->camera->cam.y * speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -178,8 +150,8 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
-		rec.x = (int)(camera.x + rect.x * scale);
-		rec.y = (int)(camera.y + rect.y * scale);
+		rec.x = (int)(app->camera->cam.x + rect.x * scale);
+		rec.y = (int)(app->camera->cam.y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -206,7 +178,7 @@ bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b,
 	int result = -1;
 
 	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, camera.x + x1 * scale, camera.y + y1 * scale, camera.x + x2 * scale, camera.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, app->camera->cam.x + x1 * scale, app->camera->cam.y + y1 * scale, app->camera->cam.x + x2 * scale, app->camera->cam.y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 

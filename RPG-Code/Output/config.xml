@@ -1,39 +1,43 @@
 <!-- Config file for the game -->
 <config>
-  <app>
-    <title>Un RPG de una Torre</title>
-    <organization>By elAmigos</organization>
-  </app>
+    <app>
+        <title>Un RPG de una Torre</title>
+        <organization>By elAmigos</organization>
+    </app>
 
-  <renderer>
-    <vsync value="true"/>
-	  <musisc value="50"/>
-	  <SFX value="50"/>
-  </renderer>
+    <renderer>
+        <vsync value="true"/>
+    </renderer>
 
-  <window>
-    <resolution width="1280" height="720" scale="2"/>
-    <fullscreen value="false"/>
-    <borderless value="false"/>
-    <resizable value="false"/>
-    <fullscreen_window value="false"/>
-  </window>
+	<audio>
+		<music value="50"/>
+		<sfx value="20"/>
+	</audio>
+	
+	<camera>
+	</camera>
+	
+    <window>
+        <resolution width="1280" height="720" scale="2"/>
+        <fullscreen value="false"/>
+        <borderless value="false"/>
+        <resizable value="false"/>
+        <fullscreen_window value="false"/>
+    </window>
 
-  <map>
-    <folder>Assets/maps/</folder>
-  </map>
+    <map>
+        <folder>Assets/maps/</folder>
+    </map>
 
-	<player>
+   <player>
 		<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
 
     <exampleNumber num="6"/>
-    
 	</player>
 
 	<scene>
 		<spionage path="Assets/audio/music/music_credits.ogg" />
-
 	</scene>
 
 </config>

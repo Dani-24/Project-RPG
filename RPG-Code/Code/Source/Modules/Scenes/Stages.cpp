@@ -48,10 +48,6 @@ bool Stages::PreUpdate()
 {
 	bool ret = true;
 
-	/*if (playerPtr == nullptr) {
-		playerPtr = app->scene->player;
-	}*/
-
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
@@ -132,9 +128,6 @@ bool Stages::PostUpdate()
 		break;
 
 	}
-	
-	
-
 	return ret;
 }
 
@@ -156,7 +149,6 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		break;
 	}
-
 }
 
 // Called before quitting

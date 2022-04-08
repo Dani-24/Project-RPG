@@ -6,6 +6,7 @@
 
 FadeToBlack::FadeToBlack(App* application, bool start_enabled) : Module(application, start_enabled)
 {
+	name.Create("fade");
 }
 FadeToBlack::~FadeToBlack()
 {

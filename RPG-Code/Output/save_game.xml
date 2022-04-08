@@ -3,17 +3,25 @@
 	<window />
 	<input />
 	<textures />
-	<audio />
-	<player />
-	<FadeToBlack />
+	<audio>
+		<music value="50" />
+		<sfx value="20" />
+	</audio>
 	<pathfinder />
 	<logoScene />
 	<titleScene />
 	<scene />
+	<stages />
+	<battle />
 	<map />
+	<EntityManager />
+	<enemy />
 	<fonts />
 	<guiManager />
-	<renderer>
-		<camera x="0" y="0" />
-	</renderer>
+	<collisions />
+	<fade />
+	<camera>
+		<camera x="653" y="653" />
+	</camera>
+	<renderer />
 </save_state>

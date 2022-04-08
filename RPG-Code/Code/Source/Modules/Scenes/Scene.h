@@ -39,7 +39,6 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
-	SDL_Texture* img;
 	Animation imgAnim;
 
 	GuiButton* btn1;

@@ -49,6 +49,14 @@ bool Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	// LOAD VOLUME FROM CONFIG
+
+	vol = config.child("music").attribute("value").as_int();
+	volFX = config.child("sfx").attribute("value").as_int();
+
+	ChangeVolume(vol);
+	ChangeFXVolume(volFX);
+
 	return ret;
 }
 
@@ -179,4 +187,25 @@ void Audio::ChangeVolume(int volume) {
 // Change Sound Effects volume
 void Audio::ChangeFXVolume(int volume) {
 	Mix_Volume(-1, volume);
+}
+
+// Load Game State
+bool Audio::LoadState(pugi::xml_node& data)
+{
+	vol = data.child("music").attribute("value").as_int();
+	volFX = data.child("sfx").attribute("value").as_int();
+
+	ChangeVolume(vol);
+	ChangeFXVolume(volFX);
+
+	return true;
+}
+
+// Save Game State
+bool Audio::SaveState(pugi::xml_node& data) const
+{
+	data.append_child("music").append_attribute("value") = vol;
+	data.append_child("sfx").append_attribute("value") = volFX;
+
+	return true;
 }

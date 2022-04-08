@@ -34,10 +34,16 @@ public:
 	// Change sfx volume (from 0 to 128)
 	void ChangeFXVolume(int volume = 128);
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
+
 private:
 
 	_Mix_Music* music;
 	List<Mix_Chunk*>	fx;
+
+	int vol, volFX;
 };
 
 #endif // __AUDIO_H__

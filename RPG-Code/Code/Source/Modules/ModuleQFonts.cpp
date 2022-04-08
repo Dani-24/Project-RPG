@@ -16,6 +16,8 @@
 // v3.0.0
 // + Novedad: Texto con delay
 
+// *Futuras mejoras => Implementar Listas para el Delayed Text
+
 ModuleQFonts::ModuleQFonts(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("fonts");

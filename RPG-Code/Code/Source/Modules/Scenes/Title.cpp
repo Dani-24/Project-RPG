@@ -9,6 +9,7 @@
 #include "ModuleQFonts.h"
 #include "Stages.h"
 #include "Scene.h"
+#include "Camera.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -34,7 +35,6 @@ bool TitleScene::Awake()
 // Called before the first frame
 bool TitleScene::Start()
 {
-
 	// Load Assets
 
 	buttonsUI = app->tex->Load("Assets/gui/buttons_2x.png");
@@ -44,8 +44,7 @@ bool TitleScene::Start()
 
 	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
+	app->camera->SetPos({ 0,0 });
 
 	pause = false;
 
@@ -65,28 +64,6 @@ bool TitleScene::PreUpdate()
 		app->stages->ChangeStage(StageIndex::TOWN);
 
 		app->fade->DoFadeToBlack(this, (Module*)app->scene);
-
-		//app->scene->Enable();
-		
-		//app->fade->StartFadeToBlack(this, (Module*)app->scene, 0);
-
-		/*if (app->scene->player== nullptr) {
-			LOG("1: NULL player");
-		}
-		else {
-			LOG("1: YES player");
-		}
-		
-		app->stages->playerPtr = app->scene->player;
-
-		if (app->stages->playerPtr == nullptr) {
-			LOG("2: NULL player");
-		}
-		else {
-			LOG("2: YES player");
-		}*/
-
-		//Disable();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
@@ -112,7 +89,6 @@ bool TitleScene::PostUpdate()
 	app->render->DrawTexture(buttonsUI, 0, 0);
 
 	// Render Text
-
 	app->font->DrawTextDelayed("Press SPACE to start", 225, 300);
 
 	return ret;

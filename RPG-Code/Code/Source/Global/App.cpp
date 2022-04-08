@@ -14,7 +14,7 @@
 #include "Battle.h"
 #include "Stages.h"
 #include "Collisions.h"
-
+#include "Camera.h"
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -44,6 +44,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	entities = new EntityManager(this);
 
+	camera = new Camera(this);
 	enemyMovement = new EnemyMovement(this, false);
 
 	map = new Map(this);
@@ -80,6 +81,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(fade);
 
+	AddModule(camera);
 	// Render last to swap buffer
 	AddModule(render);
 }
@@ -319,24 +321,26 @@ pugi::xml_node App::LoadConfig(pugi::xml_document& configFile) const
 // ================================
 void App::LoadGameRequest()
 {
-	loadGameRequested = true;
+	LoadGame();
 }
 
 void App::SaveGameRequest() const
 {
-	saveGameRequested = true;
+	SaveGame();
 }
 
 bool App::LoadGame()
 {
 	bool ret = true;
 
+	LOG("LOADING GAME DATA");
+
 	pugi::xml_document gameStateFile;
 	pugi::xml_parse_result result = gameStateFile.load_file(SAVE_STATE_FILENAME);
 
 	if (result == NULL)
 	{
-		LOG("Could not load xml file savegame.xml. pugi error: %s", result.description());
+		LOG("Could not load xml file save_game.xml. pugi error: %s", result.description());
 		ret = false;
 	}
 	else
@@ -351,14 +355,14 @@ bool App::LoadGame()
 		}
 	}
 
-	loadGameRequested = false;
-
 	return ret;
 }
 
 bool App::SaveGame() const
 {
 	bool ret = false;
+
+	LOG("SAVING GAME DATA");
 
 	pugi::xml_document* saveDoc = new pugi::xml_document();
 	pugi::xml_node saveStateNode = saveDoc->append_child("save_state");
@@ -373,8 +377,6 @@ bool App::SaveGame() const
 	}
 
 	ret = saveDoc->save_file(SAVE_STATE_FILENAME);
-
-	saveGameRequested = false;
 
 	return ret;
 }

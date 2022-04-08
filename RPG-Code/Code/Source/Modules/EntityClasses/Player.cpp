@@ -12,11 +12,6 @@
 
 Player::Player() : Character(CharacterType::PLAYER)
 {
-	LOG("EntityList: %d", app->entities->entityList.count());
-	//Player* ent = new Player();
-	//app->entities->entityList.add(ent);
-	LOG("EntityList: %d", app->entities->entityList.count());
-
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
 	walkAnimDown.PushBack({ 114,10,31,46 });
@@ -88,23 +83,16 @@ bool Player::Start()
 	position.x = 950;
 	position.y = 950;
 
-	CameraOnPlayer();
-
 	return ret;
 }
 
 bool Player::PreUpdate()
 {
-
-	//LOG("Player position X:%d Y:%d", position.x, position.y);
-
 	return true;
 }
 
 bool Player::Update(float dt) {
 	bool ret = true;
-
-	CameraFollowingPlayer(dt);
 
 	if (app->scene->pause == false && canMove == true) {
 
@@ -219,47 +207,4 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 	}
-}
-
-void Player::CameraFollowingPlayer(float dt) {
-
-	// ========== X axis ==========
-	if (app->render->camera.x != -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale()) {
-		int distance = -app->render->camera.x + -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale();
-		if (distance > 0) {
-			app->render->camera.x += cameraSpeed.x * dt;
-		}
-		else{
-			app->render->camera.x -= cameraSpeed.x * dt;
-		}
-		if (cameraSpeed.x < playerSpeed) {
-			cameraSpeed.x += 0.01f;
-		}
-	}
-	else {
-		cameraSpeed.x = 0.1f;
-	}
-
-	// ========== Y axis ==========
-
-	if (app->render->camera.y != -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale()) {
-		int distance = -app->render->camera.y + -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale();
-		if (distance > 0) {
-			app->render->camera.y += cameraSpeed.y * dt;
-		}
-		else {
-			app->render->camera.y -= cameraSpeed.y * dt;
-		}
-		if (cameraSpeed.y < playerSpeed) {
-			cameraSpeed.y += 0.01f;
-		}
-	}
-	else {
-		cameraSpeed.y = 0.1f;
-	}
-}
-
-void Player::CameraOnPlayer() {
-	app->render->camera.x = -position.x * app->win->GetScale() + app->win->GetWidth() / 2 - (currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale();
-	app->render->camera.y = -position.y * app->win->GetScale() + app->win->GetHeight() / 2 - (currentAnimation->GetCurrentFrame().h / 2) * app->win->GetScale();
 }
