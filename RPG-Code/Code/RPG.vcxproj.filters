@@ -124,4 +124,8 @@
   <ItemGroup>
     <ResourceCompile Include="Resource\RPG.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Output\config.xml" />
+    <Xml Include="..\Output\save_game.xml" />
+  </ItemGroup>
 </Project>

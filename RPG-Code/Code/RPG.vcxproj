@@ -183,6 +183,10 @@
   <ItemGroup>
     <Image Include="Resource\icon1.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Output\config.xml" />
+    <Xml Include="..\Output\save_game.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
