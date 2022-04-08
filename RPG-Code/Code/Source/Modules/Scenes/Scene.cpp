@@ -41,8 +41,7 @@ bool Scene::Start()
 	app->map->Enable();
 	app->enemyMovement->Enable();
 
-	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
-
+	// Load Map
 	app->map->Load("initial_town_map.tmx");
 
 	// Load music
@@ -52,22 +51,17 @@ bool Scene::Start()
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
+	// GUI
 	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
 
-	for (int j = 0; j < 2; j++) {
-		for (int i = 0; i < 27; i++) {
-			imgAnim.PushBack({ i * 195,j * 200, 195, 200 });
-		}
-	}
-	imgAnim.speed = 0.02f;
-	imgAnim.loop = true;
+	// Player Entity
+	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
+	player->position = { 950, 950 };
+	app->stages->playerPtr = player;
+	app->camera->SetTarget(player);
 
 	pause = false;
-
-	app->stages->playerPtr = player;
-
-	app->camera->SetTarget(player);
 
 	return true;
 }
@@ -103,9 +97,6 @@ bool Scene::Update(float dt)
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
 		}
-
-		// Update Anim
-		imgAnim.Update(dt);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
@@ -160,8 +151,6 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 
 	app->font->CleanFonts();
-
-	imgAnim.DeleteAnim();
 
 	app->entities->DestroyEntity(player);
 

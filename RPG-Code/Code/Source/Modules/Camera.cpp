@@ -38,11 +38,10 @@ bool Camera::Start() {
 bool Camera::Update(float dt) {
 
 	if (target == nullptr) {
-		LOG("NO TARGET");
 		return true;
 	}
 	else {
-		FollowTarget(dt);
+		FollowTarget();
 	}
 
 	return true;
@@ -59,41 +58,84 @@ bool Camera::CleanUp() {
 
 void Camera::SetPos(iPoint position) {
 	ReleaseTarget();
-	cam.x = position.x;
-	cam.y = position.y;
+	cam.x = -position.x;
+	cam.y = -position.y;
 }
 
-void Camera::FollowTarget(float dt) {
+void Camera::FollowTarget() {
+
+	// Variables for adjustments:
+	int followDistance = 200;
+	int slowCoefficient = 2;
+	int speedDelay = 20;
+
+	// Simplify
+	targetPos.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+	targetPos.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+
+	// Distance between camera & target
+	distance.x = abs(targetPos.x - cam.x);
+	distance.y = abs(targetPos.y - cam.y);
 
 	// ========== X axis ==========
-	if (cam.x != -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2) {
-		int distance = -cam.x + -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
-		if (distance > 0) {
-			cam.x += speed * dt;
+
+	if (distance.x > followDistance) {
+		if (targetPos.x > cam.x) {
+			cam.x += distance.x / (speedDelay / slowCoefficient);
 		}
 		else {
-			cam.x -= speed * dt;
+			if (targetPos.x < cam.x) {
+				cam.x -= distance.x / (speedDelay / slowCoefficient);
+			}
+			else {
+				cam.x = cam.x;
+			}
 		}
 	}
-	else {
-		speed = 0.1f;
+	// Move Slower at closest distance
+	else if (distance.x != 0) {
+		if (targetPos.x > cam.x) {
+			cam.x += distance.x / (speedDelay / 2);
+		}
+		else {
+			if (targetPos.x < cam.x) {
+				cam.x -= distance.x / (speedDelay / 2);
+			}
+			else {
+				cam.x = cam.x;
+			}
+		}
 	}
 
 	// ========== Y axis ==========
-	if (cam.y != -target->position.y * app->win->GetScale() + app->win->GetWidth() / 2) {
-		int distance = -cam.y + -target->position.y * app->win->GetScale() + app->win->GetWidth() / 2;
-		if (distance > 0) {
-			cam.y += speed * dt;
+	
+	if (distance.y > followDistance) {
+		if (targetPos.y > cam.y) {
+			cam.y += distance.y / (speedDelay / slowCoefficient);
 		}
 		else {
-			cam.y -= speed * dt;
+			if (targetPos.y < cam.y) {
+				cam.y -= distance.y / (speedDelay / slowCoefficient);
+			}
+			else {
+				cam.y = cam.y;
+			}
 		}
 	}
-	else {
-		speed = 0.1f;
+	// Move Slower at closest distance
+	else if (distance.y != 0) {
+		if (targetPos.y > cam.y) {
+			cam.y += distance.y / (speedDelay / 2);
+		}
+		else {
+			if (targetPos.y < cam.y) {
+				cam.y -= distance.y / (speedDelay / 2);
+			}
+			else {
+				cam.y = cam.y;
+			}
+		}
 	}
-
-	LOG("TArget X Y = %d %d CamerA X Y %d %d", target->position.x, target->position.y, cam.x, cam.y);
 }
 
 void Camera::OnTarget() {
@@ -107,6 +149,7 @@ bool Camera::SetTarget(Entity* target) {
 
 	if (this->target != nullptr) {
 		LOG("Camera Target Set");
+		OnTarget();
 	}
 	else {
 		LOG("Can't set camera Target");

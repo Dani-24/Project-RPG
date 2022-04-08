@@ -29,7 +29,7 @@ public:
 	void SetPos(iPoint position);
 
 	// Follow target with delay
-	void FollowTarget(float dt);
+	void FollowTarget();
 
 	// Camera centered on target
 	void OnTarget();
@@ -47,10 +47,11 @@ public:
 	// Camera variables
 	SDL_Rect cam;
 	iPoint camOffset;
-	int speed = 1;
-	int speedDelay = 1;
 
 	Entity* target = nullptr;
+	iPoint targetPos;
+
+	iPoint distance;
 };
 
 #endif // !__CAMERA_H__

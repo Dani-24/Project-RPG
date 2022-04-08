@@ -39,7 +39,6 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
-	Animation imgAnim;
 
 	GuiButton* btn1;
 	GuiButton* btn2;
