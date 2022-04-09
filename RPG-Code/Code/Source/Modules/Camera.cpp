@@ -89,7 +89,8 @@ void Camera::FollowTarget() {
 	int slowCoefficient = 2;
 	int speedDelay = 20;
 
-	LOG("X= %d Y= %d ", target->position.x * app->win->GetScale() + app->win->GetWidth() / 2, target->position.y * app->win->GetScale() + app->win->GetHeight() / 2);
+	// Target position LOG
+	//LOG("X= %d Y= %d ", target->position.x * app->win->GetScale() + app->win->GetWidth() / 2, target->position.y * app->win->GetScale() + app->win->GetHeight() / 2);
 
 	// Simplify Target position + Camera limitation
 	if (camLimited == false) {
