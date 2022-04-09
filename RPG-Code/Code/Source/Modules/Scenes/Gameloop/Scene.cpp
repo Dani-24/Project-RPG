@@ -67,7 +67,7 @@ bool Scene::Start()
 	cock = (Cock*)app->entities->CreateEntity(NPCType::COCK);
 	cock->position = { 950, 950 };
 	app->stages->cockPtr = cock;
-	
+
 
 
 

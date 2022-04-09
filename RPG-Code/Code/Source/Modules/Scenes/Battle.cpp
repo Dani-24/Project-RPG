@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "FadeToBlack.h"
-#include "EntityClasses/Player.h"
+#include "Player.h"
 #include "EnemyMovement.h"
 #include "EntityManager.h"
 #include "Battle.h"

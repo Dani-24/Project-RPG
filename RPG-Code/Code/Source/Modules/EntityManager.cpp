@@ -63,7 +63,7 @@ bool EntityManager::Update(float dt)
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
-	
+
 	config = app->LoadConfig(configFile);
 	//configApp = config.child("app");
 
