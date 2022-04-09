@@ -63,7 +63,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\Global;$(ProjectDir)Source\GUI;$(ProjectDir)Source\Modules;$(ProjectDir)Source\Timers;$(ProjectDir)Source\Tools;$(ProjectDir)Source\Modules\Scenes;$(ProjectDir)Source\Modules\EntityClasses</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
