@@ -104,8 +104,8 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 	uint scale = app->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(app->camera->cam.x * speed) + x * scale;
-	rect.y = (int)(app->camera->cam.y * speed) + y * scale;
+	rect.x = (int)(app->camera->GetPos().x * speed) + x * scale;
+	rect.y = (int)(app->camera->GetPos().y * speed) + y * scale;
 
 	if(section != NULL)
 	{
@@ -150,8 +150,8 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
-		rec.x = (int)(app->camera->cam.x + rect.x * scale);
-		rec.y = (int)(app->camera->cam.y + rect.y * scale);
+		rec.x = (int)(app->camera->GetPos().x + rect.x * scale);
+		rec.y = (int)(app->camera->GetPos().y + rect.y * scale);
 		rec.w *= scale;
 		rec.h *= scale;
 	}
@@ -178,7 +178,7 @@ bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b,
 	int result = -1;
 
 	if(use_camera)
-		result = SDL_RenderDrawLine(renderer, app->camera->cam.x + x1 * scale, app->camera->cam.y + y1 * scale, app->camera->cam.x + x2 * scale, app->camera->cam.y + y2 * scale);
+		result = SDL_RenderDrawLine(renderer, app->camera->GetPos().x + x1 * scale, app->camera->GetPos().y + y1 * scale, app->camera->GetPos().x + x2 * scale, app->camera->GetPos().y + y2 * scale);
 	else
 		result = SDL_RenderDrawLine(renderer, x1 * scale, y1 * scale, x2 * scale, y2 * scale);
 

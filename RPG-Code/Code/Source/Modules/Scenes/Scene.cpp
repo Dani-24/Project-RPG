@@ -45,7 +45,7 @@ bool Scene::Start()
 	app->map->Load("initial_town_map.tmx");
 
 	// Load music
-	app->audio->PlayMusic("Assets/audio/music/music_credits.ogg");
+	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
@@ -60,6 +60,8 @@ bool Scene::Start()
 	player->position = { 950, 950 };
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
+
+	app->camera->SetLimits(640, 350, 4490, 4200);
 
 	pause = false;
 

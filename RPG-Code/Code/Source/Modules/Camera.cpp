@@ -52,6 +52,7 @@ bool Camera::CleanUp() {
 	LOG("Freeing Camera");
 
 	target = nullptr;
+	camLimited = false;
 
 	return true;
 }
@@ -62,6 +63,25 @@ void Camera::SetPos(iPoint position) {
 	cam.y = -position.y;
 }
 
+iPoint Camera::GetPos() {
+	return { cam.x, cam.y };
+}
+
+void Camera::SetLimits(int x, int y, int w, int h) {
+	limitX = x + app->win->GetWidth() / 2;
+	limitY = y + app->win->GetHeight() / 2;
+	limitW = w - app->win->GetWidth() / 2;
+	limitH = h - app->win->GetHeight() / 2;
+	camLimited = true;
+	LOG("Camera limited to the area %d %d %d %d", x, y, w, h);
+}
+
+void Camera::FreeLimits() {
+	limitX = limitY = limitW = limitH = 0;
+	camLimited = false;
+	LOG("Camera movement is no longer limited");
+}
+
 void Camera::FollowTarget() {
 
 	// Variables for adjustments:
@@ -69,13 +89,29 @@ void Camera::FollowTarget() {
 	int slowCoefficient = 2;
 	int speedDelay = 20;
 
-	// Simplify
-	targetPos.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
-	targetPos.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+	LOG("X= %d Y= %d ", target->position.x * app->win->GetScale() + app->win->GetWidth() / 2, target->position.y * app->win->GetScale() + app->win->GetHeight() / 2);
+
+	// Simplify Target position + Camera limitation
+	if (camLimited == false) {
+		targetPos.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+		targetPos.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+	}
+	else {
+		// X
+		if ((target->position.x * app->win->GetScale() + app->win->GetWidth() / 2) > limitX && (target->position.x * app->win->GetScale() + app->win->GetWidth() / 2) < limitW) {
+			targetPos.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+		}
+		// Y
+		if ((target->position.y * app->win->GetScale() + app->win->GetHeight() / 2) > limitY && (target->position.y * app->win->GetScale() + app->win->GetHeight() / 2) < limitH) {
+			targetPos.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+		}
+	}
 
 	// Distance between camera & target
 	distance.x = abs(targetPos.x - cam.x);
 	distance.y = abs(targetPos.y - cam.y);
+
+	// =========== Camera MOVEMENT ===========
 
 	// ========== X axis ==========
 
@@ -108,7 +144,7 @@ void Camera::FollowTarget() {
 	}
 
 	// ========== Y axis ==========
-	
+
 	if (distance.y > followDistance) {
 		if (targetPos.y > cam.y) {
 			cam.y += distance.y / (speedDelay / slowCoefficient);
@@ -161,6 +197,7 @@ bool Camera::SetTarget(Entity* target) {
 
 void Camera::ReleaseTarget() {
 	target = nullptr;
+	FreeLimits();
 	LOG("Camera Target Released");
 }
 

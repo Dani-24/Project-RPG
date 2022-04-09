@@ -27,6 +27,12 @@ public:
 
 	// If there is no target use this
 	void SetPos(iPoint position);
+	
+	iPoint GetPos();
+
+	// Limit camera movement when following a target
+	void SetLimits(int x, int y, int w, int h);
+	void FreeLimits();
 
 	// Follow target with delay
 	void FollowTarget();
@@ -38,16 +44,22 @@ public:
 	bool SetTarget(Entity* target);
 	void ReleaseTarget();
 
+private:
 	// Load / Save
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 
-public:
+private:
 
 	// Camera variables
 	SDL_Rect cam;
 	iPoint camOffset;
+	
+	// Camera limits
+	int limitX, limitY, limitW, limitH;
+	bool camLimited = false;
 
+	// Target variables
 	Entity* target = nullptr;
 	iPoint targetPos;
 
