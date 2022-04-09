@@ -13,7 +13,7 @@
 #include "EntityManager.h"
 #include "Battle.h"
 #include "Stages.h"
-
+#include "EntityClasses/Cock.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -23,6 +23,7 @@ Stages::Stages(App* application, bool start_enabled) : Module(application, start
 
 	actualStage = StageIndex::NONE;
 	playerPtr = nullptr;
+	cockPtr = nullptr;
 
 	pause = false;
 }

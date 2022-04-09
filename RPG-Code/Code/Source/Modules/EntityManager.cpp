@@ -1,14 +1,14 @@
 #include "EntityManager.h"
-#include "EntityClasses/Entity.h"
+#include "Entity.h"
 
-#include "EntityClasses/DynamicEntity.h"
-#include "EntityClasses/StaticEntity.h"
+#include "DynamicEntity.h"
+#include "StaticEntity.h"
 
-#include "EntityClasses/Character.h"
-#include "EntityClasses/Player.h"
+#include "Character.h"
+#include "Player.h"
 
-#include "EntityClasses/GallinaNPC.h"
-#include "EntityClasses/NPCEntity.h"
+#include "Cock.h"
+#include "NPCEntity.h"
 
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)

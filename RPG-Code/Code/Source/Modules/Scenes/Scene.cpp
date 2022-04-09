@@ -15,6 +15,7 @@
 #include "Stages.h"
 #include "ModuleQFonts.h"
 #include "Camera.h"
+#include"EntityClasses/Cock.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -60,6 +61,15 @@ bool Scene::Start()
 	player->position = { 950, 950 };
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
+
+
+	// Gallina Entity
+	cock = (Cock*)app->entities->CreateEntity(EntityType::DYNAMIC);
+	cock->position = { 950, 950 };
+	app->stages->cockPtr = cock;
+	
+
+
 
 	app->camera->SetLimits(640, 350, 4490, 4200);
 

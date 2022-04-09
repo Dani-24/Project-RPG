@@ -15,11 +15,11 @@ struct SDL_Texture;
 struct SDL_Surface;
 struct Collider;
 
-class GallinaNPC : public NPC
+class Cock : public NPC
 {
 public:
-	GallinaNPC();
-	~GallinaNPC();
+	Cock();
+	~Cock();
 
 	virtual bool Awake(pugi::xml_node& config);
 	virtual bool Start();

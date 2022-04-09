@@ -1,4 +1,4 @@
-#include "GallinaNPC.h"
+#include"Cock.h"
 
 #include "App.h"
 #include "Render.h"
@@ -10,7 +10,7 @@
 #include "Window.h"
 #include "Scene.h"
 
-GallinaNPC::GallinaNPC() : NPC(NPCType::COCK)
+Cock::Cock() : NPC(NPCType::COCK)
 {
 
 	idleAnim.PushBack({ 2, 2, 28, 28 });
@@ -24,10 +24,10 @@ GallinaNPC::GallinaNPC() : NPC(NPCType::COCK)
 }
 
 // Destructor
-GallinaNPC::~GallinaNPC()
+Cock::~Cock()
 {}
 
-bool GallinaNPC::Awake(pugi::xml_node& config)
+bool Cock::Awake(pugi::xml_node& config)
 {
 	LOG("cockkkkk");
 	bool ret = true;
@@ -37,7 +37,7 @@ bool GallinaNPC::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-bool GallinaNPC::Start()
+bool Cock::Start()
 {
 	LOG("start cock");
 	bool ret = true;
@@ -50,7 +50,7 @@ bool GallinaNPC::Start()
 	return ret;
 }
 
-bool GallinaNPC::PreUpdate()
+bool Cock::PreUpdate()
 {
 
 	//LOG("Player position X:%d Y:%d", position.x, position.y);
@@ -58,7 +58,7 @@ bool GallinaNPC::PreUpdate()
 	return true;
 }
 
-bool GallinaNPC::Update(float dt) {
+bool Cock::Update(float dt) {
 	bool ret = true;
 
 	currentAnimation->Update(dt);
@@ -68,7 +68,7 @@ bool GallinaNPC::Update(float dt) {
 	return ret;
 }
 
-bool GallinaNPC::PostUpdate()
+bool Cock::PostUpdate()
 {
 	bool ret = true;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -77,7 +77,7 @@ bool GallinaNPC::PostUpdate()
 	return true;
 }
 
-bool GallinaNPC::CleanUp() {
+bool Cock::CleanUp() {
 
 	app->tex->UnLoad(CockTex);
 
