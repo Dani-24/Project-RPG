@@ -6,7 +6,6 @@
 
 DynamicEntity::DynamicEntity(DynamicType dynamicType) : Entity(EntityType::DYNAMIC)
 {
-	dynamicThing = 1;
 	this->dynamicType = dynamicType;
 }
 

@@ -1,83 +1,61 @@
-#include"Cock.h"
-
 #include "App.h"
 #include "Render.h"
 #include "Audio.h"
 #include "Textures.h"
 #include "Input.h"
-#include "NPCEntity.h"
 #include "Log.h"
 #include "Window.h"
 #include "Scene.h"
 
-Cock::Cock() : NPC(NPCType::COCK)
-{
+#include "EntityManager.h"
+#include "Entity.h"
+#include "DynamicEntity.h"
+#include "NPC.h"
+#include "Cock.h"
 
-	idleAnim.PushBack({ 2, 2, 28, 28 });
+
+Cock::Cock(NPCType type) : NPC(NPCType::COCK)
+{
+	switch (type) {
+	case NPCType::COCK:
+
+		idleAnim.PushBack({ 2, 2, 28, 28 });
 		idleAnim.PushBack({ 32, 2, 30, 28 });
 		idleAnim.PushBack({ 66, 2, 28, 28 });
 		idleAnim.PushBack({ 96, 2, 30, 28 });
 
-		currentAnimation = &idleAnim; //player start with idle anim
-
 		configName = "cock";
 
-		position.x = 950;
-		position.y = 950;
+		break;
+	case NPCType::BARKEEPER:
+
+		configName = "barkeeper";
+
+		break;
+	case NPCType::MERCHANT:
+
+		configName = "merchant";
+
+		break;
+	case NPCType::TRAINER:
+	
+		configName = "trainer";
+
+		break;
+
+	default:
+		break;
+	}
+
+	//player start with idle anim
+	currentAnimation = &idleAnim; 
+
+	position.x = 950;
+	position.y = 950;
 
 	
 }
-Cock::Cock() : NPC(NPCType::BARKEEPER)
-{
 
-	idleAnim.PushBack({ 2, 2, 28, 28 });
-	idleAnim.PushBack({ 32, 2, 30, 28 });
-	idleAnim.PushBack({ 66, 2, 28, 28 });
-	idleAnim.PushBack({ 96, 2, 30, 28 });
-
-	currentAnimation = &idleAnim; //player start with idle anim
-
-	configName = "barkeeper";
-
-	position.x = 950;
-	position.y = 950;
-
-
-}
-Cock::Cock() : NPC(NPCType::MERCHANT)
-{
-
-	idleAnim.PushBack({ 2, 2, 28, 28 });
-	idleAnim.PushBack({ 32, 2, 30, 28 });
-	idleAnim.PushBack({ 66, 2, 28, 28 });
-	idleAnim.PushBack({ 96, 2, 30, 28 });
-
-	currentAnimation = &idleAnim; //player start with idle anim
-
-	configName = "merchant";
-
-	position.x = 950;
-	position.y = 950;
-
-
-}
-Cock::Cock() : NPC(NPCType::TRAINER)
-{
-
-	idleAnim.PushBack({ 2, 2, 28, 28 });
-	idleAnim.PushBack({ 32, 2, 30, 28 });
-	idleAnim.PushBack({ 66, 2, 28, 28 });
-	idleAnim.PushBack({ 96, 2, 30, 28 });
-
-	currentAnimation = &idleAnim; //player start with idle anim
-
-	configName = "trainer";
-
-	position.x = 950;
-	position.y = 950;
-
-
-}
 // Destructor
 Cock::~Cock()
 {}
@@ -97,7 +75,7 @@ bool Cock::Start()
 	LOG("start cock");
 	bool ret = true;
 
-	CockTex = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
+	//CockTex = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
 
 
 
@@ -126,14 +104,14 @@ bool Cock::PostUpdate()
 {
 	bool ret = true;
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(CockTex, position.x, position.y, &rect);
+	//app->render->DrawTexture(CockTex, position.x, position.y, &rect);
 
 	return true;
 }
 
 bool Cock::CleanUp() {
 
-	app->tex->UnLoad(CockTex);
+	//app->tex->UnLoad(CockTex);
 
 	currentAnimation = nullptr;
 

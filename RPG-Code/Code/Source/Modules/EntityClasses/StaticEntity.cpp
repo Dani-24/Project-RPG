@@ -6,7 +6,6 @@
 
 StaticEntity::StaticEntity(StaticType staticType) : Entity(EntityType::STATIC)
 {
-	staticThing = 0;
 	this->staticType = staticType;
 }
 

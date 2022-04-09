@@ -28,7 +28,7 @@ class NPC : public DynamicEntity
 {
 public:
 
-	NPC(NPCType type, int x, int y);
+	NPC(NPCType type);
 	~NPC();
 
 	virtual bool Awake(pugi::xml_node& config);
@@ -52,12 +52,9 @@ public:
 
 	NPCType NpcType;
 
-	SDL_Texture* NPCSprite = nullptr;
+	
 
-	Animation* currentAnimationNPC = nullptr;
-	Animation idleAnimNPC;
-	Animation* currentAnimation = nullptr;
-	Animation idleAnim;
+
 	iPoint position;
 };
 

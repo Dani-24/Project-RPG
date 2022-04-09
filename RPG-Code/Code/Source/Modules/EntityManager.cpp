@@ -8,7 +8,7 @@
 #include "Player.h"
 
 #include "Cock.h"
-#include "NPCEntity.h"
+#include "NPC.h"
 
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
@@ -228,14 +228,20 @@ Entity* EntityManager::CreateEntity(NPCType type)
 	{
 	case NPCType::COCK:
 
-		ret = new Cock();
+		ret = new NPC(NPCType::COCK);
 
 		break;
 	case NPCType::BARKEEPER:
 
+		ret = new NPC(NPCType::BARKEEPER);
 		break;
 	case NPCType::MERCHANT:
 
+		ret = new NPC(NPCType::MERCHANT);
+		break;
+	case NPCType::TRAINER:
+
+		ret = new NPC(NPCType::TRAINER);
 		break;
 	default:
 

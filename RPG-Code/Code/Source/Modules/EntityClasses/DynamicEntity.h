@@ -79,9 +79,11 @@ public:
 
 	DynamicType dynamicType;
 
-	int dynamicThing;
-
 	Collider* baseCollider;
+
+	Animation* currentAnimation = nullptr;
+
+	Animation idleAnim;
 
 	Stats EStats;
 

@@ -42,8 +42,6 @@ public:
 
 	StaticType staticType;
 
-	int staticThing;
-
 };
 
 #endif // !__STATIC_ENTITY_H__

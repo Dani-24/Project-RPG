@@ -6,8 +6,6 @@
 #include <vector>
 
 class Entity;
-class DynamicEntity;
-class StaticEntity;
 
 enum class EntityType;
 enum class EntityType;
@@ -46,9 +44,6 @@ public:
 public:
 
 	List<Entity*> entityList;
-
-	List<DynamicEntity*> dynamicEnitiesList;
-	List<StaticEntity*> staticEnitiesList;
 
 };
 

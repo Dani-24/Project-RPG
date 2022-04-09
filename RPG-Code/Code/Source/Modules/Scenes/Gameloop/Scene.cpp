@@ -63,7 +63,7 @@ bool Scene::Start()
 	app->camera->SetTarget(player);
 
 
-	// Gallina Entity
+	// Cock Entity
 	cock = (Cock*)app->entities->CreateEntity(NPCType::COCK);
 	cock->position = { 950, 950 };
 	app->stages->cockPtr = cock;

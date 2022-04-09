@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "Render.h"
 #include "Collisions.h"
+#include "Textures.h"
 
 #include <vector>
 
@@ -53,7 +54,7 @@ public:
 	iPoint position;
 
 	// The entity's texture
-	SDL_Texture* texture = nullptr;
+	SDL_Texture* sprite = nullptr;
 
 	// Sound fx when destroyed
 	int destroyedFx = 0;
@@ -64,9 +65,6 @@ public:
 
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;
-
-	// The entity's collider
-	//Collider* collider = nullptr;
 
 	// Original spawn position. Stored for movement calculations
 	iPoint spawnPosition;

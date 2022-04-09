@@ -42,6 +42,7 @@ public:
 
 public:
 
+
 	CharacterType characterType;
 
 	Collider* battleCollider;
