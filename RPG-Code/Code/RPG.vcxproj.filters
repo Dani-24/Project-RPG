@@ -41,7 +41,6 @@
     <ClCompile Include="Source\Tools\Collider.cpp" />
     <ClCompile Include="Source\Modules\Collisions.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\NPCEntity.cpp" />
-    <ClCompile Include="Source\Modules\EntityClasses\GallinaNPC.cpp" />
     <ClCompile Include="Source\Modules\Camera.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Cock.cpp" />
   </ItemGroup>
@@ -107,7 +106,6 @@
     <ClInclude Include="Source\Tools\Collider.h" />
     <ClInclude Include="Source\Modules\Collisions.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPCEntity.h" />
-    <ClInclude Include="Source\Modules\EntityClasses\GallinaNPC.h" />
     <ClInclude Include="Source\Modules\Camera.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Cock.h" />
   </ItemGroup>
