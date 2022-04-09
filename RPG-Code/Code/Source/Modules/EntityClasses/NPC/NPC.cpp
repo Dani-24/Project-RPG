@@ -23,17 +23,26 @@ NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 
 		break;
 	case NPCType::BARKEEPER:
-
+		idleAnim.PushBack({ 9, 9, 34, 47 });
+		idleAnim.PushBack({ 60, 7, 34, 47 });
+		idleAnim.PushBack({ 114, 9, 32, 47 });
+		
 		configName = "barkeeper";
 
 		break;
 	case NPCType::MERCHANT:
-
+		idleAnim.PushBack({ 2, 2, 28, 28 });
+		idleAnim.PushBack({ 32, 2, 30, 28 });
+		idleAnim.PushBack({ 66, 2, 28, 28 });
+		idleAnim.PushBack({ 96, 2, 30, 28 });
 		configName = "merchant";
 
 		break;
 	case NPCType::TRAINER:
-
+		idleAnim.PushBack({ 2, 2, 28, 28 });
+		idleAnim.PushBack({ 32, 2, 30, 28 });
+		idleAnim.PushBack({ 66, 2, 28, 28 });
+		idleAnim.PushBack({ 96, 2, 30, 28 });
 		configName = "trainer";
 
 		break;
