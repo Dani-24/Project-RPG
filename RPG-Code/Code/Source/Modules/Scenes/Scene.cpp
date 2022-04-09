@@ -57,14 +57,14 @@ bool Scene::Start()
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
 
 	// Player Entity
-	player = (Player*)app->entities->CreateEntity(EntityType::DYNAMIC);
+	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER);
 	player->position = { 950, 950 };
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
 
 	// Gallina Entity
-	cock = (Cock*)app->entities->CreateEntity(EntityType::DYNAMIC);
+	cock = (Cock*)app->entities->CreateEntity(NPCType::COCK);
 	cock->position = { 950, 950 };
 	app->stages->cockPtr = cock;
 	

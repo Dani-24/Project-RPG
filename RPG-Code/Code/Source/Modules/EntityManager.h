@@ -10,6 +10,10 @@ class DynamicEntity;
 class StaticEntity;
 
 enum class EntityType;
+enum class EntityType;
+enum class DynamicType;
+enum class CharacterType;
+enum class NPCType;
 
 class EntityManager : public Module
 {
@@ -30,6 +34,9 @@ public:
 
 
 	Entity* CreateEntity(EntityType type);
+	Entity* CreateEntity(DynamicType type);
+	Entity* CreateEntity(CharacterType type);
+	Entity* CreateEntity(NPCType type);
 
 	Entity* FindEntity(EntityType type);
 

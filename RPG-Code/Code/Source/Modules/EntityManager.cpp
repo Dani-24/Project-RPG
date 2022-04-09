@@ -162,36 +162,83 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return false;
 }
 
-Entity* EntityManager::CreateEntity(EntityType type)
+
+Entity* EntityManager::CreateEntity(DynamicType type)
 {
-	/*Player* retPlayer = new Player();
-	Enemies* retEnemy = new Enemies();
-	Items* retItem = new Items();*/
 	Entity* ret = nullptr;
-
-	//Player* retPlayer = new Player();
-
 
 	switch (type)
 	{
-	case EntityType::DYNAMIC:
-
-		/*ret = retPlayer;
-		ret->playerList.push_back(retPlayer);*/
-
-		ret = new Player();
-
+	case DynamicType::CHARACTER:
 
 		break;
-	case EntityType::STATIC:
+	case DynamicType::ENEMY:
 
+		break;
+	case DynamicType::NPC:
 
-		//ret = retPlayer;
-		/*ret = retEnemy;
-		ret->enemyList.push_back(retEnemy);*/
+		break;
+	case DynamicType::INTERACTABLE:
 
 		break;
 	default:
+
+		LOG("ERROR: Entity Type not set when creating");
+		break;
+	}
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(CharacterType type)
+{
+	Entity* ret = nullptr;
+
+	switch (type)
+	{
+	case CharacterType::PLAYER:
+
+		ret = new Player();
+
+		break;
+	case CharacterType::PARTY:
+
+		break;
+	default:
+
+		LOG("ERROR: Entity Type not set when creating");
+		break;
+	}
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+Entity* EntityManager::CreateEntity(NPCType type)
+{
+	Entity* ret = nullptr;
+
+	switch (type)
+	{
+	case NPCType::COCK:
+
+		ret = new Cock();
+
+		break;
+	case NPCType::BARKEEPER:
+
+		break;
+	case NPCType::MERCHANT:
+
+		break;
+	default:
+
 		LOG("ERROR: Entity Type not set when creating");
 		break;
 	}
