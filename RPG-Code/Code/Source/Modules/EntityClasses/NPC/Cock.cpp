@@ -14,15 +14,70 @@ Cock::Cock() : NPC(NPCType::COCK)
 {
 
 	idleAnim.PushBack({ 2, 2, 28, 28 });
+		idleAnim.PushBack({ 32, 2, 30, 28 });
+		idleAnim.PushBack({ 66, 2, 28, 28 });
+		idleAnim.PushBack({ 96, 2, 30, 28 });
+
+		currentAnimation = &idleAnim; //player start with idle anim
+
+		configName = "cock";
+
+		position.x = 950;
+		position.y = 950;
+
+	
+}
+Cock::Cock() : NPC(NPCType::BARKEEPER)
+{
+
+	idleAnim.PushBack({ 2, 2, 28, 28 });
 	idleAnim.PushBack({ 32, 2, 30, 28 });
 	idleAnim.PushBack({ 66, 2, 28, 28 });
 	idleAnim.PushBack({ 96, 2, 30, 28 });
 
 	currentAnimation = &idleAnim; //player start with idle anim
 
-	configName = "cock";
-}
+	configName = "barkeeper";
 
+	position.x = 950;
+	position.y = 950;
+
+
+}
+Cock::Cock() : NPC(NPCType::MERCHANT)
+{
+
+	idleAnim.PushBack({ 2, 2, 28, 28 });
+	idleAnim.PushBack({ 32, 2, 30, 28 });
+	idleAnim.PushBack({ 66, 2, 28, 28 });
+	idleAnim.PushBack({ 96, 2, 30, 28 });
+
+	currentAnimation = &idleAnim; //player start with idle anim
+
+	configName = "merchant";
+
+	position.x = 950;
+	position.y = 950;
+
+
+}
+Cock::Cock() : NPC(NPCType::TRAINER)
+{
+
+	idleAnim.PushBack({ 2, 2, 28, 28 });
+	idleAnim.PushBack({ 32, 2, 30, 28 });
+	idleAnim.PushBack({ 66, 2, 28, 28 });
+	idleAnim.PushBack({ 96, 2, 30, 28 });
+
+	currentAnimation = &idleAnim; //player start with idle anim
+
+	configName = "trainer";
+
+	position.x = 950;
+	position.y = 950;
+
+
+}
 // Destructor
 Cock::~Cock()
 {}
@@ -44,8 +99,7 @@ bool Cock::Start()
 
 	CockTex = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
 
-	position.x = 950;
-	position.y = 950;
+
 
 	return ret;
 }

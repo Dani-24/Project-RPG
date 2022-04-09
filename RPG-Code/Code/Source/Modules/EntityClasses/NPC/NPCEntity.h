@@ -20,14 +20,15 @@ enum class NPCType
 {
 	COCK,
 	BARKEEPER,
-	MERCHANT
+	MERCHANT,
+	TRAINER
 };
 
 class NPC : public DynamicEntity
 {
 public:
 
-	NPC(NPCType type);
+	NPC(NPCType type, int x, int y);
 	~NPC();
 
 	virtual bool Awake(pugi::xml_node& config);
@@ -44,6 +45,7 @@ public:
 
 public:
 
+	int NPCid;
 	bool isMerchant;
 
 	bool hasMovement;
@@ -54,7 +56,9 @@ public:
 
 	Animation* currentAnimationNPC = nullptr;
 	Animation idleAnimNPC;
-
+	Animation* currentAnimation = nullptr;
+	Animation idleAnim;
+	iPoint position;
 };
 
 #endif // !__NPC_H__

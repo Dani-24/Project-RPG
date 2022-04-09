@@ -34,12 +34,11 @@ public:
 	virtual bool CleanUp();
 
 public:
-	iPoint position;
+	
 
 	SDL_Texture* CockTex = nullptr;
 
-	Animation* currentAnimation = nullptr;
-	Animation idleAnim;
+	
 
 };
 

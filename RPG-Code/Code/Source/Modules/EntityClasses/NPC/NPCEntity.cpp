@@ -1,13 +1,17 @@
 #include "EntityManager.h"
-
+#include"Animation.h"
 #include "Entity.h"
 #include "DynamicEntity.h"
 #include "NPCEntity.h"
 
-NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
+NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 {
 	this->NpcType = NPCType;
+
+	
 }
+
+
 
 NPC::~NPC()
 {}
