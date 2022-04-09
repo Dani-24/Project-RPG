@@ -20,6 +20,8 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include <time.h>
+
 Scene::Scene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("scene");
@@ -57,16 +59,20 @@ bool Scene::Start()
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
 
 	// Player Entity
-	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER);
-	player->position = { 950, 950 };
+	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 950);
+	//player->position = { 950, 950 };
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
-
+	srand(time(NULL));
+	int randX = (rand() % (1250 - 650)) + 650;
+	int randY = (rand() % (1250 - 650)) + 650;
 	// Cock Entity
-	cock = (Cock*)app->entities->CreateEntity(NPCType::COCK);
-	cock->position = { 950, 950 };
-	app->stages->cockPtr = cock;
+	Cock* cock = (Cock*)app->entities->CreateEntity(NPCType::COCK, randX, randY);
+	npcList.add(cock);
+	cock->activeOnStage = StageIndex::TOWN;
+	//cock->position = { 950, 950 };
+	//app->stages->npcListPtr.At(npcList.count())->data = (Cock*)npcList.At(npcList.count());
 
 
 

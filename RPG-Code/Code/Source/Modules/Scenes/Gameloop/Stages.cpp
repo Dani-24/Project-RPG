@@ -23,7 +23,6 @@ Stages::Stages(App* application, bool start_enabled) : Module(application, start
 
 	actualStage = StageIndex::NONE;
 	playerPtr = nullptr;
-	cockPtr = nullptr;
 
 	pause = false;
 }
@@ -117,18 +116,26 @@ bool Stages::PostUpdate()
 			if (playerPtr->PlayerErection == false) {
 				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
-			//LOG("Player null = FALSE");
 		}
-		else {
-			int a = 6;
-			//LOG("Player null = TRUE");
-		}
-		
-		int i = 7;
+
 
 		break;
 
 	}
+
+	//PRINTS THE COCKS
+	ListItem<NPC*>* npcInList;
+	npcListPtr = app->scene->npcList;
+	npcInList = npcListPtr.start;
+	for (npcInList = npcListPtr.start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+	{
+		if (npcInList->data->activeOnStage == app->stages->actualStage) {
+			npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+
+		}
+	}
+
 	return ret;
 }
 

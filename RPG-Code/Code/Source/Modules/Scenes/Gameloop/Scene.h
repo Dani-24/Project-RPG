@@ -8,6 +8,7 @@
 struct SDL_Texture;
 class Player;
 class Cock;
+class NPC;
 
 class Scene : public Module
 {
@@ -50,7 +51,8 @@ public:
 	bool pause;
 
 	Player* player = nullptr;
-	Cock* cock = nullptr;
+	List<NPC*> npcList;
+	//Cock* cock = nullptr;
 };
 
 #endif // __SCENE_H__

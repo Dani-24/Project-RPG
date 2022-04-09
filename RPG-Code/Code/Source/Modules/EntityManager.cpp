@@ -162,8 +162,35 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return false;
 }
 
+Entity* EntityManager::CreateEntity(EntityType type, int x, int y)
+{
+	Entity* ret = nullptr;
 
-Entity* EntityManager::CreateEntity(DynamicType type)
+	switch (type)
+	{
+	case EntityType::DYNAMIC:
+
+		break;
+	case EntityType::STATIC:
+
+		break;
+
+	default:
+
+		LOG("ERROR: Entity Type not set when creating");
+		break;
+	}
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+		ret->position.x = x;
+		ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(DynamicType type, int x, int y)
 {
 	Entity* ret = nullptr;
 
@@ -189,12 +216,14 @@ Entity* EntityManager::CreateEntity(DynamicType type)
 
 	if (ret != nullptr) {
 		entityList.add(ret);
+		ret->position.x = x;
+		ret->position.y = y;
 	}
 
 	return ret;
 }
 
-Entity* EntityManager::CreateEntity(CharacterType type)
+Entity* EntityManager::CreateEntity(CharacterType type, int x, int y)
 {
 	Entity* ret = nullptr;
 
@@ -203,7 +232,6 @@ Entity* EntityManager::CreateEntity(CharacterType type)
 	case CharacterType::PLAYER:
 
 		ret = new Player();
-
 		break;
 	case CharacterType::PARTY:
 
@@ -216,11 +244,13 @@ Entity* EntityManager::CreateEntity(CharacterType type)
 
 	if (ret != nullptr) {
 		entityList.add(ret);
+		ret->position.x = x;
+		ret->position.y = y;
 	}
 
 	return ret;
 }
-Entity* EntityManager::CreateEntity(NPCType type)
+Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 {
 	Entity* ret = nullptr;
 
@@ -251,6 +281,8 @@ Entity* EntityManager::CreateEntity(NPCType type)
 
 	if (ret != nullptr) {
 		entityList.add(ret);
+		ret->position.x = x;
+		ret->position.y = y;
 	}
 
 	return ret;

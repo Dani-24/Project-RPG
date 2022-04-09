@@ -54,7 +54,8 @@ public:
 	iPoint position;
 
 	// The entity's texture
-	SDL_Texture* sprite = nullptr;
+	SDL_Texture* spriteText = nullptr;
+	SDL_Rect spriteRect;
 
 	// Sound fx when destroyed
 	int destroyedFx = 0;

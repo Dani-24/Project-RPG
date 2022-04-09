@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include "DynamicEntity.h"
 #include "NPC.h"
+#include "App.h"
+#include "Scene.h"
 
 NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 {
@@ -43,8 +45,7 @@ NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 	//player start with idle anim
 	currentAnimation = &idleAnim;
 
-	position.x = 950;
-	position.y = 950;
+	npcId = app->scene->npcList.count();
 
 }
 
@@ -64,7 +65,7 @@ bool NPC::Start()
 {
 	bool ret = true;
 
-	sprite = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
+	spriteText = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
 
 	return true;
 }
@@ -81,7 +82,7 @@ bool NPC::Update(float dt)
 
 	currentAnimation->Update(dt);
 
-
+	LOG("%d, %d", position.x, position.y);
 
 	return ret;
 }
@@ -90,8 +91,8 @@ bool NPC::Update(float dt)
 bool NPC::PostUpdate()
 {
 	bool ret = true;
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(sprite, position.x, position.y, &rect);
+	/*SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(sprite, position.x, position.y, &rect);*/
 
 	return true;
 }
@@ -99,7 +100,7 @@ bool NPC::PostUpdate()
 // Called before quitting
 bool NPC::CleanUp()
 {
-	app->tex->UnLoad(sprite);
+	app->tex->UnLoad(spriteText);
 
 	currentAnimation = nullptr;
 

@@ -8,6 +8,7 @@
 struct SDL_Texture;
 class Player;
 class Cock;
+class NPC;
 
 enum class StageIndex {
 	NONE,
@@ -51,7 +52,7 @@ public:
 	StageIndex actualStage;
 
 	Player* playerPtr;
-	Cock* cockPtr;
+	List<NPC*> npcListPtr;
 };
 
 #endif // __STAGES_H__
