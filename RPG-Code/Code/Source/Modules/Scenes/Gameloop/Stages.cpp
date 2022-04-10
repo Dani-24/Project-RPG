@@ -150,6 +150,9 @@ void Stages::ChangeStage(StageIndex newStage) {
 	switch (newStage)
 	{
 	case StageIndex::NONE:
+
+		app->map->RemoveCol();
+
 		playerPtr = nullptr;
 		delete playerPtr;
 

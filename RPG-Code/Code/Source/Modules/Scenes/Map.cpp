@@ -274,7 +274,7 @@ bool Map::CleanUp()
 {
     LOG("Unloading map");
 
-	RemoveCol();
+	//RemoveCol();
 
     // Make sure you clean up any memory allocated from tilesets/map
     // Remove all tilesets
@@ -299,6 +299,8 @@ bool Map::CleanUp()
 		item2 = item2->next;
 	}
 	mapData.layers.clear();
+
+	app->entities->DestroyEntity(wallsEntity);
 
     return true;
 }
@@ -582,7 +584,10 @@ void Map::RemoveCol() {
 					SDL_Rect r = tileset->GetTileRect(gid);
 					iPoint pos = MapToWorld(x, y);
 
-					app->collisions->RemoveCollider(mapWalls[i]);
+					if (mapWalls[i] != nullptr) {
+						app->collisions->RemoveCollider(mapWalls[i]);
+					}
+					
 					i++;
 				}
 

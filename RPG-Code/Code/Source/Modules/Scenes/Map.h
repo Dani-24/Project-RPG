@@ -178,11 +178,6 @@ public:
 
 	Entity* wallsEntity;
 
-	int contador1 = 0;
-	int contador2 = 0;
-
-	const char* wallChar3;
-
 private:
 
     SString folder;

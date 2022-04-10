@@ -50,9 +50,9 @@ Player::Player() : Character(CharacterType::PLAYER)
 	configName = "player";
 
 	margin = 10;
-	colDownDistance = 36;
+	colDownDistance = 26;
 
-	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  20 }, Collider::Type::PLAYER, this);
+	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
 
 }
 
@@ -118,7 +118,7 @@ bool Player::Update(float dt) {
 	}
 
 	baseCollider->rect.x = position.x;
-	baseCollider->rect.y = position.y+36;
+	baseCollider->rect.y = position.y + colDownDistance;
 
 	return ret;
 }
