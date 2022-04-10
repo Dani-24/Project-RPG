@@ -20,6 +20,7 @@ void Entity::Draw()
 	if (currentAnimation != nullptr) {
 		
 		app->render->DrawTexture(spriteText, position.x, position.y, &(currentAnimation->GetCurrentFrame()));
+		app->render->DrawTexture(spriteTextB, position.x, position.y, &(currentAnimation->GetCurrentFrame()));
 		
 	}
 }

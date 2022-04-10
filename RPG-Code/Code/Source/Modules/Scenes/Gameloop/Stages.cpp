@@ -130,22 +130,34 @@ bool Stages::PostUpdate()
 
 	}
 
-	if (onBattle == false) {
-		//PRINTS THE COCKS
-		if (npcListPtr != nullptr) {
-			ListItem<NPC*>* npcInList;
-			npcInList = npcListPtr->start;
-			for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-			{
-				if (npcInList->data->activeOnStage == app->stages->actualStage) {
-					npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-					app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+	//PRINTS THE COCKS
+	if (npcListPtr != nullptr) {
+		ListItem<NPC*>* npcInList;
+		npcInList = npcListPtr->start;
+		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+		{
+			if (npcInList->data->activeOnStage == app->stages->actualStage) {
+				npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 
-				}
 			}
 		}
 	}
 	
+	//PRINTS THE BARKEEPER
+	if (npcListPtr != nullptr) {
+		ListItem<NPC*>* npcInList;
+		npcInList = npcListPtr->start;
+		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+		{
+			if (npcInList->data->activeOnStage == app->stages->actualStage) {
+				npcInList->data->spriteRectB = npcInList->data->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(npcInList->data->spriteTextB, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRectB);
+
+
+			}
+		}
+	}
 
 	return ret;
 }
