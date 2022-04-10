@@ -24,8 +24,8 @@ class Entity
 {
 public:
 
+	Entity();
 	Entity(EntityType type);
-	Entity(EntityType type, int x, int y);
 	~Entity();
 
 	virtual bool Awake(pugi::xml_node& config) { return true; };

@@ -162,6 +162,19 @@ bool EntityManager::Load(pugi::xml_node& file)
 	return false;
 }
 
+Entity* EntityManager::CreateEntity( int x, int y)
+{
+	Entity* ret = new Entity();
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+		ret->position.x = x;
+		ret->position.y = y;
+	}
+
+	return ret;
+}
+
 Entity* EntityManager::CreateEntity(EntityType type, int x, int y)
 {
 	Entity* ret = nullptr;
@@ -232,10 +245,13 @@ Entity* EntityManager::CreateEntity(CharacterType type, int x, int y)
 	case CharacterType::PLAYER:
 
 		ret = new Player();
+
 		break;
+
 	case CharacterType::PARTY:
 
 		break;
+
 	default:
 
 		LOG("ERROR: Entity Type not set when creating");
@@ -259,20 +275,23 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 	case NPCType::COCK:
 
 		ret = new NPC(NPCType::COCK);
-
 		break;
+
 	case NPCType::BARKEEPER:
 
 		ret = new NPC(NPCType::BARKEEPER);
 		break;
+
 	case NPCType::MERCHANT:
 
 		ret = new NPC(NPCType::MERCHANT);
 		break;
+	
 	case NPCType::TRAINER:
 
 		ret = new NPC(NPCType::TRAINER);
 		break;
+
 	default:
 
 		LOG("ERROR: Entity Type not set when creating");

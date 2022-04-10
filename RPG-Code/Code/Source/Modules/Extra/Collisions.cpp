@@ -99,16 +99,20 @@ bool Collisions::PreUpdate()
 
 bool Collisions::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
-
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+		debug==true? debug = false: debug = true;
+		int u = 9;
+	}
+	
+	//debug ? LOG("DEBUG ACTIVADO") : LOG("DEBUG DESACTIVADO");
 	return true;
 }
 
 bool Collisions::PostUpdate()
 {
-	if (debug)
+	if (debug) {
 		DebugDraw();
+	}
 
 	return true;
 }
@@ -118,8 +122,11 @@ void Collisions::DebugDraw()
 	Uint8 alpha = 80;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] == nullptr)
+		int t = 8;
+		if (colliders[i] == nullptr) {
 			continue;
+		}
+			
 
 		if (app->stages->actualStage == StageIndex::TOWN) {
 

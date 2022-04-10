@@ -82,7 +82,7 @@ bool NPC::Update(float dt)
 
 	currentAnimation->Update(dt);
 
-	LOG("%d, %d", position.x, position.y);
+	//LOG("%d, %d", position.x, position.y);
 
 	return ret;
 }

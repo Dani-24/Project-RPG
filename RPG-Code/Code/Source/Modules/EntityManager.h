@@ -31,10 +31,11 @@ public:
 	bool Load(pugi::xml_node& file);
 
 
-	Entity* CreateEntity(EntityType type, int x, int y);
-	Entity* CreateEntity(DynamicType type, int x, int y);
-	Entity* CreateEntity(CharacterType type, int x, int y);
-	Entity* CreateEntity(NPCType type, int x, int y);
+	Entity* CreateEntity(int x = 0, int y = 0);
+	Entity* CreateEntity(EntityType type, int x = 0, int y = 0);
+	Entity* CreateEntity(DynamicType type, int x = 0, int y = 0);
+	Entity* CreateEntity(CharacterType type, int x = 0, int y = 0);
+	Entity* CreateEntity(NPCType type, int x = 0, int y = 0);
 
 	Entity* FindEntity(EntityType type);
 

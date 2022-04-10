@@ -1,15 +1,14 @@
 #include "Entity.h"
 #include "EntityManager.h"
 
-
-Entity::Entity(EntityType entType) : entityType(entType)
+Entity::Entity()
 {
 	configName = "entity";
 }
 
-Entity::Entity(EntityType type, int x, int y) : position(x, y), entityType(type)
+Entity::Entity(EntityType entType) : entityType(entType)
 {
-	spawnPosition = position;
+	configName = "entity";
 }
 
 Entity::~Entity()
