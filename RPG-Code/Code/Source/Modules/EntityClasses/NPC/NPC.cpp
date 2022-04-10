@@ -75,6 +75,7 @@ bool NPC::Start()
 	bool ret = true;
 
 	spriteText = app->tex->Load("Assets/sprites/npc/Taberna/chicken.png");
+	spriteTextB = app->tex->Load("Assets/sprites/npc/Taberna/NpcTaberna.png");
 
 	return true;
 }
@@ -110,6 +111,7 @@ bool NPC::PostUpdate()
 bool NPC::CleanUp()
 {
 	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTextB);
 
 	currentAnimation = nullptr;
 

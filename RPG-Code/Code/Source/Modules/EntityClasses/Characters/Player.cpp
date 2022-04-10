@@ -142,6 +142,7 @@ bool Player::CleanUp() {
 
 	//Textures
 	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTextB);
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 

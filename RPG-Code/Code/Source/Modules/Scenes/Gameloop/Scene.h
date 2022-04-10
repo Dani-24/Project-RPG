@@ -8,7 +8,9 @@
 struct SDL_Texture;
 class Player;
 class Cock;
+class Barkeeper;
 class NPC;
+
 
 class Scene : public Module
 {

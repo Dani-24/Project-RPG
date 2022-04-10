@@ -8,6 +8,7 @@
 struct SDL_Texture;
 class Player;
 class Cock;
+
 class NPC;
 
 enum class StageIndex {

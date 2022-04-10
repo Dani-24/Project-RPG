@@ -66,10 +66,17 @@ bool Scene::Start()
 	srand(time(NULL));
 	int randX = (rand() % (1250 - 650)) + 650;
 	int randY = (rand() % (1250 - 650)) + 650;
+	int x = 950;
+	int y = 950;
 	// Cock Entity
 	Cock* cock = (Cock*)app->entities->CreateEntity(NPCType::COCK, randX, randY);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;
+
+	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, x, y);
+	npcList.add(barkeeper);
+	barkeeper->activeOnStage = StageIndex::TOWN;
+
 	//cock->position = { 950, 950 };
 	//app->stages->npcListPtr.At(npcList.count())->data = (Cock*)npcList.At(npcList.count());
 
