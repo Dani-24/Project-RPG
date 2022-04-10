@@ -132,11 +132,20 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp() {
 
+	//Collisions
 	app->collisions->RemoveCollider(baseCollider);
+	app->collisions->RemoveCollider(battleCollider);
+
+	//Animations
+	currentAnimation = nullptr;
+	delete currentAnimation;
+
+	//Textures
+	app->tex->UnLoad(spriteText);
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 
-	currentAnimation = nullptr;
+	
 
 	return true;
 }

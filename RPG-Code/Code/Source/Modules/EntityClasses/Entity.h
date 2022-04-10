@@ -63,9 +63,8 @@ public:
 	// A flag for the entity removal. Important! We do not delete objects instantly
 	bool pendingToDelete = false;
 
-
 	// A ptr to the current animation
-	Animation* currentAnim = nullptr;
+	Animation* currentAnimation = nullptr;
 
 	// Original spawn position. Stored for movement calculations
 	iPoint spawnPosition;

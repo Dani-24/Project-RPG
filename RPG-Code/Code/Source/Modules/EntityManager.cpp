@@ -338,6 +338,7 @@ void EntityManager::DestroyEntity(Entity* entity)
 	for (entityInList = entityList.start; entityInList != nullptr; entityInList = entityInList->next)
 	{
 		if (entityInList->data == entity) {
+			entityInList->data->CleanUp();
 			entityList.del(entityInList);
 		}
 	}

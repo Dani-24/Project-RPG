@@ -52,7 +52,7 @@ public:
 	StageIndex actualStage;
 
 	Player* playerPtr;
-	List<NPC*> npcListPtr;
+	List<NPC*> *npcListPtr;
 };
 
 #endif // __STAGES_H__

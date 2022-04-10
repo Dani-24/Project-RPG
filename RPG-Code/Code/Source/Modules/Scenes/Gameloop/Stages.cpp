@@ -127,17 +127,19 @@ bool Stages::PostUpdate()
 	}
 
 	//PRINTS THE COCKS
-	ListItem<NPC*>* npcInList;
-	npcListPtr = app->scene->npcList;
-	npcInList = npcListPtr.start;
-	for (npcInList = npcListPtr.start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-	{
-		if (npcInList->data->activeOnStage == app->stages->actualStage) {
-			npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-			app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+	if (npcListPtr != nullptr) {
+		ListItem<NPC*>* npcInList;
+		npcInList = npcListPtr->start;
+		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+		{
+			if (npcInList->data->activeOnStage == app->stages->actualStage) {
+				npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+				app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 
+			}
 		}
 	}
+	
 
 	return ret;
 }
@@ -148,7 +150,11 @@ void Stages::ChangeStage(StageIndex newStage) {
 	switch (newStage)
 	{
 	case StageIndex::NONE:
+		playerPtr = nullptr;
+		delete playerPtr;
 
+		npcListPtr = nullptr;
+		delete npcListPtr;
 		break;
 
 	case StageIndex::TOWN:

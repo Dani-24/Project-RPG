@@ -81,8 +81,6 @@ public:
 
 	Collider* baseCollider;
 
-	Animation* currentAnimation = nullptr;
-
 	Animation idleAnim;
 
 	Stats EStats;

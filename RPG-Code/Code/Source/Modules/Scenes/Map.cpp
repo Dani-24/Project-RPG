@@ -274,6 +274,8 @@ bool Map::CleanUp()
 {
     LOG("Unloading map");
 
+	RemoveCol();
+
     // Make sure you clean up any memory allocated from tilesets/map
     // Remove all tilesets
 	ListItem<TileSet*>* item;

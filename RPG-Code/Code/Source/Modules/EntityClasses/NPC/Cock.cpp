@@ -74,6 +74,7 @@ bool Cock::Update(float dt) {
 bool Cock::PostUpdate()
 {
 	bool ret = true;
+
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	//app->render->DrawTexture(CockTex, position.x, position.y, &rect);
 

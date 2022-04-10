@@ -60,7 +60,6 @@ bool Scene::Start()
 
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 950);
-	//player->position = { 950, 950 };
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
@@ -74,7 +73,7 @@ bool Scene::Start()
 	//cock->position = { 950, 950 };
 	//app->stages->npcListPtr.At(npcList.count())->data = (Cock*)npcList.At(npcList.count());
 
-
+	app->stages->npcListPtr = &npcList;
 
 
 	app->camera->SetLimits(640, 350, 4490, 4200);
@@ -170,11 +169,15 @@ bool Scene::CleanUp()
 
 	app->font->CleanFonts();
 
+	//Stages:
 	app->entities->DestroyEntity(player);
-
+	
 	app->stages->ChangeStage(StageIndex::NONE);
+	
+	npcList.clear();
 
 	app->map->Disable();
+
 	app->enemyMovement->Disable();
 
 	return true;

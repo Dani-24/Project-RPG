@@ -53,7 +53,7 @@ public:
 	SDL_Texture* PlayerFTex = nullptr;
 
 	//player animations
-	Animation* currentAnimation = nullptr;
+
 	Animation
 		walkAnimUp,
 		walkAnimDown,

@@ -17,9 +17,9 @@ Entity::~Entity()
 
 void Entity::Draw()
 {
-	if (currentAnim != nullptr) {
+	if (currentAnimation != nullptr) {
 		
-		app->render->DrawTexture(spriteText, position.x, position.y, &(currentAnim->GetCurrentFrame()));
+		app->render->DrawTexture(spriteText, position.x, position.y, &(currentAnimation->GetCurrentFrame()));
 		
 	}
 }
