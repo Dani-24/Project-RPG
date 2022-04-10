@@ -2,7 +2,9 @@
 #define __TITLE_H__
 
 #include "Module.h"
+#include "GuiButton.h"
 #include "Animation.h"
+
 
 struct SDL_Texture;
 
@@ -21,6 +23,9 @@ public:
 	// Called before the first frame
 	bool Start();
 
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 	// Called before all Updates
 	bool PreUpdate();
 
@@ -30,17 +35,33 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	
+
 	// Called before quitting
 	bool CleanUp();
 
 private:
 
+	GuiButton* btn1;
+	GuiButton* btn2;
+
 	SDL_Texture* title;
-	SDL_Texture* buttonsUI;
+	SDL_Texture* startb;
+	SDL_Texture* continueb;
+	SDL_Texture* optionsb;
+	SDL_Texture* creditsb;
+	SDL_Texture* exitb;
+
 
 	int confirmFx;
 
 	bool pause;
+
+	bool start;
+	bool continu;
+	bool options;
+	bool credits;
+	bool exit;
 
 };
 
