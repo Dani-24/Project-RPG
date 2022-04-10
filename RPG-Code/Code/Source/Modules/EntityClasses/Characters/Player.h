@@ -32,6 +32,8 @@ public:
 	bool PostUpdate() override;
 	bool CleanUp() override;
 
+	void OnCollision(Collider *collider1, Collider* collider2) override;
+
 	//All player movement
 	void MovementPlayer(float dt);
 
@@ -69,6 +71,14 @@ public:
 	bool canMove;
 
 	fPoint cameraSpeed = { 0.1f , 0.1f };
+
+	//Colisions:
+
+	//Distance from player top to his collider
+	int colDownDistance;
+
+	//Margin pixels from edge of colliders 
+	int margin;
 
 };
 #endif !__PLAYER_H__

@@ -48,6 +48,12 @@ Player::Player() : Character(CharacterType::PLAYER)
 	canMove = true;
 
 	configName = "player";
+
+	margin = 10;
+	colDownDistance = 36;
+
+	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  20 }, Collider::Type::PLAYER, this);
+
 }
 
 // Destructor
@@ -61,6 +67,7 @@ bool Player::Awake(pugi::xml_node& config)
 	LOG("Num in config: %d",config.child("exampleNumber").attribute("num").as_int());
 
 	MaleChar = config.child("male").attribute("path").as_string();
+
 
 	return ret;
 }
@@ -110,6 +117,9 @@ bool Player::Update(float dt) {
 
 	}
 
+	baseCollider->rect.x = position.x;
+	baseCollider->rect.y = position.y+36;
+
 	return ret;
 }
 
@@ -122,6 +132,7 @@ bool Player::PostUpdate()
 
 bool Player::CleanUp() {
 
+	app->collisions->RemoveCollider(baseCollider);
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 
@@ -135,45 +146,49 @@ void Player::MovementPlayer(float dt) {
 
 	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
-		position.x += playerSpeed;
-		if (currentAnimation != &walkAnimR)
-		{
-			walkAnimR.Reset();
-			currentAnimation = &walkAnimR;
-			PlayerDirectionRight = 1;
-			PlayerDirectionUp = 0;
-		}
+			position.x += playerSpeed;
+			if (currentAnimation != &walkAnimR)
+			{
+				walkAnimR.Reset();
+				currentAnimation = &walkAnimR;
+				PlayerDirectionRight = 1;
+				PlayerDirectionUp = 0;
+			}
+		
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
 	{
-		position.x -= playerSpeed;
-		if (currentAnimation != &walkAnimL)
-		{
-			walkAnimL.Reset();
-			currentAnimation = &walkAnimL;
-			PlayerDirectionRight = 2;
-			PlayerDirectionUp = 0;
-		}
+			position.x -= playerSpeed;
+			if (currentAnimation != &walkAnimL)
+			{
+				walkAnimL.Reset();
+				currentAnimation = &walkAnimL;
+				PlayerDirectionRight = 2;
+				PlayerDirectionUp = 0;
+			}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) {
-		position.y -= playerSpeed;
-		if (currentAnimation != &walkAnimUp)
-		{
-			walkAnimUp.Reset();
-			currentAnimation = &walkAnimUp;
-			PlayerDirectionUp = 1;
-			PlayerDirectionRight = 0;
-		}
+
+			position.y -= playerSpeed;
+			if (currentAnimation != &walkAnimUp)
+			{
+				walkAnimUp.Reset();
+				currentAnimation = &walkAnimUp;
+				PlayerDirectionUp = 1;
+				PlayerDirectionRight = 0;
+			}
 	}
 	if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) {
-		position.y += playerSpeed;
-		if (currentAnimation != &walkAnimDown)
-		{
-			walkAnimDown.Reset();
-			currentAnimation = &walkAnimDown;
-			PlayerDirectionUp = 2;
-			PlayerDirectionRight = 0;
-		}
+
+			position.y += playerSpeed;
+			if (currentAnimation != &walkAnimDown)
+			{
+				walkAnimDown.Reset();
+				currentAnimation = &walkAnimDown;
+				PlayerDirectionUp = 2;
+				PlayerDirectionRight = 0;
+			}
+		
 	}
 
 	currentAnimation->Update(dt);
@@ -202,6 +217,47 @@ void Player::MovementPlayer(float dt) {
 				idleAnimDown.Reset();
 				currentAnimation = &idleAnimDown;
 			}
+		}
+	}
+}
+
+void Player::OnCollision(Collider* col1, Collider* col2) {
+
+	if (col1 == baseCollider && col2->type == Collider::WALL) {
+
+		//Cant move Left
+		if (col2->rect.x + col2->rect.w > col1->rect.x					&&
+			col2->rect.x + col2->rect.w < col1->rect.x + col1->rect.w	&&
+			col1->rect.y < col2->rect.y + col2->rect.h - margin			&&
+			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
+		
+			this->position.x = col2->rect.x + col2->rect.w;
+		}
+
+		//Cant move Right
+		if (col2->rect.x > col1->rect.x									&&
+			col2->rect.x < col1->rect.x + col1->rect.w					&&
+			col1->rect.y < col2->rect.y + col2->rect.h - margin			&&
+			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
+			
+			this->position.x = col2->rect.x - col1->rect.w;
+		}
+
+		//Cant move Up
+		if (col2->rect.y + col2->rect.h > col1->rect.y					&&
+			col2->rect.y + col2->rect.h < col1->rect.y + col1->rect.h	&&
+			col1->rect.x + col1->rect.w > col2->rect.x + margin			&&
+			col1->rect.x < col2->rect.x + col2->rect.w - margin) {
+			
+			this->position.y = col2->rect.y + col2->rect.h - colDownDistance;
+		}
+		//Cant move Down
+		if (col2->rect.y < col1->rect.y + col1->rect.h					&&
+			col2->rect.y > col1->rect.y									&&
+			col1->rect.x + col1->rect.w > col2->rect.x + margin			&&
+			col1->rect.x < col2->rect.x + col2->rect.w - margin) {
+			
+			this->position.y = col2->rect.y - col1->rect.h - colDownDistance;
 		}
 	}
 }
