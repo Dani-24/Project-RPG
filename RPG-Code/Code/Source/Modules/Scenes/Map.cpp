@@ -32,14 +32,25 @@ T Properties::GetProperty(const char* value, int defaultValue) const
 
 	ListItem<Property*>* item = list.start;
 
+	if (value == "Height") {
+		int u = 5;
+	}
+
 	while (item)
 	{
+		if (value == "Height") {
+			int u = 5;
+		}
+		if (item->data->name == "Height") {
+			int u = 7;
+		}
+
 		if (item->data->name == value) {
+			
 
 			ListItem<const char*>* charValueInList;
 			charValueInList = app->map->charValues.start;
 
-			int uya = 2;
 			for (charValueInList = app->map->charValues.start; charValueInList != NULL; charValueInList = charValueInList->next)
 			{
 				if (charValueInList->data == value)
@@ -84,31 +95,84 @@ void Map::Draw()
 	// Draw all the layers and not just the first one
 	while (mapLayerItem != NULL) {
 
-		if ((int)mapLayerItem->data->properties.GetProperty<int>("Draw") == 1) {
+		if (mapLayerItem->data->isHigh == false) {
 
-			for (int x = 0; x < mapLayerItem->data->width; x++)
-			{
-				for (int y = 0; y < mapLayerItem->data->height; y++)
+			if (mapLayerItem->data->properties.GetProperty<int>("Draw") == 1) {
+
+				for (int x = 0; x < mapLayerItem->data->width; x++)
 				{
-					// L04: DONE 9: Complete the draw function
-					int gid = mapLayerItem->data->Get(x, y);
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						// L04: DONE 9: Complete the draw function
+						int gid = mapLayerItem->data->Get(x, y);
 
-					if (gid > 0) {
+						if (gid > 0) {
 
-						//Obtain the tile set using GetTilesetFromTileId
-						//now we always use the firt tileset in the list
-						//TileSet* tileset = mapData.tilesets.start->data;
-						TileSet* tileset = GetTilesetFromTileId(gid);
+							//Obtain the tile set using GetTilesetFromTileId
+							//now we always use the firt tileset in the list
+							//TileSet* tileset = mapData.tilesets.start->data;
+							TileSet* tileset = GetTilesetFromTileId(gid);
 
-						SDL_Rect r = tileset->GetTileRect(gid);
-						iPoint pos = MapToWorld(x, y);
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
 
-						app->render->DrawTexture(tileset->texture,
-							pos.x,
-							pos.y,
-							&r);
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+
 					}
 
+				}
+
+			}
+
+		}
+
+		mapLayerItem = mapLayerItem->next;
+	}
+}
+
+void Map::ReDraw()
+{
+	if (mapLoaded == false) return;
+
+	// Prepare the loop to draw all tilesets + DrawTexture()
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = mapData.layers.start;
+
+	// Draw all the layers and not just the first one
+	while (mapLayerItem != NULL) {
+
+		if (mapLayerItem->data->isHigh == true) {
+
+			if ((int)mapLayerItem->data->properties.GetProperty<int>("Draw") == 1) {
+
+				for (int x = 0; x < mapLayerItem->data->width; x++)
+				{
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						// L04: DONE 9: Complete the draw function
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							//Obtain the tile set using GetTilesetFromTileId
+							//now we always use the firt tileset in the list
+							//TileSet* tileset = mapData.tilesets.start->data;
+							TileSet* tileset = GetTilesetFromTileId(gid);
+
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
+
+							app->render->DrawTexture(tileset->texture,
+								pos.x,
+								pos.y,
+								&r);
+						}
+
+					}
 				}
 			}
 		}
@@ -383,6 +447,8 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
+	
+	
 
 	// Call Load Propoerties
 	LoadProperties(node, layer->properties);
@@ -400,6 +466,9 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		i++;
 	}
 
+	//LOG("%d", layer->properties.GetProperty<int>("Height"));
+	layer->properties.GetProperty<int>("Height") == 1 ? layer->isHigh = true : layer->isHigh = false;
+	
 	return ret;
 }
 

@@ -79,6 +79,8 @@ struct MapLayer
 	int height;
 	uint* data;
 
+	bool isHigh;
+
 	// Support custom properties
 	Properties properties;
 
@@ -129,6 +131,7 @@ public:
 
     // Called each loop iteration
     void Draw();
+	void ReDraw();
 
     // Called before quitting
     bool CleanUp();
@@ -167,6 +170,7 @@ public:
 	void RemoveCol();
 
 	Collider* mapWalls[2000];
+	//TileSet* mapTiles[3600];
 
 	
 	List<const char*>charValues;

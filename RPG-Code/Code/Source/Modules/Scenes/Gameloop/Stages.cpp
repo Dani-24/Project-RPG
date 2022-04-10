@@ -101,6 +101,7 @@ bool Stages::PostUpdate()
 		app->map->Draw();
 		app->guiManager->Draw();
 
+		//Print skeletons
 		/*for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
@@ -117,6 +118,8 @@ bool Stages::PostUpdate()
 				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
+
+		app->map->ReDraw();
 
 
 		break;
