@@ -45,7 +45,7 @@ struct Properties
 		//...
 		SString name;
 		int intValue;
-		const char* charValue;
+		SString charValue;
 
 	};
 	
@@ -67,6 +67,8 @@ struct Properties
 	// L06: DONE 7: Method to ask for the value of a custom property
 	template <class T>
 	T GetProperty(const char* name, int default_value = 0) const;
+	int GetPropertyInt(const char* name, int default_value = 0) const;
+	const char* GetPropertyChar(const char* name, const char* default_value = 0) const;
 
 	List<Property*> list;
 };
@@ -169,12 +171,11 @@ public:
 	void LoadCol();
 	void RemoveCol();
 
-	Collider* mapWalls[2000];
+	Collider* mapWalls[4000];
 	//TileSet* mapTiles[3600];
 
 	
 	List<const char*>charValues;
-	List<int>intValues;
 
 	Entity* wallsEntity;
 

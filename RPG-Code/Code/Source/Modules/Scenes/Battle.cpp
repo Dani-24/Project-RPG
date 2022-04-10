@@ -19,6 +19,11 @@
 Battle::Battle(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("battle");
+
+	battlePause = false;
+	playerBattleSprite = nullptr;
+	townBattleBackground = nullptr;
+	battleStage = nullptr;
 }
 
 Battle::~Battle()
@@ -26,15 +31,29 @@ Battle::~Battle()
 
 bool Battle::Awake()
 {
-	LOG("Loading Scene");
 	bool ret = true;
-
+	
 	return ret;
 }
 
 bool Battle::Start()
 {
+	LOG("Loading Battle");
+	
+	battleStage = &app->stages->actualStage;
 
+	switch (*battleStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		townBattleBackground = app->tex->Load("Assets/textures/glob.png");
+		break;
+	default:
+		break;
+	}
+
+	//app->map->RemoveCol();
+	
 	return true;
 }
 
@@ -58,6 +77,9 @@ bool Battle::Update(float dt)
 
 
 	}
+	else {
+
+	}
 
 
 
@@ -68,18 +90,29 @@ bool Battle::Update(float dt)
 bool Battle::PostUpdate()
 {
 	bool ret = true;
+	if (battleStage != nullptr) {
+		switch (*battleStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			app->render->DrawTexture(townBattleBackground, 0, 0);
+			break;
+		default:
+			break;
+		}
+		//app->map->Draw();
+		//app->guiManager->Draw();
 
-	//app->map->Draw();
-	//app->guiManager->Draw();
-
-	//PRINT THE PLAYER
-	SDL_Rect rect = player->currentAnimation->GetCurrentFrame();
-	if (player->PlayerErection == true) {
-		app->render->DrawTexture(player->PlayerMTex, player->position.x, player->position.y, &rect);
+		//PRINT THE PLAYER
+		/*SDL_Rect rect = player->currentAnimation->GetCurrentFrame();
+		if (player->PlayerErection == true) {
+			app->render->DrawTexture(player->PlayerMTex, player->position.x, player->position.y, &rect);
+		}
+		if (player->PlayerErection == false) {
+			app->render->DrawTexture(player->PlayerFTex, player->position.x, player->position.y, &rect);
+		}*/
 	}
-	if (player->PlayerErection == false) {
-		app->render->DrawTexture(player->PlayerFTex, player->position.x, player->position.y, &rect);
-	}
+	
 
 	return ret;
 }
@@ -115,8 +148,6 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool Battle::CleanUp()
 {
-
-	//app->tex->UnLoad(img);
-
+	app->map->LoadCol();
 	return true;
 }

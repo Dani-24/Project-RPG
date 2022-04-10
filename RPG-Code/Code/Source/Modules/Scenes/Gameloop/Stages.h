@@ -49,6 +49,8 @@ private:
 public:
 	bool pause;
 
+	bool onBattle;
+
 	StageIndex actualStage;
 
 	Player* playerPtr;

@@ -120,6 +120,7 @@ bool Player::Update(float dt) {
 	baseCollider->rect.x = position.x;
 	baseCollider->rect.y = position.y + colDownDistance;
 
+	
 	return ret;
 }
 

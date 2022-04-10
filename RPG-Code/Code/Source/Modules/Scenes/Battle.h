@@ -4,9 +4,12 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "Animation.h"
+#include "Stages.h"
 
 struct SDL_Texture;
 class Player;
+
+enum class StageIndex;
 
 class Battle : public Module
 {
@@ -46,6 +49,9 @@ private:
 	SDL_Texture* townBattleBackground;
 
 public:
+
+	StageIndex  * battleStage;
+
 	bool battlePause;
 
 	Player* player = nullptr;

@@ -65,9 +65,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(logoScene);
 	AddModule(titleScene);
+	AddModule(battle);
 	AddModule(stages);
 	AddModule(scene);
-	AddModule(battle);
+	
 	AddModule(map);
 
 	AddModule(entities);

@@ -100,6 +100,9 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
+
+	//LOG("INT VALUES: %d", app->map->intValues.count());
+
 	if (pause == false) {
 		// ================================
 		//       SAVE / LOAD requests
@@ -121,7 +124,32 @@ bool Scene::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
-		//app->fade->StartFadeToBlack(this, (Module*)app->battle);
+
+		if (app->battle->isEnabled() == false) {
+			
+			//app->battle->Enable();
+			//app->stages->onBattle = true;
+
+		}else
+		{
+			//app->battle->Disable(), 
+			//app->stages->onBattle = false;		
+		}
+
+		if (aaa == false) {
+
+			app->map->RemoveCol();
+			aaa = true;
+
+		}
+		else
+		{
+			app->map->LoadCol();
+			aaa  = false;
+		}
+	
+
+		//app->battle->isEnabled() == false ? app->battle->Enable() , app->stages->onBattle = true: app->battle->Disable(), app->stages->onBattle = false;
 	}
 	return true;
 }

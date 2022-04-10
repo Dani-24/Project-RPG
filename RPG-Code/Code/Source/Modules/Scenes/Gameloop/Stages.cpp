@@ -24,6 +24,8 @@ Stages::Stages(App* application, bool start_enabled) : Module(application, start
 	actualStage = StageIndex::NONE;
 	playerPtr = nullptr;
 
+	onBattle = false;
+
 	pause = false;
 }
 
@@ -98,44 +100,48 @@ bool Stages::PostUpdate()
 
 	case StageIndex::TOWN:
 		
-		app->map->Draw();
-		app->guiManager->Draw();
+		if (onBattle == false) {
 
-		//Print skeletons
-		/*for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
-			}
-		}*/
+			app->map->Draw();
+			app->guiManager->Draw();
 
-		//PRINT THE PLAYER
-		if (playerPtr != nullptr) {
-			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-			if (playerPtr->PlayerErection == true) {
-				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			//Print skeletons
+			/*for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+					app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
+				}
+			}*/
+
+			//PRINT THE PLAYER
+			if (playerPtr != nullptr) {
+				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+				if (playerPtr->PlayerErection == true) {
+					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
+				if (playerPtr->PlayerErection == false) {
+					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
 			}
-			if (playerPtr->PlayerErection == false) {
-				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-			}
+
+			app->map->ReDraw();
 		}
-
-		app->map->ReDraw();
-
 
 		break;
 
 	}
 
-	//PRINTS THE COCKS
-	if (npcListPtr != nullptr) {
-		ListItem<NPC*>* npcInList;
-		npcInList = npcListPtr->start;
-		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-		{
-			if (npcInList->data->activeOnStage == app->stages->actualStage) {
-				npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+	if (onBattle == false) {
+		//PRINTS THE COCKS
+		if (npcListPtr != nullptr) {
+			ListItem<NPC*>* npcInList;
+			npcInList = npcListPtr->start;
+			for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+			{
+				if (npcInList->data->activeOnStage == app->stages->actualStage) {
+					npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+					app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 
+				}
 			}
 		}
 	}

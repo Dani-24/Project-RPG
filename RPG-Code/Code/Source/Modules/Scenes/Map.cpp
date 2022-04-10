@@ -6,6 +6,7 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include "Entity.h"
 #include "EntityManager.h"
 
 #include <math.h>
@@ -32,21 +33,10 @@ T Properties::GetProperty(const char* value, int defaultValue) const
 
 	ListItem<Property*>* item = list.start;
 
-	if (value == "Height") {
-		int u = 5;
-	}
-
 	while (item)
 	{
-		if (value == "Height") {
-			int u = 5;
-		}
-		if (item->data->name == "Height") {
-			int u = 7;
-		}
 
 		if (item->data->name == value) {
-			
 
 			ListItem<const char*>* charValueInList;
 			charValueInList = app->map->charValues.start;
@@ -55,7 +45,7 @@ T Properties::GetProperty(const char* value, int defaultValue) const
 			{
 				if (charValueInList->data == value)
 				{
-					return (T)item->data->charValue;
+					return (T)item->data->charValue.GetString();
 				}
 			}
 			return (T)item->data->intValue;
@@ -64,6 +54,45 @@ T Properties::GetProperty(const char* value, int defaultValue) const
 		item = item->next;
 	}
 	return (T)defaultValue;
+}
+
+int Properties::GetPropertyInt(const char* value, int defaultValue) const
+{
+	//...
+
+	ListItem<Property*>* item = list.start;
+
+	while (item)
+	{
+		if (item->data->name == value) {
+
+			return item->data->intValue;
+
+		}
+
+		item = item->next;
+	}
+	return defaultValue;
+}
+
+const char* Properties::GetPropertyChar(const char* value, const char* defaultValue) const
+{
+	//...
+
+	ListItem<Property*>* item = list.start;
+
+	while (item)
+	{
+
+		if (item->data->name == value) {
+
+			return item->data->charValue.GetString();
+
+		}
+
+		item = item->next;
+	}
+	return defaultValue;
 }
 
 // Called before render is available
@@ -525,23 +554,64 @@ void Map::LoadCol() {
 
 	int i = 0;
 
+	//SString a;
+	int k = 0;
 	while (mapLayerItem != NULL) {
 	
-		const char* wallChar = mapLayerItem->data->properties.GetProperty<const char*>("Col");
-		if (wallChar != nullptr) {
-			if (wallChar == std::string("wall")) {
+		//const char* wallChar = static_cast<const char*>(mapLayerItem->data->properties.GetProperty<const char*>("Col"));
+		//if (wallChar != nullptr) {
+		//	if (wallChar == std::string("wall")) {
+
+		//		for (int x = 0; x < mapLayerItem->data->width; x++)
+		//		{
+		//			for (int y = 0; y < mapLayerItem->data->height; y++)
+		//			{
+		//				// Complete the col function
+		//				int gid = mapLayerItem->data->Get(x, y);
+
+		//				if (gid > 0) {
+
+		//					// Obtain the tile set using GetTilesetFromTileId
+		//					// now we always use the firt tileset in the list
+		//					TileSet* tileset = mapData.tilesets.start->data;
+
+		//					SDL_Rect r = tileset->GetTileRect(gid);
+		//					iPoint pos = MapToWorld(x, y);
+
+		//					mapWalls[i] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
+		//					i++;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+		if (k == 17) {
+			int y = 5;
+		}
+
+		const char* colProperty = static_cast<const char*>(mapLayerItem->data->properties.GetPropertyChar("Col"));
+		k++;
+		LOG("%d", k);
+
+		
+
+		if (colProperty != nullptr) {
+
+			LOG("%s", colProperty);
+			if (colProperty == std::string("wall"))
+			{
 
 				for (int x = 0; x < mapLayerItem->data->width; x++)
 				{
 					for (int y = 0; y < mapLayerItem->data->height; y++)
 					{
-						// Complete the col function
+						//Complete the draw function
 						int gid = mapLayerItem->data->Get(x, y);
 
 						if (gid > 0) {
 
-							// Obtain the tile set using GetTilesetFromTileId
-							// now we always use the firt tileset in the list
+							//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+							//now we always use the firt tileset in the list
 							TileSet* tileset = mapData.tilesets.start->data;
 
 							SDL_Rect r = tileset->GetTileRect(gid);
@@ -549,12 +619,17 @@ void Map::LoadCol() {
 
 							mapWalls[i] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
 							i++;
+							LOG("%d", i);
 						}
 					}
 				}
+
 			}
 		}
 
+
+
+	//	LOG("%d", i);
 		mapLayerItem = mapLayerItem->next;
 	}
 }
@@ -585,10 +660,13 @@ void Map::RemoveCol() {
 					iPoint pos = MapToWorld(x, y);
 
 					if (mapWalls[i] != nullptr) {
+
 						app->collisions->RemoveCollider(mapWalls[i]);
+						
+						i++;
 					}
 					
-					i++;
+					
 				}
 
 			}
