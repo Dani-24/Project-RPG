@@ -37,7 +37,6 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	}
 
 	//Set the observer
-
 	control->SetObserver(observer);
 	//control->SetTexture(texture);
 
@@ -107,6 +106,3 @@ bool GuiManager::CleanUp()
 
 	return false;
 }
-
-
-

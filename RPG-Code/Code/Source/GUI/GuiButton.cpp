@@ -22,7 +22,8 @@ bool GuiButton::Update(float dt)
 	if (state != GuiControlState::DISABLED)
 	{
 		Draw(app->render);
-		// L14: TODO 3: Update the state of the GUiButton according to the mouse position
+		
+		// Update the state of the GUiButton according to the mouse position
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
 
@@ -65,8 +66,6 @@ bool GuiButton::Draw(Render* render)
 		render->DrawRectangle(bounds, 255, 0, 0, 255);
 
 	} break;
-
-	//L14: TODO 4: Draw the button according the GuiControl State
 	case GuiControlState::FOCUSED:
 	{
 		render->DrawRectangle(bounds, 255, 255, 255, 160);
