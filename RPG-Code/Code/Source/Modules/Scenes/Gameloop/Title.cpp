@@ -15,7 +15,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define CREDITS_LINK "https://github.com/Dani-24/Project-RPG"
+#define CREDITS_LINK "https://www.tomorrowtides.com/githubcomdani24project_rpg.html"
 
 TitleScene::TitleScene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
