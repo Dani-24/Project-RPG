@@ -5,18 +5,27 @@
 #include "Textures.h"
 #include "Audio.h"
 
-#define DELAY_TIME 5
+// ============================
+//		Novedades e INFO
+// ============================
 
 // v1.0.0
-// + Increible Modulo hecho por DANI para poner Texto, requiere una fuente y varios royos para encenderlo
-
+// + Increible Modulo hecho por DANI TOLEDO para poner Texto mediante la libreria SDL_TTF. Requiere una fuente .ttf (FONT_PATH)
+//
 // v2.0.0
-// + Ahora se puede usar con hacer un Enable()/Disable() desde otro modulo
- 
+// + Novedad: Ahora se puede usar con hacer un Enable()/Disable() desde otro modulo.
+// -> Requiere especificar la fuente utilizada en el Start() de ESTE modulo
+//
 // v3.0.0
-// + Novedad: Texto con delay
+// + Novedad: Texto con delay (Limitado a un uso por Scena)
+//
+// v3.5.0
+// + Ahora DrawTextDelayed() se stackea en una lista por lo que se puede imprimir mas de un texto con delay por Scene.
+// + Ahora los espacios del texto con delay no suenan
+// -> No es compatible con movimientos, en ese caso usar el DrawText() normal. 
 
-// *Futuras mejoras => Implementar Listas para el Delayed Text
+#define FONT_PATH "Assets/fonts/DungeonFont.ttf"
+#define FONT_SIZE 25
 
 ModuleQFonts::ModuleQFonts(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -29,7 +38,7 @@ ModuleQFonts::~ModuleQFonts()
 
 bool ModuleQFonts::Awake(pugi::xml_node& config) {
 
-	// Load audio effect path from config
+	// Load audio effect path from config ?
 
 	return true;
 }
@@ -42,7 +51,7 @@ bool ModuleQFonts::Start() {
 		return false;
 	}
 
-	app->font->LoadFont("Assets/fonts/DungeonFont.ttf", 25);
+	app->font->LoadFont(FONT_PATH, FONT_SIZE);
 
 	soundEffect = app->audio->LoadFx("Assets/audio/sfx/fx_select_next_2.wav");
 
@@ -50,64 +59,106 @@ bool ModuleQFonts::Start() {
 }
 
 void ModuleQFonts::LoadFont(const char* fontPath, int size) {
-	font = TTF_OpenFont(fontPath, size);
-	if (!font) {
+
+	fontDefault = TTF_OpenFont(fontPath,size);
+
+	if (!fontDefault) {
 		LOG("Error loading font || TTF_OpenFont: %s", TTF_GetError());
 	}
 	else {
-		LOG("Fonts loaded");
+		LOG("Default Font loaded");
 	}
+
+	/*fontSmol = TTF_OpenFont(fontPath, size / 2);
+
+	if (!fontSmol) {
+		LOG("Error loading Smol font || TTF_OpenFont: %s", TTF_GetError());
+	}
+	else {
+		LOG("Smol Font loaded");
+	}
+
+	fontBig = TTF_OpenFont(fontPath, size * 2);
+
+	if (!fontBig) {
+		LOG("Error loading Big font || TTF_OpenFont: %s", TTF_GetError());
+	}
+	else {
+		LOG("Big Font loaded");
+	}*/
+}
+
+void ModuleQFonts::AddToList(const char* textToRender, int x, int y) {
+	DelayedTexts* txt = new DelayedTexts();
+
+	txt->originalText = textToRender;
+	txt->position = { x, y };
+
+	delayedTexts.add(txt);
+	txt = nullptr;
+	delete txt;
 }
 
 // Print a lot of space or texts will fuse and random bullshit 
-void ModuleQFonts::DrawText(const char* textToRender, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
-	RenderText("                                                                   ", 0, 0);
-	RenderText(textToRender, x, y, r, g, b);
+void ModuleQFonts::DrawText(const char* textToRender, int x, int y, SDL_Color color) {
+	RenderText("                                                                                             ", 0, 0, color);
+	RenderText(textToRender, x, y, color);
 }
 
-void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, Uint8 r, Uint8 g, Uint8 b) {
-	
-	if (time <= 0) {
+void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_Color color) {
+	int cont = 0;
+	// Comprueba si el texto ya existe y si no lo añade a la lista
+	for (ListItem<DelayedTexts*>* c = delayedTexts.start; c != NULL; c = c->next) {
+		if (textToRender == c->data->originalText && x == c->data->position.x && y == c->data->position.y) {
+			if (c->data->time <= 0) {
 
-		length.Create(textToRender);
-		sprintf_s(text, textToRender);
+				c->data->length.Create(textToRender);
+				sprintf_s(c->data->text, textToRender);
 
-		if (N < length.Length()) {
+				if (c->data->N < c->data->length.Length()) {
 
-			textToPrint[N] = text[N];
+					c->data->textToPrint[c->data->N] = c->data->text[c->data->N];
 
-			DrawText(textToPrint, x, y, r, g, b);
+					DrawText(c->data->textToPrint, x, y, color);
 
-			time = DELAY_TIME;
-			N++;
+					c->data->time = DELAY_TIME;
+					c->data->N++;
 
-			app->audio->PlayFx(soundEffect);
-		}
-		else {
-			if (showLOG == true) {
-				LOG("Text delay finished");
-				showLOG = false;
+					// Mute at spaces
+					if (c->data->text[c->data->N] != ' ') {
+						app->audio->PlayFx(soundEffect);
+					}
+				}
+				else {
+					if (c->data->show_log == true) {
+						LOG("Text delay finished");
+						c->data->show_log = false;
+					}
+
+					// When the delay finishes this allows us to continue seeing the text
+					DrawText(c->data->textToPrint, x, y, color);
+				}
 			}
+			else {
+				c->data->time--;
 
-			// When the delay finishes this allows us to continue seeing the text
-			DrawText(textToPrint, x, y, r, g, b);
+				// This shows the text while delay time
+				DrawText(c->data->textToPrint, x, y, color);
+			}
+			break;
 		}
+		cont++;
 	}
-	else {
-		time--;
-
-		// This shows the text while delay time
-		DrawText(textToPrint, x, y, r, g, b);
+	if (cont == delayedTexts.count()) {
+		AddToList(textToRender, x, y);
 	}
 }
 
-// This method is private
-void ModuleQFonts::RenderText(const char* textToRender, int x, int y, Uint8 r , Uint8 g , Uint8 b) {
-	// Text Color
-	color = { r,g,b };
+// This method is privated
+void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color color) {
 
-	// Create the text on surface
-	if (!(fontSurface = TTF_RenderText_Blended(font, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
+	// Create the text on surface 
+	if (!(fontSurface = TTF_RenderText_Blended(fontDefault, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
 		LOG("Error Rendering Text || TTF_OpenFont: %s", TTF_GetError());
 	}
 	else {
@@ -126,32 +177,37 @@ void ModuleQFonts::RenderText(const char* textToRender, int x, int y, Uint8 r , 
 }
 
 void ModuleQFonts::CleanFonts() {
-	showLOG = true;
+
+	ListItem<DelayedTexts*>* c = delayedTexts.start;
+
+	while (c != NULL) {
+
+		c->data->length.Clear();
+		memset(c->data->text, NULL, sizeof c->data->text);
+		memset(c->data->textToPrint, NULL, sizeof c->data->textToPrint);
+
+		c->data->time = c->data->N = NULL;
+
+		c = c->next;
+	}
+	delayedTexts.clear();
 
 	fontTexture = nullptr;
 	fontSurface = NULL;
-
-	length.Clear();
-	memset(text, 0, sizeof text);
-	memset(textToPrint, 0, sizeof textToPrint);
-
-	time = N = 0;
 }
 
-void ModuleQFonts::UnloadFont()
+void ModuleQFonts::UnloadFonts()
 {
-	TTF_CloseFont(font);
+	TTF_CloseFont(fontDefault);
 
 	app->tex->UnLoad(fontTexture);
-
-	font = NULL; // to be safe..
 
 	LOG("Fonts unloaded");
 }
 
 bool ModuleQFonts::CleanUp() {
 	
-	UnloadFont();
+	UnloadFonts();
 	TTF_Quit();
 
 	return true;

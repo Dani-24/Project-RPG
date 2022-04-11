@@ -80,29 +80,29 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 		//Checks the GUI element ID
 		if (control->id == 1)
 		{
-			LOG("Click on button 1");
+			LOG("Click on Start");
 
 			start = true;
 		}
 
 		if (control->id == 2)
 		{
-			LOG("Click on button 2");
+			LOG("Click on Continue");
 		}
 		if (control->id == 3)
 		{
-			LOG("Click on button 2");
+			LOG("Click on Options");
 
 			options = true;
 
 		}
 		if (control->id == 4)
 		{
-			LOG("Click on button 2");
+			LOG("Click on Credits");
 		}
 		if (control->id == 5)
 		{
-			LOG("Click on button 2");
+			LOG("Click on Exit");
 			exit = true;
 		}
 	}
@@ -136,7 +136,6 @@ bool TitleScene::PreUpdate()
 		
 		app->fade->DoFadeToBlack(this, (Module*)app->conf);
 	}
-	
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exit == true) {
 		ret = false;
@@ -163,9 +162,6 @@ bool TitleScene::PostUpdate()
 	app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);
 	app->render->DrawTexture(creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250);
 	app->render->DrawTexture(exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250);
-
-	// Render Text
-	//app->font->DrawTextDelayed("Press SPACE to start", 225, 300);
 
 	return ret;
 }
