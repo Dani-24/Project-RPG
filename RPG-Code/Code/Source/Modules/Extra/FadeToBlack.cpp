@@ -83,3 +83,20 @@ bool FadeToBlack::DoFadeToBlack(Module* moduleToDisable, Module* moduleToEnable,
 	}
 	return ret;
 }
+
+bool FadeToBlack::DoFadeToBlack(float frames)
+{
+	bool ret = false;
+
+	if (currentStep == Fade_Step::NONE)
+	{
+		currentStep = Fade_Step::TO_BLACK;
+		frameCount = 0;
+		maxFadeFrames = frames;
+
+		this->moduleToDisable = nullptr;
+		this->moduleToEnable = nullptr;
+		ret = true;
+	}
+	return ret;
+}

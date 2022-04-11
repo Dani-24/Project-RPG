@@ -19,8 +19,11 @@ public:
 
 	bool PostUpdate() override;
 
-	//call another module and starts the proces to fade
+	// Call another module and starts the proces to fade
 	bool DoFadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
+
+	// Fade without disabling modules
+	bool DoFadeToBlack(float frames = 60);
 
 private:
 
