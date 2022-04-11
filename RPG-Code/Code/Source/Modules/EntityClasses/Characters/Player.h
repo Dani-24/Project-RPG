@@ -37,23 +37,11 @@ public:
 	//All player movement
 	void MovementPlayer(float dt);
 
-public:
+private:
 
-	float playerSpeed;
+	int speed;
 
-	// Current Sprite
-	bool PlayerErection = true;
-
-	//Direction
-	int PlayerDirectionUp = 0;
-	int PlayerDirectionRight = 0;
-
-	//cargar textura del jugador
-	SDL_Texture* PlayerMTex = nullptr;
-	SDL_Texture* PlayerFTex = nullptr;
-
-	//player animations
-
+	// Player animations
 	Animation
 		walkAnimUp,
 		walkAnimDown,
@@ -64,20 +52,28 @@ public:
 		idleAnimUp,
 		idleAnimDown;
 
-	int yesFx;
+	int erectionFx;
 
 public:
+
+	// Textures
+	SDL_Texture* PlayerMTex = nullptr;
+	SDL_Texture* PlayerFTex = nullptr;
+
+	// Current Sprite
+	bool PlayerErection = true;
+
 	const char* MaleChar;
 	bool canMove;
 
 	fPoint cameraSpeed = { 0.1f , 0.1f };
 
-	//Colisions:
+	// Collisions:
 
-	//Distance from player top to his collider
+	// Distance from player top to his collider
 	int colDownDistance;
 
-	//Margin pixels from edge of colliders 
+	// Margin pixels from edge of colliders 
 	int margin;
 
 };

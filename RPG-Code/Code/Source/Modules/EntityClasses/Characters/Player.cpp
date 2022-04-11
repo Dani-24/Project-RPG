@@ -41,11 +41,7 @@ Player::Player() : Character(CharacterType::PLAYER)
 	idleAnimUp.PushBack({ 62,221,31,46 });
 	idleAnimDown.PushBack({ 62,8,31,46 });
 
-	yesFx = 0;
-
 	currentAnimation = &idleAnimR; //player start with idle anim
-
-	canMove = true;
 
 	configName = "player";
 
@@ -53,7 +49,6 @@ Player::Player() : Character(CharacterType::PLAYER)
 	colDownDistance = 26;
 
 	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
-
 }
 
 // Destructor
@@ -68,7 +63,6 @@ bool Player::Awake(pugi::xml_node& config)
 
 	MaleChar = config.child("male").attribute("path").as_string();
 
-
 	return ret;
 }
 
@@ -77,15 +71,16 @@ bool Player::Start()
 	LOG("start Player");
 	bool ret = true;
 
-	yesFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
+	erectionFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
 
-	currentAnimation = &idleAnimR; //player start with idle anim
-	PlayerDirectionRight = 1;//if its 1, player will be looking at the right, if it's 2, player will be looking at the left
-	PlayerDirectionUp = 0;
+	//player start with idle anim
+	currentAnimation = &idleAnimDown;
 	PlayerErection = 1;
+
+	canMove = true;
 
 	return ret;
 }
@@ -103,24 +98,22 @@ bool Player::Update(float dt) {
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
 				PlayerErection = true;
-				app->audio->PlayFx(yesFx);
+				app->audio->PlayFx(erectionFx);
 			}
 		}
 		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
 			if (PlayerErection != false) {
 				PlayerErection = false;
-				app->audio->PlayFx(yesFx);
+				app->audio->PlayFx(erectionFx);
 			}
 		}
 
 		MovementPlayer(dt);
-
 	}
 
 	baseCollider->rect.x = position.x;
 	baseCollider->rect.y = position.y + colDownDistance;
 
-	
 	return ret;
 }
 
@@ -147,89 +140,56 @@ bool Player::CleanUp() {
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 
-	
-
 	return true;
 }
 
 void Player::MovementPlayer(float dt) {
-	playerSpeed = dt * 0.2f;
+	speed = 0.2 * dt;
 
-	if ((app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
-	{
-			position.x += playerSpeed;
-			if (currentAnimation != &walkAnimR)
-			{
-				walkAnimR.Reset();
-				currentAnimation = &walkAnimR;
-				PlayerDirectionRight = 1;
-				PlayerDirectionUp = 0;
-			}
-		
-	}
-	if ((app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_W) != KEY_REPEAT && app->input->GetKey(SDL_SCANCODE_S) != KEY_REPEAT))
-	{
-			position.x -= playerSpeed;
-			if (currentAnimation != &walkAnimL)
-			{
-				walkAnimL.Reset();
-				currentAnimation = &walkAnimL;
-				PlayerDirectionRight = 2;
-				PlayerDirectionUp = 0;
-			}
-	}
-	if ((app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		position.y -= speed;
 
-			position.y -= playerSpeed;
-			if (currentAnimation != &walkAnimUp)
-			{
-				walkAnimUp.Reset();
-				currentAnimation = &walkAnimUp;
-				PlayerDirectionUp = 1;
-				PlayerDirectionRight = 0;
-			}
+		if (currentAnimation != &walkAnimUp) {
+			currentAnimation = &walkAnimUp;
+		}
 	}
-	if ((app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		position.y += speed;
 
-			position.y += playerSpeed;
-			if (currentAnimation != &walkAnimDown)
-			{
-				walkAnimDown.Reset();
-				currentAnimation = &walkAnimDown;
-				PlayerDirectionUp = 2;
-				PlayerDirectionRight = 0;
-			}
-		
+		if (currentAnimation != &walkAnimDown) {
+			currentAnimation = &walkAnimDown;
+		}
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		position.x -= speed;
+
+		if (currentAnimation != &walkAnimL) {
+			currentAnimation = &walkAnimL;
+		}
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		position.x += speed;
+
+		if (currentAnimation != &walkAnimR) {
+			currentAnimation = &walkAnimR;
+		}
+	}
+	else {
+		if (currentAnimation == &walkAnimR) {
+			currentAnimation = &idleAnimR;
+		}
+		else if(currentAnimation == &walkAnimL) {
+			currentAnimation = &idleAnimL;
+		}
+		else if (currentAnimation == &walkAnimUp) {
+			currentAnimation = &idleAnimUp;
+		}
+		else if (currentAnimation == &walkAnimDown) {
+			currentAnimation = &idleAnimDown;
+		}
 	}
 
 	currentAnimation->Update(dt);
-
-	if (PlayerDirectionRight == 1 || PlayerDirectionRight == 2) {
-		PlayerDirectionUp = 0;
-	}
-	if (PlayerDirectionUp == 1 || PlayerDirectionUp == 2) {
-		PlayerDirectionRight = 0;
-	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE) {
-		if (currentAnimation != &idleAnimR && currentAnimation != &idleAnimL && currentAnimation != &idleAnimDown && currentAnimation != &idleAnimUp) {
-			if (PlayerDirectionRight == 1) {
-				idleAnimR.Reset();
-				currentAnimation = &idleAnimR;
-			}
-			if (PlayerDirectionRight == 2) {
-				idleAnimL.Reset();
-				currentAnimation = &idleAnimL;
-			}
-			if (PlayerDirectionUp == 1) {
-				idleAnimUp.Reset();
-				currentAnimation = &idleAnimUp;
-			}
-			if (PlayerDirectionUp == 2) {
-				idleAnimDown.Reset();
-				currentAnimation = &idleAnimDown;
-			}
-		}
-	}
 }
 
 void Player::OnCollision(Collider* col1, Collider* col2) {

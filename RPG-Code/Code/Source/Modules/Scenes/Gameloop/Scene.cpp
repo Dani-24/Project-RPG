@@ -59,7 +59,7 @@ bool Scene::Start()
 	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
 
 	// Player Entity
-	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 950);
+	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1000);
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
