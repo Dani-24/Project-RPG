@@ -10,6 +10,7 @@
 #include "FadeToBlack.h"
 #include "Camera.h"
 #include "ModuleQFonts.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -39,8 +40,15 @@ bool Configuration::Start()
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 
 	// GUI
-	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
+	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	/*musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "mus-", {}, this);
+	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "FX+", {}, this);
+	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "FX+", {}, this);
+	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "fulls", {}, this);
+	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "vsync", {}, this);
+	frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "30fps", {}, this);
+	frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "60fps", {}, this);*/
+
 
 	app->camera->SetPos({ 0,0 });
 	
@@ -80,7 +88,7 @@ bool Configuration::PostUpdate()
 {
 	bool ret = true;
 
-	app->font->DrawTextDelayed("owowow", 950, 950);
+	app->font->DrawText("owowow", 200, 200);
 
 	return ret;
 }
@@ -93,12 +101,12 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 	case GuiControlType::BUTTON:
 	{
 		//Checks the GUI element ID
-		if (control->id == 1)
+		if (control->id == 6)
 		{
-			LOG("Click on button 1");
+			LOG("volume +");
 		}
 
-		if (control->id == 2)
+		if (control->id == 7)
 		{
 			LOG("Click on button 2");
 		}
