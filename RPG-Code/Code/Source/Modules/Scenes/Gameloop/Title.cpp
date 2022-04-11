@@ -38,6 +38,15 @@ bool TitleScene::Awake()
 // Called before the first frame
 bool TitleScene::Start()
 {
+	// Set title animation
+	int N = 498, M = 249;
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 4; j++) {
+			titleBGAnim.PushBack({ N * j, M * i, N, M });
+		}
+	}
+	titleBGAnim.speed = 0.015f;
+	titleBGAnim.loop = true;
 
 	// GUI
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
@@ -53,21 +62,21 @@ bool TitleScene::Start()
 	optionsb = app->tex->Load("Assets/gui/buttonoptions.png");
 	creditsb = app->tex->Load("Assets/gui/buttoncredits.png");
 	exitb = app->tex->Load("Assets/gui/buttonexit.png");
-	title = app->tex->Load("Assets/textures/title.png");
+
+	title = app->tex->Load("Assets/textures/title_screen_bg.png");
+
+	// Audio 
 
 	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
-
 	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 
-	
+	// Set camera to 0,0
+
 	app->camera->SetPos({ 0,0 });
 
 	pause = false;
 
-	start = false;
-	continu = false;
-	credits = false;
-	exit = false;
+	start = continu = credits = exit = false;
 
 	return true;
 }
@@ -151,6 +160,7 @@ bool TitleScene::PreUpdate()
 // Called each loop iteration
 bool TitleScene::Update(float dt)
 {
+	titleBGAnim.Update(dt);
 
 	return true;
 }
@@ -160,8 +170,10 @@ bool TitleScene::PostUpdate()
 {
 	bool ret = true;
 
-	// Render
-	app->render->DrawTexture(title, 100, 20);
+	// Draw BG
+	app->render->DrawTexture(title, 65, 50, &titleBGAnim.GetCurrentFrame());
+
+	// Render Buttons
 	app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
 	app->render->DrawTexture(continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250);
 	app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);

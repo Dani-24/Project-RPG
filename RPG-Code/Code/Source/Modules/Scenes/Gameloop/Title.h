@@ -42,23 +42,27 @@ public:
 
 private:
 
+	SDL_Texture* title;
+
+	Animation titleBGAnim;
+
+	int confirmFx;
+
+	bool pause;
+
+	// Buttons
+
 	GuiButton* btn1;
 	GuiButton* btn2;
 	GuiButton* btn3;
 	GuiButton* btn4;
 	GuiButton* btn5;
 
-	SDL_Texture* title;
 	SDL_Texture* startb;
 	SDL_Texture* continueb;
 	SDL_Texture* optionsb;
 	SDL_Texture* creditsb;
 	SDL_Texture* exitb;
-
-
-	int confirmFx;
-
-	bool pause;
 
 	bool start;
 	bool continu;
