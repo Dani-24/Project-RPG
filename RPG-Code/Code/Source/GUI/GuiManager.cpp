@@ -19,11 +19,11 @@ bool GuiManager::Start()
 
 GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
 {
-	// L14: TODO1: Create a GUI control and add it to the list of controls
+	// Create a GUI control and add it to the list of controls
 
 	GuiControl* control = nullptr;
 
-	//Call the constructor according to the GuiControlType
+	// Call the constructor according to the GuiControlType
 	switch (type)
 	{
 	case GuiControlType::BUTTON:
@@ -73,7 +73,6 @@ bool GuiManager::UpdateAll(float dt, bool doLogic) {
 			control->data->Update(dt);
 			control = control->next;
 		}
-
 	}
 	return true; 
 

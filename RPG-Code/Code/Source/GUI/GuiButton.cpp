@@ -31,13 +31,13 @@ bool GuiButton::Update(float dt)
 		{
 			state = GuiControlState::FOCUSED;
 
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)	// esto se ejecuta con tener el raton encima cuando solo deberia hacerlo si se mantiene el click
 			{
 				state = GuiControlState::PRESSED;
 			}
 
 			// If mouse button pressed -> Generate event!
-			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
+			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN) // Esto antes era KEY_UP y funcionaba, dejó de hacerlo pq si
 			{
 				NotifyObserver();
 			}
