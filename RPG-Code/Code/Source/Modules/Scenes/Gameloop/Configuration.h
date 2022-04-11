@@ -44,9 +44,16 @@ public:
 
 private:
 
-	GuiButton* btn1;
-	GuiButton* btn2;
-
+	GuiButton* musp;//increse the music volume
+	GuiButton* musm;//decrese the music volume
+	GuiButton* FXp;//increse the music volume
+	GuiButton* FXm;//decrese the music volume
+	GuiButton* fullS;//increse the music volume
+	GuiButton* Vsync;//decrese the music volume
+	GuiButton* frcap30;//increse the music volume
+	GuiButton* frcap60;//increse the music volume
+	GuiButton* back;//increse the music volume
+	
 	int backFx, loadFx, saveFx;
 
 public:
