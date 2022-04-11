@@ -35,7 +35,7 @@ bool Configuration::Start()
 {
 	
 	// Load music
-	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+	app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 
@@ -130,6 +130,9 @@ bool Configuration::CleanUp()
 	
 
 	//app->stages->ChangeStage(StageIndex::NONE);
+
+	// Borra los botones que sino invaden el proyecto. Aquí solo se invade Francia.
+	musp->state = GuiControlState::DISABLED;
 
 	return true;
 }

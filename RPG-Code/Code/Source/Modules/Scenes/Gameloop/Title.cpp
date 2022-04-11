@@ -15,6 +15,8 @@
 #include "Defs.h"
 #include "Log.h"
 
+#define CREDITS_LINK "https://github.com/Dani-24/Project-RPG"
+
 TitleScene::TitleScene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("titleScene");
@@ -99,6 +101,9 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 4)
 		{
 			LOG("Click on Credits");
+
+			LOG("Opening Link : %s", CREDITS_LINK);
+			SDL_OpenURL(CREDITS_LINK);
 		}
 		if (control->id == 5)
 		{
