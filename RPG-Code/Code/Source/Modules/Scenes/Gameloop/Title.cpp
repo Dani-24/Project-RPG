@@ -91,6 +91,9 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 3)
 		{
 			LOG("Click on button 2");
+
+			options = true;
+
 		}
 		if (control->id == 4)
 		{
@@ -125,6 +128,14 @@ bool TitleScene::PreUpdate()
 
 		app->fade->DoFadeToBlack(this, (Module*)app->scene);
 	}
+
+	if (options == true) {
+		options = false;
+		app->audio->PlayFx(confirmFx);
+		
+		app->fade->DoFadeToBlack(this, (Module*)app->conf);
+	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exit == true) {
 		ret = false;

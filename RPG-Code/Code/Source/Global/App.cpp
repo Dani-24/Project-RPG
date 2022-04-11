@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "Logo.h"
 #include "Title.h"
+#include "Configuration.h"
 #include "Scene.h"
 #include "Map.h"
 #include "GuiManager.h"
@@ -38,7 +39,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	logoScene = new LogoScene(this, true);
 	titleScene = new TitleScene(this, false);
+	conf = new Configuration(this, false);
 	scene = new Scene(this, false);
+	
 	battle = new Battle(this, false);
 	stages = new Stages(this);
 
@@ -65,6 +68,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(logoScene);
 	AddModule(titleScene);
+	AddModule(conf);
 	AddModule(battle);
 	AddModule(stages);
 	AddModule(scene);

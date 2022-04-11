@@ -22,6 +22,7 @@ class Audio;
 class LogoScene;
 class TitleScene;
 class Scene;
+class Configuration;
 class Map;
 class GuiManager;
 class EntityManager;
@@ -107,6 +108,7 @@ public:
 	LogoScene* logoScene;
 	TitleScene* titleScene;
 	Scene* scene;
+	Configuration* conf;
 	Stages* stages;
 	Battle* battle;
 	Map* map;
