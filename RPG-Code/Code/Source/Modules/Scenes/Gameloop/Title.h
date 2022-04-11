@@ -44,6 +44,9 @@ private:
 
 	GuiButton* btn1;
 	GuiButton* btn2;
+	GuiButton* btn3;
+	GuiButton* btn4;
+	GuiButton* btn5;
 
 	SDL_Texture* title;
 	SDL_Texture* startb;
