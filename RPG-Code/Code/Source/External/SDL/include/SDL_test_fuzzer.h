@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2021 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -33,8 +33,8 @@
 
 */
 
-#ifndef SDL_test_fuzzer_h_
-#define SDL_test_fuzzer_h_
+#ifndef _SDL_test_fuzzer_h
+#define _SDL_test_fuzzer_h
 
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */
@@ -66,84 +66,84 @@ void SDLTest_FuzzerInit(Uint64 execKey);
 /**
  * Returns a random Uint8
  *
- * \returns a generated integer
+ * \returns Generated integer
  */
-Uint8 SDLTest_RandomUint8(void);
+Uint8 SDLTest_RandomUint8();
 
 /**
  * Returns a random Sint8
  *
- * \returns a generated signed integer
+ * \returns Generated signed integer
  */
-Sint8 SDLTest_RandomSint8(void);
+Sint8 SDLTest_RandomSint8();
 
 
 /**
  * Returns a random Uint16
  *
- * \returns a generated integer
+ * \returns Generated integer
  */
-Uint16 SDLTest_RandomUint16(void);
+Uint16 SDLTest_RandomUint16();
 
 /**
  * Returns a random Sint16
  *
- * \returns a generated signed integer
+ * \returns Generated signed integer
  */
-Sint16 SDLTest_RandomSint16(void);
+Sint16 SDLTest_RandomSint16();
 
 
 /**
  * Returns a random integer
  *
- * \returns a generated integer
+ * \returns Generated integer
  */
-Sint32 SDLTest_RandomSint32(void);
+Sint32 SDLTest_RandomSint32();
 
 
 /**
  * Returns a random positive integer
  *
- * \returns a generated integer
+ * \returns Generated integer
  */
-Uint32 SDLTest_RandomUint32(void);
+Uint32 SDLTest_RandomUint32();
 
 /**
  * Returns random Uint64.
  *
- * \returns a generated integer
+ * \returns Generated integer
  */
-Uint64 SDLTest_RandomUint64(void);
+Uint64 SDLTest_RandomUint64();
 
 
 /**
  * Returns random Sint64.
  *
- * \returns a generated signed integer
+ * \returns Generated signed integer
  */
-Sint64 SDLTest_RandomSint64(void);
+Sint64 SDLTest_RandomSint64();
 
 /**
- * \returns a random float in range [0.0 - 1.0]
+ * \returns random float in range [0.0 - 1.0[
  */
-float SDLTest_RandomUnitFloat(void);
+float SDLTest_RandomUnitFloat();
 
 /**
- * \returns a random double in range [0.0 - 1.0]
+ * \returns random double in range [0.0 - 1.0[
  */
-double SDLTest_RandomUnitDouble(void);
+double SDLTest_RandomUnitDouble();
 
 /**
- * \returns a random float.
+ * \returns random float.
  *
  */
-float SDLTest_RandomFloat(void);
+float SDLTest_RandomFloat();
 
 /**
- * \returns a random double.
+ * \returns random double.
  *
  */
-double SDLTest_RandomDouble(void);
+double SDLTest_RandomDouble();
 
 /**
  * Returns a random boundary value for Uint8 within the given boundaries.
@@ -162,7 +162,7 @@ double SDLTest_RandomDouble(void);
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or 0 with error set
+ * \returns Random boundary value for the given range and domain or 0 with error set
  */
 Uint8 SDLTest_RandomUint8BoundaryValue(Uint8 boundary1, Uint8 boundary2, SDL_bool validDomain);
 
@@ -183,7 +183,7 @@ Uint8 SDLTest_RandomUint8BoundaryValue(Uint8 boundary1, Uint8 boundary2, SDL_boo
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or 0 with error set
+ * \returns Random boundary value for the given range and domain or 0 with error set
  */
 Uint16 SDLTest_RandomUint16BoundaryValue(Uint16 boundary1, Uint16 boundary2, SDL_bool validDomain);
 
@@ -204,7 +204,7 @@ Uint16 SDLTest_RandomUint16BoundaryValue(Uint16 boundary1, Uint16 boundary2, SDL
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or 0 with error set
+ * \returns Random boundary value for the given range and domain or 0 with error set
  */
 Uint32 SDLTest_RandomUint32BoundaryValue(Uint32 boundary1, Uint32 boundary2, SDL_bool validDomain);
 
@@ -225,7 +225,7 @@ Uint32 SDLTest_RandomUint32BoundaryValue(Uint32 boundary1, Uint32 boundary2, SDL
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or 0 with error set
+ * \returns Random boundary value for the given range and domain or 0 with error set
  */
 Uint64 SDLTest_RandomUint64BoundaryValue(Uint64 boundary1, Uint64 boundary2, SDL_bool validDomain);
 
@@ -246,7 +246,7 @@ Uint64 SDLTest_RandomUint64BoundaryValue(Uint64 boundary1, Uint64 boundary2, SDL
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or SINT8_MIN with error set
+ * \returns Random boundary value for the given range and domain or SINT8_MIN with error set
  */
 Sint8 SDLTest_RandomSint8BoundaryValue(Sint8 boundary1, Sint8 boundary2, SDL_bool validDomain);
 
@@ -268,7 +268,7 @@ Sint8 SDLTest_RandomSint8BoundaryValue(Sint8 boundary1, Sint8 boundary2, SDL_boo
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or SINT16_MIN with error set
+ * \returns Random boundary value for the given range and domain or SINT16_MIN with error set
  */
 Sint16 SDLTest_RandomSint16BoundaryValue(Sint16 boundary1, Sint16 boundary2, SDL_bool validDomain);
 
@@ -289,7 +289,7 @@ Sint16 SDLTest_RandomSint16BoundaryValue(Sint16 boundary1, Sint16 boundary2, SDL
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or SINT32_MIN with error set
+ * \returns Random boundary value for the given range and domain or SINT32_MIN with error set
  */
 Sint32 SDLTest_RandomSint32BoundaryValue(Sint32 boundary1, Sint32 boundary2, SDL_bool validDomain);
 
@@ -310,7 +310,7 @@ Sint32 SDLTest_RandomSint32BoundaryValue(Sint32 boundary1, Sint32 boundary2, SDL
  * \param boundary2 Upper boundary limit
  * \param validDomain Should the generated boundary be valid (=within the bounds) or not?
  *
- * \returns a random boundary value for the given range and domain or SINT64_MIN with error set
+ * \returns Random boundary value for the given range and domain or SINT64_MIN with error set
  */
 Sint64 SDLTest_RandomSint64BoundaryValue(Sint64 boundary1, Sint64 boundary2, SDL_bool validDomain);
 
@@ -324,7 +324,7 @@ Sint64 SDLTest_RandomSint64BoundaryValue(Sint64 boundary1, Sint64 boundary2, SDL
  * \param min Minimum inclusive value of returned random number
  * \param max Maximum inclusive value of returned random number
  *
- * \returns a generated random integer in range
+ * \returns Generated random integer in range
  */
 Sint32 SDLTest_RandomIntegerInRange(Sint32 min, Sint32 max);
 
@@ -336,9 +336,9 @@ Sint32 SDLTest_RandomIntegerInRange(Sint32 min, Sint32 max);
  *
  * Note: Returned string needs to be deallocated.
  *
- * \returns a newly allocated random string; or NULL if length was invalid or string could not be allocated.
+ * \returns Newly allocated random string; or NULL if length was invalid or string could not be allocated.
  */
-char * SDLTest_RandomAsciiString(void);
+char * SDLTest_RandomAsciiString();
 
 
 /**
@@ -350,7 +350,7 @@ char * SDLTest_RandomAsciiString(void);
  *
  * \param maxLength The maximum length of the generated string.
  *
- * \returns a newly allocated random string; or NULL if maxLength was invalid or string could not be allocated.
+ * \returns Newly allocated random string; or NULL if maxLength was invalid or string could not be allocated.
  */
 char * SDLTest_RandomAsciiStringWithMaximumLength(int maxLength);
 
@@ -364,16 +364,14 @@ char * SDLTest_RandomAsciiStringWithMaximumLength(int maxLength);
  *
  * \param size The length of the generated string
  *
- * \returns a newly allocated random string; or NULL if size was invalid or string could not be allocated.
+ * \returns Newly allocated random string; or NULL if size was invalid or string could not be allocated.
  */
 char * SDLTest_RandomAsciiStringOfSize(int size);
 
 /**
- * Get the invocation count for the fuzzer since last ...FuzzerInit.
- *
- * \returns the invocation count.
+ * Returns the invocation count for the fuzzer since last ...FuzzerInit.
  */
-int SDLTest_GetFuzzerInvocationCount(void);
+int SDLTest_GetFuzzerInvocationCount();
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -381,6 +379,6 @@ int SDLTest_GetFuzzerInvocationCount(void);
 #endif
 #include "close_code.h"
 
-#endif /* SDL_test_fuzzer_h_ */
+#endif /* _SDL_test_fuzzer_h */
 
 /* vi: set ts=4 sw=4 expandtab: */

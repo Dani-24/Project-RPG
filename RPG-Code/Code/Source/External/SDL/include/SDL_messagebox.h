@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2021 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -19,8 +19,8 @@
   3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef SDL_messagebox_h_
-#define SDL_messagebox_h_
+#ifndef _SDL_messagebox_h
+#define _SDL_messagebox_h
 
 #include "SDL_stdinc.h"
 #include "SDL_video.h"      /* For SDL_Window */
@@ -32,19 +32,17 @@ extern "C" {
 #endif
 
 /**
- * SDL_MessageBox flags. If supported will display warning icon, etc.
+ * \brief SDL_MessageBox flags. If supported will display warning icon, etc.
  */
 typedef enum
 {
-    SDL_MESSAGEBOX_ERROR                 = 0x00000010,   /**< error dialog */
-    SDL_MESSAGEBOX_WARNING               = 0x00000020,   /**< warning dialog */
-    SDL_MESSAGEBOX_INFORMATION           = 0x00000040,   /**< informational dialog */
-    SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT = 0x00000080,   /**< buttons placed left to right */
-    SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT = 0x00000100    /**< buttons placed right to left */
+    SDL_MESSAGEBOX_ERROR        = 0x00000010,   /**< error dialog */
+    SDL_MESSAGEBOX_WARNING      = 0x00000020,   /**< warning dialog */
+    SDL_MESSAGEBOX_INFORMATION  = 0x00000040    /**< informational dialog */
 } SDL_MessageBoxFlags;
 
 /**
- * Flags for SDL_MessageBoxButtonData.
+ * \brief Flags for SDL_MessageBoxButtonData.
  */
 typedef enum
 {
@@ -53,7 +51,7 @@ typedef enum
 } SDL_MessageBoxButtonFlags;
 
 /**
- * Individual button data.
+ *  \brief Individual button data.
  */
 typedef struct
 {
@@ -63,7 +61,7 @@ typedef struct
 } SDL_MessageBoxButtonData;
 
 /**
- * RGB value used in a message box color scheme
+ * \brief RGB value used in a message box color scheme
  */
 typedef struct
 {
@@ -81,7 +79,7 @@ typedef enum
 } SDL_MessageBoxColorType;
 
 /**
- * A set of colors to use for message box dialogs
+ * \brief A set of colors to use for message box dialogs
  */
 typedef struct
 {
@@ -89,7 +87,7 @@ typedef struct
 } SDL_MessageBoxColorScheme;
 
 /**
- * MessageBox structure containing title, text, window, etc.
+ *  \brief MessageBox structure containing title, text, window, etc.
  */
 typedef struct
 {
@@ -105,77 +103,32 @@ typedef struct
 } SDL_MessageBoxData;
 
 /**
- * Create a modal message box.
+ *  \brief Create a modal message box.
  *
- * If your needs aren't complex, it might be easier to use
- * SDL_ShowSimpleMessageBox.
+ *  \param messageboxdata The SDL_MessageBoxData structure with title, text, etc.
+ *  \param buttonid The pointer to which user id of hit button should be copied.
  *
- * This function should be called on the thread that created the parent
- * window, or on the main thread if the messagebox has no parent. It will
- * block execution of that thread until the user clicks a button or closes the
- * messagebox.
+ *  \return -1 on error, otherwise 0 and buttonid contains user id of button
+ *          hit or -1 if dialog was closed.
  *
- * This function may be called at any time, even before SDL_Init(). This makes
- * it useful for reporting errors like a failure to create a renderer or
- * OpenGL context.
- *
- * On X11, SDL rolls its own dialog box with X11 primitives instead of a
- * formal toolkit like GTK+ or Qt.
- *
- * Note that if SDL_Init() would fail because there isn't any available video
- * target, this function is likely to fail for the same reasons. If this is a
- * concern, check the return value from this function and fall back to writing
- * to stderr if you can.
- *
- * \param messageboxdata the SDL_MessageBoxData structure with title, text and
- *                       other options
- * \param buttonid the pointer to which user id of hit button should be copied
- * \returns 0 on success or a negative error code on failure; call
- *          SDL_GetError() for more information.
- *
- * \since This function is available since SDL 2.0.0.
- *
- * \sa SDL_ShowSimpleMessageBox
+ *  \note This function should be called on the thread that created the parent
+ *        window, or on the main thread if the messagebox has no parent.  It will
+ *        block execution of that thread until the user clicks a button or
+ *        closes the messagebox.
  */
 extern DECLSPEC int SDLCALL SDL_ShowMessageBox(const SDL_MessageBoxData *messageboxdata, int *buttonid);
 
 /**
- * Display a simple modal message box.
+ *  \brief Create a simple modal message box
  *
- * If your needs aren't complex, this function is preferred over
- * SDL_ShowMessageBox.
+ *  \param flags    ::SDL_MessageBoxFlags
+ *  \param title    UTF-8 title text
+ *  \param message  UTF-8 message text
+ *  \param window   The parent window, or NULL for no parent
  *
- * `flags` may be any of the following:
+ *  \return 0 on success, -1 on error
  *
- * - `SDL_MESSAGEBOX_ERROR`: error dialog
- * - `SDL_MESSAGEBOX_WARNING`: warning dialog
- * - `SDL_MESSAGEBOX_INFORMATION`: informational dialog
- *
- * This function should be called on the thread that created the parent
- * window, or on the main thread if the messagebox has no parent. It will
- * block execution of that thread until the user clicks a button or closes the
- * messagebox.
- *
- * This function may be called at any time, even before SDL_Init(). This makes
- * it useful for reporting errors like a failure to create a renderer or
- * OpenGL context.
- *
- * On X11, SDL rolls its own dialog box with X11 primitives instead of a
- * formal toolkit like GTK+ or Qt.
- *
- * Note that if SDL_Init() would fail because there isn't any available video
- * target, this function is likely to fail for the same reasons. If this is a
- * concern, check the return value from this function and fall back to writing
- * to stderr if you can.
- *
- * \param flags an SDL_MessageBoxFlags value
- * \param title UTF-8 title text
- * \param message UTF-8 message text
- * \param window the parent window, or NULL for no parent
- * \returns 0 on success or a negative error code on failure; call
- *          SDL_GetError() for more information.
- *
- * \sa SDL_ShowMessageBox
+ *  \sa SDL_ShowMessageBox
  */
 extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox(Uint32 flags, const char *title, const char *message, SDL_Window *window);
 
@@ -186,6 +139,6 @@ extern DECLSPEC int SDLCALL SDL_ShowSimpleMessageBox(Uint32 flags, const char *t
 #endif
 #include "close_code.h"
 
-#endif /* SDL_messagebox_h_ */
+#endif /* _SDL_messagebox_h */
 
 /* vi: set ts=4 sw=4 expandtab: */
