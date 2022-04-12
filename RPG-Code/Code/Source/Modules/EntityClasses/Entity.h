@@ -56,8 +56,12 @@ public:
 	// The entity's texture
 	SDL_Texture* spriteText = nullptr;
 	SDL_Texture* spriteTextB = nullptr;
+	SDL_Texture* spriteTextE = nullptr;
+	SDL_Texture* spriteTextM = nullptr;
 	SDL_Rect spriteRect;
 	SDL_Rect spriteRectB;
+	SDL_Rect spriteRectE;
+	SDL_Rect spriteRectM;
 
 	// Sound fx when destroyed
 	int destroyedFx = 0;

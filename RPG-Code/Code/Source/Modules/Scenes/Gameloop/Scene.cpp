@@ -64,18 +64,27 @@ bool Scene::Start()
 	app->camera->SetTarget(player);
 
 	srand(time(NULL));
-	int randX = (rand() % (1250 - 650)) + 650;
-	int randY = (rand() % (1250 - 650)) + 650;
+	int randX = 1000;
+	int randY = 1000;
 	int x = 950;
 	int y = 950;
-	// Cock Entity
-	Cock* cock = (Cock*)app->entities->CreateEntity(NPCType::COCK, randX, randY);
+
+	 //Cock Entity
+	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, x, y);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;
 
 	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, x, y);
 	npcList.add(barkeeper);
 	barkeeper->activeOnStage = StageIndex::TOWN;
+
+	NPC* trainer = (NPC*)app->entities->CreateEntity(NPCType::TRAINER, x, y);
+	npcList.add(trainer);
+	trainer->activeOnStage = StageIndex::TOWN;
+
+	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, x, y);
+	npcList.add(merchant);
+	merchant->activeOnStage = StageIndex::TOWN;
 
 	//cock->position = { 950, 950 };
 	//app->stages->npcListPtr.At(npcList.count())->data = (Cock*)npcList.At(npcList.count());
