@@ -1,135 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="5" height="7" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="7" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="1">
  <tileset firstgid="1" name="LightShadow_pipo" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="tiles/LightShadow_pipo.png" width="256" height="192"/>
  </tileset>
  <tileset firstgid="49" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="tiles/[Base]BaseChip_pipo.png" width="256" height="4256"/>
  </tileset>
- <layer id="4" name="suelo" width="5" height="7">
+ <layer id="4" name="Ground" width="7" height="8">
   <properties>
    <property name="Draw" type="int" value="1"/>
   </properties>
   <data encoding="csv">
-345,345,345,345,345,
-345,345,345,345,345,
-361,361,361,361,361,
-361,361,361,361,361,
-361,361,361,361,361,
-361,361,361,361,361,
-361,361,361,361,361
+0,345,345,345,345,345,0,
+0,345,345,345,345,345,0,
+0,361,361,361,361,361,0,
+0,361,361,361,361,361,0,
+0,361,361,361,361,361,0,
+0,342,361,361,361,361,0,
+0,361,361,361,361,361,0,
+0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Capa de patrones 2" width="5" height="7">
+ <layer id="10" name="Deco" width="7" height="8">
   <properties>
    <property name="Draw" type="int" value="1"/>
   </properties>
   <data encoding="csv">
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,726,728,0,
+0,0,0,805,0,0,0,
+0,0,0,797,0,0,0,
+0,0,0,805,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="6" name="Capa de patrones 3" width="5" height="7">
+ <layer id="11" name="Deco 2" width="7" height="8">
   <properties>
    <property name="Draw" type="int" value="1"/>
   </properties>
   <data encoding="csv">
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0
+0,0,0,664,0,0,0,
+0,0,0,0,1037,0,0,
+0,0,0,0,1053,1042,0,
+0,0,0,0,0,0,0,
+0,0,0,1036,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="7" name="Capa de patrones 4" width="5" height="7">
+ <layer id="9" name="Shadows" width="7" height="8">
   <properties>
    <property name="Draw" type="int" value="1"/>
   </properties>
   <data encoding="csv">
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0
+0,25,25,25,25,25,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,1073741849,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,
+0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="8" name="Capa de patrones 5" width="5" height="7">
+ <layer id="12" name="Shadows 2" width="7" height="8">
   <properties>
    <property name="Draw" type="int" value="1"/>
   </properties>
   <data encoding="csv">
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0
+0,9,9,31,0,0,0,
+0,9,9,31,0,0,0,
+0,9,9,31,0,0,0,
+0,9,9,31,1073741849,1073741849,0,
+0,9,9,9,9,9,0,
+0,9,9,9,9,9,0,
+0,9,9,9,9,9,0,
+0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="9" name="Capa de patrones 6" width="5" height="7">
+ <layer id="13" name="Wall Colliders" width="7" height="8" opacity="0.29">
   <properties>
-   <property name="Draw" type="int" value="1"/>
+   <property name="Col" value="wall"/>
+   <property name="Draw" type="int" value="0"/>
   </properties>
   <data encoding="csv">
-25,25,25,25,25,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,1073741849,0,0,
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,0,0
-</data>
- </layer>
- <layer id="10" name="suelo2" width="5" height="7">
-  <properties>
-   <property name="Draw" type="int" value="1"/>
-  </properties>
-  <data encoding="csv">
-0,0,0,0,0,
-0,0,0,0,0,
-0,0,0,726,728,
-0,0,805,0,0,
-0,0,797,0,0,
-0,0,805,0,0,
-0,0,0,0,0
-</data>
- </layer>
- <layer id="11" name="decoraciones" width="5" height="7">
-  <properties>
-   <property name="Draw" type="int" value="1"/>
-  </properties>
-  <data encoding="csv">
-0,0,664,0,0,
-0,0,0,1037,0,
-0,0,0,1053,1042,
-0,0,0,0,0,
-0,0,1036,0,0,
-342,0,0,0,0,
-0,0,0,0,0
-</data>
- </layer>
- <layer id="12" name="sombra" width="5" height="7">
-  <properties>
-   <property name="Draw" type="int" value="1"/>
-  </properties>
-  <data encoding="csv">
-9,9,31,0,0,
-9,9,31,0,0,
-9,9,31,0,0,
-9,9,31,1073741849,1073741849,
-9,9,9,9,9,
-9,9,9,9,9,
-9,9,9,9,9
+0,0,0,0,0,0,0,
+847,847,847,847,847,0,0,
+847,0,0,0,847,847,847,
+847,0,0,0,0,0,847,
+847,0,0,847,0,0,847,
+847,0,0,0,0,0,847,
+847,0,0,0,0,0,847,
+847,847,847,847,847,847,847
 </data>
  </layer>
 </map>
