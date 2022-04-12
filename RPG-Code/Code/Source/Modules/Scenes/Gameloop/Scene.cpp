@@ -66,10 +66,10 @@ bool Scene::Start()
 	srand(time(NULL));
 	int randX = 1000;
 	int randY = 1000;
-	int x = 950;
+	int x = 1300;
 	int y = 950;
 
-	 //Cock Entity
+	//Cock Entity
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, x, y);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;

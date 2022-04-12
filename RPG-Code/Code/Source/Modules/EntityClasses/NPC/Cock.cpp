@@ -18,11 +18,11 @@ Cock::Cock(NPCType type) : NPC(NPCType::COCK)
 {
 	
 
-	//player start with idle anim
-	currentAnimation = &idleAnim; 
+	////player start with idle anim
+	//currentAnimation = &idleAnim; 
 
-	position.x = 950;
-	position.y = 950;
+	//position.x = 950;
+	//position.y = 950;
 
 	
 }
@@ -64,7 +64,7 @@ bool Cock::PreUpdate()
 bool Cock::Update(float dt) {
 	bool ret = true;
 
-	currentAnimation->Update(dt);
+	/*currentAnimation->Update(dt);*/
 
 
 
@@ -75,7 +75,7 @@ bool Cock::PostUpdate()
 {
 	bool ret = true;
 
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	//SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	//app->render->DrawTexture(CockTex, position.x, position.y, &rect);
 
 	return true;
@@ -85,7 +85,7 @@ bool Cock::CleanUp() {
 
 	//app->tex->UnLoad(CockTex);
 
-	currentAnimation = nullptr;
+	/*currentAnimation = nullptr;*/
 
 	return true;
 }

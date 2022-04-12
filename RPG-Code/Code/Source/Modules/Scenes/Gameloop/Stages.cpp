@@ -152,7 +152,7 @@ bool Stages::PostUpdate()
 		{
 			if (npcInList->data->activeOnStage == app->stages->actualStage) {
 				npcInList->data->spriteRectB = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteTextB, npcInList->data->position.x+100, npcInList->data->position.y, &npcInList->data->spriteRectB);
+				app->render->DrawTexture(npcInList->data->spriteTextB, npcInList->data->position.x-100, npcInList->data->position.y+90, &npcInList->data->spriteRectB);
 
 
 			}
