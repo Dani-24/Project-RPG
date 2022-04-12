@@ -41,13 +41,13 @@ bool Configuration::Start()
 
 	// GUI
 	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
-	/*musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "mus-", {}, this);
-	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "FX+", {}, this);
-	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "FX+", {}, this);
-	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "fulls", {}, this);
-	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "vsync", {}, this);
-	frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "30fps", {}, this);
-	frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "60fps", {}, this);*/
+	/*musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "mus-", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "FX+", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "FX+", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "fulls", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "vsync", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "30fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);
+	frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "60fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 74, 32 }, this);*/
 
 
 	app->camera->SetPos({ 0,0 });
@@ -104,11 +104,13 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 6)
 		{
 			LOG("volume +");
+
 		}
 
 		if (control->id == 7)
 		{
-			LOG("Click on button 2");
+			LOG("volume -");
+
 		}
 	}
 	//Other cases here
