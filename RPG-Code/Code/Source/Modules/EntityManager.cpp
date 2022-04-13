@@ -7,7 +7,6 @@
 #include "Character.h"
 #include "Player.h"
 
-#include "Cock.h"
 #include "NPC.h"
 
 

@@ -10,12 +10,15 @@
 #include "FadeToBlack.h"
 #include "Player.h"
 #include "EnemyMovement.h"
-#include "EntityManager.h"
+
 #include "Battle.h"
 #include "Stages.h"
 #include "ModuleQFonts.h"
 #include "Camera.h"
-#include "Cock.h"
+
+#include "NPC.h"
+#include "EntityManager.h"
+
 
 #include "Defs.h"
 #include "Log.h"

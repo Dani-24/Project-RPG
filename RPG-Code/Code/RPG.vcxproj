@@ -104,7 +104,6 @@
     <ClCompile Include="Source\Global\App.cpp" />
     <ClCompile Include="Source\Modules\Core\Audio.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Character.cpp" />
-    <ClCompile Include="Source\Modules\EntityClasses\NPC\Cock.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\NPC\NPC.cpp" />
     <ClCompile Include="Source\Modules\Extra\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Core\Input.cpp" />
@@ -139,7 +138,6 @@
     <ClInclude Include="Source\GUI\GuiControl.h" />
     <ClInclude Include="Source\GUI\GuiManager.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Character.h" />
-    <ClInclude Include="Source\Modules\EntityClasses\NPC\Cock.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPC\NPC.h" />
     <ClInclude Include="Source\Modules\Extra\FadeToBlack.h" />
     <ClInclude Include="Source\Modules\Scenes\Map.h" />

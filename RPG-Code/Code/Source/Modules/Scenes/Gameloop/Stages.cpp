@@ -13,9 +13,9 @@
 #include "EntityManager.h"
 #include "Battle.h"
 #include "Stages.h"
-#include "Cock.h"
 #include "Defs.h"
 #include "Log.h"
+#include "NPC.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
 {

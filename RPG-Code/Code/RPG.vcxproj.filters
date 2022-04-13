@@ -41,7 +41,6 @@
     <ClCompile Include="Source\Tools\Collider.cpp" />
     <ClCompile Include="Source\Modules\Extra\Collisions.cpp" />
     <ClCompile Include="Source\Modules\Core\Camera.cpp" />
-    <ClCompile Include="Source\Modules\EntityClasses\NPC\Cock.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\NPC\NPC.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Configuration.cpp" />
   </ItemGroup>
@@ -107,7 +106,6 @@
     <ClInclude Include="Source\Tools\Collider.h" />
     <ClInclude Include="Source\Modules\Extra\Collisions.h" />
     <ClInclude Include="Source\Modules\Core\Camera.h" />
-    <ClInclude Include="Source\Modules\EntityClasses\NPC\Cock.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPC\NPC.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Configuration.h" />
   </ItemGroup>

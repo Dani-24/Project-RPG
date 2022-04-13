@@ -132,9 +132,7 @@ bool NPC::PostUpdate()
 bool NPC::CleanUp()
 {
 	app->tex->UnLoad(spriteText);
-	app->tex->UnLoad(spriteTextB);
-	app->tex->UnLoad(spriteTextE);
-	app->tex->UnLoad(spriteTextM);
+
 
 	currentAnimation = nullptr;
 
