@@ -159,21 +159,21 @@ bool Stages::PostUpdate()
 	if (onBattle == true) {
 		{
 
-		//PRINT THE PLAYER ON BATTLE
-		if (playerPtr != nullptr) {
-			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-			if (playerPtr->PlayerErection == true) {
-				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			//PRINT THE PLAYER ON BATTLE
+			if (playerPtr != nullptr) {
+				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+				if (playerPtr->PlayerErection == true) {
+					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
+				if (playerPtr->PlayerErection == false) {
+					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
 			}
-			if (playerPtr->PlayerErection == false) {
-				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-			}
+
 		}
 
 	}
-	
-
-	//PRINT THE NPCs
+		//PRINT THE NPCs
 	if (npcListPtr != nullptr) {
 		ListItem<NPC*>* npcInList;
 		npcInList = npcListPtr->start;
@@ -187,6 +187,7 @@ bool Stages::PostUpdate()
 	}
 
 	return ret;
+	
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
