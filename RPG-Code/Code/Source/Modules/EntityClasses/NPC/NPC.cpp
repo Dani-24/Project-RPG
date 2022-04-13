@@ -31,18 +31,18 @@ NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 
 		break;
 	case NPCType::MERCHANT:
-		/*idleAnim.PushBack({ 2, 2, 28, 28 });
-		idleAnim.PushBack({ 32, 2, 30, 28 });
-		idleAnim.PushBack({ 66, 2, 28, 28 });
-		idleAnim.PushBack({ 96, 2, 30, 28 });*/
+		idleAnim.PushBack({ 8,15,30,43 });
+		idleAnim.PushBack({ 64,13,27,43 });
+		idleAnim.PushBack({ 115,15,30,43 });
+
 		configName = "merchant";
 
 		break;
 	case NPCType::TRAINER:
-		/*idleAnim.PushBack({ 2, 2, 28, 28 });
-		idleAnim.PushBack({ 32, 2, 30, 28 });
-		idleAnim.PushBack({ 66, 2, 28, 28 });
-		idleAnim.PushBack({ 96, 2, 30, 28 });*/
+		idleAnim.PushBack({ 7, 16, 30, 43 });
+		idleAnim.PushBack({ 60, 14, 30, 43 });
+		idleAnim.PushBack({ 114, 16, 29, 43 });
+	
 		configName = "trainer";
 
 		break;
@@ -74,10 +74,29 @@ bool NPC::Start()
 {
 	bool ret = true;
 
-	spriteText = app->tex->Load("Assets/sprites/npc/tavern/chicken.png");
-	spriteTextB = app->tex->Load("Assets/sprites/npc/tavern/npc_tavern.png");
-	spriteTextE = app->tex->Load("Assets/sprites/npc/training/npc_training.png");
-	spriteTextM = app->tex->Load("Assets/sprites/npc/shop/npc_shop.png");
+	switch (NpcType) {
+	case NPCType::COCK:
+
+		spriteText = app->tex->Load("Assets/sprites/npc/tavern/chicken.png");
+		break;
+	case NPCType::BARKEEPER:
+
+		spriteText = app->tex->Load("Assets/sprites/npc/tavern/npc_tavern.png");
+		break;
+	case NPCType::MERCHANT:
+
+
+		spriteText = app->tex->Load("Assets/sprites/npc/shop/npc_shop.png");
+		break;
+	case NPCType::TRAINER:
+
+		spriteText = app->tex->Load("Assets/sprites/npc/training/npc_training.png");
+
+		break;
+
+	default:
+		break;
+	}
 
 	return true;
 }

@@ -69,20 +69,29 @@ bool Scene::Start()
 	int x = 1300;
 	int y = 950;
 
+	int xT = 1500;
+	int yT = 1100;
+
+	int xB = 1050;
+	int yB = 900;
+
+	int xM = 1100;
+	int yM = 900;
+
 	//Cock Entity
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, x, y);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;
 
-	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, x, y);
+	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, xB, yB);
 	npcList.add(barkeeper);
 	barkeeper->activeOnStage = StageIndex::TOWN;
 
-	NPC* trainer = (NPC*)app->entities->CreateEntity(NPCType::TRAINER, x, y);
+	NPC* trainer = (NPC*)app->entities->CreateEntity(NPCType::TRAINER, xT, yT);
 	npcList.add(trainer);
 	trainer->activeOnStage = StageIndex::TOWN;
 
-	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, x, y);
+	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, xM, yM);
 	npcList.add(merchant);
 	merchant->activeOnStage = StageIndex::TOWN;
 

@@ -130,7 +130,6 @@ bool Stages::PostUpdate()
 
 	}
 
-	//PRINTS THE COCKS
 	if (npcListPtr != nullptr) {
 		ListItem<NPC*>* npcInList;
 		npcInList = npcListPtr->start;
@@ -139,57 +138,10 @@ bool Stages::PostUpdate()
 			if (npcInList->data->activeOnStage == app->stages->actualStage) {
 				npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 				app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
-
-			}
-		}
-	}
-	
-	//PRINTS THE BARKEEPER
-	if (npcListPtr != nullptr) {
-		ListItem<NPC*>* npcInList;
-		npcInList = npcListPtr->start;
-		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-		{
-			if (npcInList->data->activeOnStage == app->stages->actualStage) {
-				npcInList->data->spriteRectB = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteTextB, npcInList->data->position.x-100, npcInList->data->position.y+90, &npcInList->data->spriteRectB);
-
-
-			}
-		}
-	}
-	
-
-	//PRINTS THE TRAINER
-	if (npcListPtr != nullptr) {
-		ListItem<NPC*>* npcInList;
-		npcInList = npcListPtr->start;
-		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-		{
-			if (npcInList->data->activeOnStage == app->stages->actualStage) {
-				npcInList->data->spriteRectE = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteTextE, npcInList->data->position.x+200, npcInList->data->position.y, &npcInList->data->spriteRectE);
-
-
 			}
 		}
 	}
 
-
-	//PRINTS THE MERCHANT
-	if (npcListPtr != nullptr) {
-		ListItem<NPC*>* npcInList;
-		npcInList = npcListPtr->start;
-		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-		{
-			if (npcInList->data->activeOnStage == app->stages->actualStage) {
-				npcInList->data->spriteRectM = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteTextM, npcInList->data->position.x+300, npcInList->data->position.y, &npcInList->data->spriteRectM);
-
-
-			}
-		}
-	}
 	return ret;
 }
 
