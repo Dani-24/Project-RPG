@@ -24,9 +24,22 @@ https://github.com/Dani-24/RPG
 
 ## Controls
 
-- (Controller/Keyboard)
+- WASD - Movement
+- Left Click - Interact
+- ESC - Back
 
 ## Debug Keys
+
+- 1 / 2 - Change Gender
+- 7 - Lock / Unlock player movement
+- 8 - Disable / Able Colliders
+- 9 - Save Data
+- 0 - Load Data
+- F1 - Town map
+- F2 - Tavern map
+- F3 - Dojo map
+- F4 - Shop map
+- F9 - Show / Hide Colliders
 
 ## Additional Comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
