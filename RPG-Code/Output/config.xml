@@ -32,12 +32,38 @@
    <player>
 		<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
-
-    <exampleNumber num="6"/>
+		<election path="Assets/audio/sfx/fx_character_yes.wav"/>
+		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
+	   <exampleNumber num="6"/>
 	</player>
 
 	<scene>
 		<spionage path="Assets/audio/music/music_credits.ogg" />
 	</scene>
+
+	<NPC>
+		<chicken path="Assets/sprites/npc/tavern/chicken.png"/>
+		<tavern path="Assets/sprites/npc/tavern/npc_tavern.png"/>
+		<trainer path="Assets/sprites/npc/training/npc_training.png"/>
+		<shoper path="Assets/sprites/npc/shop/npc_shop.png"/>
+	</NPC>
+	<pathfinder>
+		<pathtex path="Assets/textures/path.png"/>
+		<pathorigin path="Assets/textures/pathOrigin.png"/>
+	</pathfinder>
+	<logoScene>
+		<logo path="Assets/textures/logo.png"/>	
+		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
+	</logoScene>
+	<titleScene>
+		<startb path="Assets/gui/buttonstart.png"/>
+		<continueb path="Assets/gui/buttoncontinue.png"/>
+		<optionsb path="Assets/gui/buttonoptions.png"/>
+		<creditsb path="Assets/gui/buttoncredits.png"/>
+		<exitb path="Assets/gui/buttonexit.png"/>
+		<title path="Assets/textures/title_screen_bg.png"/>
+		<mustitle path="Assets/audio/music/music_title.ogg"/>
+		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
+	</titleScene>
 
 </config>
