@@ -54,6 +54,8 @@ private:
 
 	int erectionFx;
 
+	int walkFx;
+
 public:
 
 	// Textures
