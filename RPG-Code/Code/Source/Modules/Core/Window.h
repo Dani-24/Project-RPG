@@ -36,12 +36,18 @@ public:
 	// Retrieve window height
 	int GetHeight() const;
 
+	//Switch fullscreen mode
+	void SwitchScreen();
+
 public:
 	// The window we'll be rendering to
 	SDL_Window* window;
 
 	// The surface contained by the window
 	SDL_Surface* screenSurface;
+
+	bool fullscreen;
+
 
 private:
 	SString title;

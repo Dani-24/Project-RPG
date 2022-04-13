@@ -47,6 +47,9 @@ public:
 	SDL_Renderer* renderer;
 	SDL_Rect viewport;
 	SDL_Color background;
+
+	bool Vsync;
+
 };
 
 #endif // __RENDER_H__
