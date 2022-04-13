@@ -6,6 +6,9 @@
  <tileset firstgid="1065" name="LightShadow_pipo" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="tiles/LightShadow_pipo.png" width="256" height="192"/>
  </tileset>
+ <tileset firstgid="1113" name="sombras_ext" tilewidth="32" tileheight="32" tilecount="192" columns="16" backgroundcolor="#00ff00">
+  <image source="tiles/sombras_ext.png" width="512" height="384"/>
+ </tileset>
  <layer id="1" name="Ground" width="18" height="12">
   <properties>
    <property name="Draw" type="int" value="1"/>
