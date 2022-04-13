@@ -56,6 +56,8 @@ private:
 
 	int walkFx;
 
+	int walkFxCooldown;
+
 public:
 
 	// Textures
