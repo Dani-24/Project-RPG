@@ -176,8 +176,13 @@ void Camera::FollowTarget() {
 }
 
 void Camera::OnTarget() {
-	cam.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
-	cam.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+	if (target != nullptr) {
+		cam.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+		cam.y = -target->position.y * app->win->GetScale() + app->win->GetHeight() / 2;
+	}
+	else {
+		LOG("There is no target to set camera position on");
+	}
 }
 
 bool Camera::SetTarget(Entity* target) {

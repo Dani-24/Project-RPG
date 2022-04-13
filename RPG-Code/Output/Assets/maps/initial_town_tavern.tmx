@@ -140,6 +140,9 @@
  <tileset firstgid="5881" name="LightShadow_pipo" tilewidth="32" tileheight="32" tilecount="48" columns="8">
   <image source="tiles/LightShadow_pipo.png" width="256" height="192"/>
  </tileset>
+ <tileset firstgid="5929" name="LightShadow_pipo" tilewidth="32" tileheight="32" tilecount="48" columns="8">
+  <image source="tiles/LightShadow_pipo.png" width="256" height="192"/>
+ </tileset>
  <layer id="10" name="Water" width="20" height="21">
   <properties>
    <property name="Draw" type="int" value="1"/>

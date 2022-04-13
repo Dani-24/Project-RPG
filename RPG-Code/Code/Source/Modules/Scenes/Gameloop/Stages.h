@@ -13,7 +13,11 @@ class NPC;
 
 enum class StageIndex {
 	NONE,
-	TOWN
+	TOWN,
+	TAVERN,
+	DOJO,
+	SHOP,
+	SHOPSUB,
 };
 
 class Stages : public Module

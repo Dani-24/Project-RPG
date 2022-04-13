@@ -47,8 +47,25 @@ bool Scene::Start()
 	app->map->Enable();
 	app->enemyMovement->Enable();
 
-	// Load Map
-	app->map->Load("initial_town_map.tmx");
+	switch (app->stages->actualStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		app->map->Load("initial_town_map.tmx");
+		break;
+	case StageIndex::DOJO:
+		app->map->Load("initial_town_dojo.tmx");
+		break;
+	case StageIndex::SHOP:
+		app->map->Load("initial_town_shop.tmx");
+		break;
+	case StageIndex::SHOPSUB:
+		app->map->Load("initial_town_under_shop.tmx");
+		break;
+	case StageIndex::TAVERN:
+		app->map->Load("initial_town_tavern.tmx");
+		break;
+	}
 
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
@@ -57,12 +74,9 @@ bool Scene::Start()
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
-	// GUI
-	/*btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Test1", { (app->win->GetWidth() / 2) - 300, app->win->GetWidth() / 10, 160, 40 }, this);
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Test2", { (app->win->GetWidth() / 2) + 300, app->win->GetWidth() / 10, 160, 40 }, this);*/
-
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1000);
+
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
@@ -103,7 +117,6 @@ bool Scene::Start()
 
 	app->stages->npcListPtr = &npcList;
 
-
 	app->camera->SetLimits(640, 350, 4490, 4200);
 
 	pause = false;
@@ -128,7 +141,6 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
 	if (pause == false) {
@@ -147,10 +159,37 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	// ================================
+	//			DEBUG KEYS 
+	// ================================
+
+	// Change map
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::TOWN);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::DOJO);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::SHOP);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::SHOPSUB);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::TAVERN);
+	}
+
+	// Player movement
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 		player->canMove ? player->canMove = false : player->canMove = true;
 	}
 
+	// Show/Hide Colliders
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
 		if (app->battle->isEnabled() == false) {
@@ -187,7 +226,7 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	app->font->DrawTextDelayed("Sos putasoo", 950, 950);
+	app->font->DrawTextDelayed("SOS Putasooo    como la abuela", 950, 950);
 
 	return ret;
 }
@@ -224,6 +263,8 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 
 	app->font->CleanFonts();
+
+	app->camera->ReleaseTarget();
 
 	//Stages:
 	app->entities->DestroyEntity(player);

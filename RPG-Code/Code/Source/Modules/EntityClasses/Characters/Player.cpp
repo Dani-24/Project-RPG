@@ -72,6 +72,7 @@ bool Player::Start()
 	bool ret = true;
 
 	erectionFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
+	walkFx = app->audio->LoadFx("Assets/audio/sfx/fx_walk.wav");
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
@@ -87,6 +88,7 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+	LOG("position x %d y %d", position.x, position.y);
 	return true;
 }
 
@@ -145,11 +147,19 @@ bool Player::CleanUp() {
 void Player::MovementPlayer(float dt) {
 	speed = 0.2 * dt;
 
+	walkFxCooldown -= dt;
+	int cooldown = 450;
+
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
 			currentAnimation = &walkAnimUp;
+		}
+
+		if (walkFxCooldown < 0) {
+			app->audio->PlayFx(walkFx);
+			walkFxCooldown = cooldown;
 		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
@@ -158,6 +168,11 @@ void Player::MovementPlayer(float dt) {
 		if (currentAnimation != &walkAnimDown) {
 			currentAnimation = &walkAnimDown;
 		}
+		
+		if (walkFxCooldown < 0) {
+			app->audio->PlayFx(walkFx);
+			walkFxCooldown = cooldown;
+		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		position.x -= speed;
@@ -165,12 +180,22 @@ void Player::MovementPlayer(float dt) {
 		if (currentAnimation != &walkAnimL) {
 			currentAnimation = &walkAnimL;
 		}
+
+		if (walkFxCooldown < 0) {
+			app->audio->PlayFx(walkFx);
+			walkFxCooldown = cooldown;
+		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {
 			currentAnimation = &walkAnimR;
+		}
+
+		if (walkFxCooldown < 0) {
+			app->audio->PlayFx(walkFx);
+			walkFxCooldown = cooldown;
 		}
 	}
 	else {

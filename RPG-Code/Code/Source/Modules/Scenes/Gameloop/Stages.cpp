@@ -16,6 +16,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "NPC.h"
+#include "Camera.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -57,10 +58,19 @@ bool Stages::PreUpdate()
 
 	case StageIndex::TOWN:
 
-		
+		break;
+	case StageIndex::DOJO:
 
 		break;
+	case StageIndex::SHOP:
 
+		break;
+	case StageIndex::SHOPSUB:
+
+		break;
+	case StageIndex::TAVERN:
+
+		break;
 	default:
 
 		break;
@@ -79,7 +89,18 @@ bool Stages::Update(float dt)
 	case StageIndex::TOWN:
 
 		break;
+	case StageIndex::DOJO:
 
+		break;
+	case StageIndex::SHOP:
+
+		break;
+	case StageIndex::SHOPSUB:
+
+		break;
+	case StageIndex::TAVERN:
+
+		break;
 	default:
 
 		break;
@@ -99,35 +120,39 @@ bool Stages::PostUpdate()
 		break;
 
 	case StageIndex::TOWN:
-		
-		if (onBattle == false) {
-
-			app->map->Draw();
-			app->guiManager->Draw();
-
-			//Print skeletons
-			/*for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 10; j++) {
-					app->render->DrawTexture(img, i * 200, j * 200, &imgAnim.GetCurrentFrame());
-				}
-			}*/
-
-			//PRINT THE PLAYER
-			if (playerPtr != nullptr) {
-				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-				if (playerPtr->PlayerErection == true) {
-					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-				if (playerPtr->PlayerErection == false) {
-					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-			}
-
-			app->map->ReDraw();
-		}
 
 		break;
+	case StageIndex::DOJO:
 
+		break;
+	case StageIndex::SHOP:
+
+		break;
+	case StageIndex::SHOPSUB:
+
+		break;
+	case StageIndex::TAVERN:
+
+		break;
+	}
+
+	if (onBattle == false) {
+
+		app->map->Draw();
+		app->guiManager->Draw();
+
+		//PRINT THE PLAYER
+		if (playerPtr != nullptr) {
+			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			if (playerPtr->PlayerErection == true) {
+				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+			if (playerPtr->PlayerErection == false) {
+				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+		}
+
+		app->map->ReDraw();
 	}
 
 	if (npcListPtr != nullptr) {
@@ -148,11 +173,18 @@ bool Stages::PostUpdate()
 void Stages::ChangeStage(StageIndex newStage) {
 	actualStage = newStage;
 
+	// Reset map.cpp
+	if (app->map->isEnabled() == true) {
+		app->map->Disable();
+		app->map->Enable();
+		app->camera->FreeLimits();
+	}
+
 	switch (newStage)
 	{
 	case StageIndex::NONE:
 
-		app->map->RemoveCol();
+		//app->map->RemoveCol();
 
 		playerPtr = nullptr;
 		delete playerPtr;
@@ -163,7 +195,68 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 	case StageIndex::TOWN:
 
-		//playerPtr = app->scene->player;
+		// Load Map
+		if (app->map->isEnabled() == true) {
+
+			app->map->Load("initial_town_map.tmx");
+
+			playerPtr->position = { 950, 1000 };
+			app->camera->OnTarget();
+
+			LOG("Loading Town map");
+		}
+
+		break;
+	case StageIndex::DOJO:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("initial_town_dojo.tmx");
+
+			playerPtr->position = { 415, 270 };
+			app->camera->OnTarget();
+
+			LOG("Loading Dojo map");
+		}
+
+		break;
+	case StageIndex::SHOP:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("initial_town_shop.tmx");
+
+			playerPtr->position = { 255, 425 };
+			app->camera->OnTarget();
+
+			LOG("Loading Shop map");
+		}
+
+		break;
+	case StageIndex::SHOPSUB:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("initial_town_under_shop.tmx");
+
+			playerPtr->position = { 255, 80 };
+			app->camera->OnTarget();
+
+			LOG("Loading Shop lower floor map");
+		}
+
+		break;
+	case StageIndex::TAVERN:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("initial_town_tavern.tmx");
+
+			playerPtr->position = { 240, 550 };
+			app->camera->OnTarget();
+
+			LOG("Loading Tavern map");
+		}
 
 		break;
 	default:
