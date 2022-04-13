@@ -12,6 +12,7 @@
 #include "EnemyMovement.h"
 #include "EntityManager.h"
 #include "Battle.h"
+#include "Camera.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -46,13 +47,23 @@ bool Battle::Start()
 	case StageIndex::NONE:
 		break;
 	case StageIndex::TOWN:
-		townBattleBackground = app->tex->Load("Assets/textures/glob.png");
+		townBattleBackground = app->tex->Load("Assets/textures/forest_bg_1.png");
+		
+		
 		break;
 	default:
 		break;
 	}
 
-	//app->map->RemoveCol();
+	app->map->RemoveCol();
+	app->stages->onBattle = true;
+	
+	app->stages->playerPtr->mapPosition = app->stages->playerPtr->position;
+	app->stages->playerPtr->position = app->stages->playerPtr->battlePosition;
+	app->stages->playerPtr->canMove = false;
+	app->camera->OnTarget();
+	app->camera->FreeLimits();
+	int a = 9;
 	
 	return true;
 }
@@ -148,6 +159,10 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool Battle::CleanUp()
 {
+	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+	app->camera->OnTarget();
+	app->stages->playerPtr->canMove = true;
 	app->map->LoadCol();
+	app->stages->onBattle = false;
 	return true;
 }

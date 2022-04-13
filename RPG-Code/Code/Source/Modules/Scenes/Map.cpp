@@ -554,25 +554,55 @@ void Map::LoadCol() {
 
 	int i = 0;
 
-	//SString a;
-	int k = 0;
 	while (mapLayerItem != NULL) {
 	
-		//const char* wallChar = static_cast<const char*>(mapLayerItem->data->properties.GetProperty<const char*>("Col"));
-		//if (wallChar != nullptr) {
-		//	if (wallChar == std::string("wall")) {
+		const char* wallChar = static_cast<const char*>(mapLayerItem->data->properties.GetProperty<const char*>("Col"));
+		if (wallChar != nullptr) {
+			if (wallChar == std::string("wall")) {
+
+				for (int x = 0; x < mapLayerItem->data->width; x++)
+				{
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						// Complete the col function
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							// Obtain the tile set using GetTilesetFromTileId
+							// now we always use the firt tileset in the list
+							TileSet* tileset = mapData.tilesets.start->data;
+
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
+
+							mapWalls[i] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
+							i++;
+						}
+					}
+				}
+			}
+		}
+
+		//const char* colProperty = static_cast<const char*>(mapLayerItem->data->properties.GetPropertyChar("Col"));
+
+		//if (colProperty != nullptr) {
+
+		//	LOG("%s", colProperty);
+		//	if (colProperty == std::string("wall"))
+		//	{
 
 		//		for (int x = 0; x < mapLayerItem->data->width; x++)
 		//		{
 		//			for (int y = 0; y < mapLayerItem->data->height; y++)
 		//			{
-		//				// Complete the col function
+		//				//Complete the draw function
 		//				int gid = mapLayerItem->data->Get(x, y);
 
 		//				if (gid > 0) {
 
-		//					// Obtain the tile set using GetTilesetFromTileId
-		//					// now we always use the firt tileset in the list
+		//					//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
+		//					//now we always use the firt tileset in the list
 		//					TileSet* tileset = mapData.tilesets.start->data;
 
 		//					SDL_Rect r = tileset->GetTileRect(gid);
@@ -583,53 +613,10 @@ void Map::LoadCol() {
 		//				}
 		//			}
 		//		}
+
 		//	}
 		//}
-		if (k == 17) {
-			int y = 5;
-		}
 
-		const char* colProperty = static_cast<const char*>(mapLayerItem->data->properties.GetPropertyChar("Col"));
-		k++;
-		LOG("%d", k);
-
-		
-
-		if (colProperty != nullptr) {
-
-			LOG("%s", colProperty);
-			if (colProperty == std::string("wall"))
-			{
-
-				for (int x = 0; x < mapLayerItem->data->width; x++)
-				{
-					for (int y = 0; y < mapLayerItem->data->height; y++)
-					{
-						//Complete the draw function
-						int gid = mapLayerItem->data->Get(x, y);
-
-						if (gid > 0) {
-
-							//L06: TODO 4: Obtain the tile set using GetTilesetFromTileId
-							//now we always use the firt tileset in the list
-							TileSet* tileset = mapData.tilesets.start->data;
-
-							SDL_Rect r = tileset->GetTileRect(gid);
-							iPoint pos = MapToWorld(x, y);
-
-							mapWalls[i] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
-							i++;
-							LOG("%d", i);
-						}
-					}
-				}
-
-			}
-		}
-
-
-
-	//	LOG("%d", i);
 		mapLayerItem = mapLayerItem->next;
 	}
 }

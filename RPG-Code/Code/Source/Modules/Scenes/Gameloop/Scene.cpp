@@ -194,27 +194,15 @@ bool Scene::Update(float dt)
 
 		if (app->battle->isEnabled() == false) {
 			
-			//app->battle->Enable();
-			//app->stages->onBattle = true;
+			app->battle->Enable();
+			
 
 		}else
 		{
-			//app->battle->Disable(), 
-			//app->stages->onBattle = false;		
+			app->battle->Disable();
+			
+			
 		}
-
-		if (aaa == false) {
-
-			app->map->RemoveCol();
-			aaa = true;
-
-		}
-		else
-		{
-			app->map->LoadCol();
-			aaa  = false;
-		}
-	
 
 		//app->battle->isEnabled() == false ? app->battle->Enable() , app->stages->onBattle = true: app->battle->Disable(), app->stages->onBattle = false;
 	}

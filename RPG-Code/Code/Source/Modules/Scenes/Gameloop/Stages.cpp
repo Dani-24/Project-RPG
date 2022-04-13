@@ -121,6 +121,25 @@ bool Stages::PostUpdate()
 
 	case StageIndex::TOWN:
 
+		if (onBattle == false) {
+
+			app->map->Draw();
+			app->guiManager->Draw();
+
+			//PRINT THE PLAYER
+			if (playerPtr != nullptr) {
+				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+				if (playerPtr->PlayerErection == true) {
+					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
+				if (playerPtr->PlayerErection == false) {
+					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				}
+			}
+
+			app->map->ReDraw();
+		}
+
 		break;
 	case StageIndex::DOJO:
 
@@ -136,12 +155,11 @@ bool Stages::PostUpdate()
 		break;
 	}
 
-	if (onBattle == false) {
+	
+	if (onBattle == true) {
+		{
 
-		app->map->Draw();
-		app->guiManager->Draw();
-
-		//PRINT THE PLAYER
+		//PRINT THE PLAYER ON BATTLE
 		if (playerPtr != nullptr) {
 			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 			if (playerPtr->PlayerErection == true) {
@@ -152,9 +170,10 @@ bool Stages::PostUpdate()
 			}
 		}
 
-		app->map->ReDraw();
 	}
+	
 
+	//PRINT THE NPCs
 	if (npcListPtr != nullptr) {
 		ListItem<NPC*>* npcInList;
 		npcInList = npcListPtr->start;

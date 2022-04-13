@@ -80,5 +80,8 @@ public:
 	// Margin pixels from edge of colliders 
 	int margin;
 
+	iPoint mapPosition;
+	iPoint battlePosition;
+
 };
 #endif !__PLAYER_H__

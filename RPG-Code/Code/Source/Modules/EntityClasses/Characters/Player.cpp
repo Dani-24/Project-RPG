@@ -49,6 +49,10 @@ Player::Player() : Character(CharacterType::PLAYER)
 	colDownDistance = 26;
 
 	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
+
+	mapPosition = { 0,0 };
+	battlePosition = { 100, 100 };
+
 }
 
 // Destructor
