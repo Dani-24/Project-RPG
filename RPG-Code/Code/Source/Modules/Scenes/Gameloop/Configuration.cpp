@@ -88,13 +88,20 @@ bool Configuration::PostUpdate()
 {
 	bool ret = true;
 
+	std::string sVOL = std::to_string(app->audio->vol);
+	char const* volchar = sVOL.c_str();
+
+	std::string sFX = std::to_string(app->audio->volFX);
+	char const* FXchar = sFX.c_str();
+
 	app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50);
 	app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50);
 	app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50);
-
+	app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 50);
 	app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90);
 	app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90);
 	app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 90);
+	app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 90);
 
 	app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130);
 	if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130);
@@ -145,7 +152,7 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("FX +");
 
-			if (app->audio->volFX > 0)app->audio->volFX += 5; app->audio->ChangeFXVolume(app->audio->volFX);
+			if (app->audio->volFX < 100)app->audio->volFX += 5; app->audio->ChangeFXVolume(app->audio->volFX);
 		}
 		if (control->id == 9)
 		{
