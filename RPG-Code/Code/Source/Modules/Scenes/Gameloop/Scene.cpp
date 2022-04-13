@@ -80,43 +80,32 @@ bool Scene::Start()
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 
-	srand(time(NULL));
-	int randX = 1000;
-	int randY = 1000;
-	int x = 1300;
-	int y = 950;
+	// NPCs
+	iPoint cockPos = { 1240, 950 };
+	iPoint barkeeperPos = { 450, 300 };
+	iPoint trainerPos = { 290, 160 };
+	iPoint merchantPos = { 255, 150 };
 
-	int xT = 1500;
-	int yT = 1100;
-
-	int xB = 1050;
-	int yB = 900;
-
-	int xM = 1100;
-	int yM = 900;
-
-	//Cock Entity
-	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, x, y);
+	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;
 
-	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, xB, yB);
+	NPC* barkeeper = (NPC*)app->entities->CreateEntity(NPCType::BARKEEPER, barkeeperPos.x, barkeeperPos.y);
 	npcList.add(barkeeper);
-	barkeeper->activeOnStage = StageIndex::TOWN;
+	barkeeper->activeOnStage = StageIndex::TAVERN;
 
-	NPC* trainer = (NPC*)app->entities->CreateEntity(NPCType::TRAINER, xT, yT);
+	NPC* trainer = (NPC*)app->entities->CreateEntity(NPCType::TRAINER, trainerPos.x, trainerPos.y);
 	npcList.add(trainer);
-	trainer->activeOnStage = StageIndex::TOWN;
+	trainer->activeOnStage = StageIndex::DOJO;
 
-	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, xM, yM);
+	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, merchantPos.x, merchantPos.y);
 	npcList.add(merchant);
-	merchant->activeOnStage = StageIndex::TOWN;
+	merchant->activeOnStage = StageIndex::SHOP;
 
-	//cock->position = { 950, 950 };
-	//app->stages->npcListPtr.At(npcList.count())->data = (Cock*)npcList.At(npcList.count());
 
 	app->stages->npcListPtr = &npcList;
 
+	// TOWN LIMITS for camera
 	app->camera->SetLimits(640, 350, 4490, 4200);
 
 	pause = false;

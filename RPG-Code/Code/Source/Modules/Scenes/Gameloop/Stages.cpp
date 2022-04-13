@@ -120,26 +120,6 @@ bool Stages::PostUpdate()
 		break;
 
 	case StageIndex::TOWN:
-
-		if (onBattle == false) {
-
-			app->map->Draw();
-			app->guiManager->Draw();
-
-			//PRINT THE PLAYER
-			if (playerPtr != nullptr) {
-				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-				if (playerPtr->PlayerErection == true) {
-					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-				if (playerPtr->PlayerErection == false) {
-					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-			}
-
-			app->map->ReDraw();
-		}
-
 		break;
 	case StageIndex::DOJO:
 
@@ -155,6 +135,25 @@ bool Stages::PostUpdate()
 		break;
 	}
 
+	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
+	if (onBattle == false && actualStage != StageIndex::NONE) {
+
+		app->map->Draw();
+		app->guiManager->Draw();
+
+		//PRINT THE PLAYER
+		if (playerPtr != nullptr) {
+			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			if (playerPtr->PlayerErection == true) {
+				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+			if (playerPtr->PlayerErection == false) {
+				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+		}
+
+		app->map->ReDraw();
+	}
 	
 	if (onBattle == true) {
 		{
