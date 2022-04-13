@@ -88,6 +88,7 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+	LOG("position x %d y %d", position.x, position.y);
 	return true;
 }
 

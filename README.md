@@ -36,9 +36,10 @@ https://github.com/Dani-24/RPG
 - 9 - Save Data
 - 0 - Load Data
 - F1 - Town map
-- F2 - Tavern map
-- F3 - Dojo map
-- F4 - Shop map
+- F2 - Dojo map
+- F3 - Shop map
+- F4 - Shop (lower floor) map
+- F5 - Tavern map
 - F9 - Show / Hide Colliders
 
 ## Additional Comments

@@ -303,7 +303,7 @@ bool Map::CleanUp()
 {
     LOG("Unloading map");
 
-	//RemoveCol();
+	RemoveCol();
 
     // Make sure you clean up any memory allocated from tilesets/map
     // Remove all tilesets
@@ -665,8 +665,7 @@ void Map::RemoveCol() {
 						
 						i++;
 					}
-					
-					
+
 				}
 
 			}

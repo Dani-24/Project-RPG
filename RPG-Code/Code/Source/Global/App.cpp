@@ -50,7 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	camera = new Camera(this);
 	enemyMovement = new EnemyMovement(this, false);
 
-	map = new Map(this);
+	map = new Map(this, false);
 	guiManager = new GuiManager(this);
 
 	font = new ModuleQFonts(this);

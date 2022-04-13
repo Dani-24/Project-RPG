@@ -127,8 +127,7 @@ void Collisions::DebugDraw()
 			continue;
 		}
 			
-
-		if (app->stages->actualStage == StageIndex::TOWN) {
+		if (app->stages->actualStage != StageIndex::NONE) {
 
 			switch (colliders[i]->type)
 			{
