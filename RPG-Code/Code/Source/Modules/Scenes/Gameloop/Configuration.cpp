@@ -38,6 +38,7 @@ bool Configuration::Start()
 	app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
+	background = app->tex->Load("Assets/gui/marco opciones.png");
 
 	// GUI
 	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
@@ -94,6 +95,10 @@ bool Configuration::PostUpdate()
 	std::string sFX = std::to_string(app->audio->volFX);
 	char const* FXchar = sFX.c_str();
 
+
+
+	app->render->DrawTexture(background, (app->win->GetWidth() / 2) - 475, (app->win->GetWidth() / 50) + 40);
+
 	app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50);
 	app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50);
 	app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50);
@@ -111,6 +116,8 @@ bool Configuration::PostUpdate()
 
 
 	app->font->DrawText("X", (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37);
+
+
 
 
 	/*app->font->DrawText("Music", 170, 85);
