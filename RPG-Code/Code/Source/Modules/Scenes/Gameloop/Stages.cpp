@@ -136,29 +136,31 @@ bool Stages::PostUpdate()
 	}
 
 	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
+	//oka doka
 	if (onBattle == false && actualStage != StageIndex::NONE) {
 
 		app->map->Draw();
 		app->guiManager->Draw();
 
-		//PRINT THE PLAYER
+		
+
 		if (playerPtr != nullptr) {
-			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-			if (playerPtr->PlayerErection == true) {
-				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			//PRINT THE NPCs BELOW THE PLAYER
+			if (npcListPtr != nullptr) {
+				ListItem<NPC*>* npcInList;
+				npcInList = npcListPtr->start;
+				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+				{
+					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+						}
+					}
+				}
 			}
-			if (playerPtr->PlayerErection == false) {
-				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-			}
-		}
 
-		app->map->ReDraw();
-	}
-	
-	if (onBattle == true) {
-		{
-
-			//PRINT THE PLAYER ON BATTLE
+			//PRINT THE PLAYER 
 			if (playerPtr != nullptr) {
 				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 				if (playerPtr->PlayerErection == true) {
@@ -169,21 +171,60 @@ bool Stages::PostUpdate()
 				}
 			}
 
+			//PRINT THE NPCs ABOVE THE PLAYER
+			if (npcListPtr != nullptr) {
+				ListItem<NPC*>* npcInList;
+				npcInList = npcListPtr->start;
+				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+				{
+					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+						}
+					}
+				}
+			}
+		}
+		else {
+			//PRINT ONLY THE NPCs
+			if (npcListPtr != nullptr) {
+				ListItem<NPC*>* npcInList;
+				npcInList = npcListPtr->start;
+				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+				{
+					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+						app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+					}
+				}
+			}
 		}
 
+		app->map->ReDraw();
 	}
-		//PRINT THE NPCs
-	if (npcListPtr != nullptr) {
-		ListItem<NPC*>* npcInList;
-		npcInList = npcListPtr->start;
-		for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-		{
-			if (npcInList->data->activeOnStage == app->stages->actualStage) {
-				npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-				app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+	
+	//PRINT THE BATTLE SPRITES
+	if (onBattle == true) {
+
+		//PRINT THE PLAYER ON BATTLE
+		if (playerPtr != nullptr) {
+					SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			if (playerPtr->PlayerErection == true) {
+						app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+			if (playerPtr->PlayerErection == false) {
+						app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
 	}
+
+	
+
+		
+
+	
+	
 
 	return ret;
 	
