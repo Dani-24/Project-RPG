@@ -143,7 +143,7 @@ bool Stages::PostUpdate()
 		app->map->Draw();
 		app->guiManager->Draw();
 
-		
+
 
 		if (playerPtr != nullptr) {
 			//PRINT THE NPCs BELOW THE PLAYER
@@ -204,31 +204,23 @@ bool Stages::PostUpdate()
 
 		app->map->ReDraw();
 	}
-	
+
 	//PRINT THE BATTLE SPRITES
 	if (onBattle == true) {
 
 		//PRINT THE PLAYER ON BATTLE
 		if (playerPtr != nullptr) {
-					SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 			if (playerPtr->PlayerErection == true) {
-						app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 			if (playerPtr->PlayerErection == false) {
-						app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
 	}
-
-	
-
-		
-
-	
-	
-
 	return ret;
-	
+
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
@@ -244,8 +236,6 @@ void Stages::ChangeStage(StageIndex newStage) {
 	switch (newStage)
 	{
 	case StageIndex::NONE:
-
-		//app->map->RemoveCol();
 
 		playerPtr = nullptr;
 		delete playerPtr;
@@ -265,6 +255,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Town map");
+
+			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 		}
 
 		break;
@@ -278,6 +270,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Dojo map");
+
+			//app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
 		}
 
 		break;
@@ -291,6 +285,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Shop map");
+
+			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
 		}
 
 		break;
@@ -317,6 +313,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Tavern map");
+
+			//app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 		}
 
 		break;

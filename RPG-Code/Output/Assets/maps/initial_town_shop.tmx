@@ -1788,6 +1788,7 @@
  <layer id="10" name="Deco - Height" width="17" height="17">
   <properties>
    <property name="Draw" type="int" value="1"/>
+   <property name="Height" type="int" value="1"/>
   </properties>
   <data>
    <tile/>
@@ -2646,26 +2647,26 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="799"/>
    <tile gid="799"/>
    <tile gid="799"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile/>
    <tile/>

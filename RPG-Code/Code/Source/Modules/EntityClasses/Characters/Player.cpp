@@ -10,6 +10,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
+#include "Stages.h"
 
 Player::Player() : Character(CharacterType::PLAYER)
 {
@@ -268,27 +269,145 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 		for (int i = 0; i < MAX_ENTRIES; i++) {
 			if (app->map->mapEntries[i] != nullptr) {
 				if (app->map->mapEntries[i]->col == col2) {
-					//LOG("%d", app->map->mapEntries[i]->id);
+
 					switch (app->map->mapEntries[i]->id) 
 					{
 						case 0:
-							LOG("Loading Shop map");
+
+							switch (app->stages->actualStage)
+							{
+							case StageIndex::NONE:
+
+								break;
+							case StageIndex::TOWN:
+
+								LOG("Loading Shop map");
+								app->stages->ChangeStage(StageIndex::SHOP);
+
+								break;
+							case StageIndex::DOJO:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							case StageIndex::SHOP:
+
+								LOG("Loading Shop sub level map");
+								app->stages->ChangeStage(StageIndex::SHOPSUB);
+
+								break;
+							case StageIndex::SHOPSUB:
+
+								LOG("Loading Shop map");
+								app->stages->ChangeStage(StageIndex::SHOP);
+
+								break;
+							case StageIndex::TAVERN:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							}
+
 							break;
 						case 1:
+
+							switch (app->stages->actualStage)
+							{
+							case StageIndex::NONE:
+
+								break;
+							case StageIndex::TOWN:
+
+								LOG("Loading Tavern map");
+								app->stages->ChangeStage(StageIndex::TAVERN);
+
+								break;
+							case StageIndex::DOJO:
+
+								LOG("Returning to town");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							case StageIndex::SHOP:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							case StageIndex::TAVERN:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							}
+							break;
 						case 2:
-							LOG("Loading Tavern map");
+
+							switch (app->stages->actualStage)
+							{
+							case StageIndex::NONE:
+
+								break;
+							case StageIndex::TOWN:
+
+								LOG("Loading Tavern map");
+								app->stages->ChangeStage(StageIndex::TAVERN);
+
+								break;
+							case StageIndex::DOJO:
+
+								LOG("Returning to town");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							case StageIndex::SHOP:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							}
+
 							break;
 						case 3:
-							LOG("Loading Dojo map");
+							switch (app->stages->actualStage)
+							{
+							case StageIndex::NONE:
+
+								break;
+							case StageIndex::TOWN:
+
+								LOG("Loading Dojo map");
+								app->stages->ChangeStage(StageIndex::DOJO);
+
+								break;
+							case StageIndex::DOJO:
+
+								LOG("Returning to town");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							case StageIndex::SHOP:
+
+								LOG("Loading town map");
+								app->stages->ChangeStage(StageIndex::TOWN);
+
+								break;
+							}
 							break;
 						default:
+							if (app->stages->actualStage == StageIndex::DOJO) {
+								LOG("Returning to town");
+								app->stages->ChangeStage(StageIndex::TOWN);
+							}
 							break;
 					}
 				}
 			}
 		}
-		
-		
 	}
-
 }
