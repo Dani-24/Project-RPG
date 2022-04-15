@@ -65,6 +65,10 @@ NPC::~NPC()
 
 bool NPC::Awake(pugi::xml_node& config)
 {
+	chickenChar = config.child("chicken").attribute("path").as_string();
+	tavernChar = config.child("tavern").attribute("path").as_string();
+	trainerChar = config.child("trainer").attribute("path").as_string();
+	shoperChar = config.child("shoper").attribute("path").as_string();
 
 	return true;
 }
@@ -77,7 +81,7 @@ bool NPC::Start()
 	switch (NpcType) {
 	case NPCType::COCK:
 
-		spriteText = app->tex->Load("Assets/sprites/npc/tavern/chicken.png");
+		spriteText = app->tex->Load(chickenChar);
 		break;
 	case NPCType::BARKEEPER:
 

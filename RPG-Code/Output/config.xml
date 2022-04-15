@@ -41,12 +41,19 @@
 		<spionage path="Assets/audio/music/music_credits.ogg" />
 	</scene>
 
-	<NPC>
+	<cock>
 		<chicken path="Assets/sprites/npc/tavern/chicken.png"/>
+	</cock>
+	<barkeeper>
 		<tavern path="Assets/sprites/npc/tavern/npc_tavern.png"/>
+	</barkeeper>
+	<trainer>
 		<trainer path="Assets/sprites/npc/training/npc_training.png"/>
+	</trainer>
+	<merchant>
 		<shoper path="Assets/sprites/npc/shop/npc_shop.png"/>
-	</NPC>
+	</merchant>
+	
 	<pathfinder>
 		<pathtex path="Assets/textures/path.png"/>
 		<pathorigin path="Assets/textures/pathOrigin.png"/>

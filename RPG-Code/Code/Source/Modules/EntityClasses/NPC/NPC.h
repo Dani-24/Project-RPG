@@ -47,6 +47,11 @@ public:
 
 public:
 
+	const char* chickenChar;
+	const char* tavernChar;
+	const char* trainerChar;
+	const char* shoperChar;
+
 	int npcId;
 	bool isMerchant;
 

@@ -50,8 +50,8 @@ private:
 	GuiButton* FXm;//decrese the FX volume
 	GuiButton* fullS;//Change fullscreen mode
 	GuiButton* Vsync;//active/deactive Vsync
-	GuiButton* frcap30;//change frcap to 30fps
-	GuiButton* frcap60;//change frcap to 60fps
+	//GuiButton* frcap30;//change frcap to 30fps
+	//GuiButton* frcap60;//change frcap to 60fps
 	GuiButton* back;//back to the last screen
 	
 	int backFx, loadFx, saveFx;
