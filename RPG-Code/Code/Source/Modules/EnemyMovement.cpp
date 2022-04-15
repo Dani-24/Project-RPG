@@ -102,7 +102,7 @@ bool EnemyMovement::CleanUp()
 {
 	//app->tex->UnLoad(EnemyTex);
 
-	currentAnimation = nullptr;
+	currentAnimationEnemy = nullptr;
 
 	return true;
 }

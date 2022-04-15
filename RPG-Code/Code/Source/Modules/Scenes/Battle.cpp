@@ -58,12 +58,17 @@ bool Battle::Start()
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
 	
+	//Saving player State before battle
+	//Position
 	app->stages->playerPtr->mapPosition = app->stages->playerPtr->position;
 	app->stages->playerPtr->position = app->stages->playerPtr->battlePosition;
+	//Animation
+	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
+	app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->walkAnimR;
+	app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
+	
 	app->stages->playerPtr->canMove = false;
-	app->camera->OnTarget();
-	app->camera->FreeLimits();
-	int a = 9;
+	app->camera->SetPos({ 0, 0 });
 	
 	return true;
 }
@@ -159,8 +164,14 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool Battle::CleanUp()
 {
+	//Take back player position
 	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+	app->camera->SetTarget(app->stages->playerPtr);
 	app->camera->OnTarget();
+
+	//Take back player animation
+	app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
 	app->stages->playerPtr->canMove = true;
 	app->map->LoadCol();
 	app->stages->onBattle = false;

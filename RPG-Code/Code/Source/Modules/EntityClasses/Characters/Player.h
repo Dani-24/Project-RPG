@@ -41,6 +41,11 @@ private:
 
 	int speed;
 
+public:
+
+	// Animation saved here when battle starts to get it back later
+	Animation* mapAnimation;
+
 	// Player animations
 	Animation
 		walkAnimUp,

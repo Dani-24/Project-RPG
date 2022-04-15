@@ -117,9 +117,10 @@ bool Stages::PostUpdate()
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
-		break;
 
+		break;
 	case StageIndex::TOWN:
+
 		break;
 	case StageIndex::DOJO:
 

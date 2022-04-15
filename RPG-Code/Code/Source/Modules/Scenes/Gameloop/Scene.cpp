@@ -181,19 +181,19 @@ bool Scene::Update(float dt)
 	// Show/Hide Colliders
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
-		if (app->battle->isEnabled() == false) {
+		//if (app->battle->isEnabled() == false) {
 			
-			app->battle->Enable();
+		//	app->battle->Enable();
 			
 
-		}else
-		{
-			app->battle->Disable();
+		//}else
+		//{
+		//	app->battle->Disable();
 			
 			
-		}
+		//}
 
-		//app->battle->isEnabled() == false ? app->battle->Enable() , app->stages->onBattle = true: app->battle->Disable(), app->stages->onBattle = false;
+		app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
 	return true;
 }

@@ -47,7 +47,7 @@ private:
 
 
 	//enemy animations
-	Animation* currentAnimation = nullptr;
+	Animation* currentAnimationEnemy = nullptr;
 	Animation
 		walkAnimR,
 		walkAnimL,
