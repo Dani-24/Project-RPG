@@ -67,7 +67,9 @@ bool Player::Awake(pugi::xml_node& config)
 	LOG("Num in config: %d",config.child("exampleNumber").attribute("num").as_int());
 
 	MaleChar = config.child("male").attribute("path").as_string();
-
+	FemaleChar = config.child("female").attribute("path").as_string();
+	electionfxChar = config.child("election").attribute("path").as_string();
+	WalkfxChar = config.child("walkFx").attribute("path").as_string();
 	return ret;
 }
 
@@ -76,11 +78,11 @@ bool Player::Start()
 	LOG("start Player");
 	bool ret = true;
 
-	erectionFx = app->audio->LoadFx("Assets/audio/sfx/fx_character_yes.wav");
-	walkFx = app->audio->LoadFx("Assets/audio/sfx/fx_walk.wav");
+	erectionFx = app->audio->LoadFx(electionfxChar);
+	walkFx = app->audio->LoadFx(WalkfxChar);
 
 	PlayerMTex = app->tex->Load(MaleChar);
-	PlayerFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Walk/MainChF.png");
+	PlayerFTex = app->tex->Load(FemaleChar);
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
