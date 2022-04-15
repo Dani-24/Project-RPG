@@ -30,7 +30,7 @@ class NPC : public DynamicEntity
 {
 public:
 
-	NPC(NPCType type);
+	NPC(NPCType type, int x, int y);
 	~NPC();
 
 	virtual bool Awake(pugi::xml_node& config);

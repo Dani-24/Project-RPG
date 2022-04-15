@@ -46,3 +46,8 @@ bool DynamicEntity::CleanUp()
 {
 	return true;
 }
+
+const Collider* DynamicEntity::GetCollider() const
+{
+	return baseCollider;
+}

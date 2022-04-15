@@ -6,9 +6,10 @@
 #include "App.h"
 #include "Scene.h"
 
-NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
+NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 {
 
+	position = { x,y };
 	this->NpcType = NPCType;
 
 	switch (NPCType) {
@@ -20,6 +21,9 @@ NPC::NPC(NPCType NPCType) : DynamicEntity(DynamicType::NPC)
 		idleAnim.PushBack({ 96, 2, 30, 28 });
 
 		configName = "cock";
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::INSTANT, this);
+
 
 		break;
 	case NPCType::BARKEEPER:

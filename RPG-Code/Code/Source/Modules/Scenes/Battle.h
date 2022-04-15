@@ -8,6 +8,7 @@
 
 struct SDL_Texture;
 class Player;
+class DynamicEntity;
 
 enum class StageIndex;
 
@@ -55,6 +56,22 @@ public:
 	bool battlePause;
 
 	Player* player = nullptr;
+
+	DynamicEntity* actualTurn;
+
+	DynamicEntity* entitiesInBattle[8];
+
+	//Buttons
+
+	GuiButton* attackButton; // attack button
+	GuiButton* defenseButton; // defense button
+	GuiButton* itemButton; // item button
+	GuiButton* escapeButton; // escape button
+
+	char battleTurnChar[3] = { "\0" };
+
+	int battleTurn;
+	
 };
 
 #endif // __BATTLE_H__

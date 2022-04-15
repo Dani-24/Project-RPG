@@ -11,9 +11,13 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Stages.h"
+#include "Battle.h"
 
-Player::Player() : Character(CharacterType::PLAYER)
+Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
+
+	position = {x,y};
+
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
 	walkAnimDown.PushBack({ 114,10,31,46 });
@@ -90,6 +94,8 @@ bool Player::Start()
 	PlayerErection = 1;
 
 	canMove = true;
+
+	playerStats = new Stats(1, 20, 5 , 5, 5);
 
 	return ret;
 }
@@ -266,6 +272,22 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 	}
 
 	if (col1 == baseCollider && col2->type == Collider::INSTANT) {
+
+		//Collision with enemy
+
+		ListItem<Entity*>* entityInList;
+
+		for (entityInList = app->entities->entityList.start; entityInList != NULL; entityInList = entityInList->next)
+		{
+			if (entityInList->data->GetCollider() != nullptr) {
+				if (entityInList->data->GetCollider() == col2) {
+					app->battle->isEnabled() == false ? app->battle->Enable() : app->battle->Disable();
+				}
+			}
+			
+		}
+
+		//Collision with entrance
 		for (int i = 0; i < MAX_ENTRIES; i++) {
 			if (app->map->mapEntries[i] != nullptr) {
 				if (app->map->mapEntries[i]->col == col2) {

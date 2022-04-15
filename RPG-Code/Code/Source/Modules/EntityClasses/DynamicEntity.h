@@ -69,7 +69,7 @@ public:
 	virtual bool PostUpdate();
 
 	// Returns the enemy's collider
-	//const Collider* GetCollider() const;
+	const Collider* GetCollider() const override;
 	//virtual void OnCollision(Collider* collider);
 
 	virtual bool CleanUp();

@@ -35,7 +35,7 @@ public:
 	virtual bool PostUpdate() { return true; };
 
 	// Returns the enemy's collider
-	const Collider* GetCollider() const {};
+	virtual const Collider* GetCollider() const { return nullptr; };
 	virtual void OnCollision(Collider* collider1, Collider* collider2) {  };
 
 	virtual void Draw();

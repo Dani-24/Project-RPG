@@ -21,7 +21,7 @@ struct Collider;
 
 class Player :public Character {
 public:
-	Player();
+	Player(int x, int y);
 	~Player();
 
 	// Called before render is available
@@ -45,6 +45,8 @@ public:
 
 	// Animation saved here when battle starts to get it back later
 	Animation* mapAnimation;
+
+	Stats * playerStats;
 
 	// Player animations
 	Animation

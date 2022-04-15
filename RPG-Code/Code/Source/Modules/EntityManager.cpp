@@ -243,7 +243,7 @@ Entity* EntityManager::CreateEntity(CharacterType type, int x, int y)
 	{
 	case CharacterType::PLAYER:
 
-		ret = new Player();
+		ret = new Player(x,y);
 
 		break;
 
@@ -259,8 +259,8 @@ Entity* EntityManager::CreateEntity(CharacterType type, int x, int y)
 
 	if (ret != nullptr) {
 		entityList.add(ret);
-		ret->position.x = x;
-		ret->position.y = y;
+		//ret->position.x = x;
+		//ret->position.y = y;
 	}
 
 	return ret;
@@ -273,22 +273,22 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 	{
 	case NPCType::COCK:
 
-		ret = new NPC(NPCType::COCK);
+		ret = new NPC(NPCType::COCK, x, y);
 		break;
 
 	case NPCType::BARKEEPER:
 
-		ret = new NPC(NPCType::BARKEEPER);
+		ret = new NPC(NPCType::BARKEEPER, x, y);
 		break;
 
 	case NPCType::MERCHANT:
 
-		ret = new NPC(NPCType::MERCHANT);
+		ret = new NPC(NPCType::MERCHANT, x, y);
 		break;
 	
 	case NPCType::TRAINER:
 
-		ret = new NPC(NPCType::TRAINER);
+		ret = new NPC(NPCType::TRAINER, x, y);
 		break;
 
 	default:
@@ -299,8 +299,8 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 
 	if (ret != nullptr) {
 		entityList.add(ret);
-		ret->position.x = x;
-		ret->position.y = y;
+		//ret->position.x = x;
+		//ret->position.y = y;
 	}
 
 	return ret;

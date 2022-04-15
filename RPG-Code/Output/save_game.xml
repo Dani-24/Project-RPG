@@ -10,9 +10,10 @@
 	<pathfinder />
 	<logoScene />
 	<titleScene />
+	<conf />
+	<battle />
 	<stages />
 	<scene />
-	<battle />
 	<map />
 	<EntityManager />
 	<enemy />
@@ -21,7 +22,7 @@
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="-1260" y="-1540" />
+		<camera x="-1260" y="-1640" />
 	</camera>
 	<renderer />
 </save_state>

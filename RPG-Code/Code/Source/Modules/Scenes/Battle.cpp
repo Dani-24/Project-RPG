@@ -13,6 +13,7 @@
 #include "EntityManager.h"
 #include "Battle.h"
 #include "Camera.h"
+#include "ModuleQFonts.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -25,6 +26,9 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	playerBattleSprite = nullptr;
 	townBattleBackground = nullptr;
 	battleStage = nullptr;
+
+	actualTurn = nullptr;
+
 }
 
 Battle::~Battle()
@@ -39,6 +43,7 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
+	battleTurn = 0;
 	LOG("Loading Battle");
 	
 	battleStage = &app->stages->actualStage;
@@ -71,6 +76,13 @@ bool Battle::Start()
 	app->stages->playerPtr->canMove = false;
 	app->camera->SetPos({ 0, 0 });
 	
+	//GUI
+	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 , (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+
+
 	return true;
 }
 
@@ -129,7 +141,11 @@ bool Battle::PostUpdate()
 			app->render->DrawTexture(player->PlayerFTex, player->position.x, player->position.y, &rect);
 		}*/
 	}
-	
+
+	sprintf_s(battleTurnChar, 3, "%02d", battleTurn);
+
+	app->font->DrawText("Turn: ", app->win->GetWidth() / 2 - 100 - 6*10, 15);
+	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
 
 	return ret;
 }
@@ -140,25 +156,30 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 	switch (control->type)
 	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-		if (control->id == 1)
-		{
-			LOG("Click on button 1");
-		}
+		case GuiControlType::BUTTON:
+		
+			switch (control->id) {
+				case 101:
+					battleTurn++;
+					break;
+				case 102:
+					battleTurn++;
+					break;
+				case 103:
+					battleTurn++;
+					break;
+				case 104:
+					battleTurn++;
+					break;
+			}
+		
+			break;
 
-		if (control->id == 2)
-		{
-			LOG("Click on button 2");
-		}
-
+		//Other cases here
+		default:
+			break;
 	}
-	//Other cases here
-
-	default: break;
-	}
-
+		
 	return true;
 }
 
