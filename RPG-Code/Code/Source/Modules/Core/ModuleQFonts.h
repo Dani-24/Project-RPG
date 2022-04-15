@@ -40,10 +40,10 @@ public:
 
 	bool CleanUp();
 
-	// Your text, Position: X, Y, sizes: "smol" "normal" "big", color {R,G,B}
+	// Your text, Position: X, Y, color {R,G,B}
 	void DrawText(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
 
-	// Your text, Position: X, Y, sizes: "smol" "normal" "big", color {R,G,B}
+	// Your text, Position: X, Y, color {R,G,B}
 	void DrawTextDelayed(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
 
 private:
@@ -57,7 +57,7 @@ private:
 
 public:
 
-	// Ejectutar en el Cleanup() del modulo que use texto
+	// Ejecutar en el Cleanup() del modulo que use texto
 	void CleanFonts();
 	
 private:

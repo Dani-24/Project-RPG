@@ -37,6 +37,8 @@ class Stages;
 class Battle;
 class Collisions;
 
+class DialogSystem;
+
 class App
 {
 public:
@@ -121,6 +123,8 @@ public:
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;
 	Collisions* collisions;
+
+	DialogSystem* dialogs;
 
 private:
 

@@ -21,6 +21,8 @@
 #include "ModuleQFonts.h"
 #include "Pathfinder.h"
 
+#include "DialogSystem.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -58,6 +60,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	collisions = new Collisions(this);
 
+	dialogs = new DialogSystem(this, false);
+
 	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
 	AddModule(input);
@@ -80,6 +84,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(guiManager);
 	AddModule(font);
+	AddModule(dialogs);
 
 	AddModule(collisions);
 
