@@ -1675,11 +1675,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1017"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="1018"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -1972,11 +1972,11 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="1017"/>
    <tile gid="1033"/>
    <tile/>
    <tile gid="1034"/>
-   <tile/>
+   <tile gid="1018"/>
    <tile/>
    <tile/>
    <tile/>
