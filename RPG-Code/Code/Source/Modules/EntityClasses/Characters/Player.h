@@ -73,6 +73,10 @@ public:
 	bool PlayerErection = true;
 
 	const char* MaleChar;
+	const char* FemaleChar;
+	const char* electionfxChar;
+	const char* WalkfxChar;
+	
 	bool canMove;
 
 	fPoint cameraSpeed = { 0.1f , 0.1f };
