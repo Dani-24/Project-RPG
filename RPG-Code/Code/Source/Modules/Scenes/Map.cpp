@@ -552,12 +552,17 @@ void Map::LoadCol() {
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
-	int i = 0;
+	int wallsCount = 0;
+	int entryCount = 0;
+
+	//ListItem<Entries*>* entryInList = mapEntries.start;
 
 	while (mapLayerItem != NULL) {
 	
 		const char* wallChar = static_cast<const char*>(mapLayerItem->data->properties.GetProperty<const char*>("Col"));
 		if (wallChar != nullptr) {
+
+			
 			if (wallChar == std::string("wall")) {
 
 				for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -576,12 +581,49 @@ void Map::LoadCol() {
 							SDL_Rect r = tileset->GetTileRect(gid);
 							iPoint pos = MapToWorld(x, y);
 
-							mapWalls[i] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
-							i++;
+							mapWalls[wallsCount] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
+							
+							wallsCount++;
 						}
 					}
 				}
 			}
+
+			if (wallChar == std::string("instant")) {
+
+				for (int x = 0; x < mapLayerItem->data->width; x++)
+				{
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						// Complete the col function
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							// Obtain the tile set using GetTilesetFromTileId
+							// now we always use the firt tileset in the list
+							TileSet* tileset = mapData.tilesets.start->data;
+
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
+
+							Entries* entry = new Entries();
+
+							//mapEntries.add(entry);
+							mapEntries[entryCount] = entry;
+							mapEntries[entryCount]->col = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::INSTANT, wallsEntity);
+							mapEntries[entryCount]->id = entryCount;
+
+							entryCount++;
+								
+						}
+					}
+				}
+			}
+
+				
+			
+			
 		}
 
 		//const char* colProperty = static_cast<const char*>(mapLayerItem->data->properties.GetPropertyChar("Col"));
@@ -629,34 +671,73 @@ void Map::RemoveCol() {
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
-	int i = 0;
+	int wallsCount = 0;
+	int entryCount = 0;
 
 	while (mapLayerItem != NULL) {
 
-		for (int x = 0; x < mapLayerItem->data->width; x++)
-		{
-			for (int y = 0; y < mapLayerItem->data->height; y++)
-			{
-				int gid = mapLayerItem->data->Get(x, y);
+		const char* wallChar = static_cast<const char*>(mapLayerItem->data->properties.GetProperty<const char*>("Col"));
+		if (wallChar != nullptr) {
 
-				if (gid > 0) {
 
-					TileSet* tileset = mapData.tilesets.start->data;
+			if (wallChar == std::string("wall")) {
 
-					SDL_Rect r = tileset->GetTileRect(gid);
-					iPoint pos = MapToWorld(x, y);
+				for (int x = 0; x < mapLayerItem->data->width; x++)
+				{
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						int gid = mapLayerItem->data->Get(x, y);
 
-					if (mapWalls[i] != nullptr) {
+						if (gid > 0) {
 
-						app->collisions->RemoveCollider(mapWalls[i]);
-						
-						i++;
+							TileSet* tileset = mapData.tilesets.start->data;
+
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
+
+							if (mapWalls[wallsCount] != nullptr) {
+
+								app->collisions->RemoveCollider(mapWalls[wallsCount]);
+
+								wallsCount++;
+							}
+
+						}
+
 					}
-
 				}
+			}
 
+			if (wallChar == std::string("instant")) {
+
+				for (int x = 0; x < mapLayerItem->data->width; x++)
+				{
+					for (int y = 0; y < mapLayerItem->data->height; y++)
+					{
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							TileSet* tileset = mapData.tilesets.start->data;
+
+							SDL_Rect r = tileset->GetTileRect(gid);
+							iPoint pos = MapToWorld(x, y);
+
+							if (mapEntries[entryCount] != nullptr) {
+
+								app->collisions->RemoveCollider(mapEntries[entryCount]->col);
+
+								entryCount++;
+							}
+
+						}
+
+					}
+				}
 			}
 		}
+
+		
 		mapLayerItem = mapLayerItem->next;
 	}
 

@@ -1,12 +1,20 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 
+#define MAX_WALLS 4000
+#define MAX_ENTRIES 100
+
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
 #include "Collisions.h"
 
 #include "PugiXml\src\pugixml.hpp"
+
+struct Entries {
+	Collider* col;
+	int id;
+};
 
 // Struct to hold information for a TileSet
 struct TileSet
@@ -171,7 +179,9 @@ public:
 	void LoadCol();
 	void RemoveCol();
 
-	Collider* mapWalls[4000];
+	Collider* mapWalls[MAX_WALLS];
+	struct Entries* mapEntries[MAX_ENTRIES];
+	//List<Entries*>mapEntries;
 	//TileSet* mapTiles[3600];
 
 	

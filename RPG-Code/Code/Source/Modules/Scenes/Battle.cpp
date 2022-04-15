@@ -65,6 +65,7 @@ bool Battle::Start()
 	//Animation
 	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
 	app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->walkAnimR;
+
 	app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
 	
 	app->stages->playerPtr->canMove = false;

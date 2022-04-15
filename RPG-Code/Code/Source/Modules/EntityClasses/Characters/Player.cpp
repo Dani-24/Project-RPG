@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "Window.h"
 #include "Scene.h"
+#include "Map.h"
 
 Player::Player() : Character(CharacterType::PLAYER)
 {
@@ -260,4 +261,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 			this->position.y = col2->rect.y - col1->rect.h - colDownDistance;
 		}
 	}
+
+	if (col1 == baseCollider && col2->type == Collider::INSTANT) {
+		for (int i = 0; i < MAX_ENTRIES; i++) {
+			if (app->map->mapEntries[i] != nullptr) {
+				if (app->map->mapEntries[i]->col == col2) {
+					//LOG("%d", app->map->mapEntries[i]->id);
+					switch (app->map->mapEntries[i]->id) 
+					{
+						case 0:
+							LOG("Loading Shop map");
+							break;
+						case 1:
+						case 2:
+							LOG("Loading Tavern map");
+							break;
+						case 3:
+							LOG("Loading Dojo map");
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		}
+		
+		
+	}
+
 }
