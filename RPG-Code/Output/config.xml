@@ -63,14 +63,18 @@
 		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
 	</logoScene>
 	<titleScene>
-		<startb path="Assets/gui/buttonstart.png"/>
-		<continueb path="Assets/gui/buttoncontinue.png"/>
-		<optionsb path="Assets/gui/buttonoptions.png"/>
-		<creditsb path="Assets/gui/buttoncredits.png"/>
-		<exitb path="Assets/gui/buttonexit.png"/>
+		<startb path="Assets/gui/button_start.png"/>
+		<continueb path="Assets/gui/button_continue.png"/>
+		<optionsb path="Assets/gui/button_options.png"/>
+		<creditsb path="Assets/gui/button_credits.png"/>
+		<exitb path="Assets/gui/button_exit.png"/>
 		<title path="Assets/textures/title_screen_bg.png"/>
 		<mustitle path="Assets/audio/music/music_title.ogg"/>
 		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
 	</titleScene>
-
+	<conf>
+		<mussett path=""/>
+		<fxselect path=""/>
+		<mussett path=""/>
+	</conf>
 </config>

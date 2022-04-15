@@ -18,7 +18,7 @@ public:
 	virtual ~TitleScene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -40,6 +40,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	const char* startChar;
+	const char* contChar;
+	const char* optChar;
+	const char* credChar;
+	const char* exitChar;
+	const char* titlChar;
+	const char* mustitlChar;
+	const char* fxselChar;
 private:
 
 	SDL_Texture* title;
@@ -70,6 +78,7 @@ private:
 	bool credits;
 	bool exit;
 
+	
 };
 
 #endif // !__TITLE_H__

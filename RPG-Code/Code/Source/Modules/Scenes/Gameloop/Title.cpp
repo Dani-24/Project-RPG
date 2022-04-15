@@ -27,10 +27,19 @@ TitleScene::~TitleScene()
 {}
 
 // Called before render is available
-bool TitleScene::Awake()
+bool TitleScene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Title");
 	bool ret = true;
+
+	startChar = config.child("startb").attribute("path").as_string();
+	contChar = config.child("continueb").attribute("path").as_string();
+	optChar = config.child("optionsb").attribute("path").as_string();
+	credChar = config.child("creditsb").attribute("path").as_string();
+	exitChar = config.child("exitb").attribute("path").as_string();
+	titlChar = config.child("title").attribute("path").as_string();
+	mustitlChar = config.child("mustitle").attribute("path").as_string();
+	fxselChar = config.child("sfsxconfirm").attribute("path").as_string();
 
 	return ret;
 }
@@ -57,11 +66,11 @@ bool TitleScene::Start()
 
 	// Load Assets
 
-	startb = app->tex->Load("Assets/gui/buttonstart.png");
-	continueb = app->tex->Load("Assets/gui/buttoncontinue.png");
-	optionsb = app->tex->Load("Assets/gui/buttonoptions.png");
-	creditsb = app->tex->Load("Assets/gui/buttoncredits.png");
-	exitb = app->tex->Load("Assets/gui/buttonexit.png");
+	startb = app->tex->Load("Assets/gui/button_start.png");
+	continueb = app->tex->Load("Assets/gui/button_continue.png");
+	optionsb = app->tex->Load("Assets/gui/button_options.png");
+	creditsb = app->tex->Load("Assets/gui/button_credits.png");
+	exitb = app->tex->Load("Assets/gui/button_exit.png");
 
 	title = app->tex->Load("Assets/textures/title_screen_bg.png");
 

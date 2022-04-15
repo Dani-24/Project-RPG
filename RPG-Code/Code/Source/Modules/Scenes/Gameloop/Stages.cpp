@@ -33,7 +33,7 @@ Stages::Stages(App* application, bool start_enabled) : Module(application, start
 Stages::~Stages()
 {}
 
-bool Stages::Awake()
+bool Stages::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;

@@ -33,7 +33,7 @@ Scene::Scene(App* application, bool start_enabled) : Module(application, start_e
 Scene::~Scene()
 {}
 
-bool Scene::Awake()
+bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;

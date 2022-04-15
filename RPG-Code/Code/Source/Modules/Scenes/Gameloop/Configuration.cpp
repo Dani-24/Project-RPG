@@ -23,7 +23,7 @@ Configuration::Configuration(App* application, bool start_enabled) : Module(appl
 Configuration::~Configuration()
 {}
 
-bool Configuration::Awake()
+bool Configuration::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
@@ -38,7 +38,7 @@ bool Configuration::Start()
 	app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
-	background = app->tex->Load("Assets/gui/marco opciones.png");
+	background = app->tex->Load("Assets/gui/marco_opciones.png");
 
 	// GUI
 	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
