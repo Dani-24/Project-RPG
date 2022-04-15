@@ -147,6 +147,9 @@ bool Player::CleanUp() {
 	app->collisions->RemoveCollider(baseCollider);
 	app->collisions->RemoveCollider(battleCollider);
 
+	baseCollider = nullptr;
+	delete baseCollider;
+
 	//Animations
 	currentAnimation = nullptr;
 	delete currentAnimation;

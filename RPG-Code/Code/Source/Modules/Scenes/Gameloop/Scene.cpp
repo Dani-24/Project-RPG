@@ -245,8 +245,16 @@ bool Scene::CleanUp()
 
 	//Stages:
 	app->entities->DestroyEntity(player);
-	
+
+	ListItem<NPC*>* npcInList;
+
 	app->stages->ChangeStage(StageIndex::NONE);
+
+	for (npcInList = npcList.start; npcInList != NULL; npcInList = npcInList->next)
+	{
+		npcInList->data->CleanUp();
+	}
+
 	
 	npcList.clear();
 

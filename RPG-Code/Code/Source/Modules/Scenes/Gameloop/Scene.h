@@ -55,8 +55,6 @@ public:
 	Player* player = nullptr;
 	List<NPC*> npcList;
 
-	bool aaa=false;
-
 	//Cock* cock = nullptr;
 };
 

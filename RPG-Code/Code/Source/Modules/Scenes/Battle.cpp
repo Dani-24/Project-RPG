@@ -186,6 +186,24 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 // Called before quitting
 bool Battle::CleanUp()
 {
+
+	attackButton->state = GuiControlState::DISABLED;
+	defenseButton->state = GuiControlState::DISABLED;
+	itemButton->state = GuiControlState::DISABLED;
+	escapeButton->state = GuiControlState::DISABLED;
+
+	attackButton = nullptr;
+	delete attackButton;
+
+	defenseButton = nullptr;
+	delete defenseButton;
+
+	itemButton = nullptr;
+	delete itemButton;
+
+	escapeButton = nullptr;
+	delete escapeButton;
+
 	//Take back player position
 	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 	app->camera->SetTarget(app->stages->playerPtr);

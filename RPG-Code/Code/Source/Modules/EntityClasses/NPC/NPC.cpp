@@ -119,7 +119,9 @@ bool NPC::Update(float dt)
 {
 	bool ret = true;
 
-	currentAnimation->Update(dt);
+	if (currentAnimation != nullptr) {
+		currentAnimation->Update(dt);
+	}
 
 	//LOG("%d, %d", position.x, position.y);
 
@@ -139,10 +141,19 @@ bool NPC::PostUpdate()
 // Called before quitting
 bool NPC::CleanUp()
 {
+	if (baseCollider != nullptr) {
+		app->collisions->RemoveCollider(baseCollider);
+	}
+	
+
+	baseCollider = nullptr;
+	delete baseCollider;
+
 	app->tex->UnLoad(spriteText);
 
 
 	currentAnimation = nullptr;
+	delete currentAnimation;
 
 	return true;
 }
