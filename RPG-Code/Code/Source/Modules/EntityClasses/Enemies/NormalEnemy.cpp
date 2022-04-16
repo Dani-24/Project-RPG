@@ -25,6 +25,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
+		configName = "flying_eye";
+
 		break;
 
 	case NormalEnemyType::BAT:
@@ -37,6 +39,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
+
+		configName = "bat";
 
 		break;
 
