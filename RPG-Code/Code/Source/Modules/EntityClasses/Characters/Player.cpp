@@ -19,6 +19,8 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	position = {x,y};
 
+	//----------------------------------------------------------------------------------Overworld------------------------------------
+
 	walkAnimDown.PushBack({ 9,10,31,46 });
 	walkAnimDown.PushBack({ 62,8,31,46 });
 	walkAnimDown.PushBack({ 114,10,31,46 });
@@ -47,6 +49,102 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleAnimL.PushBack({ 64,80,26,45 });
 	idleAnimUp.PushBack({ 62,221,31,46 });
 	idleAnimDown.PushBack({ 62,8,31,46 });
+
+	//----------------------------------------------------------------------------------Battle Male------------------------------------
+
+	idleBattleM.PushBack({ 0, 22, 32, 39 });
+	idleBattleM.PushBack({ 138 , 22 , 35 , 39 });
+	idleBattleM.PushBack({ 273 , 22 , 39 , 39 });
+	idleBattleM.PushBack({ 414 , 22 , 42 , 39 });
+	idleBattleM.PushBack({ 535 , 22 , 86 , 39 });
+	idleBattleM.PushBack({ 675 , 22 , 56 , 39 });
+	idleBattleM.PushBack({ 840 , 22 , 31 , 39 });
+	idleBattleM.PushBack({ 980 , 22 , 31 , 39 });
+	idleBattleM.PushBack({ 1120 , 22 , 32 , 39 });
+	idleBattleM.PushBack({ 1260 , 22 , 32 , 39 });
+	idleBattleM.PushBack({ 1400 , 22 , 32 , 39 });
+	idleBattleM.loop = true;
+	idleBattleM.speed = 0.006f;
+
+	attackM.PushBack({ 0 , 86 , 32 , 61 });
+	attackM.PushBack({ 138 , 86 , 35 , 61 });
+	attackM.PushBack({ 273 , 86 , 39 , 61 });
+	attackM.PushBack({ 414 , 86 , 42 , 61 });
+	attackM.PushBack({ 535 , 86 , 86 , 61 });
+	attackM.PushBack({ 675 , 86 , 56 , 61 });
+	attackM.loop = true;
+	attackM.speed = 0.006f;
+
+	dashM.PushBack({ 0 , 192 , 32 , 30 });
+	dashM.PushBack({ 138 , 192 , 35 , 30 });
+	dashM.PushBack({ 273 , 192 , 39 , 30 });
+	dashM.PushBack({ 414 , 192 , 42 , 30 });
+	dashM.loop = true;
+	dashM.speed = 0.006f;
+
+	hitM.PushBack({ 0 , 266 , 32 , 40 });
+	hitM.PushBack({ 138 , 266 , 35 , 40 });
+	hitM.PushBack({ 273 , 266 , 39 , 40 });
+	hitM.PushBack({ 414 , 266 , 42 , 40 });
+	hitM.loop = true;
+	hitM.speed = 0.006f;
+
+	//----------------------------------------------------------------------------------Battle Female------------------------------------
+
+	idleBattleF.PushBack({ 0 , 201 , 73 , 51 });
+	idleBattleF.PushBack({ 74 , 201 , 67 , 51 });
+	idleBattleF.PushBack({ 142 , 201 , 71 , 51 });
+	idleBattleF.PushBack({ 214 , 201 , 115 , 51 });
+	idleBattleF.PushBack({ 330 , 201 , 98 , 51 });
+	idleBattleF.PushBack({ 429 , 201 , 95 , 51 });
+	idleBattleF.PushBack({ 525 , 201 , 83 , 51 });
+	idleBattleF.PushBack({ 609 , 201 , 85 , 51 });
+	idleBattleF.PushBack({ 694 , 201 , 80 , 51 });
+	idleBattleF.PushBack({ 774 , 201 , 80 , 51 });
+	idleBattleF.PushBack({ 1854 , 201 ,  80 , 51 });
+	idleBattleF.loop = true;
+	idleBattleF.speed = 0.006f;
+
+	attackF.PushBack({ 17 , 0 , 45 , 70 });
+	attackF.PushBack({ 84 , 0 , 47 , 70 });
+	attackF.PushBack({ 150 , 0 , 52 , 70 });
+	attackF.PushBack({ 226 , 0 , 58 , 70 });
+	attackF.PushBack({ 346 , 0 , 55 , 70 });
+	attackF.PushBack({ 444 , 0 , 55 , 70 });
+	attackF.PushBack({ 532 , 0 , 35 , 70 });
+	attackF.loop = true;
+	attackF.speed = 0.006f;
+
+	attackF2.PushBack({ 0 , 70 , 73 , 80 });
+	attackF2.PushBack({ 74 , 70 , 67 , 80 });
+	attackF2.PushBack({ 142 , 70 , 71 , 80 });
+	attackF2.PushBack({ 214 , 70 , 115 , 80 });
+	attackF2.PushBack({ 330 , 70 , 98 , 80 });
+	attackF2.PushBack({ 429 , 70 , 95 , 80 });
+	attackF2.PushBack({ 525 , 70 , 89 , 80 });
+	attackF2.loop = true;
+	attackF2.speed = 0.006f;
+
+	hitF.PushBack({ 0 , 150 , 73 , 51 });
+	hitF.PushBack({ 74 , 150 , 67 , 51 });
+	hitF.PushBack({ 142 , 150 , 71 , 51 });
+	hitF.PushBack({ 214 , 150 , 115 , 51 });
+	hitF.loop = true;
+	hitF.speed = 0.006f;
+
+	dieF.PushBack({ 0 , 252 , 73 , 56 });
+	dieF.PushBack({ 74 , 252 , 67 , 56 });
+	dieF.PushBack({ 142 , 252 , 71 , 56 });
+	dieF.PushBack({ 214 , 252 , 115 , 56 });
+	dieF.PushBack({ 330 , 252 , 98 , 56 });
+	dieF.PushBack({ 429 , 252 , 95 , 56 });
+	dieF.PushBack({ 525 , 252 , 83 , 56 });
+	dieF.PushBack({ 609 , 252 , 85 , 56 });
+	dieF.PushBack({ 694 , 252 , 80 , 56 });
+	dieF.PushBack({ 774 , 252 , 80 , 56 });
+	dieF.PushBack({ 854  , 252 ,  80 , 56 });
+	dieF.loop = true;
+	dieF.speed = 0.006f;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 

@@ -57,7 +57,16 @@ public:
 		idleAnimR,
 		idleAnimL,
 		idleAnimUp,
-		idleAnimDown;
+		idleAnimDown, 
+		idleBattleM,
+		attackM,
+		dashM,
+		hitM,
+		idleBattleF,
+		attackF,
+		attackF2,
+		hitF,
+		dieF;
 
 	int erectionFx;
 
