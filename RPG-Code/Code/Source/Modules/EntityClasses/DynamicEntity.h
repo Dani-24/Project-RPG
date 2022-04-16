@@ -94,6 +94,8 @@ public:
 
 	Animation idleAnim;
 
+	bool isAlive;
+
 };
 
 #endif // !__DYNAMIC_ENTITY_H__

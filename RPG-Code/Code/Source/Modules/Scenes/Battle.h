@@ -61,9 +61,9 @@ public:
 
 	DynamicEntity* actualTurnEntity;
 
-	
-
 	DynamicEntity* entitiesInBattle[8];
+
+	DynamicEntity* target;
 
 	//Buttons
 
@@ -73,10 +73,24 @@ public:
 	GuiButton* escapeButton; // escape button
 
 	int battleTurn;
-	char battleTurnChar[3] = { "\0" };
+	char battleTurnChar[9] = { "\0" };
 
-	int TurnValue;
-	char turnValueChar[4] = { "\0" };
+	float TurnValue;
+	char turnValueChar[20] = { "\0" };
+
+	char nameChar[50] = { "\0" };
+
+	char playerLifeChar[50] = { "\0" };
+	char enemyLifeChar[50] = { "\0" };
+
+
+	bool someoneAttacking;
+	bool itsPlayerTurn;
+	
+	int cont;
+	int attackTime;
+
+	bool gameOver;
 	
 };
 

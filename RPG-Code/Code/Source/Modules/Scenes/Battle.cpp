@@ -13,6 +13,7 @@
 #include "Battle.h"
 #include "Camera.h"
 #include "ModuleQFonts.h"
+#include <time.h>
 
 #include "Defs.h"
 #include "Log.h"
@@ -28,6 +29,13 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 
 	actualTurnEntity = nullptr;
 
+	itsPlayerTurn = true;
+
+	target = nullptr;
+
+	//2000 its ok
+	attackTime = 100;
+
 }
 
 Battle::~Battle()
@@ -42,7 +50,10 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
+	gameOver = false;
+	cont = 0;
 	battleTurn = 0;
+	TurnValue = 321.123f;
 	LOG("Loading Battle");
 	
 	battleStage = &app->stages->actualStage;
@@ -51,7 +62,7 @@ bool Battle::Start()
 	case StageIndex::NONE:
 		break;
 	case StageIndex::TOWN:
-		townBattleBackground = app->tex->Load("Assets/textures/forest_bg_1.png");
+		townBattleBackground = app->tex->Load("Assets/textures/dungeon_1.jpg");
 		
 		
 		break;
@@ -108,15 +119,59 @@ bool Battle::PreUpdate()
 bool Battle::Update(float dt)
 {
 	if (battlePause == false) {
+		//Enemy is attacking
+		if (itsPlayerTurn == false) {
+			if (cont < attackTime) {
+				someoneAttacking = true;
+				cont += dt;
+			}
+			else {
+				cont = 0;
+				someoneAttacking = false;
+				srand(time(NULL));
+				//int targetNum = (rand() % (1 - 1)) + 1;
+				int targetNum = 0;
+				target = entitiesInBattle[targetNum];
+				target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
+				actualTurnEntity = entitiesInBattle[0];
+				itsPlayerTurn = true;
+				battleTurn++;
+				if (target->stats->health <=0) {
+					target->isAlive = false;
+					gameOver = true;
+				}
+			}
+		}
+		//Player is thinking
+		else if(itsPlayerTurn == true && someoneAttacking == false){
+
+		}
+		//Player is attacking
+		else if(itsPlayerTurn == true && someoneAttacking == true){
+			if (cont < attackTime) {
+				someoneAttacking = true;
+				cont += dt;
+			}
+			else {
+				cont = 0;
+				someoneAttacking = false;
+				actualTurnEntity = entitiesInBattle[4];
+				itsPlayerTurn = false;
+
+			}
+		}
+
+
 
 		app->stages->playerPtr->currentAnimation->Update(dt);
-
-	}
-	else {
-
 	}
 
+	if (gameOver == true) {
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+			app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+		}
 
+	}
 
 	return true;
 }
@@ -148,21 +203,45 @@ bool Battle::PostUpdate()
 		}*/
 	}
 
-	sprintf_s(battleTurnChar, 3, "%02d", battleTurn);
+	if (battleTurn > 99) {
+		battleTurn = 99;
+	}
 
-	app->font->DrawText("Turn: ", app->win->GetWidth() / 2 - 100 - 6 * 10, 15);
+	//Print battle Turn
+	sprintf_s(battleTurnChar, 9, "Turn: %02d", battleTurn);
 	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
 
-	sprintf_s(turnValueChar, 3, "%02d", TurnValue);
+	//Print turn value (depending on entities speed)
+	sprintf_s(turnValueChar, 20, "Turn Value: %.2f", TurnValue);
 
 	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
-		app->font->DrawText("Turn Value: ", 100, app->win->GetHeight()/2 - 100);
-		app->font->DrawText(turnValueChar, 250, app->win->GetHeight() / 2 - 100);
+		app->font->DrawText(turnValueChar, 50, app->win->GetHeight() / 2 - 30);
 	}
 	else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-		app->font->DrawText("Turn Value: ", app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 100);
-		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 100, app->win->GetHeight() / 2 - 100);
+		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 30);
 	}
+
+	//Print battle messages
+	if (gameOver == false) {
+		if (someoneAttacking == true) {
+			sprintf_s(nameChar, 50, "%s attacks!", actualTurnEntity->name);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+		}
+		else if (itsPlayerTurn == true) {
+			sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+		}
+
+		sprintf_s(nameChar, 50, "Player health: %2d", entitiesInBattle[0]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
+
+		sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
+		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 120);
+	}
+	else {
+		app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+	}
+	
 	
 	return ret;
 }
@@ -177,22 +256,26 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		
 			switch (control->id) {
 				case 101:
-					if (actualTurnEntity == entitiesInBattle[4]) {
-						actualTurnEntity = entitiesInBattle[0];
+					if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+						someoneAttacking = true;
+						//itsPlayerTurn = false;
+						battleTurn++;
 					}
-					else if (actualTurnEntity == entitiesInBattle[0]) {
-						actualTurnEntity = entitiesInBattle[4];
-					}
-					battleTurn++;
 					break;
 				case 102:
-					battleTurn++;
+					if (actualTurnEntity == entitiesInBattle[0]) {
+						battleTurn++;
+					}
 					break;
 				case 103:
-					battleTurn++;
+					if (actualTurnEntity == entitiesInBattle[0]) {
+						battleTurn++;
+					}
 					break;
 				case 104:
-					battleTurn++;
+					if (actualTurnEntity == entitiesInBattle[0]) {
+						battleTurn++;
+					}
 					break;
 			}
 		
@@ -210,9 +293,11 @@ void Battle::SetTurnOrder()
 {
 	if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
 		actualTurnEntity = entitiesInBattle[0];
+		itsPlayerTurn = true;
 	}
 	else {
 		actualTurnEntity = entitiesInBattle[4];
+		itsPlayerTurn = false;
 	}
 
 }
@@ -249,5 +334,10 @@ bool Battle::CleanUp()
 	app->stages->playerPtr->canMove = true;
 	app->map->LoadCol();
 	app->stages->onBattle = false;
+
+	if (gameOver == true) {
+		app->scene->Disable();
+	}
+
 	return true;
 }

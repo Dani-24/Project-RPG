@@ -48,6 +48,7 @@ public:
 	bool hasAwaken = false;
 	bool hasStarted = false;
 
+	const char* name;
 	SString configName;
 
 	EntityType entityType;

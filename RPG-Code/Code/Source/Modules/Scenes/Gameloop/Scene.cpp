@@ -214,7 +214,7 @@ bool Scene::Update(float dt)
 			
 		//}
 
-		app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
+		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
 	return true;
 }

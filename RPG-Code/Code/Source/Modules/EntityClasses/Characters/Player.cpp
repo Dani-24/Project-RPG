@@ -148,6 +148,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
+	name = "Player";
 	configName = "player";
 
 	margin = 10;
@@ -157,6 +158,8 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	mapPosition = { 0,0 };
 	battlePosition = { 100, 100 };
+
+	isAlive = true;
 
 }
 
