@@ -78,6 +78,8 @@ public:
 	// Textures
 	SDL_Texture* PlayerMTex = nullptr;
 	SDL_Texture* PlayerFTex = nullptr;
+	SDL_Texture* BattleMTex = nullptr;
+	SDL_Texture* BattleFTex = nullptr;
 
 	// Current Sprite
 	bool PlayerErection = true;

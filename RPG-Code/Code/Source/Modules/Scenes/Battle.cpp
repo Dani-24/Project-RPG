@@ -68,8 +68,14 @@ bool Battle::Start()
 	app->stages->playerPtr->position = app->stages->playerPtr->battlePosition;
 	//Animation
 	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
-	app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->walkAnimR;
-
+	if(app->stages->playerPtr->PlayerErection == true)
+	{
+		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleM;
+	}
+	if (app->stages->playerPtr->PlayerErection == false)
+	{
+		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleF;
+	}
 	app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
 	
 	app->stages->playerPtr->canMove = false;
@@ -103,7 +109,7 @@ bool Battle::Update(float dt)
 {
 	if (battlePause == false) {
 
-
+		app->stages->playerPtr->currentAnimation->Update(dt);
 
 	}
 	else {

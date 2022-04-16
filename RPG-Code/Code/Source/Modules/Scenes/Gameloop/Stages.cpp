@@ -256,10 +256,10 @@ bool Stages::PostUpdate()
 		if (playerPtr != nullptr) {
 			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 			if (playerPtr->PlayerErection == true) {
-				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 			if (playerPtr->PlayerErection == false) {
-				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+				app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
 	}
