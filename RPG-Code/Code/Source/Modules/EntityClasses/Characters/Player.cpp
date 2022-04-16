@@ -187,6 +187,8 @@ bool Player::Start()
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
+	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mpsprite.png");
+	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fpsprite.png");
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
