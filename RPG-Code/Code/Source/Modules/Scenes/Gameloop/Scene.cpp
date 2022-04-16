@@ -9,6 +9,7 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "Player.h"
+#include "PauseMenu.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -141,6 +142,7 @@ bool Scene::PreUpdate()
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
+		app->pauseM->pauseGame = false;
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 

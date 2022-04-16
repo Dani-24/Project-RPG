@@ -6,6 +6,8 @@
 #include "Module.h"
 #include "SDL/include/SDL_rect.h"
 
+#include "Stages.h"
+
 class FadeToBlack : public Module
 {
 public:
@@ -24,6 +26,9 @@ public:
 
 	// Fade without disabling modules
 	bool DoFadeToBlack(float frames = 60);
+
+	// Fade Between stages
+	bool DoFadeToBlack(StageIndex stage, float frames = 60);
 
 private:
 
@@ -45,6 +50,10 @@ private:
 
 public:
 	bool fading;
+
+private:
+	bool changeStage;
+	StageIndex stageToChange;
 };
 
 #endif //__FADETOBLACK_H__

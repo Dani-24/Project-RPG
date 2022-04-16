@@ -49,10 +49,12 @@ private:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&) const;
 
+	
 private:
 
 	// Camera variables
 	SDL_Rect cam;
+
 	iPoint camOffset;
 	
 	// Camera limits
