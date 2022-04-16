@@ -16,6 +16,7 @@
 #include "ModuleQFonts.h"
 #include "Camera.h"
 
+#include "NormalEnemy.h"
 #include "NPC.h"
 #include "EntityManager.h"
 
@@ -102,8 +103,17 @@ bool Scene::Start()
 	npcList.add(merchant);
 	merchant->activeOnStage = StageIndex::SHOP;
 
-
 	app->stages->npcListPtr = &npcList;
+
+	//// Normal Enemies
+	//iPoint eyePos = {};
+	//iPoint batPos = {};
+
+	//NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
+	//eye->activeOnStage = StageIndex::TOWN;
+
+
+	
 
 	// TOWN LIMITS for camera
 	app->camera->SetLimits(640, 350, 4490, 4200);

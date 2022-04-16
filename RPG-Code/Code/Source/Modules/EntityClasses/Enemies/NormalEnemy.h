@@ -8,24 +8,42 @@
 #include "Entity.h"
 
 #include "EntityManager.h"
+#include "Enemy.h"
 
 #include <vector>
 
 struct SDL_Texture;
-
+enum class StageIndex;
 enum class NormalEnemyType
 {
 	FLYING_EYE,
 	MUSHROOM,
+	BAT,
 	GOBLIN,
 	SKELETON
 };
+
+//struct NormalEnemies {
+//	// Textures and body
+//	iPoint position;
+//	SDL_Texture* sprite;
+//	int type;	// 0 = walk or 1 = fly
+//	
+//	float speed;
+//
+//	// Animations
+//	Animation animL, animR, animDieL, animDieR;
+//	Animation* currentAnimation = nullptr;
+//
+//	// Variables
+//	bool dead = false;
+//};
 
 class NormalEnemy : public Enemy
 {
 public:
 
-	NormalEnemy(NormalEnemyType type);
+	NormalEnemy(NormalEnemyType type, int x, int y);
 	~NormalEnemy();
 
 	virtual bool Awake(pugi::xml_node& config);
@@ -44,6 +62,7 @@ public:
 public:
 
 	NormalEnemyType normalEnemyType;
+	StageIndex activeOnStage;
 
 };
 
