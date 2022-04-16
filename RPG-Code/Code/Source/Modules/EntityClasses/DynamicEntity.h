@@ -29,7 +29,10 @@ public:
 	int level;
 	int attack;
 	int deffense;
+	int speed;
 	int mana;
+
+	int localTurn;
 
 	Stats() {
 		this->level = 0;
@@ -39,10 +42,13 @@ public:
 
 		this->attack = 1;
 		this->deffense = 1;
+		this->speed = 20;
 		this->mana = 10;
+
+		this->localTurn = 0;
 	}
 
-	Stats(int level, int maxHealth, int attack, int deffense, int mana) {
+	Stats(int level, int maxHealth, int attack, int deffense, int mana, int speed) {
 		this->level = level;
 
 		this->maxHealth = maxHealth;
@@ -50,7 +56,10 @@ public:
 
 		this->attack = attack;
 		this->deffense = deffense;
+		this->speed = speed;
 		this->mana = mana;
+
+		this->localTurn = 0;
 	}
 
 };
@@ -77,13 +86,13 @@ public:
 
 public:
 
+	Stats* stats;
+
 	DynamicType dynamicType;
 
 	Collider* baseCollider;
 
 	Animation idleAnim;
-
-	Stats EStats;
 
 };
 

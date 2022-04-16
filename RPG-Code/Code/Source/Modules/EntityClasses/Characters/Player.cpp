@@ -194,7 +194,7 @@ bool Player::Start()
 
 	canMove = true;
 
-	playerStats = new Stats(1, 20, 5 , 5, 5);
+	stats = new Stats(1, 20, 5 , 5, 5, 20);
 
 	return ret;
 }
@@ -379,13 +379,16 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 		//Collision with enemy
 
-		ListItem<Entity*>* entityInList;
+		ListItem<NormalEnemy*>* normalEnemyInList;
 
-		for (entityInList = app->entities->entityList.start; entityInList != NULL; entityInList = entityInList->next)
+		for (normalEnemyInList = app->scene->normalEnemyList.start; normalEnemyInList != NULL; normalEnemyInList = normalEnemyInList->next)
 		{
-			if (entityInList->data->GetCollider() != nullptr) {
-				if (entityInList->data->GetCollider() == col2) {
-					app->battle->isEnabled() == false ? app->battle->Enable() : app->battle->Disable();
+			if (normalEnemyInList->data->GetCollider() != nullptr) {
+				if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
+					
+					app->battle->entitiesInBattle[0] = this;
+					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
+					app->battle->Enable();
 				}
 			}
 			

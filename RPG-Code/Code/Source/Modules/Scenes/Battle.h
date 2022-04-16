@@ -42,6 +42,8 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	void SetTurnOrder();
+
 private:
 
 	SDL_Texture* playerBattleSprite;
@@ -57,7 +59,9 @@ public:
 
 	Player* player = nullptr;
 
-	DynamicEntity* actualTurn;
+	DynamicEntity* actualTurnEntity;
+
+	
 
 	DynamicEntity* entitiesInBattle[8];
 
@@ -68,9 +72,11 @@ public:
 	GuiButton* itemButton; // item button
 	GuiButton* escapeButton; // escape button
 
+	int battleTurn;
 	char battleTurnChar[3] = { "\0" };
 
-	int battleTurn;
+	int TurnValue;
+	char turnValueChar[4] = { "\0" };
 	
 };
 

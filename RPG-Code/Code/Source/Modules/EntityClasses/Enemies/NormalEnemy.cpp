@@ -145,14 +145,14 @@ bool NormalEnemy::Start()
 
 		spriteText = app->tex->Load("Assets/sprites/enemies/eye/eye.png");
 
-		NormalEnemyStats = new Stats(1, 10, 3, 3, 3);
+		stats = new Stats(1, 10, 3, 3, 3, 18);
 
 		break;
 	case NormalEnemyType::BAT:
 
 		spriteText = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
-		NormalEnemyStats = new Stats(1, 5, 1, 1, 1);
+		stats = new Stats(1, 5, 1, 1, 1, 27);
 
 		break;
 

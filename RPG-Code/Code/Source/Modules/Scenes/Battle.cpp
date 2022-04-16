@@ -26,7 +26,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	townBattleBackground = nullptr;
 	battleStage = nullptr;
 
-	actualTurn = nullptr;
+	actualTurnEntity = nullptr;
 
 }
 
@@ -81,6 +81,7 @@ bool Battle::Start()
 	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
 	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
 
+	SetTurnOrder();
 
 	return true;
 }
@@ -143,9 +144,20 @@ bool Battle::PostUpdate()
 
 	sprintf_s(battleTurnChar, 3, "%02d", battleTurn);
 
-	app->font->DrawText("Turn: ", app->win->GetWidth() / 2 - 100 - 6*10, 15);
+	app->font->DrawText("Turn: ", app->win->GetWidth() / 2 - 100 - 6 * 10, 15);
 	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
 
+	sprintf_s(turnValueChar, 3, "%02d", TurnValue);
+
+	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+		app->font->DrawText("Turn Value: ", 100, app->win->GetHeight()/2 - 100);
+		app->font->DrawText(turnValueChar, 250, app->win->GetHeight() / 2 - 100);
+	}
+	else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+		app->font->DrawText("Turn Value: ", app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 100);
+		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 100, app->win->GetHeight() / 2 - 100);
+	}
+	
 	return ret;
 }
 
@@ -159,6 +171,12 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		
 			switch (control->id) {
 				case 101:
+					if (actualTurnEntity == entitiesInBattle[4]) {
+						actualTurnEntity = entitiesInBattle[0];
+					}
+					else if (actualTurnEntity == entitiesInBattle[0]) {
+						actualTurnEntity = entitiesInBattle[4];
+					}
 					battleTurn++;
 					break;
 				case 102:
@@ -180,6 +198,17 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 	}
 		
 	return true;
+}
+
+void Battle::SetTurnOrder() 
+{
+	if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
+		actualTurnEntity = entitiesInBattle[0];
+	}
+	else {
+		actualTurnEntity = entitiesInBattle[4];
+	}
+
 }
 
 // Called before quitting

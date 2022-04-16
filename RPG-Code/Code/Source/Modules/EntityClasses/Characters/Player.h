@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "DynamicEntity.h"
 #include "Character.h"
+#include "NormalEnemy.h"
 
 #include <vector>
 
@@ -45,8 +46,6 @@ public:
 
 	// Animation saved here when battle starts to get it back later
 	Animation* mapAnimation;
-
-	Stats * playerStats;
 
 	// Player animations
 	Animation

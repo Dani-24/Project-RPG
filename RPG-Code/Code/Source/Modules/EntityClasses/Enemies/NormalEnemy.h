@@ -50,8 +50,6 @@ public:
 	NormalEnemyType normalEnemyType;
 	StageIndex activeOnStage;
 
-	Stats* NormalEnemyStats;
-
 };
 
 #endif // !__NORMAL_ENEMY_H__
