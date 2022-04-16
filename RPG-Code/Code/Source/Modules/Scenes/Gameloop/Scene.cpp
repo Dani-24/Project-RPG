@@ -84,6 +84,7 @@ bool Scene::Start()
 	iPoint barkeeperPos = { 450, 300 };
 	iPoint trainerPos = { 290, 160 };
 	iPoint merchantPos = { 255, 150 };
+	iPoint emilioPos = { 690, 1153 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -100,6 +101,10 @@ bool Scene::Start()
 	NPC* merchant = (NPC*)app->entities->CreateEntity(NPCType::MERCHANT, merchantPos.x, merchantPos.y);
 	npcList.add(merchant);
 	merchant->activeOnStage = StageIndex::SHOP;
+
+	NPC* emilio = (NPC*)app->entities->CreateEntity(NPCType::EMILIO, emilioPos.x, emilioPos.y);
+	npcList.add(emilio);
+	emilio->activeOnStage = StageIndex::TOWN;
 
 	app->stages->npcListPtr = &npcList;
 

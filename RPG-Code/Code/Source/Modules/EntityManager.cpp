@@ -290,6 +290,10 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 
 		ret = new NPC(NPCType::TRAINER, x, y);
 		break;
+	case NPCType::EMILIO:
+
+		ret = new NPC(NPCType::EMILIO, x, y);
+		break;
 
 	default:
 

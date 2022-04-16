@@ -50,6 +50,14 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "trainer";
 
 		break;
+	case NPCType::EMILIO:
+		idleAnim.PushBack({ 4,536,36,33 });
+		idleAnim.PushBack({ 44,536,40,33 });
+		idleAnim.PushBack({ 88,536,38,33 });
+
+		configName = "emilio";
+
+		break;
 
 	default:
 		break;
@@ -73,6 +81,7 @@ bool NPC::Awake(pugi::xml_node& config)
 	tavernChar = config.child("tavern").attribute("path").as_string();
 	trainerChar = config.child("trainer").attribute("path").as_string();
 	shoperChar = config.child("shoper").attribute("path").as_string();
+	emilioChar = config.child("emilio").attribute("path").as_string();
 
 	return true;
 }
@@ -100,6 +109,10 @@ bool NPC::Start()
 
 		spriteText = app->tex->Load("Assets/sprites/npc/training/npc_training.png");
 
+		break;
+	case NPCType::EMILIO:
+
+		spriteText = app->tex->Load("Assets/sprites/npc/tower/npc_emilio.png");
 		break;
 
 	default:

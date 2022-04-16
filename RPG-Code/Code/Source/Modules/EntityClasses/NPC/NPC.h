@@ -23,7 +23,8 @@ enum class NPCType
 	COCK,
 	BARKEEPER,
 	MERCHANT,
-	TRAINER
+	TRAINER,
+	EMILIO
 };
 
 class NPC : public DynamicEntity
@@ -51,6 +52,7 @@ public:
 	const char* tavernChar;
 	const char* trainerChar;
 	const char* shoperChar;
+	const char* emilioChar;
 
 	int npcId;
 	bool isMerchant;
