@@ -161,6 +161,8 @@ void Map::Draw()
 
 		mapLayerItem = mapLayerItem->next;
 	}
+
+	delete mapLayerItem;
 }
 
 void Map::ReDraw()
@@ -296,43 +298,6 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relativeId / columns));
 	
 	return rect;
-}
-
-// Called before quitting
-bool Map::CleanUp()
-{
-    LOG("Unloading map");
-
-	RemoveCol();
-
-    // Make sure you clean up any memory allocated from tilesets/map
-    // Remove all tilesets
-	ListItem<TileSet*>* item;
-	item = mapData.tilesets.start;
-
-	while (item != NULL)
-	{
-		app->tex->UnLoad(item->data->texture);
-		RELEASE(item->data);
-		item = item->next;
-	}
-	mapData.tilesets.clear();
-
-	// Clean up all layer data
-	// Remove all layers
-	ListItem<MapLayer*>* item2;
-	item2 = mapData.layers.start;
-
-	while (item2 != NULL)
-	{
-		RELEASE(item2->data);
-		item2 = item2->next;
-	}
-	mapData.layers.clear();
-
-	app->entities->DestroyEntity(wallsEntity);
-
-    return true;
 }
 
 // Load new map
@@ -699,7 +664,7 @@ void Map::RemoveCol() {
 							if (mapWalls[wallsCount] != nullptr) {
 
 								app->collisions->RemoveCollider(mapWalls[wallsCount]);
-
+								mapWalls[wallsCount] = nullptr;
 								wallsCount++;
 							}
 
@@ -727,7 +692,7 @@ void Map::RemoveCol() {
 							if (mapEntries[entryCount] != nullptr) {
 
 								app->collisions->RemoveCollider(mapEntries[entryCount]->col);
-
+								mapEntries[entryCount] = nullptr;
 								entryCount++;
 							}
 
@@ -742,4 +707,47 @@ void Map::RemoveCol() {
 		mapLayerItem = mapLayerItem->next;
 	}
 
+}
+
+// Called before quitting
+bool Map::CleanUp()
+{
+	LOG("Unloading map");
+
+	RemoveCol();
+
+	app->entities->DestroyEntity(wallsEntity);
+	wallsEntity = nullptr;
+	delete wallsEntity;
+
+	charValues.clear();
+
+	// Make sure you clean up any memory allocated from tilesets/map
+	// Remove all tilesets
+	ListItem<TileSet*>* item;
+	item = mapData.tilesets.start;
+
+	while (item != NULL)
+	{
+		app->tex->UnLoad(item->data->texture);
+		RELEASE(item->data);
+		item = item->next;
+	}
+	mapData.tilesets.clear();
+
+	// Clean up all layer data
+	// Remove all layers
+	ListItem<MapLayer*>* item2;
+	item2 = mapData.layers.start;
+
+	while (item2 != NULL)
+	{
+		RELEASE(item2->data);
+		item2 = item2->next;
+	}
+	mapData.layers.clear();
+
+	
+
+	return true;
 }

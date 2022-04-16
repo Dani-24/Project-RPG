@@ -150,7 +150,21 @@ bool NPC::CleanUp()
 	delete baseCollider;
 
 	app->tex->UnLoad(spriteText);
+	spriteText = nullptr;
+	delete spriteText;
 
+
+	chickenChar = nullptr;
+	delete chickenChar;
+
+	tavernChar = nullptr;
+	delete tavernChar;
+
+	trainerChar = nullptr;
+	delete trainerChar;
+
+	shoperChar = nullptr;
+	delete shoperChar;
 
 	currentAnimation = nullptr;
 	delete currentAnimation;

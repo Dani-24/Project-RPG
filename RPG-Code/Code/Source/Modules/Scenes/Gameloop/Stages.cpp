@@ -326,6 +326,11 @@ void Stages::ChangeStage(StageIndex newStage) {
 // Called before quitting
 bool Stages::CleanUp()
 {
+	playerPtr = nullptr;
+	delete playerPtr;
+
+	npcListPtr = nullptr;
+	delete npcListPtr;
 
 	return true;
 }
