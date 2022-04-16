@@ -8,6 +8,7 @@
 #include "Player.h"
 
 #include "NPC.h"
+#include "NormalEnemy.h"
 
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
@@ -301,6 +302,37 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 		break;
 	}
 
+	if (ret != nullptr) {
+		entityList.add(ret);
+		//ret->position.x = x;
+		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
+{
+	Entity* ret = nullptr;
+
+	switch (type)
+	{
+	case NormalEnemyType::FLYING_EYE:
+
+		ret = new NormalEnemy(NormalEnemyType::FLYING_EYE, x, y);
+		break;
+
+	case NormalEnemyType::BAT:
+
+		ret = new NormalEnemy(NormalEnemyType::BAT, x, y);
+		break;
+	
+	default:
+
+		LOG("ERROR: Entity Type not set when creating");
+		break;
+	}
+	
 	if (ret != nullptr) {
 		entityList.add(ret);
 		//ret->position.x = x;

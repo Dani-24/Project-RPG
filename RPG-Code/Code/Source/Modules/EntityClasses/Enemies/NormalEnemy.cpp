@@ -4,6 +4,7 @@
 #include "DynamicEntity.h"
 #include "Enemy.h"
 #include "NormalEnemy.h"
+#include "Scene.h"
 
 
 NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(EnemyType::NORMAL)
@@ -44,6 +45,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	}
 
 	currentAnimation = &idleAnim;
+
+	NormalEnemyID = app->scene->normalEnemyList.count();
 	////--------------------------------------------- Flying Eye Animations -------------------------------------------
 	//EyeAnimR.PushBack({ 0 / 0 / 25 / 32 });
 	//EyeAnimR.PushBack({ 48 / 0 / 18 / 26 });

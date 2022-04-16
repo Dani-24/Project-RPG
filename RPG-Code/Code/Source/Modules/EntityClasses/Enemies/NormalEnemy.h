@@ -23,22 +23,6 @@ enum class NormalEnemyType
 	SKELETON
 };
 
-//struct NormalEnemies {
-//	// Textures and body
-//	iPoint position;
-//	SDL_Texture* sprite;
-//	int type;	// 0 = walk or 1 = fly
-//	
-//	float speed;
-//
-//	// Animations
-//	Animation animL, animR, animDieL, animDieR;
-//	Animation* currentAnimation = nullptr;
-//
-//	// Variables
-//	bool dead = false;
-//};
-
 class NormalEnemy : public Enemy
 {
 public:
@@ -60,6 +44,8 @@ public:
 
 
 public:
+
+	int NormalEnemyID;
 
 	NormalEnemyType normalEnemyType;
 	StageIndex activeOnStage;

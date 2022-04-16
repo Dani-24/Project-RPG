@@ -10,6 +10,7 @@ class Player;
 class Cock;
 class Barkeeper;
 class NPC;
+class NormalEnemy;
 
 
 class Scene : public Module
@@ -54,6 +55,7 @@ public:
 
 	Player* player = nullptr;
 	List<NPC*> npcList;
+	List<NormalEnemy*> normalEnemyList;
 
 	//Cock* cock = nullptr;
 };

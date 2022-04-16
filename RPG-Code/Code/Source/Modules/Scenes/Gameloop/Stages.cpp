@@ -15,6 +15,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "NPC.h"
+#include "NormalEnemy.h"
 #include "Camera.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
@@ -160,6 +161,22 @@ bool Stages::PostUpdate()
 				}
 			}
 
+			//PRINT THE Enemies BELOW THE PLAYER
+			if (normalEnemyListPtr != nullptr) {
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+						}
+					}
+				}
+			}
+
+
 			//PRINT THE PLAYER 
 			if (playerPtr != nullptr) {
 				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
@@ -185,6 +202,21 @@ bool Stages::PostUpdate()
 					}
 				}
 			}
+
+			//PRINT THE Enemies ABOVE THE PLAYER
+			if (normalEnemyListPtr != nullptr) {
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+						}
+					}
+				}
+			}
 		}
 		else {
 			//PRINT ONLY THE NPCs
@@ -196,6 +228,19 @@ bool Stages::PostUpdate()
 					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 						npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 						app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+					}
+				}
+			}
+
+			//PRINT ONLY THE Enemies
+			if (normalEnemyListPtr != nullptr) {
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 					}
 				}
 			}

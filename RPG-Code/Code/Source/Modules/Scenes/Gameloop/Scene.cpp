@@ -108,13 +108,17 @@ bool Scene::Start()
 
 	app->stages->npcListPtr = &npcList;
 
-	//// Normal Enemies
-	//iPoint eyePos = {};
-	//iPoint batPos = {};
+	// Normal Enemies
+	iPoint eyePos = { 1000, 500 };
+	iPoint batPos = { 800, 950 };
 
-	//NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
-	//eye->activeOnStage = StageIndex::TOWN;
+	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
+	normalEnemyList.add(eye);
+	eye->activeOnStage = StageIndex::TOWN;
 
+	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, batPos.x, batPos.y);
+	normalEnemyList.add(bat);
+	bat->activeOnStage = StageIndex::TOWN;
 
 	
 

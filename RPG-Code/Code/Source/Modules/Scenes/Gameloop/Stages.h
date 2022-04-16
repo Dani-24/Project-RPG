@@ -10,6 +10,7 @@ class Player;
 class Cock;
 
 class NPC;
+class NormalEnemy;
 
 enum class StageIndex {
 	NONE,
@@ -60,6 +61,7 @@ public:
 
 	Player* playerPtr;
 	List<NPC*> *npcListPtr;
+	List<NormalEnemy*>* normalEnemyListPtr;
 };
 
 #endif // __STAGES_H__
