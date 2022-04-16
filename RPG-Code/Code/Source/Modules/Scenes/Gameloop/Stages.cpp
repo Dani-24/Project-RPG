@@ -14,6 +14,7 @@
 #include "Stages.h"
 #include "Defs.h"
 #include "Log.h"
+#include "DynamicEntity.h"
 #include "NPC.h"
 #include "NormalEnemy.h"
 #include "Camera.h"
@@ -262,6 +263,14 @@ bool Stages::PostUpdate()
 				app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
+
+		/*SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+		if (playerPtr->PlayerErection == true) {
+			app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		}
+		if (playerPtr->PlayerErection == false) {
+			app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		}*/
 	}
 	return ret;
 
