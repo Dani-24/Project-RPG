@@ -548,8 +548,6 @@ void Map::LoadCol() {
 
 							mapWalls[wallsCount] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
 							
-							LOG("AMO AMO AMOGUS");
-
 							wallsCount++;
 						}
 					}

@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Stages.h"
 #include "Battle.h"
+#include "FadeToBlack.h"
 
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
@@ -125,7 +126,9 @@ bool Player::Update(float dt) {
 			}
 		}
 
-		MovementPlayer(dt);
+		if (app->fade->fading == false) {
+			MovementPlayer(dt);
+		}
 	}
 
 	baseCollider->rect.x = position.x;
@@ -186,7 +189,7 @@ void Player::MovementPlayer(float dt) {
 		if (currentAnimation != &walkAnimDown) {
 			currentAnimation = &walkAnimDown;
 		}
-		
+
 		if (walkFxCooldown < 0) {
 			app->audio->PlayFx(walkFx);
 			walkFxCooldown = cooldown;
@@ -307,31 +310,31 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case StageIndex::TOWN:
 
 								LOG("Loading Shop map");
-								app->stages->ChangeStage(StageIndex::SHOP);
+								app->fade->DoFadeToBlack(StageIndex::SHOP);
 
 								break;
 							case StageIndex::DOJO:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							case StageIndex::SHOP:
 
 								LOG("Loading Shop sub level map");
-								app->stages->ChangeStage(StageIndex::SHOPSUB);
+								app->fade->DoFadeToBlack(StageIndex::SHOPSUB);
 
 								break;
 							case StageIndex::SHOPSUB:
 
 								LOG("Loading Shop map");
-								app->stages->ChangeStage(StageIndex::SHOP);
+								app->fade->DoFadeToBlack(StageIndex::SHOP);
 
 								break;
 							case StageIndex::TAVERN:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							}
@@ -347,25 +350,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case StageIndex::TOWN:
 
 								LOG("Loading Tavern map");
-								app->stages->ChangeStage(StageIndex::TAVERN);
+								app->fade->DoFadeToBlack(StageIndex::TAVERN);
 
 								break;
 							case StageIndex::DOJO:
 
 								LOG("Returning to town");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							case StageIndex::SHOP:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							case StageIndex::TAVERN:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							}
@@ -380,19 +383,19 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case StageIndex::TOWN:
 
 								LOG("Loading Tavern map");
-								app->stages->ChangeStage(StageIndex::TAVERN);
+								app->fade->DoFadeToBlack(StageIndex::TAVERN);
 
 								break;
 							case StageIndex::DOJO:
 
 								LOG("Returning to town");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							case StageIndex::SHOP:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							}
@@ -407,19 +410,19 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case StageIndex::TOWN:
 
 								LOG("Loading Dojo map");
-								app->stages->ChangeStage(StageIndex::DOJO);
+								app->fade->DoFadeToBlack(StageIndex::DOJO);
 
 								break;
 							case StageIndex::DOJO:
 
 								LOG("Returning to town");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							case StageIndex::SHOP:
 
 								LOG("Loading town map");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
 							}
@@ -427,7 +430,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 						default:
 							if (app->stages->actualStage == StageIndex::DOJO) {
 								LOG("Returning to town");
-								app->stages->ChangeStage(StageIndex::TOWN);
+								app->fade->DoFadeToBlack(StageIndex::TOWN);
 							}
 							break;
 					}

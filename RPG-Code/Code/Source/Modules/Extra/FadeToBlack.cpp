@@ -22,7 +22,7 @@ bool FadeToBlack::Start()
 
 	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
 
-	fading = false;
+	fading = changeStage = false;
 
 	return true;
 }
@@ -42,6 +42,11 @@ bool FadeToBlack::Update(float dt)
 			if (moduleToDisable != nullptr) {
 				moduleToDisable->Disable();
 				moduleToEnable->Enable();
+			}
+
+			if (changeStage == true) {
+				app->stages->ChangeStage(stageToChange);
+				changeStage = false;
 			}
 
 			currentStep = Fade_Step::FROM_BLACK;
@@ -71,7 +76,8 @@ bool FadeToBlack::PostUpdate()
 	SDL_RenderFillRect(app->render->renderer, &screenRect);
 
 	// Draw Loading text
-	app->font->DrawText("Loading . . .", app->camera->GetPos().x + app->win->GetWidth() / app->win->GetScale() - 110, app->camera->GetPos().y + app->win->GetHeight()/app->win->GetScale() - 25);
+	app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110, 
+		-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25);
 
 	return true;
 }
@@ -110,6 +116,30 @@ bool FadeToBlack::DoFadeToBlack(float frames)
 		this->moduleToEnable = nullptr;
 
 		fading = true;
+
+		ret = true;
+	}
+	return ret;
+}
+
+bool FadeToBlack::DoFadeToBlack(StageIndex stage, float frames)
+{
+	bool ret = false;
+
+	if (currentStep == Fade_Step::NONE)
+	{
+		currentStep = Fade_Step::TO_BLACK;
+		frameCount = 0;
+		maxFadeFrames = frames;
+
+		this->moduleToDisable = nullptr;
+		this->moduleToEnable = nullptr;
+
+		fading = true;
+
+		changeStage = true;
+
+		stageToChange = stage;
 
 		ret = true;
 	}

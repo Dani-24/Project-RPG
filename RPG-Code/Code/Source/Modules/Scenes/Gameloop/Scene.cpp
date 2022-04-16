@@ -173,23 +173,23 @@ bool Scene::Update(float dt)
 
 	// Change map
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::TOWN);
+		app->fade->DoFadeToBlack(StageIndex::TOWN);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::DOJO);
+		app->fade->DoFadeToBlack(StageIndex::DOJO);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::SHOP);
+		app->fade->DoFadeToBlack(StageIndex::SHOP);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::SHOPSUB);
+		app->fade->DoFadeToBlack(StageIndex::SHOPSUB);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::TAVERN);
+		app->fade->DoFadeToBlack(StageIndex::TAVERN);
 	}
 
 	// Player movement
