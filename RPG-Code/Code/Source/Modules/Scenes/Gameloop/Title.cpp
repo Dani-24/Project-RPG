@@ -54,7 +54,7 @@ bool TitleScene::Start()
 			titleBGAnim.PushBack({ N * j, M * i, N, M });
 		}
 	}
-	titleBGAnim.speed = 0.015f;
+	titleBGAnim.speed = 0.0005f;
 	titleBGAnim.loop = true;
 
 	// GUI
@@ -83,9 +83,7 @@ bool TitleScene::Start()
 
 	app->camera->SetPos({ 0,0 });
 
-	pause = false;
-
-	start = continu = credits = exit = false;
+	pause = exitGame = false;
 
 	return true;
 }
@@ -100,9 +98,17 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 		//Checks the GUI element ID
 		if (control->id == 1)
 		{
+
 			LOG("Click on Start");
 
-			start = true;
+			if (pause == false) {
+
+				app->audio->PlayFx(confirmFx);
+
+				app->stages->ChangeStage(StageIndex::TOWN);
+
+				app->fade->DoFadeToBlack(this, (Module*)app->scene);
+			}
 		}
 
 		if (control->id == 2)
@@ -113,20 +119,32 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("Click on Options");
 
-			options = true;
+			if (pause == false) {
+
+				app->audio->PlayFx(confirmFx);
+
+				app->fade->DoFadeToBlack(this, (Module*)app->conf);
+			}
 
 		}
 		if (control->id == 4)
 		{
 			LOG("Click on Credits");
 
-			LOG("Opening Link : %s", CREDITS_LINK);
-			SDL_OpenURL(CREDITS_LINK);
+			if (pause == false) {
+
+				LOG("Opening Link : %s", CREDITS_LINK);
+				SDL_OpenURL(CREDITS_LINK);
+
+			}
 		}
 		if (control->id == 5)
 		{
 			LOG("Click on Exit");
-			exit = true;
+			
+			if (pause == false) {
+				exitGame = true;
+			}
 		}
 	}
 	//Other cases here
@@ -141,29 +159,13 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 // Called each loop iteration
 bool TitleScene::PreUpdate()
 {
-	bool ret = true;
-
-	if (start == true) {
-		if (pause == false) {
-			pause = true;
-			app->audio->PlayFx(confirmFx);
-		}
-		app->stages->ChangeStage(StageIndex::TOWN);
-
-		app->fade->DoFadeToBlack(this, (Module*)app->scene);
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exitGame == true) {
+		return false;
 	}
 
-	if (options == true) {
-		options = false;
-		app->audio->PlayFx(confirmFx);
-		
-		app->fade->DoFadeToBlack(this, (Module*)app->conf);
-	}
+	pause = app->fade->fading;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exit == true) {
-		ret = false;
-	}
-	return ret;
+	return true;
 }
 
 // Called each loop iteration

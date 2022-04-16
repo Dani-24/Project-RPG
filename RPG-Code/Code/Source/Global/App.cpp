@@ -225,7 +225,18 @@ bool App::PreUpdate()
 	for (item = modules.start; item != NULL && ret == true; item = item->next)
 	{
 		if (item->data->isEnabled() == true) {
-			ret = item->data->PreUpdate();
+			// Wait until fade ends to PreUpdate
+			if (fade->fading == false) {
+
+				ret = item->data->PreUpdate();
+
+			}
+			else {
+				if (item->data == fade) {
+					item->data->PreUpdate();
+					return true;
+				}
+			}
 		}
 	}
 
@@ -243,7 +254,18 @@ bool App::DoUpdate()
 	{
 		// Send dt as an argument to all updates
 		if (item->data->isEnabled() == true) {
-			ret = item->data->Update(dt);
+
+			// Wait until fade ends to Update
+			if (fade->fading == false) {
+
+				ret = item->data->Update(dt);
+
+			}
+			else {
+				if (item->data == fade || item->data == entities) {
+					ret = item->data->Update(dt);
+				}
+			}
 		}
 	}
 

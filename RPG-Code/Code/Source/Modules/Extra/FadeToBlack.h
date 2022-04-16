@@ -42,6 +42,9 @@ private:
 
 	Module* moduleToEnable = nullptr;
 	Module* moduleToDisable = nullptr;
+
+public:
+	bool fading;
 };
 
 #endif //__FADETOBLACK_H__
