@@ -120,6 +120,8 @@ bool Scene::Start()
 	normalEnemyList.add(bat);
 	bat->activeOnStage = StageIndex::TOWN;
 
+	app->stages->normalEnemyListPtr = &normalEnemyList;
+
 	
 
 	// TOWN LIMITS for camera
@@ -274,14 +276,14 @@ bool Scene::CleanUp()
 
 	if (btn1 != nullptr) {
 		btn1->state = GuiControlState::DISABLED;
-		btn1 = nullptr;
 	}
+	btn1 = nullptr;
 	delete btn1;
 
 	if (btn2 != nullptr) {
 		btn2->state = GuiControlState::DISABLED;
-		btn2 = nullptr;
 	}
+	btn2 = nullptr;
 	delete btn2;
 
 	npcList.clear();

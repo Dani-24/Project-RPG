@@ -14,29 +14,29 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 	switch (normalEnemyType) {
 	case NormalEnemyType::FLYING_EYE:
-		idleAnim.PushBack({ 0 / 0 / 25 / 32 });
-		idleAnim.PushBack({ 48 / 0 / 18 / 26 });
-		idleAnim.PushBack({ 96 / 0 / 18 / 26 });
-		idleAnim.PushBack({ 134 / 0 / 33 / 32 });
-		idleAnim.PushBack({ 183 / 0 / 35 / 32 });
-		idleAnim.PushBack({ 227 / 0 / 35 / 31 });
+		idleAnim.PushBack({ 0 , 0 , 25 , 32 });
+		idleAnim.PushBack({ 48 , 0 , 18 , 26 });
+		idleAnim.PushBack({ 96 , 0 , 18 , 26 });
+		idleAnim.PushBack({ 134 , 0 , 33 , 32 });
+		idleAnim.PushBack({ 183 , 0 , 35 , 32 });
+		idleAnim.PushBack({ 227 , 0 , 35 , 31 });
 		idleAnim.loop = true;
 		idleAnim.speed = 0.006f;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::BATTLE, this);
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
 		break;
 
 	case NormalEnemyType::BAT:
-		idleAnim.PushBack({ 0 / 25 / 16 / 16 });
-		idleAnim.PushBack({ 16 / 25 / 16 / 16 });
-		idleAnim.PushBack({ 32 / 25 / 16 / 16 });
-		idleAnim.PushBack({ 48 / 25 / 16 / 16 });
-		idleAnim.PushBack({ 64 / 25 / 16 / 16 });
+		idleAnim.PushBack({ 0 , 25 , 16 , 16 });
+		idleAnim.PushBack({ 16 , 25 , 16 , 16 });
+		idleAnim.PushBack({ 32 , 25 , 16 , 16 });
+		idleAnim.PushBack({ 48 , 25 , 16 , 16 });
+		idleAnim.PushBack({ 64 , 25 , 16 , 16 });
 		idleAnim.loop = true;
 		idleAnim.speed = 0.006f;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::BATTLE, this);
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
 		break;
 
