@@ -265,13 +265,21 @@ bool Scene::CleanUp()
 	//Stages:
 	app->entities->DestroyEntity(player);
 
-	ListItem<NPC*>* npcInList;
+	
 
 	app->stages->ChangeStage(StageIndex::NONE);
 
+	ListItem<NPC*>* npcInList;
+	
 	for (npcInList = npcList.start; npcInList != NULL; npcInList = npcInList->next)
 	{
 		npcInList->data->CleanUp();
+	}
+
+	ListItem<NormalEnemy*>* normalEnemyInList;
+	for (normalEnemyInList = normalEnemyList.start; normalEnemyInList != NULL; normalEnemyInList = normalEnemyInList->next)
+	{
+		normalEnemyInList->data->CleanUp();
 	}
 
 	if (btn1 != nullptr) {
@@ -287,8 +295,13 @@ bool Scene::CleanUp()
 	delete btn2;
 
 	npcList.clear();
+	normalEnemyList.clear();
+
 	player = nullptr;
 	delete player;
+
+
+
 
 	app->map->Disable();
 
