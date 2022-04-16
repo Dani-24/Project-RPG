@@ -5,7 +5,7 @@
 #include "Enemy.h"
 #include "NormalEnemy.h"
 #include "Scene.h"
-
+#include "PauseMenu.h"
 
 NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(EnemyType::NORMAL)
 {
@@ -174,8 +174,10 @@ bool NormalEnemy::PreUpdate()
 // Call modules on each loop iteration
 bool NormalEnemy::Update(float dt)
 {
-	if (currentAnimation != nullptr) {
-		currentAnimation->Update(dt);
+	if (!app->pauseM->pauseGame) {
+		if (currentAnimation != nullptr) {
+			currentAnimation->Update(dt);
+		}
 	}
 	return true;
 }

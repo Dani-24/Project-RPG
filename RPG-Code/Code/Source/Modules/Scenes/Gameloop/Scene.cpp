@@ -9,6 +9,7 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "Player.h"
+#include "PauseMenu.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -141,6 +142,7 @@ bool Scene::PreUpdate()
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
+		app->pauseM->pauseGame = false;
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 	}
 
@@ -173,23 +175,23 @@ bool Scene::Update(float dt)
 
 	// Change map
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWN);
+		app->stages->ChangeStage(StageIndex::TOWN);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::DOJO);
+		app->stages->ChangeStage(StageIndex::DOJO);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::SHOP);
+		app->stages->ChangeStage(StageIndex::SHOP);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::SHOPSUB);
+		app->stages->ChangeStage(StageIndex::SHOPSUB);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TAVERN);
+		app->stages->ChangeStage(StageIndex::TAVERN);
 	}
 
 	// Player movement

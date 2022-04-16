@@ -5,6 +5,7 @@
 #include "NPC.h"
 #include "App.h"
 #include "Scene.h"
+#include "PauseMenu.h"
 
 NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 {
@@ -90,7 +91,7 @@ bool NPC::Awake(pugi::xml_node& config)
 	tavernChar = config.child("tavern").attribute("path").as_string();
 	trainerChar = config.child("trainer").attribute("path").as_string();
 	shoperChar = config.child("shoper").attribute("path").as_string();
-	emilioChar = config.child("emilio").attribute("path").as_string();
+	emilioChar = config.child("korb").attribute("path").as_string();
 
 	return true;
 }
@@ -107,21 +108,21 @@ bool NPC::Start()
 		break;
 	case NPCType::BARKEEPER:
 
-		spriteText = app->tex->Load("Assets/sprites/npc/tavern/npc_tavern.png");
+		spriteText = app->tex->Load(tavernChar);
 		break;
 	case NPCType::MERCHANT:
 
 
-		spriteText = app->tex->Load("Assets/sprites/npc/shop/npc_shop.png");
+		spriteText = app->tex->Load(shoperChar);
 		break;
 	case NPCType::TRAINER:
 
-		spriteText = app->tex->Load("Assets/sprites/npc/training/npc_training.png");
+		spriteText = app->tex->Load(trainerChar);
 
 		break;
 	case NPCType::EMILIO:
 
-		spriteText = app->tex->Load("Assets/sprites/npc/tower/npc_emilio.png");
+		spriteText = app->tex->Load(emilioChar);
 		break;
 
 	default:
@@ -140,11 +141,11 @@ bool NPC::PreUpdate()
 bool NPC::Update(float dt)
 {
 	bool ret = true;
-
-	if (currentAnimation != nullptr) {
-		currentAnimation->Update(dt);
+	if (!app->pauseM->pauseGame) {
+		if (currentAnimation != nullptr) {
+			currentAnimation->Update(dt);
+		}
 	}
-
 	//LOG("%d, %d", position.x, position.y);
 
 	return ret;

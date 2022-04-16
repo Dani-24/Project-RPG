@@ -7,14 +7,17 @@
 
     <renderer>
         <vsync value="true"/>
+		
     </renderer>
 
 	<audio>
 		<music value="20"/>
 		<sfx value="20"/>
+		
 	</audio>
 	
 	<camera>
+		
 	</camera>
 	
     <window>
@@ -36,32 +39,7 @@
 		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
 	   <exampleNumber num="6"/>
 	</player>
-
-	<scene>
-		<spionage path="Assets/audio/music/music_credits.ogg" />
-	</scene>
-
-	<cock>
-		<chicken path="Assets/sprites/npc/tavern/chicken.png"/>
-	</cock>
-	<barkeeper>
-		<tavern path="Assets/sprites/npc/tavern/npc_tavern.png"/>
-	</barkeeper>
-	<trainer>
-		<trainer path="Assets/sprites/npc/training/npc_training.png"/>
-	</trainer>
-	<merchant>
-		<shoper path="Assets/sprites/npc/shop/npc_shop.png"/>
-	</merchant>
 	
-	<pathfinder>
-		<pathtex path="Assets/textures/path.png"/>
-		<pathorigin path="Assets/textures/pathOrigin.png"/>
-	</pathfinder>
-	<logoScene>
-		<logo path="Assets/textures/logo.png"/>	
-		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
-	</logoScene>
 	<titleScene>
 		<startb path="Assets/gui/button_start.png"/>
 		<continueb path="Assets/gui/button_continue.png"/>
@@ -72,9 +50,45 @@
 		<mustitle path="Assets/audio/music/music_title.ogg"/>
 		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
 	</titleScene>
+	
 	<conf>
-		<mussett path=""/>
-		<fxselect path=""/>
-		<mussett path=""/>
+		<musset path="Assets/audio/music/music_settings.ogg"/>
+		<sfxback path="Assets/audio/sfx/fx_select_back.wav"/>
+		<backgr path="Assets/gui/marco_opciones.png"/>
 	</conf>
+	
+	<scene>
+		<spionage path="Assets/audio/music/music_credits.ogg" />
+	</scene>
+
+	<cock>
+		<chicken path="Assets/sprites/npc/tavern/chicken.png"/>
+	</cock>
+	
+	<barkeeper>
+		<tavern path="Assets/sprites/npc/tavern/npc_tavern.png"/>
+	</barkeeper>
+	
+	<trainer>
+		<trainer path="Assets/sprites/npc/training/npc_training.png"/>
+	</trainer>
+	
+	<merchant>
+		<shoper path="Assets/sprites/npc/shop/npc_shop.png"/>
+	</merchant>
+	
+	<emilio>
+		<korb path="Assets/sprites/npc/tower/npc_emilio.png"/>
+	</emilio>
+	
+	<pathfinder>
+		<pathtex path="Assets/textures/path.png"/>
+		<pathorigin path="Assets/textures/pathOrigin.png"/>
+	</pathfinder>
+	
+	<logoScene>
+		<logo path="Assets/textures/logo.png"/>	
+		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
+	</logoScene>
+	
 </config>

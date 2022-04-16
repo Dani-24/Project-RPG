@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "PauseMenu.h"
 #include "Battle.h"
 #include "Stages.h"
 #include "Collisions.h"
@@ -47,10 +48,12 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	stages = new Stages(this);
 
 	entities = new EntityManager(this);
+	
 
 	camera = new Camera(this);
 
 	map = new Map(this, false);
+	pauseM = new PauseMenu(this, true);
 	guiManager = new GuiManager(this);
 
 	font = new ModuleQFonts(this);
@@ -78,6 +81,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(entities);
+	AddModule(pauseM);
 
 	AddModule(guiManager);
 	AddModule(font);

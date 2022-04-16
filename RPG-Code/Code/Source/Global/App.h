@@ -27,6 +27,7 @@ class Map;
 class GuiManager;
 class EntityManager;
 class EnemyMovement;
+class PauseMenu;
 
 class Camera;
 class FadeToBlack;
@@ -118,6 +119,7 @@ public:
 	EntityManager* entities;
 	EnemyMovement* enemyMovement;
 	Camera* camera;
+	PauseMenu* pauseM;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
