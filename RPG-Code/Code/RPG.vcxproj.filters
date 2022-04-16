@@ -33,7 +33,6 @@
     <ClCompile Include="Source\Modules\EntityClasses\Enemies\NormalEnemy.cpp" />
     <ClCompile Include="Source\Modules\EntityManager.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
-    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Character.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Player.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Battle.cpp" />
@@ -99,7 +98,6 @@
     <ClInclude Include="Source\Modules\EntityClasses\Enemies\NormalEnemy.h" />
     <ClInclude Include="Source\Modules\EntityManager.h" />
     <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
-    <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Character.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Player.h" />
     <ClInclude Include="Source\Modules\Scenes\Battle.h" />

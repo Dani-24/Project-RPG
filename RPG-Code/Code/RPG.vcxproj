@@ -98,7 +98,6 @@
     <ClCompile Include="Source\Modules\Scenes\Battle.cpp" />
     <ClCompile Include="Source\Modules\Core\Camera.cpp" />
     <ClCompile Include="Source\Modules\Extra\Collisions.cpp" />
-    <ClCompile Include="Source\Modules\EnemyMovement.cpp" />
     <ClCompile Include="Source\GUI\GuiButton.cpp" />
     <ClCompile Include="Source\GUI\GuiManager.cpp" />
     <ClCompile Include="Source\Global\Main.cpp" />
@@ -134,7 +133,6 @@
     <ClInclude Include="Source\Modules\Scenes\Battle.h" />
     <ClInclude Include="Source\Modules\Core\Camera.h" />
     <ClInclude Include="Source\Modules\Extra\Collisions.h" />
-    <ClInclude Include="Source\Modules\EnemyMovement.h" />
     <ClInclude Include="Resource\resource.h" />
     <ClInclude Include="Source\GUI\GuiButton.h" />
     <ClInclude Include="Source\GUI\GuiControl.h" />

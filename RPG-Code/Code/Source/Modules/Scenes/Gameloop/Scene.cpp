@@ -9,7 +9,6 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "Player.h"
-#include "EnemyMovement.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -46,7 +45,6 @@ bool Scene::Start()
 {
 	// Enables & idk
 	app->map->Enable();
-	app->enemyMovement->Enable();
 
 	switch (app->stages->actualStage) {
 	case StageIndex::NONE:
@@ -270,7 +268,6 @@ bool Scene::CleanUp()
 
 	app->map->Disable();
 
-	app->enemyMovement->Disable();
 
 	return true;
 }

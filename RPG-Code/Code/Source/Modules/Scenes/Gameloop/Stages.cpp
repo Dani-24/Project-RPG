@@ -9,7 +9,6 @@
 #include "GuiManager.h"
 #include "FadeToBlack.h"
 #include "Player.h"
-#include "EnemyMovement.h"
 #include "EntityManager.h"
 #include "Battle.h"
 #include "Stages.h"

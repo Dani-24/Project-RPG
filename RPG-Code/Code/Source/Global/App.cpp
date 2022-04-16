@@ -11,7 +11,6 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
-#include "EnemyMovement.h"
 #include "Battle.h"
 #include "Stages.h"
 #include "Collisions.h"
@@ -50,7 +49,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entities = new EntityManager(this);
 
 	camera = new Camera(this);
-	enemyMovement = new EnemyMovement(this, false);
 
 	map = new Map(this, false);
 	guiManager = new GuiManager(this);
@@ -80,7 +78,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(entities);
-	AddModule(enemyMovement);
 
 	AddModule(guiManager);
 	AddModule(font);
