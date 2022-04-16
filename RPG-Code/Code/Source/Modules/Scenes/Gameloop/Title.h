@@ -35,11 +35,10 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
-	
-
 	// Called before quitting
 	bool CleanUp();
 
+public:
 	const char* startChar;
 	const char* contChar;
 	const char* optChar;
@@ -48,6 +47,7 @@ public:
 	const char* titlChar;
 	const char* mustitlChar;
 	const char* fxselChar;
+
 private:
 
 	SDL_Texture* titleBg;
@@ -57,6 +57,7 @@ private:
 	int confirmFx;
 
 	bool pause;
+	bool exitGame;
 
 	// Buttons
 
@@ -70,15 +71,7 @@ private:
 	SDL_Texture* continueb;
 	SDL_Texture* optionsb;
 	SDL_Texture* creditsb;
-	SDL_Texture* exitb;
-
-	bool start;
-	bool continu;
-	bool options;
-	bool credits;
-	bool exit;
-
-	
+	SDL_Texture* exitb;	
 };
 
 #endif // !__TITLE_H__

@@ -77,13 +77,13 @@ bool EntityManager::Update(float dt)
 			//AAAAAAAAAAAAAAAAAA//
 			ret = entityInList->data->Awake(config.child(entityInList->data->configName.GetString()));
 			entityInList->data->hasAwaken = true;
-			continue;
+			break;
 		}
 
 		if (entityInList->data->hasStarted == false) {
 			ret = entityInList->data->Start();
 			entityInList->data->hasStarted = true;
-			continue;
+			break;
 		}
 		ret = entityInList->data->Update(dt);
 	}

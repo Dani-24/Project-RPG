@@ -1,6 +1,8 @@
 #include "FadeToBlack.h"
 #include "Window.h"
 #include "Render.h"
+#include "Camera.h"
+#include "ModuleQFonts.h"
 
 #include "SDL/include/SDL_render.h"
 
@@ -19,6 +21,9 @@ bool FadeToBlack::Start()
 	screenRect = { 0,0, app->win->GetWidth() * (int)app->win->GetScale(), app->win->GetHeight() * (int)app->win->GetScale() };
 
 	SDL_SetRenderDrawBlendMode(app->render->renderer, SDL_BLENDMODE_BLEND);
+
+	fading = false;
+
 	return true;
 }
 
@@ -47,6 +52,7 @@ bool FadeToBlack::Update(float dt)
 		--frameCount;
 		if (frameCount <= 0)
 		{
+			fading = false;
 			currentStep = Fade_Step::NONE;
 		}
 	}
@@ -64,6 +70,9 @@ bool FadeToBlack::PostUpdate()
 	SDL_SetRenderDrawColor(app->render->renderer, 0, 0, 0, (Uint8)(fadeRatio * 255.0f));
 	SDL_RenderFillRect(app->render->renderer, &screenRect);
 
+	// Draw Loading text
+	app->font->DrawText("Loading . . .", app->camera->GetPos().x + app->win->GetWidth() / app->win->GetScale() - 110, app->camera->GetPos().y + app->win->GetHeight()/app->win->GetScale() - 25);
+
 	return true;
 }
 
@@ -79,6 +88,9 @@ bool FadeToBlack::DoFadeToBlack(Module* moduleToDisable, Module* moduleToEnable,
 
 		this->moduleToDisable = moduleToDisable;
 		this->moduleToEnable = moduleToEnable;
+
+		fading = true;
+
 		ret = true;
 	}
 	return ret;
@@ -96,6 +108,9 @@ bool FadeToBlack::DoFadeToBlack(float frames)
 
 		this->moduleToDisable = nullptr;
 		this->moduleToEnable = nullptr;
+
+		fading = true;
+
 		ret = true;
 	}
 	return ret;
