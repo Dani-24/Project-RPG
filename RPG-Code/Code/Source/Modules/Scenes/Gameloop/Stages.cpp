@@ -154,6 +154,7 @@ bool Stages::PostUpdate()
 				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
 				{
 					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						
 						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);

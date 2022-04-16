@@ -6,6 +6,8 @@
 
 #include "SDL/include/SDL_render.h"
 
+#include "Logo.h"
+
 FadeToBlack::FadeToBlack(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("fade");
@@ -76,8 +78,10 @@ bool FadeToBlack::PostUpdate()
 	SDL_RenderFillRect(app->render->renderer, &screenRect);
 
 	// Draw Loading text
-	app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110, 
-		-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25);
+	if (app->logoScene->isEnabled() == false) {	// Desactivado en el logo pa q quede bonico
+		app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110,
+			-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25);
+	}
 
 	return true;
 }

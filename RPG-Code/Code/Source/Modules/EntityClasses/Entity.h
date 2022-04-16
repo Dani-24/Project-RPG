@@ -73,6 +73,7 @@ public:
 
 	SString entityName;
 
+	int npcID;
 };
 
 #endif // !__ENTITY_H__
