@@ -1,0 +1,34 @@
+idleAnim.PushBack({0,0,25,30});
+	idleAnim.PushBack({ 39,0,25,30 });
+	idleAnim.PushBack({ 78,0,25,30 });
+	idleAnim.PushBack({ 117,0,25,30 });
+	idleAnim.PushBack({ 156,0,25,30 });
+	idleAnim.PushBack({ 196,0,25,30 });
+	idleAnim.PushBack({ 234,0,25,30 });
+	idleAnim.PushBack({ 279,0,25,30 });
+	idleAnim.loop = true;
+	idleAnim.speed = 0.0001f;
+
+
+	walkAnimR.PushBack({ 0,32,25,32 });
+	walkAnimR.PushBack({ 39,32,25,32 });
+	walkAnimR.PushBack({ 78,32,25,32 });
+	walkAnimR.PushBack({ 117,32,25,32 });
+	walkAnimR.PushBack({ 156,32,25,32 });
+	walkAnimR.PushBack({ 196,32,25,32 });
+	walkAnimR.PushBack({ 234,32,25,32 });
+	walkAnimR.PushBack({ 279,32,25,32 });
+	walkAnimR.loop = true;
+	walkAnimR.speed = 0.006f;
+
+
+	walkAnimL.PushBack({ 0,65,25,31 });
+	walkAnimL.PushBack({ 39,65,25,31 });
+	walkAnimL.PushBack({ 78,65,25,31 });
+	walkAnimL.PushBack({ 117,65,25,31 });
+	walkAnimL.PushBack({ 156,65,25,31 });
+	walkAnimL.PushBack({ 196,65,25,31 });
+	walkAnimL.PushBack({ 234,65,25,31 });
+	walkAnimL.PushBack({ 279,65,25,31 });
+	walkAnimL.loop = true;
+	walkAnimL.speed = 0.006f;
