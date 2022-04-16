@@ -50,7 +50,7 @@ public:
 	const char* fxselChar;
 private:
 
-	SDL_Texture* title;
+	SDL_Texture* titleBg;
 
 	Animation titleBGAnim;
 

@@ -15,7 +15,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define CREDITS_LINK "https://www.tomorrowtides.com/githubcomdani24project_rpg.html"
+#define CREDITS_LINK "https://www.youtube.com/watch?v=FJ-Dhxs1EGM&ab_channel=Jabenyezza"
 
 TitleScene::TitleScene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -72,7 +72,7 @@ bool TitleScene::Start()
 	creditsb = app->tex->Load("Assets/gui/button_credits.png");
 	exitb = app->tex->Load("Assets/gui/button_exit.png");
 
-	title = app->tex->Load("Assets/textures/title_screen_bg.png");
+	titleBg = app->tex->Load("Assets/textures/title_screen_bg.png");
 
 	// Audio 
 
@@ -180,7 +180,7 @@ bool TitleScene::PostUpdate()
 	bool ret = true;
 
 	// Draw BG
-	app->render->DrawTexture(title, 65, 50, &titleBGAnim.GetCurrentFrame());
+	app->render->DrawTexture(titleBg, 65, 50, &titleBGAnim.GetCurrentFrame());
 
 	// Render Buttons
 	app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
@@ -204,6 +204,13 @@ bool TitleScene::CleanUp()
 	btn3->state = GuiControlState::DISABLED;
 	btn4->state = GuiControlState::DISABLED;
 	btn5->state = GuiControlState::DISABLED;
+
+	app->tex->UnLoad(titleBg);
+	app->tex->UnLoad(startb);
+	app->tex->UnLoad(continueb);
+	app->tex->UnLoad(optionsb);
+	app->tex->UnLoad(creditsb);
+	app->tex->UnLoad(exitb);
 
 	return true;
 }
