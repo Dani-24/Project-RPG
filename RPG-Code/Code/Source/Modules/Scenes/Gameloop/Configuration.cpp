@@ -40,6 +40,9 @@ bool Configuration::Start()
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	background = app->tex->Load("Assets/gui/marco_opciones.png");
 
+	// Load sFx
+	btnSelection= app->audio->LoadFx("Assets/audio/sfx/fx_select_next.wav");
+
 	// GUI
 	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
 	musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "mus-", { (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
@@ -148,29 +151,32 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 
 			if(app->audio->vol < 100)app->audio->vol += 5; app->audio->ChangeVolume(app->audio->vol);
 			
+			app->audio->PlayFx(btnSelection);
 		}
 
 		if (control->id == 7)
 		{
 			LOG("volume -");
 			if (app->audio->vol > 0)app->audio->vol -= 5; app->audio->ChangeVolume(app->audio->vol);
+			app->audio->PlayFx(btnSelection);
 		}
 		if (control->id == 8)
 		{
 			LOG("FX +");
-
+			app->audio->PlayFx(btnSelection);
 			if (app->audio->volFX < 100)app->audio->volFX += 5; app->audio->ChangeFXVolume(app->audio->volFX);
 		}
 		if (control->id == 9)
 		{
 			LOG("FX -");
 			if (app->audio->volFX > 0)app->audio->volFX -= 5; app->audio->ChangeFXVolume(app->audio->volFX);
+			app->audio->PlayFx(btnSelection);
 		}
 		if (control->id == 10)
 		{
 			LOG("FULLSCREeN");
 			/*	Uint32 flags = SDL_WINDOW_SHOWN;*/
-
+			app->audio->PlayFx(btnSelection);
 			if (app->win->fullscreen == false) {
 				app->win->fullscreen = true;
 				app->win->SwitchScreen();
@@ -186,7 +192,7 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 			LOG("VSYNC");
 			if (!app->render->Vsync)app->render->Vsync=true;
 			else app->render->Vsync=false;
-			
+			app->audio->PlayFx(btnSelection);
 		}
 		/*if (control->id == 12)
 		{
