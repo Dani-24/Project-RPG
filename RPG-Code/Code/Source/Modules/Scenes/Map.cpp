@@ -16,8 +16,6 @@ using namespace  std;
 Map::Map(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("map");
-	// Add all the string properties in the list
-	charValues.add("Col");
 	
 	mapLoaded = false;
 }
@@ -109,7 +107,8 @@ bool Map::Awake(pugi::xml_node& config)
 
 bool Map::Start() {
 
-
+	// Add all the string properties in the list
+	charValues.add("Col");
 	return true;
 }
 // Draw the map (all requried layers)
@@ -549,6 +548,8 @@ void Map::LoadCol() {
 
 							mapWalls[wallsCount] = app->collisions->AddCollider({ pos.x, pos.y , r.w,  r.h }, Collider::Type::WALL, wallsEntity);
 							
+							LOG("AMO AMO AMOGUS");
+
 							wallsCount++;
 						}
 					}
@@ -746,8 +747,6 @@ bool Map::CleanUp()
 		item2 = item2->next;
 	}
 	mapData.layers.clear();
-
-	
 
 	return true;
 }
