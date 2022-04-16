@@ -77,6 +77,7 @@ bool Battle::Start()
 	//Position
 	app->stages->playerPtr->mapPosition = app->stages->playerPtr->position;
 	app->stages->playerPtr->position = app->stages->playerPtr->battlePosition;
+
 	//Animation
 	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
 	if(app->stages->playerPtr->PlayerErection == true)
@@ -322,6 +323,8 @@ bool Battle::CleanUp()
 
 	escapeButton = nullptr;
 	delete escapeButton;
+	
+	entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 
 	//Take back player position
 	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;

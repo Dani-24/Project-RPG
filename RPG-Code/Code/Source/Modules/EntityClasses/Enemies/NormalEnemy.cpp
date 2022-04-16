@@ -25,6 +25,9 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
+		mapPosition = { 0,0 };
+		battlePosition = { 100, 100 };
+
 		name = "Flying eye";
 		configName = "flying_eye";
 
@@ -40,6 +43,9 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
+
+		mapPosition = { 0,0 };
+		battlePosition = { 100, 100 };
 
 		name = "Bat";
 		configName = "bat";

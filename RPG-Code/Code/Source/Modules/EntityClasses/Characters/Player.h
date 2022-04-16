@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "Animation.h"
+#include "DialogSystem.h"
 
 struct SDL_Texture;
 struct SDL_Surface;
@@ -103,6 +104,47 @@ public:
 
 	iPoint mapPosition;
 	iPoint battlePosition;
+
+private: // DIALOGS
+
+	const char* barkeeperDialog[DIALOG_LENGHT] = { 
+	"Hola buenas, bienvenido a la taverna",
+	"? Desearia tomar algo ?",
+	"me quieroo morirrr", 
+	"bueno parece que ya funka" 
+	};
+
+	const char* trainerDialog[DIALOG_LENGHT] = { 
+	"Buenooo miii gentee vamoss ha empezar",
+	"animo a todess antes de nada",
+	"hoy empezaremos haciendo 20 flexiones",
+	"quiero q primero mireis como las hago", 
+	"ahora os tocara a vosotres",
+	"vamos chiquess que vosotres podeiss!!"
+	};
+
+	const char* merchantDialog[DIALOG_LENGHT] = { 
+	"HOOOLA, soy Vince con Slap Chop, y esto te va A",
+	"FASCINAAAAAAAR",
+	"Mira mi huevo!",
+	"Un golpe, blandes, papas fritas",
+	"Tu gerard, yo gerard? NO mas gerard",
+	"Perechini, martini, bambini, lenguini, bikini",
+	"COmpra Slap Chop por 5.95€",
+	"PARA ORENAR!"
+	};
+
+	const char* cockDialog[DIALOG_LENGHT] = { 
+	"kiki koko,  coro koko koko ro",
+	"kokoroco?",
+	"Q te saco la navaja y te rajo tt",
+	"digo, kiri kikii!" 
+	};
+
+	const char* emilioDialog[DIALOG_LENGHT] = {
+	"Lo siento estoy pintando",
+	"poyo"
+	};
 
 };
 #endif !__PLAYER_H__

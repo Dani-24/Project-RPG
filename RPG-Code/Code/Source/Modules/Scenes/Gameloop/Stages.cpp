@@ -14,6 +14,7 @@
 #include "Stages.h"
 #include "Defs.h"
 #include "Log.h"
+#include "DynamicEntity.h"
 #include "NPC.h"
 #include "NormalEnemy.h"
 #include "Camera.h"
@@ -153,6 +154,7 @@ bool Stages::PostUpdate()
 				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
 				{
 					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						
 						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
@@ -262,6 +264,14 @@ bool Stages::PostUpdate()
 				app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
 		}
+
+		/*SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+		if (playerPtr->PlayerErection == true) {
+			app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		}
+		if (playerPtr->PlayerErection == false) {
+			app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		}*/
 	}
 	return ret;
 

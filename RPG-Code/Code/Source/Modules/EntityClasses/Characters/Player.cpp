@@ -208,13 +208,14 @@ bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
 	//LOG("position x %d y %d", position.x, position.y);
+
 	return true;
 }
 
 bool Player::Update(float dt) {
 	bool ret = true;
 
-	if (app->scene->pause == false && canMove == true) {
+	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
@@ -539,6 +540,84 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 							}
 							break;
+					}
+				}
+			}
+		}
+	}
+
+	if (col1 == baseCollider && col2->type == Collider::INTERACT) {
+
+		// NPC COLLISIONS
+
+		// APPLY WALL COLLIDER bc if not you are kidnapped forever to dialog with the npcs
+
+		//Cant move Left
+		if (col2->rect.x + col2->rect.w > col1->rect.x &&
+			col2->rect.x + col2->rect.w < col1->rect.x + col1->rect.w &&
+			col1->rect.y < col2->rect.y + col2->rect.h - margin &&
+			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
+
+			this->position.x = col2->rect.x + col2->rect.w + 15;
+		}
+
+		//Cant move Right
+		if (col2->rect.x > col1->rect.x &&
+			col2->rect.x < col1->rect.x + col1->rect.w &&
+			col1->rect.y < col2->rect.y + col2->rect.h - margin &&
+			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
+
+			this->position.x = col2->rect.x - col1->rect.w - 15;
+
+		}
+
+		//Cant move Up
+		if (col2->rect.y + col2->rect.h > col1->rect.y &&
+			col2->rect.y + col2->rect.h < col1->rect.y + col1->rect.h &&
+			col1->rect.x + col1->rect.w > col2->rect.x + margin &&
+			col1->rect.x < col2->rect.x + col2->rect.w - margin) {
+
+			this->position.y = col2->rect.y + col2->rect.h - colDownDistance;
+		}
+		//Cant move Down
+		if (col2->rect.y < col1->rect.y + col1->rect.h &&
+			col2->rect.y > col1->rect.y &&
+			col1->rect.x + col1->rect.w > col2->rect.x + margin &&
+			col1->rect.x < col2->rect.x + col2->rect.w - margin) {
+
+			this->position.y = col2->rect.y - col1->rect.h - colDownDistance;
+		}
+
+		// Then the dialogs
+
+		if (app->dialogs->dialoging == false) {
+			ListItem<Entity*>* entityInList;
+
+			for (entityInList = app->entities->entityList.start; entityInList != NULL; entityInList = entityInList->next)
+			{
+				if (entityInList->data->GetCollider() != nullptr) {
+					if (entityInList->data->GetCollider() == col2) {
+
+						switch (entityInList->data->npcID)
+						{
+						case 1:
+							app->dialogs->CreateDialog(NPCType::COCK, cockDialog);
+							break;
+						case 2:
+							app->dialogs->CreateDialog(NPCType::MERCHANT, merchantDialog);
+							break;
+						case 3:
+							app->dialogs->CreateDialog(NPCType::BARKEEPER, barkeeperDialog);
+							break;
+						case 4:
+							app->dialogs->CreateDialog(NPCType::TRAINER, trainerDialog);
+							break;
+						case 5:
+							app->dialogs->CreateDialog(NPCType::EMILIO, emilioDialog);
+							break;
+						default:
+							break;
+						}
 					}
 				}
 			}

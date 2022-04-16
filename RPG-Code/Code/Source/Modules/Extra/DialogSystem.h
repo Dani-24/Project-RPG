@@ -22,7 +22,6 @@ public:
 	bool Start();
 
 	bool PreUpdate();
-	bool Update(float dt);
 	bool PostUpdate();
 
 	bool CleanUp();
@@ -36,12 +35,15 @@ public:
 
 private:
 
-	//NPCType charaType;
-	SDL_Texture* currentChara;
+	SDL_Texture* currentChara, *dialogueBox;
 	iPoint dialogPosition;
 	bool wait;
 
+	NPCType npcType;
+
 	List<const char*> dialogList;
+
+	int displayed;
 
 public:
 	// Block Scene Update is true

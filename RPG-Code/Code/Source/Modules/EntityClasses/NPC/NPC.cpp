@@ -25,9 +25,9 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		idleAnim.speed = 0.004f;
 
 		configName = "cock";
+		npcID = 1;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::INSTANT, this);
-
+		baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::BARKEEPER:
@@ -38,6 +38,10 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		
 		configName = "barkeeper";
 
+		npcID = 3;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y + 70 , 30,  24 }, Collider::Type::INTERACT, this);
+
 		break;
 	case NPCType::MERCHANT:
 		idleAnim.PushBack({ 8,15,30,43 });
@@ -46,6 +50,10 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		idleAnim.speed = 0.006f;
 
 		configName = "merchant";
+
+		npcID = 2;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  55 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::TRAINER:
@@ -56,6 +64,10 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 	
 		configName = "trainer";
 
+		npcID = 4;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
+
 		break;
 	case NPCType::EMILIO:
 		idleAnim.PushBack({ 4,536,36,33 });
@@ -65,6 +77,10 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		idleAnim.speed = 0.004f;
 
 		configName = "emilio";
+
+		npcID = 5;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
 
 		break;
 
