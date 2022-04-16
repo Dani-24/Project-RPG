@@ -377,5 +377,8 @@ bool Stages::CleanUp()
 	npcListPtr = nullptr;
 	delete npcListPtr;
 
+	normalEnemyListPtr = nullptr;
+	delete normalEnemyListPtr;
+
 	return true;
 }
