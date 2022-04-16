@@ -116,9 +116,11 @@ bool Scene::Start()
 	normalEnemyList.add(eye);
 	eye->activeOnStage = StageIndex::TOWN;
 
-	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, batPos.x, batPos.y);
+	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
 	normalEnemyList.add(bat);
 	bat->activeOnStage = StageIndex::TOWN;
+
+	app->stages->normalEnemyListPtr = &normalEnemyList;
 
 	
 
@@ -274,14 +276,14 @@ bool Scene::CleanUp()
 
 	if (btn1 != nullptr) {
 		btn1->state = GuiControlState::DISABLED;
-		btn1 = nullptr;
 	}
+	btn1 = nullptr;
 	delete btn1;
 
 	if (btn2 != nullptr) {
 		btn2->state = GuiControlState::DISABLED;
-		btn2 = nullptr;
 	}
+	btn2 = nullptr;
 	delete btn2;
 
 	npcList.clear();
