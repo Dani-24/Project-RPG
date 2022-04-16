@@ -15,10 +15,13 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 	switch (NPCType) {
 	case NPCType::COCK:
 
-		idleAnim.PushBack({ 2, 2, 28, 28 });
-		idleAnim.PushBack({ 32, 2, 30, 28 });
-		idleAnim.PushBack({ 66, 2, 28, 28 });
-		idleAnim.PushBack({ 96, 2, 30, 28 });
+		idleAnim.PushBack({ 2, 66, 28, 28 });
+		idleAnim.PushBack({ 34,66,28,28 });
+		idleAnim.PushBack({ 66,66,28,28 });
+		idleAnim.PushBack({ 98,66,28,28 });
+		idleAnim.PushBack({ 66,66,28,28 });
+		idleAnim.PushBack({ 34,66,28,28 });
+		idleAnim.speed = 0.004f;
 
 		configName = "cock";
 
@@ -28,32 +31,37 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		break;
 	case NPCType::BARKEEPER:
 		idleAnim.PushBack({ 9, 9, 34, 47 });
-		idleAnim.PushBack({ 60, 7, 34, 47 });
-		idleAnim.PushBack({ 114, 9, 32, 47 });
+	/*	idleAnim.PushBack({ 60, 7, 34, 47 });
+		idleAnim.PushBack({ 114, 9, 32, 47 });*/
+		idleAnim.speed = 0.006f;
 		
 		configName = "barkeeper";
 
 		break;
 	case NPCType::MERCHANT:
 		idleAnim.PushBack({ 8,15,30,43 });
-		idleAnim.PushBack({ 64,13,27,43 });
-		idleAnim.PushBack({ 115,15,30,43 });
+	/*	idleAnim.PushBack({ 64,13,27,43 });
+		idleAnim.PushBack({ 115,15,30,43 });*/
+		idleAnim.speed = 0.006f;
 
 		configName = "merchant";
 
 		break;
 	case NPCType::TRAINER:
 		idleAnim.PushBack({ 7, 16, 30, 43 });
-		idleAnim.PushBack({ 60, 14, 30, 43 });
-		idleAnim.PushBack({ 114, 16, 29, 43 });
+	/*	idleAnim.PushBack({ 60, 14, 30, 43 });
+		idleAnim.PushBack({ 114, 16, 29, 43 });*/
+		idleAnim.speed = 0.006f;
 	
 		configName = "trainer";
 
 		break;
 	case NPCType::EMILIO:
 		idleAnim.PushBack({ 4,536,36,33 });
-		idleAnim.PushBack({ 44,536,40,33 });
-		idleAnim.PushBack({ 88,536,38,33 });
+		idleAnim.PushBack({ 45,536,40,33 });
+		idleAnim.PushBack({ 89,536,38,33 });
+		idleAnim.PushBack({ 45,536,40,33 });
+		idleAnim.speed = 0.004f;
 
 		configName = "emilio";
 
@@ -62,6 +70,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 	default:
 		break;
 	}
+	idleAnim.loop = true;
 
 	//player start with idle anim
 	currentAnimation = &idleAnim;

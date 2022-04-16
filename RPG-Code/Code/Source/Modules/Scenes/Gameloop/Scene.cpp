@@ -84,7 +84,7 @@ bool Scene::Start()
 	iPoint barkeeperPos = { 450, 300 };
 	iPoint trainerPos = { 290, 160 };
 	iPoint merchantPos = { 255, 150 };
-	iPoint emilioPos = { 690, 1153 };
+	iPoint emilioPos = { 850, 200 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
