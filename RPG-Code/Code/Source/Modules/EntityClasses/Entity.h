@@ -48,6 +48,7 @@ public:
 	bool hasAwaken = false;
 	bool hasStarted = false;
 
+	const char* name;
 	SString configName;
 
 	EntityType entityType;
@@ -73,6 +74,7 @@ public:
 
 	SString entityName;
 
+	int npcID;
 };
 
 #endif // !__ENTITY_H__

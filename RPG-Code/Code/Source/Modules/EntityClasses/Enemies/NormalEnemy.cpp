@@ -25,6 +25,10 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
+		mapPosition = { 0,0 };
+		battlePosition = { 100, 100 };
+
+		name = "Flying eye";
 		configName = "flying_eye";
 
 		break;
@@ -40,6 +44,10 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
+		mapPosition = { 0,0 };
+		battlePosition = { 100, 100 };
+
+		name = "Bat";
 		configName = "bat";
 
 		break;
@@ -47,6 +55,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	default:
 		break;
 	}
+
+	isAlive = true;
 
 	currentAnimation = &idleAnim;
 
@@ -152,7 +162,7 @@ bool NormalEnemy::Start()
 
 		spriteText = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
-		stats = new Stats(1, 5, 1, 1, 1, 27);
+		stats = new Stats(1, 5, 10, 1, 1, 27);
 
 		break;
 

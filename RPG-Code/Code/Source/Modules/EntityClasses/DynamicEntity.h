@@ -94,6 +94,12 @@ public:
 
 	Animation idleAnim;
 
+	bool isAlive;
+
+	iPoint mapPosition;
+	iPoint battlePosition;
+	Animation* mapAnimation;
+
 };
 
 #endif // !__DYNAMIC_ENTITY_H__
