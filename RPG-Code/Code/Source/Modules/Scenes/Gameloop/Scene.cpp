@@ -263,8 +263,21 @@ bool Scene::CleanUp()
 		npcInList->data->CleanUp();
 	}
 
-	
+	if (btn1 != nullptr) {
+		btn1->state = GuiControlState::DISABLED;
+		btn1 = nullptr;
+	}
+	delete btn1;
+
+	if (btn2 != nullptr) {
+		btn2->state = GuiControlState::DISABLED;
+		btn2 = nullptr;
+	}
+	delete btn2;
+
 	npcList.clear();
+	player = nullptr;
+	delete player;
 
 	app->map->Disable();
 
