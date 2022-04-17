@@ -12,6 +12,21 @@ class DynamicEntity;
 
 enum class StageIndex;
 
+enum class BattlePhase {
+
+	THINKING,
+	SELECTING,
+
+	ATTACKING,
+	DEFENDING,
+	USING_ITEM,
+	ESCAPING,
+
+	WIN,
+	LOSE
+
+};
+
 class Battle : public Module
 {
 public:
@@ -44,6 +59,20 @@ public:
 
 	void SetTurnOrder();
 
+	void Attack(DynamicEntity target);
+
+	void Defense();
+
+	void UseItem(DynamicEntity target);
+
+	bool Escape();
+
+	int CountAllies();
+
+	int CountEnemies();
+
+	void CheckWinLose();
+
 private:
 
 	SDL_Texture* playerBattleSprite;
@@ -52,6 +81,8 @@ private:
 	SDL_Texture* townBattleBackground;
 
 public:
+
+	BattlePhase battlePhase;
 
 	StageIndex  * battleStage;
 
@@ -62,8 +93,6 @@ public:
 	DynamicEntity* actualTurnEntity;
 
 	DynamicEntity* entitiesInBattle[8];
-
-	DynamicEntity* target;
 
 	//Buttons
 
@@ -85,12 +114,35 @@ public:
 
 
 	bool someoneAttacking;
+	bool someoneDefending;
 	bool itsPlayerTurn;
 	
 	int cont;
 	int attackTime;
+	int defenseTime;
+	int itemTime;
+	int escapeTime;
+
+	int winTime;
+	int loseTime;
 
 	bool gameOver;
+
+	bool canSelect;
+
+	int alliesCount;
+	int enemiesCount;
+
+	bool hasStarted;
+
+	bool hasTriedToEscape;
+	bool canEscape;
+
+	bool defenseBuffed;
+
+	int defenseBuff;
+
+	int optionPercent;
 	
 };
 

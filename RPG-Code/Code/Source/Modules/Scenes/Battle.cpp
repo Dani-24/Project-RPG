@@ -29,12 +29,24 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 
 	actualTurnEntity = nullptr;
 
-	itsPlayerTurn = true;
-
-	target = nullptr;
+	someoneAttacking = false;
+	someoneDefending = false;
+	itsPlayerTurn = false;
+	canSelect = false;
 
 	//2000 its ok
-	attackTime = 100;
+	attackTime = 1000;
+	defenseTime = 1000;
+	itemTime = 1000;
+	escapeTime = 1000;
+
+	winTime = 1000;
+	loseTime = 1000;
+
+	defenseBuff = 5;
+
+
+	battlePhase = BattlePhase::THINKING;
 
 }
 
@@ -50,7 +62,11 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
+	hasStarted = false;
+	hasTriedToEscape = false;
+	canEscape = false;
 	gameOver = false;
+	defenseBuffed = false;
 	cont = 0;
 	battleTurn = 0;
 	TurnValue = 321.123f;
@@ -104,15 +120,14 @@ bool Battle::Start()
 	return true;
 }
 
+
+
 bool Battle::PreUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		if (battlePause == false) {
-			battlePause = true;
-		}
-	}
+	CheckWinLose();
+	
 
 	return ret;
 }
@@ -120,49 +135,229 @@ bool Battle::PreUpdate()
 bool Battle::Update(float dt)
 {
 	if (battlePause == false) {
-		//Enemy is attacking
-		if (itsPlayerTurn == false) {
-			if (cont < attackTime) {
-				someoneAttacking = true;
-				cont += dt;
-			}
-			else {
-				cont = 0;
-				someoneAttacking = false;
-				srand(time(NULL));
-				//int targetNum = (rand() % (1 - 1)) + 1;
-				int targetNum = 0;
-				target = entitiesInBattle[targetNum];
-				target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
-				actualTurnEntity = entitiesInBattle[0];
-				itsPlayerTurn = true;
-				battleTurn++;
-				if (target->stats->health <=0) {
-					target->isAlive = false;
-					gameOver = true;
+
+		//Player turn
+		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+
+			switch (battlePhase) {
+			case BattlePhase::THINKING:
+				//Debuff if protected las turn
+				if (defenseBuffed == true) {
+					actualTurnEntity->stats->deffense -= defenseBuff;
+					defenseBuffed = false;
 				}
+				canSelect = true;
+				break;
+			case BattlePhase::ATTACKING:
+				if (cont < attackTime) {
+					cont += dt;
+				}
+				//ATTACK
+				else {
+					cont = 0;
+					Attack(*entitiesInBattle[4]);
+					actualTurnEntity = entitiesInBattle[4];
+					battleTurn++;
+					battlePhase = BattlePhase::THINKING;
+				}
+				break;
+			case BattlePhase::DEFENDING:
+				if (cont < defenseTime) {
+					cont += dt;
+				}
+				//DEFENSE
+				else {
+					cont = 0;
+					Defense();
+					actualTurnEntity = entitiesInBattle[4];
+					battleTurn++;
+					battlePhase = BattlePhase::THINKING;
+				}
+				break;
+			case BattlePhase::USING_ITEM:
+				if (cont < itemTime) {
+					cont += dt;
+				}
+				//USING ITEM
+				else {
+					cont = 0;
+					//UseItem();
+					//actualTurnEntity = entitiesInBattle[4];
+					//battleTurn++;
+					battlePhase = BattlePhase::THINKING;
+				}
+				break;
+			case BattlePhase::ESCAPING:
+				//ESCAPING
+				//1rst message (trying)
+				if(cont < escapeTime) {
+					cont += dt;
+				}
+				//Tries to escape
+				else if (cont < escapeTime * 2 && hasTriedToEscape == false) {
+					
+					canEscape = Escape();
+					hasTriedToEscape = true;
+				}
+				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
+					cont = 0;
+					if (canEscape == true) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
+					else {
+						hasTriedToEscape = false;
+						actualTurnEntity = entitiesInBattle[4];
+						battleTurn++;
+						battlePhase = BattlePhase::THINKING;
+					}
+				}
+				break;
+
+			case BattlePhase::WIN:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//WINNING
+				else {
+					cont = 0;
+					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+				}
+				break;
+
+			case BattlePhase::LOSE:
+				if (cont < loseTime) {
+					cont += dt;
+				}
+				//LOSING
+				else {
+					cont = 0;
+					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+				}
+				break;
 			}
-		}
-		//Player is thinking
-		else if(itsPlayerTurn == true && someoneAttacking == false){
 
 		}
-		//Player is attacking
-		else if(itsPlayerTurn == true && someoneAttacking == true){
-			if (cont < attackTime) {
-				someoneAttacking = true;
-				cont += dt;
+		//Enemy turn
+		else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+			switch (battlePhase) {
+			case BattlePhase::THINKING:
+				
+				//Debuff if protected las turn
+				if (defenseBuffed == true) {
+					actualTurnEntity->stats->deffense -= defenseBuff;
+					defenseBuffed = false;
+				}
+				optionPercent = 0;
+				srand(time(NULL));
+				optionPercent = (rand() % (100 - 0)) + 0;
+				//If the enemy is NOT afraid
+				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
+					if (optionPercent < 70) {
+						battlePhase = BattlePhase::ATTACKING;
+					}
+					else {
+						battlePhase = BattlePhase::DEFENDING;
+					}
+
+				}
+				//If the enemy IS afraid
+				else {
+					if (optionPercent < 60) {
+						battlePhase = BattlePhase::ATTACKING;
+					}
+					else if(optionPercent < 85) {
+						battlePhase = BattlePhase::DEFENDING;
+					}
+					else {
+						battlePhase = BattlePhase::ESCAPING;
+					}
+				}
+				
+				break;
+
+			case BattlePhase::ATTACKING:
+				if (cont < attackTime) {
+					cont += dt;
+				}
+				//ATTACK
+				else {
+					//int targetNum = (rand() % (1 - 1)) + 1;
+					int targetNum = 0;
+					Attack(*entitiesInBattle[targetNum]);
+					actualTurnEntity = entitiesInBattle[0];
+					battleTurn++;
+					battlePhase = BattlePhase::THINKING;
+				}
+				break;
+			case BattlePhase::DEFENDING:
+				if (cont < defenseTime) {
+					cont += dt;
+				}
+				//DEFENSE
+				else {
+					cont = 0;
+					Defense();
+					actualTurnEntity = entitiesInBattle[0];
+					battleTurn++;
+					battlePhase = BattlePhase::THINKING;
+				}
+				break;
+			case BattlePhase::USING_ITEM:
+				
+				break;
+			case BattlePhase::ESCAPING:
+				//ESCAPING
+				//1rst message (trying)
+				if (cont < escapeTime) {
+					cont += dt;
+				}
+				//Tries to escape
+				else if (cont < escapeTime * 2 && hasTriedToEscape == false) {
+
+					canEscape = Escape();
+					hasTriedToEscape = true;
+				}
+				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
+					cont = 0;
+					if (canEscape == true) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
+					else {
+						hasTriedToEscape = false;
+						actualTurnEntity = entitiesInBattle[0];
+						battleTurn++;
+						battlePhase = BattlePhase::THINKING;
+					}
+				}
+				break;
+
+			case BattlePhase::WIN:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//WINNING
+				else {
+					cont = 0;
+					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+				}
+				break;
+
+			case BattlePhase::LOSE:
+				if (cont < loseTime) {
+					cont += dt;
+				}
+				//LOSING
+				else {
+					cont = 0;
+					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+				}
+				break;
 			}
-			else {
-				cont = 0;
-				someoneAttacking = false;
-				actualTurnEntity = entitiesInBattle[4];
-				itsPlayerTurn = false;
 
-			}
 		}
-
-
+		
+			
+		
 
 		app->stages->playerPtr->currentAnimation->Update(dt);
 	}
@@ -222,26 +417,63 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 30);
 	}
 
+	
+	
 	//Print battle messages
-	if (gameOver == false) {
-		if (someoneAttacking == true) {
-			sprintf_s(nameChar, 50, "%s attacks!", actualTurnEntity->name);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
-		}
-		else if (itsPlayerTurn == true) {
+	switch (battlePhase) {
+		case BattlePhase::THINKING:
 			sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
 			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
-		}
+			break;
 
-		sprintf_s(nameChar, 50, "Player health: %2d", entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
+		case BattlePhase::SELECTING:
+			app->font->DrawText("Select a target", 50, app->win->GetHeight() / 2 - 150);
+			break;
 
-		sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 120);
+		case BattlePhase::ATTACKING:
+			sprintf_s(nameChar, 50, "%s attacks!", actualTurnEntity->name);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			break;
+
+		case BattlePhase::DEFENDING:
+			sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			break;
+
+		case BattlePhase::USING_ITEM:
+			app->font->DrawText("You have no items left!", 50, app->win->GetHeight() / 2 - 150);
+			break;
+
+		case BattlePhase::ESCAPING:
+			if (hasTriedToEscape == false) {
+				sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
+				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			}
+			else if (canEscape == false){
+				sprintf_s(nameChar, 50, "%s could not escape!", actualTurnEntity->name);
+				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			}
+			else if (canEscape == true) {
+				sprintf_s(nameChar, 50, "%s could escape successfully!", actualTurnEntity->name);
+				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			}
+			
+			break;
+
+		case BattlePhase::WIN:
+			app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
+			break;
+
+		case BattlePhase::LOSE:
+			app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+			break;
 	}
-	else {
-		app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
-	}
+
+	sprintf_s(nameChar, 50, "Player health: %2d", entitiesInBattle[0]->stats->health);
+	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
+
+	sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
+	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 120);
 	
 	
 	return ret;
@@ -250,41 +482,47 @@ bool Battle::PostUpdate()
 
 bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 {
+	if (canSelect == true && actualTurnEntity->isAlive == true && (
+		actualTurnEntity == entitiesInBattle[0] || actualTurnEntity == entitiesInBattle[1] ||
+		actualTurnEntity == entitiesInBattle[2] || actualTurnEntity == entitiesInBattle[3])) {
 
-	switch (control->type)
-	{
+		switch (control->type)
+		{
 		case GuiControlType::BUTTON:
-		
+
 			switch (control->id) {
-				case 101:
-					if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
-						someoneAttacking = true;
-						//itsPlayerTurn = false;
-						battleTurn++;
-					}
-					break;
-				case 102:
-					if (actualTurnEntity == entitiesInBattle[0]) {
-						battleTurn++;
-					}
-					break;
-				case 103:
-					if (actualTurnEntity == entitiesInBattle[0]) {
-						battleTurn++;
-					}
-					break;
-				case 104:
-					if (actualTurnEntity == entitiesInBattle[0]) {
-						battleTurn++;
-					}
-					break;
+			case 101:
+				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+					battlePhase = BattlePhase::ATTACKING;
+					canSelect = false;
+				}
+				break;
+			case 102:
+				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+					battlePhase = BattlePhase::DEFENDING;
+					canSelect = false;
+				}
+				break;
+			case 103:
+				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+					battlePhase = BattlePhase::USING_ITEM;
+					canSelect = false;
+				}
+				break;
+			case 104:
+				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+					battlePhase = BattlePhase::ESCAPING;
+					canSelect = false;
+				}
+				break;
 			}
-		
+
 			break;
 
-		//Other cases here
+			//Other cases here
 		default:
 			break;
+		}
 	}
 		
 	return true;
@@ -292,15 +530,104 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 void Battle::SetTurnOrder() 
 {
-	if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
-		actualTurnEntity = entitiesInBattle[0];
-		itsPlayerTurn = true;
+	if (hasStarted == false) {
+
+		if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
+			actualTurnEntity = entitiesInBattle[0];
+		}
+		else {
+			actualTurnEntity = entitiesInBattle[4];
+		}
+
+		hasStarted = true;
 	}
 	else {
-		actualTurnEntity = entitiesInBattle[4];
-		itsPlayerTurn = false;
+		if (actualTurnEntity == entitiesInBattle[0]) {
+			actualTurnEntity = entitiesInBattle[4];
+			
+		}
+		else if (actualTurnEntity == entitiesInBattle[4]) {
+			actualTurnEntity = entitiesInBattle[0];
+		}
 	}
 
+}
+
+void Battle::Attack(DynamicEntity target) {
+	target.stats->health = target.stats->health + target.stats->deffense - actualTurnEntity->stats->attack;
+	if (target.stats->health <= 0) {
+		target.isAlive = false;
+	}
+}
+
+void Battle::Defense() {
+	actualTurnEntity->stats->deffense += defenseBuff;
+	defenseBuffed = true;
+}
+
+void Battle::UseItem(DynamicEntity target) {
+	
+}
+
+bool Battle::Escape() {
+
+	bool ret;
+
+	srand(time(NULL));
+	int percent = (rand() % (100 - 0)) + 0;
+
+	if (percent > 75) {
+		ret = true;
+	}
+	else {
+		ret = false;
+	}
+	
+	return ret;
+}
+
+int Battle::CountAllies() {
+
+	int allies = 0;
+
+	for (int i = 0; i < 4; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->isAlive == true) {
+				allies++;
+			}
+		}
+	}
+
+	return allies;
+}
+
+int Battle::CountEnemies() {
+
+	int enemies = 0;
+
+	for (int i = 4; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->isAlive == true) {
+				enemies++;
+			}
+		}
+	}
+
+	return enemies;
+}
+
+
+void Battle::CheckWinLose() {
+
+	alliesCount = CountAllies();
+	enemiesCount = CountEnemies();
+
+	if (alliesCount <= 0) {
+		battlePhase = BattlePhase::LOSE;
+	}
+	else if (enemiesCount <= 0) {
+		battlePhase = BattlePhase::WIN;
+	}
 }
 
 // Called before quitting
