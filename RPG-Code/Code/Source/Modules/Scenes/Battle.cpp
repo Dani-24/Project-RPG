@@ -315,8 +315,7 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
-					//int targetNum = (rand() % (1 - 1)) + 1;
-					int targetNum = 0;
+					int targetNum = (rand() % CountAllies());
 					Attack(entitiesInBattle[targetNum]);
 					if (CheckWinLose() == true) {
 
@@ -556,28 +555,28 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 			switch (control->id) {
 			case 101:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+				
 					battlePhase = BattlePhase::ATTACKING;
 					canSelect = false;
-				}
+				
 				break;
 			case 102:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::DEFENDING;
 					canSelect = false;
-				}
+				
 				break;
 			case 103:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::USING_ITEM;
 					canSelect = false;
-				}
+			
 				break;
 			case 104:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::ESCAPING;
 					canSelect = false;
-				}
+			
 				break;
 			}
 
