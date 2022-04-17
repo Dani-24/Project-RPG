@@ -364,7 +364,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->townPos;
 			app->camera->OnTarget();
-
+			app->camera->SetLimits(640, 350, 4490, 4200);
 			LOG("Loading Town map");
 
 			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
