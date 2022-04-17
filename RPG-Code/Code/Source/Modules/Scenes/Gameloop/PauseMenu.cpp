@@ -16,6 +16,7 @@
 #include "Defs.h"
 #include "Log.h"
 #include "GuiButton.h"
+#include "Configuration.h"
 
 PauseMenu::PauseMenu(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -33,7 +34,7 @@ bool PauseMenu::Awake(pugi::xml_node& config)
 	LOG("Loading Title");
 	bool ret = true;
 
-	pauseGame = false;
+	
 
 	return ret;
 }
@@ -74,7 +75,7 @@ bool PauseMenu::Start()
 
 	
 	resumen = false;
-	
+	pauseGame = false;
 
 	return true;
 }
@@ -139,22 +140,33 @@ bool PauseMenu::PreUpdate()
 {
 	bool ret = true;
 
-	//int xt, yt, xc, yc;
+	int xt, yt, xc, yc;
 
-	////variables for textures
-	//xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	//yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
-	////variables for text
-	//xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
-	//yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
+	//variables for text
+	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
+	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 
 	if (pauseGame)
 	{
-		
+		app->camera->SetPos({ 0,0 });
+		party->SetPos({ xc - 100,yc - 265 });
+		invent->SetPos({ xc - 100,yc - 240 });
+		town->SetPos({ xc - 100,yc - 215 });
+		resume->SetPos({ xc - 100, yc - 190 });
+		config->SetPos({ xc - 100,yc - 165 });
+		save->SetPos({ xc - 100,yc - 140 });
+		load->SetPos({ xc - 100,yc - 115 });
+		exit->SetPos({ xc - 100,yc - 90 });
 
-		
-
+	}
+	
+	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		if (app->pauseM->pauseGame == false && app->scene->playing == true)app->pauseM->pauseGame = true, app->scene->playing = true, app->conf->Enable() ;
+		else app->pauseM->pauseGame = false, app->conf->Disable();
 	}
 
 	//if (start == true) {
@@ -200,6 +212,8 @@ bool PauseMenu::Update(float dt)
 			pauseGame = false;
 			resumen = false;
 			app->scene->player->canMove = true;
+			app->camera->SetTarget(app->scene->player);
+			app->camera->SetLimits(640, 350, 4490, 4200);
 			CleanUp();
 		}
 		else
@@ -215,14 +229,7 @@ bool PauseMenu::Update(float dt)
 			exit->state = GuiControlState::NORMAL;
 			party->state= GuiControlState::NORMAL;
 
-			party->SetPos({ xc - 100,yc - 265 });
-			invent->SetPos({ xc - 100,yc - 240 });
-			town->SetPos({ xc - 100,yc - 215 });
-			resume->SetPos({ xc - 100, yc - 190 });
-			config->SetPos({ xc - 100,yc - 165 });
-			save->SetPos({ xc - 100,yc - 140 });
-			load->SetPos({ xc - 100,yc - 115 });
-			exit->SetPos({ xc - 100,yc - 90 });
+			
 		}
 		
 	}

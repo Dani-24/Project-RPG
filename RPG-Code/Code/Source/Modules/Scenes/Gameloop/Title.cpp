@@ -48,15 +48,6 @@ bool TitleScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool TitleScene::Start()
 {
-	// Set title animation
-	int N = 498, M = 249;
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 4; j++) {
-			titleBGAnim.PushBack({ N * j, M * i, N, M });
-		}
-	}
-	titleBGAnim.speed = 0.0005f;
-	titleBGAnim.loop = true;
 
 	// GUI
 	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
@@ -74,6 +65,7 @@ bool TitleScene::Start()
 	exitb = app->tex->Load("Assets/gui/button_exit.png");
 
 	titleBg = app->tex->Load("Assets/textures/title_screen_bg.png");
+	titleLogo = app->tex->Load("Assets/textures/title_screen_logo.png");
 
 	// Audio 
 
@@ -175,11 +167,17 @@ bool TitleScene::PreUpdate()
 // Called each loop iteration
 bool TitleScene::Update(float dt)
 {
-	titleBGAnim.Update(dt);
 
 	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN ) {
 		btn1->SetPos({ (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 200 });
 	}
+
+	// BG movement
+	angle += rotateSpeed * dt/1000;
+
+	fPoint offset = { sinf(angle) * radius, cosf(angle) * radius };
+	titleBgPos = {(int)centre.x + (int)offset.x, (int)centre.y + (int)offset.y};
+
 	return true;
 }
 
@@ -189,7 +187,8 @@ bool TitleScene::PostUpdate()
 	bool ret = true;
 
 	// Draw BG
-	app->render->DrawTexture(titleBg, 65, 50, &titleBGAnim.GetCurrentFrame());
+	app->render->DrawTexture(titleBg, titleBgPos.x, titleBgPos.y);
+	app->render->DrawTexture(titleLogo, 0, 0);
 
 	// Render Buttons
 	app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
@@ -215,6 +214,8 @@ bool TitleScene::CleanUp()
 	btn5->state = GuiControlState::DISABLED;
 
 	app->tex->UnLoad(titleBg);
+	app->tex->UnLoad(titleLogo);
+
 	app->tex->UnLoad(startb);
 	app->tex->UnLoad(continueb);
 	app->tex->UnLoad(optionsb);

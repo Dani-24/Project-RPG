@@ -70,6 +70,9 @@ bool Scene::Start()
 		break;
 	}
 
+	// Load textures
+	gui = app->tex->Load("Assets/gui/GUIFinal.png");
+
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 
@@ -141,6 +144,8 @@ bool Scene::Start()
 
 	playing = true;
 
+	
+
 	app->guiManager->Enable();
 
 	return true;
@@ -164,6 +169,23 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
+
+
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+	//GUI activation
+
+	guiactivate = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	{
+		guiactivate = true;
+	}
+
+
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
 	if (pause == false) {
@@ -225,6 +247,17 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+	if (guiactivate == true)
+	{
+		app->render->DrawTexture(gui, xt - 606, yt - 360);
+	}
+	
+
 	return ret;
 }
 
@@ -262,6 +295,8 @@ bool Scene::CleanUp()
 	app->font->CleanFonts();
 
 	app->camera->ReleaseTarget();
+
+	app->tex->UnLoad(gui);
 
 	//Stages:
 	app->entities->DestroyEntity(player);

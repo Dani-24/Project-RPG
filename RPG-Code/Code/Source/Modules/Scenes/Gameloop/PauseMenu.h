@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "GuiButton.h"
+#include "GuiManager.h"
 struct SDL_Texture;
 
 class PauseMenu : public Module

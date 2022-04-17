@@ -795,6 +795,7 @@ bool Battle::CleanUp()
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
+		app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -814,6 +815,7 @@ bool Battle::CleanUp()
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
+		app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -838,6 +840,7 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->position = { app->stages->playerPtr->mapPosition.x ,entitiesInBattle[4]->baseCollider->rect.y + entitiesInBattle[4]->baseCollider->rect.h +1 - app->stages->playerPtr->colDownDistance };
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
+			app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -857,6 +860,7 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
+			app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -870,6 +874,28 @@ bool Battle::CleanUp()
 	}
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
+
+	//Music
+
+	switch (app->stages->actualStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+		break;
+	case StageIndex::DOJO:
+		app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+		break;
+	case StageIndex::SHOP:
+		app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+		break;
+	case StageIndex::SHOPSUB:
+		app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+		break;
+	case StageIndex::TAVERN:
+		app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+		break;
+	}
 
 	return true;
 }
