@@ -251,7 +251,7 @@ bool NormalEnemy::Start()
 
 		spriteText = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
-		stats = new Stats(1, 5, 15, 1, 1, 27);
+		stats = new Stats(1, 5, 10, 1, 1, 27);
 
 		break;
 
