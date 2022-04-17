@@ -351,7 +351,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			LOG("Loading Dojo map");
 
-			//app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
 		}
 
 		break;
@@ -386,6 +386,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Shop lower floor map");
+
+			app->audio->PlayMusic("Assets/audio/music/music_shop_underground.ogg");
 		}
 
 		break;

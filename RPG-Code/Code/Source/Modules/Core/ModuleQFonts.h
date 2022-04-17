@@ -7,7 +7,7 @@
 #include "List.h"
 
 #define TEXT_LENGTH 100
-#define DELAY_TIME 5
+#define DELAY_TIME 2
 
 struct DelayedTexts {
 
