@@ -278,6 +278,7 @@ bool Stages::PostUpdate()
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
 					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
+						NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 					}
