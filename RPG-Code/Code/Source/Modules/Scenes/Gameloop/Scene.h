@@ -59,6 +59,8 @@ public:
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
 	List<Character*> partyList;
+
+	SDL_Texture* gui;
 	
 };
 

@@ -70,6 +70,9 @@ bool Scene::Start()
 		break;
 	}
 
+	// Load textures
+	gui = app->tex->Load("Assets/gui/GUIFinal.png");
+
 	// Load music
 	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 
@@ -164,6 +167,15 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
+
+
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+
+
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
 	if (pause == false) {
@@ -224,6 +236,13 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+	app->render->DrawTexture(gui, xt - 606, yt - 360);
 
 	return ret;
 }
