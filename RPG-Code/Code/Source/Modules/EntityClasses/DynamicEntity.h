@@ -33,6 +33,7 @@ public:
 	int mana;
 
 	int localTurn;
+	bool defenseBuffed;
 
 	Stats() {
 		this->level = 0;
@@ -46,6 +47,7 @@ public:
 		this->mana = 10;
 
 		this->localTurn = 0;
+		this->defenseBuffed = false;
 	}
 
 	Stats(int level, int maxHealth, int attack, int deffense, int mana, int speed) {
@@ -60,6 +62,7 @@ public:
 		this->mana = mana;
 
 		this->localTurn = 0;
+		this->defenseBuffed = false;
 	}
 
 };

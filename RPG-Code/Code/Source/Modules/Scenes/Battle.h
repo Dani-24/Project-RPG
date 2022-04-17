@@ -148,7 +148,7 @@ public:
 	bool hasTriedToEscape;
 	bool canEscape;
 
-	bool defenseBuffed;
+	//bool defenseBuffed;
 
 	int defenseBuff;
 

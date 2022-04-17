@@ -66,7 +66,6 @@ bool Battle::Start()
 	hasTriedToEscape = false;
 	canEscape = false;
 	gameOver = false;
-	defenseBuffed = false;
 	cont = 0;
 	battleTurn = 0;
 	TurnValue = 321.123f;
@@ -142,9 +141,9 @@ bool Battle::Update(float dt)
 			switch (battlePhase) {
 			case BattlePhase::THINKING:
 				//Debuff if protected las turn
-				if (defenseBuffed == true) {
+				if (actualTurnEntity->stats->defenseBuffed == true) {
 					actualTurnEntity->stats->deffense -= defenseBuff;
-					defenseBuffed = false;
+					actualTurnEntity->stats->defenseBuffed = false;
 				}
 				canSelect = true;
 				break;
@@ -201,9 +200,12 @@ bool Battle::Update(float dt)
 				}
 				//Tries to escape
 				else if (cont < escapeTime * 2 && hasTriedToEscape == false) {
-					
+					cont += dt;
 					canEscape = Escape();
 					hasTriedToEscape = true;
+				}
+				else if (cont < escapeTime * 2 && hasTriedToEscape == true) {
+					cont += dt;
 				}
 				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
 					cont = 0;
@@ -251,9 +253,9 @@ bool Battle::Update(float dt)
 			case BattlePhase::THINKING:
 				
 				//Debuff if protected las turn
-				if (defenseBuffed == true) {
+				if (actualTurnEntity->stats->defenseBuffed == true) {
 					actualTurnEntity->stats->deffense -= defenseBuff;
-					defenseBuffed = false;
+					actualTurnEntity->stats->defenseBuffed = false;
 				}
 				optionPercent = 0;
 				srand(time(NULL));
@@ -289,6 +291,7 @@ bool Battle::Update(float dt)
 				}
 				//ATTACK
 				else {
+					cont = 0;
 					//int targetNum = (rand() % (1 - 1)) + 1;
 					int targetNum = 0;
 					Attack(entitiesInBattle[targetNum]);
@@ -326,9 +329,12 @@ bool Battle::Update(float dt)
 				}
 				//Tries to escape
 				else if (cont < escapeTime * 2 && hasTriedToEscape == false) {
-
+					cont += dt;
 					canEscape = Escape();
 					hasTriedToEscape = true;
+				}
+				else if (cont < escapeTime * 2 && hasTriedToEscape == true) {
+					cont += dt;
 				}
 				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
 					cont = 0;
@@ -437,8 +443,10 @@ bool Battle::PostUpdate()
 	//Print battle messages
 	switch (battlePhase) {
 		case BattlePhase::THINKING:
-			sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+				sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
+				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			}
 			break;
 
 		case BattlePhase::SELECTING:
@@ -477,20 +485,16 @@ bool Battle::PostUpdate()
 
 			
 		case BattlePhase::WIN:
-			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+		//	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
-			}
-			else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
-			}
+			//}
+			//else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+			//	app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+			//}
 			break;
 
 		case BattlePhase::LOSE:
-			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
-			}else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
-			}
 			break;
 	}
 
@@ -579,7 +583,8 @@ void Battle::SetTurnOrder()
 }
 
 void Battle::Attack(DynamicEntity *target) {
-	if (target->stats->deffense < actualTurnEntity->stats->attack) {
+
+	if (target->stats->deffense  < actualTurnEntity->stats->attack) {
 		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
 	}
 	
@@ -591,7 +596,7 @@ void Battle::Attack(DynamicEntity *target) {
 
 void Battle::Defense() {
 	actualTurnEntity->stats->deffense += defenseBuff;
-	defenseBuffed = true;
+	actualTurnEntity->stats->defenseBuffed = true;
 }
 
 void Battle::UseItem(DynamicEntity target) {
