@@ -13,8 +13,9 @@
 #include "Battle.h"
 #include "Camera.h"
 #include "ModuleQFonts.h"
+#include "Title.h"
+
 #include <time.h>
-#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -36,13 +37,13 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	canSelect = false;
 
 	//2000 its ok
-	attackTime = 2000;
-	defenseTime = 2000;
-	itemTime = 2000;
-	escapeTime = 2000;
+	attackTime = 1000;
+	defenseTime = 1000;
+	itemTime = 1000;
+	escapeTime = 1000;
 
-	winTime = 2000;
-	loseTime = 2000;
+	winTime = 1000;
+	loseTime = 1000;
 
 	defenseBuff = 5;
 
@@ -63,6 +64,7 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
+	battlePhase = BattlePhase::THINKING;
 	hasStarted = false;
 	hasTriedToEscape = false;
 	canEscape = false;
@@ -107,6 +109,9 @@ bool Battle::Start()
 	app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
 	
 	app->stages->playerPtr->canMove = false;
+
+	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
+
 	app->camera->SetPos({ 0, 0 });
 	
 	//GUI
@@ -617,7 +622,7 @@ bool Battle::Escape() {
 	srand(time(NULL));
 	int percent = (rand() % (100 - 0)) + 0;
 
-	if (percent > 75) {
+	if (percent > 70) {
 		ret = true;
 	}
 	else {
@@ -710,6 +715,13 @@ bool Battle::CleanUp()
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
 
+		//Take back player animation
+		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+		app->stages->playerPtr->canMove = true;
+		app->map->LoadCol();
+		app->stages->onBattle = false;
+
 		break;
 	case BattlePhase::LOSE:
 		
@@ -722,39 +734,58 @@ bool Battle::CleanUp()
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
 
+		//Take back player animation
+		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+		app->titleScene->Enable();
+
 		break;
 
 	case BattlePhase::ESCAPING:
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
+			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
+			//Take back enemy animation
+			entitiesInBattle[4]->currentAnimation = entitiesInBattle[4]->mapAnimation;
+
 
 			//Take back player position
 			app->stages->playerPtr->position = { app->stages->playerPtr->mapPosition.x ,entitiesInBattle[4]->baseCollider->rect.y + entitiesInBattle[4]->baseCollider->rect.h +1 - app->stages->playerPtr->colDownDistance };
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
+
+			//Take back player animation
+			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+			app->stages->playerPtr->canMove = true;
+			app->map->LoadCol();
+			app->stages->onBattle = false;
+
+		}
+		if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+
+			//Destroy enemy
+			app->entities->DestroyEntity(entitiesInBattle[4]);
+			app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
+
+			//Take back player position
+			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+			app->camera->SetTarget(app->stages->playerPtr);
+			app->camera->OnTarget();
+
+			//Take back player animation
+			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+			app->stages->playerPtr->canMove = true;
+			app->map->LoadCol();
+			app->stages->onBattle = false;
 		}
 
 		break;
 	}
-	
-	
-	
-	//int enemyID = entitiesInBattle[4]->
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
-
-
-	//Take back player animation
-	app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
-
-	app->stages->playerPtr->canMove = true;
-	app->map->LoadCol();
-	app->stages->onBattle = false;
-
-	/*if (gameOver == true) {
-		app->scene->Disable();
-	}*/
 
 	return true;
 }
