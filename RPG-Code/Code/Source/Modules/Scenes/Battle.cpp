@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "ModuleQFonts.h"
 #include <time.h>
+#include "Scene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -210,7 +211,8 @@ bool Battle::Update(float dt)
 				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
 					cont = 0;
 					if (canEscape == true) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 					else {
 						hasTriedToEscape = false;
@@ -228,7 +230,8 @@ bool Battle::Update(float dt)
 				//WINNING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 				}
 				break;
@@ -240,7 +243,8 @@ bool Battle::Update(float dt)
 				//LOSING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 				}
 				break;
@@ -339,7 +343,8 @@ bool Battle::Update(float dt)
 				else if (cont < escapeTime * 3 && hasTriedToEscape == true) {
 					cont = 0;
 					if (canEscape == true) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 					else {
 						hasTriedToEscape = false;
@@ -357,7 +362,8 @@ bool Battle::Update(float dt)
 				//WINNING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 				}
 				break;
@@ -369,7 +375,8 @@ bool Battle::Update(float dt)
 				//LOSING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+						this->Disable();
 					}
 				}
 				break;
@@ -690,13 +697,53 @@ bool Battle::CleanUp()
 
 	escapeButton = nullptr;
 	delete escapeButton;
-	
-	//entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 
-	//Take back player position
-	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
-	app->camera->SetTarget(app->stages->playerPtr);
-	app->camera->OnTarget();
+	switch(battlePhase) {
+	case BattlePhase::WIN:
+		
+		//Destroy enemy
+		app->entities->DestroyEntity(entitiesInBattle[4]);
+		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
+
+		//Take back player position
+		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+		app->camera->SetTarget(app->stages->playerPtr);
+		app->camera->OnTarget();
+
+		break;
+	case BattlePhase::LOSE:
+		
+		//Destroy enemy
+		app->entities->DestroyEntity(entitiesInBattle[4]);
+		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
+
+		//Take back player position
+		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+		app->camera->SetTarget(app->stages->playerPtr);
+		app->camera->OnTarget();
+
+		break;
+
+	case BattlePhase::ESCAPING:
+		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+
+			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
+
+			//Take back player position
+			app->stages->playerPtr->position = { app->stages->playerPtr->mapPosition.x ,entitiesInBattle[4]->baseCollider->rect.y + entitiesInBattle[4]->baseCollider->rect.h +1 - app->stages->playerPtr->colDownDistance };
+			app->camera->SetTarget(app->stages->playerPtr);
+			app->camera->OnTarget();
+		}
+
+		break;
+	}
+	
+	
+	
+	//int enemyID = entitiesInBattle[4]->
+
+	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
+
 
 	//Take back player animation
 	app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -705,9 +752,9 @@ bool Battle::CleanUp()
 	app->map->LoadCol();
 	app->stages->onBattle = false;
 
-	if (gameOver == true) {
+	/*if (gameOver == true) {
 		app->scene->Disable();
-	}
+	}*/
 
 	return true;
 }
