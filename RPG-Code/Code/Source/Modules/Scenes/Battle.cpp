@@ -463,7 +463,7 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, 50, app->win->GetHeight() / 2 - 30);
 	}
 	else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 30);
+		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
 	}
 
 	
@@ -526,11 +526,18 @@ bool Battle::PostUpdate()
 			break;
 	}
 
-	sprintf_s(nameChar, 50, "Player health: %2d", entitiesInBattle[0]->stats->health);
+
+
+	sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name ,entitiesInBattle[0]->stats->health);
 	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
 
+	if (entitiesInBattle[1] != nullptr) {
+		sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 90);
+	}
+	
 	sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 300, app->win->GetHeight() / 2 - 120);
+	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
 	
 	
 	return ret;
@@ -587,6 +594,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 void Battle::SetTurnOrder() 
 {
+	//TURN ORDER: PLAYER - ENEMY
 	//if (hasStarted == false) {
 
 	//	if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
@@ -608,6 +616,7 @@ void Battle::SetTurnOrder()
 	//	}
 	//}
 
+	//TURN ORDER: TURN VALUE
 	//Set the minor turn value from all entities in battle
 	turnValue =0.0f;
 	for (int i = 0; i < 8; i++) {
