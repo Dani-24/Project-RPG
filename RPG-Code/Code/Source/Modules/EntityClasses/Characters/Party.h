@@ -46,11 +46,15 @@ public:
 
 	// Player animations
 	Animation
-		idleBattle;
+		idleBattle,
+		attackAnim1,
+		attackAnim2,
+		hitAnim,
+		deathAnim,
+		jumpAnim,
+		fallAnim,
+		runAnim;
 
-	// Textures
-	SDL_Texture* PartyTex = nullptr;
-	SDL_Texture* BattleTex = nullptr;
 
 	const char* ValionChar;
 	const char* RaylaChar;

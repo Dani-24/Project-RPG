@@ -97,6 +97,7 @@ public:
 	Player* player = nullptr;
 
 	DynamicEntity* actualTurnEntity;
+	DynamicEntity* targetEntity;
 
 	DynamicEntity* entitiesInBattle[8];
 
@@ -111,13 +112,18 @@ public:
 	GuiButton* itemButton; // item button
 	GuiButton* escapeButton; // escape button
 
+	SDL_Texture* attackTex;
+	SDL_Texture* defenseTex;
+	SDL_Texture* itemsTex;
+	SDL_Texture* escapeTex;
+
 	int battleTurn;
 	char battleTurnChar[9] = { "\0" };
 
 	float turnValue;
 	char turnValueChar[20] = { "\0" };
 
-	char nameChar[50] = { "\0" };
+	char nameChar[100] = { "\0" };
 
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };

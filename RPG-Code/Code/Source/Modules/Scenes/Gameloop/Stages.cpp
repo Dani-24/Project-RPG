@@ -254,16 +254,16 @@ bool Stages::PostUpdate()
 	//PRINT THE BATTLE SPRITES
 	if (onBattle == true) {
 
-		//PRINT THE PLAYER ON BATTLE
-		if (playerPtr != nullptr) {
-			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-			if (playerPtr->PlayerErection == true) {
-				app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-			}
-			if (playerPtr->PlayerErection == false) {
-				app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-			}
-		}
+		////PRINT THE PLAYER ON BATTLE
+		//if (playerPtr != nullptr) {
+		//	SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+		//	if (playerPtr->PlayerErection == true) {
+		//		app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		//	}
+		//	if (playerPtr->PlayerErection == false) {
+		//		app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+		//	}
+		//}
 
 		//PRINT THE BATTLE ENTITIES
 		
@@ -272,8 +272,8 @@ bool Stages::PostUpdate()
 		{
 			if (app->battle->entitiesInBattle[i] != nullptr) {
 
+				//IF THEY ARE ENEMIES
 				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = normalEnemyListPtr->start;
 
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
@@ -283,7 +283,32 @@ bool Stages::PostUpdate()
 						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 					}
 				}
-				
+
+				//IF THEY ARE ALLIES
+				ListItem<Character*>* CharacterInList;
+
+				for (CharacterInList = partyListPtr->start; CharacterInList != NULL && ret == true; CharacterInList = CharacterInList->next)
+				{
+					if (app->battle->entitiesInBattle[i] == CharacterInList->data) {
+
+						if (i == 0)
+						{
+							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+							if (playerPtr->PlayerErection == true) {
+								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+							}
+							if (playerPtr->PlayerErection == false) {
+								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+							}
+						}
+						else {
+							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
+							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
+							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
+
+						}
+					}
+				}
 			}
 		}
 	

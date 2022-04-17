@@ -28,6 +28,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	playerBattleSprite = nullptr;
 	townBattleBackground = nullptr;
 	battleStage = nullptr;
+	targetEntity = nullptr;
 
 	actualTurnEntity = nullptr;
 
@@ -37,13 +38,13 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	canSelect = false;
 
 	//2000 its ok
-	attackTime = 1000;
-	defenseTime = 1000;
-	itemTime = 1000;
-	escapeTime = 1000;
+	attackTime = 2000;
+	defenseTime = 2000;
+	itemTime = 2000;
+	escapeTime = 2000;
 
-	winTime = 1000;
-	loseTime = 1000;
+	winTime = 2000;
+	loseTime = 2000;
 
 	defenseBuff = 5;
 
@@ -86,6 +87,12 @@ bool Battle::Start()
 		break;
 	}
 
+	//Load GUI textures
+	attackTex = app->tex->Load("Assets/gui/attack.png");
+	defenseTex = app->tex->Load("Assets/gui/defense.png");
+	itemsTex = app->tex->Load("Assets/gui/items.png");
+	escapeTex = app->tex->Load("Assets/gui/escape.png");
+
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
 	
@@ -127,10 +134,10 @@ bool Battle::Start()
 	app->camera->SetPos({ 0, 0 });
 	
 	//GUI
-	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
-	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 , (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
-	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
-	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
 	SetTurnOrder();
 
@@ -174,7 +181,7 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
-					Attack(entitiesInBattle[4]);
+					Attack(targetEntity);
 					if (CheckWinLose() == true) {
 
 					}
@@ -287,6 +294,8 @@ bool Battle::Update(float dt)
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
 						battlePhase = BattlePhase::ATTACKING;
+						int targetNum = (rand() % CountAllies());
+						targetEntity = entitiesInBattle[targetNum];
 					}
 					else {
 						battlePhase = BattlePhase::DEFENDING;
@@ -297,6 +306,8 @@ bool Battle::Update(float dt)
 				else {
 					if (optionPercent < 60) {
 						battlePhase = BattlePhase::ATTACKING;
+						int targetNum = (rand() % CountAllies());
+						targetEntity = entitiesInBattle[targetNum];
 					}
 					else if(optionPercent < 85) {
 						battlePhase = BattlePhase::DEFENDING;
@@ -315,8 +326,9 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
-					int targetNum = (rand() % CountAllies());
-					Attack(entitiesInBattle[targetNum]);
+					
+					
+					Attack(targetEntity);
 					if (CheckWinLose() == true) {
 
 					}
@@ -481,7 +493,7 @@ bool Battle::PostUpdate()
 			break;
 
 		case BattlePhase::ATTACKING:
-			sprintf_s(nameChar, 50, "%s attacks!", actualTurnEntity->name);
+			sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
 			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
 			break;
 
@@ -512,20 +524,12 @@ bool Battle::PostUpdate()
 
 			
 		case BattlePhase::WIN:
-		//	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
-			//}
-			//else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-			//	app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
-			//}
 			break;
-
 		case BattlePhase::LOSE:
 				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
 			break;
 	}
-
-
 
 	sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name ,entitiesInBattle[0]->stats->health);
 	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
@@ -538,7 +542,13 @@ bool Battle::PostUpdate()
 	sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
 	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
 	
-	
+
+	app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50);
+	app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+	app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+	app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
+
 	return ret;
 }
 
@@ -555,7 +565,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 			switch (control->id) {
 			case 101:
-				
+					targetEntity = entitiesInBattle[4];
 					battlePhase = BattlePhase::ATTACKING;
 					canSelect = false;
 				

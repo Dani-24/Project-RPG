@@ -23,7 +23,68 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 	switch (partyType) {
 	case PartyType::VALION:
 
-		currentAnimation = &idleBattle; //Valion start with battle anim
+		
+		//IDLE
+		idleBattle.PushBack({ 0, 0, 231, 141 });
+		idleBattle.PushBack({ 231, 0, 231, 141 });
+		idleBattle.PushBack({ 462, 0, 231, 141 });
+		idleBattle.PushBack({ 693, 0, 231, 141 });
+		idleBattle.PushBack({ 924, 0, 231, 141 });
+		idleBattle.PushBack({ 1155, 0, 231, 141 });
+
+		//ATTACK 1
+		attackAnim1.PushBack({ 0, 141, 231, 141 });
+		attackAnim1.PushBack({ 231, 141, 231, 141 });
+		attackAnim1.PushBack({ 462, 141, 231, 141 });
+		attackAnim1.PushBack({ 693, 141, 231, 141 });
+		attackAnim1.PushBack({ 924, 141, 231, 141 });
+		attackAnim1.PushBack({ 1155, 141, 231, 141 });
+		attackAnim1.PushBack({ 1386, 141, 231, 141 });
+		attackAnim1.PushBack({ 1617, 141, 231, 141 });
+
+		//ATTACK 2
+		attackAnim2.PushBack({ 0, 282, 231, 141 });
+		attackAnim2.PushBack({ 231, 282, 231, 141 });
+		attackAnim2.PushBack({ 462, 282, 231, 141 });
+		attackAnim2.PushBack({ 693, 282, 231, 141 });
+		attackAnim2.PushBack({ 924, 282, 231, 141 });
+		attackAnim2.PushBack({ 1155, 282, 231, 141 });
+		attackAnim2.PushBack({ 1386, 282, 231, 141 });
+		attackAnim2.PushBack({ 1617, 282, 231, 141 });
+
+		//HIT ANIM
+		hitAnim.PushBack({ 0, 423, 231, 141 });
+		hitAnim.PushBack({ 231, 423, 231, 141 });
+		hitAnim.PushBack({ 462, 423, 231, 141 });
+		hitAnim.PushBack({ 693, 423, 231, 141 });
+
+		//DEATH
+		deathAnim.PushBack({ 0, 564, 231, 141 });
+		deathAnim.PushBack({ 231, 564, 231, 141 });
+		deathAnim.PushBack({ 462, 564, 231, 141 });
+		deathAnim.PushBack({ 693, 564, 231, 141 });
+		deathAnim.PushBack({ 924, 564, 231, 141 });
+		deathAnim.PushBack({ 1155, 564, 231, 141 });
+		deathAnim.PushBack({ 1386, 564, 231, 141 });
+
+		//JUMP
+		jumpAnim.PushBack({ 0, 705, 231, 141 });
+		jumpAnim.PushBack({ 231, 705, 231, 141 });
+
+		//FALL
+		fallAnim.PushBack({ 0, 846, 231, 141 });
+		fallAnim.PushBack({ 231, 846, 231, 141 });
+
+		//RUN
+		runAnim.PushBack({ 0, 973, 231, 141 });
+		runAnim.PushBack({ 231, 973, 231, 141 });
+		runAnim.PushBack({ 462, 973, 231, 141 });
+		runAnim.PushBack({ 693, 973, 231, 141 });
+		runAnim.PushBack({ 924, 973, 231, 141 });
+		runAnim.PushBack({ 1155, 973, 231, 141 });
+		runAnim.PushBack({ 1386, 973, 231, 141 });
+		runAnim.PushBack({ 1617, 973, 231, 141 });
+
 
 		name = "Valion";
 		configName = "valion";
@@ -40,7 +101,7 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 	}
 
 	idleBattle.loop = true;
-
+	
 	currentAnimation = &idleBattle;
 
 	isAlive = true;
@@ -56,6 +117,8 @@ bool Party::Awake(pugi::xml_node& config)
 	bool ret = true;
 	LOG("Num in config: %d", config.child("exampleNumber").attribute("num").as_int());
 
+	ValionChar = "Assets/sprites/characters/wizard/wizardBattleSprite.png";
+
 	return ret;
 }
 
@@ -70,6 +133,7 @@ bool Party::Start()
 	switch (partyType) {
 	case PartyType::VALION:
 		stats = new Stats(1, 15, 10, 3, 10, 16);
+		spriteText = app->tex->Load(ValionChar);
 		break;
 	}
 
@@ -86,9 +150,8 @@ bool Party::PreUpdate()
 
 bool Party::Update(float dt) 
 {
-
 	bool ret = true;
-
+	currentAnimation->Update(dt);
 	return ret;
 }
 
