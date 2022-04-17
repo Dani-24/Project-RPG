@@ -65,6 +65,11 @@ public:
 		this->defenseBuffed = false;
 	}
 
+	float TurnValue() {
+		float a = ((float)localTurn / (float)speed) * 100.0f;
+		return a;
+	}
+
 };
 
 class DynamicEntity : public Entity

@@ -355,14 +355,6 @@ Entity* EntityManager::FindEntity(EntityType EntityType)
 			ret = entityInList->data;
 	}
 
-	/*for (int i = 0; i < entities.count(); i++) {
-		if (entities.At(i)->data->type == EntityType) {
-
-
-			ret = entities.At(i)->data;
-		}
-	}*/
-
 	return ret;
 }
 

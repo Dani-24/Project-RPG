@@ -114,7 +114,7 @@ public:
 	int battleTurn;
 	char battleTurnChar[9] = { "\0" };
 
-	float TurnValue;
+	float turnValue;
 	char turnValueChar[20] = { "\0" };
 
 	char nameChar[50] = { "\0" };

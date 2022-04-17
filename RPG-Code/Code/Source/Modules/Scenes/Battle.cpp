@@ -71,7 +71,7 @@ bool Battle::Start()
 	gameOver = false;
 	cont = 0;
 	battleTurn = 0;
-	TurnValue = 321.123f;
+	turnValue = 321.123f;
 	LOG("Loading Battle");
 	
 	battleStage = &app->stages->actualStage;
@@ -113,6 +113,16 @@ bool Battle::Start()
 	entitiesInBattle[4]->mapPosition = entitiesInBattle[4]->position;
 	entitiesInBattle[4]->position = { 500, 100 };
 	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
+
+
+	for (int i = 0; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->isAlive == true) {
+				entitiesInBattle[i]->stats->localTurn = 1;
+			}
+		}
+		
+	}
 
 	app->camera->SetPos({ 0, 0 });
 	
@@ -447,7 +457,7 @@ bool Battle::PostUpdate()
 	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
 
 	//Print turn value (depending on entities speed)
-	sprintf_s(turnValueChar, 20, "Turn Value: %.2f", TurnValue);
+	sprintf_s(turnValueChar, 20, "Turn Value: %.2f", turnValue);
 
 	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 		app->font->DrawText(turnValueChar, 50, app->win->GetHeight() / 2 - 30);
@@ -577,26 +587,73 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 void Battle::SetTurnOrder() 
 {
-	if (hasStarted == false) {
+	//if (hasStarted == false) {
 
-		if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
-			actualTurnEntity = entitiesInBattle[0];
-		}
-		else {
-			actualTurnEntity = entitiesInBattle[4];
-		}
+	//	if (entitiesInBattle[0]->stats->speed >= entitiesInBattle[4]->stats->speed) {
+	//		actualTurnEntity = entitiesInBattle[0];
+	//	}
+	//	else {
+	//		actualTurnEntity = entitiesInBattle[4];
+	//	}
 
-		hasStarted = true;
+	//	hasStarted = true;
+	//}
+	//else {
+	//	if (actualTurnEntity == entitiesInBattle[0]) {
+	//		actualTurnEntity = entitiesInBattle[4];
+	//		
+	//	}
+	//	else if (actualTurnEntity == entitiesInBattle[4]) {
+	//		actualTurnEntity = entitiesInBattle[0];
+	//	}
+	//}
+
+	//Set the minor turn value from all entities in battle
+	turnValue =0.0f;
+	for (int i = 0; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->isAlive == true) {
+				if (turnValue == 0) {
+					turnValue = entitiesInBattle[i]->stats->TurnValue();
+				}
+				else if (entitiesInBattle[i]->stats->TurnValue() < turnValue)
+				{
+					turnValue = entitiesInBattle[i]->stats->TurnValue();
+				}
+			}
+		}
+		
+	}
+
+	//Compare if more than one entities have the same turn value
+	DynamicEntity* equalTurnValue[8];
+
+	int equalValues = 0;
+	for (int j = 0; j < 8; j++) {
+		if (entitiesInBattle[j] != nullptr) {
+			if (entitiesInBattle[j]->isAlive == true) {
+				if (entitiesInBattle[j]->stats->TurnValue() == turnValue) {
+					equalTurnValue[equalValues] = entitiesInBattle[j];
+					equalValues++;
+				}
+			}
+		}
+	}
+
+	//Choose a random one and set turn
+	if (equalValues > 1) {
+		srand(time(NULL));
+		int chosenValue = (rand() % equalValues);
+
+		actualTurnEntity = equalTurnValue[chosenValue];
+		equalTurnValue[chosenValue]->stats->localTurn++;
 	}
 	else {
-		if (actualTurnEntity == entitiesInBattle[0]) {
-			actualTurnEntity = entitiesInBattle[4];
-			
-		}
-		else if (actualTurnEntity == entitiesInBattle[4]) {
-			actualTurnEntity = entitiesInBattle[0];
-		}
+		actualTurnEntity = equalTurnValue[0];
+		equalTurnValue[0]->stats->localTurn++;
 	}
+
+	
 
 }
 
