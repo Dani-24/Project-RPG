@@ -122,6 +122,8 @@ bool Battle::Start()
 
 	SetTurnOrder();
 
+	app->audio->PlayMusic("Assets/audio/music/music_battle.ogg");
+
 	return true;
 }
 
@@ -786,6 +788,26 @@ bool Battle::CleanUp()
 	}
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
+
+	switch (app->stages->actualStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		app->map->Load("initial_town_map.tmx");
+		break;
+	case StageIndex::DOJO:
+		app->map->Load("initial_town_dojo.tmx");
+		break;
+	case StageIndex::SHOP:
+		app->map->Load("initial_town_shop.tmx");
+		break;
+	case StageIndex::SHOPSUB:
+		app->map->Load("initial_town_under_shop.tmx");
+		break;
+	case StageIndex::TAVERN:
+		app->map->Load("initial_town_tavern.tmx");
+		break;
+	}
 
 	return true;
 }
