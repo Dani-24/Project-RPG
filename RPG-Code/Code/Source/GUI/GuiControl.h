@@ -65,6 +65,12 @@ public:
 		section = { 0, 0, 0, 0 };
 	}
 
+	void SetPos(iPoint A)
+	{
+		bounds.x = A.x;
+		bounds.y = A.y;
+	}
+
 	void SetObserver(Module* module)
 	{
 		observer = module;

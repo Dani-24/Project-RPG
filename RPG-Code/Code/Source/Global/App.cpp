@@ -53,7 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	camera = new Camera(this);
 
 	map = new Map(this, false);
-	pauseM = new PauseMenu(this, true);
+	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 
 	font = new ModuleQFonts(this);
