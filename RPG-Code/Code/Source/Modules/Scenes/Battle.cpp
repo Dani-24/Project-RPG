@@ -315,8 +315,7 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
-					//int targetNum = (rand() % (1 - 1)) + 1;
-					int targetNum = 0;
+					int targetNum = (rand() % CountAllies());
 					Attack(entitiesInBattle[targetNum]);
 					if (CheckWinLose() == true) {
 
@@ -556,28 +555,28 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 			switch (control->id) {
 			case 101:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+				
 					battlePhase = BattlePhase::ATTACKING;
 					canSelect = false;
-				}
+				
 				break;
 			case 102:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::DEFENDING;
 					canSelect = false;
-				}
+				
 				break;
 			case 103:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::USING_ITEM;
 					canSelect = false;
-				}
+			
 				break;
 			case 104:
-				if (actualTurnEntity == entitiesInBattle[0] && actualTurnEntity->isAlive == true) {
+			
 					battlePhase = BattlePhase::ESCAPING;
 					canSelect = false;
-				}
+			
 				break;
 			}
 
@@ -861,6 +860,28 @@ bool Battle::CleanUp()
 	}
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
+
+	//Music
+
+	switch (app->stages->actualStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+		break;
+	case StageIndex::DOJO:
+		app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+		break;
+	case StageIndex::SHOP:
+		app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+		break;
+	case StageIndex::SHOPSUB:
+		app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+		break;
+	case StageIndex::TAVERN:
+		app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+		break;
+	}
 
 	return true;
 }

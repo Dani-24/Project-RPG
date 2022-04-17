@@ -51,8 +51,15 @@ public:
 private:
 
 	SDL_Texture* titleBg;
+	SDL_Texture* titleLogo;
 
-	Animation titleBGAnim;
+	// title bullshit
+	iPoint titleBgPos = {0, 0};
+	float rotateSpeed = 0.1f;
+	float radius = 600;
+	fPoint centre = {-650, -800};
+	float angle = 0;
+
 
 	int confirmFx;
 
