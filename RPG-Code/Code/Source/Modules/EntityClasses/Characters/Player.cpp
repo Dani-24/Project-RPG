@@ -89,6 +89,18 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	hitM.loop = true;
 	hitM.speed = 0.006f;
 
+	dieM.PushBack({ 0, 166, 140, 83 });
+	dieM.PushBack({ 140 , 166 , 140 , 83 });
+	dieM.PushBack({ 280 , 166 , 140 , 83 });
+	dieM.PushBack({ 420 , 166 , 140 , 83 });
+	dieM.PushBack({ 560 , 166 , 140 , 83 });
+	dieM.PushBack({ 700 , 166 , 140 , 83 });
+	dieM.PushBack({ 840 , 166 , 140 , 83 });
+	dieM.PushBack({ 980 , 166 , 140 , 83 });
+	dieM.PushBack({ 1120 , 166 , 140 , 83 });
+	dieM.loop = true;
+	dieM.speed = 0.006f;
+
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
 
 	idleBattleF.PushBack({ 0 , 201 , 73 , 51 });

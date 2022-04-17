@@ -62,6 +62,7 @@ public:
 		attackM,
 		dashM,
 		hitM,
+		dieM,
 		idleBattleF,
 		attackF,
 		attackF2,
