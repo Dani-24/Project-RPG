@@ -52,40 +52,40 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	//----------------------------------------------------------------------------------Battle Male------------------------------------
 
-	idleBattleM.PushBack({ 0, 22, 32, 39 });
-	idleBattleM.PushBack({ 138 , 22 , 35 , 39 });
-	idleBattleM.PushBack({ 273 , 22 , 39 , 39 });
-	idleBattleM.PushBack({ 414 , 22 , 42 , 39 });
-	idleBattleM.PushBack({ 535 , 22 , 86 , 39 });
-	idleBattleM.PushBack({ 675 , 22 , 56 , 39 });
-	idleBattleM.PushBack({ 840 , 22 , 31 , 39 });
-	idleBattleM.PushBack({ 980 , 22 , 31 , 39 });
-	idleBattleM.PushBack({ 1120 , 22 , 32 , 39 });
-	idleBattleM.PushBack({ 1260 , 22 , 32 , 39 });
-	idleBattleM.PushBack({ 1400 , 22 , 32 , 39 });
+	idleBattleM.PushBack({ 0, 0, 140, 83 });
+	idleBattleM.PushBack({ 140 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 280 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 420 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 560 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 700 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 840 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 980 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 1120 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 1260 , 0 , 140 , 83 });
+	idleBattleM.PushBack({ 1400 , 0 , 140 , 83 });
 	idleBattleM.loop = true;
 	idleBattleM.speed = 0.006f;
 
-	attackM.PushBack({ 0 , 86 , 32 , 61 });
-	attackM.PushBack({ 138 , 86 , 35 , 61 });
-	attackM.PushBack({ 273 , 86 , 39 , 61 });
-	attackM.PushBack({ 414 , 86 , 42 , 61 });
-	attackM.PushBack({ 535 , 86 , 86 , 61 });
-	attackM.PushBack({ 675 , 86 , 56 , 61 });
+	attackM.PushBack({ 0 , 83 , 140 , 83 });
+	attackM.PushBack({ 140 , 83 , 140 , 83 });
+	attackM.PushBack({ 280 , 83 , 140 , 83 });
+	attackM.PushBack({ 420 , 83 , 140 , 83 });
+	attackM.PushBack({ 560 , 83 , 140 , 83 });
+	attackM.PushBack({ 700 , 83 , 140 , 83 });
 	attackM.loop = true;
 	attackM.speed = 0.006f;
 
-	dashM.PushBack({ 0 , 192 , 32 , 30 });
-	dashM.PushBack({ 138 , 192 , 35 , 30 });
-	dashM.PushBack({ 273 , 192 , 39 , 30 });
-	dashM.PushBack({ 414 , 192 , 42 , 30 });
+	dashM.PushBack({ 0 , 581 , 140 , 83 });
+	dashM.PushBack({ 140 , 581 , 140 , 83 });
+	dashM.PushBack({ 280 , 581 , 140 , 83 });
+	dashM.PushBack({ 420 , 581 , 140 , 83 });
 	dashM.loop = true;
 	dashM.speed = 0.006f;
 
-	hitM.PushBack({ 0 , 266 , 32 , 40 });
-	hitM.PushBack({ 138 , 266 , 35 , 40 });
-	hitM.PushBack({ 273 , 266 , 39 , 40 });
-	hitM.PushBack({ 414 , 266 , 42 , 40 });
+	hitM.PushBack({ 0 , 249 , 140 , 83 });
+	hitM.PushBack({ 140 , 249 , 140 , 83 });
+	hitM.PushBack({ 280 , 249 , 140 , 83 });
+	hitM.PushBack({ 420 , 249 , 140 , 83 });
 	hitM.loop = true;
 	hitM.speed = 0.006f;
 
@@ -190,7 +190,7 @@ bool Player::Start()
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
-	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mpsprite.png");
+	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
 	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fpsprite.png");
 
 	//player start with idle anim
