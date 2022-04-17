@@ -13,6 +13,7 @@ enum class DynamicType;
 enum class CharacterType;
 enum class NPCType;
 enum class NormalEnemyType;
+enum class PartyType;
 
 class EntityManager : public Module
 {
@@ -36,6 +37,7 @@ public:
 	Entity* CreateEntity(EntityType type, int x = 0, int y = 0);
 	Entity* CreateEntity(DynamicType type, int x = 0, int y = 0);
 	Entity* CreateEntity(CharacterType type, int x = 0, int y = 0);
+	Entity* CreateEntity(PartyType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NPCType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NormalEnemyType type, int x = 0, int y = 0);
 

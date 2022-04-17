@@ -20,6 +20,8 @@
 #include "NPC.h"
 #include "EntityManager.h"
 
+#include "Party.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -80,6 +82,13 @@ bool Scene::Start()
 
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
+	partyList.add(player);
+
+	//Party members
+	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 100, 150);
+	partyList.add(valion);
+
+	app->stages->partyListPtr = &partyList;
 
 	// NPCs
 	iPoint cockPos = { 1240, 950 };
@@ -124,7 +133,6 @@ bool Scene::Start()
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
-	
 
 	// TOWN LIMITS for camera
 	app->camera->SetLimits(640, 350, 4490, 4200);
@@ -204,21 +212,9 @@ bool Scene::Update(float dt)
 		player->canMove ? player->canMove = false : player->canMove = true;
 	}
 
-	// Show/Hide Colliders
+	// Add ally to the party
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
-
-		//if (app->battle->isEnabled() == false) {
-			
-		//	app->battle->Enable();
-			
-
-		//}else
-		//{
-		//	app->battle->Disable();
-			
-			
-		//}
-
+		partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 100, 150)) : partyList.del(partyList.At(1));
 		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
 	return true;

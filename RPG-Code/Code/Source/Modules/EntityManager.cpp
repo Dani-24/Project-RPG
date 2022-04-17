@@ -10,6 +10,8 @@
 #include "NPC.h"
 #include "NormalEnemy.h"
 
+#include "Party.h"
+
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -262,6 +264,19 @@ Entity* EntityManager::CreateEntity(CharacterType type, int x, int y)
 		entityList.add(ret);
 		//ret->position.x = x;
 		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(PartyType type, int x, int y)
+{
+	Entity* ret = nullptr;
+
+	ret = new Party(type, x, y);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
 	}
 
 	return ret;
