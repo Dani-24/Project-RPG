@@ -53,7 +53,7 @@ bool PauseMenu::Start()
 	load = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 27, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 28, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	
-	/*party->state = GuiControlState::DISABLED;*/
+	party->state = GuiControlState::DISABLED;
 	invent->state = GuiControlState::DISABLED;
 	town->state = GuiControlState::DISABLED;
 	resume->state = GuiControlState::DISABLED;
@@ -193,8 +193,8 @@ bool PauseMenu::Update(float dt)
 	//variables for text
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
-	party->SetPos({ xc - 100,yc - 265 });
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || resumen == true) {
+	
+	if ((app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || resumen == true)&&app->scene->playing) {
 
 		if (pauseGame){
 			pauseGame = false;
@@ -214,7 +214,8 @@ bool PauseMenu::Update(float dt)
 			load->state = GuiControlState::NORMAL;
 			exit->state = GuiControlState::NORMAL;
 			party->state= GuiControlState::NORMAL;
-			
+
+			party->SetPos({ xc - 100,yc - 265 });
 			invent->SetPos({ xc - 100,yc - 240 });
 			town->SetPos({ xc - 100,yc - 215 });
 			resume->SetPos({ xc - 100, yc - 190 });
