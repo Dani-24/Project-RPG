@@ -371,7 +371,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			LOG("Loading Tavern map");
 
-			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			//app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 		}
 
 		break;
