@@ -2,7 +2,7 @@
 #define __PAUSEMENU_H__
 
 #include "Module.h"
-
+#include "GuiButton.h"
 struct SDL_Texture;
 
 class PauseMenu : public Module
@@ -42,7 +42,22 @@ public:
 
 	bool pauseGame;
 
+	bool resumen;
+
 	SDL_Texture* Pausetex;
+
+
+	// Buttons
+
+	GuiButton* party;
+	GuiButton* invent;
+	GuiButton* town;
+	GuiButton* resume;
+	GuiButton* config;
+	GuiButton* save;
+	GuiButton* load;
+	GuiButton* exit;
+	
 };
 
 #endif

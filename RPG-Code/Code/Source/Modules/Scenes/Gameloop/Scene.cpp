@@ -131,6 +131,8 @@ bool Scene::Start()
 
 	pause = false;
 
+	playing = true;
+
 	return true;
 }
 

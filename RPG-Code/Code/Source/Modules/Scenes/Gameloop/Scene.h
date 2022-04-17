@@ -52,7 +52,7 @@ private:
 
 public:
 	bool pause;
-
+	bool playing;
 	Player* player = nullptr;
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;

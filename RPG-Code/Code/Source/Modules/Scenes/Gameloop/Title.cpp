@@ -11,6 +11,7 @@
 #include "Scene.h"
 #include "GuiManager.h"
 #include "Camera.h"
+#include "PauseMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -84,6 +85,8 @@ bool TitleScene::Start()
 	app->camera->SetPos({ 0,0 });
 
 	pause = exitGame = false;
+
+	app->scene->playing = false;
 
 	return true;
 }
@@ -160,9 +163,10 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 bool TitleScene::PreUpdate()
 {
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exitGame == true) {
+		app->pauseM->CleanUp();
 		return false;
 	}
-
+	
 	pause = app->fade->fading;
 
 	return true;
@@ -173,6 +177,9 @@ bool TitleScene::Update(float dt)
 {
 	titleBGAnim.Update(dt);
 
+	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN ) {
+		btn1->SetPos({ (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 200 });
+	}
 	return true;
 }
 
