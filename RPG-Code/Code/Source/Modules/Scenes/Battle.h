@@ -97,6 +97,7 @@ public:
 	Player* player = nullptr;
 
 	DynamicEntity* actualTurnEntity;
+	DynamicEntity* turnsTimeLine[5];
 	DynamicEntity* targetEntity;
 
 	DynamicEntity* entitiesInBattle[8];
@@ -127,7 +128,6 @@ public:
 
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
-
 
 	bool someoneAttacking;
 	bool someoneDefending;

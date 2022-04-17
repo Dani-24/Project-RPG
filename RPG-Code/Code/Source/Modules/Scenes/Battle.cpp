@@ -477,6 +477,8 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
 	}
 
+	//sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
+	//app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 70);
 	
 	
 	//Print battle messages

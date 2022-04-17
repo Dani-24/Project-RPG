@@ -32,6 +32,8 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		idleBattle.PushBack({ 924, 0, 231, 141 });
 		idleBattle.PushBack({ 1155, 0, 231, 141 });
 
+		idleBattle.speed = 0.01f;
+
 		//ATTACK 1
 		attackAnim1.PushBack({ 0, 141, 231, 141 });
 		attackAnim1.PushBack({ 231, 141, 231, 141 });
@@ -41,6 +43,8 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		attackAnim1.PushBack({ 1155, 141, 231, 141 });
 		attackAnim1.PushBack({ 1386, 141, 231, 141 });
 		attackAnim1.PushBack({ 1617, 141, 231, 141 });
+
+		attackAnim1.speed = 0.006f;
 
 		//ATTACK 2
 		attackAnim2.PushBack({ 0, 282, 231, 141 });
@@ -52,11 +56,15 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		attackAnim2.PushBack({ 1386, 282, 231, 141 });
 		attackAnim2.PushBack({ 1617, 282, 231, 141 });
 
+		attackAnim2.speed = 0.006f;
+
 		//HIT ANIM
 		hitAnim.PushBack({ 0, 423, 231, 141 });
 		hitAnim.PushBack({ 231, 423, 231, 141 });
 		hitAnim.PushBack({ 462, 423, 231, 141 });
 		hitAnim.PushBack({ 693, 423, 231, 141 });
+
+		hitAnim.speed = 0.006f;
 
 		//DEATH
 		deathAnim.PushBack({ 0, 564, 231, 141 });
@@ -67,13 +75,19 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		deathAnim.PushBack({ 1155, 564, 231, 141 });
 		deathAnim.PushBack({ 1386, 564, 231, 141 });
 
+		deathAnim.speed = 0.006f;
+
 		//JUMP
 		jumpAnim.PushBack({ 0, 705, 231, 141 });
 		jumpAnim.PushBack({ 231, 705, 231, 141 });
 
+		jumpAnim.speed = 0.006f;
+
 		//FALL
 		fallAnim.PushBack({ 0, 846, 231, 141 });
 		fallAnim.PushBack({ 231, 846, 231, 141 });
+
+		fallAnim.speed = 0.006f;
 
 		//RUN
 		runAnim.PushBack({ 0, 973, 231, 141 });
@@ -85,12 +99,14 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		runAnim.PushBack({ 1386, 973, 231, 141 });
 		runAnim.PushBack({ 1617, 973, 231, 141 });
 
+		runAnim.speed = 0.006f;
 
 		name = "Valion";
 		configName = "valion";
 
 		baseCollider = nullptr;
 
+		position = { x,y };
 		battlePosition = { x, y };
 
 		break;

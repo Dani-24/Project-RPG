@@ -64,7 +64,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleBattleM.PushBack({ 1260 , 0 , 140 , 83 });
 	idleBattleM.PushBack({ 1400 , 0 , 140 , 83 });
 	idleBattleM.loop = true;
-	idleBattleM.speed = 0.006f;
+	idleBattleM.speed = 0.015f;
 
 	attackM.PushBack({ 0 , 83 , 140 , 83 });
 	attackM.PushBack({ 140 , 83 , 140 , 83 });
@@ -115,7 +115,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleBattleF.PushBack({ 1620 , 456 , 180 , 114 });
 	idleBattleF.PushBack({ 1800 , 456 ,  180 , 114 });
 	idleBattleF.loop = true;
-	idleBattleF.speed = 0.006f;
+	idleBattleF.speed = 0.015f;
 
 	attackF.PushBack({ 0 , 0 , 180 , 114 });
 	attackF.PushBack({ 180 , 0 , 180 , 114 });
@@ -186,7 +186,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
 
 	mapPosition = { 0,0 };
-	battlePosition = { 100, 75 };
+	battlePosition = { -50, -50 };
 
 	isAlive = true;
 

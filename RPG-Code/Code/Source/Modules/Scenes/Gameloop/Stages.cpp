@@ -280,7 +280,13 @@ bool Stages::PostUpdate()
 					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
 						NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+						if (NormalEnemyInList->data->normalEnemyType==NormalEnemyType::BAT) {
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3);
+						}
+						else {
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+						}
+						
 					}
 				}
 
@@ -295,10 +301,10 @@ bool Stages::PostUpdate()
 						{
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
-								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
 							}
 							if (playerPtr->PlayerErection == false) {
-								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
 							}
 						}
 						else {
