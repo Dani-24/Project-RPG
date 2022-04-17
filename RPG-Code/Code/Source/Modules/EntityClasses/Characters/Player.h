@@ -107,6 +107,13 @@ public:
 	iPoint mapPosition;
 	iPoint battlePosition;
 
+public:
+	iPoint townPos = {950, 1000};
+	iPoint shopPos = { 69, 238 };
+	bool shopPosOn = false;
+private:
+	int townPosYAxisfix = 5;
+
 private: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 

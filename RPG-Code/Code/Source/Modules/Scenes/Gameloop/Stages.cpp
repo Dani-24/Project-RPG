@@ -308,7 +308,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			app->map->Load("initial_town_map.tmx");
 
-			playerPtr->position = { 950, 1000 };
+			playerPtr->position = playerPtr->townPos;
 			app->camera->OnTarget();
 
 			LOG("Loading Town map");
@@ -338,7 +338,13 @@ void Stages::ChangeStage(StageIndex newStage) {
 		if (app->map->isEnabled() == true) {
 			app->map->Load("initial_town_shop.tmx");
 
-			playerPtr->position = { 255, 425 };
+			if (playerPtr->shopPosOn == false) {
+				playerPtr->position = { 255, 425 };
+			}
+			else {
+				playerPtr->position = playerPtr->shopPos;
+				playerPtr->shopPosOn = false;
+			}
 			app->camera->OnTarget();
 
 			LOG("Loading Shop map");
@@ -371,7 +377,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			LOG("Loading Tavern map");
 
-			//app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 		}
 
 		break;
