@@ -686,7 +686,7 @@ bool Battle::CleanUp()
 	escapeButton = nullptr;
 	delete escapeButton;
 	
-	entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
+	//entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 
 	//Take back player position
 	app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;

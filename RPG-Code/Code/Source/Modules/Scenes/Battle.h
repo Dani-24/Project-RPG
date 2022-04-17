@@ -27,6 +27,11 @@ enum class BattlePhase {
 
 };
 
+enum class EnemyInBattleType {
+	NORMAL,
+	BOSS
+};
+
 class Battle : public Module
 {
 public:
@@ -94,6 +99,10 @@ public:
 	DynamicEntity* actualTurnEntity;
 
 	DynamicEntity* entitiesInBattle[8];
+
+	NormalEnemy* normalEnemyInBattle;
+
+	EnemyInBattleType CurrentEnemyType;
 
 	//Buttons
 

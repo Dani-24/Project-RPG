@@ -265,6 +265,18 @@ bool Stages::PostUpdate()
 			}
 		}
 
+		switch (app->battle->CurrentEnemyType) {
+		case EnemyInBattleType::NORMAL:
+			//app->battle->normalEnemyInBattle->currentAnimation = &app->battle->normalEnemyInBattle->idleAnimL;
+			SDL_Rect rect = app->battle->normalEnemyInBattle->currentAnimation->GetCurrentFrame();
+			app->render->DrawTexture(app->battle->normalEnemyInBattle->spriteText, 500, 100, &rect);
+			break;
+
+		default:
+			break;
+		}
+		
+
 		/*SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 		if (playerPtr->PlayerErection == true) {
 			app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);

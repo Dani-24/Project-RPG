@@ -23,10 +23,19 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.loop = true;
 		idleAnim.speed = 0.006f;
 
+		idleAnimL.PushBack({ 227 , 101 , 35 , 31 });
+		idleAnimL.PushBack({ 183 , 101 , 35 , 32 });
+		idleAnimL.PushBack({ 134 , 101 , 33 , 32 });
+		idleAnimL.PushBack({ 96 , 101 , 18 , 26 });
+		idleAnimL.PushBack({ 48 , 101 , 18 , 26 });
+		idleAnimL.PushBack({ 0 , 101 , 25 , 32 });
+		idleAnimL.loop = true;
+		idleAnimL.speed = 0.006f;
+
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
-		mapPosition = { 0,0 };
-		battlePosition = { 100, 100 };
+		/*mapPosition = { 0,0 };
+		battlePosition = { 200, 100 };*/
 
 		name = "Flying eye";
 		configName = "flying_eye";
@@ -42,10 +51,18 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.loop = true;
 		idleAnim.speed = 0.006f;
 
+		idleAnimL.PushBack({ 64 , 80 , 16 , 16 });
+		idleAnimL.PushBack({ 48 , 80 , 16 , 16 });
+		idleAnimL.PushBack({ 32 , 80 , 16 , 16 });
+		idleAnimL.PushBack({ 16 , 80 , 16 , 16 });
+		idleAnimL.PushBack({ 0 , 80 , 16 , 16 });
+		idleAnimL.loop = true;
+		idleAnimL.speed = 0.006f;
+
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
-		mapPosition = { 0,0 };
-		battlePosition = { 100, 100 };
+		/*mapPosition = { 0,0 };
+		battlePosition = { 200, 100 };*/
 
 		name = "Bat";
 		configName = "bat";

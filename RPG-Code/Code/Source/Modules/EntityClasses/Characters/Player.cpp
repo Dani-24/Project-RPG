@@ -394,6 +394,8 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 					
 					app->battle->entitiesInBattle[0] = this;
 					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
+					app->battle->normalEnemyInBattle = normalEnemyInList->data;
+					app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
 					app->battle->Enable();
 				}
 			}

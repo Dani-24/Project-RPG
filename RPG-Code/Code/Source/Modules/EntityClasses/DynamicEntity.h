@@ -92,7 +92,7 @@ public:
 
 	Collider* baseCollider;
 
-	Animation idleAnim;
+	Animation idleAnim, idleAnimL, dieAnim;
 
 	bool isAlive;
 
