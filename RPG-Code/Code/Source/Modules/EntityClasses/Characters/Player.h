@@ -66,6 +66,7 @@ public:
 		idleBattleF,
 		attackF,
 		attackF2,
+		attackChainF,
 		hitF,
 		dieF;
 
