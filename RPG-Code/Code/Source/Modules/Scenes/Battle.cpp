@@ -861,5 +861,27 @@ bool Battle::CleanUp()
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
 
+	//Music
+
+	switch (app->stages->actualStage) {
+	case StageIndex::NONE:
+		break;
+	case StageIndex::TOWN:
+		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+		break;
+	case StageIndex::DOJO:
+		app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+		break;
+	case StageIndex::SHOP:
+		app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+		break;
+	case StageIndex::SHOPSUB:
+		app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+		break;
+	case StageIndex::TAVERN:
+		app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+		break;
+	}
+
 	return true;
 }
