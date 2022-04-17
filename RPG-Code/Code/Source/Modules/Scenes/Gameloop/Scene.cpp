@@ -144,6 +144,8 @@ bool Scene::Start()
 
 	playing = true;
 
+	
+
 	app->guiManager->Enable();
 
 	return true;
@@ -174,6 +176,14 @@ bool Scene::Update(float dt)
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
+	//GUI activation
+
+	guiactivate = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	{
+		guiactivate = true;
+	}
 
 
 	//LOG("INT VALUES: %d", app->map->intValues.count());
@@ -242,7 +252,11 @@ bool Scene::PostUpdate()
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
-	app->render->DrawTexture(gui, xt - 606, yt - 360);
+	if (guiactivate == true)
+	{
+		app->render->DrawTexture(gui, xt - 606, yt - 360);
+	}
+	
 
 	return ret;
 }
@@ -281,6 +295,8 @@ bool Scene::CleanUp()
 	app->font->CleanFonts();
 
 	app->camera->ReleaseTarget();
+
+	app->tex->UnLoad(gui);
 
 	//Stages:
 	app->entities->DestroyEntity(player);

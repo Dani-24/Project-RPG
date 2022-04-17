@@ -55,6 +55,7 @@ private:
 public:
 	bool pause;
 	bool playing;
+	bool guiactivate;
 	Player* player = nullptr;
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
