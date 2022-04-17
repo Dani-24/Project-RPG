@@ -103,58 +103,75 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
 
-	idleBattleF.PushBack({ 0 , 201 , 73 , 51 });
-	idleBattleF.PushBack({ 74 , 201 , 67 , 51 });
-	idleBattleF.PushBack({ 142 , 201 , 71 , 51 });
-	idleBattleF.PushBack({ 214 , 201 , 115 , 51 });
-	idleBattleF.PushBack({ 330 , 201 , 98 , 51 });
-	idleBattleF.PushBack({ 429 , 201 , 95 , 51 });
-	idleBattleF.PushBack({ 525 , 201 , 83 , 51 });
-	idleBattleF.PushBack({ 609 , 201 , 85 , 51 });
-	idleBattleF.PushBack({ 694 , 201 , 80 , 51 });
-	idleBattleF.PushBack({ 774 , 201 , 80 , 51 });
-	idleBattleF.PushBack({ 1854 , 201 ,  80 , 51 });
+	idleBattleF.PushBack({ 0 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 180 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 360 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 540 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 720 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 900 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 1080 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 1260 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 1440 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 1620 , 456 , 180 , 114 });
+	idleBattleF.PushBack({ 1800 , 456 ,  180 , 114 });
 	idleBattleF.loop = true;
 	idleBattleF.speed = 0.006f;
 
-	attackF.PushBack({ 17 , 0 , 45 , 70 });
-	attackF.PushBack({ 84 , 0 , 47 , 70 });
-	attackF.PushBack({ 150 , 0 , 52 , 70 });
-	attackF.PushBack({ 226 , 0 , 58 , 70 });
-	attackF.PushBack({ 346 , 0 , 55 , 70 });
-	attackF.PushBack({ 444 , 0 , 55 , 70 });
-	attackF.PushBack({ 532 , 0 , 35 , 70 });
+	attackF.PushBack({ 0 , 0 , 180 , 114 });
+	attackF.PushBack({ 180 , 0 , 180 , 114 });
+	attackF.PushBack({ 360 , 0 , 180 , 114 });
+	attackF.PushBack({ 540 , 0 , 180 , 114 });
+	attackF.PushBack({ 720 , 0 , 180 , 114 });
+	attackF.PushBack({ 900 , 0 , 180 , 114 });
+	attackF.PushBack({ 1080 , 0 , 180 , 114 });
 	attackF.loop = true;
 	attackF.speed = 0.006f;
 
-	attackF2.PushBack({ 0 , 70 , 73 , 80 });
-	attackF2.PushBack({ 74 , 70 , 67 , 80 });
-	attackF2.PushBack({ 142 , 70 , 71 , 80 });
-	attackF2.PushBack({ 214 , 70 , 115 , 80 });
-	attackF2.PushBack({ 330 , 70 , 98 , 80 });
-	attackF2.PushBack({ 429 , 70 , 95 , 80 });
-	attackF2.PushBack({ 525 , 70 , 89 , 80 });
+	attackF2.PushBack({ 0 , 114 , 180 , 114 });
+	attackF2.PushBack({ 180 , 114 , 180 , 114 });
+	attackF2.PushBack({ 360 , 114 , 180 , 114 });
+	attackF2.PushBack({ 540 , 114 , 180 , 114 });
+	attackF2.PushBack({ 720 , 114 , 180 , 114 });
+	attackF2.PushBack({ 900 , 114 , 180 , 114 });
+	attackF2.PushBack({ 1080 , 114 , 180 , 114 });
 	attackF2.loop = true;
 	attackF2.speed = 0.006f;
 
-	hitF.PushBack({ 0 , 150 , 73 , 51 });
-	hitF.PushBack({ 74 , 150 , 67 , 51 });
-	hitF.PushBack({ 142 , 150 , 71 , 51 });
-	hitF.PushBack({ 214 , 150 , 115 , 51 });
+	attackChainF.PushBack({ 0 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 180 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 360 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 540 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 720 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 900 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 1080 , 0 , 180 , 114 });
+	attackChainF.PushBack({ 0 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 180 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 360 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 540 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 720 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 900 , 114 , 180 , 114 });
+	attackChainF.PushBack({ 1080 , 114 , 180 , 114 });
+	attackChainF.loop = true;
+	attackChainF.speed = 0.006f;
+
+	hitF.PushBack({ 0 , 798 , 180 , 114 });
+	hitF.PushBack({ 180 , 798 , 180 , 114 });
+	hitF.PushBack({ 360 , 798 , 180 , 114 });
+	hitF.PushBack({ 540 , 798 , 180 , 114 });
 	hitF.loop = true;
 	hitF.speed = 0.006f;
 
-	dieF.PushBack({ 0 , 252 , 73 , 56 });
-	dieF.PushBack({ 74 , 252 , 67 , 56 });
-	dieF.PushBack({ 142 , 252 , 71 , 56 });
-	dieF.PushBack({ 214 , 252 , 115 , 56 });
-	dieF.PushBack({ 330 , 252 , 98 , 56 });
-	dieF.PushBack({ 429 , 252 , 95 , 56 });
-	dieF.PushBack({ 525 , 252 , 83 , 56 });
-	dieF.PushBack({ 609 , 252 , 85 , 56 });
-	dieF.PushBack({ 694 , 252 , 80 , 56 });
-	dieF.PushBack({ 774 , 252 , 80 , 56 });
-	dieF.PushBack({ 854  , 252 ,  80 , 56 });
+	dieF.PushBack({ 0 , 228 , 180 , 114 });
+	dieF.PushBack({ 180 , 228 , 180 , 114 });
+	dieF.PushBack({ 360 , 228 , 180 , 114 });
+	dieF.PushBack({ 540 , 228 , 180 , 114 });
+	dieF.PushBack({ 720 , 228 , 180 , 114 });
+	dieF.PushBack({ 900 , 228 , 180 , 114 });
+	dieF.PushBack({ 1080 , 228 , 180 , 114 });
+	dieF.PushBack({ 1260 , 228 , 180 , 114 });
+	dieF.PushBack({ 1440 , 228 , 180 , 114 });
+	dieF.PushBack({ 1620 , 228 , 180 , 114 });
+	dieF.PushBack({ 1800 , 228 ,  180 , 114 });
 	dieF.loop = true;
 	dieF.speed = 0.006f;
 
@@ -203,7 +220,7 @@ bool Player::Start()
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
 	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
-	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fpsprite.png");
+	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;

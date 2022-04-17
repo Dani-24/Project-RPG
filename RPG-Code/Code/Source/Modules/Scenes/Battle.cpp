@@ -100,7 +100,7 @@ bool Battle::Start()
 	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
 	if(app->stages->playerPtr->PlayerErection == true)
 	{
-		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->dieM;
+		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleM;
 	}
 	if (app->stages->playerPtr->PlayerErection == false)
 	{
