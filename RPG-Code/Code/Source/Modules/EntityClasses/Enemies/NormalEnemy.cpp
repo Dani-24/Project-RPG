@@ -14,23 +14,71 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 	switch (normalEnemyType) {
 	case NormalEnemyType::FLYING_EYE:
-		idleAnim.PushBack({ 0 , 0 , 25 , 32 });
-		idleAnim.PushBack({ 48 , 0 , 18 , 26 });
-		idleAnim.PushBack({ 96 , 0 , 18 , 26 });
-		idleAnim.PushBack({ 134 , 0 , 33 , 32 });
-		idleAnim.PushBack({ 183 , 0 , 35 , 32 });
-		idleAnim.PushBack({ 227 , 0 , 35 , 31 });
+
+		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
+		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
 		idleAnim.loop = true;
 		idleAnim.speed = 0.006f;
 
-		idleAnimL.PushBack({ 227 , 101 , 35 , 31 });
-		idleAnimL.PushBack({ 183 , 101 , 35 , 32 });
-		idleAnimL.PushBack({ 134 , 101 , 33 , 32 });
-		idleAnimL.PushBack({ 96 , 101 , 18 , 26 });
-		idleAnimL.PushBack({ 48 , 101 , 18 , 26 });
-		idleAnimL.PushBack({ 0 , 101 , 25 , 32 });
+		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
+		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
 		idleAnimL.loop = true;
 		idleAnimL.speed = 0.006f;
+
+		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
+		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
+		battleAnim.loop = true;
+		battleAnim.speed = 0.006f;
+
+		attackAnim.PushBack({ 286 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 242 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 198 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 154 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 110 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 66 , 102 , 44 , 32 });
+		attackAnim.loop = true;
+		attackAnim.speed = 0.006f;
+
+		dieAnim.PushBack({ 0 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 44 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 88 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 132 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 176 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 220 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 264 , 59 , 44 , 43 });
+		dieAnim.PushBack({ 308 , 59 , 44 , 43 });
+		dieAnim.loop = true;
+		dieAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
@@ -43,21 +91,45 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		break;
 
 	case NormalEnemyType::BAT:
-		idleAnim.PushBack({ 0 , 25 , 16 , 16 });
-		idleAnim.PushBack({ 16 , 25 , 16 , 16 });
-		idleAnim.PushBack({ 32 , 25 , 16 , 16 });
-		idleAnim.PushBack({ 48 , 25 , 16 , 16 });
-		idleAnim.PushBack({ 64 , 25 , 16 , 16 });
+		idleAnim.PushBack({ 0 , 24 , 16 , 16 });
+		idleAnim.PushBack({ 16 , 24 , 16 , 16 });
+		idleAnim.PushBack({ 32 , 24 , 16 , 16 });
+		idleAnim.PushBack({ 48 , 24 , 16 , 16 });
+		idleAnim.PushBack({ 64 , 24 , 16 , 16 });
 		idleAnim.loop = true;
-		idleAnim.speed = 0.006f;
+		idleAnim.speed = 0.01f;
 
-		idleAnimL.PushBack({ 64 , 80 , 16 , 16 });
-		idleAnimL.PushBack({ 48 , 80 , 16 , 16 });
-		idleAnimL.PushBack({ 32 , 80 , 16 , 16 });
-		idleAnimL.PushBack({ 16 , 80 , 16 , 16 });
-		idleAnimL.PushBack({ 0 , 80 , 16 , 16 });
+		idleAnimL.PushBack({ 64 , 95 , 16 , 16 });
+		idleAnimL.PushBack({ 48 , 95 , 16 , 16 });
+		idleAnimL.PushBack({ 32 , 95 , 16 , 16 });
+		idleAnimL.PushBack({ 16 , 95 , 16 , 16 });
+		idleAnimL.PushBack({ 0 , 95 , 16 , 16 });
 		idleAnimL.loop = true;
-		idleAnimL.speed = 0.006f;
+		idleAnimL.speed = 0.01f;
+
+		battleAnim.PushBack({ 64 , 71 , 16 , 16 });
+		battleAnim.PushBack({ 48 , 71 , 16 , 16 });
+		battleAnim.PushBack({ 32 , 71 , 16 , 16 });
+		battleAnim.PushBack({ 16 , 71 , 16 , 16 });
+		battleAnim.PushBack({ 0 , 71 , 16 , 16 });
+		battleAnim.loop = true;
+		battleAnim.speed = 0.02f;
+
+		attackAnim.PushBack({ 64 , 71 , 16 , 16 });
+		attackAnim.PushBack({ 48 , 71 , 16 , 16 });
+		attackAnim.PushBack({ 32 , 71 , 16 , 16 });
+		attackAnim.PushBack({ 16 , 71 , 16 , 16 });
+		attackAnim.PushBack({ 0 , 71 , 16 , 16 });
+		attackAnim.loop = true;
+		attackAnim.speed = 0.02f;
+
+		dieAnim.PushBack({ 64 , 120 , 16 , 23 });
+		dieAnim.PushBack({ 48 , 120 , 16 , 23 });
+		dieAnim.PushBack({ 32 , 120 , 16 , 23 });
+		dieAnim.PushBack({ 16 , 120 , 16 , 23 });
+		dieAnim.PushBack({ 0 , 120 , 16 , 23 });
+		dieAnim.loop = true;
+		dieAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
@@ -75,7 +147,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 	isAlive = true;
 
-	currentAnimation = &idleAnim;
+	currentAnimation = &idleAnimL;
 
 	NormalEnemyID = app->scene->normalEnemyList.count();
 	////--------------------------------------------- Flying Eye Animations -------------------------------------------
