@@ -106,10 +106,14 @@ bool Battle::Start()
 	{
 		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleF;
 	}
-	app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
+	//app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
 	
 	app->stages->playerPtr->canMove = false;
 
+
+	//Enemies
+	entitiesInBattle[4]->mapPosition = entitiesInBattle[4]->position;
+	entitiesInBattle[4]->position = { 500, 100 };
 	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
 
 	app->camera->SetPos({ 0, 0 });
@@ -393,8 +397,10 @@ bool Battle::Update(float dt)
 		
 			
 		
-
-		app->stages->playerPtr->currentAnimation->Update(dt);
+		if (app->stages->actualStage!=StageIndex::NONE) {
+			app->stages->playerPtr->currentAnimation->Update(dt);
+		}
+		
 	}
 
 	/*if (gameOver == true) {
@@ -739,6 +745,9 @@ bool Battle::CleanUp()
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
 
+		app->stages->onBattle = false;
+
+		app->scene->Disable();
 		app->titleScene->Enable();
 
 		break;

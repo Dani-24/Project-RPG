@@ -265,16 +265,38 @@ bool Stages::PostUpdate()
 			}
 		}
 
-		switch (app->battle->CurrentEnemyType) {
-		case EnemyInBattleType::NORMAL:
-			app->battle->normalEnemyInBattle->currentAnimation = &app->battle->normalEnemyInBattle->battleAnim;
-			SDL_Rect rect = app->battle->normalEnemyInBattle->currentAnimation->GetCurrentFrame();
-			app->render->DrawTexture(app->battle->normalEnemyInBattle->spriteText, 500, 100, &rect);
-			break;
+		//PRINT THE BATTLE ENTITIES
+		
 
-		default:
-			break;
+		for (int i = 0; i < 8; i++)
+		{
+			if (app->battle->entitiesInBattle[i] != nullptr) {
+
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
+						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+					}
+				}
+				
+			}
 		}
+	
+		
+		//switch (app->battle->CurrentEnemyType) {
+		//case EnemyInBattleType::NORMAL:
+		//	app->battle->normalEnemyInBattle->currentAnimation = &app->battle->normalEnemyInBattle->battleAnim;
+		//	SDL_Rect rect = app->battle->normalEnemyInBattle->currentAnimation->GetCurrentFrame();
+		//	app->render->DrawTexture(app->battle->normalEnemyInBattle->spriteText, 500, 100, &rect);
+		//	break;
+
+		//default:
+		//	break;
+		//}
 	}
 	return ret;
 
