@@ -133,6 +133,8 @@ bool Scene::Start()
 
 	playing = true;
 
+	app->guiManager->Enable();
+
 	return true;
 }
 
