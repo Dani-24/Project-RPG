@@ -385,6 +385,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Shop lower floor map");
+
+			app->audio->PlayMusic("Assets/audio/music/music_shop_underground.ogg");
 		}
 
 		break;
