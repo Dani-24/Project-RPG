@@ -59,7 +59,7 @@ public:
 
 	void SetTurnOrder();
 
-	void Attack(DynamicEntity target);
+	void Attack(DynamicEntity* target);
 
 	void Defense();
 
@@ -71,7 +71,8 @@ public:
 
 	int CountEnemies();
 
-	void CheckWinLose();
+	//return true if has win or lost
+	bool CheckWinLose();
 
 private:
 

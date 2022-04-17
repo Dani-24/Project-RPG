@@ -35,13 +35,13 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	canSelect = false;
 
 	//2000 its ok
-	attackTime = 1000;
-	defenseTime = 1000;
-	itemTime = 1000;
-	escapeTime = 1000;
+	attackTime = 2000;
+	defenseTime = 2000;
+	itemTime = 2000;
+	escapeTime = 2000;
 
-	winTime = 1000;
-	loseTime = 1000;
+	winTime = 2000;
+	loseTime = 2000;
 
 	defenseBuff = 5;
 
@@ -155,10 +155,16 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
-					Attack(*entitiesInBattle[4]);
-					actualTurnEntity = entitiesInBattle[4];
-					battleTurn++;
-					battlePhase = BattlePhase::THINKING;
+					Attack(entitiesInBattle[4]);
+					if (CheckWinLose() == true) {
+
+					}
+					else {
+						SetTurnOrder();
+						battleTurn++;
+						battlePhase = BattlePhase::THINKING;
+					}
+					
 				}
 				break;
 			case BattlePhase::DEFENDING:
@@ -169,7 +175,7 @@ bool Battle::Update(float dt)
 				else {
 					cont = 0;
 					Defense();
-					actualTurnEntity = entitiesInBattle[4];
+					SetTurnOrder();
 					battleTurn++;
 					battlePhase = BattlePhase::THINKING;
 				}
@@ -206,7 +212,7 @@ bool Battle::Update(float dt)
 					}
 					else {
 						hasTriedToEscape = false;
-						actualTurnEntity = entitiesInBattle[4];
+						SetTurnOrder();
 						battleTurn++;
 						battlePhase = BattlePhase::THINKING;
 					}
@@ -219,8 +225,9 @@ bool Battle::Update(float dt)
 				}
 				//WINNING
 				else {
-					cont = 0;
-					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
 				}
 				break;
 
@@ -230,8 +237,9 @@ bool Battle::Update(float dt)
 				}
 				//LOSING
 				else {
-					cont = 0;
-					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
 				}
 				break;
 			}
@@ -283,10 +291,15 @@ bool Battle::Update(float dt)
 				else {
 					//int targetNum = (rand() % (1 - 1)) + 1;
 					int targetNum = 0;
-					Attack(*entitiesInBattle[targetNum]);
-					actualTurnEntity = entitiesInBattle[0];
-					battleTurn++;
-					battlePhase = BattlePhase::THINKING;
+					Attack(entitiesInBattle[targetNum]);
+					if (CheckWinLose() == true) {
+
+					}
+					else {
+						SetTurnOrder();
+						battleTurn++;
+						battlePhase = BattlePhase::THINKING;
+					}
 				}
 				break;
 			case BattlePhase::DEFENDING:
@@ -297,7 +310,7 @@ bool Battle::Update(float dt)
 				else {
 					cont = 0;
 					Defense();
-					actualTurnEntity = entitiesInBattle[0];
+					SetTurnOrder();
 					battleTurn++;
 					battlePhase = BattlePhase::THINKING;
 				}
@@ -337,8 +350,9 @@ bool Battle::Update(float dt)
 				}
 				//WINNING
 				else {
-					cont = 0;
-					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
 				}
 				break;
 
@@ -348,8 +362,9 @@ bool Battle::Update(float dt)
 				}
 				//LOSING
 				else {
-					cont = 0;
-					app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+					}
 				}
 				break;
 			}
@@ -362,12 +377,12 @@ bool Battle::Update(float dt)
 		app->stages->playerPtr->currentAnimation->Update(dt);
 	}
 
-	if (gameOver == true) {
+	/*if (gameOver == true) {
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 		}
 
-	}
+	}*/
 
 	return true;
 }
@@ -460,12 +475,22 @@ bool Battle::PostUpdate()
 			
 			break;
 
+			
 		case BattlePhase::WIN:
-			app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
+			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
+			}
+			else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+			}
 			break;
 
 		case BattlePhase::LOSE:
-			app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+			}else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
+			}
 			break;
 	}
 
@@ -553,10 +578,14 @@ void Battle::SetTurnOrder()
 
 }
 
-void Battle::Attack(DynamicEntity target) {
-	target.stats->health = target.stats->health + target.stats->deffense - actualTurnEntity->stats->attack;
-	if (target.stats->health <= 0) {
-		target.isAlive = false;
+void Battle::Attack(DynamicEntity *target) {
+	if (target->stats->deffense < actualTurnEntity->stats->attack) {
+		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
+	}
+	
+	if (target->stats->health <= 0) {
+		target->stats->health = 0;
+		target->isAlive = false;
 	}
 }
 
@@ -617,17 +646,23 @@ int Battle::CountEnemies() {
 }
 
 
-void Battle::CheckWinLose() {
+bool Battle::CheckWinLose() {
+
+	bool ret = false;
 
 	alliesCount = CountAllies();
 	enemiesCount = CountEnemies();
 
 	if (alliesCount <= 0) {
 		battlePhase = BattlePhase::LOSE;
+		ret = true;
 	}
 	else if (enemiesCount <= 0) {
 		battlePhase = BattlePhase::WIN;
+		ret = true;
 	}
+
+	return ret;
 }
 
 // Called before quitting
