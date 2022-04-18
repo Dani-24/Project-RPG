@@ -72,7 +72,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackM.PushBack({ 420 , 83 , 140 , 83 });
 	attackM.PushBack({ 560 , 83 , 140 , 83 });
 	attackM.PushBack({ 700 , 83 , 140 , 83 });
-	attackM.loop = true;
+	attackM.loop = false;
 	attackM.speed = 0.006f;
 
 	protectM.PushBack({ 0 , 581 , 140 , 83 });

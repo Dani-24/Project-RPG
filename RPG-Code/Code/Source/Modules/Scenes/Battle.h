@@ -165,6 +165,10 @@ public:
 
 	bool hasToShake;
 	int shakePos;
+	int changeSide;
+
+	int shakeTime;
+	int shakeForce;
 
 	int damageTaken;
 	

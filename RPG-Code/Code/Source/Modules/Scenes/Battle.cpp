@@ -39,16 +39,24 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	canSelect = false;
 	hasToShake = false;
 
-	//2000 its ok
-	attackTime = 2000;
-	defenseTime = 2000;
-	itemTime = 2000;
-	escapeTime = 2000;
+	//Battle stages time
+	//1000 - 2000 its ok
+	attackTime = 1000;
+	defenseTime = 1000;
+	itemTime = 1000;
+	escapeTime = 1000;
 
-	winTime = 2000;
-	loseTime = 2000;
+	winTime = 1000;
+	loseTime = 1000;
 
 	outcomeTime = 2000;
+
+	//Battle shake time - 100 its ok
+	shakeTime = 100;
+
+	//Higher it is -> Less shake in screen - 500 its ok
+	shakeForce = 500;
+
 
 	defenseBuff = 5;
 
@@ -90,6 +98,7 @@ bool Battle::Start()
 	hasToShake = false;
 	damageTaken = 0;
 	shakePos = 0;
+	changeSide = 0;
 	cont = 0;
 	battleTurn = 0;
 	turnValue = 321.123f;
@@ -482,6 +491,7 @@ bool Battle::Update(float dt)
 			//app->render->DrawTexture(townBackground, -200, -250);
 			if (hasToShake == false) {
 				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
 			}
 			else {
 				/*LOG("%i", shakePos);
@@ -505,26 +515,38 @@ bool Battle::Update(float dt)
 				}
 				*/
 
-				if (shakePos > 1000) {
-					shakePos = 1000;
+				if (shakePos > shakeTime * damageTaken) {
+					//shakePos = 1000;
+					hasToShake = false;
 				}
 
-				if (shakePos < -1000) {
-					shakePos = -1000;
+				if (shakePos < -shakeTime * damageTaken) {
+					//shakePos = -1000;
+					hasToShake = false;
 				}
 
 				if (shakePos == 0) {
 					shakePos += dt;
-					app->render->DrawTexture(dojoBackground, (int)shakePos , 0, &dojoAnim.GetCurrentFrame());
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos > 0) {
-					shakePos = shakePos * -1;
-					app->render->DrawTexture(dojoBackground, (int)shakePos, 0, &dojoAnim.GetCurrentFrame());
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos < 0) {
-					shakePos = shakePos * -1;
-					shakePos += dt;
-					app->render->DrawTexture(dojoBackground, (int)shakePos , 0, &dojoAnim.GetCurrentFrame());
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce * damageTaken), 0, &dojoAnim.GetCurrentFrame());
 				}
 				
 			}
@@ -780,7 +802,9 @@ void Battle::SetTurnOrder()
 
 void Battle::Attack(DynamicEntity *target) {
 
-	if (target->stats->deffense  <= actualTurnEntity->stats->attack) {
+	damageTaken = 0;
+
+	if (target->stats->deffense  < actualTurnEntity->stats->attack) {
 		damageTaken = actualTurnEntity->stats->attack - target->stats->deffense;
 		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
 		hasToShake = true;
