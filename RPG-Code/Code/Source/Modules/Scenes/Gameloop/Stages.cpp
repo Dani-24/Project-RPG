@@ -57,29 +57,24 @@ bool Stages::Start()
 bool Stages::PreUpdate()
 {
 	bool ret = true;
-
+	
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
 		break;
-
 	case StageIndex::TOWN:
-
-		break;
-	case StageIndex::DOJO:
-
-		break;
-	case StageIndex::SHOP:
-
-		break;
-	case StageIndex::SHOPSUB:
-
 		break;
 	case StageIndex::TAVERN:
-
+		break;
+	case StageIndex::DOJO:
+		break;
+	case StageIndex::SHOP:
+		break;
+	case StageIndex::SHOPSUB:
+		break;
+	case StageIndex::EPILOG:
 		break;
 	default:
-
 		break;
 	}
 
@@ -107,6 +102,8 @@ bool Stages::Update(float dt)
 		break;
 	case StageIndex::TAVERN:
 
+		break;
+	case StageIndex::EPILOG:
 		break;
 	default:
 
@@ -139,6 +136,48 @@ bool Stages::PostUpdate()
 
 		break;
 	case StageIndex::TAVERN:
+
+		break;
+	case StageIndex::EPILOG:
+		
+		if (app->fade->fading == false) {
+			int epilogX = -app->camera->GetPos().x / app->win->GetScale() + 200;
+			int epilogY = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / app->win->GetScale() - 300;
+
+			switch (epilogFase)
+			{
+			case 0:
+				app->font->DrawTextDelayed("Hola, alma viajera", epilogX + 35, epilogY);
+				break;
+			case 1:
+				app->font->DrawTextDelayed("Canonicamente, un camion te acaba de atropellar", epilogX - 100, epilogY);
+				break;
+			case 2:
+				app->font->DrawTextDelayed("Camion-kun, quien goberna en este mundo", epilogX - 70, epilogY);
+				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY + 25);
+				break;
+			case 3:
+				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
+				break;
+			case 4:
+				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("y asi asumir tu genero con ello", epilogX - 10, epilogY + 25);
+				break;
+			case 5:
+				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY + 25);
+				break;
+			case 6:
+				ChangeStage(StageIndex::TOWN);
+				break;
+			default:
+				break;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				epilogFase++;
+			}
+		}
 
 		break;
 	}
@@ -479,7 +518,7 @@ bool Stages::PostUpdate()
 
 void Stages::ChangeStage(StageIndex newStage) {
 	actualStage = newStage;
-
+	epilogFase = 0;
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
 		app->map->Disable();
@@ -578,6 +617,13 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 		}
+
+		break;
+	case StageIndex::EPILOG:
+
+		LOG("Epilog");
+
+		app->audio->PlayMusic("Assets/audio/music/epilog");
 
 		break;
 	default:

@@ -55,6 +55,10 @@ bool Scene::Start()
 		break;
 	case StageIndex::TOWN:
 		app->map->Load("initial_town_map.tmx");
+
+		// Load music
+		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+
 		break;
 	case StageIndex::DOJO:
 		app->map->Load("initial_town_dojo.tmx");
@@ -68,13 +72,13 @@ bool Scene::Start()
 	case StageIndex::TAVERN:
 		app->map->Load("initial_town_tavern.tmx");
 		break;
+	case StageIndex::EPILOG:
+		app->audio->PlayMusic("Assets/audio/music/music_epilog.ogg");
+		break;
 	}
 
 	// Load textures
 	gui = app->tex->Load("Assets/gui/GUIFinal.png");
-
-	// Load music
-	app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
@@ -160,8 +164,6 @@ bool Scene::PreUpdate()
 {
 	bool ret = true;
 
-	
-
 	if (app->pauseM->exitg) {
 		if (pause == false) {
 			pause = true;
@@ -173,6 +175,7 @@ bool Scene::PreUpdate()
 		app->pauseM->CleanUp();
 	}
 	
+	guiactivate = false;
 
 	return ret;
 }
@@ -187,8 +190,6 @@ bool Scene::Update(float dt)
 
 	fpsdt = dt*3.75;
 	//GUI activation
-
-	guiactivate = false;
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -207,8 +208,6 @@ bool Scene::Update(float dt)
 			godmode = true;
 			
 		}
-
-		
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)

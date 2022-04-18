@@ -249,7 +249,7 @@ bool Player::PreUpdate()
 	//if (app->scene->godmode) stats->SetStats();	
 	
 	// Show GUI if player isn't moving
-	if (toggleGui == true) {
+	if (toggleGui == true && app->stages->actualStage != StageIndex::EPILOG) {
 		if (lastFramePos == position) {
 			showGuiCont++;
 			if (showGuiCont >= 120) {
@@ -283,7 +283,7 @@ bool Player::Update(float dt) {
 			}
 		}
 
-		if (app->fade->fading == false) {
+		if (app->fade->fading == false && app->stages->actualStage != StageIndex::EPILOG) {
 			MovementPlayer(dt);
 		}
 	}

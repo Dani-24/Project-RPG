@@ -20,6 +20,7 @@ enum class StageIndex {
 	DOJO,
 	SHOP,
 	SHOPSUB,
+	EPILOG,
 };
 
 class Stages : public Module
@@ -54,7 +55,7 @@ public:
 private:
 	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx;
 
-
+	int epilogFase = 0;
 public:
 	bool pause;
 

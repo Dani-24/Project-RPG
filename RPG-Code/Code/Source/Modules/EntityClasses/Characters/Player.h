@@ -112,7 +112,7 @@ public:
 	bool toggleGui = true;
 
 public:
-	iPoint townPos = {950, 1000};
+	iPoint townPos = {950, 1730};
 	iPoint shopPos = { 69, 238 };
 	bool shopPosOn = false;
 private:
@@ -139,7 +139,7 @@ private: // DIALOGS
 	"jo jo jo",
 	"Con que tu eres el nuevo",
 	"Venga, demuestrame lo que vales",
-	"Combate contra los enemigos que hay a tu izquierda", 
+	"Combate contra los enemigos que hay a tu derecha", 
 	"y acaba con ellos antes de que ellos acaben contigo",
 	"A tope jefe de equipo"
 	};
