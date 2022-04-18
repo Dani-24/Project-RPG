@@ -14,6 +14,8 @@ struct SDL_Texture;
 
 class Entity;
 
+enum class StageIndex;
+
 enum class EntityType
 {
 	STATIC,
@@ -75,6 +77,8 @@ public:
 	SString entityName;
 
 	int npcID;
+
+	StageIndex activeOnStage;
 };
 
 #endif // !__ENTITY_H__
