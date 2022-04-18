@@ -277,8 +277,29 @@ bool Stages::PostUpdate()
 
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
+					NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
-						NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
+						/*NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;*/
+						if (app->battle->actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+							switch (app->battle->battlePhase) {
+							case BattlePhase::THINKING:
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
+								break;
+							case BattlePhase::ATTACKING:
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
+
+								break;
+							case BattlePhase::DEFENDING:
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
+								break;
+							case BattlePhase::LOSE:
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
+								break;
+							default:
+								break;
+
+							}
+						}
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						if (NormalEnemyInList->data->normalEnemyType==NormalEnemyType::BAT) {
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3);

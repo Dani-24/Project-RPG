@@ -222,14 +222,14 @@ bool PauseMenu::Update(float dt)
 		if (pauseGame){
 			pauseGame = false;
 			resumen = false;
-			app->scene->player->canMove = true;
+			app->scene->player->canMove = true; app->scene->player->toggleGui = true;
 			app->camera->SetTarget(app->scene->player);
 			app->camera->SetLimits(640, 350, 4490, 4200);
 			CleanUp();
 		}
 		else
 		{
-			pauseGame = true, app->scene->player->canMove = false;
+			pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
 			party->state = GuiControlState::NORMAL;
 			invent->state = GuiControlState::NORMAL;
 			town->state = GuiControlState::NORMAL;
@@ -240,7 +240,6 @@ bool PauseMenu::Update(float dt)
 			exit->state = GuiControlState::NORMAL;
 			party->state= GuiControlState::NORMAL;
 
-			
 		}
 		
 	}

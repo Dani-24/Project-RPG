@@ -277,7 +277,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim.PushBack({ 300 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 150 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 0 , 1012 , 150 , 101 });
-		attackAnim.loop = true;
+		//attackAnim.loop = true;
 		attackAnim.speed = 0.01f;
 
 		attackAnim2.PushBack({ 1050 , 1113 , 150 , 101 });

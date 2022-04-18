@@ -107,12 +107,17 @@ public:
 	iPoint mapPosition;
 	iPoint battlePosition;
 
+	bool toggleGui = true;
+
 public:
 	iPoint townPos = {950, 1000};
 	iPoint shopPos = { 69, 238 };
 	bool shopPosOn = false;
 private:
 	int townPosYAxisfix = 5;
+
+	iPoint lastFramePos;
+	int showGuiCont;
 
 private: // DIALOGS
 

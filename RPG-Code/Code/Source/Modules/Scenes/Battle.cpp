@@ -323,6 +323,7 @@ bool Battle::Update(float dt)
 				if (cont < attackTime) {
 					cont += dt;
 				}
+				
 				//ATTACK
 				else {
 					cont = 0;

@@ -237,9 +237,21 @@ bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
 	//LOG("position x %d y %d", position.x, position.y);
-	//if (app->scene->godmode) stats->SetStats();
+	//if (app->scene->godmode) stats->SetStats();	
+	// Show GUI if player isn't moving
+	if (toggleGui == true) {
+		if (lastFramePos == position) {
+			showGuiCont++;
+			if (showGuiCont >= 120) {
+				app->scene->guiactivate = true;
+			}
+		}
+		else {
+			showGuiCont = 0;
+		}
 
-
+		lastFramePos = position;
+	}
 	return true;
 }
 
