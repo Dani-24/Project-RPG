@@ -148,7 +148,8 @@ bool Party::Start()
 
 	switch (partyType) {
 	case PartyType::VALION:
-		stats = new Stats(1, 15, 10, 3, 10, 16);
+		/*stats = new Stats(1, 15, 10, 3, 10, 16);*/
+		stats = new Stats(1, 15, 10, 3, 10, 32);
 		spriteText = app->tex->Load(ValionChar);
 		break;
 	}

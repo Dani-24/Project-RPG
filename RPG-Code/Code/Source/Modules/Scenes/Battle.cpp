@@ -494,34 +494,12 @@ bool Battle::Update(float dt)
 				changeSide = 0;
 			}
 			else {
-				/*LOG("%i", shakePos);
-				if (shakePos <= -1000) {
-					hasToShake = false;
-				}
-				else {
-					if (shakePos == 0) {
-						shakePos += dt;
-						app->render->DrawTexture(dojoBackground, (int)shakePos/100, 0, &dojoAnim.GetCurrentFrame());
-					}
-					else if (shakePos > 0) {
-						shakePos = shakePos * -1;
-						app->render->DrawTexture(dojoBackground, (int)shakePos / 100, 0, &dojoAnim.GetCurrentFrame());
-					}
-					else if (shakePos < 0) {
-						shakePos = shakePos * -1;
-						shakePos += dt;
-						app->render->DrawTexture(dojoBackground, (int)shakePos / 100, 0, &dojoAnim.GetCurrentFrame());
-					}
-				}
-				*/
 
 				if (shakePos > shakeTime * damageTaken) {
-					//shakePos = 1000;
 					hasToShake = false;
 				}
 
 				if (shakePos < -shakeTime * damageTaken) {
-					//shakePos = -1000;
 					hasToShake = false;
 				}
 
@@ -597,8 +575,11 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
 	}
 
-	//sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
-	//app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 70);
+	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
+		sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 70);
+	}
+
 	
 	
 	//Print battle messages
@@ -752,51 +733,112 @@ void Battle::SetTurnOrder()
 
 	//TURN ORDER: TURN VALUE
 	//Set the minor turn value from all entities in battle
-	turnValue =0.0f;
-	for (int i = 0; i < 8; i++) {
-		if (entitiesInBattle[i] != nullptr) {
-			if (entitiesInBattle[i]->isAlive == true) {
-				if (turnValue == 0) {
-					turnValue = entitiesInBattle[i]->stats->TurnValue();
+
+	if (hasStarted == false) {
+		for (int h = 0; h < 5; h++) {
+			turnValue = 0.0f;
+			for (int i = 0; i < 8; i++) {
+				if (entitiesInBattle[i] != nullptr) {
+					if (entitiesInBattle[i]->isAlive == true) {
+						if (turnValue == 0) {
+							turnValue = entitiesInBattle[i]->stats->TurnValue();
+						}
+						else if (entitiesInBattle[i]->stats->TurnValue() < turnValue)
+						{
+							turnValue = entitiesInBattle[i]->stats->TurnValue();
+						}
+					}
 				}
-				else if (entitiesInBattle[i]->stats->TurnValue() < turnValue)
-				{
-					turnValue = entitiesInBattle[i]->stats->TurnValue();
+
+			}
+
+			//Compare if more than one entities have the same turn value
+			DynamicEntity* equalTurnValue[8];
+
+			int equalValues = 0;
+			for (int j = 0; j < 8; j++) {
+				if (entitiesInBattle[j] != nullptr) {
+					if (entitiesInBattle[j]->isAlive == true) {
+						if (entitiesInBattle[j]->stats->TurnValue() == turnValue) {
+							equalTurnValue[equalValues] = entitiesInBattle[j];
+							equalValues++;
+						}
+					}
 				}
 			}
-		}
-		
-	}
 
-	//Compare if more than one entities have the same turn value
-	DynamicEntity* equalTurnValue[8];
+			//Choose a random one and set turn
+			if (equalValues > 1) {
+				srand(time(NULL));
+				int chosenValue = (rand() % equalValues);
 
-	int equalValues = 0;
-	for (int j = 0; j < 8; j++) {
-		if (entitiesInBattle[j] != nullptr) {
-			if (entitiesInBattle[j]->isAlive == true) {
-				if (entitiesInBattle[j]->stats->TurnValue() == turnValue) {
-					equalTurnValue[equalValues] = entitiesInBattle[j];
-					equalValues++;
-				}
+				turnsTimeLine[h] = equalTurnValue[chosenValue];
+				equalTurnValue[chosenValue]->stats->localTurn++;
 			}
+			else {
+				turnsTimeLine[h] = equalTurnValue[0];
+				equalTurnValue[0]->stats->localTurn++;
+			}
+
 		}
-	}
 
-	//Choose a random one and set turn
-	if (equalValues > 1) {
-		srand(time(NULL));
-		int chosenValue = (rand() % equalValues);
+		actualTurnEntity = turnsTimeLine[0];
 
-		actualTurnEntity = equalTurnValue[chosenValue];
-		equalTurnValue[chosenValue]->stats->localTurn++;
+		hasStarted = true;
 	}
 	else {
-		actualTurnEntity = equalTurnValue[0];
-		equalTurnValue[0]->stats->localTurn++;
-	}
+		turnValue = 0.0f;
+		for (int i = 0; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				if (entitiesInBattle[i]->isAlive == true) {
+					if (turnValue == 0) {
+						turnValue = entitiesInBattle[i]->stats->TurnValue();
+					}
+					else if (entitiesInBattle[i]->stats->TurnValue() < turnValue)
+					{
+						turnValue = entitiesInBattle[i]->stats->TurnValue();
+					}
+				}
+			}
 
+		}
+
+		//Compare if more than one entities have the same turn value
+		DynamicEntity* equalTurnValue[8];
+
+		int equalValues = 0;
+		for (int j = 0; j < 8; j++) {
+			if (entitiesInBattle[j] != nullptr) {
+				if (entitiesInBattle[j]->isAlive == true) {
+					if (entitiesInBattle[j]->stats->TurnValue() == turnValue) {
+						equalTurnValue[equalValues] = entitiesInBattle[j];
+						equalValues++;
+					}
+				}
+			}
+		}
+
+		//Choose a random one and set turn
+		if (equalValues > 1) {
+			srand(time(NULL));
+			int chosenValue = (rand() % equalValues);
+
+			actualTurnEntity = equalTurnValue[chosenValue];
+			equalTurnValue[chosenValue]->stats->localTurn++;
+		}
+		else {
+			actualTurnEntity = equalTurnValue[0];
+			equalTurnValue[0]->stats->localTurn++;
+		}
+
+		for (int u = 0; u < 4; u++) {
+			turnsTimeLine[u] = turnsTimeLine[u+1];
+		}
+		turnsTimeLine[4] = actualTurnEntity;
+
+	}
 	
+
 
 }
 
