@@ -75,12 +75,12 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackM.loop = true;
 	attackM.speed = 0.006f;
 
-	dashM.PushBack({ 0 , 581 , 140 , 83 });
-	dashM.PushBack({ 140 , 581 , 140 , 83 });
-	dashM.PushBack({ 280 , 581 , 140 , 83 });
-	dashM.PushBack({ 420 , 581 , 140 , 83 });
-	dashM.loop = true;
-	dashM.speed = 0.006f;
+	protectM.PushBack({ 0 , 581 , 140 , 83 });
+	protectM.PushBack({ 140 , 581 , 140 , 83 });
+	protectM.PushBack({ 280 , 581 , 140 , 83 });
+	protectM.PushBack({ 420 , 581 , 140 , 83 });
+	protectM.loop = true;
+	protectM.speed = 0.006f;
 
 	hitM.PushBack({ 0 , 249 , 140 , 83 });
 	hitM.PushBack({ 140 , 249 , 140 , 83 });
@@ -154,6 +154,9 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackChainF.loop = true;
 	attackChainF.speed = 0.006f;
 
+	protectF.PushBack({ 540 , 228 , 180 , 114 });
+	protectF.loop = true;
+
 	hitF.PushBack({ 0 , 798 , 180 , 114 });
 	hitF.PushBack({ 180 , 798 , 180 , 114 });
 	hitF.PushBack({ 360 , 798 , 180 , 114 });
@@ -190,6 +193,8 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	isAlive = true;
 
+	interactionButtonJustSpace.PushBack({ 83, 41, 36, 16 });
+	interactionButtonJustSpace.loop = false;
 }
 
 // Destructor
@@ -206,6 +211,8 @@ bool Player::Awake(pugi::xml_node& config)
 	FemaleChar = config.child("female").attribute("path").as_string();
 	electionfxChar = config.child("election").attribute("path").as_string();
 	WalkfxChar = config.child("walkFx").attribute("path").as_string();
+	interactionButtonChar = config.child("interactionButton").attribute("path").as_string();
+
 	return ret;
 }
 
@@ -221,6 +228,7 @@ bool Player::Start()
 	PlayerFTex = app->tex->Load(FemaleChar);
 	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
 	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");
+	interactionButton = app->tex->Load(interactionButtonChar);
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
@@ -289,6 +297,11 @@ bool Player::Update(float dt) {
 bool Player::PostUpdate()
 {
 	bool ret = true;
+
+	if (printInteractionButt == true) {
+		app->render->DrawTexture(interactionButton, position.x - 5, position.y - 20, &interactionButtonJustSpace.GetCurrentFrame());
+	}
+	printInteractionButt = false;
 
 	return true;
 }
@@ -605,6 +618,8 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 	}
 
 	if (col1 == baseCollider && col2->type == Collider::INTERACT) {
+
+		printInteractionButt = true;
 
 		// NPC COLLISIONS (Press Space)
 

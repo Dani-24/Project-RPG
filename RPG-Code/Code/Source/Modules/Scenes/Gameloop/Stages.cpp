@@ -44,6 +44,11 @@ bool Stages::Awake(pugi::xml_node& config)
 
 bool Stages::Start()
 {
+	//sfx
+	hitfx1 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit.wav");
+	hitfx2 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_2.wav");
+	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
+	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
 
 	return true;
 }
@@ -286,10 +291,11 @@ bool Stages::PostUpdate()
 								break;
 							case BattlePhase::ATTACKING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
-
+								/*app->audio->PlayFx(hitfx1);*/
 								break;
 							case BattlePhase::DEFENDING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
+								/*app->audio->PlayFx(shieldfx);*/
 								break;
 							case BattlePhase::LOSE:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
@@ -322,17 +328,59 @@ bool Stages::PostUpdate()
 						{
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
+								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								if (app->battle->actualTurnEntity->name == "Player") {
+									switch (app->battle->battlePhase) {
+									case BattlePhase::THINKING:
+										playerPtr->currentAnimation = &playerPtr->idleBattleM;
+										break;
+									case BattlePhase::ATTACKING:
+										playerPtr->currentAnimation = &playerPtr->attackM;
+										/*app->audio->PlayFx(hitfx2);*/
+										break;
+									case BattlePhase::DEFENDING:
+										playerPtr->currentAnimation = &playerPtr->protectM;
+										/*app->audio->PlayFx(shieldfx);*/
+										break;
+									case BattlePhase::LOSE:
+										playerPtr->currentAnimation = &playerPtr->dieM;
+										break;
+									default:
+										break;
+
+									}
+								}
 							}
 							if (playerPtr->PlayerErection == false) {
+								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								if (app->battle->actualTurnEntity->name == "Player") {
+									switch (app->battle->battlePhase) {
+									case BattlePhase::THINKING:
+										playerPtr->currentAnimation = &playerPtr->idleBattleF;
+										break;
+									case BattlePhase::ATTACKING:
+										playerPtr->currentAnimation = &playerPtr->attackF;
+										/*app->audio->PlayFx(hitfx2);*/
+										break;
+									case BattlePhase::DEFENDING:
+										playerPtr->currentAnimation = &playerPtr->protectF;
+										break;
+									case BattlePhase::LOSE:
+										playerPtr->currentAnimation = &playerPtr->dieF;
+										break;
+									default:
+										break;
+
+									}
+								}
 							}
 						}
 						else {
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
-
 						}
 					}
 				}

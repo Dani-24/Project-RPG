@@ -28,9 +28,18 @@ public:
 
 	int level;
 	int attack;
-	int deffense;
+	int deffense ;
 	int speed;
 	int mana;
+
+	int Shealth;
+	int SmaxHealth;
+
+	int Slevel;
+	int Sattack;
+	int Sdeffense;
+	int Sspeed;
+	int Smana;
 
 	int localTurn;
 	bool defenseBuffed;
@@ -83,6 +92,30 @@ public:
 		this->defenseBuffed = false;
 
 	}
+	void SaveStats()
+	{
+		this->Slevel = level;
+
+		this->SmaxHealth = maxHealth;
+		this->Shealth = maxHealth;
+
+		this->Sattack = attack;
+		this->Sdeffense = deffense;
+		this->Sspeed = speed;
+		this->Smana = mana;
+	}
+	void LoadStats()
+	{
+		this->level = Slevel;
+
+		this->maxHealth = SmaxHealth;
+		this->health = SmaxHealth;
+
+		this->attack = Sattack;
+		this->deffense = Sdeffense;
+		this->speed = Sspeed;
+		this->mana = Smana;
+	}
 };
 
 class DynamicEntity : public Entity
@@ -98,6 +131,11 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 
+	virtual void SaveStats()
+	{
+
+	}
+
 	// Returns the enemy's collider
 	const Collider* GetCollider() const override;
 	//virtual void OnCollision(Collider* collider);
@@ -107,13 +145,13 @@ public:
 
 public:
 
-	Stats* stats;
+	Stats* stats, savestats;
 
 	DynamicType dynamicType;
 
 	Collider* baseCollider;
 
-	Animation idleAnim, idleAnimL, walkAnim, walkAnimL, battleAnim, hitAnim, dieAnim, attackAnim, attackAnim2, attackAnim3, protectAnim;
+	Animation idleAnim, idleAnimL, walkAnim, walkAnimL, battleAnim, hitAnim, dieAnim, attackAnim, attackAnim2, attackAnim3, protectAnim, jumpAnim, fallAnim;
 
 	bool isAlive;
 

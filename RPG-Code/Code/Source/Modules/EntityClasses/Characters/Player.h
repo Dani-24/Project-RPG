@@ -60,13 +60,14 @@ public:
 		idleAnimDown, 
 		idleBattleM,
 		attackM,
-		dashM,
+		protectM,
 		hitM,
 		dieM,
 		idleBattleF,
 		attackF,
 		attackF2,
 		attackChainF,
+		protectF,
 		hitF,
 		dieF;
 
@@ -91,6 +92,7 @@ public:
 	const char* FemaleChar;
 	const char* electionfxChar;
 	const char* WalkfxChar;
+	const char* interactionButtonChar;
 	
 	bool canMove;
 
@@ -119,40 +121,58 @@ private:
 	iPoint lastFramePos;
 	int showGuiCont;
 
+	SDL_Texture* interactionButton;
+	Animation interactionButtonJustSpace;
+	bool printInteractionButt = false;
+
 private: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 
 	"Hola buenas, bienvenido a la taverna",
-	"? Desearia tomar algo ?",
-	"me quieroo morirrr", 
-	"bueno parece que ya funka" 
+	"Desearia tomar algo ?",
+	". . .", 
+	". . . . . .",
+	"Me tomare tu silencio como un no" 
 	};
 
 	const char* trainerDialog[DIALOG_LENGHT] = { 
-	"Buenooo miii gentee vamoss ha empezar",
-	"animo a todess antes de nada",
-	"hoy empezaremos haciendo 20 flexiones",
-	"quiero q primero mireis como las hago", 
-	"ahora os tocara a vosotres",
-	"vamos chiquess que vosotres podeiss!!"
+	"jo jo jo",
+	"Con que tu eres el nuevo",
+	"Venga, demuestrame lo que vales",
+	"Combate contra los enemigos que hay a tu izquierda", 
+	"y acaba con ellos antes de que ellos acaben contigo",
+	"A tope jefe de equipo"
 	};
 
 	const char* merchantDialog[DIALOG_LENGHT] = { 
-	"HOOOLA, soy Vince con Slap Chop, y esto te va A",
-	"FASCINAAAAAAAR",
-	"Mira mi huevo!",
-	"Un golpe, blandes, papas fritas",
-	"Tu gerard, yo gerard? NO mas gerard",
-	"Perechini, martini, bambini, lenguini, bikini",
-	"COmpra Slap Chop por 5.95€",
-	"PARA ORENAR!"
+	"HOOOLA!, soy Vincenç",
+	"Ahora mismo no disponemos de mercancia",
+	"Ya sabes, la huelga de camioneros...",
+	"Puedes darte una vuelta igualmente si quieres",
+	"Aunque todo lo que hay es exclusivo de muestra",
+	"Esperamos reponer pronto"
 	};
 
 	const char* cockDialog[DIALOG_LENGHT] = { 
-	"kiki koko,  coro koko koko ro",
 	"kokoroco?",
-	"Q te saco la navaja y te rajo tt",
-	"digo, kiri kikii!" 
+	"Si quieres una chikita guia yo me encargo",
+	"Esta casita roja de aqui es la tienda",
+	"Venden de todo, o eso se supone",
+	"A la derecha sobre el canal se encuentra la taverna",
+	"bastante popular entre los novatos como tu",
+	"O son consumidos por la maldad de la torre . . .",
+	"O bien son consumidos por el alcohol.",
+	"koko ro ko",
+	"Por ultimo, subiendo esta calle . . .",
+	"justo a la derecha de la taverna esta el dojo",
+	"Pon a prueba tus habilidades contra algun enemigo",
+	"Y evita morir en el proceso, seria un buen detalle",
+	"ko ko",
+	"Ah, al norte encontraras la torre de Camion-kun",
+	"Aunque la hemos cerrado ya que nadie quiere ir",
+	"y Emilio se ha puesto a pintarla por fuera",
+	"co ro ko",
+	"Ahora me debes un cacho pan a cambio de esta info."
 	};
 
 	const char* emilioDialog[DIALOG_LENGHT] = {

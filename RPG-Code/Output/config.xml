@@ -37,6 +37,7 @@
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
 		<election path="Assets/audio/sfx/fx_character_yes.wav"/>
 		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
+		<interactionButton path="Assets/gui/controllers/ui_mixed.png"/>
 	   <exampleNumber num="6"/>
 	</player>
 	
@@ -80,7 +81,11 @@
 	<emilio>
 		<korb path="Assets/sprites/npc/tower/npc_emilio.png"/>
 	</emilio>
-	
+
+	<giroide>
+		<g path="Assets/sprites/npc/extra/npc_giroide.png"/>
+	</giroide>
+
 	<pathfinder>
 		<pathtex path="Assets/textures/path.png"/>
 		<pathorigin path="Assets/textures/pathOrigin.png"/>

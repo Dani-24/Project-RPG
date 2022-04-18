@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Window.h"
 #include "Scene.h"
+#include "Player.h"
 
 DialogSystem::DialogSystem(App* application, bool start_enabled) : Module(application, start_enabled) {
 	name.Create("dialogSystem");
@@ -34,7 +35,7 @@ bool DialogSystem::PreUpdate() {
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			wait = false;
 		}
-
+		app->scene->player->toggleGui = false;
 	}
 
 	return true;
@@ -58,25 +59,25 @@ bool DialogSystem::PostUpdate() {
 					switch (npcType)
 					{
 					case NPCType::COCK:
-						app->font->DrawTextDelayed("Gallino :", x + 150, y + 5);
+						app->font->DrawTextDelayed("Kukock :", x + 150, y + 5, {0,0,0});
 						break;
 					case NPCType::BARKEEPER:
-						app->font->DrawTextDelayed("Dani queriendo morir :", x + 150, y + 5);
+						app->font->DrawTextDelayed("Pepa :", x + 150, y + 5, {92, 0, 117});
 						break;
 					case NPCType::MERCHANT:
-						app->font->DrawTextDelayed("Vince Offer :", x + 150, y + 5);
+						app->font->DrawTextDelayed("Vincenç :", x + 150, y + 5, { 255, 255, 92 });
 						break;
 					case NPCType::TRAINER:
-						app->font->DrawTextDelayed("Entrenadora de instagram :", x + 150, y + 5);
+						app->font->DrawTextDelayed("Luca :", x + 150, y + 5, { 18, 117, 0 });
 						break;
 					case NPCType::EMILIO:
-						app->font->DrawTextDelayed("Emilio :", x + 150, y + 5);
+						app->font->DrawTextDelayed("Emilio :", x + 150, y + 5, { 247, 92, 255 });
 						break;
 					default:
 						break;
 					}
 
-					app->font->DrawTextDelayed(t->data, x + 150, y + 30);
+					app->font->DrawTextDelayed(t->data, x + 120, y + 30);
 
 					app->render->DrawTexture(currentChara, x, y);
 
@@ -92,6 +93,7 @@ bool DialogSystem::PostUpdate() {
 		if (n == dialogList.count()) {
 			dialoging = false;
 			dialogList.clear();
+			app->scene->player->toggleGui = true;
 		}
 	}
 

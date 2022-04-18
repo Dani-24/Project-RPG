@@ -22,6 +22,7 @@
 
 #include "Party.h"
 
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -80,7 +81,7 @@ bool Scene::Start()
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	// Player Entity
-	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1000);
+	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
 
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
@@ -89,11 +90,13 @@ bool Scene::Start()
 	//Party members
 	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
 	partyList.add(valion);
+	
+	valionchar = valion;
 
 	app->stages->partyListPtr = &partyList;
 
 	// NPCs
-	iPoint cockPos = { 1240, 950 };
+	iPoint cockPos = { 900, 1400 };
 	iPoint barkeeperPos = { 450, 300 };
 	iPoint trainerPos = { 290, 160 };
 	iPoint merchantPos = { 255, 150 };
@@ -122,7 +125,7 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 950, 500 };
+	iPoint eyePos = { 1000, 500 };
 	iPoint batPos = { 800, 950 };
 	iPoint skeletonPos = { 650, 850 };
 
@@ -157,6 +160,8 @@ bool Scene::PreUpdate()
 {
 	bool ret = true;
 
+	
+
 	if (app->pauseM->exitg) {
 		if (pause == false) {
 			pause = true;
@@ -167,32 +172,50 @@ bool Scene::PreUpdate()
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 		app->pauseM->CleanUp();
 	}
-
-	//GUI activation
-
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT)
-	{
-		if (godmode)godmode = false;
-		else godmode = true;
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
-	{
-		guiactivate = true;
-	}
-	else {
-		guiactivate = false;
-	}
+	
 
 	return ret;
 }
 
 bool Scene::Update(float dt)
 {
+
+	
+
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+	//GUI activation
+
+	guiactivate = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (godmode)
+		{
+			godmode = false;
+			valionchar->stats->LoadStats();
+			player->stats->LoadStats();
+		}
+		else
+		{
+			valionchar->stats->SaveStats();
+			player->stats->SaveStats();
+			valionchar->stats->SetStats(9999, 9999, 9999, 9999, 9999);
+			player->stats->SetStats(9999, 9999, 9999, 9999, 9999);
+			godmode = true;
+		}
+
+		
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+	{
+		guiactivate = true;
+	}
+
 
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
