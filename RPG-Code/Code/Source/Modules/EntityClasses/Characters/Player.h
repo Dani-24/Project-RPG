@@ -60,13 +60,14 @@ public:
 		idleAnimDown, 
 		idleBattleM,
 		attackM,
-		dashM,
+		protectM,
 		hitM,
 		dieM,
 		idleBattleF,
 		attackF,
 		attackF2,
 		attackChainF,
+		protectF,
 		hitF,
 		dieF;
 
