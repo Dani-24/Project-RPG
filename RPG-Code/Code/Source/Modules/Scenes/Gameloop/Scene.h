@@ -61,7 +61,7 @@ public:
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
 	List<Character*> partyList;
-
+	Character* valionchar;
 	int backFx, loadFx, saveFx;
 
 	SDL_Texture* gui;

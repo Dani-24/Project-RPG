@@ -152,12 +152,14 @@ bool Party::Start()
 		spriteText = app->tex->Load(ValionChar);
 		break;
 	}
-
+	
 	return ret;
 }
 
 bool Party::PreUpdate()
 {
+	// DEBUG PLAYER POSITION
+	LOG("position x %d y %d", position.x, position.y);
 
 	return true;
 }
