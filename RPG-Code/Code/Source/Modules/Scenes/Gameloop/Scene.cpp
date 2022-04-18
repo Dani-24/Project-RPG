@@ -291,9 +291,9 @@ bool Scene::PostUpdate()
 	}
 	if (app->collisions->debug)
 	{
-		app->font->DrawText(fpsChar, xt - 400, yt - 100);
+		app->font->DrawText(fpsChar, xt - 630, yt - 250);
 		
-		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 400, yt - 80): app->font->DrawText("Vsync: Off", xt - 400, yt - 80);
+		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275): app->font->DrawText("Vsync: Off", xt - 630, yt - 275);
 		
 	}
 
