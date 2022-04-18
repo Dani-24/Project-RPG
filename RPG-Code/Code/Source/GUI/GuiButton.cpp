@@ -69,6 +69,10 @@ bool GuiButton::Draw(Render* render)
 		case GuiControlState::FOCUSED:
 		{
 			render->DrawRectangle(bounds, 255, 255, 255, 100);
+
+			render->DrawRectangle({bounds.x-100,bounds.y,bounds.w,bounds.h}, 255, 255, 255, 100);
+			//render->DrawTexture();
+
 		} break;
 		case GuiControlState::PRESSED:
 		{
