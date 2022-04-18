@@ -37,7 +37,7 @@ bool Configuration::Start()
 {
 	
 	// Load music
-	app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
+	//app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	background = app->tex->Load("Assets/gui/marco_opciones.png");

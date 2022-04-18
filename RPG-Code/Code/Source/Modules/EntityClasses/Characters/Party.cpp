@@ -158,8 +158,6 @@ bool Party::Start()
 
 bool Party::PreUpdate()
 {
-	// DEBUG PLAYER POSITION
-	LOG("position x %d y %d", position.x, position.y);
 
 	return true;
 }

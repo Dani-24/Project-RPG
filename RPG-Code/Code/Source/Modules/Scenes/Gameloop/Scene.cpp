@@ -22,7 +22,6 @@
 
 #include "Party.h"
 
-
 #include "Defs.h"
 #include "Log.h"
 
@@ -169,21 +168,7 @@ bool Scene::PreUpdate()
 		app->pauseM->CleanUp();
 	}
 
-	return ret;
-}
-
-bool Scene::Update(float dt)
-{
-
-
-	int xt, yt;
-	//variables for textures
-	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-
 	//GUI activation
-
-	guiactivate = false;
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT)
 	{
@@ -195,7 +180,19 @@ bool Scene::Update(float dt)
 	{
 		guiactivate = true;
 	}
+	else {
+		guiactivate = false;
+	}
 
+	return ret;
+}
+
+bool Scene::Update(float dt)
+{
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
