@@ -287,7 +287,7 @@ bool Scene::PostUpdate()
 
 	if (guiactivate == true)
 	{
-		app->render->DrawTexture(gui, xt - 606, yt - 360);
+		app->render->DrawTexture(gui, xt - 623, yt - 360);
 	}
 	if (app->collisions->debug)
 	{
