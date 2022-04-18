@@ -373,7 +373,8 @@ bool NormalEnemy::Start()
 
 		spriteText = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
 
-		stats = new Stats(1, 15, 6, 5, 1, 10);
+		/*stats = new Stats(1, 15, 6, 5, 1, 10);*/
+		stats = new Stats(1, 15, 6, 5, 1, 18);
 
 		break;
 	default:
