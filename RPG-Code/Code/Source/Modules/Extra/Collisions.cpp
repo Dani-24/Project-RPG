@@ -11,6 +11,8 @@
 
 #include "SDL/include/SDL_Scancode.h"
 
+#include "NPC.h"
+
 Collisions::Collisions(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("collisions");
@@ -146,7 +148,19 @@ void Collisions::DebugDraw()
 				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
 				break;
 			case Collider::Type::INTERACT: // red
-				app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+
+				// Only print interaction colliders if they are activated
+				if (app->stages->npcListPtr != nullptr) {
+
+					for (ListItem<NPC*>* npcInList = app->stages->npcListPtr->start; npcInList != NULL; npcInList = npcInList->next)
+					{
+						if (npcInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr) {
+							if(colliders[i] == npcInList->data->GetCollider())
+							app->render->DrawRectangle(colliders[i]->rect, 255, 0, 0, alpha);
+						}
+					}
+				}
+
 				break;
 
 			case Collider::Type::BATTLE: // light yellow

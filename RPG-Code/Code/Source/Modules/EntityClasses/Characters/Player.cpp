@@ -619,35 +619,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 	if (col1 == baseCollider && col2->type == Collider::INTERACT) {
 
-		printInteractionButt = true;
-
 		// NPC COLLISIONS (Press Space)
 
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			if (app->dialogs->dialoging == false) {
-				ListItem<Entity*>* entityInList;
-
-				for (entityInList = app->entities->entityList.start; entityInList != NULL; entityInList = entityInList->next)
-				{
+		if (app->dialogs->dialoging == false) {
+	
+			for (ListItem<Entity*>* entityInList = app->entities->entityList.start; entityInList != NULL; entityInList = entityInList->next)
+			{
+				if (entityInList->data->activeOnStage == app->stages->actualStage) {
+					
 					if (entityInList->data->GetCollider() != nullptr) {
 						if (entityInList->data->GetCollider() == col2) {
-
 							switch (entityInList->data->npcID)
 							{
 							case 1:
-								app->dialogs->CreateDialog(NPCType::COCK, cockDialog);
+								Interact(NPCType::COCK);
 								break;
 							case 2:
-								app->dialogs->CreateDialog(NPCType::MERCHANT, merchantDialog);
+								Interact(NPCType::MERCHANT);
 								break;
 							case 3:
-								app->dialogs->CreateDialog(NPCType::BARKEEPER, barkeeperDialog);
+								Interact(NPCType::BARKEEPER);
 								break;
 							case 4:
-								app->dialogs->CreateDialog(NPCType::TRAINER, trainerDialog);
+								Interact(NPCType::TRAINER);
 								break;
-							case 5:
-								app->dialogs->CreateDialog(NPCType::EMILIO, emilioDialog);
+							case 5:										
+								Interact(NPCType::EMILIO);
 								break;
 							default:
 								break;
@@ -658,4 +655,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 			}
 		}
 	}
+}
+
+void Player::Interact(NPCType npc) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		app->dialogs->CreateDialog(npc, emilioDialog);
+	}
+	printInteractionButt = true;
 }

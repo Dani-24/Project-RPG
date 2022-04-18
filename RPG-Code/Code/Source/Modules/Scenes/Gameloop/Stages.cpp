@@ -154,20 +154,37 @@ bool Stages::PostUpdate()
 				break;
 			case 2:
 				app->font->DrawTextDelayed("Camion-kun, quien goberna en este mundo", epilogX - 70, epilogY);
-				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY + 25);
 				break;
 			case 3:
-				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
+				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
-				app->font->DrawTextDelayed("y asi asumir tu genero con ello", epilogX - 10, epilogY + 25);
+				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
 				break;
 			case 5:
-				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
-				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY + 25);
+				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
 				break;
 			case 6:
+				app->font->DrawTextDelayed("y asumir tu genero con ello", epilogX, epilogY);
+				break;
+			case 7:
+				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
+				break;
+			case 8:
+				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY);
+				break;
+			case 9:
+				if (playerPtr->PlayerErection == true) {
+					app->font->DrawTextDelayed("Con que eres un chico (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+				}
+				else {
+					app->font->DrawTextDelayed("Con que eres una chica (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+				}
+				break;
+			case 10:
+				app->font->DrawTextDelayed("Una gran aventura te aguarda joven", epilogX - 50, epilogY);
+				break;
+			case 11:
 				ChangeStage(StageIndex::TOWN);
 				break;
 			default:
