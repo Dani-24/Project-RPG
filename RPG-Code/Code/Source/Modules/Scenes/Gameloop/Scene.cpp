@@ -123,7 +123,7 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 1000, 500 };
+	iPoint eyePos = { 950, 500 };
 	iPoint batPos = { 800, 950 };
 	iPoint skeletonPos = { 650, 850 };
 

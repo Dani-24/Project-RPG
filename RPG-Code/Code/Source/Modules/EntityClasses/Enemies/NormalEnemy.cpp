@@ -15,72 +15,122 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	switch (normalEnemyType) {
 	case NormalEnemyType::FLYING_EYE:
 
-		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 0 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 5 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
-		idleAnim.PushBack({ 44 , 3 , 44 , 32 });
+		idleAnim.PushBack({ 0 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 150 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 300 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 450 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 600 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 750 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 900 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 1050 , 0 , 150 , 101 });
 		idleAnim.loop = true;
-		idleAnim.speed = 0.006f;
+		idleAnim.speed = 0.01f;
 
-		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 102 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 107 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
-		idleAnimL.PushBack({ 242 , 105 , 44 , 32 });
-		idleAnimL.loop = true;
-		idleAnimL.speed = 0.006f;
+		walkAnim.PushBack({ 0 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 150 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 300 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 450 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 600 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 750 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 900 , 0 , 150 , 101 });
+		walkAnim.PushBack({ 1050 , 0 , 150 , 101 });
+		walkAnim.loop = true;
+		walkAnim.speed = 0.01f;
 
-		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 102 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 107 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
-		battleAnim.PushBack({ 286 , 105 , 44 , 32 });
+		idleAnimL.PushBack({ 1050 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 900 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 750 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 600 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 450 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 300 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 150 , 566 , 150 , 101 });
+		idleAnimL.PushBack({ 0 , 566 , 150 , 101 });
+		idleAnim.loop = true;
+		idleAnim.speed = 0.01f;
+
+		walkAnimL.PushBack({ 1050 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 900 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 750 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 600 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 450 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 300 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 150 , 566 , 150 , 101 });
+		walkAnimL.PushBack({ 0 , 566 , 150 , 101 });
+		walkAnimL.loop = true;
+		walkAnimL.speed = 0.01f;
+
+		battleAnim.PushBack({ 1050 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 900 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 750 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 600 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 450 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 300 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 150 , 566 , 150 , 101 });
+		battleAnim.PushBack({ 0 , 566 , 150 , 101 });
 		battleAnim.loop = true;
-		battleAnim.speed = 0.006f;
+		battleAnim.speed = 0.01f;
 
-		attackAnim.PushBack({ 286 , 102 , 44 , 32 });
-		attackAnim.PushBack({ 242 , 102 , 44 , 32 });
-		attackAnim.PushBack({ 198 , 102 , 44 , 32 });
-		attackAnim.PushBack({ 154 , 102 , 44 , 32 });
-		attackAnim.PushBack({ 110 , 102 , 44 , 32 });
-		attackAnim.PushBack({ 66 , 102 , 44 , 32 });
+		attackAnim.PushBack({ 1050 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 900 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 750 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 600 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 450 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 300 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 150 , 667 , 150 , 101 });
+		attackAnim.PushBack({ 0 , 667 , 150 , 101 });
 		attackAnim.loop = true;
-		attackAnim.speed = 0.006f;
+		attackAnim.speed = 0.01f;
 
-		dieAnim.PushBack({ 0 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 44 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 88 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 132 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 176 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 220 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 264 , 59 , 44 , 43 });
-		dieAnim.PushBack({ 308 , 59 , 44 , 43 });
+		attackAnim2.PushBack({ 1050 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 900 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 750 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 600 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 450 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 300 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 150 , 768 , 150 , 101 });
+		attackAnim2.PushBack({ 0 , 768 , 150 , 101 });
+		attackAnim2.loop = true;
+		attackAnim2.speed = 0.01f;
+
+		attackAnim3.PushBack({ 1050 , 869 , 150 , 101 });
+		attackAnim3.PushBack({ 900 , 869 , 150 , 101 });
+		attackAnim3.PushBack({ 750 , 869 , 150 , 101 });
+		attackAnim3.PushBack({ 600 , 869 , 150 , 101 });
+		attackAnim3.PushBack({ 450 , 869 , 150 , 101 });
+		attackAnim3.PushBack({ 300 , 869 , 150 , 101 });
+		attackAnim3.loop = true;
+		attackAnim3.speed = 0.01f;
+
+		protectAnim.PushBack({ 900 , 869 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 869 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 869 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 869 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 872 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 872 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 874 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 874 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 874 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 874 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 872 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 872 , 150 , 101 });
+		protectAnim.loop = true;
+		protectAnim.speed = 0.01f;
+
+		hitAnim.PushBack({ 1050 , 970 , 150 , 101 });
+		hitAnim.PushBack({ 900 , 970 , 150 , 101 });
+		hitAnim.PushBack({ 750 , 970 , 150 , 101 });
+		hitAnim.PushBack({ 600 , 970 , 150 , 101 });
+		hitAnim.loop = true;
+		hitAnim.speed = 0.01f;
+
+		dieAnim.PushBack({ 1050 , 1071 , 150 , 101 });
+		dieAnim.PushBack({ 900 , 1071 , 150 , 101 });
+		dieAnim.PushBack({ 750 , 1071 , 150 , 101 });
+		dieAnim.PushBack({ 600 , 1071 , 150 , 101 });
 		dieAnim.loop = true;
 		dieAnim.speed = 0.006f;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
+		baseCollider = app->collisions->AddCollider({ position.x + 56, position.y + 60, 47, 43 }, Collider::Type::INSTANT, this);
 
 		name = "Flying eye";
 		configName = "flying_eye";
@@ -96,6 +146,14 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.loop = true;
 		idleAnim.speed = 0.01f;
 
+		walkAnim.PushBack({ 0 , 24 , 16 , 16 });
+		walkAnim.PushBack({ 16 , 24 , 16 , 16 });
+		walkAnim.PushBack({ 32 , 24 , 16 , 16 });
+		walkAnim.PushBack({ 48 , 24 , 16 , 16 });
+		walkAnim.PushBack({ 64 , 24 , 16 , 16 });
+		walkAnim.loop = true;
+		walkAnim.speed = 0.01f;
+
 		idleAnimL.PushBack({ 64 , 95 , 16 , 16 });
 		idleAnimL.PushBack({ 48 , 95 , 16 , 16 });
 		idleAnimL.PushBack({ 32 , 95 , 16 , 16 });
@@ -103,6 +161,14 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnimL.PushBack({ 0 , 95 , 16 , 16 });
 		idleAnimL.loop = true;
 		idleAnimL.speed = 0.01f;
+
+		walkAnimL.PushBack({ 64 , 95 , 16 , 16 });
+		walkAnimL.PushBack({ 48 , 95 , 16 , 16 });
+		walkAnimL.PushBack({ 32 , 95 , 16 , 16 });
+		walkAnimL.PushBack({ 16 , 95 , 16 , 16 });
+		walkAnimL.PushBack({ 0 , 95 , 16 , 16 });
+		walkAnimL.loop = true;
+		walkAnimL.speed = 0.01f;
 
 		battleAnim.PushBack({ 64 , 71 , 16 , 16 });
 		battleAnim.PushBack({ 48 , 71 , 16 , 16 });
@@ -119,6 +185,38 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim.PushBack({ 0 , 71 , 16 , 16 });
 		attackAnim.loop = true;
 		attackAnim.speed = 0.02f;
+
+		attackAnim2.PushBack({ 64 , 71 , 16 , 16 });
+		attackAnim2.PushBack({ 48 , 71 , 16 , 16 });
+		attackAnim2.PushBack({ 32 , 71 , 16 , 16 });
+		attackAnim2.PushBack({ 16 , 71 , 16 , 16 });
+		attackAnim2.PushBack({ 0 , 71 , 16 , 16 });
+		attackAnim2.loop = true;
+		attackAnim2.speed = 0.02f;
+
+		attackAnim3.PushBack({ 64 , 71 , 16 , 16 });
+		attackAnim3.PushBack({ 48 , 71 , 16 , 16 });
+		attackAnim3.PushBack({ 32 , 71 , 16 , 16 });
+		attackAnim3.PushBack({ 16 , 71 , 16 , 16 });
+		attackAnim3.PushBack({ 0 , 71 , 16 , 16 });
+		attackAnim3.loop = true;
+		attackAnim3.speed = 0.02f;
+
+		protectAnim.PushBack({ 64 , 71 , 16 , 16 });
+		protectAnim.PushBack({ 48 , 71 , 16 , 16 });
+		protectAnim.PushBack({ 32 , 71 , 16 , 16 });
+		protectAnim.PushBack({ 16 , 71 , 16 , 16 });
+		protectAnim.PushBack({ 0 , 71 , 16 , 16 });
+		protectAnim.loop = true;
+		protectAnim.speed = 0.02f;
+
+		hitAnim.PushBack({ 64 , 95 , 16 , 16 });
+		hitAnim.PushBack({ 48 , 95 , 16 , 16 });
+		hitAnim.PushBack({ 32 , 95 , 16 , 16 });
+		hitAnim.PushBack({ 16 , 95 , 16 , 16 });
+		hitAnim.PushBack({ 0 , 95 , 16 , 16 });
+		hitAnim.loop = true;
+		hitAnim.speed = 0.02f;
 
 		dieAnim.PushBack({ 64 , 120 , 16 , 23 });
 		dieAnim.PushBack({ 48 , 120 , 16 , 23 });
@@ -157,19 +255,19 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnimL.loop = true;
 		idleAnimL.speed = 0.01f;
 
-		battleAnim.PushBack({ 1050 , 810 , 150 , 101 });
-		battleAnim.PushBack({ 900 , 810 , 150 , 101 });
-		battleAnim.PushBack({ 750 , 810 , 150 , 101 });
-		battleAnim.PushBack({ 600 , 810 , 150 , 101 });
-		battleAnim.loop = true;
-		battleAnim.speed = 0.01f;
-
 		walkAnimL.PushBack({ 1050 , 911 , 150 , 101 });
 		walkAnimL.PushBack({ 900 , 911 , 150 , 101 });
 		walkAnimL.PushBack({ 750 , 911 , 150 , 101 });
 		walkAnimL.PushBack({ 600 , 911 , 150 , 101 });
 		walkAnimL.loop = true;
 		walkAnimL.speed = 0.01f;
+
+		battleAnim.PushBack({ 1050 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 900 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 750 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 600 , 810 , 150 , 101 });
+		battleAnim.loop = true;
+		battleAnim.speed = 0.01f;
 
 		attackAnim.PushBack({ 1050 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 900 , 1012 , 150 , 101 });
@@ -259,7 +357,7 @@ bool NormalEnemy::Start()
 	switch (normalEnemyType) {
 	case NormalEnemyType::FLYING_EYE:
 
-		spriteText = app->tex->Load("Assets/sprites/enemies/eye/eye.png");
+		spriteText = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
 
 		stats = new Stats(1, 10, 3, 3, 3, 18);
 
