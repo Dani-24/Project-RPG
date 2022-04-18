@@ -125,6 +125,7 @@ bool Scene::Start()
 	// Normal Enemies
 	iPoint eyePos = { 1000, 500 };
 	iPoint batPos = { 800, 950 };
+	iPoint skeletonPos = { 650, 850 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);
@@ -133,6 +134,10 @@ bool Scene::Start()
 	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
 	normalEnemyList.add(bat);
 	bat->activeOnStage = StageIndex::TOWN;
+
+	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
+	normalEnemyList.add(skeleton);
+	skeleton->activeOnStage = StageIndex::TOWN;
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 

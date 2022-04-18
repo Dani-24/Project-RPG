@@ -82,9 +82,6 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 25, 32 }, Collider::Type::INSTANT, this);
 
-		/*mapPosition = { 0,0 };
-		battlePosition = { 200, 100 };*/
-
 		name = "Flying eye";
 		configName = "flying_eye";
 
@@ -133,11 +130,103 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
-		/*mapPosition = { 0,0 };
-		battlePosition = { 200, 100 };*/
-
 		name = "Bat";
 		configName = "bat";
+
+		break;
+
+	case NormalEnemyType::SKELETON:
+		idleAnim.PushBack({ 0 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 150 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 300 , 0 , 150 , 101 });
+		idleAnim.PushBack({ 450 , 0 , 150 , 101 });
+		idleAnim.loop = true;
+		idleAnim.speed = 0.01f;
+
+		walkAnim.PushBack({ 0 , 101 , 150 , 101 });
+		walkAnim.PushBack({ 150 , 101 , 150 , 101 });
+		walkAnim.PushBack({ 300 , 101 , 150 , 101 });
+		walkAnim.PushBack({ 450 , 101 , 150 , 101 });
+		walkAnim.loop = true;
+		walkAnim.speed = 0.01f;
+
+		idleAnimL.PushBack({ 1050 , 810 , 150 , 101 });
+		idleAnimL.PushBack({ 900 , 810 , 150 , 101 });
+		idleAnimL.PushBack({ 750 , 810 , 150 , 101 });
+		idleAnimL.PushBack({ 600 , 810 , 150 , 101 });
+		idleAnimL.loop = true;
+		idleAnimL.speed = 0.01f;
+
+		battleAnim.PushBack({ 1050 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 900 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 750 , 810 , 150 , 101 });
+		battleAnim.PushBack({ 600 , 810 , 150 , 101 });
+		battleAnim.loop = true;
+		battleAnim.speed = 0.01f;
+
+		walkAnimL.PushBack({ 1050 , 911 , 150 , 101 });
+		walkAnimL.PushBack({ 900 , 911 , 150 , 101 });
+		walkAnimL.PushBack({ 750 , 911 , 150 , 101 });
+		walkAnimL.PushBack({ 600 , 911 , 150 , 101 });
+		walkAnimL.loop = true;
+		walkAnimL.speed = 0.01f;
+
+		attackAnim.PushBack({ 1050 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 900 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 750 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 600 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 450 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 300 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 150 , 1012 , 150 , 101 });
+		attackAnim.PushBack({ 0 , 1012 , 150 , 101 });
+		attackAnim.loop = true;
+		attackAnim.speed = 0.01f;
+
+		attackAnim2.PushBack({ 1050 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 900 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 750 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 600 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 450 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 300 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 150 , 1113 , 150 , 101 });
+		attackAnim2.PushBack({ 0 , 1113 , 150 , 101 });
+		attackAnim2.loop = true;
+		attackAnim2.speed = 0.01f;
+
+		attackAnim3.PushBack({ 1050 , 1214 , 150 , 101 });
+		attackAnim3.PushBack({ 900 , 1214 , 150 , 101 });
+		attackAnim3.PushBack({ 750 , 1214 , 150 , 101 });
+		attackAnim3.PushBack({ 600 , 1214 , 150 , 101 });
+		attackAnim3.PushBack({ 450 , 1214 , 150 , 101 });
+		attackAnim3.PushBack({ 300 , 1214 , 150 , 101 });
+		attackAnim3.loop = true;
+		attackAnim3.speed = 0.01f;
+
+		protectAnim.PushBack({ 1050 , 1315 , 150 , 101 });
+		protectAnim.PushBack({ 900 , 1315 , 150 , 101 });
+		protectAnim.PushBack({ 750 , 1315 , 150 , 101 });
+		protectAnim.PushBack({ 600 , 1315 , 150 , 101 });
+		protectAnim.loop = true;
+		protectAnim.speed = 0.01f;
+
+		hitAnim.PushBack({ 1050 , 1416 , 150 , 101 });
+		hitAnim.PushBack({ 900 , 1416 , 150 , 101 });
+		hitAnim.PushBack({ 750 , 1416 , 150 , 101 });
+		hitAnim.PushBack({ 600 , 1416 , 150 , 101 });
+		hitAnim.loop = true;
+		hitAnim.speed = 0.01f;
+
+		dieAnim.PushBack({ 1050 , 1517 , 150 , 101 });
+		dieAnim.PushBack({ 900 , 1517 , 150 , 101 });
+		dieAnim.PushBack({ 750 , 1517 , 150 , 101 });
+		dieAnim.PushBack({ 600 , 1517 , 150 , 101 });
+		dieAnim.loop = true;
+		dieAnim.speed = 0.01f;
+
+		baseCollider = app->collisions->AddCollider({ position.x + 60, position.y + 50, 45, 51 }, Collider::Type::INSTANT, this);
+
+		name = "Skeleton";
+		configName = "skeleton";
 
 		break;
 
@@ -147,81 +236,9 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 	isAlive = true;
 
-	currentAnimation = &idleAnimL;
+	currentAnimation = &idleAnim;
 
 	NormalEnemyID = app->scene->normalEnemyList.count();
-	////--------------------------------------------- Flying Eye Animations -------------------------------------------
-	//EyeAnimR.PushBack({ 0 / 0 / 25 / 32 });
-	//EyeAnimR.PushBack({ 48 / 0 / 18 / 26 });
-	//EyeAnimR.PushBack({ 96 / 0 / 18 / 26 });
-	//EyeAnimR.PushBack({ 134 / 0 / 33 / 32 });
-	//EyeAnimR.PushBack({ 183 / 0 / 35 / 32 });
-	//EyeAnimR.PushBack({ 227 / 0 / 35 / 31 });
-	//EyeAnimR.loop = true;
-	//EyeAnimR.speed = 0.006f;
-
-	//EyeAnimL.PushBack({ 227 / 101 / 35 / 31 });
-	//EyeAnimL.PushBack({ 183 / 101 / 35 / 32 });
-	//EyeAnimL.PushBack({ 134 / 101 / 33 / 32 });
-	//EyeAnimL.PushBack({ 96 / 101 / 18 / 26 });
-	//EyeAnimL.PushBack({ 48 / 101 / 18 / 26 });
-	//EyeAnimL.PushBack({ 0 / 101 / 25 / 32 });
-	//EyeAnimL.loop = true;
-	//EyeAnimL.speed = 0.006f;
-
-	//EyeAnimDieR.PushBack({ 0 / 59 / 16 / 43 });
-	//EyeAnimDieR.PushBack({ 48 / 59 / 16 / 43 });
-	//EyeAnimDieR.PushBack({ 96 / 59 / 16 / 43 });
-	//EyeAnimDieR.PushBack({ 134 / 59 / 21 / 43 });
-	//EyeAnimDieR.PushBack({ 183 / 59 / 30 / 43 });
-	//EyeAnimDieR.PushBack({ 227 / 59 / 37 / 43 });
-	//EyeAnimDieR.PushBack({ 273 / 59 / 57 / 43 });
-	//EyeAnimDieR.loop = false;
-	//EyeAnimDieR.speed = 0.006f;
-
-	//EyeAnimDieL.PushBack({ 273 / 161 / 57 / 43 });
-	//EyeAnimDieL.PushBack({ 227 / 161 / 37 / 43 });
-	//EyeAnimDieL.PushBack({ 183 / 161 / 30 / 43 });
-	//EyeAnimDieL.PushBack({ 134 / 161 / 21 / 43 });
-	//EyeAnimDieL.PushBack({ 96 / 161 / 16 / 43 });
-	//EyeAnimDieL.PushBack({ 48 / 161 / 16 / 43 });
-	//EyeAnimDieL.PushBack({ 0 / 161 / 16 / 43 });
-	//EyeAnimDieL.loop = false;
-	//EyeAnimDieL.speed = 0.006f;
-
-	////--------------------------------------------- Bat Animations -------------------------------------------
-
-	//BatAnimR.PushBack({ 0 / 25 / 16 / 16 });
-	//BatAnimR.PushBack({ 16 / 25 / 16 / 16 });
-	//BatAnimR.PushBack({ 32 / 25 / 16 / 16 });
-	//BatAnimR.PushBack({ 48 / 25 / 16 / 16 });
-	//BatAnimR.PushBack({ 64 / 25 / 16 / 16 });
-	//BatAnimR.loop = true;
-	//BatAnimR.speed = 0.006f;
-
-	//BatAnimL.PushBack({ 64 / 80 / 16 / 16 });
-	//BatAnimL.PushBack({ 48 / 80 / 16 / 16 });
-	//BatAnimL.PushBack({ 32 / 80 / 16 / 16 });
-	//BatAnimL.PushBack({ 16 / 80 / 16 / 16 });
-	//BatAnimL.PushBack({ 0 / 80 / 16 / 16 });
-	//BatAnimL.loop = true;
-	//BatAnimL.speed = 0.006f;
-
-	//BatAnimDieR.PushBack({ 0 / 52 / 16 / 19 });
-	//BatAnimDieR.PushBack({ 16 / 52 / 16 / 19 });
-	//BatAnimDieR.PushBack({ 32 / 52 / 16 / 19 });
-	//BatAnimDieR.PushBack({ 48 / 52 / 16 / 19 });
-	//BatAnimDieR.PushBack({ 64 / 52 / 16 / 19 });
-	//BatAnimDieR.loop = false;
-	//BatAnimDieR.speed = 0.006f;
-
-	//BatAnimDieL.PushBack({ 64 / 66 / 16 / 19 });
-	//BatAnimDieL.PushBack({ 48 / 66 / 16 / 19 });
-	//BatAnimDieL.PushBack({ 32 / 66 / 16 / 19 });
-	//BatAnimDieL.PushBack({ 16 / 66 / 16 / 19 });
-	//BatAnimDieL.PushBack({ 0 / 66 / 16 / 19 });
-	//BatAnimDieL.loop = false;
-	//BatAnimDieL.speed = 0.006f;
 }
 
 NormalEnemy::~NormalEnemy()
@@ -254,7 +271,13 @@ bool NormalEnemy::Start()
 		stats = new Stats(1, 5, 10, 1, 1, 27);
 
 		break;
+	case NormalEnemyType::SKELETON:
 
+		spriteText = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
+
+		stats = new Stats(1, 15, 6, 5, 1, 10);
+
+		break;
 	default:
 		break;
 	}

@@ -341,6 +341,10 @@ Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
 
 		ret = new NormalEnemy(NormalEnemyType::BAT, x, y);
 		break;
+	case NormalEnemyType::SKELETON:
+
+		ret = new NormalEnemy(NormalEnemyType::SKELETON, x, y);
+		break;
 	
 	default:
 
