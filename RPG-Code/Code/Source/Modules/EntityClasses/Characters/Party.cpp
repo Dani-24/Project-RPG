@@ -58,6 +58,8 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 
 		attackAnim2.speed = 0.006f;
 
+		protectedAnim.PushBack({ 0, 282, 231, 141 });
+
 		//HIT ANIM
 		hitAnim.PushBack({ 0, 423, 231, 141 });
 		hitAnim.PushBack({ 231, 423, 231, 141 });

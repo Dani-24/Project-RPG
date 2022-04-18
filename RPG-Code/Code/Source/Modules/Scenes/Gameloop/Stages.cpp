@@ -418,7 +418,43 @@ bool Stages::PostUpdate()
 						else {
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
+							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
+							
+							if (app->battle->actualTurnEntity->name == "Valion") {
+								switch (app->battle->battlePhase) {
+								case BattlePhase::THINKING:
+									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
+									break;
+								case BattlePhase::ATTACKING:
+									CharacterInList->data->currentAnimation = &CharacterInList->data->attackAnim1;
+									
+
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(hitfx2);
+									}
+									break;
+								case BattlePhase::DEFENDING:
+									CharacterInList->data->currentAnimation = &CharacterInList->data->protectedAnim;
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(shieldfx);
+									}
+
+									break;
+								case BattlePhase::LOSE:
+									CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(chdiefx);
+									}
+									break;
+								default:
+									break;
+
+								}
+							}
 						}
 					}
 				}
