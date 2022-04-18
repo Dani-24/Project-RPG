@@ -41,13 +41,13 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 
 	//Battle stages time
 	//1000 - 2000 its ok
-	attackTime = 1000;
-	defenseTime = 1000;
-	itemTime = 1000;
-	escapeTime = 1000;
+	attackTime = 1500;
+	defenseTime = 1500;
+	itemTime = 1500;
+	escapeTime = 1500;
 
-	winTime = 1000;
-	loseTime = 1000;
+	winTime = 1500;
+	loseTime = 1500;
 
 	outcomeTime = 2000;
 
@@ -587,53 +587,53 @@ bool Battle::PostUpdate()
 		case BattlePhase::THINKING:
 			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText(nameChar, 50,50);
 			}
 			break;
 
 		case BattlePhase::SELECTING:
-			app->font->DrawText("Select a target", 50, app->win->GetHeight() / 2 - 150);
+			app->font->DrawText("Select a target", 50 , 50);
 			break;
 		case BattlePhase::OUTCOME:
 			sprintf_s(nameChar, 100, "%s takes %i points of damage!", targetEntity->name, damageTaken);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			app->font->DrawText(nameChar, 50 , 50);
 			break;
 		case BattlePhase::ATTACKING:
 			sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			app->font->DrawText(nameChar, 50 , 50);
 			break;
 
 		case BattlePhase::DEFENDING:
 			sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			app->font->DrawText(nameChar, 50,  50);
 			break;
 
 		case BattlePhase::USING_ITEM:
-			app->font->DrawText("You have no items left!", 50, app->win->GetHeight() / 2 - 150);
+			app->font->DrawText("You have no items left!", 50, 50);
 			break;
 
 		case BattlePhase::ESCAPING:
 			if (hasTriedToEscape == false) {
 				sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText(nameChar, 50, 50);
 			}
 			else if (canEscape == false){
 				sprintf_s(nameChar, 50, "%s could not escape!", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText(nameChar, 50, 50);
 			}
 			else if (canEscape == true) {
 				sprintf_s(nameChar, 50, "%s could escape successfully!", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText(nameChar, 50, 50);
 			}
 			
 			break;
 
 			
 		case BattlePhase::WIN:
-				app->font->DrawText("Victory! Press SPACE to continue", 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText("Victory! Press SPACE to continue", 50, 50);
 			break;
 		case BattlePhase::LOSE:
-				app->font->DrawText("Game over! Press SPACE to go back to title", 50, app->win->GetHeight() / 2 - 150);
+				app->font->DrawText("Game over! Press SPACE to go back to title", 50, 50);
 			break;
 	}
 
