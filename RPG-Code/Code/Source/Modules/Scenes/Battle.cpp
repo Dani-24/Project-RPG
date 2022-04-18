@@ -543,6 +543,10 @@ bool Battle::PostUpdate()
 {
 	bool ret = true;
 	
+	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y,app->win->GetWidth()/2,80 }, 0, 0, 0, 200);
+	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y + app->win->GetHeight()/2 - 120 ,app->win->GetWidth(),125 }, 0, 0, 0, 200);
+
+
 		
 		//app->map->Draw();
 		//app->guiManager->Draw();
@@ -638,11 +642,11 @@ bool Battle::PostUpdate()
 	}
 
 	sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name ,entitiesInBattle[0]->stats->health);
-	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 120);
+	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
 
 	if (entitiesInBattle[1] != nullptr) {
 		sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 90);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
 	}
 	
 	sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
