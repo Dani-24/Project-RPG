@@ -2,7 +2,7 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
-
+#include "Collisions.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -52,36 +52,37 @@ bool GuiButton::Draw(Render* render)
 {
 
 	// Draw the right button depending on state
-	switch (state)
-	{
+	if (app->collisions->debug) {
+		switch (state)
+		{
 
-	case GuiControlState::DISABLED: 
-	{
-		render->DrawRectangle(bounds, 0, 0, 0, 0);
-	} break;
+		case GuiControlState::DISABLED:
+		{
+			render->DrawRectangle(bounds, 0, 0, 0, 0);
+		} break;
 
-	case GuiControlState::NORMAL:
-	{
-		render->DrawRectangle(bounds, 255, 0, 0, 100);
+		case GuiControlState::NORMAL:
+		{
+			render->DrawRectangle(bounds, 255, 0, 0, 100);
 
-	} break;
-	case GuiControlState::FOCUSED:
-	{
-		render->DrawRectangle(bounds, 255, 255, 255, 100);
-	} break;
-	case GuiControlState::PRESSED:
-	{
-		render->DrawRectangle(bounds, 255, 255, 255, 150);
-	} break;
+		} break;
+		case GuiControlState::FOCUSED:
+		{
+			render->DrawRectangle(bounds, 255, 255, 255, 100);
+		} break;
+		case GuiControlState::PRESSED:
+		{
+			render->DrawRectangle(bounds, 255, 255, 255, 150);
+		} break;
 
-	/******/
+		/******/
 
-	case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 100);
-		break;
+		case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 100);
+			break;
 
-	default:
-		break;
+		default:
+			break;
+		}
 	}
-
 	return false;
 }
