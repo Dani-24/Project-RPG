@@ -38,6 +38,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	itsPlayerTurn = false;
 	canSelect = false;
 	hasToShake = false;
+	hasChangedPhase = false;
 
 	//Battle stages time
 	//1000 - 2000 its ok
@@ -72,7 +73,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	dojoAnim.loop = true;
 
 
-	battlePhase = BattlePhase::THINKING;
+	ChangePhase(BattlePhase::THINKING);
 
 }
 
@@ -90,12 +91,13 @@ bool Battle::Start()
 {
 	app->scene->player->toggleGui = false;
 
-	battlePhase = BattlePhase::THINKING;
+	ChangePhase(BattlePhase::THINKING);
 	hasStarted = false;
 	hasTriedToEscape = false;
 	canEscape = false;
 	gameOver = false;
 	hasToShake = false;
+	hasChangedPhase = false;
 	damageTaken = 0;
 	shakePos = 0;
 	changeSide = 0;
@@ -222,7 +224,7 @@ bool Battle::Update(float dt)
 					else {
 						SetTurnOrder();
 						battleTurn++;
-						battlePhase = BattlePhase::THINKING;
+						ChangePhase(BattlePhase::THINKING);
 					}
 				}
 				break;
@@ -234,7 +236,7 @@ bool Battle::Update(float dt)
 				else {
 					cont = 0;
 					Attack(targetEntity);
-					battlePhase = BattlePhase::OUTCOME;
+					ChangePhase(BattlePhase::OUTCOME);
 					
 				}
 				break;
@@ -248,7 +250,7 @@ bool Battle::Update(float dt)
 					Defense();
 					SetTurnOrder();
 					battleTurn++;
-					battlePhase = BattlePhase::THINKING;
+					ChangePhase(BattlePhase::THINKING);
 				}
 				break;
 			case BattlePhase::USING_ITEM:
@@ -261,7 +263,7 @@ bool Battle::Update(float dt)
 					//UseItem();
 					//actualTurnEntity = entitiesInBattle[4];
 					//battleTurn++;
-					battlePhase = BattlePhase::THINKING;
+					ChangePhase(BattlePhase::THINKING);
 				}
 				break;
 			case BattlePhase::ESCAPING:
@@ -289,7 +291,7 @@ bool Battle::Update(float dt)
 						hasTriedToEscape = false;
 						SetTurnOrder();
 						battleTurn++;
-						battlePhase = BattlePhase::THINKING;
+						ChangePhase(BattlePhase::THINKING);
 					}
 				}
 				break;
@@ -338,27 +340,27 @@ bool Battle::Update(float dt)
 				//If the enemy is NOT afraid
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
-						battlePhase = BattlePhase::ATTACKING;
+						ChangePhase(BattlePhase::ATTACKING);
 						int targetNum = (rand() % CountAllies());
 						targetEntity = entitiesInBattle[targetNum];
 					}
 					else {
-						battlePhase = BattlePhase::DEFENDING;
+						ChangePhase(BattlePhase::DEFENDING);
 					}
 
 				}
 				//If the enemy IS afraid
 				else {
 					if (optionPercent < 60) {
-						battlePhase = BattlePhase::ATTACKING;
+						ChangePhase(BattlePhase::ATTACKING);
 						int targetNum = (rand() % CountAllies());
 						targetEntity = entitiesInBattle[targetNum];
 					}
 					else if(optionPercent < 85) {
-						battlePhase = BattlePhase::DEFENDING;
+						ChangePhase(BattlePhase::DEFENDING);
 					}
 					else {
-						battlePhase = BattlePhase::ESCAPING;
+						ChangePhase(BattlePhase::ESCAPING);
 					}
 				}
 				
@@ -377,7 +379,7 @@ bool Battle::Update(float dt)
 					else {
 						SetTurnOrder();
 						battleTurn++;
-						battlePhase = BattlePhase::THINKING;
+						ChangePhase(BattlePhase::THINKING);
 					}
 				}
 				break;
@@ -390,7 +392,7 @@ bool Battle::Update(float dt)
 				else {
 					cont = 0;
 					Attack(targetEntity);
-					battlePhase = BattlePhase::OUTCOME;
+					ChangePhase(BattlePhase::OUTCOME);
 
 				}
 				break;
@@ -404,7 +406,7 @@ bool Battle::Update(float dt)
 					Defense();
 					SetTurnOrder();
 					battleTurn++;
-					battlePhase = BattlePhase::THINKING;
+					ChangePhase(BattlePhase::THINKING);
 				}
 				break;
 			case BattlePhase::USING_ITEM:
@@ -435,7 +437,7 @@ bool Battle::Update(float dt)
 						hasTriedToEscape = false;
 						actualTurnEntity = entitiesInBattle[0];
 						battleTurn++;
-						battlePhase = BattlePhase::THINKING;
+						ChangePhase(BattlePhase::THINKING);
 					}
 				}
 				break;
@@ -580,8 +582,10 @@ bool Battle::PostUpdate()
 	}*/
 
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
-		sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
+		sprintf_s(nameChar, 100, "              -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
 		app->font->DrawText(nameChar, 50, 15);
+		sprintf_s(actualTurnChar, 100, "%s", turnsTimeLine[0]->name);
+		app->font->DrawText(actualTurnChar, 50, 15, {150 ,150,255 });
 	}
 
 	
@@ -589,68 +593,206 @@ bool Battle::PostUpdate()
 	//Print battle messages
 	switch (battlePhase) {
 		case BattlePhase::THINKING:
-			if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
-				sprintf_s(nameChar, 50, "It's %s's turn", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50,50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
+				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
+				app->font->DrawTextDelayed(battleInfoChar, 50,50);
 			}
 			break;
 
 		case BattlePhase::SELECTING:
-			app->font->DrawText("Select a target", 50 , 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				app->font->DrawText("Select a target", 50, 50);
+			}
+			
 			break;
 		case BattlePhase::OUTCOME:
-			sprintf_s(nameChar, 100, "%s takes %i points of damage!", targetEntity->name, damageTaken);
-			app->font->DrawText(nameChar, 50 , 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				if (damageTaken == 1) {
+					sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
+					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name, damageTaken);
+					app->font->DrawTextDelayed(damageChar, 50, 50);
+				}
+				else {
+					sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
+					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name, damageTaken);
+					app->font->DrawTextDelayed(damageChar, 50, 50);
+				}
+				
+			}
 			break;
 		case BattlePhase::ATTACKING:
-			sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
-			app->font->DrawText(nameChar, 50 , 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
+				app->font->DrawTextDelayed(nameChar, 50, 50);
+			}
 			break;
 
 		case BattlePhase::DEFENDING:
-			sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
-			app->font->DrawText(nameChar, 50,  50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
+				app->font->DrawTextDelayed(nameChar, 50, 50);
+			}
+			
 			break;
 
 		case BattlePhase::USING_ITEM:
-			app->font->DrawText("You have no items left!", 50, 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				app->font->DrawTextDelayed("You have no items left!", 50, 50);
+			}
 			break;
 
 		case BattlePhase::ESCAPING:
-			if (hasTriedToEscape == false) {
-				sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
 			}
-			else if (canEscape == false){
-				sprintf_s(nameChar, 50, "%s could not escape!", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, 50);
-			}
-			else if (canEscape == true) {
-				sprintf_s(nameChar, 50, "%s could escape successfully!", actualTurnEntity->name);
-				app->font->DrawText(nameChar, 50, 50);
+			else {
+				if (hasTriedToEscape == false) {
+					sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
+					app->font->DrawTextDelayed(nameChar, 50, 50);
+				}
+				else if (canEscape == false) {
+					sprintf_s(escapeChar, 50, "%s could not escape!", actualTurnEntity->name);
+					app->font->DrawTextDelayed(escapeChar, 50, 50);
+				}
+				else if (canEscape == true) {
+					sprintf_s(escapeChar, 50, "%s could escape successfully!", actualTurnEntity->name);
+					app->font->DrawTextDelayed(escapeChar, 50, 50);
+				}
 			}
 			
 			break;
 
 			
 		case BattlePhase::WIN:
-				app->font->DrawText("Victory! Press SPACE to continue", 50, 50);
-			break;
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				app->font->DrawTextDelayed("Victory! Press SPACE to continue", 50, 50, { 255,200,0 });
+				break;
+			}
 		case BattlePhase::LOSE:
-				app->font->DrawText("Game over! Press SPACE to go back to title", 50, 50);
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				app->font->DrawTextDelayed("Game over! Press SPACE to go back to title", 50, 50, { 255,30,10 });
+			}
 			break;
 	}
 
-	sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name ,entitiesInBattle[0]->stats->health);
-	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+	if (entitiesInBattle[0]->stats->health == 0) {
+		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 255,30,0 });
+		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
 
-	if (entitiesInBattle[1] != nullptr) {
-		sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+
+	}
+	else if(entitiesInBattle[0]->stats->health <= 5) {
+
+	
+		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 180,0,0 });
+		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+	}
+	else {
+		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 100,255,0 });
+		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);*/
 	}
 	
-	sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+
+	
+
+
+	if (entitiesInBattle[1] != nullptr) {
+		if (entitiesInBattle[1]->stats->health == 0) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 255,30,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+
+		}
+		else if (entitiesInBattle[1]->stats->health <= 5) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 180,0,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+
+		}
+		else {
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 100,255,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+		}
+		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);*/
+	}
+	
+	if (entitiesInBattle[4] != nullptr) {
+
+		if (entitiesInBattle[4]->stats->health == 0) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 255,30,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+
+		}
+		else if (entitiesInBattle[4]->stats->health <= 5) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 200,100,20 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+		}
+		else {
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 100,255,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+		}
+		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
+		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
+	}
+	
 	
 
 	app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50);
@@ -676,28 +818,28 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 			switch (control->id) {
 			case 101:
 					targetEntity = entitiesInBattle[4];
-					battlePhase = BattlePhase::ATTACKING;
+					ChangePhase(BattlePhase::ATTACKING);
 					app->stages->fxbool = true;
 					canSelect = false;
 				
 				break;
 			case 102:
 			
-					battlePhase = BattlePhase::DEFENDING;
+					ChangePhase(BattlePhase::DEFENDING);
 					app->stages->fxbool = true;
 					canSelect = false;
 				
 				break;
 			case 103:
 			
-					battlePhase = BattlePhase::USING_ITEM;
+					ChangePhase(BattlePhase::USING_ITEM);
 					app->stages->fxbool = true;
 					canSelect = false;
 			
 				break;
 			case 104:
 			
-					battlePhase = BattlePhase::ESCAPING;
+					ChangePhase(BattlePhase::ESCAPING);
 					app->stages->fxbool = true;
 					canSelect = false;
 			
@@ -936,15 +1078,20 @@ bool Battle::CheckWinLose() {
 	enemiesCount = CountEnemies();
 
 	if (alliesCount <= 0) {
-		battlePhase = BattlePhase::LOSE;
+		ChangePhase(BattlePhase::LOSE);
 		ret = true;
 	}
 	else if (enemiesCount <= 0) {
-		battlePhase = BattlePhase::WIN;
+		ChangePhase(BattlePhase::WIN);
 		ret = true;
 	}
 
 	return ret;
+}
+
+void Battle::ChangePhase(BattlePhase phase) {
+	hasChangedPhase = true;
+	battlePhase = phase;
 }
 
 // Called before quitting

@@ -236,7 +236,7 @@ bool Player::Start()
 
 	canMove = true;
 
-	stats = new Stats(1, 20, 5 , 5, 5, 20);
+	stats = new Stats(1, 20, 6 , 5, 5, 20);
 
 	return ret;
 }
