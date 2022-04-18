@@ -88,7 +88,7 @@ bool Scene::Start()
 	partyList.add(player);
 
 	//Party members
-	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
+	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 10, 50);
 	partyList.add(valion);
 	
 	valionchar = valion;

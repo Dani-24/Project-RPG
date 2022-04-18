@@ -273,7 +273,7 @@ bool Stages::PostUpdate()
 		//PRINT THE BATTLE ENTITIES
 		
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 7; i >= 0; i--)
 		{
 			if (app->battle->entitiesInBattle[i] != nullptr) {
 
@@ -307,11 +307,17 @@ bool Stages::PostUpdate()
 						}
 
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-						if (NormalEnemyInList->data->normalEnemyType==NormalEnemyType::BAT) {
-							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3);
-						}
-						else {
+						switch (NormalEnemyInList->data->normalEnemyType) {
+						case NormalEnemyType::BAT:
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 2 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
+							break;
+						case NormalEnemyType::SKELETON:
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y-1*NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+							break;
+						default:
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+
+							break;
 						}
 						
 					}
@@ -329,7 +335,7 @@ bool Stages::PostUpdate()
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
-								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
 								if (app->battle->actualTurnEntity->name == "Player") {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:

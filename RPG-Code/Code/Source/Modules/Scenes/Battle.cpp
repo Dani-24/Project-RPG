@@ -182,7 +182,7 @@ bool Battle::PreUpdate()
 {
 	bool ret = true;
 
-	CheckWinLose();
+	//CheckWinLose();
 	
 
 	return ret;

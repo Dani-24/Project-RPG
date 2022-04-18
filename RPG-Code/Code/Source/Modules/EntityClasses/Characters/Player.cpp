@@ -189,7 +189,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
 
 	mapPosition = { 0,0 };
-	battlePosition = { -50, -50 };
+	battlePosition = { 150, 150 };
 
 	isAlive = true;
 
