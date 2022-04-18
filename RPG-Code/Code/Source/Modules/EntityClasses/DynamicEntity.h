@@ -69,7 +69,20 @@ public:
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
+	void SetStats(int maxHealth, int attack, int deffense, int mana, int speed)
+	{
 
+		this->maxHealth = maxHealth;
+		this->health = maxHealth;
+
+		this->attack = attack;
+		this->deffense = deffense;
+		this->speed = speed;
+		this->mana = mana;
+
+		this->defenseBuffed = false;
+
+	}
 };
 
 class DynamicEntity : public Entity

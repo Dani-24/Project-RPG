@@ -237,7 +237,7 @@ bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
 	//LOG("position x %d y %d", position.x, position.y);
-
+	//if (app->scene->godmode) stats->SetStats();
 	return true;
 }
 
