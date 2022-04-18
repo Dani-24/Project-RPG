@@ -566,18 +566,18 @@ bool Battle::PostUpdate()
 	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
 
 	//Print turn value (depending on entities speed)
-	sprintf_s(turnValueChar, 20, "Turn Value: %.2f", turnValue);
+	/*sprintf_s(turnValueChar, 20, "Turn Value: %.2f", turnValue);
 
 	if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 		app->font->DrawText(turnValueChar, 50, app->win->GetHeight() / 2 - 30);
 	}
 	else if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
-	}
+	}*/
 
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
 		sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 70);
+		app->font->DrawText(nameChar, 50, 15);
 	}
 
 	
@@ -822,23 +822,27 @@ void Battle::SetTurnOrder()
 			}
 		}
 
+		turnsTimeLine[0] = turnsTimeLine[1];
+		turnsTimeLine[1] = turnsTimeLine[2];
+		turnsTimeLine[2] = turnsTimeLine[3];
+		turnsTimeLine[3] = turnsTimeLine[4];
+		
+
 		//Choose a random one and set turn
 		if (equalValues > 1) {
 			srand(time(NULL));
 			int chosenValue = (rand() % equalValues);
 
-			actualTurnEntity = equalTurnValue[chosenValue];
-			equalTurnValue[chosenValue]->stats->localTurn++;
+			turnsTimeLine[4] = equalTurnValue[chosenValue];
+			turnsTimeLine[4]->stats->localTurn++;
 		}
 		else {
-			actualTurnEntity = equalTurnValue[0];
-			equalTurnValue[0]->stats->localTurn++;
+			turnsTimeLine[4] = equalTurnValue[0];
+			turnsTimeLine[4]->stats->localTurn++;
 		}
+		
 
-		for (int u = 0; u < 4; u++) {
-			turnsTimeLine[u] = turnsTimeLine[u+1];
-		}
-		turnsTimeLine[4] = actualTurnEntity;
+		actualTurnEntity = turnsTimeLine[0];
 
 	}
 	
