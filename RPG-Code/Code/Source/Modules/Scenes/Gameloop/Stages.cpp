@@ -321,17 +321,56 @@ bool Stages::PostUpdate()
 						{
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
+								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								if (app->battle->actualTurnEntity->name == "Player") {
+									switch (app->battle->battlePhase) {
+									case BattlePhase::THINKING:
+										playerPtr->currentAnimation = &playerPtr->idleBattleM;
+										break;
+									case BattlePhase::ATTACKING:
+										playerPtr->currentAnimation = &playerPtr->attackM;
+										break;
+									case BattlePhase::DEFENDING:
+										playerPtr->currentAnimation = &playerPtr->protectM;
+										break;
+									case BattlePhase::LOSE:
+										playerPtr->currentAnimation = &playerPtr->dieM;
+										break;
+									default:
+										break;
+
+									}
+								}
 							}
 							if (playerPtr->PlayerErection == false) {
+								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								if (app->battle->actualTurnEntity->name == "Player") {
+									switch (app->battle->battlePhase) {
+									case BattlePhase::THINKING:
+										playerPtr->currentAnimation = &playerPtr->idleBattleF;
+										break;
+									case BattlePhase::ATTACKING:
+										playerPtr->currentAnimation = &playerPtr->attackF;
+										break;
+									case BattlePhase::DEFENDING:
+										playerPtr->currentAnimation = &playerPtr->protectF;
+										break;
+									case BattlePhase::LOSE:
+										playerPtr->currentAnimation = &playerPtr->dieF;
+										break;
+									default:
+										break;
+
+									}
+								}
 							}
 						}
 						else {
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
-
 						}
 					}
 				}

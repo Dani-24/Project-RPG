@@ -75,12 +75,12 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackM.loop = true;
 	attackM.speed = 0.006f;
 
-	dashM.PushBack({ 0 , 581 , 140 , 83 });
-	dashM.PushBack({ 140 , 581 , 140 , 83 });
-	dashM.PushBack({ 280 , 581 , 140 , 83 });
-	dashM.PushBack({ 420 , 581 , 140 , 83 });
-	dashM.loop = true;
-	dashM.speed = 0.006f;
+	protectM.PushBack({ 0 , 581 , 140 , 83 });
+	protectM.PushBack({ 140 , 581 , 140 , 83 });
+	protectM.PushBack({ 280 , 581 , 140 , 83 });
+	protectM.PushBack({ 420 , 581 , 140 , 83 });
+	protectM.loop = true;
+	protectM.speed = 0.006f;
 
 	hitM.PushBack({ 0 , 249 , 140 , 83 });
 	hitM.PushBack({ 140 , 249 , 140 , 83 });
@@ -153,6 +153,9 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackChainF.PushBack({ 1080 , 114 , 180 , 114 });
 	attackChainF.loop = true;
 	attackChainF.speed = 0.006f;
+
+	protectF.PushBack({ 540 , 228 , 180 , 114 });
+	protectF.loop = true;
 
 	hitF.PushBack({ 0 , 798 , 180 , 114 });
 	hitF.PushBack({ 180 , 798 , 180 , 114 });

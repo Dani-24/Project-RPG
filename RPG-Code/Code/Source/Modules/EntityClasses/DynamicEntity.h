@@ -151,7 +151,7 @@ public:
 
 	Collider* baseCollider;
 
-	Animation idleAnim, idleAnimL, walkAnim, walkAnimL, battleAnim, hitAnim, dieAnim, attackAnim, attackAnim2, attackAnim3, protectAnim;
+	Animation idleAnim, idleAnimL, walkAnim, walkAnimL, battleAnim, hitAnim, dieAnim, attackAnim, attackAnim2, attackAnim3, protectAnim, jumpAnim, fallAnim;
 
 	bool isAlive;
 
