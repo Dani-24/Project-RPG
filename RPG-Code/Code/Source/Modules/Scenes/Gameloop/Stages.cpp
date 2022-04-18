@@ -49,6 +49,7 @@ bool Stages::Start()
 	hitfx2 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_2.wav");
 	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
 	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
+	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
 
 	return true;
 }
@@ -291,11 +292,19 @@ bool Stages::PostUpdate()
 								break;
 							case BattlePhase::ATTACKING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
-								/*app->audio->PlayFx(hitfx1);*/
+								if (fxbool == true) {
+									fxbool = false;
+									app->audio->PlayFx(hitfx1);
+								}
+							
 								break;
 							case BattlePhase::DEFENDING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
-								/*app->audio->PlayFx(shieldfx);*/
+								if (fxbool == true) {
+									fxbool = false;
+									app->audio->PlayFx(shieldfx);
+								}
+								
 								break;
 							case BattlePhase::LOSE:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
@@ -343,14 +352,26 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
-										/*app->audio->PlayFx(hitfx2);*/
+										
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(hitfx2);
+										}
 										break;
 									case BattlePhase::DEFENDING:
 										playerPtr->currentAnimation = &playerPtr->protectM;
-										/*app->audio->PlayFx(shieldfx);*/
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(shieldfx);
+										}
+							
 										break;
 									case BattlePhase::LOSE:
 										playerPtr->currentAnimation = &playerPtr->dieM;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(chdiefx);
+										}
 										break;
 									default:
 										break;
@@ -368,13 +389,24 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackF;
-										/*app->audio->PlayFx(hitfx2);*/
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(hitfx2);
+										}
 										break;
 									case BattlePhase::DEFENDING:
 										playerPtr->currentAnimation = &playerPtr->protectF;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(shieldfx);
+										}
 										break;
 									case BattlePhase::LOSE:
 										playerPtr->currentAnimation = &playerPtr->dieF;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(chdiefx);
+										}
 										break;
 									default:
 										break;

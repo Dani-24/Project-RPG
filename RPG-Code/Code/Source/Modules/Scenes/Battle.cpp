@@ -692,24 +692,28 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 			case 101:
 					targetEntity = entitiesInBattle[4];
 					battlePhase = BattlePhase::ATTACKING;
+					app->stages->fxbool = true;
 					canSelect = false;
 				
 				break;
 			case 102:
 			
 					battlePhase = BattlePhase::DEFENDING;
+					app->stages->fxbool = true;
 					canSelect = false;
 				
 				break;
 			case 103:
 			
 					battlePhase = BattlePhase::USING_ITEM;
+					app->stages->fxbool = true;
 					canSelect = false;
 			
 				break;
 			case 104:
 			
 					battlePhase = BattlePhase::ESCAPING;
+					app->stages->fxbool = true;
 					canSelect = false;
 			
 				break;
