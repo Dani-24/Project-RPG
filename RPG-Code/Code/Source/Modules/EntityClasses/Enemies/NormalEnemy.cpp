@@ -277,7 +277,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim.PushBack({ 300 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 150 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 0 , 1012 , 150 , 101 });
-		//attackAnim.loop = true;
+		attackAnim.loop = true;
 		attackAnim.speed = 0.01f;
 
 		attackAnim2.PushBack({ 1050 , 1113 , 150 , 101 });
@@ -374,7 +374,7 @@ bool NormalEnemy::Start()
 		spriteText = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
 
 		/*stats = new Stats(1, 15, 6, 5, 1, 10);*/
-		stats = new Stats(1, 15, 6, 5, 1, 18);
+		stats = new Stats(1, 15, 25, 5, 1, 18);
 
 		break;
 	default:

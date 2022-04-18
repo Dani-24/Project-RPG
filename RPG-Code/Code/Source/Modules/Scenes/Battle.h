@@ -80,6 +80,8 @@ public:
 	//return true if has win or lost
 	bool CheckWinLose();
 
+	void ChangePhase(BattlePhase state);
+
 private:
 
 	SDL_Texture* playerBattleSprite;
@@ -123,10 +125,16 @@ public:
 	int battleTurn;
 	char battleTurnChar[9] = { "\0" };
 
+	char battleInfoChar[50] = {"\0"};
+
 	float turnValue;
 	char turnValueChar[20] = { "\0" };
 
 	char nameChar[100] = { "\0" };
+	char damageChar[100] = { "\0" };
+	char lifeChar[100] = { "\0" };
+	char escapeChar[100] = { "\0" };
+	char actualTurnChar[50] = { "\0" };
 
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
@@ -171,6 +179,10 @@ public:
 	int shakeForce;
 
 	int damageTaken;
+
+	bool hasChangedPhase;
+
+
 	
 };
 
