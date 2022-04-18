@@ -372,7 +372,7 @@ void Player::MovementPlayer(float dt) {
 
 void Player::OnCollision(Collider* col1, Collider* col2) {
 
-	if (col1 == baseCollider && col2->type == Collider::WALL) {
+	if (col1 == baseCollider && col2->type == Collider::WALL && !app->scene->godmode) {
 
 		//Cant move Left
 		if (col2->rect.x + col2->rect.w > col1->rect.x					&&

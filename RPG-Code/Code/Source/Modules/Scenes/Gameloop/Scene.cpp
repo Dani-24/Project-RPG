@@ -141,10 +141,8 @@ bool Scene::Start()
 	app->camera->SetLimits(640, 350, 4490, 4200);
 
 	pause = false;
-
 	playing = true;
-
-	
+	godmode = false;
 
 	app->guiManager->Enable();
 
@@ -181,6 +179,12 @@ bool Scene::Update(float dt)
 	//GUI activation
 
 	guiactivate = false;
+
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_REPEAT)
+	{
+		if (godmode)godmode = false;
+		else godmode = true;
+	}
 
 	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
 	{
