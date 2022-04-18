@@ -65,6 +65,8 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
+	app->scene->player->toggleGui = false;
+
 	battlePhase = BattlePhase::THINKING;
 	hasStarted = false;
 	hasTriedToEscape = false;
@@ -899,6 +901,8 @@ bool Battle::CleanUp()
 		app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 		break;
 	}
+
+	app->scene->player->toggleGui = true;
 
 	return true;
 }
