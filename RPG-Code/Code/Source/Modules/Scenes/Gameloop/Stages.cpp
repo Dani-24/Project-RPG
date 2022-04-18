@@ -277,9 +277,8 @@ bool Stages::PostUpdate()
 
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
-					NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
-						/*NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;*/
+						NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 						if (app->battle->actualTurnEntity->dynamicType == DynamicType::ENEMY) {
 							switch (app->battle->battlePhase) {
 							case BattlePhase::THINKING:
