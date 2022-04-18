@@ -14,8 +14,8 @@ public:
 	bool pingpong = false;
 	float currentFrame = 0.0f;
 
-private:
 	int totalFrames = 0;
+private:
 	int loopCount = 0;
 	int pingpongDirection = 1;
 
