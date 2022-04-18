@@ -1,6 +1,8 @@
 #include "GuiManager.h"
 #include "App.h"
 #include "Textures.h"
+#include "Render.h"
+
 
 #include "GuiButton.h"
 #include "Audio.h"
@@ -14,6 +16,7 @@ GuiManager::~GuiManager() {}
 
 bool GuiManager::Start()
 {
+	selector = app->tex->Load("Assets/gui/controllers/selector.png");
 	return true;
 }
 

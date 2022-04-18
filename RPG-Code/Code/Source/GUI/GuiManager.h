@@ -3,8 +3,12 @@
 
 #include "Module.h"
 #include "GuiControl.h"
+#include "Render.h"
+#include "Textures.h"
 
 #include "List.h"
+
+struct SDL_Texture;
 
 class GuiManager : public Module
 {
@@ -44,7 +48,7 @@ public:
 	bool doLogic = false;
 
 	SDL_Texture* texture;
-
+	SDL_Texture* selector;
 };
 
 #endif // __GUIMANAGER_H__

@@ -344,7 +344,7 @@ bool Battle::Update(float dt)
 					if (optionPercent < 70) {
 						ChangePhase(BattlePhase::ATTACKING);
 						int targetNum = (rand() % CountAllies());
-						targetEntity = entitiesInBattle[targetNum];
+						targetEntity = entitiesInBattle[targetNum]; 
 					}
 					else {
 						ChangePhase(BattlePhase::DEFENDING);
@@ -585,10 +585,10 @@ bool Battle::PostUpdate()
 	}*/
 
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
-		sprintf_s(nameChar, 100, "              -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
-		app->font->DrawText(nameChar, 50, 15);
+		sprintf_s(nameChar, 100, "              -> %s -> %s -> %s -> %s", turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
+		app->font->DrawText(nameChar, 40, 15);
 		sprintf_s(actualTurnChar, 100, "%s", turnsTimeLine[0]->name);
-		app->font->DrawText(actualTurnChar, 50, 15, {150 ,150,255 });
+		app->font->DrawText(actualTurnChar, 40, 15, {150 ,150,255 });
 	}
 
 	
@@ -774,23 +774,23 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[4]->stats->health == 0) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 255,30,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,30,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 
 		}
 		else if (entitiesInBattle[4]->stats->health <= 5) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 200,100,20 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 200,100,20 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 		}
 		else {
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120, { 100,255,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 100,255,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 		}
 		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
 		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
@@ -971,24 +971,54 @@ void Battle::SetTurnOrder()
 			}
 		}
 
-		turnsTimeLine[0] = turnsTimeLine[1];
-		turnsTimeLine[1] = turnsTimeLine[2];
-		turnsTimeLine[2] = turnsTimeLine[3];
-		turnsTimeLine[3] = turnsTimeLine[4];
+		bool noNull = true;
+
+		for (int k = 0; k < 5; k++) {
+			if(turnsTimeLine[k]==nullptr){
+
+				noNull = false;
+				//Choose a random one and set turn
+				if (equalValues > 1) {
+					srand(time(NULL));
+					int chosenValue = (rand() % equalValues);
+
+					turnsTimeLine[4] = equalTurnValue[chosenValue];
+					turnsTimeLine[4]->stats->localTurn++;
+				}
+				else {
+					turnsTimeLine[4] = equalTurnValue[0];
+					turnsTimeLine[4]->stats->localTurn++;
+				}
+
+				actualTurnEntity = turnsTimeLine[0];
+
+				break;
+
+			}
+			
+		}
+
+		if (noNull == true) {
+			turnsTimeLine[0] = turnsTimeLine[1];
+			turnsTimeLine[1] = turnsTimeLine[2];
+			turnsTimeLine[2] = turnsTimeLine[3];
+			turnsTimeLine[3] = turnsTimeLine[4];
+
+
+			//Choose a random one and set turn
+			if (equalValues > 1) {
+				srand(time(NULL));
+				int chosenValue = (rand() % equalValues);
+
+				turnsTimeLine[4] = equalTurnValue[chosenValue];
+				turnsTimeLine[4]->stats->localTurn++;
+			}
+			else {
+				turnsTimeLine[4] = equalTurnValue[0];
+				turnsTimeLine[4]->stats->localTurn++;
+			}
+		}
 		
-
-		//Choose a random one and set turn
-		if (equalValues > 1) {
-			srand(time(NULL));
-			int chosenValue = (rand() % equalValues);
-
-			turnsTimeLine[4] = equalTurnValue[chosenValue];
-			turnsTimeLine[4]->stats->localTurn++;
-		}
-		else {
-			turnsTimeLine[4] = equalTurnValue[0];
-			turnsTimeLine[4]->stats->localTurn++;
-		}
 		
 
 		actualTurnEntity = turnsTimeLine[0];
@@ -1013,6 +1043,43 @@ void Battle::Attack(DynamicEntity *target) {
 	if (target->stats->health <= 0) {
 		target->stats->health = 0;
 		target->isAlive = false;
+
+		DynamicEntity* newTimeLine[5] = {nullptr,nullptr, nullptr, nullptr, nullptr};
+
+		//Select each living entity in timeline
+		for (int i = 0; i < 5; i++) {
+			if (turnsTimeLine[i]->isAlive == true) {
+				//Introduce it to a new array in order
+				for (int j = 0; j < 5; j++) {
+					if (newTimeLine[j] == nullptr) {
+						newTimeLine[j] = turnsTimeLine[i];
+						break;
+					}
+
+				}
+			}
+		}
+
+		int emptySpots = 0;
+
+		//Replace the old timeline with the new one
+		for (int k = 0; k < 5; k++) {
+			if (newTimeLine[k] != nullptr) {
+				turnsTimeLine[k] = newTimeLine[k];
+			}
+			else {
+				turnsTimeLine[k] = nullptr;
+				emptySpots++;
+			}
+			
+		}
+
+		//Fill the new timeline
+		for (int k = 0; k < emptySpots; k++) {
+
+			SetTurnOrder();
+		}
+		
 	}
 }
 
