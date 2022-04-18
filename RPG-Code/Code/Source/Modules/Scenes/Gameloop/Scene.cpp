@@ -79,6 +79,8 @@ bool Scene::Start()
 
 	// Load textures
 	gui = app->tex->Load("Assets/gui/GUIFinal.png");
+	mpfgui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
+	fpfgui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
@@ -187,6 +189,7 @@ bool Scene::Update(float dt)
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+	hp = player->stats->health;
 
 	fpsdt = dt*3.75;
 	//GUI activation
@@ -288,6 +291,17 @@ bool Scene::PostUpdate()
 	if (guiactivate == true)
 	{
 		app->render->DrawTexture(gui, xt - 623, yt - 360);
+		if (player->PlayerErection == true)
+		{
+			app->render->DrawTexture(mpfgui, xt - 610, yt - 346);
+		}
+		else if (player->PlayerErection == false)
+		{
+			app->render->DrawTexture(fpfgui, xt - 610, yt - 343);
+		}
+		sprintf_s(lifeChar, 50, "%2d", hp);
+		app->font->DrawText(lifeChar, xt - 248, yt - 346, { 0,200,30 });
+		
 	}
 	if (app->collisions->debug)
 	{
@@ -337,6 +351,8 @@ bool Scene::CleanUp()
 	app->camera->ReleaseTarget();
 
 	app->tex->UnLoad(gui);
+	app->tex->UnLoad(mpfgui);
+	app->tex->UnLoad(fpfgui);
 
 	//Stages:
 	app->entities->DestroyEntity(player);
