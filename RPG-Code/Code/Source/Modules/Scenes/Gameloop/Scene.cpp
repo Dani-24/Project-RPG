@@ -81,7 +81,7 @@ bool Scene::Start()
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	// Player Entity
-	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1000);
+	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
 
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
@@ -96,7 +96,7 @@ bool Scene::Start()
 	app->stages->partyListPtr = &partyList;
 
 	// NPCs
-	iPoint cockPos = { 1240, 950 };
+	iPoint cockPos = { 900, 1400 };
 	iPoint barkeeperPos = { 450, 300 };
 	iPoint trainerPos = { 290, 160 };
 	iPoint merchantPos = { 255, 150 };

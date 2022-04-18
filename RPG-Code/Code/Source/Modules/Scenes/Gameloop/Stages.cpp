@@ -44,6 +44,11 @@ bool Stages::Awake(pugi::xml_node& config)
 
 bool Stages::Start()
 {
+	//sfx
+	hitfx1 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit.wav");
+	hitfx2 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_2.wav");
+	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
+	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
 
 	return true;
 }
@@ -286,10 +291,11 @@ bool Stages::PostUpdate()
 								break;
 							case BattlePhase::ATTACKING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
-
+								/*app->audio->PlayFx(hitfx1);*/
 								break;
 							case BattlePhase::DEFENDING:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
+								/*app->audio->PlayFx(shieldfx);*/
 								break;
 							case BattlePhase::LOSE:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
@@ -330,9 +336,11 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
+										/*app->audio->PlayFx(hitfx2);*/
 										break;
 									case BattlePhase::DEFENDING:
 										playerPtr->currentAnimation = &playerPtr->protectM;
+										/*app->audio->PlayFx(shieldfx);*/
 										break;
 									case BattlePhase::LOSE:
 										playerPtr->currentAnimation = &playerPtr->dieM;
@@ -353,6 +361,7 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackF;
+										/*app->audio->PlayFx(hitfx2);*/
 										break;
 									case BattlePhase::DEFENDING:
 										playerPtr->currentAnimation = &playerPtr->protectF;
