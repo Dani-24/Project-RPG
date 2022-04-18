@@ -45,15 +45,7 @@ public:
 public:
 
 	// Player animations
-	Animation
-		idleBattle,
-		attackAnim1,
-		attackAnim2,
-		hitAnim,
-		deathAnim,
-		jumpAnim,
-		fallAnim,
-		runAnim;
+	
 
 
 	const char* ValionChar;

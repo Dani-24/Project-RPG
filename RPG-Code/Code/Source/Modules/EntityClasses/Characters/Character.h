@@ -41,7 +41,16 @@ public:
 
 
 public:
-
+	Animation
+		idleBattle,
+		attackAnim1,
+		attackAnim2,
+		hitAnim,
+		deathAnim,
+		jumpAnim,
+		fallAnim,
+		runAnim,
+		protectedAnim;
 
 	CharacterType characterType;
 
