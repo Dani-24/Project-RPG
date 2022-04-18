@@ -52,6 +52,7 @@ public:
 	void ChangeStage(StageIndex newStage);
 
 private:
+	int hitfx1,hitfx2,hitfx3,shieldfx;
 
 public:
 	bool pause;
