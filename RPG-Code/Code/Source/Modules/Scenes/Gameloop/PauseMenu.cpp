@@ -17,6 +17,8 @@
 #include "Log.h"
 #include "GuiButton.h"
 #include "Configuration.h"
+#include "Battle.h"
+
 
 PauseMenu::PauseMenu(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -217,7 +219,7 @@ bool PauseMenu::Update(float dt)
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 	
-	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true)&&app->scene->playing) {
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true)&&app->scene->playing&&!app->battle->isEnabled()) {
 
 		if (pauseGame){
 			pauseGame = false;
