@@ -299,6 +299,7 @@ bool Stages::PostUpdate()
 
 							}
 						}
+
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						if (NormalEnemyInList->data->normalEnemyType==NormalEnemyType::BAT) {
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3);

@@ -16,6 +16,7 @@ enum class BattlePhase {
 
 	THINKING,
 	SELECTING,
+	OUTCOME,
 
 	ATTACKING,
 	DEFENDING,
@@ -84,7 +85,8 @@ private:
 	SDL_Texture* playerBattleSprite;
 	Animation playerBattleAnimation;
 
-	SDL_Texture* townBattleBackground;
+	SDL_Texture* townBackground, * dojoBackground;
+	Animation dojoAnim;
 
 public:
 
@@ -134,13 +136,14 @@ public:
 	bool itsPlayerTurn;
 	
 	int cont;
+
 	int attackTime;
 	int defenseTime;
 	int itemTime;
 	int escapeTime;
-
 	int winTime;
 	int loseTime;
+	int outcomeTime;
 
 	bool gameOver;
 
@@ -159,6 +162,11 @@ public:
 	int defenseBuff;
 
 	int optionPercent;
+
+	bool hasToShake;
+	int shakePos;
+
+	int damageTaken;
 	
 };
 

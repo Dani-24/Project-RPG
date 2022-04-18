@@ -26,7 +26,8 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 
 	battlePause = false;
 	playerBattleSprite = nullptr;
-	townBattleBackground = nullptr;
+	townBackground = nullptr;
+	dojoBackground = nullptr;
 	battleStage = nullptr;
 	targetEntity = nullptr;
 
@@ -36,6 +37,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	someoneDefending = false;
 	itsPlayerTurn = false;
 	canSelect = false;
+	hasToShake = false;
 
 	//2000 its ok
 	attackTime = 2000;
@@ -46,7 +48,20 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	winTime = 2000;
 	loseTime = 2000;
 
+	outcomeTime = 2000;
+
 	defenseBuff = 5;
+
+
+	//Dojoanim
+	int w = 640, h = 489;
+	for (int i = 0; i < 6; i++) {
+		dojoAnim.PushBack({ w * i, 0, w, h });
+		
+	}
+
+	dojoAnim.speed = 0.01f;
+	dojoAnim.loop = true;
 
 
 	battlePhase = BattlePhase::THINKING;
@@ -72,6 +87,9 @@ bool Battle::Start()
 	hasTriedToEscape = false;
 	canEscape = false;
 	gameOver = false;
+	hasToShake = false;
+	damageTaken = 0;
+	shakePos = 0;
 	cont = 0;
 	battleTurn = 0;
 	turnValue = 321.123f;
@@ -83,7 +101,8 @@ bool Battle::Start()
 	case StageIndex::NONE:
 		break;
 	case StageIndex::TOWN:
-		townBattleBackground = app->tex->Load("Assets/textures/dungeon_1.jpg");
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
 	default:
 		break;
@@ -161,9 +180,13 @@ bool Battle::PreUpdate()
 }
 
 bool Battle::Update(float dt)
-{
+{	
+
 	if (battlePause == false) {
 
+		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			dojoAnim.Update(dt);
+		//}
 		//Player turn
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
@@ -176,14 +199,14 @@ bool Battle::Update(float dt)
 				}
 				canSelect = true;
 				break;
-			case BattlePhase::ATTACKING:
-				if (cont < attackTime) {
+			case BattlePhase::OUTCOME:
+				if (cont < outcomeTime) {
 					cont += dt;
 				}
-				//ATTACK
+				//OUTCOME
 				else {
 					cont = 0;
-					Attack(targetEntity);
+					hasToShake = false;
 					if (CheckWinLose() == true) {
 
 					}
@@ -192,6 +215,17 @@ bool Battle::Update(float dt)
 						battleTurn++;
 						battlePhase = BattlePhase::THINKING;
 					}
+				}
+				break;
+			case BattlePhase::ATTACKING:
+				if (cont < attackTime) {
+					cont += dt;
+				}
+				//ATTACK
+				else {
+					cont = 0;
+					Attack(targetEntity);
+					battlePhase = BattlePhase::OUTCOME;
 					
 				}
 				break;
@@ -320,18 +354,14 @@ bool Battle::Update(float dt)
 				}
 				
 				break;
-
-			case BattlePhase::ATTACKING:
-				if (cont < attackTime) {
+			case BattlePhase::OUTCOME:
+				if (cont < outcomeTime) {
 					cont += dt;
 				}
-				
-				//ATTACK
+				//OUTCOME
 				else {
 					cont = 0;
-					
-					
-					Attack(targetEntity);
+					hasToShake = false;
 					if (CheckWinLose() == true) {
 
 					}
@@ -340,6 +370,19 @@ bool Battle::Update(float dt)
 						battleTurn++;
 						battlePhase = BattlePhase::THINKING;
 					}
+				}
+				break;
+			case BattlePhase::ATTACKING:
+				if (cont < attackTime) {
+					cont += dt;
+				}
+				
+				//ATTACK
+				else {
+					cont = 0;
+					Attack(targetEntity);
+					battlePhase = BattlePhase::OUTCOME;
+
 				}
 				break;
 			case BattlePhase::DEFENDING:
@@ -431,6 +474,66 @@ bool Battle::Update(float dt)
 		}
 
 	}*/
+	if (battleStage != nullptr) {
+		switch (*battleStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+			}
+			else {
+				/*LOG("%i", shakePos);
+				if (shakePos <= -1000) {
+					hasToShake = false;
+				}
+				else {
+					if (shakePos == 0) {
+						shakePos += dt;
+						app->render->DrawTexture(dojoBackground, (int)shakePos/100, 0, &dojoAnim.GetCurrentFrame());
+					}
+					else if (shakePos > 0) {
+						shakePos = shakePos * -1;
+						app->render->DrawTexture(dojoBackground, (int)shakePos / 100, 0, &dojoAnim.GetCurrentFrame());
+					}
+					else if (shakePos < 0) {
+						shakePos = shakePos * -1;
+						shakePos += dt;
+						app->render->DrawTexture(dojoBackground, (int)shakePos / 100, 0, &dojoAnim.GetCurrentFrame());
+					}
+				}
+				*/
+
+				if (shakePos > 1000) {
+					shakePos = 1000;
+				}
+
+				if (shakePos < -1000) {
+					shakePos = -1000;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos , 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos = shakePos * -1;
+					app->render->DrawTexture(dojoBackground, (int)shakePos, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos = shakePos * -1;
+					shakePos += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos , 0, &dojoAnim.GetCurrentFrame());
+				}
+				
+			}
+
+			break;
+		default:
+			break;
+		}
+	}
 
 	return true;
 }
@@ -439,16 +542,8 @@ bool Battle::Update(float dt)
 bool Battle::PostUpdate()
 {
 	bool ret = true;
-	if (battleStage != nullptr) {
-		switch (*battleStage) {
-		case StageIndex::NONE:
-			break;
-		case StageIndex::TOWN:
-			app->render->DrawTexture(townBattleBackground, 0, 0);
-			break;
-		default:
-			break;
-		}
+	
+		
 		//app->map->Draw();
 		//app->guiManager->Draw();
 
@@ -460,7 +555,7 @@ bool Battle::PostUpdate()
 		if (player->PlayerErection == false) {
 			app->render->DrawTexture(player->PlayerFTex, player->position.x, player->position.y, &rect);
 		}*/
-	}
+	//}
 
 	if (battleTurn > 99) {
 		battleTurn = 99;
@@ -496,7 +591,10 @@ bool Battle::PostUpdate()
 		case BattlePhase::SELECTING:
 			app->font->DrawText("Select a target", 50, app->win->GetHeight() / 2 - 150);
 			break;
-
+		case BattlePhase::OUTCOME:
+			sprintf_s(nameChar, 100, "%s takes %i points of damage!", targetEntity->name, damageTaken);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
+			break;
 		case BattlePhase::ATTACKING:
 			sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
 			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 150);
@@ -682,8 +780,11 @@ void Battle::SetTurnOrder()
 
 void Battle::Attack(DynamicEntity *target) {
 
-	if (target->stats->deffense  < actualTurnEntity->stats->attack) {
+	if (target->stats->deffense  <= actualTurnEntity->stats->attack) {
+		damageTaken = actualTurnEntity->stats->attack - target->stats->deffense;
 		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
+		hasToShake = true;
+		shakePos = 0;
 	}
 	
 	if (target->stats->health <= 0) {
