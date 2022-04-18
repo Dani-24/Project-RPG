@@ -180,5 +180,7 @@ private: // DIALOGS
 	"poyo"
 	};
 
+	void Interact(NPCType);
+
 };
 #endif !__PLAYER_H__

@@ -235,6 +235,8 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
+					app->stages->pAnim = rand() % 3 + 1;
+					app->stages->vAnim = rand() % 2 + 1;
 					Attack(targetEntity);
 					ChangePhase(BattlePhase::OUTCOME);
 					
@@ -391,6 +393,7 @@ bool Battle::Update(float dt)
 				//ATTACK
 				else {
 					cont = 0;
+					app->stages->eAnim = rand() % 3 + 1;
 					Attack(targetEntity);
 					ChangePhase(BattlePhase::OUTCOME);
 

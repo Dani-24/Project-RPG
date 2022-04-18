@@ -63,6 +63,8 @@ public:
 
 	bool fxbool = false;
 
+	int eAnim = 1, pAnim = 1, vAnim = 1;
+
 	StageIndex actualStage;
 
 	Player* playerPtr;

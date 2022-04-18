@@ -16,8 +16,6 @@ struct SDL_Texture;
 struct SDL_Surface;
 struct Collider;
 
-enum class StageIndex;
-
 enum class NPCType
 {
 	COCK,
@@ -62,8 +60,6 @@ public:
 	bool hasMovement;
 
 	NPCType NpcType;
-
-	StageIndex activeOnStage;
 };
 
 #endif // !__NPC_H__

@@ -154,20 +154,37 @@ bool Stages::PostUpdate()
 				break;
 			case 2:
 				app->font->DrawTextDelayed("Camion-kun, quien goberna en este mundo", epilogX - 70, epilogY);
-				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY + 25);
 				break;
 			case 3:
-				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
+				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
-				app->font->DrawTextDelayed("y asi asumir tu genero con ello", epilogX - 10, epilogY + 25);
+				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
 				break;
 			case 5:
-				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
-				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY + 25);
+				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
 				break;
 			case 6:
+				app->font->DrawTextDelayed("y asumir tu genero con ello", epilogX, epilogY);
+				break;
+			case 7:
+				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
+				break;
+			case 8:
+				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY);
+				break;
+			case 9:
+				if (playerPtr->PlayerErection == true) {
+					app->font->DrawTextDelayed("Con que eres un chico (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+				}
+				else {
+					app->font->DrawTextDelayed("Con que eres una chica (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+				}
+				break;
+			case 10:
+				app->font->DrawTextDelayed("Una gran aventura te aguarda joven", epilogX - 50, epilogY);
+				break;
+			case 11:
 				ChangeStage(StageIndex::TOWN);
 				break;
 			default:
@@ -330,7 +347,15 @@ bool Stages::PostUpdate()
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
 								break;
 							case BattlePhase::ATTACKING:
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
+								if (eAnim == 1) {
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
+								}
+								if (eAnim == 2) {
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim2;
+								}
+								if (eAnim == 3) {
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim3;
+								}
 								if (fxbool == true) {
 									fxbool = false;
 									app->audio->PlayFx(hitfx1);
@@ -356,6 +381,9 @@ bool Stages::PostUpdate()
 
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						switch (NormalEnemyInList->data->normalEnemyType) {
+						case NormalEnemyType::FLYING_EYE:
+							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+							break;
 						case NormalEnemyType::BAT:
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 2 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
 							break;
@@ -420,14 +448,22 @@ bool Stages::PostUpdate()
 							}
 							if (playerPtr->PlayerErection == false) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleF;
-								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 2);
+								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
 								if (app->battle->actualTurnEntity->name == "Player") {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleF;
 										break;
 									case BattlePhase::ATTACKING:
-										playerPtr->currentAnimation = &playerPtr->attackF;
+										if (pAnim == 1) {
+											playerPtr->currentAnimation = &playerPtr->attackF;
+										}
+										if (pAnim == 2) {
+											playerPtr->currentAnimation = &playerPtr->attackF2;
+										}
+										if (pAnim == 3) {
+											playerPtr->currentAnimation = &playerPtr->attackChainF;
+										}
 										if (fxbool == true) {
 											fxbool = false;
 											app->audio->PlayFx(hitfx2);
@@ -466,8 +502,12 @@ bool Stages::PostUpdate()
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									break;
 								case BattlePhase::ATTACKING:
-									CharacterInList->data->currentAnimation = &CharacterInList->data->attackAnim1;
-									
+									if (vAnim == 1) {
+										CharacterInList->data->currentAnimation = &CharacterInList->data->attackAnim1;
+									}
+									if (vAnim == 2) {
+										CharacterInList->data->currentAnimation = &CharacterInList->data->attackAnim2;
+									}
 
 									if (fxbool == true) {
 										fxbool = false;
