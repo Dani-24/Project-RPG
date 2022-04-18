@@ -45,6 +45,8 @@ public:
 
 	bool resumen;
 
+	bool exitg;
+
 	SDL_Texture* Pausetex;
 
 

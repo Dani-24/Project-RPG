@@ -12,6 +12,7 @@
 #include "GuiManager.h"
 #include "Camera.h"
 #include "PauseMenu.h"
+#include "Configuration.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -86,67 +87,72 @@ bool TitleScene::Start()
 
 bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-		if (control->id == 1)
+	if (!app->conf->isEnabled()) {
+		switch (control->type)
 		{
-
-			LOG("Click on Start");
-
-			if (pause == false) {
-
-				app->audio->PlayFx(confirmFx);
-
-				app->stages->ChangeStage(StageIndex::TOWN);
-
-				app->fade->DoFadeToBlack(this, (Module*)app->scene);
-			}
-		}
-
-		if (control->id == 2)
+		case GuiControlType::BUTTON:
 		{
-			LOG("Click on Continue");
-		}
-		if (control->id == 3)
-		{
-			LOG("Click on Options");
+			//Checks the GUI element ID
+			if (control->id == 1)
+			{
 
-			if (pause == false) {
+				LOG("Click on Start");
 
-				app->audio->PlayFx(confirmFx);
+				if (pause == false) {
 
-				app->fade->DoFadeToBlack(this, (Module*)app->conf);
+					app->audio->PlayFx(confirmFx);
+
+					app->stages->ChangeStage(StageIndex::TOWN);
+
+					app->fade->DoFadeToBlack(this, (Module*)app->scene);
+				}
 			}
 
-		}
-		if (control->id == 4)
-		{
-			LOG("Click on Credits");
+			if (control->id == 2)
+			{
+				LOG("Click on Continue");
+				/*if (pause == false) {
+					app->audio->PlayFx(confirmFx);
+					app->LoadGameRequest();
+				}*/
+			}
+			if (control->id == 3)
+			{
+				LOG("Click on Options");
 
-			if (pause == false) {
+				if (pause == false) {
 
-				LOG("Opening Link : %s", CREDITS_LINK);
-				SDL_OpenURL(CREDITS_LINK);
+					app->audio->PlayFx(confirmFx);
+					app->conf->Enable();
+					//app->fade->DoFadeToBlack(this, (Module*)app->conf);
+				}
 
 			}
-		}
-		if (control->id == 5)
-		{
-			LOG("Click on Exit");
-			
-			if (pause == false) {
-				exitGame = true;
+			if (control->id == 4)
+			{
+				LOG("Click on Credits");
+
+				if (pause == false) {
+
+					LOG("Opening Link : %s", CREDITS_LINK);
+					SDL_OpenURL(CREDITS_LINK);
+
+				}
 			}
+			if (control->id == 5)
+			{
+				LOG("Click on Exit");
+
+				if (pause == false) {
+					exitGame = true;
+				}
+			}
+		}
+		//Other cases here
+
+		default: break;
 		}
 	}
-	//Other cases here
-
-	default: break;
-	}
-
 	return true;
 }
 

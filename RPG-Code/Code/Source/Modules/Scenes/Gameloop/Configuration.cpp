@@ -61,7 +61,7 @@ bool Configuration::Start()
 	
 
 	pause = false;
-	fpscap = false;
+	
 	return true;
 }
 
@@ -102,8 +102,8 @@ bool Configuration::PostUpdate()
 	char const* FXchar = sFX.c_str();
 
 
-	if (app->pauseM->pauseGame == false && app->scene->playing==false )
-	{
+	//if (app->pauseM->pauseGame == false && app->scene->playing==false )
+	//{
 		app->render->DrawTexture(background, (app->win->GetWidth() / 2) - 475, (app->win->GetWidth() / 50) + 40);
 
 		app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50);
@@ -124,40 +124,40 @@ bool Configuration::PostUpdate()
 
 		app->font->DrawText("X", (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37);
 
-	}
-	else if (app->pauseM->pauseGame == true && app->scene->playing == true)
-	{
+	//}
+	//else if (app->pauseM->pauseGame == true && app->scene->playing == true)
+	//{
 
-		int xt, yt, xc, yc;
+	//	int xt, yt, xc, yc;
 
-		//variables for textures
-		xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-		yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+	//	//variables for textures
+	//	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	//	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
-		//variables for text
-		xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
-		yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
+	//	//variables for text
+	//	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
+	//	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 
-		app->render->DrawTexture(background, xc - 475, yc + 40);
+	//	app->render->DrawTexture(background, xc - 475, yc + 40);
 
-		app->font->DrawText("Music", xc - 470, yc + 50);
-		app->font->DrawText("+", xc - 300, yc + 50);
-		app->font->DrawText("-", xc - 350, yc + 50);
-		app->font->DrawText(volchar, xc - 265, yc + 50);
-		app->font->DrawText("SFX", xc - 470, yc + 90);
-		app->font->DrawText("+", xc - 300, yc + 90);
-		app->font->DrawText("-", xc - 350, yc + 90);
-		app->font->DrawText(FXchar, xc - 265, yc + 90);
+	//	app->font->DrawText("Music", xc - 470, yc + 50);
+	//	app->font->DrawText("+", xc - 300, yc + 50);
+	//	app->font->DrawText("-", xc - 350, yc + 50);
+	//	app->font->DrawText(volchar, xc - 265, yc + 50);
+	//	app->font->DrawText("SFX", xc - 470, yc + 90);
+	//	app->font->DrawText("+", xc - 300, yc + 90);
+	//	app->font->DrawText("-", xc - 350, yc + 90);
+	//	app->font->DrawText(FXchar, xc - 265, yc + 90);
 
-		app->font->DrawText("FullScreen", xc - 470, yc + 130);
-		if (app->win->fullscreen == true) app->font->DrawText("X", xc - 325, yc + 130);
+	//	app->font->DrawText("FullScreen", xc - 470, yc + 130);
+	//	if (app->win->fullscreen == true) app->font->DrawText("X", xc - 325, yc + 130);
 
-		app->font->DrawText("VSync", xc - 470, yc + 170);
-		if (app->render->Vsync == true) app->font->DrawText("X", xc - 325, yc + 170);
+	//	app->font->DrawText("VSync", xc - 470, yc + 170);
+	//	if (app->render->Vsync == true) app->font->DrawText("X", xc - 325, yc + 170);
 
 
-		app->font->DrawText("X", xc - 180, yc + 37);
-	}
+	//	app->font->DrawText("X", xc - 180, yc + 37);
+	//}
 
 
 	/*app->font->DrawText("Music", 170, 85);
@@ -244,11 +244,17 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 14)
 		{
 			LOG("BACK");
-			if (pause == false) {
-				pause = true;
-				app->audio->PlayFx(backFx);
+			if (!app->scene->playing) {
+				if (pause == false) {
+					pause = true;
+					app->audio->PlayFx(backFx);
+				}
+				Disable();
 			}
-			app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+			else
+			{
+				Disable();
+			}
 		}
 	}
 	//Other cases here

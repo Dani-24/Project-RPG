@@ -41,7 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	logoScene = new LogoScene(this, true);
 	titleScene = new TitleScene(this, false);
-	conf = new Configuration(this, false);
+	
 	scene = new Scene(this, false);
 	
 	battle = new Battle(this, false);
@@ -55,6 +55,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(this, false);
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
+	conf = new Configuration(this, false);
 
 	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this, false);
@@ -73,7 +74,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(logoScene);
 	AddModule(titleScene);
-	AddModule(conf);
+	
 	AddModule(battle);
 	AddModule(stages);
 	AddModule(scene);
@@ -82,6 +83,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(entities);
 	AddModule(pauseM);
+	AddModule(conf);
 
 	AddModule(guiManager);
 	AddModule(font);

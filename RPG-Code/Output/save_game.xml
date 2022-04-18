@@ -10,19 +10,20 @@
 	<pathfinder />
 	<logoScene />
 	<titleScene />
-	<conf />
 	<battle />
 	<stages />
 	<scene />
 	<map />
 	<EntityManager />
-	<enemy />
+	<pauseMenu />
+	<conf />
 	<guiManager />
 	<fonts />
+	<dialogSystem />
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="-1260" y="-1640" />
+		<camera x="0" y="0" />
 	</camera>
 	<renderer />
 </save_state>

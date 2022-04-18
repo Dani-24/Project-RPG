@@ -76,6 +76,8 @@ bool PauseMenu::Start()
 	
 	resumen = false;
 	pauseGame = false;
+	exitg = false;
+
 
 	return true;
 }
@@ -83,54 +85,63 @@ bool PauseMenu::Start()
 
 bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
-	
-	switch (control->type)
-	{
-	case GuiControlType::BUTTON:
-	{
-		//Checks the GUI element ID
-		
-		if (control->id == 21)
+	if (!app->conf->isEnabled()) {
+		switch (control->type)
 		{
-			LOG("partu");
-		}
-		if (control->id == 22)
+		case GuiControlType::BUTTON:
 		{
-			LOG("invenyt");
-		}
-		if (control->id == 23)
-		{
-			LOG("town");
-		}
-		if (control->id == 24)
-		{
-			LOG("resume");
-			resumen = true;
+			//Checks the GUI element ID
+
+			if (control->id == 21)
+			{
+				LOG("partu");
+			}
+			if (control->id == 22)
+			{
+				LOG("invenyt");
+			}
+			if (control->id == 23)
+			{
+				LOG("town");
+				resumen = true;
+				app->fade->DoFadeToBlack(StageIndex::TOWN);
+			}
+			if (control->id == 24)
+			{
+				LOG("resume");
+				resumen = true;
+
+			}
+			if (control->id == 25)
+			{
+				LOG("config");
+				if (!app->conf->isEnabled())app->conf->Enable();
+			}
+			if (control->id == 26)
+			{
+				LOG("save");
+				app->audio->PlayFx(app->scene->saveFx);
+				app->SaveGameRequest();
+			}
+			if (control->id == 27)
+			{
+				LOG("loadd");
+				resumen = true;
+				app->audio->PlayFx(app->scene->loadFx);
+				app->LoadGameRequest();
+			}
+			if (control->id == 28)
+			{
+				LOG("exit");
+				exitg = true;
+			}
 
 		}
-		if (control->id == 25)
-		{
-			LOG("config");
-		}
-		if (control->id == 26)
-		{
-			LOG("save");
-		}
-		if (control->id == 27)
-		{
-			LOG("loadd");
-		}
-		if (control->id == 28)
-		{
-			LOG("exit");
-		}
-		
-	}
-	//Other cases here
+		//Other cases here
 
-	default: break;
+		default: break;
+		}
 	}
-	
 	return true;
 }
 
@@ -139,7 +150,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 bool PauseMenu::PreUpdate()
 {
 	bool ret = true;
-
+	//ret = exitg;
 	int xt, yt, xc, yc;
 
 	//variables for textures
@@ -164,10 +175,10 @@ bool PauseMenu::PreUpdate()
 
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+	/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
 		if (app->pauseM->pauseGame == false && app->scene->playing == true)app->pauseM->pauseGame = true, app->scene->playing = true, app->conf->Enable() ;
 		else app->pauseM->pauseGame = false, app->conf->Disable();
-	}
+	}*/
 
 	//if (start == true) {
 	//	if (pause == false) {
@@ -206,7 +217,7 @@ bool PauseMenu::Update(float dt)
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 	
-	if ((app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN || resumen == true)&&app->scene->playing) {
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true)&&app->scene->playing) {
 
 		if (pauseGame){
 			pauseGame = false;

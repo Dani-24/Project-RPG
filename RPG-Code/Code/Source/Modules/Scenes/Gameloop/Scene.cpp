@@ -155,13 +155,15 @@ bool Scene::PreUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	if (app->pauseM->exitg) {
 		if (pause == false) {
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
-		app->pauseM->pauseGame = false;
+		app->pauseM->exitg = false;
+		app->pauseM->resumen = true;
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+		app->pauseM->CleanUp();
 	}
 
 	return ret;

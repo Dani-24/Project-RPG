@@ -50,7 +50,7 @@ private:
 	GuiButton* btn1;
 	GuiButton* btn2;
 
-	int backFx, loadFx, saveFx;
+	
 
 public:
 	bool pause;
@@ -60,6 +60,8 @@ public:
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
 	List<Character*> partyList;
+
+	int backFx, loadFx, saveFx;
 
 	SDL_Texture* gui;
 	

@@ -58,7 +58,7 @@ private:
 
 public:
 	bool pause;
-	bool fpscap;
+	
 	bool fulls;
 	SDL_Texture* background;
 
