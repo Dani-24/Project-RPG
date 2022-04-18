@@ -180,7 +180,7 @@ private: // DIALOGS
 	"poyo"
 	};
 
-	void Interact(NPCType);
+	void Interact(NPCType, const char* [DIALOG_LENGHT]);
 
 };
 #endif !__PLAYER_H__

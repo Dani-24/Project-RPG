@@ -632,19 +632,19 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							switch (entityInList->data->npcID)
 							{
 							case 1:
-								Interact(NPCType::COCK);
+								Interact(NPCType::COCK, cockDialog);
 								break;
 							case 2:
-								Interact(NPCType::MERCHANT);
+								Interact(NPCType::MERCHANT, merchantDialog);
 								break;
 							case 3:
-								Interact(NPCType::BARKEEPER);
+								Interact(NPCType::BARKEEPER, barkeeperDialog);
 								break;
 							case 4:
-								Interact(NPCType::TRAINER);
+								Interact(NPCType::TRAINER, trainerDialog);
 								break;
 							case 5:										
-								Interact(NPCType::EMILIO);
+								Interact(NPCType::EMILIO, emilioDialog);
 								break;
 							default:
 								break;
@@ -657,9 +657,9 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 	}
 }
 
-void Player::Interact(NPCType npc) {
+void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		app->dialogs->CreateDialog(npc, emilioDialog);
+		app->dialogs->CreateDialog(npc, dialog);
 	}
 	printInteractionButt = true;
 }
