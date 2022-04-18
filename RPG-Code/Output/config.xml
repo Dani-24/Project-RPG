@@ -80,7 +80,11 @@
 	<emilio>
 		<korb path="Assets/sprites/npc/tower/npc_emilio.png"/>
 	</emilio>
-	
+
+	<giroide>
+		<g path="Assets/sprites/npc/extra/npc_giroide.png"/>
+	</giroide>
+
 	<pathfinder>
 		<pathtex path="Assets/textures/path.png"/>
 		<pathorigin path="Assets/textures/pathOrigin.png"/>

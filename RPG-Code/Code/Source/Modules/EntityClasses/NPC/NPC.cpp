@@ -83,7 +83,17 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
 
 		break;
+	case NPCType::GIROIDE:
+		idleAnim.PushBack({ 0,0,32,32 });
+		idleAnim.speed = 0;
 
+		configName = "giroide";
+
+		npcID = 6;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
+
+		break;
 	default:
 		break;
 	}
@@ -108,6 +118,7 @@ bool NPC::Awake(pugi::xml_node& config)
 	trainerChar = config.child("trainer").attribute("path").as_string();
 	shoperChar = config.child("shoper").attribute("path").as_string();
 	emilioChar = config.child("korb").attribute("path").as_string();
+	giroideChar = config.child("g").attribute("path").as_string();
 
 	return true;
 }
@@ -140,7 +151,10 @@ bool NPC::Start()
 
 		spriteText = app->tex->Load(emilioChar);
 		break;
+	case NPCType::GIROIDE:
 
+		spriteText = app->tex->Load(giroideChar);
+		break;
 	default:
 		break;
 	}
