@@ -37,6 +37,7 @@
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
 		<election path="Assets/audio/sfx/fx_character_yes.wav"/>
 		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
+		<interactionButton path="Assets/gui/controllers/ui_mixed.png"/>
 	   <exampleNumber num="6"/>
 	</player>
 	

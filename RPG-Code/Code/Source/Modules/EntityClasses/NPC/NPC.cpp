@@ -27,7 +27,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "cock";
 		npcID = 1;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15 , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::BARKEEPER:
@@ -40,7 +40,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 3;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y + 70 , 30,  24 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y , 60,  100 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::MERCHANT:
@@ -53,7 +53,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 2;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  55 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15 , 60,  100 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::TRAINER:
@@ -66,7 +66,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 4;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 5 , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::EMILIO:
@@ -80,7 +80,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 5;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::GIROIDE:

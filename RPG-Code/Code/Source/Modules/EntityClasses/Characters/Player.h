@@ -92,6 +92,7 @@ public:
 	const char* FemaleChar;
 	const char* electionfxChar;
 	const char* WalkfxChar;
+	const char* interactionButtonChar;
 	
 	bool canMove;
 
@@ -120,13 +121,17 @@ private:
 	iPoint lastFramePos;
 	int showGuiCont;
 
+	SDL_Texture* interactionButton;
+	Animation interactionButtonJustSpace;
+	bool printInteractionButt = false;
+
 private: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 
 	"Hola buenas, bienvenido a la taverna",
 	"Desearia tomar algo ?",
 	". . .", 
-	". . .",
+	". . . . . .",
 	"Me tomare tu silencio como un no" 
 	};
 
