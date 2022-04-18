@@ -54,7 +54,7 @@ private:
 	SDL_Texture* titleLogo;
 
 	// title bullshit
-	iPoint titleBgPos = {0, 0};
+	iPoint titleBgPos = {-650, -200};
 	float rotateSpeed = 0.1f;
 	float radius = 600;
 	fPoint centre = {-650, -800};
