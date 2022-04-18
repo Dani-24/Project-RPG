@@ -24,11 +24,12 @@ public:
 	void RemoveCollider(Collider* collider);
 	void DebugDraw();
 
+	bool debug = false;
 private:
 
 	Collider* colliders[MAX_COLLIDERS] = { nullptr };
 	bool matrix[Collider::Type::MAX][Collider::Type::MAX];
-	bool debug = false;
+	
 };
 
 #endif // _COLLISIONS_H__

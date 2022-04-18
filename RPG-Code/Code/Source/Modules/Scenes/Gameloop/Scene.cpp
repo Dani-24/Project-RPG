@@ -88,7 +88,7 @@ bool Scene::Start()
 	partyList.add(player);
 
 	//Party members
-	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 10, 50);
+	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
 	partyList.add(valion);
 	
 	valionchar = valion;
@@ -125,7 +125,7 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 1000, 500 };
+	iPoint eyePos = { 950, 500 };
 	iPoint batPos = { 800, 950 };
 	iPoint skeletonPos = { 650, 850 };
 
@@ -180,13 +180,12 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 
-	
-
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
+	fpsdt = dt*3.75;
 	//GUI activation
 
 	guiactivate = false;
@@ -278,6 +277,9 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
+	std::string fps = std::to_string(fpsdt);
+	char const* fpsChar = fps.c_str();
+	
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -287,7 +289,14 @@ bool Scene::PostUpdate()
 	{
 		app->render->DrawTexture(gui, xt - 606, yt - 360);
 	}
-	
+	if (app->collisions->debug)
+	{
+		app->font->DrawText(fpsChar, xt - 400, yt - 100);
+		
+		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 400, yt - 80): app->font->DrawText("Vsync: Off", xt - 400, yt - 80);
+		
+	}
+
 
 	return ret;
 }
