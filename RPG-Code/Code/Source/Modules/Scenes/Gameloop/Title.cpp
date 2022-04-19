@@ -286,10 +286,6 @@ bool TitleScene::PreUpdate()
 bool TitleScene::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN ) {
-		btn1->SetPos({ (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 200 });
-	}
-
 	// BG movement
 	angle += rotateSpeed * dt/1000;
 
