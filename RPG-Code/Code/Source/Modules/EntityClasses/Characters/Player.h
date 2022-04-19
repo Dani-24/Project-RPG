@@ -135,7 +135,7 @@ private: // DIALOGS
 	"Whould you like something to drink ?",
 	". . .", 
 	". . . . . .",
-	"I will interpret your silence as a No" 
+	"I will interpret your silence as a no" 
 	};
 
 	const char* trainerDialog[DIALOG_LENGHT] = { 
@@ -149,7 +149,7 @@ private: // DIALOGS
 
 	const char* merchantDialog[DIALOG_LENGHT] = { 
 	"HOOOLA!, Hellooo!, soy Vincenç",
-	"We have NO products right now",
+	"We have no products right now",
 	"You know , the truck riot ...",
 	"Anyways, you can take your time looking the shop",
 	"Aunque all we have is exclusivo de muestra",
@@ -161,22 +161,23 @@ private: // DIALOGS
 	"kokoroco?",
 	"If you want a chikita guide I can help you",
 	"This red house is the Shop",
-	"They sell everything, or so it is supposed",
-	"On the right above the river there is the tavern",
-	"pretty much popular between the rookies as you",
-	"They are consummed for the wickedness of the tower . . .",
-	"or because of the alcohol.",
+	"They sell everything, or that's supposed",
+	"On the right above the river there's the Tavern",
+	"pretty much popular between the rookies like you",
+	"If they are not consummed by the tower . . .",
+	"they are consummed because of the alcohol",
 	"koko ro ko",
 	"Finally, going up this street . . .",
-	"on the right side of the tavern there is the dojo",
-	"Test your habilites fighting with the enemies",
-	"And avoid dying during the process, it will be a good detail",
+	"on the right side of the tavern, there is the Dojo",
+	"Test there your habilities with some enemies",
+	"And avoid dying there ( it will be a good detail )",
 	"ko ko",
-	"Ah, on the North you will find the tower of Camion-kun",
-	"Although we had closed it because anyone wants to go",
-	"Emilio started to paint it outside",
+	"At the north you will find the Tower of Camion-kun",
+	"Although we had closed it because nobody wants to go",
+	"And . . . Emilio started to paint the outside",
 	"co ro ko",
-	"Now you should give me a bit of bread because of the info"
+	"That's all",
+	"Now give me a bit of bread in exchange of the info"
 	};
 
 	const char* emilioDialog[DIALOG_LENGHT] = {
