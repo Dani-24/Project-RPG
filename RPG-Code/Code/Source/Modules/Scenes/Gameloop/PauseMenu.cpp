@@ -80,7 +80,6 @@ bool PauseMenu::Start()
 	pauseGame = false;
 	exitg = false;
 
-
 	return true;
 }
 
@@ -241,7 +240,7 @@ bool PauseMenu::Update(float dt)
 			load->state = GuiControlState::NORMAL;
 			exit->state = GuiControlState::NORMAL;
 			party->state= GuiControlState::NORMAL;
-
+			app->audio->ChangeVolume(app->audio->vol / 3);
 		}
 		
 	}
@@ -314,6 +313,8 @@ bool PauseMenu::CleanUp()
 	//app->tex->UnLoad(optionsb);
 	//app->tex->UnLoad(creditsb);
 	//app->tex->UnLoad(exitb);
+
+	app->audio->ChangeVolume(app->audio->vol * 3);
 
 	return true;
 }
