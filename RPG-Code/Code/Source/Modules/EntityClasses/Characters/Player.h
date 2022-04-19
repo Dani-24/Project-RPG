@@ -131,11 +131,11 @@ private:
 private: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 
-	"Hola buenas, bienvenido a la taverna",
-	"Desearia tomar algo ?",
+	"Hello !, welcome to the tavern",
+	"Whould you like something to drink ?",
 	". . .", 
 	". . . . . .",
-	"Me tomare tu silencio como un no" 
+	"I will interpret your silence as a No" 
 	};
 
 	const char* trainerDialog[DIALOG_LENGHT] = { 
@@ -148,12 +148,13 @@ private: // DIALOGS
 	};
 
 	const char* merchantDialog[DIALOG_LENGHT] = { 
-	"HOOOLA!, soy Vincenç",
-	"Ahora mismo no disponemos de mercancia",
-	"Ya sabes, la huelga de camioneros...",
-	"Puedes darte una vuelta igualmente si quieres",
-	"Aunque todo lo que hay es exclusivo de muestra",
-	"Esperamos reponer pronto"
+	"HOOOLA!, Hellooo!, soy Vincenç",
+	"We have NO products right now",
+	"You know , the truck riot ...",
+	"Anyways, you can take your time looking the shop",
+	"Aunque all we have is exclusivo de muestra",
+	"As you can see, not for sale", 
+	"We hope to restock soon!"
 	};
 
 	const char* cockDialog[DIALOG_LENGHT] = { 
@@ -179,7 +180,7 @@ private: // DIALOGS
 	};
 
 	const char* emilioDialog[DIALOG_LENGHT] = {
-	"Lo siento estoy pintando",
+	"Sorry I'm painting . . .",
 	"poyo"
 	};
 
