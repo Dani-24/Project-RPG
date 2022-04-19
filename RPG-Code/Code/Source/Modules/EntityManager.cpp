@@ -161,7 +161,7 @@ bool EntityManager::CleanUp()
 
 bool EntityManager::SaveState(pugi::xml_node& data) const
 {
-	pugi::xml_node playerpos = data.child("playerpos");
+	pugi::xml_node playerpos = data.append_child("playerpos");
 
 	playerpos.append_attribute("x") = app->scene->partyList.At(0)->data->position.x;
 	playerpos.append_attribute("y") = app->scene->partyList.At(0)->data->position.y;
