@@ -45,9 +45,6 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-	//bool SaveState(pugi::xml_node& data) const;
-	//bool LoadState(pugi::xml_node& data);
-
 private:
 
 	GuiButton* btn1;

@@ -62,10 +62,10 @@ bool Stages::PreUpdate()
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
-		intStage = 0;
+		intStage = 1;
 		break;
 	case StageIndex::TOWN:
-		intStage = 1;
+		intStage = 2;
 		break;
 	case StageIndex::TAVERN:
 		intStage = 3;
@@ -751,7 +751,7 @@ bool Stages::CleanUp()
 //
 //bool Stages::LoadState(pugi::xml_node& data)
 //{
-//	intStage = data.child("stages").attribute("actualstage").as_int();
+//	intStage = data.child("actualStage").attribute("actualstage").as_int();
 //
 //	//saved= data.child("Saved").attribute("saved").as_bool();
 //
