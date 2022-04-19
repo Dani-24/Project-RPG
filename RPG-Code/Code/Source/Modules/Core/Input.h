@@ -76,7 +76,10 @@ public:
 	{
 		return keyboard[id];
 	}
-
+	void SetKey(int id, KeyState state) const
+	{
+		keyboard[id] = state;
+	}
 	KeyState GetMouseButtonDown(int id) const
 	{
 		return mouseButtons[id - 1];

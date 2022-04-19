@@ -164,7 +164,14 @@ bool TitleScene::PreUpdate()
 		app->pauseM->CleanUp();
 		return false;
 	}
+	GamePad& pad = app->input->pads[0];
+	GuiControl* WE;
 	
+
+	/*if ((app->input->GetKey(SDL_SCANCODE_L)||pad.r1) == KEY_DOWN)
+	{
+		LOG("UWUWUWUWUUWUWUWUW");
+	}*/
 	pause = app->fade->fading;
 
 	return true;
@@ -174,9 +181,7 @@ bool TitleScene::PreUpdate()
 bool TitleScene::Update(float dt)
 {
 
-	if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN ) {
-		btn1->SetPos({ (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 200 });
-	}
+	
 
 	// BG movement
 	angle += rotateSpeed * dt/1000;

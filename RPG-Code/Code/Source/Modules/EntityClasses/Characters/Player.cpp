@@ -339,13 +339,22 @@ void Player::MovementPlayer(float dt) {
 	{
 		app->input->ShakeController(0, 60, 1.0f);
 	}
-
+	if ((app->input->GetKey(SDL_SCANCODE_L) || pad.r1) == KEY_DOWN)
+	{
+		LOG("UWUWUWUWUUWUWUWUW");
+		app->input->SetKey(SDL_SCANCODE_A, KEY_REPEAT);
+	}
 	speed = 0.2 * dt;
 
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W || pad.left_y < -0.5f || pad.up) == KEY_REPEAT) {
+	//if(pad.l1==KEY_REPEAT)
+	//{ 
+	//	app->input->SetKey(SDL_SCANCODE_A,KEY_REPEAT)  ;
+	//}
+
+	if ((app->input->GetKey(SDL_SCANCODE_W )|| pad.left_y < -0.5f || pad.up) == KEY_REPEAT) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
@@ -357,7 +366,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S || pad.left_y > 0.5f || pad.down) == KEY_REPEAT) {
+	else if ((app->input->GetKey(SDL_SCANCODE_S )|| pad.left_y > 0.5f || pad.down) == KEY_REPEAT) {
 		position.y += speed;
 
 		if (currentAnimation != &walkAnimDown) {
@@ -369,7 +378,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A || pad.left_x < -0.5f || pad.left) == KEY_REPEAT) {
+	else if ((app->input->GetKey(SDL_SCANCODE_A )|| pad.left_x < -0.5f || pad.l1) == KEY_REPEAT) {
 		position.x -= speed;
 
 		if (currentAnimation != &walkAnimL) {
@@ -381,7 +390,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D || pad.left_x > 0.5f || pad.right) == KEY_REPEAT) {
+	else if ((app->input->GetKey(SDL_SCANCODE_D )|| pad.left_x > 0.5f || pad.r1) == KEY_REPEAT) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {

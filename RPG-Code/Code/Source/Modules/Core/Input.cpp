@@ -9,6 +9,7 @@
 
 #define MAX_KEYS 300
 
+
 Input::Input(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("input");
@@ -16,8 +17,6 @@ Input::Input(App* application, bool start_enabled) : Module(application, start_e
 	keyboard = new KeyState[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KeyState) * MAX_KEYS);
 	memset(mouseButtons, KEY_IDLE, sizeof(KeyState) * NUM_MOUSE_BUTTONS);
-
-	//for (uint i = 0; i < MAX_KEYS; ++i) keys[i] = KEY_IDLE;
 	memset(&pads[0], 0, sizeof(GamePad) * MAX_PADS);
 }
 
@@ -34,7 +33,7 @@ bool Input::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
-	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -69,37 +68,48 @@ bool Input::PreUpdate()
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-	for(int i = 0; i < MAX_KEYS; ++i)
+	for (int i = 0; i < MAX_KEYS; ++i)
 	{
-		if(keys[i] == 1)
+		if (keys[i] == 1)
 		{
-			if(keyboard[i] == KEY_IDLE)
+			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
 			else
 				keyboard[i] = KEY_REPEAT;
 		}
 		else
 		{
-			if(keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
+			if (keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
 				keyboard[i] = KEY_UP;
 			else
 				keyboard[i] = KEY_IDLE;
 		}
 	}
 
-	for(int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
+	for (int i = 0; i < NUM_MOUSE_BUTTONS; ++i)
 	{
-		if(mouseButtons[i] == KEY_DOWN)
+		if (mouseButtons[i] == KEY_DOWN)
 			mouseButtons[i] = KEY_REPEAT;
 
-		if(mouseButtons[i] == KEY_UP)
+		if (mouseButtons[i] == KEY_UP)
 			mouseButtons[i] = KEY_IDLE;
 	}
 
-	while(SDL_PollEvent(&event) != 0)
+	while (SDL_PollEvent(&event) != 0)
 	{
 		switch (event.type)
 		{
+		case SDL_CONTROLLERDEVICEADDED:
+			HandleDeviceConnection(event.cdevice.which);
+			/*app->frontground->controller = true;
+			app->frontground->SetController();*/
+			break;
+
+		case SDL_CONTROLLERDEVICEREMOVED:
+			HandleDeviceRemoval(event.cdevice.which);
+			//app->frontground->controller = false;*/
+			break;
+
 		case SDL_QUIT:
 			windowEvents[WE_QUIT] = true;
 			break;
@@ -135,7 +145,6 @@ bool Input::PreUpdate()
 			break;
 
 		case SDL_MOUSEMOTION:
-		{
 			int scale = app->win->GetScale();
 			mouseMotionX = event.motion.xrel / scale;
 			mouseMotionY = event.motion.yrel / scale;
@@ -144,31 +153,16 @@ bool Input::PreUpdate()
 			//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
-		case (SDL_CONTROLLERDEVICEADDED):
-		{
-			HandleDeviceConnection(event.cdevice.which);
-			break;
-		}
-		case (SDL_CONTROLLERDEVICEREMOVED):
-		{
-			HandleDeviceRemoval(event.cdevice.which);
-			break;
-		}
-			
-		}
 	}
-	
 
 	UpdateGamepadsInput();
+
 	return true;
 }
 
 // Called before quitting
 bool Input::CleanUp()
 {
-	LOG("Quitting SDL event subsystem");
-	
-
 	// Stop rumble from all gamepads and deactivate SDL functionallity
 	for (uint i = 0; i < MAX_PADS; ++i)
 	{
@@ -180,9 +174,11 @@ bool Input::CleanUp()
 		if (pads[i].controller != nullptr) SDL_GameControllerClose(pads[i].controller);
 	}
 
+	LOG("Quitting SDL event subsystem");
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
 	return true;
 }
 
@@ -242,6 +238,10 @@ void Input::HandleDeviceRemoval(int index)
 		}
 	}
 }
+
+
+
+
 
 void Input::UpdateGamepadsInput()
 {
@@ -327,18 +327,6 @@ const char* Input::GetControllerName(int id) const
 	// Check if the given id has a valid controller
 	if (id >= 0 && id < MAX_PADS && pads[id].enabled == true && pads[id].controller != nullptr)
 		return SDL_GameControllerName(pads[id].controller);
-
-	/*SDL_GameController* controller = NULL;
-	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
-		controller = SDL_GameControllerOpen(i);
-		if (controller) {
-			break;
-		}
-	}
-
-	if (controller) {
-		printf("Found a valid controller, named: %s\n", SDL_GameControllerName(controller));
-	}*/
 
 	return "unplugged";
 }
