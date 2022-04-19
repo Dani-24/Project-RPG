@@ -365,9 +365,13 @@ bool Battle::Update(float dt)
 				//If the enemy IS afraid
 				else {
 					if (optionPercent < 60) {
-						ChangePhase(BattlePhase::ATTACKING);
-						int targetNum = (rand() % CountAllies());
+						
+						int targetNum = (rand() % 2);
+						while (entitiesInBattle[targetNum]->isAlive == false) {
+							targetNum = (rand() % 2);
+						}
 						targetEntity = entitiesInBattle[targetNum];
+						ChangePhase(BattlePhase::ATTACKING);
 					}
 					else if(optionPercent < 85) {
 						ChangePhase(BattlePhase::DEFENDING);
