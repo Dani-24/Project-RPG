@@ -91,7 +91,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 6;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 
@@ -101,6 +101,14 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		npcID = 7;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 160,  160 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::CARTELSUDTOWN:
+		configName = "cartel";
+
+		npcID = 8;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 	default:
@@ -169,6 +177,9 @@ bool NPC::Start()
 		spriteText = NULL;
 
 		break;
+	case NPCType::CARTELSUDTOWN:
+
+		spriteText = NULL;
 	default:
 		break;
 	}

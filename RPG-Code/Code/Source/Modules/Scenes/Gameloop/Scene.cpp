@@ -84,6 +84,7 @@ bool Scene::Start()
 	iPoint merchantPos = { 255, 150 };
 	iPoint emilioPos = { 850, 200 };
 	iPoint fuentePos = { 380, 1390 };
+	iPoint cartelSudTownPos = { 1000, 1764 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -109,13 +110,16 @@ bool Scene::Start()
 	npcList.add(fuente);
 	fuente->activeOnStage = StageIndex::TOWN;
 
+	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::CARTELSUDTOWN, cartelSudTownPos.x, cartelSudTownPos.y);
+	npcList.add(cartelSudTown);
+	cartelSudTown->activeOnStage = StageIndex::TOWN;
+
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
 	iPoint eyePos = { 615, 20 };
 	iPoint batPos = { 600, 96 };
 	iPoint skeletonPos = { 690, 20 };
-	iPoint skeletonPos2 = { 800, 1600 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);
@@ -128,11 +132,6 @@ bool Scene::Start()
 	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
 	normalEnemyList.add(skeleton);
 	skeleton->activeOnStage = StageIndex::DOJO;
-
-	NormalEnemy* skeleton2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos2.x, skeletonPos2.y);
-	normalEnemyList.add(skeleton2);
-	skeleton2->activeOnStage = StageIndex::TOWN;
-	skeleton2->currentAnimation = &skeleton2->idleAnim;
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
@@ -401,29 +400,15 @@ bool Scene::CleanUp()
 		normalEnemyInList->data->CleanUp();
 	}
 
-	if (btn1 != nullptr) {
-		btn1->state = GuiControlState::DISABLED;
-	}
-	btn1 = nullptr;
-	delete btn1;
-
-	if (btn2 != nullptr) {
-		btn2->state = GuiControlState::DISABLED;
-	}
-	btn2 = nullptr;
-	delete btn2;
-
 	npcList.clear();
 	normalEnemyList.clear();
 
 	player = nullptr;
 	delete player;
 
-
 	app->dialogs->Disable();
 
 	app->map->Disable();
-
 
 	return true;
 }

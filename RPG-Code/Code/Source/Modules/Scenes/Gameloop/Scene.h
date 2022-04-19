@@ -47,9 +47,6 @@ public:
 
 private:
 
-	GuiButton* btn1;
-	GuiButton* btn2;
-
 	float fpsdt;
 
 public:
