@@ -72,7 +72,7 @@ bool Stages::PreUpdate()
 		break;
 	case StageIndex::SHOPSUB:
 		break;
-	case StageIndex::EPILOG:
+	case StageIndex::INTRODUCTION:
 		break;
 	default:
 		break;
@@ -103,7 +103,7 @@ bool Stages::Update(float dt)
 	case StageIndex::TAVERN:
 
 		break;
-	case StageIndex::EPILOG:
+	case StageIndex::INTRODUCTION:
 		break;
 	default:
 
@@ -138,7 +138,7 @@ bool Stages::PostUpdate()
 	case StageIndex::TAVERN:
 
 		break;
-	case StageIndex::EPILOG:
+	case StageIndex::INTRODUCTION:
 		
 		if (app->fade->fading == false) {
 			int epilogX = -app->camera->GetPos().x / app->win->GetScale() + 200;
@@ -664,7 +664,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::EPILOG:
+	case StageIndex::INTRODUCTION:
 
 		LOG("Epilog");
 

@@ -63,12 +63,14 @@ public:
 	List<Character*> partyList;
 	Character* valionchar;
 	int backFx, loadFx, saveFx;
-	int hp;
-	char lifeChar[100] = { "\0" };
+	int hp,hpw;
+	char lifeprota[100] = { "\0" };
+	char lifewizard[100] = { "\0" };
 
 	SDL_Texture* gui;
 	SDL_Texture* mpfgui;
 	SDL_Texture* fpfgui;
+	SDL_Texture* magogui;
 	
 };
 

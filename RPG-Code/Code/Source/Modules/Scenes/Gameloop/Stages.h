@@ -20,7 +20,7 @@ enum class StageIndex {
 	DOJO,
 	SHOP,
 	SHOPSUB,
-	EPILOG,
+	INTRODUCTION,
 };
 
 class Stages : public Module
