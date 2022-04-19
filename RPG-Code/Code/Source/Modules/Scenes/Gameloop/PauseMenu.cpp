@@ -220,7 +220,9 @@ bool PauseMenu::Update(float dt)
 	
 	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true)&&app->scene->playing&&!app->battle->isEnabled()) {
 
+		
 		if (pauseGame){
+			if (app->conf->isEnabled())app->conf->Disable();
 			pauseGame = false;
 			resumen = false;
 			app->scene->player->canMove = true; app->scene->player->toggleGui = true;

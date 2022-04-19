@@ -170,8 +170,8 @@ bool EntityManager::SaveState(pugi::xml_node& data) const
 
 	stage.append_attribute("stage") = app->stages->intStage;
 
-	stats.append_attribute("PlayerHp") = app->scene->partyList.At(0)->data->stats->maxHealth;
-	stats.append_attribute("ValionHp") = app->scene->partyList.At(1)->data->stats->maxHealth;
+	/*stats.append_attribute("PlayerHp") = app->scene->partyList.At(0)->data->stats->maxHealth;
+	stats.append_attribute("ValionHp") = app->scene->partyList.At(1)->data->stats->maxHealth;*/
 
 	//Saved.attribute("saved").set_value(saved);
 
@@ -207,8 +207,8 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
 	app->scene->partyList.At(0)->data->position.y = data.child("playerpos").attribute("y").as_int();
 
-	app->scene->partyList.At(0)->data->stats->maxHealth = data.child("stats").attribute("PlayerHp").as_int();
-	app->scene->partyList.At(1)->data->stats->maxHealth = data.child("stats").attribute("ValionHp").as_int();
+	/*app->scene->partyList.At(0)->data->stats->maxHealth = data.child("stats").attribute("PlayerHp").as_int();
+	app->scene->partyList.At(1)->data->stats->maxHealth = data.child("stats").attribute("ValionHp").as_int();*/
 	
 
 	return false;
@@ -365,7 +365,10 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 
 		ret = new NPC(NPCType::FUENTE, x, y);
 		break;
+	case NPCType::CARTELSUDTOWN:
 
+		ret = new NPC(NPCType::CARTELSUDTOWN, x, y);
+		break;
 	default:
 
 		LOG("ERROR: Entity Type not set when creating");

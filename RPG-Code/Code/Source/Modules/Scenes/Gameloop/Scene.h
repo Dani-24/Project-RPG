@@ -47,9 +47,6 @@ public:
 
 private:
 
-	GuiButton* btn1;
-	GuiButton* btn2;
-
 	float fpsdt;
 
 public:
@@ -76,6 +73,8 @@ public:
 	SDL_Texture* mpfgui;
 	SDL_Texture* fpfgui;
 	SDL_Texture* magogui;
+
+	bool playloading = false;
 	
 };
 

@@ -121,10 +121,13 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 2)
 			{
 				LOG("Click on Continue");
-				/*if (pause == false) {
+				if (pause == false) {
 					app->audio->PlayFx(confirmFx);
-					app->LoadGameRequest();
-				}*/
+					app->scene->playloading = true;
+					/*app->stages->ChangeStage(StageIndex::TOWN);*/
+
+					app->fade->DoFadeToBlack(this, (Module*)app->scene);
+				}
 			}
 			if (control->id == 3)
 			{

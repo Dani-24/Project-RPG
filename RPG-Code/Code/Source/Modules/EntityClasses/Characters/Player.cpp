@@ -319,7 +319,7 @@ bool Player::Start()
 bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
-	//LOG("position x %d y %d", position.x, position.y);
+	LOG("position x %d y %d", position.x, position.y);
 	
 	//if (app->scene->godmode) stats->SetStats();	
 	
@@ -726,6 +726,8 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case 7:
 								Interact(NPCType::FUENTE, fuenteDialog);
 								break;
+							case 8:
+								Interact(NPCType::CARTELSUDTOWN, cartelSudTownDialog);
 							default:
 								break;
 							}

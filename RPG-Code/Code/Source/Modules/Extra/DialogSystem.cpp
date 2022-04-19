@@ -73,6 +73,12 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::EMILIO:
 						app->font->DrawTextDelayed("Emilio :", x + 150, y + 5, { 247, 92, 255 });
 						break;
+					case NPCType::FUENTE:
+						app->font->DrawTextDelayed("Town Fountain :", x + 150, y + 5, { 66, 78, 245 });
+						break;
+					case NPCType::CARTELSUDTOWN:
+						app->font->DrawTextDelayed("Welcome Sign ( Post your text here ):", x + 150, y + 5, { 41, 2, 9 });
+						break;
 					default:
 						break;
 					}

@@ -82,6 +82,7 @@ bool GuiButton::Draw(Render* render)
 		case GuiControlState::PRESSED:
 		{
 			if (app->collisions->debug)render->DrawRectangle(bounds, 255, 255, 255, 150);
+			render->DrawTexture(app->guiManager->clicker, bounds.x + bounds.w / 2 -6, bounds.y + bounds.h / 2 + 6);
 		} break;
 
 		/******/

@@ -58,7 +58,7 @@ public:
 private:
 	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
 
-	int epilogFase = 0;
+	int introductionFase = 0;
 public:
 	bool pause;
 
