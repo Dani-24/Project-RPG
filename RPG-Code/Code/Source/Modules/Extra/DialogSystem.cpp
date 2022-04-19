@@ -62,7 +62,7 @@ bool DialogSystem::PostUpdate() {
 						app->font->DrawTextDelayed("Kukock :", x + 150, y + 5, {0,0,0});
 						break;
 					case NPCType::BARKEEPER:
-						app->font->DrawTextDelayed("Pepa :", x + 150, y + 5, {92, 0, 117});
+						app->font->DrawTextDelayed("Dolores Delano :", x + 150, y + 5, {92, 0, 117});
 						break;
 					case NPCType::MERCHANT:
 						app->font->DrawTextDelayed("Vincenç :", x + 150, y + 5, { 255, 255, 92 });
