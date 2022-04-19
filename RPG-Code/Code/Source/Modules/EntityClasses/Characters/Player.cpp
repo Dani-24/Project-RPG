@@ -139,7 +139,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	dieM.PushBack({ 840 , 166 , 140 , 83 });
 	dieM.PushBack({ 980 , 166 , 140 , 83 });
 	dieM.PushBack({ 1120 , 166 , 140 , 83 });
-	dieM.loop = true;
+	dieM.loop = false;
 	dieM.speed = 0.006f;
 
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
@@ -249,7 +249,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	dieF.PushBack({ 1440 , 228 , 180 , 114 });
 	dieF.PushBack({ 1620 , 228 , 180 , 114 });
 	dieF.PushBack({ 1800 , 228 ,  180 , 114 });
-	dieF.loop = true;
+	dieF.loop = false;
 	dieF.speed = 0.006f;
 
 	currentAnimation = &idleAnimR; //player start with idle anim

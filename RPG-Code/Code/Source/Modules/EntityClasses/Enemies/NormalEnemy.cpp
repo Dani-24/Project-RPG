@@ -151,7 +151,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.PushBack({ 900 , 1071 , 150 , 101 });
 		dieAnim.PushBack({ 750 , 1071 , 150 , 101 });
 		dieAnim.PushBack({ 600 , 1071 , 150 , 101 });
-		dieAnim.loop = true;
+		dieAnim.loop = false;
 		dieAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x + 56, position.y + 60, 47, 43 }, Collider::Type::INSTANT, this);
@@ -249,7 +249,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.PushBack({ 32 , 120 , 16 , 23 });
 		dieAnim.PushBack({ 16 , 120 , 16 , 23 });
 		dieAnim.PushBack({ 0 , 120 , 16 , 23 });
-		dieAnim.loop = true;
+		dieAnim.loop = false;
 		dieAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
@@ -358,7 +358,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.PushBack({ 900 , 1517 , 150 , 101 });
 		dieAnim.PushBack({ 750 , 1517 , 150 , 101 });
 		dieAnim.PushBack({ 600 , 1517 , 150 , 101 });
-		dieAnim.loop = true;
+		dieAnim.loop = false;
 		dieAnim.speed = 0.01f;
 
 		baseCollider = app->collisions->AddCollider({ position.x + 60, position.y + 50, 45, 51 }, Collider::Type::INSTANT, this);

@@ -122,6 +122,11 @@ public:
 	SDL_Texture* itemsTex;
 	SDL_Texture* escapeTex;
 
+	SDL_Texture* press_attackTex;
+	SDL_Texture* press_defenseTex;
+	SDL_Texture* press_itemsTex;
+	SDL_Texture* press_escapeTex;
+
 	SDL_Texture* shield;
 
 	int battleTurn;

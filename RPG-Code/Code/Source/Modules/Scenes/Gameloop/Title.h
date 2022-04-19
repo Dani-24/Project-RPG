@@ -80,6 +80,12 @@ private:
 	SDL_Texture* optionsb;
 	SDL_Texture* creditsb;
 	SDL_Texture* exitb;	
+
+	SDL_Texture* press_startb;
+	SDL_Texture* press_continueb;
+	SDL_Texture* press_optionsb;
+	SDL_Texture* press_creditsb;
+	SDL_Texture* press_exitb;
 };
 
 #endif // !__TITLE_H__

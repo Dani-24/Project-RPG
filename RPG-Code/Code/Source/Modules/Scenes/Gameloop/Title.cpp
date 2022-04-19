@@ -60,11 +60,17 @@ bool TitleScene::Start()
 
 	// Load Assets
 
-	startb = app->tex->Load("Assets/gui/button_start.png");
-	continueb = app->tex->Load("Assets/gui/button_continue.png");
-	optionsb = app->tex->Load("Assets/gui/button_options.png");
-	creditsb = app->tex->Load("Assets/gui/button_credits.png");
-	exitb = app->tex->Load("Assets/gui/button_exit.png");
+	startb = app->tex->Load("Assets/gui/buttons/button_start.png");
+	continueb = app->tex->Load("Assets/gui/buttons/button_continue.png");
+	optionsb = app->tex->Load("Assets/gui/buttons/button_options.png");
+	creditsb = app->tex->Load("Assets/gui/buttons/button_credits.png");
+	exitb = app->tex->Load("Assets/gui/buttons/button_exit.png");
+
+	press_startb = app->tex->Load("Assets/gui/buttons/pressed_button_start.png");
+	press_continueb = app->tex->Load("Assets/gui/buttons/pressed_button_continue.png");
+	press_optionsb = app->tex->Load("Assets/gui/buttons/pressed_button_options.png");
+	press_creditsb = app->tex->Load("Assets/gui/buttons/pressed_button_credits.png");
+	press_exitb = app->tex->Load("Assets/gui/buttons/pressed_button_exit.png");
 
 	titleBg = app->tex->Load("Assets/textures/title_screen_bg.png");
 	titleLogo = app->tex->Load("Assets/textures/title_screen_logo.png");
@@ -303,11 +309,12 @@ bool TitleScene::PostUpdate()
 	app->render->DrawTexture(titleLogo, 0, 0);
 
 	// Render Buttons
-	app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
-	app->render->DrawTexture(continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250);
-	app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);
-	app->render->DrawTexture(creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250);
-	app->render->DrawTexture(exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250);
+
+	btn1->state != GuiControlState::PRESSED ? app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250) : app->render->DrawTexture(press_startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
+	btn2->state != GuiControlState::PRESSED ? app->render->DrawTexture(continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250);
+	btn3->state != GuiControlState::PRESSED ? app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);
+	btn4->state != GuiControlState::PRESSED ? app->render->DrawTexture(creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250);
+	btn5->state != GuiControlState::PRESSED ? app->render->DrawTexture(exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250);
 
 	return ret;
 }
@@ -333,6 +340,12 @@ bool TitleScene::CleanUp()
 	app->tex->UnLoad(optionsb);
 	app->tex->UnLoad(creditsb);
 	app->tex->UnLoad(exitb);
+
+	app->tex->UnLoad(press_startb);
+	app->tex->UnLoad(press_continueb);
+	app->tex->UnLoad(press_optionsb);
+	app->tex->UnLoad(press_creditsb);
+	app->tex->UnLoad(press_exitb);
 
 	return true;
 }
