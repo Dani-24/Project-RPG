@@ -91,6 +91,10 @@ bool Battle::Start()
 {
 	app->scene->player->toggleGui = false;
 
+	// initial fx
+	startFx = app->audio->LoadFx("Assets/audio/sfx/fx_battle.wav");
+	app->audio->PlayFx(startFx);
+
 	ChangePhase(BattlePhase::THINKING);
 	hasStarted = false;
 	hasTriedToEscape = false;

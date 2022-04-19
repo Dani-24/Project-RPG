@@ -185,7 +185,7 @@ public:
 	bool hasChangedPhase;
 
 
-	
+	int startFx;
 };
 
 #endif // __BATTLE_H__
