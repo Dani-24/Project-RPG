@@ -39,6 +39,11 @@ public:
 	//All player movement
 	void MovementPlayer(float dt);
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+
+	bool SaveState(pugi::xml_node&) const;
+
 private:
 
 	int speed;
