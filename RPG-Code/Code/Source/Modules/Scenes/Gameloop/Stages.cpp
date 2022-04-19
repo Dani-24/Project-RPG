@@ -426,98 +426,115 @@ bool Stages::PostUpdate()
 
 						if (i == 0)
 						{
-							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-							if (playerPtr->PlayerErection == true) {
-								playerPtr->currentAnimation = &playerPtr->idleBattleM;
-								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
-								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
-									switch (app->battle->battlePhase) {
-									case BattlePhase::THINKING:
-										playerPtr->currentAnimation = &playerPtr->idleBattleM;
-										app->stages->playerPtr->attackM.Reset();
-										break;
-									case BattlePhase::ATTACKING:
-										playerPtr->currentAnimation = &playerPtr->attackM;
-										
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(hitfx2);
-										}
-										break;
-									case BattlePhase::DEFENDING:
-										playerPtr->currentAnimation = &playerPtr->protectM;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(shieldfx);
-										}
+							if (app->battle->entitiesInBattle[i]->isAlive == false) {
+								if (playerPtr->PlayerErection == true) {
+									playerPtr->currentAnimation = &playerPtr->dieM;
+								}
+								else {
+									playerPtr->currentAnimation = &playerPtr->dieF;
+								}
 							
-										break;
-									case BattlePhase::LOSE:
-										playerPtr->currentAnimation = &playerPtr->dieM;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(chdiefx);
-										}
-										break;
-									default:
-										break;
+							}
+							else {
+								SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+								if (playerPtr->PlayerErection == true) {
+									playerPtr->currentAnimation = &playerPtr->idleBattleM;
+									app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x - 1 * rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
+									if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
+										switch (app->battle->battlePhase) {
+										case BattlePhase::THINKING:
+											playerPtr->currentAnimation = &playerPtr->idleBattleM;
+											app->stages->playerPtr->attackM.Reset();
+											break;
+										case BattlePhase::ATTACKING:
+											playerPtr->currentAnimation = &playerPtr->attackM;
 
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(hitfx2);
+											}
+											break;
+										case BattlePhase::DEFENDING:
+											playerPtr->currentAnimation = &playerPtr->protectM;
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(shieldfx);
+											}
+
+											break;
+										case BattlePhase::LOSE:
+											playerPtr->currentAnimation = &playerPtr->dieM;
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(chdiefx);
+											}
+											break;
+										default:
+											break;
+
+										}
 									}
 								}
-							}
-							if (playerPtr->PlayerErection == false) {
-								playerPtr->currentAnimation = &playerPtr->idleBattleF;
-								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
-								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
-									switch (app->battle->battlePhase) {
-									case BattlePhase::THINKING:
-										playerPtr->currentAnimation = &playerPtr->idleBattleF;
-										app->stages->playerPtr->attackF.Reset();
-										app->stages->playerPtr->attackF2.Reset();
-										app->stages->playerPtr->attackChainF.Reset();
-										break;
-									case BattlePhase::ATTACKING:
-										if (pAnim == 1) {
-											playerPtr->currentAnimation = &playerPtr->attackF;
-										}
-										if (pAnim == 2) {
-											playerPtr->currentAnimation = &playerPtr->attackF2;
-										}
-										if (pAnim == 3) {
-											playerPtr->currentAnimation = &playerPtr->attackChainF;
-										}
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(hitfx2);
-										}
-										break;
-									case BattlePhase::DEFENDING:
-										playerPtr->currentAnimation = &playerPtr->protectF;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(shieldfx);
-										}
-										break;
-									case BattlePhase::LOSE:
-										playerPtr->currentAnimation = &playerPtr->dieF;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(chdiefx);
-										}
-										break;
-									default:
-										break;
+								if (playerPtr->PlayerErection == false) {
+									playerPtr->currentAnimation = &playerPtr->idleBattleF;
+									app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
+									if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
+										switch (app->battle->battlePhase) {
+										case BattlePhase::THINKING:
+											playerPtr->currentAnimation = &playerPtr->idleBattleF;
+											app->stages->playerPtr->attackF.Reset();
+											app->stages->playerPtr->attackF2.Reset();
+											app->stages->playerPtr->attackChainF.Reset();
+											break;
+										case BattlePhase::ATTACKING:
+											if (pAnim == 1) {
+												playerPtr->currentAnimation = &playerPtr->attackF;
+											}
+											if (pAnim == 2) {
+												playerPtr->currentAnimation = &playerPtr->attackF2;
+											}
+											if (pAnim == 3) {
+												playerPtr->currentAnimation = &playerPtr->attackChainF;
+											}
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(hitfx2);
+											}
+											break;
+										case BattlePhase::DEFENDING:
+											playerPtr->currentAnimation = &playerPtr->protectF;
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(shieldfx);
+											}
+											break;
+										case BattlePhase::LOSE:
 
+											if (fxbool == true) {
+												fxbool = false;
+												app->audio->PlayFx(chdiefx);
+											}
+											break;
+										default:
+											break;
+
+										}
 									}
 								}
 							}
 						}
 						else {
+							
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
-							
+
+
+							if (CharacterInList->data->isAlive == false) {
+								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+							}
+
 							if (app->battle->actualTurnEntity->name == "Valion") {
 								switch (app->battle->battlePhase) {
 								case BattlePhase::THINKING:
@@ -547,7 +564,7 @@ bool Stages::PostUpdate()
 
 									break;
 								case BattlePhase::LOSE:
-									CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+
 									if (fxbool == true) {
 										fxbool = false;
 										app->audio->PlayFx(chdiefx);
@@ -564,7 +581,7 @@ bool Stages::PostUpdate()
 							switch (i) {
 
 							case 0:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y );
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							case 1:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
@@ -574,8 +591,16 @@ bool Stages::PostUpdate()
 								break;
 							}
 						}
-
 					}
+
+						/*if (app->battle->entitiesInBattle[i]->isAlive == false) {
+							for(int i =)
+							if(app->battle->entitiesInBattle[i]==)
+							CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+							app->battle->entitiesInBattle[i]->currentAnimation = &app->battle->entitiesInBattle[i]->dieF;
+						}*/
+
+					
 				}
 			}
 		}
