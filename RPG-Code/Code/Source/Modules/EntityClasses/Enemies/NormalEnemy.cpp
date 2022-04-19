@@ -45,8 +45,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnimL.PushBack({ 300 , 566 , 150 , 101 });
 		idleAnimL.PushBack({ 150 , 566 , 150 , 101 });
 		idleAnimL.PushBack({ 0 , 566 , 150 , 101 });
-		idleAnim.loop = true;
-		idleAnim.speed = 0.01f;
+		idleAnimL.loop = true;
+		idleAnimL.speed = 0.01f;
 
 		walkAnimL.PushBack({ 1050 , 566 , 150 , 101 });
 		walkAnimL.PushBack({ 900 , 566 , 150 , 101 });
@@ -156,6 +156,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x + 56, position.y + 60, 47, 43 }, Collider::Type::INSTANT, this);
 
+		currentAnimation = &idleAnimL;
+
 		name = "Flying eye";
 		configName = "flying_eye";
 
@@ -251,6 +253,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.speed = 0.006f;
 
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
+
+		currentAnimation = &idleAnimL;
 
 		name = "Bat";
 		configName = "bat";
@@ -359,6 +363,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 
 		baseCollider = app->collisions->AddCollider({ position.x + 60, position.y + 50, 45, 51 }, Collider::Type::INSTANT, this);
 
+		currentAnimation = &idleAnimL;
+
 		name = "Skeleton";
 		configName = "skeleton";
 
@@ -369,8 +375,6 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	}
 
 	isAlive = true;
-
-	currentAnimation = &idleAnim;
 
 	NormalEnemyID = app->scene->normalEnemyList.count();
 }
