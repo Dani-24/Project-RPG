@@ -107,6 +107,7 @@ public:
 
 	// Distance from player top to his collider
 	int colDownDistance;
+	int colRightDistance;
 
 	// Margin pixels from edge of colliders 
 	int margin;
