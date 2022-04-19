@@ -24,6 +24,7 @@ enum class NPCType
 	TRAINER,
 	EMILIO,
 	GIROIDE,
+	FUENTE
 };
 
 class NPC : public DynamicEntity
@@ -53,6 +54,7 @@ public:
 	const char* shoperChar;
 	const char* emilioChar;
 	const char* giroideChar;
+	const char* fuenteChar;
 
 	int npcId;
 	bool isMerchant;

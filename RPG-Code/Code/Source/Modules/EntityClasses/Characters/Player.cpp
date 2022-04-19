@@ -721,6 +721,9 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							case 5:										
 								Interact(NPCType::EMILIO, emilioDialog);
 								break;
+							case 7:
+								Interact(NPCType::FUENTE, fuenteDialog);
+								break;
 							default:
 								break;
 							}
@@ -735,6 +738,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		app->dialogs->CreateDialog(npc, dialog);
+		if (npc == NPCType::FUENTE) {
+			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
+				characterList->data->stats->health = characterList->data->stats->maxHealth;
+			}
+		}
 	}
 	printInteractionButt = true;
 }
