@@ -128,10 +128,15 @@ bool Battle::Start()
 	}
 
 	//Load GUI textures
-	attackTex = app->tex->Load("Assets/gui/attack.png");
-	defenseTex = app->tex->Load("Assets/gui/defense.png");
-	itemsTex = app->tex->Load("Assets/gui/items.png");
-	escapeTex = app->tex->Load("Assets/gui/escape.png");
+	attackTex = app->tex->Load("Assets/gui/buttons/attack.png");
+	defenseTex = app->tex->Load("Assets/gui/buttons/defense.png");
+	itemsTex = app->tex->Load("Assets/gui/buttons/items.png");
+	escapeTex = app->tex->Load("Assets/gui/buttons/escape.png");
+
+	press_attackTex = app->tex->Load("Assets/gui/buttons/pressed_attack.png");
+	press_defenseTex = app->tex->Load("Assets/gui/buttons/pressed_defense.png");
+	press_itemsTex = app->tex->Load("Assets/gui/buttons/pressed_items.png");
+	press_escapeTex = app->tex->Load("Assets/gui/buttons/pressed_escape.png");
 
 	shield = app->tex->Load("Assets/textures/shield.png");
 
@@ -862,10 +867,10 @@ bool Battle::PostUpdate()
 	
 	
 
-	app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50);
-	app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
-	app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
-	app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+	attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+	defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+	itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+	escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
 
 
 	return ret;
