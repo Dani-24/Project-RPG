@@ -5,6 +5,10 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Render.h"
+#include "Textures.h"
+
+struct SDL_Texture;
 
 class GuiButton : public GuiControl
 {
@@ -12,6 +16,7 @@ public:
 
 	GuiButton(uint32 id, SDL_Rect bounds, const char* text);
 	virtual ~GuiButton();
+
 
 	bool Update(float dt);
 	bool Draw(Render* render);
@@ -21,6 +26,8 @@ public:
 
 	bool canClick = true;
 	bool drawBasic = false;
+
+	
 };
 
 #endif // __GUIBUTTON_H__
