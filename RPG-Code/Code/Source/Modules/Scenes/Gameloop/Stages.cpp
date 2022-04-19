@@ -152,7 +152,7 @@ bool Stages::PostUpdate()
 			int epilogX = -app->camera->GetPos().x / app->win->GetScale() + 200;
 			int epilogY = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / app->win->GetScale() - 300;
 
-			switch (epilogFase)
+			switch (introductionFase)
 			{
 			case 0:
 				app->font->DrawTextDelayed("Hello, traveler soul", epilogX + 35, epilogY);
@@ -203,7 +203,7 @@ bool Stages::PostUpdate()
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				epilogFase++;
+				introductionFase++;
 			}
 		}
 
@@ -610,7 +610,7 @@ bool Stages::PostUpdate()
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
-	epilogFase = 0;
+	introductionFase = 0;
 
 	// Door sfx
 	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE) {
