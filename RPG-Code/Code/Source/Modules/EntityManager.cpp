@@ -162,9 +162,12 @@ bool EntityManager::CleanUp()
 bool EntityManager::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node playerpos = data.append_child("playerpos");
+	pugi::xml_node stage = data.append_child("actualStage");
 
 	playerpos.append_attribute("x") = app->scene->partyList.At(0)->data->position.x;
 	playerpos.append_attribute("y") = app->scene->partyList.At(0)->data->position.y;
+
+	stage.append_attribute("stage") = app->stages->intStage;
 
 	//Saved.attribute("saved").set_value(saved);
 
@@ -173,6 +176,30 @@ bool EntityManager::SaveState(pugi::xml_node& data) const
 
 bool EntityManager::LoadState(pugi::xml_node& data)
 {
+	app->stages->intStage= data.child("actualStage").attribute("stage").as_int();
+
+	if (app->stages->intStage == 2 && app->stages->actualStage!=StageIndex::TOWN) {
+		app->stages->ChangeStage(StageIndex::TOWN);
+	}
+	if (app->stages->intStage == 3 && app->stages->actualStage != StageIndex::TAVERN) {
+		app->stages->ChangeStage(StageIndex::TAVERN);
+	}
+	if (app->stages->intStage == 4 && app->stages->actualStage != StageIndex::DOJO) {
+		app->stages->ChangeStage(StageIndex::DOJO);
+	}
+	if (app->stages->intStage == 5 && app->stages->actualStage != StageIndex::SHOP) {
+		app->stages->ChangeStage(StageIndex::SHOP);
+	}
+	if (app->stages->intStage == 6 && app->stages->actualStage != StageIndex::SHOPSUB) {
+		app->stages->ChangeStage(StageIndex::SHOPSUB);
+	}
+	if (app->stages->intStage == 7 && app->stages->actualStage != StageIndex::INTRODUCTION) {
+		app->stages->ChangeStage(StageIndex::INTRODUCTION);
+	}
+	if (app->stages->intStage == 0 && app->stages->actualStage != StageIndex::NONE) {
+		app->stages->ChangeStage(StageIndex::NONE);
+	}
+
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
 	app->scene->partyList.At(0)->data->position.y = data.child("playerpos").attribute("y").as_int();
 

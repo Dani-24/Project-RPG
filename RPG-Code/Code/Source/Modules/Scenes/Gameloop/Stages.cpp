@@ -62,18 +62,25 @@ bool Stages::PreUpdate()
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
+		intStage = 1;
 		break;
 	case StageIndex::TOWN:
+		intStage = 2;
 		break;
 	case StageIndex::TAVERN:
+		intStage = 3;
 		break;
 	case StageIndex::DOJO:
+		intStage = 4;
 		break;
 	case StageIndex::SHOP:
+		intStage = 5;
 		break;
 	case StageIndex::SHOPSUB:
+		intStage = 6;
 		break;
 	case StageIndex::INTRODUCTION:
+		intStage = 7;
 		break;
 	default:
 		break;
@@ -148,44 +155,47 @@ bool Stages::PostUpdate()
 			switch (epilogFase)
 			{
 			case 0:
-				app->font->DrawTextDelayed("Hello, adventurer soul", epilogX + 35, epilogY);
+				app->font->DrawTextDelayed("Hello, traveler soul", epilogX + 35, epilogY);
 				break;
 			case 1:
-				app->font->DrawTextDelayed("Canonically, a truck have just run over you", epilogX - 100, epilogY);
+				app->font->DrawTextDelayed("Canonically, a truck have just ran over you", epilogX - 100, epilogY);
 				break;
 			case 2:
-				app->font->DrawTextDelayed("Camion-kun, who rules this world", epilogX - 70, epilogY);
+				app->font->DrawTextDelayed("Camion-kun, who rules this world", epilogX - 40, epilogY);
 				break;
 			case 3:
-				app->font->DrawTextDelayed("he runs over people and bring their souls here without breaks", epilogX - 110, epilogY);
+				app->font->DrawTextDelayed("he runs over people and bring their souls here", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("with the goal of fihting on the tower", epilogX - 50, epilogY + 25, {255,0,0});
+				app->font->DrawTextDelayed("with the goal of fighting at the tower", epilogX - 50, epilogY + 25, {255,0,0});
 				break;
 			case 5:
-				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX - 60, epilogY);
 				break;
 			case 6:
-				app->font->DrawTextDelayed("and asume your gender with them", epilogX, epilogY);
+				app->font->DrawTextDelayed("and asume your gender with them", epilogX - 50, epilogY);
 				break;
 			case 7:
-				app->font->DrawTextDelayed("Wll, as Oak says, you are a boy or a girl?", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY);
 				break;
 			case 8:
-				app->font->DrawTextDelayed("Choose with 1 or 2 andd confirm with Space", epilogX -65, epilogY);
+				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY);
 				break;
 			case 9:
 				if (playerPtr->PlayerErection == true) {
-					app->font->DrawTextDelayed("OH! So you're a boy (You can still change your gender with 1 or 2)", epilogX - 150, epilogY);
+					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20 , epilogY);
 				}
 				else {
-					app->font->DrawTextDelayed("OH!So you're a girl (You can still change your gender with 1 or 2", epilogX - 150, epilogY);
+					app->font->DrawTextDelayed("OH! So you're a girl", epilogX + 20, epilogY);
 				}
 				break;
 			case 10:
-				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 50, epilogY);
+				app->font->DrawTextDelayed("(You can still change your gender with 1 or 2 )", epilogX - 100, epilogY);
 				break;
 			case 11:
+				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY);
+				break;
+			case 12:
 				ChangeStage(StageIndex::TOWN);
 				break;
 			default:
@@ -730,3 +740,23 @@ bool Stages::CleanUp()
 
 	return true;
 }
+
+//bool Stages::SaveState(pugi::xml_node& data) const
+//{
+//	pugi::xml_node stage = data.append_child("stages");
+//
+//	stage.append_attribute("actualstage") = intStage;
+//
+//	//Saved.attribute("saved").set_value(saved);
+//
+//	return false;
+//}
+//
+//bool Stages::LoadState(pugi::xml_node& data)
+//{
+//	intStage = data.child("actualStage").attribute("actualstage").as_int();
+//
+//	//saved= data.child("Saved").attribute("saved").as_bool();
+//
+//	return false;
+//}

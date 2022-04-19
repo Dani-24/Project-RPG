@@ -135,21 +135,21 @@ private: // DIALOGS
 	"Whould you like something to drink ?",
 	". . .", 
 	". . . . . .",
-	"I will interpret your silence as a No" 
+	"I will interpret your silence as a no" 
 	};
 
 	const char* trainerDialog[DIALOG_LENGHT] = { 
 	"jo jo jo",
-	"Con que tu eres el nuevo",
-	"Venga, demuestrame lo que vales",
-	"Combate contra los enemigos que hay a tu derecha", 
-	"y acaba con ellos antes de que ellos acaben contigo",
+	"So you are the new one",
+	"Common, show me what you know",
+	"Fight with the enemies on your right", 
+	"and destroy them before they destroy you",
 	"A tope jefe de equipo"
 	};
 
 	const char* merchantDialog[DIALOG_LENGHT] = { 
 	"HOOOLA!, Hellooo!, soy Vincenç",
-	"We have NO products right now",
+	"We have no products right now",
 	"You know , the truck riot ...",
 	"Anyways, you can take your time looking the shop",
 	"Aunque all we have is exclusivo de muestra",
@@ -159,24 +159,25 @@ private: // DIALOGS
 
 	const char* cockDialog[DIALOG_LENGHT] = { 
 	"kokoroco?",
-	"Si quieres una chikita guia yo me encargo",
-	"Esta casita roja de aqui es la tienda",
-	"Venden de todo, o eso se supone",
-	"A la derecha sobre el canal se encuentra la taverna",
-	"bastante popular entre los novatos como tu",
-	"O son consumidos por la maldad de la torre . . .",
-	"O bien son consumidos por el alcohol.",
+	"If you want a chikita guide I can help you",
+	"This red house is the Shop",
+	"They sell everything, or that's supposed",
+	"On the right above the river there's the Tavern",
+	"pretty much popular between the rookies like you",
+	"If they are not consummed by the tower . . .",
+	"they are consummed because of the alcohol",
 	"koko ro ko",
-	"Por ultimo, subiendo esta calle . . .",
-	"justo a la derecha de la taverna esta el dojo",
-	"Pon a prueba tus habilidades contra algun enemigo",
-	"Y evita morir en el proceso, seria un buen detalle",
+	"Finally, going up this street . . .",
+	"on the right side of the tavern, there is the Dojo",
+	"Test there your habilities with some enemies",
+	"And avoid dying there ( it will be a good detail )",
 	"ko ko",
-	"Ah, al norte encontraras la torre de Camion-kun",
-	"Aunque la hemos cerrado ya que nadie quiere ir",
-	"y Emilio se ha puesto a pintarla por fuera",
+	"At the north you will find the Tower of Camion-kun",
+	"Although we had closed it because nobody wants to go",
+	"And . . . Emilio started to paint the outside",
 	"co ro ko",
-	"Ahora me debes un cacho pan a cambio de esta info."
+	"That's all",
+	"Now give me a bit of bread in exchange of the info"
 	};
 
 	const char* emilioDialog[DIALOG_LENGHT] = {
