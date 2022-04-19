@@ -52,6 +52,9 @@ public:
 
 	void ChangeStage(StageIndex newStage);
 
+	/*bool SaveState(pugi::xml_node& data) const;
+	bool LoadState(pugi::xml_node& data);*/
+
 private:
 	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
 
@@ -73,6 +76,7 @@ public:
 
 	List<Character*>* partyListPtr;
 
+	int intStage = 0;
 };
 
 #endif // __STAGES_H__

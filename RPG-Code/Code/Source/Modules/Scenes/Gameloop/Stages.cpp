@@ -62,18 +62,25 @@ bool Stages::PreUpdate()
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
+		intStage = 0;
 		break;
 	case StageIndex::TOWN:
+		intStage = 1;
 		break;
 	case StageIndex::TAVERN:
+		intStage = 3;
 		break;
 	case StageIndex::DOJO:
+		intStage = 4;
 		break;
 	case StageIndex::SHOP:
+		intStage = 5;
 		break;
 	case StageIndex::SHOPSUB:
+		intStage = 6;
 		break;
 	case StageIndex::INTRODUCTION:
+		intStage = 7;
 		break;
 	default:
 		break;
@@ -730,3 +737,23 @@ bool Stages::CleanUp()
 
 	return true;
 }
+
+//bool Stages::SaveState(pugi::xml_node& data) const
+//{
+//	pugi::xml_node stage = data.append_child("stages");
+//
+//	stage.append_attribute("actualstage") = intStage;
+//
+//	//Saved.attribute("saved").set_value(saved);
+//
+//	return false;
+//}
+//
+//bool Stages::LoadState(pugi::xml_node& data)
+//{
+//	intStage = data.child("stages").attribute("actualstage").as_int();
+//
+//	//saved= data.child("Saved").attribute("saved").as_bool();
+//
+//	return false;
+//}

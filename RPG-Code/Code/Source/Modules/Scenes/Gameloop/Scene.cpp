@@ -418,3 +418,24 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+
+//bool Scene::SaveState(pugi::xml_node& data) const
+//{
+//	pugi::xml_node godmode = data.append_child("stages");
+//
+//	godmode.append_attribute("actualstage") = intStage;
+//
+//	//Saved.attribute("saved").set_value(saved);
+//
+//	return false;
+//}
+//
+//bool Scene::LoadState(pugi::xml_node& data)
+//{
+//	godmode = data.child("god").attribute("actualstage").as_bool();
+//
+//	//saved= data.child("Saved").attribute("saved").as_bool();
+//
+//	return false;
+//}
