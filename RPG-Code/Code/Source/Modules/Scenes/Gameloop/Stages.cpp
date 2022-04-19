@@ -437,6 +437,7 @@ bool Stages::PostUpdate()
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleM;
 										app->stages->playerPtr->attackM.Reset();
+										app->stages->playerPtr->dieM.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
@@ -477,6 +478,7 @@ bool Stages::PostUpdate()
 										app->stages->playerPtr->attackF.Reset();
 										app->stages->playerPtr->attackF2.Reset();
 										app->stages->playerPtr->attackChainF.Reset();
+										app->stages->playerPtr->dieF.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										if (pAnim == 1) {
@@ -526,6 +528,7 @@ bool Stages::PostUpdate()
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									CharacterInList->data->attackAnim1.Reset();
 									CharacterInList->data->attackAnim2.Reset();
+									CharacterInList->data->dieAnim.Reset();
 									break;
 								case BattlePhase::ATTACKING:
 									if (vAnim == 1) {
