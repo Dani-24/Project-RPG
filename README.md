@@ -36,7 +36,6 @@ https://github.com/Dani-24/RPG
 ## Debug Keys
 
 - 7 - Lock / Unlock player movement
-- 8 - Disable party members
 - 9 - Save Data
 - 0 - Load Data
 - F1 - Town map
