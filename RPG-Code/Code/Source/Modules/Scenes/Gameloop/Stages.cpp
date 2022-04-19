@@ -361,6 +361,8 @@ bool Stages::PostUpdate()
 								NormalEnemyInList->data->attackAnim.Reset();
 								NormalEnemyInList->data->attackAnim2.Reset();
 								NormalEnemyInList->data->attackAnim3.Reset();
+								NormalEnemyInList->data->protectAnim.Reset();
+								NormalEnemyInList->data->dieAnim.Reset();
 								break;
 							case BattlePhase::ATTACKING:
 								if (eAnim == 1) {
