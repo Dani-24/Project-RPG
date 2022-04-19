@@ -9,8 +9,13 @@
 
 #include "NPC.h"
 #include "NormalEnemy.h"
+#include "Camera.h"
 
 #include "Party.h"
+#include "Stages.h"
+#include "App.h"
+#include "Scene.h"
+
 
 
 EntityManager::EntityManager(App* application, bool start_enabled) : Module(application, start_enabled)
@@ -154,15 +159,32 @@ bool EntityManager::CleanUp()
 	return ret;
 }
 
-bool EntityManager::Save(pugi::xml_node& file) const
+bool EntityManager::SaveState(pugi::xml_node& data) const
 {
+	pugi::xml_node playerpos = data.child("playerpos");
+
+	playerpos.append_attribute("x") = app->scene->partyList.At(0)->data->position.x;
+	playerpos.append_attribute("y") = app->scene->partyList.At(0)->data->position.y;
+
+	//Saved.attribute("saved").set_value(saved);
+
 	return false;
 }
 
-bool EntityManager::Load(pugi::xml_node& file)
+bool EntityManager::LoadState(pugi::xml_node& data)
 {
+	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
+	app->scene->partyList.At(0)->data->position.y = data.child("playerpos").attribute("y").as_int();
+
+	/*app->camera->SetTarget(app->stages->playerPtr);
+	app->camera->OnTarget();*/
+	//<playerpos x="0" y="0"/>
+
+	//saved= data.child("Saved").attribute("saved").as_bool();
+
 	return false;
 }
+
 
 Entity* EntityManager::CreateEntity( int x, int y)
 {
@@ -389,3 +411,4 @@ void EntityManager::DestroyEntity(Entity* entity)
 		}
 	}
 }
+
