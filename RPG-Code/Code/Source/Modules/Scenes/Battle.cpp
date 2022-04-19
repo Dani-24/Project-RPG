@@ -365,10 +365,6 @@ bool Battle::Update(float dt)
 						targetEntity = entitiesInBattle[targetNum];
 
 						ChangePhase(BattlePhase::ATTACKING);
-					
-
-					
-						
 					}
 					else {
 						ChangePhase(BattlePhase::DEFENDING);
@@ -1111,6 +1107,7 @@ void Battle::Attack(DynamicEntity *target) {
 	
 	if (target->stats->health <= 0) {
 		target->stats->health = 0;
+		target->stats->defenseBuffed = false;
 		target->isAlive = false;
 
 		DynamicEntity* newTimeLine[5] = {nullptr,nullptr, nullptr, nullptr, nullptr};

@@ -311,7 +311,7 @@ bool Player::Start()
 
 	canMove = true;
 
-	stats = new Stats(1, 20, 6 , 5, 5, 20);
+	stats = new Stats(1, 20, 8 , 5, 5, 20);
 
 	return ret;
 }
@@ -744,6 +744,9 @@ void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
 				characterList->data->stats->health = characterList->data->stats->maxHealth;
 				characterList->data->isAlive = true;
+				dieM.Reset();
+				dieF.Reset();
+				characterList->data->deathAnim.Reset();
 			}
 		}
 	}
