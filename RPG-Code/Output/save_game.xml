@@ -23,7 +23,7 @@
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="0" y="0" />
+		<camera x="-1260" y="-2462" />
 	</camera>
 	<renderer />
 </save_state>

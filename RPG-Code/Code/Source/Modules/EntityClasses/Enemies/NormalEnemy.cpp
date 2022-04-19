@@ -78,7 +78,15 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim.PushBack({ 300 , 667 , 150 , 101 });
 		attackAnim.PushBack({ 150 , 667 , 150 , 101 });
 		attackAnim.PushBack({ 0 , 667 , 150 , 101 });
-		attackAnim.loop = true;
+		attackAnim.PushBack({ 1050 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 900 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 750 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 600 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 450 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 300 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 150 , 566 , 150 , 101 });
+		attackAnim.PushBack({ 0 , 566 , 150 , 101 });
+		attackAnim.loop = false;
 		attackAnim.speed = 0.01f;
 
 		attackAnim2.PushBack({ 1050 , 768 , 150 , 101 });
@@ -89,7 +97,15 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim2.PushBack({ 300 , 768 , 150 , 101 });
 		attackAnim2.PushBack({ 150 , 768 , 150 , 101 });
 		attackAnim2.PushBack({ 0 , 768 , 150 , 101 });
-		attackAnim2.loop = true;
+		attackAnim2.PushBack({ 1050 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 900 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 750 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 600 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 450 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 300 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 150 , 566 , 150 , 101 });
+		attackAnim2.PushBack({ 0 , 566 , 150 , 101 });
+		attackAnim2.loop = false;
 		attackAnim2.speed = 0.01f;
 
 		attackAnim3.PushBack({ 1050 , 869 , 150 , 101 });
@@ -98,7 +114,15 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim3.PushBack({ 600 , 869 , 150 , 101 });
 		attackAnim3.PushBack({ 450 , 869 , 150 , 101 });
 		attackAnim3.PushBack({ 300 , 869 , 150 , 101 });
-		attackAnim3.loop = true;
+		attackAnim3.PushBack({ 1050 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 900 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 750 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 600 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 450 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 300 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 150 , 566 , 150 , 101 });
+		attackAnim3.PushBack({ 0 , 566 , 150 , 101 });
+		attackAnim3.loop = false;
 		attackAnim3.speed = 0.01f;
 
 		protectAnim.PushBack({ 900 , 869 , 150 , 101 });
@@ -277,7 +301,11 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim.PushBack({ 300 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 150 , 1012 , 150 , 101 });
 		attackAnim.PushBack({ 0 , 1012 , 150 , 101 });
-		attackAnim.loop = true;
+		attackAnim.PushBack({ 1050 , 810 , 150 , 101 });
+		attackAnim.PushBack({ 900 , 810 , 150 , 101 });
+		attackAnim.PushBack({ 750 , 810 , 150 , 101 });
+		attackAnim.PushBack({ 600 , 810 , 150 , 101 });
+		attackAnim.loop = false;
 		attackAnim.speed = 0.01f;
 
 		attackAnim2.PushBack({ 1050 , 1113 , 150 , 101 });
@@ -288,7 +316,11 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim2.PushBack({ 300 , 1113 , 150 , 101 });
 		attackAnim2.PushBack({ 150 , 1113 , 150 , 101 });
 		attackAnim2.PushBack({ 0 , 1113 , 150 , 101 });
-		attackAnim2.loop = true;
+		attackAnim2.PushBack({ 1050 , 810 , 150 , 101 });
+		attackAnim2.PushBack({ 900 , 810 , 150 , 101 });
+		attackAnim2.PushBack({ 750 , 810 , 150 , 101 });
+		attackAnim2.PushBack({ 600 , 810 , 150 , 101 });
+		attackAnim2.loop = false;
 		attackAnim2.speed = 0.01f;
 
 		attackAnim3.PushBack({ 1050 , 1214 , 150 , 101 });
@@ -297,14 +329,18 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim3.PushBack({ 600 , 1214 , 150 , 101 });
 		attackAnim3.PushBack({ 450 , 1214 , 150 , 101 });
 		attackAnim3.PushBack({ 300 , 1214 , 150 , 101 });
-		attackAnim3.loop = true;
+		attackAnim3.PushBack({ 1050 , 810 , 150 , 101 });
+		attackAnim3.PushBack({ 900 , 810 , 150 , 101 });
+		attackAnim3.PushBack({ 750 , 810 , 150 , 101 });
+		attackAnim3.PushBack({ 600 , 810 , 150 , 101 });
+		attackAnim3.loop = false;
 		attackAnim3.speed = 0.01f;
 
 		protectAnim.PushBack({ 1050 , 1315 , 150 , 101 });
 		protectAnim.PushBack({ 900 , 1315 , 150 , 101 });
 		protectAnim.PushBack({ 750 , 1315 , 150 , 101 });
 		protectAnim.PushBack({ 600 , 1315 , 150 , 101 });
-		protectAnim.loop = true;
+		protectAnim.loop = false;
 		protectAnim.speed = 0.01f;
 
 		hitAnim.PushBack({ 1050 , 1416 , 150 , 101 });
