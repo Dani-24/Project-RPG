@@ -50,6 +50,7 @@ bool Stages::Start()
 	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
 	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
 	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
+	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
 
 	return true;
 }
@@ -61,18 +62,25 @@ bool Stages::PreUpdate()
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
+		intStage = 0;
 		break;
 	case StageIndex::TOWN:
+		intStage = 1;
 		break;
 	case StageIndex::TAVERN:
+		intStage = 3;
 		break;
 	case StageIndex::DOJO:
+		intStage = 4;
 		break;
 	case StageIndex::SHOP:
+		intStage = 5;
 		break;
 	case StageIndex::SHOPSUB:
+		intStage = 6;
 		break;
 	case StageIndex::INTRODUCTION:
+		intStage = 7;
 		break;
 	default:
 		break;
@@ -147,42 +155,42 @@ bool Stages::PostUpdate()
 			switch (epilogFase)
 			{
 			case 0:
-				app->font->DrawTextDelayed("Hola, alma viajera", epilogX + 35, epilogY);
+				app->font->DrawTextDelayed("Hello, adventurer soul", epilogX + 35, epilogY);
 				break;
 			case 1:
-				app->font->DrawTextDelayed("Canonicamente, un camion te acaba de atropellar", epilogX - 100, epilogY);
+				app->font->DrawTextDelayed("Canonically, a truck have just run over you", epilogX - 100, epilogY);
 				break;
 			case 2:
-				app->font->DrawTextDelayed("Camion-kun, quien goberna en este mundo", epilogX - 70, epilogY);
+				app->font->DrawTextDelayed("Camion-kun, who rules this world", epilogX - 70, epilogY);
 				break;
 			case 3:
-				app->font->DrawTextDelayed("atropella cuerpos y trae sus almas aqui sin descanso", epilogX - 110, epilogY);
+				app->font->DrawTextDelayed("he runs over people and bring their souls here without breaks", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("con el objetivo de combatir en la torre", epilogX - 50, epilogY + 25, {255,0,0});
+				app->font->DrawTextDelayed("with the goal of fihting on the tower", epilogX - 50, epilogY + 25, {255,0,0});
 				break;
 			case 5:
-				app->font->DrawTextDelayed("Aunque bueno, yo venia a preguntarte cosas", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX -70, epilogY);
 				break;
 			case 6:
-				app->font->DrawTextDelayed("y asumir tu genero con ello", epilogX, epilogY);
+				app->font->DrawTextDelayed("and asume your gender with them", epilogX, epilogY);
 				break;
 			case 7:
-				app->font->DrawTextDelayed("Bueno, como diria Oak, eres chico o chica?", epilogX -70, epilogY);
+				app->font->DrawTextDelayed("Wll, as Oak says, you are a boy or a girl?", epilogX -70, epilogY);
 				break;
 			case 8:
-				app->font->DrawTextDelayed("Elige con 1 o 2 y confirma con Espacio", epilogX -65, epilogY);
+				app->font->DrawTextDelayed("Choose with 1 or 2 andd confirm with Space", epilogX -65, epilogY);
 				break;
 			case 9:
 				if (playerPtr->PlayerErection == true) {
-					app->font->DrawTextDelayed("Con que eres un chico (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+					app->font->DrawTextDelayed("OH! So you're a boy (You can still change your gender with 1 or 2)", epilogX - 150, epilogY);
 				}
 				else {
-					app->font->DrawTextDelayed("Con que eres una chica (Puedes seguir cambiando con 1 y 2)", epilogX - 150, epilogY);
+					app->font->DrawTextDelayed("OH!So you're a girl (You can still change your gender with 1 or 2", epilogX - 150, epilogY);
 				}
 				break;
 			case 10:
-				app->font->DrawTextDelayed("Una gran aventura te aguarda joven", epilogX - 50, epilogY);
+				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 50, epilogY);
 				break;
 			case 11:
 				ChangeStage(StageIndex::TOWN);
@@ -203,55 +211,84 @@ bool Stages::PostUpdate()
 	//oka doka
 	if (onBattle == false && actualStage != StageIndex::NONE) {
 
-		app->map->Draw();
-		app->guiManager->Draw();
+		// Below de player
+		if (actualStage != StageIndex::INTRODUCTION) {
+			app->map->Draw();
+			app->guiManager->Draw();
 
+			if (playerPtr != nullptr) {
+				//PRINT THE NPCs BELOW THE PLAYER
+				if (npcListPtr != nullptr) {
+					ListItem<NPC*>* npcInList;
+					npcInList = npcListPtr->start;
+					for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+					{
+						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 
+							if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+								app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+							}
+						}
+					}
+				}
 
-		if (playerPtr != nullptr) {
-			//PRINT THE NPCs BELOW THE PLAYER
-			if (npcListPtr != nullptr) {
-				ListItem<NPC*>* npcInList;
-				npcInList = npcListPtr->start;
-				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-				{
-					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						
-						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+				//PRINT THE Enemies BELOW THE PLAYER
+				if (normalEnemyListPtr != nullptr) {
+					ListItem<NormalEnemy*>* NormalEnemyInList;
+					NormalEnemyInList = normalEnemyListPtr->start;
+					for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+					{
+						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+							if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+								NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+							}
+						}
+					}
+				}
+			}
+			else {
+				//PRINT ONLY THE NPCs
+				if (npcListPtr != nullptr) {
+					ListItem<NPC*>* npcInList;
+					npcInList = npcListPtr->start;
+					for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+					{
+						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 						}
 					}
 				}
-			}
 
-			//PRINT THE Enemies BELOW THE PLAYER
-			if (normalEnemyListPtr != nullptr) {
-				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = normalEnemyListPtr->start;
-				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
-				{
-					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+				//PRINT ONLY THE Enemies
+				if (normalEnemyListPtr != nullptr) {
+					ListItem<NormalEnemy*>* NormalEnemyInList;
+					NormalEnemyInList = normalEnemyListPtr->start;
+					for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+					{
+						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 						}
 					}
 				}
 			}
-
-
-			//PRINT THE PLAYER 
-			if (playerPtr != nullptr) {
-				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-				if (playerPtr->PlayerErection == true) {
-					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-				if (playerPtr->PlayerErection == false) {
-					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
+		}
+	
+		//PRINT THE PLAYER 
+		if (playerPtr != nullptr) {
+			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			if (playerPtr->PlayerErection == true) {
+				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
-
+			if (playerPtr->PlayerErection == false) {
+				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+		}
+		// Above the player
+		if (actualStage != StageIndex::INTRODUCTION) {
 			//PRINT THE NPCs ABOVE THE PLAYER
 			if (npcListPtr != nullptr) {
 				ListItem<NPC*>* npcInList;
@@ -281,36 +318,9 @@ bool Stages::PostUpdate()
 					}
 				}
 			}
-		}
-		else {
-			//PRINT ONLY THE NPCs
-			if (npcListPtr != nullptr) {
-				ListItem<NPC*>* npcInList;
-				npcInList = npcListPtr->start;
-				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-				{
-					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-						app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
-					}
-				}
-			}
 
-			//PRINT ONLY THE Enemies
-			if (normalEnemyListPtr != nullptr) {
-				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = normalEnemyListPtr->start;
-				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
-				{
-					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
-					}
-				}
-			}
+			app->map->ReDraw();
 		}
-
-		app->map->ReDraw();
 	}
 
 	//PRINT THE BATTLE SPRITES
@@ -583,6 +593,12 @@ bool Stages::PostUpdate()
 
 void Stages::ChangeStage(StageIndex newStage) {
 	epilogFase = 0;
+
+	// Door sfx
+	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE) {
+		app->audio->PlayFx(doorFx);
+	}
+
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
 		app->map->Disable();
@@ -692,7 +708,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Introduction");
 
-		app->audio->PlayMusic("Assets/audio/music/music_intro");
+		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
 
 		break;
 	default:
@@ -721,3 +737,23 @@ bool Stages::CleanUp()
 
 	return true;
 }
+
+//bool Stages::SaveState(pugi::xml_node& data) const
+//{
+//	pugi::xml_node stage = data.append_child("stages");
+//
+//	stage.append_attribute("actualstage") = intStage;
+//
+//	//Saved.attribute("saved").set_value(saved);
+//
+//	return false;
+//}
+//
+//bool Stages::LoadState(pugi::xml_node& data)
+//{
+//	intStage = data.child("stages").attribute("actualstage").as_int();
+//
+//	//saved= data.child("Saved").attribute("saved").as_bool();
+//
+//	return false;
+//}

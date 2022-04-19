@@ -46,36 +46,11 @@ bool Scene::Awake(pugi::xml_node& config)
 
 bool Scene::Start()
 {
+	LOG("Starting Scene");
+
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
-
-	switch (app->stages->actualStage) {
-	case StageIndex::NONE:
-		break;
-	case StageIndex::TOWN:
-		app->map->Load("initial_town_map.tmx");
-
-		// Load music
-		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
-
-		break;
-	case StageIndex::DOJO:
-		app->map->Load("initial_town_dojo.tmx");
-		break;
-	case StageIndex::SHOP:
-		app->map->Load("initial_town_shop.tmx");
-		break;
-	case StageIndex::SHOPSUB:
-		app->map->Load("initial_town_under_shop.tmx");
-		break;
-	case StageIndex::TAVERN:
-		app->map->Load("initial_town_tavern.tmx");
-		break;
-	case StageIndex::INTRODUCTION:
-		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
-		break;
-	}
 
 	// Load textures
 	gui = app->tex->Load("Assets/gui/GUIFinal.png");
@@ -132,21 +107,27 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 950, 500 };
-	iPoint batPos = { 800, 950 };
-	iPoint skeletonPos = { 650, 850 };
+	iPoint eyePos = { 615, 20 };
+	iPoint batPos = { 600, 96 };
+	iPoint skeletonPos = { 690, 20 };
+	iPoint skeletonPos2 = { 800, 1600 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);
-	eye->activeOnStage = StageIndex::TOWN;
+	eye->activeOnStage = StageIndex::DOJO;
 
 	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
 	normalEnemyList.add(bat);
-	bat->activeOnStage = StageIndex::TOWN;
+	bat->activeOnStage = StageIndex::DOJO;
 
 	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
 	normalEnemyList.add(skeleton);
-	skeleton->activeOnStage = StageIndex::TOWN;
+	skeleton->activeOnStage = StageIndex::DOJO;
+
+	NormalEnemy* skeleton2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos2.x, skeletonPos2.y);
+	normalEnemyList.add(skeleton2);
+	skeleton2->activeOnStage = StageIndex::TOWN;
+	skeleton2->currentAnimation = &skeleton2->idleAnim;
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
@@ -304,10 +285,40 @@ bool Scene::PostUpdate()
 		sprintf_s(lifeprota, 50, "hp:%2d", hp);
 		app->font->DrawText(lifeprota, xt - 557, yt - 346, { 0,200,30 });
 		
-		app->render->DrawTexture(magogui, xt - 485, yt - 349);
 
-		sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-		app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
+		if (partyList.At(1))
+		{
+			app->render->DrawTexture(magogui, xt - 485, yt - 349);
+
+			sprintf_s(lifewizard, 50, "hp:%2d", hpw);
+			app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
+		}
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			
+			sprintf_s(towns,"TOWN");
+			app->font->DrawText(towns, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::DOJO:
+			sprintf_s(dojos, "DOJOS");
+			app->font->DrawText(dojos, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::SHOP:
+			sprintf_s(shops, "SHOP");
+			app->font->DrawText(shops, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::SHOPSUB:
+			sprintf_s(shopsubs, "SHOPSUB");
+			app->font->DrawText(shopsubs, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::TAVERN:
+			sprintf_s(taberns, "TAVERN");
+			app->font->DrawText(taberns, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		
+		}
 
 	}
 	if (app->collisions->debug)
@@ -407,3 +418,24 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+
+//bool Scene::SaveState(pugi::xml_node& data) const
+//{
+//	pugi::xml_node godmode = data.append_child("stages");
+//
+//	godmode.append_attribute("actualstage") = intStage;
+//
+//	//Saved.attribute("saved").set_value(saved);
+//
+//	return false;
+//}
+//
+//bool Scene::LoadState(pugi::xml_node& data)
+//{
+//	godmode = data.child("god").attribute("actualstage").as_bool();
+//
+//	//saved= data.child("Saved").attribute("saved").as_bool();
+//
+//	return false;
+//}

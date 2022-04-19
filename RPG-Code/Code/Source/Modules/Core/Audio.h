@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define DEFAULT_MUSIC_FADE_TIME 60.0f
+#define DEFAULT_MUSIC_FADE_TIME 30.0f
 
 struct _Mix_Music;
 struct Mix_Chunk;

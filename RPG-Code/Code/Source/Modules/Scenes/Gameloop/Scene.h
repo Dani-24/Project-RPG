@@ -45,6 +45,9 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	//bool SaveState(pugi::xml_node& data) const;
+	//bool LoadState(pugi::xml_node& data);
+
 private:
 
 	GuiButton* btn1;
@@ -66,6 +69,11 @@ public:
 	int hp,hpw;
 	char lifeprota[100] = { "\0" };
 	char lifewizard[100] = { "\0" };
+	char towns[100] = { "\0" };
+	char dojos[100] = { "\0" };
+	char shops[100] = { "\0" };
+	char shopsubs[100] = { "\0" };
+	char taberns[100] = { "\0" };
 
 	SDL_Texture* gui;
 	SDL_Texture* mpfgui;

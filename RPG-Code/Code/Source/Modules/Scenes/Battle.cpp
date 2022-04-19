@@ -91,6 +91,10 @@ bool Battle::Start()
 {
 	app->scene->player->toggleGui = false;
 
+	// initial fx
+	startFx = app->audio->LoadFx("Assets/audio/sfx/fx_battle.wav");
+	app->audio->PlayFx(startFx);
+
 	ChangePhase(BattlePhase::THINKING);
 	hasStarted = false;
 	hasTriedToEscape = false;
@@ -112,6 +116,10 @@ bool Battle::Start()
 	case StageIndex::NONE:
 		break;
 	case StageIndex::TOWN:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::DOJO:
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
@@ -547,6 +555,47 @@ bool Battle::Update(float dt)
 					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce * damageTaken), 0, &dojoAnim.GetCurrentFrame());
 				}
 				
+			}
+		case StageIndex::DOJO:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce * damageTaken), 0, &dojoAnim.GetCurrentFrame());
+				}
+
 			}
 
 			break;
