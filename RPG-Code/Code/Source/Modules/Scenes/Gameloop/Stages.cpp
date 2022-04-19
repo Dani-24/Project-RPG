@@ -361,6 +361,8 @@ bool Stages::PostUpdate()
 								NormalEnemyInList->data->attackAnim.Reset();
 								NormalEnemyInList->data->attackAnim2.Reset();
 								NormalEnemyInList->data->attackAnim3.Reset();
+								NormalEnemyInList->data->protectAnim.Reset();
+								NormalEnemyInList->data->dieAnim.Reset();
 								break;
 							case BattlePhase::ATTACKING:
 								if (eAnim == 1) {
@@ -386,12 +388,14 @@ bool Stages::PostUpdate()
 								}
 								
 								break;
-							case BattlePhase::WIN:
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
-								break;
 							default:
 								break;
 
+							}
+						}
+						else {
+							if (app->battle->battlePhase == BattlePhase::WIN) {
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
 							}
 						}
 
@@ -428,11 +432,12 @@ bool Stages::PostUpdate()
 							if (playerPtr->PlayerErection == true) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
-								if (app->battle->actualTurnEntity->name == "Player") {
+								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleM;
 										app->stages->playerPtr->attackM.Reset();
+										app->stages->playerPtr->dieM.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
@@ -466,13 +471,14 @@ bool Stages::PostUpdate()
 							if (playerPtr->PlayerErection == false) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
-								if (app->battle->actualTurnEntity->name == "Player") {
+								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleF;
 										app->stages->playerPtr->attackF.Reset();
 										app->stages->playerPtr->attackF2.Reset();
 										app->stages->playerPtr->attackChainF.Reset();
+										app->stages->playerPtr->dieF.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										if (pAnim == 1) {
@@ -522,6 +528,7 @@ bool Stages::PostUpdate()
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									CharacterInList->data->attackAnim1.Reset();
 									CharacterInList->data->attackAnim2.Reset();
+									CharacterInList->data->dieAnim.Reset();
 									break;
 								case BattlePhase::ATTACKING:
 									if (vAnim == 1) {

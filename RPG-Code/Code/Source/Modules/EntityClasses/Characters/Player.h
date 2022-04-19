@@ -171,6 +171,8 @@ private: // DIALOGS
 	"on the right side of the tavern, there is the Dojo",
 	"Test there your habilities with some enemies",
 	"And avoid dying there ( it will be a good detail )",
+	"You will be able to recover all your health",
+	"in the fountain following this left street",
 	"ko ko",
 	"At the north you will find the Tower of Camion-kun",
 	"Although we had closed it because nobody wants to go",
