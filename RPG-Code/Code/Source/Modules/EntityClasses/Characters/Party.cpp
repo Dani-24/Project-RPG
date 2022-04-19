@@ -43,8 +43,14 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		attackAnim1.PushBack({ 1155, 141, 231, 141 });
 		attackAnim1.PushBack({ 1386, 141, 231, 141 });
 		attackAnim1.PushBack({ 1617, 141, 231, 141 });
-
-		attackAnim1.speed = 0.006f;
+		attackAnim1.PushBack({ 0, 0, 231, 141 });
+		attackAnim1.PushBack({ 231, 0, 231, 141 });
+		attackAnim1.PushBack({ 462, 0, 231, 141 });
+		attackAnim1.PushBack({ 693, 0, 231, 141 });
+		attackAnim1.PushBack({ 924, 0, 231, 141 });
+		attackAnim1.PushBack({ 1155, 0, 231, 141 });
+		attackAnim1.loop = false;
+		attackAnim1.speed = 0.008f;
 
 		//ATTACK 2
 		attackAnim2.PushBack({ 0, 282, 231, 141 });
@@ -55,8 +61,14 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		attackAnim2.PushBack({ 1155, 282, 231, 141 });
 		attackAnim2.PushBack({ 1386, 282, 231, 141 });
 		attackAnim2.PushBack({ 1617, 282, 231, 141 });
-
-		attackAnim2.speed = 0.006f;
+		attackAnim2.PushBack({ 0, 0, 231, 141 });
+		attackAnim2.PushBack({ 231, 0, 231, 141 });
+		attackAnim2.PushBack({ 462, 0, 231, 141 });
+		attackAnim2.PushBack({ 693, 0, 231, 141 });
+		attackAnim2.PushBack({ 924, 0, 231, 141 });
+		attackAnim2.PushBack({ 1155, 0, 231, 141 });
+		attackAnim2.loop = false;
+		attackAnim2.speed = 0.01f;
 
 		protectedAnim.PushBack({ 0, 282, 231, 141 });
 

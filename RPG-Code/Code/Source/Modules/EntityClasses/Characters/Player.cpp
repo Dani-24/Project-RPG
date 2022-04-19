@@ -102,8 +102,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackM.PushBack({ 420 , 83 , 140 , 83 });
 	attackM.PushBack({ 560 , 83 , 140 , 83 });
 	attackM.PushBack({ 700 , 83 , 140 , 83 });
-	attackM.loop = true;
-	attackM.speed = 0.006f;
+	attackM.PushBack({ 0, 0, 140, 83 });
+	attackM.PushBack({ 140 , 0 , 140 , 83 });
+	attackM.PushBack({ 280 , 0 , 140 , 83 });
+	attackM.PushBack({ 420 , 0 , 140 , 83 });
+	attackM.PushBack({ 560 , 0 , 140 , 83 });
+	attackM.PushBack({ 700 , 0 , 140 , 83 });
+	attackM.PushBack({ 840 , 0 , 140 , 83 });
+	attackM.PushBack({ 980 , 0 , 140 , 83 });
+	attackM.PushBack({ 1120 , 0 , 140 , 83 });
+	attackM.PushBack({ 1260 , 0 , 140 , 83 });
+	attackM.PushBack({ 1400 , 0 , 140 , 83 });
+	attackM.loop = false;
+	attackM.speed = 0.008f;
 
 	protectM.PushBack({ 0 , 581 , 140 , 83 });
 	protectM.PushBack({ 140 , 581 , 140 , 83 });
@@ -154,8 +165,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackF.PushBack({ 720 , 0 , 180 , 114 });
 	attackF.PushBack({ 900 , 0 , 180 , 114 });
 	attackF.PushBack({ 1080 , 0 , 180 , 114 });
-	attackF.loop = true;
-	attackF.speed = 0.006f;
+	attackF.PushBack({ 0 , 456 , 180 , 114 });
+	attackF.PushBack({ 180 , 456 , 180 , 114 });
+	attackF.PushBack({ 360 , 456 , 180 , 114 });
+	attackF.PushBack({ 540 , 456 , 180 , 114 });
+	attackF.PushBack({ 720 , 456 , 180 , 114 });
+	attackF.PushBack({ 900 , 456 , 180 , 114 });
+	attackF.PushBack({ 1080 , 456 , 180 , 114 });
+	attackF.PushBack({ 1260 , 456 , 180 , 114 });
+	attackF.PushBack({ 1440 , 456 , 180 , 114 });
+	attackF.PushBack({ 1620 , 456 , 180 , 114 });
+	attackF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF.loop = false;
+	attackF.speed = 0.008f;
 
 	attackF2.PushBack({ 0 , 114 , 180 , 114 });
 	attackF2.PushBack({ 180 , 114 , 180 , 114 });
@@ -164,8 +186,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackF2.PushBack({ 720 , 114 , 180 , 114 });
 	attackF2.PushBack({ 900 , 114 , 180 , 114 });
 	attackF2.PushBack({ 1080 , 114 , 180 , 114 });
-	attackF2.loop = true;
-	attackF2.speed = 0.006f;
+	attackF2.PushBack({ 0 , 456 , 180 , 114 });
+	attackF2.PushBack({ 180 , 456 , 180 , 114 });
+	attackF2.PushBack({ 360 , 456 , 180 , 114 });
+	attackF2.PushBack({ 540 , 456 , 180 , 114 });
+	attackF2.PushBack({ 720 , 456 , 180 , 114 });
+	attackF2.PushBack({ 900 , 456 , 180 , 114 });
+	attackF2.PushBack({ 1080 , 456 , 180 , 114 });
+	attackF2.PushBack({ 1260 , 456 , 180 , 114 });
+	attackF2.PushBack({ 1440 , 456 , 180 , 114 });
+	attackF2.PushBack({ 1620 , 456 , 180 , 114 });
+	attackF2.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF2.loop = false;
+	attackF2.speed = 0.009f;
 
 	attackChainF.PushBack({ 0 , 0 , 180 , 114 });
 	attackChainF.PushBack({ 180 , 0 , 180 , 114 });
@@ -181,8 +214,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	attackChainF.PushBack({ 720 , 114 , 180 , 114 });
 	attackChainF.PushBack({ 900 , 114 , 180 , 114 });
 	attackChainF.PushBack({ 1080 , 114 , 180 , 114 });
-	attackChainF.loop = true;
-	attackChainF.speed = 0.006f;
+	attackChainF.PushBack({ 0 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 180 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 360 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 540 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 720 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 900 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 1080 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 1260 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 1440 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 1620 , 456 , 180 , 114 });
+	attackChainF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackChainF.loop = false;
+	attackChainF.speed = 0.009f;
 
 	protectF.PushBack({ 540 , 228 , 180 , 114 });
 	protectF.loop = true;
