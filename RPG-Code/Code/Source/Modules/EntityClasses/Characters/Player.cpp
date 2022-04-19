@@ -373,7 +373,7 @@ bool Player::PostUpdate()
 	bool ret = true;
 
 	if (printInteractionButt == true) {
-		app->render->DrawTexture(interactionButton, position.x - 5, position.y - 20, &interactionButtonJustSpace.GetCurrentFrame());
+		app->render->DrawTexture(interactionButton, position.x + 5, position.y, &interactionButtonJustSpace.GetCurrentFrame());
 	}
 	printInteractionButt = false;
 
