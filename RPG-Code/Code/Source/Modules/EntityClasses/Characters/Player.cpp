@@ -743,6 +743,7 @@ void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 		if (npc == NPCType::FUENTE) {
 			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
 				characterList->data->stats->health = characterList->data->stats->maxHealth;
+				characterList->data->isAlive = true;
 			}
 		}
 	}

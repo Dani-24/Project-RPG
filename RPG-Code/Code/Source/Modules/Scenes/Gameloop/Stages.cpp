@@ -152,7 +152,7 @@ bool Stages::PostUpdate()
 			int epilogX = -app->camera->GetPos().x / app->win->GetScale() + 200;
 			int epilogY = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / app->win->GetScale() - 300;
 
-			switch (epilogFase)
+			switch (introductionFase)
 			{
 			case 0:
 				app->font->DrawTextDelayed("Hello, traveler soul", epilogX + 35, epilogY);
@@ -203,7 +203,7 @@ bool Stages::PostUpdate()
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				epilogFase++;
+				introductionFase++;
 			}
 		}
 
@@ -431,7 +431,7 @@ bool Stages::PostUpdate()
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
-								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
+								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x - 1 * rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
 								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
@@ -441,7 +441,7 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
-										
+
 										if (fxbool == true) {
 											fxbool = false;
 											app->audio->PlayFx(hitfx2);
@@ -453,7 +453,7 @@ bool Stages::PostUpdate()
 											fxbool = false;
 											app->audio->PlayFx(shieldfx);
 										}
-							
+
 										break;
 									case BattlePhase::LOSE:
 										playerPtr->currentAnimation = &playerPtr->dieM;
@@ -521,7 +521,7 @@ bool Stages::PostUpdate()
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
-							
+
 							if (app->battle->actualTurnEntity->name == "Valion") {
 								switch (app->battle->battlePhase) {
 								case BattlePhase::THINKING:
@@ -569,7 +569,7 @@ bool Stages::PostUpdate()
 							switch (i) {
 
 							case 0:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y );
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							case 1:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
@@ -581,6 +581,14 @@ bool Stages::PostUpdate()
 						}
 
 					}
+						/*if (app->battle->entitiesInBattle[i]->isAlive == false) {
+							for(int i =)
+							if(app->battle->entitiesInBattle[i]==)
+							CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+							app->battle->entitiesInBattle[i]->currentAnimation = &app->battle->entitiesInBattle[i]->dieF;
+						}*/
+
+					
 				}
 			}
 		}
@@ -602,7 +610,7 @@ bool Stages::PostUpdate()
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
-	epilogFase = 0;
+	introductionFase = 0;
 
 	// Door sfx
 	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE) {
