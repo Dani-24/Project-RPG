@@ -431,7 +431,7 @@ bool Stages::PostUpdate()
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 							if (playerPtr->PlayerErection == true) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
-								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
+								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x - 1 * rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
 								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
@@ -441,7 +441,7 @@ bool Stages::PostUpdate()
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
-										
+
 										if (fxbool == true) {
 											fxbool = false;
 											app->audio->PlayFx(hitfx2);
@@ -453,7 +453,7 @@ bool Stages::PostUpdate()
 											fxbool = false;
 											app->audio->PlayFx(shieldfx);
 										}
-							
+
 										break;
 									case BattlePhase::LOSE:
 										playerPtr->currentAnimation = &playerPtr->dieM;
@@ -512,22 +512,15 @@ bool Stages::PostUpdate()
 									default:
 										break;
 
-										}
 									}
 								}
 							}
 						}
 						else {
-							
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
-
-
-							if (CharacterInList->data->isAlive == false) {
-								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
-							}
 
 							if (app->battle->actualTurnEntity->name == "Valion") {
 								switch (app->battle->battlePhase) {
@@ -559,7 +552,7 @@ bool Stages::PostUpdate()
 
 									break;
 								case BattlePhase::LOSE:
-
+									CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
 									if (fxbool == true) {
 										fxbool = false;
 										app->audio->PlayFx(chdiefx);
@@ -586,8 +579,8 @@ bool Stages::PostUpdate()
 								break;
 							}
 						}
-					}
 
+					}
 						/*if (app->battle->entitiesInBattle[i]->isAlive == false) {
 							for(int i =)
 							if(app->battle->entitiesInBattle[i]==)
