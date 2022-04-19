@@ -50,6 +50,7 @@
 		<title path="Assets/textures/title_screen_bg.png"/>
 		<mustitle path="Assets/audio/music/music_title.ogg"/>
 		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
+		<sfxtitle path="Assets/audio/sfx/fx_title.wav"/>
 	</titleScene>
 	
 	<conf>
