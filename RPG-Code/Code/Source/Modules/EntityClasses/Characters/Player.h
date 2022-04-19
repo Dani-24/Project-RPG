@@ -197,7 +197,9 @@ private: // DIALOGS
 	"If you see a NPC, try talking with it with SPACE",
 	"Some Villager: Explore the town as you like!",
 	"Anonymous: Feed the chicken plz",
-	"The Tower is currently unavailable"
+	"The Tower is currently unavailable",
+	"Remember that you have an extra party member",
+	"Just a developing gift :D"
 	};
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);
