@@ -51,34 +51,34 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleAnimUp.PushBack({ 62,221,31,46 });
 	idleAnimDown.PushBack({ 62,8,31,46 });*/
 
-	walkAnimDown.PushBack({ 0,0,72,96 });
-	walkAnimDown.PushBack({ 72,0,72,96 });
-	walkAnimDown.PushBack({ 144,0,72,96 });
+	walkAnimDown.PushBack({ 0,0,48,64 });
+	walkAnimDown.PushBack({ 48,0,48,64 });
+	walkAnimDown.PushBack({ 96,0,48,64 });
 	walkAnimDown.loop = true;
 	walkAnimDown.speed = 0.006f;
 
-	walkAnimUp.PushBack({ 0,288,72,96 });
-	walkAnimUp.PushBack({ 72,288,72,96 });
-	walkAnimUp.PushBack({ 144, 288,72,96 });
+	walkAnimUp.PushBack({ 0,192,48,64 });
+	walkAnimUp.PushBack({ 48,192,48,64 });
+	walkAnimUp.PushBack({ 96, 192,48,64 });
 	walkAnimUp.loop = true;
 	walkAnimUp.speed = 0.006f;
 
-	walkAnimL.PushBack({ 0,96,72,96 });
-	walkAnimL.PushBack({ 72,96,72,96 });
-	walkAnimL.PushBack({ 144,96,72,96 });
+	walkAnimL.PushBack({ 0,64,48,64 });
+	walkAnimL.PushBack({ 48,64,48,64 });
+	walkAnimL.PushBack({ 96,64,48,64 });
 	walkAnimL.loop = true;
 	walkAnimL.speed = 0.006f;
 
-	walkAnimR.PushBack({ 0,192,72,96 });
-	walkAnimR.PushBack({ 72,192,72,96 });
-	walkAnimR.PushBack({ 144,192,72,96 });
+	walkAnimR.PushBack({ 0,128,48,64 });
+	walkAnimR.PushBack({ 48,128,48,64 });
+	walkAnimR.PushBack({ 96,128,48,64 });
 	walkAnimR.loop = true;
 	walkAnimR.speed = 0.006f;
 
-	idleAnimR.PushBack({ 72,192,72,96 });
-	idleAnimL.PushBack({ 72,96,72,96 });
-	idleAnimUp.PushBack({ 72,288,72,96 });
-	idleAnimDown.PushBack({ 72,0,72,96 });
+	idleAnimR.PushBack({ 48,128,48,64 });
+	idleAnimL.PushBack({ 48,64,48,64 });
+	idleAnimUp.PushBack({ 48,192,48,64 });
+	idleAnimDown.PushBack({ 48,0,48,64 });
 
 	//----------------------------------------------------------------------------------Battle Male------------------------------------
 

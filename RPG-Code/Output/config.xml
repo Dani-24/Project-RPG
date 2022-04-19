@@ -33,7 +33,7 @@
     </map>
 
    <player>
-		<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
+		<male path="Assets/sprites/MainCh/MainChM/Walk/player_mx2.png"/>
 		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
 		<election path="Assets/audio/sfx/fx_character_yes.wav"/>
 		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
