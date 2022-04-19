@@ -69,13 +69,13 @@ bool Configuration::PreUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
+	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (pause == false) {
 			pause = true;
 			app->audio->PlayFx(backFx);
 		}
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-	}
+	}*/
 
 	return ret;
 }
