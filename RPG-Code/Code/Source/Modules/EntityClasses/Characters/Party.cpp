@@ -88,7 +88,7 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		deathAnim.PushBack({ 924, 564, 231, 141 });
 		deathAnim.PushBack({ 1155, 564, 231, 141 });
 		deathAnim.PushBack({ 1386, 564, 231, 141 });
-
+		deathAnim.loop = false;
 		deathAnim.speed = 0.006f;
 
 		//JUMP
