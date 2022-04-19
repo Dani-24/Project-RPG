@@ -185,6 +185,10 @@ private: // DIALOGS
 	"poyo"
 	};
 
+	const char* fuenteDialog[DIALOG_LENGHT] = {
+	"HP restored"
+	};
+
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);
 
 };
