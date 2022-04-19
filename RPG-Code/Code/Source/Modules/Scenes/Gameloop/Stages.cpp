@@ -388,12 +388,14 @@ bool Stages::PostUpdate()
 								}
 								
 								break;
-							case BattlePhase::WIN:
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
-								break;
 							default:
 								break;
 
+							}
+						}
+						else {
+							if (app->battle->battlePhase == BattlePhase::WIN) {
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
 							}
 						}
 
@@ -430,7 +432,7 @@ bool Stages::PostUpdate()
 							if (playerPtr->PlayerErection == true) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x-1*rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
-								if (app->battle->actualTurnEntity->name == "Player") {
+								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleM;
@@ -468,7 +470,7 @@ bool Stages::PostUpdate()
 							if (playerPtr->PlayerErection == false) {
 								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
-								if (app->battle->actualTurnEntity->name == "Player") {
+								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleF;
