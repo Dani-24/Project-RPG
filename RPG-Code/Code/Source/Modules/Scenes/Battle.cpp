@@ -358,9 +358,9 @@ bool Battle::Update(float dt)
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
 						
-						int targetNum = (rand() % 2);
+						int targetNum = (rand() % CountAllies());
 						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 2);
+							targetNum = (rand() % CountAllies());
 						}
 						targetEntity = entitiesInBattle[targetNum];
 
@@ -375,9 +375,9 @@ bool Battle::Update(float dt)
 				else {
 					if (optionPercent < 60) {
 						
-						int targetNum = (rand() % 2);
+						int targetNum = (rand() % CountAllies());
 						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 2);
+							targetNum = (rand() % CountAllies());
 						}
 						targetEntity = entitiesInBattle[targetNum];
 						ChangePhase(BattlePhase::ATTACKING);

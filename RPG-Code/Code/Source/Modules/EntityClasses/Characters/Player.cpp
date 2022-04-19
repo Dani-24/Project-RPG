@@ -528,7 +528,10 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 				if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
 					
 					app->battle->entitiesInBattle[0] = this;
-					app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+					if (app->stages->partyListPtr->At(1) != nullptr) {
+						app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+					}
+					
 					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
 					//app->battle->normalEnemyInBattle = normalEnemyInList->data;
 					//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;

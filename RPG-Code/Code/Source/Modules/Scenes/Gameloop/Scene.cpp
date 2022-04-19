@@ -260,7 +260,11 @@ bool Scene::Update(float dt)
 
 	// Add ally to the party
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
-		partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 100, 150)) : partyList.del(partyList.At(1));
+
+		//if (partyList.At(1) == nullptr) {
+			//partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50));
+		//}
+		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
 	return true;
