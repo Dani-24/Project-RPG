@@ -53,7 +53,7 @@ public:
 	void ChangeStage(StageIndex newStage);
 
 private:
-	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx;
+	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
 
 	int epilogFase = 0;
 public:
