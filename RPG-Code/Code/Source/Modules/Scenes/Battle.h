@@ -122,6 +122,8 @@ public:
 	SDL_Texture* itemsTex;
 	SDL_Texture* escapeTex;
 
+	SDL_Texture* shield;
+
 	int battleTurn;
 	char battleTurnChar[9] = { "\0" };
 

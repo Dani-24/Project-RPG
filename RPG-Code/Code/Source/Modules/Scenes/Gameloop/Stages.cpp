@@ -535,6 +535,11 @@ bool Stages::PostUpdate()
 								}
 							}
 						}
+
+						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
+							app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y +60);
+						}
+
 					}
 				}
 			}

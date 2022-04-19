@@ -72,6 +72,7 @@ public:
 	List<NormalEnemy*>* normalEnemyListPtr;
 
 	List<Character*>* partyListPtr;
+
 };
 
 #endif // __STAGES_H__

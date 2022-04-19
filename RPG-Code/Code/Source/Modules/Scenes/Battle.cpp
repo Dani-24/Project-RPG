@@ -125,6 +125,8 @@ bool Battle::Start()
 	itemsTex = app->tex->Load("Assets/gui/items.png");
 	escapeTex = app->tex->Load("Assets/gui/escape.png");
 
+	shield = app->tex->Load("Assets/textures/shield.png");
+
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
 	
@@ -342,9 +344,18 @@ bool Battle::Update(float dt)
 				//If the enemy is NOT afraid
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
+						
+						int targetNum = (rand() % 2);
+						while (entitiesInBattle[targetNum]->isAlive == false) {
+							targetNum = (rand() % 2);
+						}
+						targetEntity = entitiesInBattle[targetNum];
+
 						ChangePhase(BattlePhase::ATTACKING);
-						int targetNum = (rand() % CountAllies());
-						targetEntity = entitiesInBattle[targetNum]; 
+					
+
+					
+						
 					}
 					else {
 						ChangePhase(BattlePhase::DEFENDING);
@@ -774,7 +785,7 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[4]->stats->health == 0) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,30,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 255,30,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
 			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 
@@ -782,13 +793,13 @@ bool Battle::PostUpdate()
 		else if (entitiesInBattle[4]->stats->health <= 5) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 200,100,20 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 200,100,20 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
 			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 		}
 		else {
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 100,255,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 100,255,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
 			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
 		}
@@ -990,7 +1001,7 @@ void Battle::SetTurnOrder()
 					turnsTimeLine[4]->stats->localTurn++;
 				}
 
-				actualTurnEntity = turnsTimeLine[0];
+				//actualTurnEntity = turnsTimeLine[0];
 
 				break;
 
@@ -1205,6 +1216,28 @@ bool Battle::CleanUp()
 		app->map->LoadCol();
 		app->stages->onBattle = false;
 
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+			break;
+		case StageIndex::DOJO:
+			app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+			break;
+		case StageIndex::SHOP:
+			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+			break;
+		case StageIndex::SHOPSUB:
+			app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+			break;
+		case StageIndex::TAVERN:
+			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			break;
+		}
+
+		app->scene->player->toggleGui = true;
+
 		break;
 	case BattlePhase::LOSE:
 		
@@ -1250,6 +1283,28 @@ bool Battle::CleanUp()
 			app->map->LoadCol();
 			app->stages->onBattle = false;
 
+			switch (app->stages->actualStage) {
+			case StageIndex::NONE:
+				break;
+			case StageIndex::TOWN:
+				app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+				break;
+			case StageIndex::DOJO:
+				app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+				break;
+			case StageIndex::SHOP:
+				app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+				break;
+			case StageIndex::SHOPSUB:
+				app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+				break;
+			case StageIndex::TAVERN:
+				app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+				break;
+			}
+
+			app->scene->player->toggleGui = true;
+
 		}
 		if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
 
@@ -1269,6 +1324,28 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->canMove = true;
 			app->map->LoadCol();
 			app->stages->onBattle = false;
+
+			switch (app->stages->actualStage) {
+			case StageIndex::NONE:
+				break;
+			case StageIndex::TOWN:
+				app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+				break;
+			case StageIndex::DOJO:
+				app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+				break;
+			case StageIndex::SHOP:
+				app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+				break;
+			case StageIndex::SHOPSUB:
+				app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+				break;
+			case StageIndex::TAVERN:
+				app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+				break;
+			}
+
+			app->scene->player->toggleGui = true;
 		}
 
 		break;
@@ -1278,27 +1355,7 @@ bool Battle::CleanUp()
 
 	//Music
 
-	switch (app->stages->actualStage) {
-	case StageIndex::NONE:
-		break;
-	case StageIndex::TOWN:
-		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
-		break;
-	case StageIndex::DOJO:
-		app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
-		break;
-	case StageIndex::SHOP:
-		app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
-		break;
-	case StageIndex::SHOPSUB:
-		app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
-		break;
-	case StageIndex::TAVERN:
-		app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
-		break;
-	}
-
-	app->scene->player->toggleGui = true;
+	
 
 	return true;
 }
