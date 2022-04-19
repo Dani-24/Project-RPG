@@ -99,8 +99,8 @@ void Camera::FollowTarget() {
 	}
 	else {
 		// X
-		if ((target->position.x * app->win->GetScale() + app->win->GetWidth() / 2) > limitX && (target->position.x * app->win->GetScale() + app->win->GetWidth() / 2) < limitW) {
-			targetPos.x = -target->position.x * app->win->GetScale() + app->win->GetWidth() / 2;
+		if (((target->position.x + target->currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale() + app->win->GetWidth() / 2) > limitX && ((target->position.x + target->currentAnimation->GetCurrentFrame().w / 2) * app->win->GetScale() + app->win->GetWidth() / 2) < limitW) {
+			targetPos.x = -(target->position.x + target->currentAnimation->GetCurrentFrame().w/2 )* app->win->GetScale() + app->win->GetWidth() / 2;
 		}
 		// Y
 		if ((target->position.y * app->win->GetScale() + app->win->GetHeight() / 2) > limitY && (target->position.y * app->win->GetScale() + app->win->GetHeight() / 2) < limitH) {
