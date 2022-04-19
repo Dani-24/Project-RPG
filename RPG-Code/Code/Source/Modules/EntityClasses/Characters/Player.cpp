@@ -14,7 +14,6 @@
 #include "Battle.h"
 #include "FadeToBlack.h"
 
-
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
 
@@ -269,9 +268,6 @@ bool Player::PreUpdate()
 bool Player::Update(float dt) {
 	bool ret = true;
 
-	/*GamePad& pad = app->input->pads[0];*/
-
-	
 	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
@@ -332,20 +328,12 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-
-	GamePad& pad = app->input->pads[0];
-
-	if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
-	{
-		app->input->ShakeController(0, 60, 1.0f);
-	}
-
 	speed = 0.2 * dt;
 
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W || pad.left_y < -0.5f || pad.up) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
@@ -357,7 +345,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S || pad.left_y > 0.5f || pad.down) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		position.y += speed;
 
 		if (currentAnimation != &walkAnimDown) {
@@ -369,7 +357,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A || pad.left_x < -0.5f || pad.left) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		position.x -= speed;
 
 		if (currentAnimation != &walkAnimL) {
@@ -381,7 +369,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D || pad.left_x > 0.5f || pad.right) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {

@@ -668,7 +668,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Epilog");
 
-		app->audio->PlayMusic("Assets/audio/music/music_epilog.ogg");
+		app->audio->PlayMusic("Assets/audio/music/epilog");
 
 		break;
 	default:
