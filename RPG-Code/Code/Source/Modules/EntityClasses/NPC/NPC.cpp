@@ -94,6 +94,15 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		baseCollider = app->collisions->AddCollider({ position.x, position.y + 20 , 30,  24 }, Collider::Type::INTERACT, this);
 
 		break;
+
+	case NPCType::FUENTE:
+		configName = "fuente";
+		
+		npcID = 7;
+
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 160,  160 }, Collider::Type::INTERACT, this);
+
+		break;
 	default:
 		break;
 	}
@@ -154,6 +163,11 @@ bool NPC::Start()
 	case NPCType::GIROIDE:
 
 		spriteText = app->tex->Load(giroideChar);
+		break;
+	case NPCType::FUENTE:
+
+		spriteText = NULL;
+
 		break;
 	default:
 		break;

@@ -163,11 +163,15 @@ bool EntityManager::SaveState(pugi::xml_node& data) const
 {
 	pugi::xml_node playerpos = data.append_child("playerpos");
 	pugi::xml_node stage = data.append_child("actualStage");
+	pugi::xml_node stats = data.append_child("stats");
 
 	playerpos.append_attribute("x") = app->scene->partyList.At(0)->data->position.x;
 	playerpos.append_attribute("y") = app->scene->partyList.At(0)->data->position.y;
 
 	stage.append_attribute("stage") = app->stages->intStage;
+
+	stats.append_attribute("PlayerHp") = app->scene->partyList.At(0)->data->stats->maxHealth;
+	stats.append_attribute("ValionHp") = app->scene->partyList.At(1)->data->stats->maxHealth;
 
 	//Saved.attribute("saved").set_value(saved);
 
@@ -203,11 +207,9 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
 	app->scene->partyList.At(0)->data->position.y = data.child("playerpos").attribute("y").as_int();
 
-	/*app->camera->SetTarget(app->stages->playerPtr);
-	app->camera->OnTarget();*/
-	//<playerpos x="0" y="0"/>
-
-	//saved= data.child("Saved").attribute("saved").as_bool();
+	app->scene->partyList.At(0)->data->stats->maxHealth = data.child("stats").attribute("PlayerHp").as_int();
+	app->scene->partyList.At(1)->data->stats->maxHealth = data.child("stats").attribute("ValionHp").as_int();
+	
 
 	return false;
 }
@@ -358,6 +360,10 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 	case NPCType::EMILIO:
 
 		ret = new NPC(NPCType::EMILIO, x, y);
+		break;
+	case NPCType::FUENTE:
+
+		ret = new NPC(NPCType::FUENTE, x, y);
 		break;
 
 	default:

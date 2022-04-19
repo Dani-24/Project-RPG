@@ -7,7 +7,7 @@
 #include "List.h"
 #include "Point.h"
 
-#define DIALOG_LENGHT 20
+#define DIALOG_LENGHT 30
 
 struct SDL_Texture;
 
