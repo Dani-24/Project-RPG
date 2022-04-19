@@ -304,10 +304,40 @@ bool Scene::PostUpdate()
 		sprintf_s(lifeprota, 50, "hp:%2d", hp);
 		app->font->DrawText(lifeprota, xt - 557, yt - 346, { 0,200,30 });
 		
-		app->render->DrawTexture(magogui, xt - 485, yt - 349);
 
-		sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-		app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
+		if (partyList.At(1))
+		{
+			app->render->DrawTexture(magogui, xt - 485, yt - 349);
+
+			sprintf_s(lifewizard, 50, "hp:%2d", hpw);
+			app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
+		}
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			
+			sprintf_s(towns,"TOWN");
+			app->font->DrawText(towns, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::DOJO:
+			sprintf_s(dojos, "DOJOS");
+			app->font->DrawText(dojos, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::SHOP:
+			sprintf_s(shops, "SHOP");
+			app->font->DrawText(shops, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::SHOPSUB:
+			sprintf_s(shopsubs, "SHOPSUB");
+			app->font->DrawText(shopsubs, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		case StageIndex::TAVERN:
+			sprintf_s(taberns, "TAVERN");
+			app->font->DrawText(taberns, xt - 115, yt - 346, { 0,0,0 });
+			break;
+		
+		}
 
 	}
 	if (app->collisions->debug)
