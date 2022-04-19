@@ -1,8 +1,8 @@
 <!-- Config file for the game -->
 <config>
     <app>
-        <title>Un RPG de una Torre</title>
-        <organization>By elAmigos</organization>
+        <title>Project RPG v0.5.0 (Vertical Slide)</title>
+        <organization>Suspicious Team</organization>
     </app>
 
     <renderer>
