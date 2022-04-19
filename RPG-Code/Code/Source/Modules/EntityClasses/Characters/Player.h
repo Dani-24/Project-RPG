@@ -188,7 +188,16 @@ private: // DIALOGS
 	};
 
 	const char* fuenteDialog[DIALOG_LENGHT] = {
-	"HP restored"
+	"HP restored to all party members"
+	};
+
+	const char* cartelSudTownDialog[DIALOG_LENGHT] = {
+	"Anonymous Developer: Uhuhu Sample Text uhu",
+	"Use WASD to move your character",
+	"If you see a NPC, try talking with it with SPACE",
+	"Some Villager: Explore the town as you like!",
+	"Anonymous: Feed the chicken plz",
+	"The Tower is currently unavailable"
 	};
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);

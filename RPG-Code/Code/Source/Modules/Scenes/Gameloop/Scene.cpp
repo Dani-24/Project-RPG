@@ -84,6 +84,7 @@ bool Scene::Start()
 	iPoint merchantPos = { 255, 150 };
 	iPoint emilioPos = { 850, 200 };
 	iPoint fuentePos = { 380, 1390 };
+	iPoint cartelSudTownPos = { 1000, 1764 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -108,6 +109,10 @@ bool Scene::Start()
 	NPC* fuente = (NPC*)app->entities->CreateEntity(NPCType::FUENTE, fuentePos.x, fuentePos.y);
 	npcList.add(fuente);
 	fuente->activeOnStage = StageIndex::TOWN;
+
+	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::CARTELSUDTOWN, cartelSudTownPos.x, cartelSudTownPos.y);
+	npcList.add(cartelSudTown);
+	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
 	app->stages->npcListPtr = &npcList;
 
@@ -401,29 +406,15 @@ bool Scene::CleanUp()
 		normalEnemyInList->data->CleanUp();
 	}
 
-	if (btn1 != nullptr) {
-		btn1->state = GuiControlState::DISABLED;
-	}
-	btn1 = nullptr;
-	delete btn1;
-
-	if (btn2 != nullptr) {
-		btn2->state = GuiControlState::DISABLED;
-	}
-	btn2 = nullptr;
-	delete btn2;
-
 	npcList.clear();
 	normalEnemyList.clear();
 
 	player = nullptr;
 	delete player;
 
-
 	app->dialogs->Disable();
 
 	app->map->Disable();
-
 
 	return true;
 }

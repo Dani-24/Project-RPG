@@ -24,7 +24,8 @@ enum class NPCType
 	TRAINER,
 	EMILIO,
 	GIROIDE,
-	FUENTE
+	FUENTE,
+	CARTELSUDTOWN
 };
 
 class NPC : public DynamicEntity

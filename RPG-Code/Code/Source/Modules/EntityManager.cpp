@@ -365,7 +365,10 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 
 		ret = new NPC(NPCType::FUENTE, x, y);
 		break;
+	case NPCType::CARTELSUDTOWN:
 
+		ret = new NPC(NPCType::CARTELSUDTOWN, x, y);
+		break;
 	default:
 
 		LOG("ERROR: Entity Type not set when creating");
