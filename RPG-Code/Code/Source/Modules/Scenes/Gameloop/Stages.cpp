@@ -370,7 +370,7 @@ bool Stages::PostUpdate()
 								}
 								
 								break;
-							case BattlePhase::LOSE:
+							case BattlePhase::WIN:
 								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
 								break;
 							default:
