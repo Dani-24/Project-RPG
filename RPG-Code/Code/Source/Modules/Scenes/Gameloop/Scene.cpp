@@ -145,6 +145,10 @@ bool Scene::Start()
 	godmode = false;
 
 	app->guiManager->Enable();
+	if (playloading == true) {
+		playloading = false;
+		app->LoadGameRequest();
+	}
 
 	return true;
 }

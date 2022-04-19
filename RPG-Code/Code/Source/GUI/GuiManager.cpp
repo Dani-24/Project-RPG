@@ -17,6 +17,7 @@ GuiManager::~GuiManager() {}
 bool GuiManager::Start()
 {
 	selector = app->tex->Load("Assets/gui/controllers/selector.png");
+	clicker = app->tex->Load("Assets/gui/controllers/click.png");
 	return true;
 }
 

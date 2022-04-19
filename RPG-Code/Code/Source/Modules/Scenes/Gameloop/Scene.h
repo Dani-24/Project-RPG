@@ -76,6 +76,8 @@ public:
 	SDL_Texture* mpfgui;
 	SDL_Texture* fpfgui;
 	SDL_Texture* magogui;
+
+	bool playloading = false;
 	
 };
 
