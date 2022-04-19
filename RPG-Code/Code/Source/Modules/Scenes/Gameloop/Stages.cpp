@@ -571,7 +571,6 @@ bool Stages::PostUpdate()
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
-	actualStage = newStage;
 	epilogFase = 0;
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
@@ -639,7 +638,9 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			LOG("Loading Shop map");
 
+			if (actualStage != StageIndex::SHOPSUB) {
 			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+			}
 		}
 
 		break;
@@ -654,7 +655,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			LOG("Loading Shop lower floor map");
 
-			app->audio->PlayMusic("Assets/audio/music/music_shop_underground.ogg");
+			if (actualStage != StageIndex::SHOP) {
+				app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+			}
+			app->audio->ChangeVolume(app->audio->vol / 3);
 		}
 
 		break;
@@ -675,15 +679,21 @@ void Stages::ChangeStage(StageIndex newStage) {
 		break;
 	case StageIndex::INTRODUCTION:
 
-		LOG("Epilog");
+		LOG("Introduction");
 
-		app->audio->PlayMusic("Assets/audio/music/epilog");
+		app->audio->PlayMusic("Assets/audio/music/music_intro");
 
 		break;
 	default:
 
 		break;
 	}
+
+	if (actualStage == StageIndex::SHOPSUB && newStage != StageIndex::SHOPSUB) {
+		app->audio->ChangeVolume(app->audio->vol * 3);
+	}
+	// Change actual stage to newStage at the end
+	actualStage = newStage;
 }
 
 // Called before quitting
