@@ -254,7 +254,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
-	name = "Player";
+	name = "Rhen";
 	configName = "player";
 
 	margin = 10;
@@ -348,12 +348,14 @@ bool Player::Update(float dt) {
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
 				PlayerErection = true;
+				name = "Rhen";
 				app->audio->PlayFx(erectionFx);
 			}
 		}
 		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
 			if (PlayerErection != false) {
 				PlayerErection = false;
+				name = "Briar";
 				app->audio->PlayFx(erectionFx);
 			}
 		}
