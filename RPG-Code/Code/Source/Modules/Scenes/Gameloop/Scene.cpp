@@ -132,21 +132,27 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 950, 500 };
-	iPoint batPos = { 800, 950 };
-	iPoint skeletonPos = { 650, 850 };
+	iPoint eyePos = { 615, 20 };
+	iPoint batPos = { 600, 96 };
+	iPoint skeletonPos = { 690, 20 };
+	iPoint skeletonPos2 = { 800, 1600 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);
-	eye->activeOnStage = StageIndex::TOWN;
+	eye->activeOnStage = StageIndex::DOJO;
 
 	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
 	normalEnemyList.add(bat);
-	bat->activeOnStage = StageIndex::TOWN;
+	bat->activeOnStage = StageIndex::DOJO;
 
 	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
 	normalEnemyList.add(skeleton);
-	skeleton->activeOnStage = StageIndex::TOWN;
+	skeleton->activeOnStage = StageIndex::DOJO;
+
+	NormalEnemy* skeleton2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos2.x, skeletonPos2.y);
+	normalEnemyList.add(skeleton2);
+	skeleton2->activeOnStage = StageIndex::TOWN;
+	skeleton2->currentAnimation = &skeleton2->idleAnim;
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
