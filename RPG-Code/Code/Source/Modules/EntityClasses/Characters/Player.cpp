@@ -258,9 +258,10 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	configName = "player";
 
 	margin = 10;
-	colDownDistance = 26;
+	colDownDistance = 47;
+	colRightDistance = 9;
 
-	baseCollider = app->collisions->AddCollider({ position.x, position.y , 30,  24 }, Collider::Type::PLAYER, this);
+	baseCollider = app->collisions->AddCollider({ position.x + colRightDistance, position.y+ colDownDistance , 30,  24 }, Collider::Type::PLAYER, this);
 
 	mapPosition = { 0,0 };
 	battlePosition = { 150, 150 };
@@ -362,7 +363,7 @@ bool Player::Update(float dt) {
 		}
 	}
 
-	baseCollider->rect.x = position.x;
+	baseCollider->rect.x = position.x + colRightDistance;
 	baseCollider->rect.y = position.y + colDownDistance;
 
 	return ret;
@@ -373,7 +374,7 @@ bool Player::PostUpdate()
 	bool ret = true;
 
 	if (printInteractionButt == true) {
-		app->render->DrawTexture(interactionButton, position.x - 5, position.y - 20, &interactionButtonJustSpace.GetCurrentFrame());
+		app->render->DrawTexture(interactionButton, position.x + 5, position.y, &interactionButtonJustSpace.GetCurrentFrame());
 	}
 	printInteractionButt = false;
 
@@ -483,7 +484,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 			col1->rect.y < col2->rect.y + col2->rect.h - margin			&&
 			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
 		
-			this->position.x = col2->rect.x + col2->rect.w;
+			this->position.x = col2->rect.x + col2->rect.w - colRightDistance;
 		}
 
 		//Cant move Right
@@ -492,7 +493,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 			col1->rect.y < col2->rect.y + col2->rect.h - margin			&&
 			col1->rect.y + col1->rect.h > col2->rect.y + margin) {
 			
-			this->position.x = col2->rect.x - col1->rect.w;
+			this->position.x = col2->rect.x - col1->rect.w - colRightDistance;
 		}
 
 		//Cant move Up
@@ -736,34 +737,4 @@ void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 		app->dialogs->CreateDialog(npc, dialog);
 	}
 	printInteractionButt = true;
-}
-
-bool Player::LoadState(pugi::xml_node& data)
-{
-	position.x = data.child("playerpos").attribute("x").as_int();
-	position.y = data.child("playerpos").attribute("y").as_int();
-
-	//partyList.At(0)->data->position.x = data.child("position").attribute("x").as_int();
-	//partyList.At(0)->data->position.y = data.child("position").attribute("y").as_int();
-
-	app->camera->SetTarget(app->stages->playerPtr);
-	app->camera->OnTarget();
-	//<playerpos x="0" y="0"/>
-
-	//saved= data.child("Saved").attribute("saved").as_bool();
-
-	return true;
-}
-
-bool Player::SaveState(pugi::xml_node& data) const
-{
-	pugi::xml_node playerpos = data.child("playerpos");
-
-	playerpos.append_attribute("x") = position.x;
-	playerpos.append_attribute("y") = position.y;
-
-
-	//Saved.attribute("saved").set_value(saved);
-
-	return true;
 }

@@ -39,10 +39,7 @@ public:
 	//All player movement
 	void MovementPlayer(float dt);
 
-	// Load / Save
-	bool LoadState(pugi::xml_node&);
 
-	bool SaveState(pugi::xml_node&) const;
 
 private:
 
@@ -107,6 +104,7 @@ public:
 
 	// Distance from player top to his collider
 	int colDownDistance;
+	int colRightDistance;
 
 	// Margin pixels from edge of colliders 
 	int margin;

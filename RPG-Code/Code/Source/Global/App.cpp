@@ -389,7 +389,7 @@ bool App::LoadGame()
 			item = item->next;
 		}
 	}
-
+	
 	return ret;
 }
 

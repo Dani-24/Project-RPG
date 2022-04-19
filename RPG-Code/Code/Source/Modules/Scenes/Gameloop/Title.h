@@ -47,6 +47,7 @@ public:
 	const char* titlChar;
 	const char* mustitlChar;
 	const char* fxselChar;
+	const char* fxtitleChar;
 
 private:
 
@@ -61,7 +62,7 @@ private:
 	float angle = 0;
 
 
-	int confirmFx;
+	int confirmFx, titleFx;
 
 	bool pause;
 	bool exitGame;

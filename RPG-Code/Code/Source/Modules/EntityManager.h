@@ -29,8 +29,9 @@ public:
 	//bool Draw();
 	bool CleanUp();
 
-	bool Save(pugi::xml_node& file)const;
-	bool Load(pugi::xml_node& file);
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&) const;
 
 
 	Entity* CreateEntity(int x = 0, int y = 0);

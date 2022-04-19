@@ -17,7 +17,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define CREDITS_LINK "https://www.youtube.com/watch?v=FJ-Dhxs1EGM&ab_channel=Jabenyezza"
+#define CREDITS_LINK "https://github.com/Dani-24/Project-RPG"
 
 TitleScene::TitleScene(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -42,6 +42,7 @@ bool TitleScene::Awake(pugi::xml_node& config)
 	titlChar = config.child("title").attribute("path").as_string();
 	mustitlChar = config.child("mustitle").attribute("path").as_string();
 	fxselChar = config.child("sfsxconfirm").attribute("path").as_string();
+	fxtitleChar = config.child("sfxtitle").attribute("path").as_string();
 
 	return ret;
 }
@@ -72,6 +73,9 @@ bool TitleScene::Start()
 
 	app->audio->PlayMusic("Assets/audio/music/music_title.ogg");
 	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
+	titleFx = app->audio->LoadFx("Assets/audio/sfx/fx_title.wav");
+
+	app->audio->PlayFx(titleFx);
 
 	// Set camera to 0,0
 

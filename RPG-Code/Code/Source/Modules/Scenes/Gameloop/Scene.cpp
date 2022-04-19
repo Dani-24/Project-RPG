@@ -73,7 +73,7 @@ bool Scene::Start()
 		app->map->Load("initial_town_tavern.tmx");
 		break;
 	case StageIndex::INTRODUCTION:
-		app->audio->PlayMusic("Assets/audio/music/music_epilog.ogg");
+		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
 		break;
 	}
 
