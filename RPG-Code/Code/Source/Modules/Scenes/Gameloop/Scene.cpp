@@ -46,36 +46,11 @@ bool Scene::Awake(pugi::xml_node& config)
 
 bool Scene::Start()
 {
+	LOG("Starting Scene");
+
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
-
-	switch (app->stages->actualStage) {
-	case StageIndex::NONE:
-		break;
-	case StageIndex::TOWN:
-		app->map->Load("initial_town_map.tmx");
-
-		// Load music
-		app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
-
-		break;
-	case StageIndex::DOJO:
-		app->map->Load("initial_town_dojo.tmx");
-		break;
-	case StageIndex::SHOP:
-		app->map->Load("initial_town_shop.tmx");
-		break;
-	case StageIndex::SHOPSUB:
-		app->map->Load("initial_town_under_shop.tmx");
-		break;
-	case StageIndex::TAVERN:
-		app->map->Load("initial_town_tavern.tmx");
-		break;
-	case StageIndex::INTRODUCTION:
-		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
-		break;
-	}
 
 	// Load textures
 	gui = app->tex->Load("Assets/gui/GUIFinal.png");

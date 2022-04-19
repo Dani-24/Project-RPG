@@ -50,6 +50,7 @@ bool Stages::Start()
 	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
 	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
 	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
+	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
 
 	return true;
 }
@@ -203,55 +204,84 @@ bool Stages::PostUpdate()
 	//oka doka
 	if (onBattle == false && actualStage != StageIndex::NONE) {
 
-		app->map->Draw();
-		app->guiManager->Draw();
+		// Below de player
+		if (actualStage != StageIndex::INTRODUCTION) {
+			app->map->Draw();
+			app->guiManager->Draw();
 
+			if (playerPtr != nullptr) {
+				//PRINT THE NPCs BELOW THE PLAYER
+				if (npcListPtr != nullptr) {
+					ListItem<NPC*>* npcInList;
+					npcInList = npcListPtr->start;
+					for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+					{
+						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 
+							if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
+								app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+							}
+						}
+					}
+				}
 
-		if (playerPtr != nullptr) {
-			//PRINT THE NPCs BELOW THE PLAYER
-			if (npcListPtr != nullptr) {
-				ListItem<NPC*>* npcInList;
-				npcInList = npcListPtr->start;
-				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-				{
-					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						
-						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+				//PRINT THE Enemies BELOW THE PLAYER
+				if (normalEnemyListPtr != nullptr) {
+					ListItem<NormalEnemy*>* NormalEnemyInList;
+					NormalEnemyInList = normalEnemyListPtr->start;
+					for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+					{
+						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+							if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+								NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+							}
+						}
+					}
+				}
+			}
+			else {
+				//PRINT ONLY THE NPCs
+				if (npcListPtr != nullptr) {
+					ListItem<NPC*>* npcInList;
+					npcInList = npcListPtr->start;
+					for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
+					{
+						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 						}
 					}
 				}
-			}
 
-			//PRINT THE Enemies BELOW THE PLAYER
-			if (normalEnemyListPtr != nullptr) {
-				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = normalEnemyListPtr->start;
-				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
-				{
-					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+				//PRINT ONLY THE Enemies
+				if (normalEnemyListPtr != nullptr) {
+					ListItem<NormalEnemy*>* NormalEnemyInList;
+					NormalEnemyInList = normalEnemyListPtr->start;
+					for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
+					{
+						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 						}
 					}
 				}
 			}
-
-
-			//PRINT THE PLAYER 
-			if (playerPtr != nullptr) {
-				SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-				if (playerPtr->PlayerErection == true) {
-					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-				if (playerPtr->PlayerErection == false) {
-					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
+		}
+	
+		//PRINT THE PLAYER 
+		if (playerPtr != nullptr) {
+			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
+			if (playerPtr->PlayerErection == true) {
+				app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
 			}
-
+			if (playerPtr->PlayerErection == false) {
+				app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+			}
+		}
+		// Above the player
+		if (actualStage != StageIndex::INTRODUCTION) {
 			//PRINT THE NPCs ABOVE THE PLAYER
 			if (npcListPtr != nullptr) {
 				ListItem<NPC*>* npcInList;
@@ -281,36 +311,9 @@ bool Stages::PostUpdate()
 					}
 				}
 			}
-		}
-		else {
-			//PRINT ONLY THE NPCs
-			if (npcListPtr != nullptr) {
-				ListItem<NPC*>* npcInList;
-				npcInList = npcListPtr->start;
-				for (npcInList = npcListPtr->start; npcInList != NULL && ret == true; npcInList = npcInList->next)
-				{
-					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-						app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
-					}
-				}
-			}
 
-			//PRINT ONLY THE Enemies
-			if (normalEnemyListPtr != nullptr) {
-				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = normalEnemyListPtr->start;
-				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
-				{
-					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-						app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
-					}
-				}
-			}
+			app->map->ReDraw();
 		}
-
-		app->map->ReDraw();
 	}
 
 	//PRINT THE BATTLE SPRITES
@@ -583,6 +586,12 @@ bool Stages::PostUpdate()
 
 void Stages::ChangeStage(StageIndex newStage) {
 	epilogFase = 0;
+
+	// Door sfx
+	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE) {
+		app->audio->PlayFx(doorFx);
+	}
+
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
 		app->map->Disable();
@@ -692,7 +701,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Introduction");
 
-		app->audio->PlayMusic("Assets/audio/music/music_intro");
+		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
 
 		break;
 	default:
