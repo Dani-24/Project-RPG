@@ -124,7 +124,7 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 				if (pause == false) {
 					app->audio->PlayFx(confirmFx);
 					app->scene->playloading = true;
-					app->stages->ChangeStage(StageIndex::TOWN);
+					/*app->stages->ChangeStage(StageIndex::TOWN);*/
 
 					app->fade->DoFadeToBlack(this, (Module*)app->scene);
 				}
