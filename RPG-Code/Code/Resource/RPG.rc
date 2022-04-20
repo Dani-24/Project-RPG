@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Español (España, alfabetización internacional) resources
+// Spanish (Spain, International Sort) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESN)
 LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_MODERN
@@ -61,8 +61,8 @@ IDI_ICON1               ICON                    "icon1.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,5,0,0
- PRODUCTVERSION 0,5,0,0
+ FILEVERSION 0,5,0,1
+ PRODUCTVERSION 0,5,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +79,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Suspicious Game"
             VALUE "FileDescription", "Project RPG"
-            VALUE "FileVersion", "0.5.0.0"
+            VALUE "FileVersion", "0.5.0.1"
             VALUE "InternalName", "RPG.exe"
             VALUE "LegalCopyright", "Copyright (C) 2022"
             VALUE "OriginalFilename", "ProjectRPG.exe"
             VALUE "ProductName", "Project RPG"
-            VALUE "ProductVersion", "0.5.0.0"
+            VALUE "ProductVersion", "0.5.0.1"
         END
     END
     BLOCK "VarFileInfo"
@@ -93,7 +93,7 @@ BEGIN
     END
 END
 
-#endif    // Español (España, alfabetización internacional) resources
+#endif    // Spanish (Spain, International Sort) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
