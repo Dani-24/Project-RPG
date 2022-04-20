@@ -358,9 +358,9 @@ bool Battle::Update(float dt)
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
 						
-						int targetNum = (rand() % CountAllies());
+						int targetNum = (rand() % 2);
 						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % CountAllies());
+							targetNum = (rand() % 2);
 						}
 						targetEntity = entitiesInBattle[targetNum];
 
@@ -375,9 +375,9 @@ bool Battle::Update(float dt)
 				else {
 					if (optionPercent < 60) {
 						
-						int targetNum = (rand() % CountAllies());
+						int targetNum = (rand() % 2);
 						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % CountAllies());
+							targetNum = (rand() % 2);
 						}
 						targetEntity = entitiesInBattle[targetNum];
 						ChangePhase(BattlePhase::ATTACKING);
@@ -1041,18 +1041,19 @@ void Battle::SetTurnOrder()
 		for (int k = 0; k < 5; k++) {
 			if(turnsTimeLine[k]==nullptr){
 
+
 				noNull = false;
 				//Choose a random one and set turn
 				if (equalValues > 1) {
 					srand(time(NULL));
 					int chosenValue = (rand() % equalValues);
 
-					turnsTimeLine[4] = equalTurnValue[chosenValue];
-					turnsTimeLine[4]->stats->localTurn++;
+					turnsTimeLine[k] = equalTurnValue[chosenValue];
+					turnsTimeLine[k]->stats->localTurn++;
 				}
 				else {
-					turnsTimeLine[4] = equalTurnValue[0];
-					turnsTimeLine[4]->stats->localTurn++;
+					turnsTimeLine[k] = equalTurnValue[0];
+					turnsTimeLine[k]->stats->localTurn++;
 				}
 
 				//actualTurnEntity = turnsTimeLine[0];
