@@ -573,10 +573,15 @@ bool Battle::Update(float dt)
 					hasToShake = false;
 				}
 
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
 				if (shakePos == 0) {
 					shakePos += dt;
 					changeSide += dt;
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos > 0) {
 					shakePos += dt;
@@ -585,7 +590,7 @@ bool Battle::Update(float dt)
 						changeSide = 0;
 						shakePos = shakePos * -1;
 					}
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos < 0) {
 					shakePos -= dt;
@@ -594,7 +599,8 @@ bool Battle::Update(float dt)
 						changeSide = 0;
 						shakePos = shakePos * -1;
 					}
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce * damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
 				}
 
 			}
