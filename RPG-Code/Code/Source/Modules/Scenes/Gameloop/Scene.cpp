@@ -184,11 +184,12 @@ bool Scene::Update(float dt)
 
 	fpsdt = dt*3.75;
 	//GUI activation
-
+	LOG("VIDAAAA: %d", valionchar->stats->maxHealth);
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (godmode)
 		{
+			
 			godmode = false;
 			valionchar->stats->LoadStats();
 			player->stats->LoadStats();
