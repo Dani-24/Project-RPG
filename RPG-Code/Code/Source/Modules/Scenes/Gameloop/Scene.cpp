@@ -47,6 +47,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	LOG("Starting Scene");
+	
 
 	// Enables & idk
 	app->map->Enable();
@@ -174,7 +175,9 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-
+	//partyList.At(1)->data->stats->health;
+	//valionchar->stats->maxHealth;
+	LOG("%d", valionchar->stats->maxHealth);
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -274,6 +277,8 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
