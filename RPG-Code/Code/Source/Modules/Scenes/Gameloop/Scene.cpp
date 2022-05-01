@@ -198,8 +198,8 @@ bool Scene::Update(float dt)
 		{
 			valionchar->stats->SaveStats();
 			player->stats->SaveStats();
-			valionchar->stats->SetStats(9999, 999, 9999, 9999);
-			player->stats->SetStats(9999, 999, 9999, 9999);
+			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999, 9999);
+			player->stats->SetStats(9999, player->stats->maxHealth,9999, 9999, 9999);
 			godmode = true;
 			
 		}

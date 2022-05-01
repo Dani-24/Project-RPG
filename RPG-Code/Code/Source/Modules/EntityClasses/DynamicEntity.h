@@ -78,26 +78,24 @@ public:
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
-	void SetStats(int maxHealth, int attack, int deffense, int mana/*, int speed*/)
+	void SetStats(int Health, int MaxHealth, int attack, int deffense, int mana/*, int speed*/)
 	{
 
-		this->maxHealth = maxHealth;
-		this->health = maxHealth;
-
+		this->health = Health;
+		this->maxHealth = MaxHealth;
 		this->attack = attack;
 		this->deffense = deffense;
 		/*this->speed = speed;*/
 		this->mana = mana;
 
-		
+
 
 	}
 	void SaveStats()
 	{
 		this->Slevel = level;
 
-		this->SmaxHealth = maxHealth;
-		this->Shealth = maxHealth;
+		this->Shealth = health;
 
 		this->Sattack = attack;
 		this->Sdeffense = deffense;
@@ -108,8 +106,7 @@ public:
 	{
 		this->level = Slevel;
 
-		this->maxHealth = SmaxHealth;
-		this->health = SmaxHealth;
+		this->health = Shealth;
 
 		this->attack = Sattack;
 		this->deffense = Sdeffense;
