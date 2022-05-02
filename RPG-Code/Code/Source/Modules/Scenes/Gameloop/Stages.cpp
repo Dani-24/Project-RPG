@@ -53,7 +53,13 @@ bool Stages::Start()
 	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
 
 	//textures
+	LoseScreen = app->tex->Load("Assets/textures/winscreen.png");
 	WinScreen = app->tex->Load("Assets/textures/winscreen.png");
+	
+	//buttons
+	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	restartTex= app->tex->Load("Assets/gui/buttons/button_start.png");
+	press_restartTex= app->tex->Load("Assets/gui/buttons/pressed_button_start.png");
 
 	return true;
 }
@@ -225,7 +231,9 @@ bool Stages::PostUpdate()
 	
 		break;
 	case StageIndex::LOSE:
-
+		app->camera->SetPos({ 0,0 });
+		app->render->DrawTexture(LoseScreen,0,0);
+		/*playerPtr->canMove = false;*/
 		break;
 	}
 	
@@ -668,7 +676,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 	introductionFase = 0;
 
 	// Door sfx
-	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE && newStage != StageIndex::WIN && newStage != StageIndex::LOSE) {
+	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::WIN && newStage != StageIndex::LOSE) {
 		app->audio->PlayFx(doorFx);
 	}
 
@@ -845,3 +853,28 @@ bool Stages::CleanUp()
 //
 //	return false;
 //}
+
+bool Stages::OnGuiMouseClickEvent(GuiControl* control)
+{
+	if (actualStage == StageIndex::LOSE) {
+		switch (control->type)
+		{
+		case GuiControlType::BUTTON:
+		{
+			//Checks the GUI element ID
+			if (control->id == 40)
+			{
+				LOG("Click on Restart");
+
+				app->LoadGameRequest();
+
+			}
+		}
+		//Other cases here
+
+		default: break;
+		}
+	}
+	
+	return true;
+}

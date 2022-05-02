@@ -203,6 +203,12 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	if (app->stages->intStage == 0 && app->stages->actualStage != StageIndex::NONE) {
 		app->stages->ChangeStage(StageIndex::NONE);
 	}
+	if (app->stages->intStage == 8 && app->stages->actualStage != StageIndex::WIN) {
+		app->stages->ChangeStage(StageIndex::WIN);
+	}
+	if (app->stages->intStage == 9 && app->stages->actualStage != StageIndex::LOSE) {
+		app->stages->ChangeStage(StageIndex::LOSE);
+	}
 
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
 	app->scene->partyList.At(0)->data->position.y = data.child("playerpos").attribute("y").as_int();
