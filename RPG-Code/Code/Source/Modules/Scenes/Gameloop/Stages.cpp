@@ -36,7 +36,7 @@ Stages::~Stages()
 
 bool Stages::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Scene");
+	LOG("Loading Stages.cpp");
 	bool ret = true;
 
 	return ret;

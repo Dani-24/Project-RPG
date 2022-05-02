@@ -22,6 +22,7 @@
 #include "Pathfinder.h"
 
 #include "DialogSystem.h"
+#include "Inventory.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -53,6 +54,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	camera = new Camera(this);
 
 	map = new Map(this, false);
+	inventory = new Inventory(this, false);
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
@@ -82,6 +84,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(entities);
+
+	AddModule(inventory);
 	AddModule(pauseM);
 	AddModule(conf);
 
