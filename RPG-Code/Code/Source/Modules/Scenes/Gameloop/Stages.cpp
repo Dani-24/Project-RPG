@@ -57,9 +57,12 @@ bool Stages::Start()
 	WinScreen = app->tex->Load("Assets/textures/winscreen.png");
 	
 	//buttons
-	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
-	restartTex= app->tex->Load("Assets/gui/buttons/button_start.png");
-	press_restartTex= app->tex->Load("Assets/gui/buttons/pressed_button_start.png");
+	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
+	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 280, 280 , 74, 32 }, this);
+	restartTex= app->tex->Load("Assets/gui/buttons/button_restart.png");
+	press_restartTex= app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
+	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_start.png");
+	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_start.png");
 
 	return true;
 }
@@ -228,12 +231,18 @@ bool Stages::PostUpdate()
 
 		break;
 	case StageIndex::WIN:
+		app->camera->SetPos({ 0,0 });
+		app->render->DrawTexture(LoseScreen, 0, 0);
+		app->scene->player->canMove = false;
+		backtoMenu->state != GuiControlState::PRESSED ? app->render->DrawTexture(backtoMenuTex, 280, 280) : app->render->DrawTexture(press_backtoMenuTex, 280, 280);
 	
 		break;
 	case StageIndex::LOSE:
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(LoseScreen,0,0);
-		/*playerPtr->canMove = false;*/
+		app->scene->player->canMove = false;
+		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
+		
 		break;
 	}
 	
@@ -796,15 +805,14 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Win Screen");
 
-		
-		/*app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");*/
+		app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
 
 		break;
 	case StageIndex::LOSE:
 
 		LOG("Lose Screen");
 
-		/*app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");*/
+		app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
 
 		break;
 	default:
@@ -867,6 +875,25 @@ bool Stages::OnGuiMouseClickEvent(GuiControl* control)
 				LOG("Click on Restart");
 
 				app->LoadGameRequest();
+
+			}
+		}
+		//Other cases here
+
+		default: break;
+		}
+	}
+	if (actualStage == StageIndex::WIN) {
+		switch (control->type)
+		{
+		case GuiControlType::BUTTON:
+		{
+			//Checks the GUI element ID
+			if (control->id == 41)
+			{
+				LOG("Click on Back to Menu");
+
+				app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 
 			}
 		}
