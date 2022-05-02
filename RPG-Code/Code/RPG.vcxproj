@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\NPC\NPC.cpp" />
     <ClCompile Include="Source\Modules\Extra\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Core\Input.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Inventory.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Map.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Player.cpp" />
     <ClCompile Include="Source\Modules\Core\ModuleQFonts.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Character.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPC\NPC.h" />
     <ClInclude Include="Source\Modules\Extra\FadeToBlack.h" />
+    <ClInclude Include="Source\Modules\Scenes\Inventory.h" />
     <ClInclude Include="Source\Modules\Scenes\Map.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Player.h" />
     <ClInclude Include="Source\Modules\Core\ModuleQFonts.h" />

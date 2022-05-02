@@ -61,6 +61,9 @@ private:
 	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
 
 	int introductionFase = 0;
+
+	SDL_Texture* WinScreen = nullptr;
+	SDL_Texture* LoseScreen = nullptr;
 public:
 	bool pause;
 
