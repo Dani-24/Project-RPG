@@ -82,6 +82,12 @@ bool Stages::PreUpdate()
 	case StageIndex::INTRODUCTION:
 		intStage = 7;
 		break;
+	case StageIndex::WIN:
+		intStage = 8;
+		break;
+	case StageIndex::LOSE:
+		intStage = 9;
+		break;
 	default:
 		break;
 	}
@@ -112,6 +118,10 @@ bool Stages::Update(float dt)
 
 		break;
 	case StageIndex::INTRODUCTION:
+		break;
+	case StageIndex::WIN:
+		break;
+	case StageIndex::LOSE:
 		break;
 	default:
 
@@ -208,7 +218,14 @@ bool Stages::PostUpdate()
 		}
 
 		break;
+	case StageIndex::WIN:
+
+		break;
+	case StageIndex::LOSE:
+
+		break;
 	}
+	
 
 	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
 	//oka doka

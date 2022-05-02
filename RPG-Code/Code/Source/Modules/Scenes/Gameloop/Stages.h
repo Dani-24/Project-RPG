@@ -21,6 +21,8 @@ enum class StageIndex {
 	SHOP,
 	SHOPSUB,
 	INTRODUCTION,
+	WIN,
+	LOSE
 };
 
 class Stages : public Module
