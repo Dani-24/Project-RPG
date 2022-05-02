@@ -52,6 +52,9 @@ bool Stages::Start()
 	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
 	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
 
+	//textures
+	WinScreen = app->tex->Load("Assets/textures/winscreen.png");
+
 	return true;
 }
 
@@ -219,7 +222,7 @@ bool Stages::PostUpdate()
 
 		break;
 	case StageIndex::WIN:
-
+	
 		break;
 	case StageIndex::LOSE:
 
@@ -649,7 +652,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 	introductionFase = 0;
 
 	// Door sfx
-	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE) {
+	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::NONE && newStage != StageIndex::WIN && newStage != StageIndex::LOSE) {
 		app->audio->PlayFx(doorFx);
 	}
 
@@ -763,6 +766,21 @@ void Stages::ChangeStage(StageIndex newStage) {
 		LOG("Introduction");
 
 		app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");
+
+		break;
+	case StageIndex::WIN:
+
+		LOG("Win Screen");
+
+		
+		/*app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");*/
+
+		break;
+	case StageIndex::LOSE:
+
+		LOG("Lose Screen");
+
+		/*app->audio->PlayMusic("Assets/audio/music/music_intro.ogg");*/
 
 		break;
 	default:

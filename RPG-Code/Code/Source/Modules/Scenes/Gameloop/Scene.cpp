@@ -271,6 +271,12 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		app->fade->DoFadeToBlack(StageIndex::TAVERN);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::WIN);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::LOSE);
+	}
 
 	// Player movement
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
