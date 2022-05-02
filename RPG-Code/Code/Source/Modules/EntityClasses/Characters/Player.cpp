@@ -348,14 +348,14 @@ bool Player::Update(float dt) {
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
 				PlayerErection = true;
-				name = "Rhen";
+				name = "Manolo";
 				app->audio->PlayFx(erectionFx);
-			}
+			}	
 		}
 		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
 			if (PlayerErection != false) {
 				PlayerErection = false;
-				name = "Briar";
+				name = "Josefina";
 				app->audio->PlayFx(erectionFx);
 			}
 		}
@@ -407,10 +407,12 @@ bool Player::CleanUp() {
 void Player::MovementPlayer(float dt) {
 	speed = 0.2 * dt;
 
+	GamePad& pad = app->input->pads[0];
+
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
@@ -422,7 +424,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
 		position.y += speed;
 
 		if (currentAnimation != &walkAnimDown) {
@@ -434,7 +436,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
 
 		if (currentAnimation != &walkAnimL) {
@@ -446,7 +448,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {

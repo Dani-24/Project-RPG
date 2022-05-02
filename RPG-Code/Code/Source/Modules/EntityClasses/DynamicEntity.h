@@ -33,7 +33,6 @@ public:
 	int mana;
 
 	int Shealth;
-	int SmaxHealth;
 
 	int Slevel;
 	int Sattack;
