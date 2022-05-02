@@ -18,7 +18,7 @@
 #include "GuiButton.h"
 #include "Configuration.h"
 #include "Battle.h"
-
+#include "Inventory.h"
 
 PauseMenu::PauseMenu(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -99,7 +99,9 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			}
 			if (control->id == 22)
 			{
-				LOG("invenyt");
+				LOG("invent");
+
+				app->inventory->Enable();
 			}
 			if (control->id == 23)
 			{
@@ -232,17 +234,19 @@ bool PauseMenu::Update(float dt)
 		}
 		else
 		{
-			pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
-			party->state = GuiControlState::NORMAL;
-			invent->state = GuiControlState::NORMAL;
-			town->state = GuiControlState::NORMAL;
-			resume->state = GuiControlState::NORMAL;
-			config->state = GuiControlState::NORMAL;
-			save->state = GuiControlState::NORMAL;
-			load->state = GuiControlState::NORMAL;
-			exit->state = GuiControlState::NORMAL;
-			party->state= GuiControlState::NORMAL;
-			app->audio->ChangeVolume(app->audio->vol / 3);
+			if (app->inventory->isEnabled() == false) {
+				pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
+				party->state = GuiControlState::NORMAL;
+				invent->state = GuiControlState::NORMAL;
+				town->state = GuiControlState::NORMAL;
+				resume->state = GuiControlState::NORMAL;
+				config->state = GuiControlState::NORMAL;
+				save->state = GuiControlState::NORMAL;
+				load->state = GuiControlState::NORMAL;
+				exit->state = GuiControlState::NORMAL;
+				party->state = GuiControlState::NORMAL;
+				app->audio->ChangeVolume(app->audio->vol / 3);
+			}
 		}
 		
 	}

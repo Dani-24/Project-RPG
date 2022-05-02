@@ -5,6 +5,9 @@
 #include "GuiButton.h"
 #include "Animation.h"
 
+#include "Defs.h"
+#include "Log.h"
+
 struct SDL_Texture;
 
 class Inventory : public Module
@@ -25,9 +28,6 @@ public:
 	bool PostUpdate();
 
 	bool CleanUp();
-
-public:
-
 };
 
 #endif // __INVENTORY_H__
