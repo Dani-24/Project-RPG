@@ -407,10 +407,12 @@ bool Player::CleanUp() {
 void Player::MovementPlayer(float dt) {
 	speed = 0.2 * dt;
 
+	GamePad& pad = app->input->pads[0];
+
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < 0.0f) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
@@ -422,7 +424,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.0f) {
 		position.y += speed;
 
 		if (currentAnimation != &walkAnimDown) {
@@ -434,7 +436,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < 0.0f) {
 		position.x -= speed;
 
 		if (currentAnimation != &walkAnimL) {
@@ -446,7 +448,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.0f) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {
