@@ -47,6 +47,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	LOG("Starting Scene");
+	
 
 	// Enables & idk
 	app->map->Enable();
@@ -174,7 +175,9 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-
+	//partyList.At(1)->data->stats->health;
+	//valionchar->stats->maxHealth;
+	LOG("%d", valionchar->stats->maxHealth);
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -184,22 +187,37 @@ bool Scene::Update(float dt)
 
 	fpsdt = dt*3.75;
 	//GUI activation
-	LOG("VIDAAAA: %d", valionchar->stats->maxHealth);
+	//LOG("%d", partyList.count());
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (godmode)
 		{
-			
 			godmode = false;
-			valionchar->stats->LoadStats();
-			player->stats->LoadStats();
+			/*valionchar->stats->LoadStats();
+			player->stats->LoadStats();*/
+
+			for (int i = 0; i < partyList.count(); i++)
+			{
+				partyList.At(i)->data->stats->LoadStats();
+			}
+
 		}
 		else
 		{
-			valionchar->stats->SaveStats();
+			/*valionchar->stats->SaveStats();
 			player->stats->SaveStats();
-			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999, 9999);
-			player->stats->SetStats(9999, player->stats->maxHealth,9999, 9999, 9999);
+			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999,999);
+			player->stats->SetStats(9999, player->stats->maxHealth, 9999, 9999,9999);*/
+
+			for (int i = 0; i < partyList.count(); i++)
+			{
+				partyList.At(i)->data->stats->SaveStats();
+			}
+			for (int i = 0; i < partyList.count(); i++)
+			{
+				partyList.At(i)->data->stats->SetStats(9999, partyList.At(i)->data->stats->maxHealth, 9999, 9999, 999);;
+			}
+			
 			godmode = true;
 			
 		}
@@ -275,6 +293,8 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
