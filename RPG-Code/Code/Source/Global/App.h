@@ -39,6 +39,7 @@ class Battle;
 class Collisions;
 
 class DialogSystem;
+class Inventory;
 
 class App
 {
@@ -127,6 +128,7 @@ public:
 	Collisions* collisions;
 
 	DialogSystem* dialogs;
+	Inventory* inventory;
 
 private:
 
