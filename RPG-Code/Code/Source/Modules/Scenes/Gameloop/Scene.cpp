@@ -21,7 +21,7 @@
 #include "EntityManager.h"
 
 #include "Party.h"
-
+#include "Inventory.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -170,6 +170,12 @@ bool Scene::PreUpdate()
 	
 	guiactivate = false;
 
+	if (app->inventory->isEnabled() == false) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			app->inventory->Enable();
+		}
+	}
+
 	return ret;
 }
 
@@ -177,7 +183,7 @@ bool Scene::Update(float dt)
 {
 	//partyList.At(1)->data->stats->health;
 	//valionchar->stats->maxHealth;
-	LOG("%d", valionchar->stats->maxHealth);
+	//LOG("%d", valionchar->stats->maxHealth);
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -227,7 +233,6 @@ bool Scene::Update(float dt)
 	{
 		guiactivate = true;
 	}
-
 
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
@@ -292,6 +297,7 @@ bool Scene::Update(float dt)
 		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
+
 	return true;
 }
 
