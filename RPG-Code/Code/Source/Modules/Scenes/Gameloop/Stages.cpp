@@ -51,9 +51,10 @@ bool Stages::Start()
 	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
 	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
 	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
+	loseFx = app->audio->LoadFx("Assets/audio/sfx/fx_lose.wav");
 
 	//textures
-	LoseScreen = app->tex->Load("Assets/textures/winscreen.png");
+	LoseScreen = app->tex->Load("Assets/textures/losescreen.png");
 	WinScreen = app->tex->Load("Assets/textures/winscreen.png");
 	
 	//buttons
@@ -232,7 +233,7 @@ bool Stages::PostUpdate()
 		break;
 	case StageIndex::WIN:
 		app->camera->SetPos({ 0,0 });
-		app->render->DrawTexture(LoseScreen, 0, 0);
+		app->render->DrawTexture(WinScreen, 0, 0);
 		app->scene->player->canMove = false;
 		backtoMenu->state != GuiControlState::PRESSED ? app->render->DrawTexture(backtoMenuTex, 280, 280) : app->render->DrawTexture(press_backtoMenuTex, 280, 280);
 	
@@ -241,6 +242,9 @@ bool Stages::PostUpdate()
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(LoseScreen,0,0);
 		app->scene->player->canMove = false;
+		
+
+	
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 		
 		break;
@@ -811,8 +815,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 	case StageIndex::LOSE:
 
 		LOG("Lose Screen");
-
-		app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
+		app->audio->PlayFx(loseFx);
+		/*app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");*/
 
 		break;
 	default:

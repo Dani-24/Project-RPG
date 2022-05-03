@@ -316,9 +316,12 @@ bool Scene::PostUpdate()
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
-	if (guiactivate == true)
+	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
 	{
+		
 		app->render->DrawTexture(gui, xt - 623, yt - 360);
+
+		
 		if (player->PlayerErection == true)
 		{
 			app->render->DrawTexture(mpfgui, xt - 605, yt - 346);

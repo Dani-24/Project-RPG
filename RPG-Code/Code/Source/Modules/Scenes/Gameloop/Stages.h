@@ -58,10 +58,15 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	/*bool SaveState(pugi::xml_node& data) const;
-	bool LoadState(pugi::xml_node& data);*/
+	bool 
+	
+	
+	
+	
+	State(pugi::xml_node& data);*/
 
 private:
-	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
+	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx, loseFx;
 
 	int introductionFase = 0;
 
