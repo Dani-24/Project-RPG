@@ -215,12 +215,10 @@ bool Scene::Update(float dt)
 			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999,999);
 			player->stats->SetStats(9999, player->stats->maxHealth, 9999, 9999,9999);*/
 
+			
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
-			}
-			for (int i = 0; i < partyList.count(); i++)
-			{
 				partyList.At(i)->data->stats->SetStats(9999, partyList.At(i)->data->stats->maxHealth, 9999, 9999, 999);;
 			}
 			
