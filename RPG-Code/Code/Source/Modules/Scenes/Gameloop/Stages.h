@@ -91,13 +91,8 @@ public:
 
 	int intStage = 0;
 
-	GuiButton* restart;
-	SDL_Texture* restartTex;
-	SDL_Texture* press_restartTex;
-
-	GuiButton* backtoMenu;
-	SDL_Texture* backtoMenuTex;
-	SDL_Texture* press_backtoMenuTex;
+	
+	
 };
 
 #endif // __STAGES_H__

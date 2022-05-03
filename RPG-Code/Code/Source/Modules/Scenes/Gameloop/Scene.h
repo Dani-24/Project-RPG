@@ -75,6 +75,16 @@ public:
 	SDL_Texture* magogui;
 
 	bool playloading = false;
+
+	GuiButton* restart;
+	GuiButton* backtoMenu;
+
+	SDL_Texture* restartTex;
+	SDL_Texture* press_restartTex;
+
+
+	SDL_Texture* backtoMenuTex;
+	SDL_Texture* press_backtoMenuTex;
 	
 };
 
