@@ -91,6 +91,8 @@ bool TitleScene::Start()
 
 	app->scene->playing = false;
 
+	
+
 	return true;
 }
 
@@ -173,6 +175,7 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 // Called each loop iteration
 bool TitleScene::PreUpdate()
 {
+	//btn1->state = GuiControlState::PRESSED;
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exitGame == true) {
 		app->pauseM->CleanUp();
 		return false;
@@ -185,31 +188,36 @@ bool TitleScene::PreUpdate()
 			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
 		{
 			btn1->state = GuiControlState::FOCUSED;
+			app->guiManager->keyb = true;
 		}
 	}
 
 	if (btn1->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
+			
 			btn1->state = GuiControlState::PRESSED;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
-		{
+			/*btn1->state = GuiControlState::SELECTED;*/
+			//btn1->state = GuiControlState::NORMAL;
 			btn1->NotifyObserver();
 		}
 
+		/*if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
+		{
+			
+		}*/
+
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 			btn2->state = GuiControlState::FOCUSED;
-		}
-
-		if (btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
 			btn1->state = GuiControlState::NORMAL;
 		}
-	}
 
-	if (btn2->state == GuiControlState::FOCUSED) {
+		/*if (btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
+			btn1->state = GuiControlState::NORMAL;
+		}*/
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
 
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
 		{
@@ -223,18 +231,19 @@ bool TitleScene::PreUpdate()
 
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 			btn3->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 			btn1->state = GuiControlState::FOCUSED;
-		}
-
-		if (btn1->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
 			btn2->state = GuiControlState::NORMAL;
 		}
-	}
 
-	if (btn3->state == GuiControlState::FOCUSED) {
+		/*if (btn1->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
+			btn2->state = GuiControlState::NORMAL;
+		}*/
+	}
+	else if (btn3->state == GuiControlState::FOCUSED) {
 
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
 		{
@@ -248,18 +257,19 @@ bool TitleScene::PreUpdate()
 
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 			btn4->state = GuiControlState::FOCUSED;
+			btn3->state = GuiControlState::NORMAL;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 			btn2->state = GuiControlState::FOCUSED;
-		}
-
-		if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
 			btn3->state = GuiControlState::NORMAL;
 		}
-	}
 
-	if (btn4->state == GuiControlState::FOCUSED) {
+		//if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn4->state != GuiControlState::NORMAL) {
+		//	btn3->state = GuiControlState::NORMAL;
+		//}
+	}
+	else if (btn4->state == GuiControlState::FOCUSED) {
 
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
 		{
@@ -273,11 +283,12 @@ bool TitleScene::PreUpdate()
 
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 			btn3->state = GuiControlState::FOCUSED;
-		}
-
-		if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL) {
 			btn4->state = GuiControlState::NORMAL;
 		}
+
+		/*if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL) {
+			btn4->state = GuiControlState::NORMAL;
+		}*/
 	}
 	
 	pause = app->fade->fading;
@@ -288,7 +299,7 @@ bool TitleScene::PreUpdate()
 // Called each loop iteration
 bool TitleScene::Update(float dt)
 {
-
+	
 	// BG movement
 	angle += rotateSpeed * dt/1000;
 
@@ -314,7 +325,7 @@ bool TitleScene::PostUpdate()
 	btn3->state != GuiControlState::PRESSED ? app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);
 	btn4->state != GuiControlState::PRESSED ? app->render->DrawTexture(creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250);
 	btn5->state != GuiControlState::PRESSED ? app->render->DrawTexture(exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250);
-
+	
 	return ret;
 }
 
@@ -324,7 +335,7 @@ bool TitleScene::CleanUp()
 	LOG("Freeing Title scene");
 
 	app->font->CleanFonts();
-
+	
 	btn1->state = GuiControlState::DISABLED;
 	btn2->state = GuiControlState::DISABLED;
 	btn3->state = GuiControlState::DISABLED;
