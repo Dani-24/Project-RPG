@@ -57,14 +57,7 @@ bool Stages::Start()
 	LoseScreen = app->tex->Load("Assets/textures/losescreen.png");
 	WinScreen = app->tex->Load("Assets/textures/winscreen2.png");
 	
-	//buttons
-	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
-	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
-	restartTex= app->tex->Load("Assets/gui/buttons/button_restart.png");
-	press_restartTex= app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
-	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");
-	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_back_to_menu.png");
-
+	
 	return true;
 }
 
@@ -235,16 +228,15 @@ bool Stages::PostUpdate()
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(WinScreen, 0, 0);
 		app->scene->player->canMove = false;
-		restart->state = GuiControlState::DISABLED;
-		backtoMenu->state != GuiControlState::PRESSED ? app->render->DrawTexture(backtoMenuTex, 240, 280) : app->render->DrawTexture(press_backtoMenuTex, 240, 280);
+		/*restart->state = GuiControlState::DISABLED;*/
+		
 	
 		break;
 	case StageIndex::LOSE:
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(LoseScreen,0,0);
 		app->scene->player->canMove = false;	
-		backtoMenu->state = GuiControlState::DISABLED;
-		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
+		/*backtoMenu->state = GuiControlState::DISABLED;*/
 		
 		break;
 	}
@@ -842,13 +834,7 @@ bool Stages::CleanUp()
 	normalEnemyListPtr = nullptr;
 	delete normalEnemyListPtr;
 
-	restart->state = GuiControlState::DISABLED;
-	backtoMenu->state = GuiControlState::DISABLED;
 
-	app->tex->UnLoad(restartTex);
-	app->tex->UnLoad(backtoMenuTex);
-	app->tex->UnLoad(press_restartTex);
-	app->tex->UnLoad(press_backtoMenuTex);
 
 	return true;
 }
@@ -875,45 +861,6 @@ bool Stages::CleanUp()
 
 bool Stages::OnGuiMouseClickEvent(GuiControl* control)
 {
-	if (actualStage == StageIndex::LOSE) {
-		switch (control->type)
-		{
-		case GuiControlType::BUTTON:
-		{
-			//Checks the GUI element ID
-			if (control->id == 40)
-			{
-				LOG("Click on Restart");
-
-				app->LoadGameRequest();
-				app->scene->player->canMove = true;
-
-			}
-		}
-		//Other cases here
-
-		default: break;
-		}
-	}
-	if (actualStage == StageIndex::WIN) {
-		switch (control->type)
-		{
-		case GuiControlType::BUTTON:
-		{
-			//Checks the GUI element ID
-			if (control->id == 41)
-			{
-				LOG("Click on Back to Menu");
-
-				app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-
-			}
-		}
-		//Other cases here
-
-		default: break;
-		}
-	}
 	
 	return true;
 }

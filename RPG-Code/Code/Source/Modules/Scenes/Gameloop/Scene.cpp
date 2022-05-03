@@ -63,6 +63,14 @@ bool Scene::Start()
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
+	//buttons
+	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
+	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
+	restartTex = app->tex->Load("Assets/gui/buttons/button_restart.png");
+	press_restartTex = app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
+	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");
+	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_back_to_menu.png");
+
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
 
@@ -297,6 +305,14 @@ bool Scene::Update(float dt)
 		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
+	if (app->stages->actualStage == StageIndex::WIN) {
+		restart->state = GuiControlState::DISABLED;
+		backtoMenu->state = GuiControlState::NORMAL;
+	}
+	if (app->stages->actualStage == StageIndex::LOSE) {
+		backtoMenu->state = GuiControlState::DISABLED;
+		restart->state = GuiControlState::NORMAL;
+	}
 
 	return true;
 }
@@ -376,6 +392,13 @@ bool Scene::PostUpdate()
 		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275): app->font->DrawText("Vsync: Off", xt - 630, yt - 275);
 		
 	}
+	if (app->stages->actualStage == StageIndex::WIN) {
+		backtoMenu->state != GuiControlState::PRESSED ? app->render->DrawTexture(backtoMenuTex, 240, 280) : app->render->DrawTexture(press_backtoMenuTex, 240, 280);
+	}
+	if (app->stages->actualStage == StageIndex::LOSE) {
+		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
+
+	}
 
 
 	return ret;
@@ -398,6 +421,27 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("Click on button 2");
 		}
+
+		if (app->stages->actualStage == StageIndex::LOSE) {
+	
+			if (control->id == 40)
+			{
+				LOG("Click on Restart");
+
+				app->LoadGameRequest();
+				app->scene->player->canMove = true;
+
+			}
+		}
+		if (app->stages->actualStage == StageIndex::WIN) {
+			if (control->id == 41)
+			{
+				LOG("Click on Back to Menu");
+
+				app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+
+			}
+		}
 	}
 	//Other cases here
 
@@ -419,11 +463,16 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(gui);
 	app->tex->UnLoad(mpfgui);
 	app->tex->UnLoad(fpfgui);
+	app->tex->UnLoad(restartTex);
+	app->tex->UnLoad(backtoMenuTex);
+	app->tex->UnLoad(press_restartTex);
+	app->tex->UnLoad(press_backtoMenuTex);
 
 	//Stages:
 	app->entities->DestroyEntity(player);
 
-	
+	restart->state = GuiControlState::DISABLED;
+	backtoMenu->state = GuiControlState::DISABLED;
 
 	app->stages->ChangeStage(StageIndex::NONE);
 
