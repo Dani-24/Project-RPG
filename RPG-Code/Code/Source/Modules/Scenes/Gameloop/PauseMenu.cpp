@@ -259,7 +259,8 @@ bool PauseMenu::Update(float dt)
 bool PauseMenu::PostUpdate()
 {
 	bool ret = true;
-
+	SDL_Color c = { 0,0,0 };
+	SDL_Color w = { 255,255,255 };
 	int xt, yt, xc, yc;
 
 	//variables for textures
@@ -276,21 +277,21 @@ bool PauseMenu::PostUpdate()
 
 		app->render->DrawTexture(Pausetex, xc - 120, yc - 280);
 
-		app->font->DrawText("Party", xc - 100,yc - 265);
+		party->state != GuiControlState::FOCUSED ? app->font->DrawText("Party", xc - 100,yc - 265, c) : app->font->DrawText("Party", xc - 100, yc - 265, w);
 
-		app->font->DrawText("Inventory", xc - 100,yc - 240);
+		invent->state != GuiControlState::FOCUSED ? app->font->DrawText("Inventory", xc - 100,yc - 240, c): app->font->DrawText("Inventory", xc - 100, yc - 240, w);
 
-		app->font->DrawText("Town", xc - 100,yc - 215);
+		town->state != GuiControlState::FOCUSED ? app->font->DrawText("Town", xc - 100,yc - 215, c): app->font->DrawText("Town", xc - 100, yc - 215, w);
 
-		app->font->DrawText("Resume", xc - 100, yc - 190);
+		resume->state != GuiControlState::FOCUSED ? app->font->DrawText("Resume", xc - 100, yc - 190, c): app->font->DrawText("Resume", xc - 100, yc - 190, w);
 
-		app->font->DrawText("Config.", xc - 100,yc - 165);
+		config->state != GuiControlState::FOCUSED ? app->font->DrawText("Config.", xc - 100,yc - 165, c): app->font->DrawText("Config.", xc - 100, yc - 165, w);
 
-		app->font->DrawText("Save", xc - 100,yc - 140);
+		save->state != GuiControlState::FOCUSED ? app->font->DrawText("Save", xc - 100,yc - 140, c): app->font->DrawText("Save", xc - 100, yc - 140, w);
 
-		app->font->DrawText("Load", xc - 100,yc - 115);
+		load->state != GuiControlState::FOCUSED ? app->font->DrawText("Load", xc - 100,yc - 115, c): app->font->DrawText("Load", xc - 100, yc - 115, w);
 
-		app->font->DrawText("Exit", xc - 100,yc - 90);
+		exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100,yc - 90, c): app->font->DrawText("Exit", xc - 100, yc - 90, w);
 	}
 
 	
