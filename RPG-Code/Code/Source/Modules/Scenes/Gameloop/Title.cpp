@@ -151,6 +151,7 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 
 					LOG("Opening Link : %s", CREDITS_LINK);
 					SDL_OpenURL(CREDITS_LINK);
+					app->guiManager->keyb = false;
 
 				}
 			}
@@ -182,7 +183,7 @@ bool TitleScene::PreUpdate()
 	}
 
 	if (btn1->state == GuiControlState::NORMAL && btn2->state == GuiControlState::NORMAL &&
-		btn3->state == GuiControlState::NORMAL && btn4->state == GuiControlState::NORMAL)
+		btn3->state == GuiControlState::NORMAL && btn4->state == GuiControlState::NORMAL && btn5->state == GuiControlState::NORMAL)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
 			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
@@ -198,8 +199,6 @@ bool TitleScene::PreUpdate()
 		{
 			
 			btn1->state = GuiControlState::PRESSED;
-			/*btn1->state = GuiControlState::SELECTED;*/
-			//btn1->state = GuiControlState::NORMAL;
 			btn1->NotifyObserver();
 		}
 
@@ -219,13 +218,9 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn2->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			btn2->state = GuiControlState::PRESSED;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
-		{
 			btn2->NotifyObserver();
 		}
 
@@ -245,13 +240,9 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn3->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			btn3->state = GuiControlState::PRESSED;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
-		{
 			btn3->NotifyObserver();
 		}
 
@@ -271,24 +262,40 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn4->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			btn4->state = GuiControlState::PRESSED;
+			btn4->NotifyObserver();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_UP)
-		{
-			btn4->NotifyObserver();
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			btn5->state = GuiControlState::FOCUSED;
+			btn4->state = GuiControlState::NORMAL;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 			btn3->state = GuiControlState::FOCUSED;
 			btn4->state = GuiControlState::NORMAL;
 		}
+	}
 
-		/*if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL) {
-			btn4->state = GuiControlState::NORMAL;
-		}*/
+	else if (btn5->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			btn5->state = GuiControlState::PRESSED;
+			btn5->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			btn4->state = GuiControlState::FOCUSED;
+			btn5->state = GuiControlState::NORMAL;
+		}
+
+
+	/*if (btn1->state != GuiControlState::NORMAL || btn2->state != GuiControlState::NORMAL || btn3->state != GuiControlState::NORMAL) {
+		btn4->state = GuiControlState::NORMAL;
+	}*/
 	}
 	
 	pause = app->fade->fading;
