@@ -325,3 +325,179 @@ bool PauseMenu::CleanUp()
 
 	return true;
 }
+
+//called on preupdate
+void PauseMenu::KeyboardControl()
+{
+	/*if (party->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		town->state == GuiControlState::NORMAL && resume->state == GuiControlState::NORMAL &&
+		config->state == GuiControlState::NORMAL && save->state == GuiControlState::NORMAL &&
+		load->state == GuiControlState::NORMAL && exit->state == GuiControlState::NORMAL)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+		{
+			party->state = GuiControlState::FOCUSED;
+			app->guiManager->keyb = true;
+		}
+	}
+
+	if (party->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+
+			party->state = GuiControlState::PRESSED;
+			party->NotifyObserver();
+		}
+
+		
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			invent->state = GuiControlState::FOCUSED;
+			party->state = GuiControlState::NORMAL;
+		}
+
+		
+	}
+	else if (invent->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			invent->state = GuiControlState::PRESSED;
+			invent->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			town->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			party->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+		}
+
+		
+	}
+	else if (town->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			town->state = GuiControlState::PRESSED;
+			btn2->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			btn3->state = GuiControlState::FOCUSED;
+			town->state = GuiControlState::NORMAL;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			invent->state = GuiControlState::FOCUSED;
+			town->state = GuiControlState::NORMAL;
+		}
+
+
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			btn2->state = GuiControlState::PRESSED;
+			btn2->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			btn3->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			btn1->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			btn2->state = GuiControlState::PRESSED;
+			btn2->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			btn3->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			btn1->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			btn2->state = GuiControlState::PRESSED;
+			btn2->NotifyObserver();
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			btn3->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+			btn1->state = GuiControlState::FOCUSED;
+			btn2->state = GuiControlState::NORMAL;
+		}
+
+
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		btn2->state = GuiControlState::PRESSED;
+		btn2->NotifyObserver();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		btn3->state = GuiControlState::FOCUSED;
+		btn2->state = GuiControlState::NORMAL;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		btn1->state = GuiControlState::FOCUSED;
+		btn2->state = GuiControlState::NORMAL;
+	}
+
+
+	}
+	else if (btn2->state == GuiControlState::FOCUSED) {
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		btn2->state = GuiControlState::PRESSED;
+		btn2->NotifyObserver();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		btn3->state = GuiControlState::FOCUSED;
+		btn2->state = GuiControlState::NORMAL;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		btn1->state = GuiControlState::FOCUSED;
+		btn2->state = GuiControlState::NORMAL;
+	}
+
+
+	}*/
+
+}

@@ -35,6 +35,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//manage the control of ui with keyboard/gamepad
+	void KeyboardControl();
+
 public:
 
 	/*Player* player = nullptr;*/

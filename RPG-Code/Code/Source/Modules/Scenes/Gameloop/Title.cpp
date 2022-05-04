@@ -176,6 +176,7 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 // Called each loop iteration
 bool TitleScene::PreUpdate()
 {
+	GamePad& pad = app->input->pads[0];
 	//btn1->state = GuiControlState::PRESSED;
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exitGame == true) {
 		app->pauseM->CleanUp();
@@ -186,7 +187,7 @@ bool TitleScene::PreUpdate()
 		btn3->state == GuiControlState::NORMAL && btn4->state == GuiControlState::NORMAL && btn5->state == GuiControlState::NORMAL)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
-			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
 		{
 			btn1->state = GuiControlState::FOCUSED;
 			app->guiManager->keyb = true;
@@ -195,7 +196,7 @@ bool TitleScene::PreUpdate()
 
 	if (btn1->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
 		{
 			
 			btn1->state = GuiControlState::PRESSED;
@@ -207,7 +208,7 @@ bool TitleScene::PreUpdate()
 			
 		}*/
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||pad.right) {
 			btn2->state = GuiControlState::FOCUSED;
 			btn1->state = GuiControlState::NORMAL;
 		}
@@ -218,18 +219,18 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn2->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
 		{
 			btn2->state = GuiControlState::PRESSED;
 			btn2->NotifyObserver();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right) {
 			btn3->state = GuiControlState::FOCUSED;
 			btn2->state = GuiControlState::NORMAL;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left) {
 			btn1->state = GuiControlState::FOCUSED;
 			btn2->state = GuiControlState::NORMAL;
 		}
@@ -240,18 +241,18 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn3->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
 		{
 			btn3->state = GuiControlState::PRESSED;
 			btn3->NotifyObserver();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right) {
 			btn4->state = GuiControlState::FOCUSED;
 			btn3->state = GuiControlState::NORMAL;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left) {
 			btn2->state = GuiControlState::FOCUSED;
 			btn3->state = GuiControlState::NORMAL;
 		}
@@ -262,18 +263,18 @@ bool TitleScene::PreUpdate()
 	}
 	else if (btn4->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
 		{
 			btn4->state = GuiControlState::PRESSED;
 			btn4->NotifyObserver();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right) {
 			btn5->state = GuiControlState::FOCUSED;
 			btn4->state = GuiControlState::NORMAL;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left) {
 			btn3->state = GuiControlState::FOCUSED;
 			btn4->state = GuiControlState::NORMAL;
 		}
@@ -281,13 +282,13 @@ bool TitleScene::PreUpdate()
 
 	else if (btn5->state == GuiControlState::FOCUSED) {
 
-		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
 		{
 			btn5->state = GuiControlState::PRESSED;
 			btn5->NotifyObserver();
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||pad.left) {
 			btn4->state = GuiControlState::FOCUSED;
 			btn5->state = GuiControlState::NORMAL;
 		}
