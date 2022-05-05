@@ -112,6 +112,15 @@ bool Battle::Start()
 	
 	battleStage = &app->stages->actualStage;
 
+	for (int i = 0; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->stats->defenseBuffed == true) {
+				entitiesInBattle[i]->stats->deffense -= defenseBuff;
+				entitiesInBattle[i]->stats->defenseBuffed = false;
+			}
+		}
+	}
+
 	switch (*battleStage) {
 	case StageIndex::NONE:
 		break;
