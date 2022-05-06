@@ -117,15 +117,28 @@ public:
 	GuiButton* itemButton; // item button
 	GuiButton* escapeButton; // escape button
 
+	GuiButton* enemyButton1; // enemy 1 button
+	GuiButton* enemyButton2; // enemy 2 button
+	GuiButton* enemyButton3; // enemy 3 button
+	GuiButton* enemyButton4; // enemy 4 button
+
 	SDL_Texture* attackTex;
 	SDL_Texture* defenseTex;
 	SDL_Texture* itemsTex;
 	SDL_Texture* escapeTex;
 
+	SDL_Texture* batButton;
+	SDL_Texture* flyingEyeButton;
+	SDL_Texture* skeletonButton;
+
 	SDL_Texture* press_attackTex;
 	SDL_Texture* press_defenseTex;
 	SDL_Texture* press_itemsTex;
 	SDL_Texture* press_escapeTex;
+
+	SDL_Texture* press_batButton;
+	SDL_Texture* press_flyingEyeButton;
+	SDL_Texture* press_skeletonButton;
 
 	SDL_Texture* shield;
 

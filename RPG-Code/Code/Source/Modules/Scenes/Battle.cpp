@@ -195,6 +195,12 @@ bool Battle::Start()
 	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
+	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 105, "Enemy1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 106, "Enemy2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 107, "Enemy3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 108, "Enemy4", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+
+
 	SetTurnOrder();
 
 	app->audio->PlayMusic("Assets/audio/music/music_battle.ogg");
@@ -222,6 +228,17 @@ bool Battle::Update(float dt)
 		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 			dojoAnim.Update(dt);
 		//}
+
+			attackButton->state = GuiControlState::DISABLED;
+			defenseButton->state = GuiControlState::DISABLED;
+			itemButton->state = GuiControlState::DISABLED;
+			escapeButton->state = GuiControlState::DISABLED;
+
+			enemyButton1->state = GuiControlState::DISABLED;
+			enemyButton2->state = GuiControlState::DISABLED;
+			enemyButton3->state = GuiControlState::DISABLED;
+			enemyButton4->state = GuiControlState::DISABLED;
+
 		//Player turn
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
@@ -231,6 +248,22 @@ bool Battle::Update(float dt)
 				if (actualTurnEntity->stats->defenseBuffed == true) {
 					actualTurnEntity->stats->deffense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
+				}
+				attackButton->state = GuiControlState::NORMAL;
+				defenseButton->state = GuiControlState::NORMAL;
+				itemButton->state = GuiControlState::NORMAL;
+				escapeButton->state = GuiControlState::NORMAL;
+				canSelect = true;
+				break;
+			case BattlePhase::SELECTING:
+
+				enemyButton1->state = GuiControlState::NORMAL;
+				enemyButton2->state = GuiControlState::NORMAL;
+				enemyButton3->state = GuiControlState::NORMAL;
+				enemyButton4->state = GuiControlState::NORMAL;
+
+				if (targetEntity != nullptr) {
+					ChangePhase(BattlePhase::ATTACKING);
 				}
 				canSelect = true;
 				break;
@@ -683,9 +716,16 @@ bool Battle::PostUpdate()
 			else if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
 				app->font->DrawTextDelayed(battleInfoChar, 50,50);
+
+				attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+				defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+				itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+				escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
 			}
 			break;
-
+			
+			
 		case BattlePhase::SELECTING:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
@@ -693,6 +733,24 @@ bool Battle::PostUpdate()
 			}
 			else {
 				app->font->DrawText("Select a target", 50, 50);
+
+				if (entitiesInBattle[4] != nullptr) {
+					enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+
+				}
+				if (entitiesInBattle[5] != nullptr) {
+					enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+
+				}
+				if (entitiesInBattle[6] != nullptr) {
+					enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+
+				}
+				if (entitiesInBattle[7] != nullptr) {
+					enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
+				}
+					
 			}
 			
 			break;
@@ -877,12 +935,7 @@ bool Battle::PostUpdate()
 	}
 	
 	
-
-	attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
-	defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
-	itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
-	escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
-
+	
 
 	return ret;
 }
@@ -900,8 +953,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 			switch (control->id) {
 			case 101:
-					targetEntity = entitiesInBattle[4];
-					ChangePhase(BattlePhase::ATTACKING);
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
 					canSelect = false;
 				
@@ -926,6 +979,27 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->stages->fxbool = true;
 					canSelect = false;
 			
+				break;
+
+			case 105:
+				targetEntity = entitiesInBattle[4];
+				app->stages->fxbool = true;
+				canSelect = false;
+				break;
+			case 106:
+				targetEntity = entitiesInBattle[5];
+				app->stages->fxbool = true;
+				canSelect = false;
+				break;
+			case 107:
+				targetEntity = entitiesInBattle[6];
+				app->stages->fxbool = true;
+				canSelect = false;
+				break;
+			case 108:
+				targetEntity = entitiesInBattle[7];
+				app->stages->fxbool = true;
+				canSelect = false;
 				break;
 			}
 
@@ -1249,11 +1323,16 @@ void Battle::ChangePhase(BattlePhase phase) {
 // Called before quitting
 bool Battle::CleanUp()
 {
-
+	//Buttons
 	attackButton->state = GuiControlState::DISABLED;
 	defenseButton->state = GuiControlState::DISABLED;
 	itemButton->state = GuiControlState::DISABLED;
 	escapeButton->state = GuiControlState::DISABLED;
+
+	enemyButton1->state = GuiControlState::DISABLED;
+	enemyButton2->state = GuiControlState::DISABLED;
+	enemyButton3->state = GuiControlState::DISABLED;
+	enemyButton4->state = GuiControlState::DISABLED;
 
 	attackButton = nullptr;
 	delete attackButton;
@@ -1266,6 +1345,54 @@ bool Battle::CleanUp()
 
 	escapeButton = nullptr;
 	delete escapeButton;
+
+	//Textures
+	attackTex = nullptr;
+	delete attackTex;
+
+	defenseTex = nullptr;
+	delete defenseTex;
+
+	itemsTex = nullptr;
+	delete itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+	press_attackTex = nullptr;
+	delete press_attackTex;
+
+	press_defenseTex = nullptr;
+	delete press_defenseTex;
+
+	press_itemsTex = nullptr;
+	delete press_itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+
+	batButton = nullptr;
+	delete batButton;
+
+	flyingEyeButton = nullptr;
+	delete flyingEyeButton;
+
+	skeletonButton = nullptr;
+	delete skeletonButton;
+
+	press_batButton = nullptr;
+	delete press_batButton;
+
+	press_flyingEyeButton = nullptr;
+	delete press_flyingEyeButton;
+
+	press_skeletonButton = nullptr;
+	delete press_skeletonButton;
+
+
+	shield = nullptr;
+	delete shield;
 
 	switch(battlePhase) {
 	case BattlePhase::WIN:
