@@ -184,9 +184,11 @@ bool Battle::Start()
 	entitiesInBattle[4]->position = { 500, 50 };
 	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
 
-	entitiesInBattle[5]->mapPosition = entitiesInBattle[5]->position;
-	entitiesInBattle[5]->position = { 550, 100 };
-	entitiesInBattle[5]->mapAnimation = entitiesInBattle[5]->currentAnimation;
+	if (entitiesInBattle[5] != nullptr) {
+		entitiesInBattle[5]->mapPosition = entitiesInBattle[5]->position;
+		entitiesInBattle[5]->position = { 550, 100 };
+		entitiesInBattle[5]->mapAnimation = entitiesInBattle[5]->currentAnimation;
+	}
 
 
 	for (int i = 0; i < 8; i++) {
@@ -429,11 +431,25 @@ bool Battle::Update(float dt)
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {
 						
-						int targetNum = (rand() % 2);
-						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 2);
+						DynamicEntity *targets[4];
+
+						int n = 0;
+						for (int i = 0; i < 4; i++) {
+							if (entitiesInBattle[i] != nullptr) {
+								if (entitiesInBattle[i]->isAlive == true) {
+									targets[n] = entitiesInBattle[i];
+									n++;
+								}
+							}
 						}
-						targetEntity = entitiesInBattle[targetNum];
+						
+						int targetNum = (rand() % n);
+						
+						/*while (entitiesInBattle[targetNum]->isAlive == false) {
+							targetNum = (rand() % 4);
+						}*/
+
+						targetEntity = targets[targetNum];
 
 						ChangePhase(BattlePhase::ATTACKING);
 					}
