@@ -375,6 +375,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	}
 
 	isAlive = true;
+	onlyInBattle = false;
 
 	NormalEnemyID = app->scene->normalEnemyList.count();
 }

@@ -114,10 +114,17 @@ bool Battle::Start()
 
 	for (int i = 0; i < 8; i++) {
 		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->hasStarted == false) {
+				entitiesInBattle[i]->Start();
+				entitiesInBattle[i]->hasStarted = true;
+
+			}
+
 			if (entitiesInBattle[i]->stats->defenseBuffed == true) {
-				entitiesInBattle[i]->stats->deffense -= defenseBuff;
+				entitiesInBattle[i]->stats->defense -= defenseBuff;
 				entitiesInBattle[i]->stats->defenseBuffed = false;
 			}
+			
 		}
 	}
 
@@ -174,8 +181,12 @@ bool Battle::Start()
 
 	//Enemies
 	entitiesInBattle[4]->mapPosition = entitiesInBattle[4]->position;
-	entitiesInBattle[4]->position = { 500, 100 };
+	entitiesInBattle[4]->position = { 500, 50 };
 	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
+
+	entitiesInBattle[5]->mapPosition = entitiesInBattle[5]->position;
+	entitiesInBattle[5]->position = { 550, 100 };
+	entitiesInBattle[5]->mapAnimation = entitiesInBattle[5]->currentAnimation;
 
 
 	for (int i = 0; i < 8; i++) {
@@ -246,7 +257,7 @@ bool Battle::Update(float dt)
 			case BattlePhase::THINKING:
 				//Debuff if protected las turn
 				if (actualTurnEntity->stats->defenseBuffed == true) {
-					actualTurnEntity->stats->deffense -= defenseBuff;
+					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
 				}
 				attackButton->state = GuiControlState::NORMAL;
@@ -257,10 +268,28 @@ bool Battle::Update(float dt)
 				break;
 			case BattlePhase::SELECTING:
 
-				enemyButton1->state = GuiControlState::NORMAL;
-				enemyButton2->state = GuiControlState::NORMAL;
-				enemyButton3->state = GuiControlState::NORMAL;
-				enemyButton4->state = GuiControlState::NORMAL;
+				if (entitiesInBattle[4] != nullptr) {
+					if (entitiesInBattle[4]->isAlive == true) {
+						enemyButton1->state = GuiControlState::NORMAL;
+					}
+					
+				}
+				if (entitiesInBattle[5] != nullptr) {
+					if (entitiesInBattle[5]->isAlive == true) {
+						enemyButton2->state = GuiControlState::NORMAL;
+					}
+				}
+				if (entitiesInBattle[6] != nullptr) {
+					if (entitiesInBattle[6]->isAlive == true) {
+						enemyButton3->state = GuiControlState::NORMAL;
+					}
+				}
+				if (entitiesInBattle[7] != nullptr) {
+					if (entitiesInBattle[7]->isAlive == true) {
+						enemyButton4->state = GuiControlState::NORMAL;
+					}
+				}
+				
 
 				if (targetEntity != nullptr) {
 					ChangePhase(BattlePhase::ATTACKING);
@@ -390,7 +419,7 @@ bool Battle::Update(float dt)
 				
 				//Debuff if protected las turn
 				if (actualTurnEntity->stats->defenseBuffed == true) {
-					actualTurnEntity->stats->deffense -= defenseBuff;
+					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
 				}
 				optionPercent = 0;
@@ -735,20 +764,24 @@ bool Battle::PostUpdate()
 				app->font->DrawText("Select a target", 50, 50);
 
 				if (entitiesInBattle[4] != nullptr) {
-					enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
-
+					if (entitiesInBattle[4]->isAlive == true) {
+						enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+					}
 				}
 				if (entitiesInBattle[5] != nullptr) {
-					enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
-
+					if (entitiesInBattle[5]->isAlive == true) {
+						enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+					}
 				}
 				if (entitiesInBattle[6] != nullptr) {
-					enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
-
+					if (entitiesInBattle[6]->isAlive == true) {
+						enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+					}
 				}
 				if (entitiesInBattle[7] != nullptr) {
-					enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
-
+					if (entitiesInBattle[7]->isAlive == true) {
+						enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+					}
 				}
 					
 			}
@@ -933,6 +966,33 @@ bool Battle::PostUpdate()
 		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
 		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
 	}
+	if (entitiesInBattle[5] != nullptr) {
+
+		if (entitiesInBattle[5]->stats->health == 0) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,30,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+
+		}
+		else if (entitiesInBattle[5]->stats->health <= 5) {
+
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 200,100,20 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+		}
+		else {
+			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 100,255,0 });
+			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+		}
+		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
+		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
+	}
+
 	
 	
 	
@@ -1188,15 +1248,16 @@ void Battle::Attack(DynamicEntity *target) {
 
 	damageTaken = 0;
 
-	if (target->stats->deffense  < actualTurnEntity->stats->attack) {
-		damageTaken = actualTurnEntity->stats->attack - target->stats->deffense;
-		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
+	if (target->stats->defense  < actualTurnEntity->stats->attack) {
+		damageTaken = actualTurnEntity->stats->attack - target->stats->defense;
+		target->stats->health = target->stats->health + target->stats->defense - actualTurnEntity->stats->attack;
 		hasToShake = true;
 		shakePos = 0;
 	}
 	
 	if (target->stats->health <= 0) {
 		target->stats->health = 0;
+		target->stats->defense -= defenseBuff;
 		target->stats->defenseBuffed = false;
 		target->isAlive = false;
 
@@ -1240,7 +1301,7 @@ void Battle::Attack(DynamicEntity *target) {
 }
 
 void Battle::Defense() {
-	actualTurnEntity->stats->deffense += defenseBuff;
+	actualTurnEntity->stats->defense += defenseBuff;
 	actualTurnEntity->stats->defenseBuffed = true;
 }
 
@@ -1398,9 +1459,13 @@ bool Battle::CleanUp()
 	case BattlePhase::WIN:
 		
 		//Destroy enemy
-		app->entities->DestroyEntity(entitiesInBattle[4]);
-		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
-
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+		
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
@@ -1440,9 +1505,13 @@ bool Battle::CleanUp()
 	case BattlePhase::LOSE:
 		
 		//Destroy enemy
-		app->entities->DestroyEntity(entitiesInBattle[4]);
-		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
-
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+	
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
@@ -1462,6 +1531,13 @@ bool Battle::CleanUp()
 	case BattlePhase::ESCAPING:
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
+			//Destroy enemy
+			for (int i = 5; i < 8; i++) {
+				if (entitiesInBattle[i] != nullptr ) {
+					app->entities->DestroyEntity(entitiesInBattle[i]);
+					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+				}
+			}
 			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 			//Take back enemy animation
@@ -1507,9 +1583,13 @@ bool Battle::CleanUp()
 		if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
 
 			//Destroy enemy
-			app->entities->DestroyEntity(entitiesInBattle[4]);
-			app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
-
+			for (int i = 4; i < 8; i++) {
+				if (entitiesInBattle[i] != nullptr) {
+					app->entities->DestroyEntity(entitiesInBattle[i]);
+					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+				}
+			}
+			
 			//Take back player position
 			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 			app->camera->SetTarget(app->stages->playerPtr);
