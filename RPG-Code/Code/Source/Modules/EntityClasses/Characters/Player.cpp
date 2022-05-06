@@ -350,14 +350,14 @@ bool Player::Update(float dt) {
 		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
 			if (PlayerErection != true) {
 				PlayerErection = true;
-				name = "Manolo";
+				name = "Rhen";
 				app->audio->PlayFx(erectionFx);
 			}	
 		}
 		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
 			if (PlayerErection != false) {
 				PlayerErection = false;
-				name = "Josefina";
+				name = "Briar";
 				app->audio->PlayFx(erectionFx);
 			}
 		}
