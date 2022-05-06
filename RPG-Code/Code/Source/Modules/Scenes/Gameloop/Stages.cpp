@@ -377,19 +377,7 @@ bool Stages::PostUpdate()
 	//PRINT THE BATTLE SPRITES
 	if (onBattle == true) {
 
-		////PRINT THE PLAYER ON BATTLE
-		//if (playerPtr != nullptr) {
-		//	SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-		//	if (playerPtr->PlayerErection == true) {
-		//		app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
-		//	}
-		//	if (playerPtr->PlayerErection == false) {
-		//		app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-		//	}
-		//}
-
 		//PRINT THE BATTLE ENTITIES
-		
 
 		for (int i = 7; i >= 0; i--)
 		{
@@ -402,67 +390,71 @@ bool Stages::PostUpdate()
 				{
 					if (app->battle->entitiesInBattle[i] == NormalEnemyInList->data) {
 						NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
-						if (app->battle->actualTurnEntity->dynamicType == DynamicType::ENEMY) {
-							switch (app->battle->battlePhase) {
-							case BattlePhase::THINKING:
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
-								NormalEnemyInList->data->attackAnim.Reset();
-								NormalEnemyInList->data->attackAnim2.Reset();
-								NormalEnemyInList->data->attackAnim3.Reset();
-								NormalEnemyInList->data->protectAnim.Reset();
-								
-								break;
-							case BattlePhase::ATTACKING:
-								if (eAnim == 1) {
-									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
+						if (app->battle->actualTurnEntity == NormalEnemyInList->data) {
+							if (app->battle->actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+								switch (app->battle->battlePhase) {
+								case BattlePhase::THINKING:
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->battleAnim;
+									NormalEnemyInList->data->attackAnim.Reset();
+									NormalEnemyInList->data->attackAnim2.Reset();
+									NormalEnemyInList->data->attackAnim3.Reset();
+									NormalEnemyInList->data->protectAnim.Reset();
+
+									break;
+								case BattlePhase::ATTACKING:
+									if (eAnim == 1) {
+										NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim;
+									}
+									if (eAnim == 2) {
+										NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim2;
+									}
+									if (eAnim == 3) {
+										NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim3;
+									}
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(hitfx1);
+									}
+
+									break;
+								case BattlePhase::DEFENDING:
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(shieldfx);
+									}
+
+									break;
+								default:
+									break;
+
 								}
-								if (eAnim == 2) {
-									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim2;
-								}
-								if (eAnim == 3) {
-									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->attackAnim3;
-								}
-								if (fxbool == true) {
-									fxbool = false;
-									app->audio->PlayFx(hitfx1);
-								}
+							}
 							
+
+						}
+
+						if (NormalEnemyInList->data->isAlive == false) {
+							NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
+						}
+
+							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
+							switch (NormalEnemyInList->data->normalEnemyType) {
+							case NormalEnemyType::FLYING_EYE:
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
 								break;
-							case BattlePhase::DEFENDING:
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->protectAnim;
-								if (fxbool == true) {
-									fxbool = false;
-									app->audio->PlayFx(shieldfx);
-								}
-								
+							case NormalEnemyType::BAT:
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y + 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
+								break;
+							case NormalEnemyType::SKELETON:
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
 								break;
 							default:
+								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+
 								break;
-
 							}
-						}
-						else {
-							if (app->battle->battlePhase == BattlePhase::WIN) {
-								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
-							}
-						}
-
-						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-						switch (NormalEnemyInList->data->normalEnemyType) {
-						case NormalEnemyType::FLYING_EYE:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
-							break;
-						case NormalEnemyType::BAT:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y + 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
-							break;
-						case NormalEnemyType::SKELETON:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y-1*NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
-							break;
-						default:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
-
-							break;
-						}
+						
 						
 					}
 				}
