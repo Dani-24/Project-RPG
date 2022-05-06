@@ -297,11 +297,12 @@ bool Scene::Update(float dt)
 	// Add ally to the party
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
-		//if (partyList.At(1) == nullptr) {
-			//partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50));
-		//}
+		if (partyList.At(1) == nullptr) {
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50));
+		}else{
+			partyList.del(partyList.At(1));
+		}
 		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
@@ -485,6 +486,12 @@ bool Scene::CleanUp()
 	for (normalEnemyInList = normalEnemyList.start; normalEnemyInList != NULL; normalEnemyInList = normalEnemyInList->next)
 	{
 		normalEnemyInList->data->CleanUp();
+	}
+
+	ListItem<Character*>* characterInList;
+	for (characterInList = partyList.start; characterInList != NULL; characterInList = characterInList->next)
+	{
+		characterInList->data->CleanUp();
 	}
 
 	npcList.clear();
