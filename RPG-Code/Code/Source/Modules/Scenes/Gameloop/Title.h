@@ -86,6 +86,8 @@ private:
 	SDL_Texture* press_optionsb;
 	SDL_Texture* press_creditsb;
 	SDL_Texture* press_exitb;
+
+	bool wait;
 };
 
 #endif // !__TITLE_H__
