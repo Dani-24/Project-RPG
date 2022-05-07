@@ -171,7 +171,8 @@ bool Scene::PreUpdate()
 			app->audio->PlayFx(backFx);
 		}
 		app->pauseM->exitg = false;
-		app->pauseM->resumen = true;
+		
+		
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 		app->pauseM->CleanUp();
 	}

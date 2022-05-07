@@ -138,6 +138,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				LOG("exit");
 				exitg = true;
+				resumen = true;
 			}
 
 		}
