@@ -87,6 +87,7 @@ private:
 	SDL_Texture* press_creditsb;
 	SDL_Texture* press_exitb;
 
+	//variable para que no pete con mando
 	bool wait;
 };
 

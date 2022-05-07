@@ -127,6 +127,8 @@ private:
 	SDL_Texture* interactionButton;
 	Animation interactionButtonJustSpace;
 	bool printInteractionButt = false;
+	//variable para que no pete con mando
+	bool wait;
 
 private: // DIALOGS
 

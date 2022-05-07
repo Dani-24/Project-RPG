@@ -23,17 +23,22 @@ bool DialogSystem::Awake(pugi::xml_node& config) {
 bool DialogSystem::Start() {
 
 	dialogueBox = app->tex->Load("Assets/gui/dialogue_box.png");
-
+	_waitpad = false;
 	return true;
 }
 
 bool DialogSystem::PreUpdate() {
 
+	GamePad& pad = app->input->pads[0];
+
+	if (!pad.a) _waitpad = true;
+
 	if (dialoging == true) {
 
 		// Inputs
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _waitpad == true) {
 			wait = false;
+			_waitpad = false;
 		}
 		app->scene->player->toggleGui = false;
 	}

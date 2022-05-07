@@ -64,6 +64,10 @@ public:
 	GuiButton* load;
 	GuiButton* exit;
 	
+private:
+	//variable para que no pete con mando
+	bool wait, _wait;
+
 };
 
 #endif
