@@ -173,9 +173,9 @@ public:
 	SDL_Texture* dhionSpecialButton3Tex;
 
 	//Selecting
-	SDL_Texture* batButton;
-	SDL_Texture* flyingEyeButton;
-	SDL_Texture* skeletonButton;
+	SDL_Texture* batButtonTex;
+	SDL_Texture* flyingEyeButtonTex;
+	SDL_Texture* skeletonButtonTex;
 
 
 	//Button pressed textures
@@ -206,9 +206,9 @@ public:
 	SDL_Texture* press_dhionSpecialButton3Tex;
 
 	//Selecting
-	SDL_Texture* press_batButton;
-	SDL_Texture* press_flyingEyeButton;
-	SDL_Texture* press_skeletonButton;
+	SDL_Texture* press_batButtonTex;
+	SDL_Texture* press_flyingEyeButtonTex;
+	SDL_Texture* press_skeletonButtonTex;
 
 
 	SDL_Texture* shield;

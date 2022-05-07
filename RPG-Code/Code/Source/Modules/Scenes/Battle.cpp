@@ -149,10 +149,18 @@ bool Battle::Start()
 	itemsTex = app->tex->Load("Assets/gui/buttons/items.png");
 	escapeTex = app->tex->Load("Assets/gui/buttons/escape.png");
 
+	batButtonTex =app->tex->Load("Assets/gui/buttons/bat.png");
+	flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/flying_eye.png");
+	skeletonButtonTex = app->tex->Load("Assets/gui/buttons/skeleton.png");
+
 	press_attackTex = app->tex->Load("Assets/gui/buttons/pressed_attack.png");
 	press_defenseTex = app->tex->Load("Assets/gui/buttons/pressed_defense.png");
 	press_itemsTex = app->tex->Load("Assets/gui/buttons/pressed_items.png");
 	press_escapeTex = app->tex->Load("Assets/gui/buttons/pressed_escape.png");
+
+	press_batButtonTex = app->tex->Load("Assets/gui/buttons/pressed_bat.png");
+	press_flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/pressed_flying_eye.png");
+	press_skeletonButtonTex = app->tex->Load("Assets/gui/buttons/pressed_skeleton.png");
 
 	shield = app->tex->Load("Assets/textures/shield.png");
 
@@ -893,22 +901,67 @@ bool Battle::PostUpdate()
 
 				if (entitiesInBattle[4] != nullptr) {
 					if (entitiesInBattle[4]->isAlive == true) {
-						enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						if (entitiesInBattle[4]->name == "Bat")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[4]->name == "Flying eye")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[4]->name == "Skeleton")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						
 					}
 				}
 				if (entitiesInBattle[5] != nullptr) {
 					if (entitiesInBattle[5]->isAlive == true) {
-						enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						if (entitiesInBattle[5]->name == "Bat")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[5]->name == "Flying eye")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[5]->name == "Skeleton")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
 					}
 				}
 				if (entitiesInBattle[6] != nullptr) {
 					if (entitiesInBattle[6]->isAlive == true) {
-						enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						if (entitiesInBattle[6]->name == "Bat")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[6]->name == "Flying eye")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[6]->name == "Skeleton")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
 					}
 				}
 				if (entitiesInBattle[7] != nullptr) {
 					if (entitiesInBattle[7]->isAlive == true) {
-						enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						if (entitiesInBattle[7]->name == "Bat")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[7]->name == "Flying eye")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[7]->name == "Skeleton")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
 					}
 				}
 					
@@ -1647,23 +1700,23 @@ bool Battle::CleanUp()
 	delete press_escapeTex;
 
 
-	batButton = nullptr;
-	delete batButton;
+	batButtonTex = nullptr;
+	delete batButtonTex;
 
-	flyingEyeButton = nullptr;
-	delete flyingEyeButton;
+	flyingEyeButtonTex = nullptr;
+	delete flyingEyeButtonTex;
 
-	skeletonButton = nullptr;
-	delete skeletonButton;
+	skeletonButtonTex = nullptr;
+	delete skeletonButtonTex;
 
-	press_batButton = nullptr;
-	delete press_batButton;
+	press_batButtonTex = nullptr;
+	delete press_batButtonTex;
 
-	press_flyingEyeButton = nullptr;
-	delete press_flyingEyeButton;
+	press_flyingEyeButtonTex = nullptr;
+	delete press_flyingEyeButtonTex;
 
-	press_skeletonButton = nullptr;
-	delete press_skeletonButton;
+	press_skeletonButtonTex = nullptr;
+	delete press_skeletonButtonTex;
 
 
 	shield = nullptr;
