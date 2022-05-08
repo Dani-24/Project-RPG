@@ -13,7 +13,7 @@ class NPC;
 class NormalEnemy;
 class Party;
 class Character;
-
+class Item;
 
 class Scene : public Module
 {
@@ -58,6 +58,7 @@ public:
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
 	List<Character*> partyList;
+	List<Item*> itemList;
 	Character* valionchar;
 	int backFx, loadFx, saveFx;
 	int hp,hpw;

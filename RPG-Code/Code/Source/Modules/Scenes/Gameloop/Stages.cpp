@@ -262,8 +262,8 @@ bool Stages::PostUpdate()
 
 							if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-								if (npcInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-									app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+								if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 								}
 							}
 						}
@@ -279,8 +279,8 @@ bool Stages::PostUpdate()
 						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 								NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-								if (NormalEnemyInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-									app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+								if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+									app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 								}
 							}
 						}
@@ -296,8 +296,8 @@ bool Stages::PostUpdate()
 					{
 						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-							if (npcInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 							}
 						}
 					}
@@ -311,8 +311,8 @@ bool Stages::PostUpdate()
 					{
 						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-							if (NormalEnemyInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+							if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 							}
 						}
 					}
@@ -345,8 +345,8 @@ bool Stages::PostUpdate()
 					if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
-							if (npcInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(npcInList->data->spriteText, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
 							}
 						}
 					}
@@ -362,8 +362,8 @@ bool Stages::PostUpdate()
 					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
-							if (NormalEnemyInList->data->spriteText != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+							if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 							}
 						}
 					}
@@ -441,16 +441,16 @@ bool Stages::PostUpdate()
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 							switch (NormalEnemyInList->data->normalEnemyType) {
 							case NormalEnemyType::FLYING_EYE:
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
 								break;
 							case NormalEnemyType::BAT:
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y + 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y + 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
 								break;
 							case NormalEnemyType::SKELETON:
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
 								break;
 							default:
-								app->render->DrawTexture(NormalEnemyInList->data->spriteText, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
 
 								break;
 							}
@@ -555,7 +555,7 @@ bool Stages::PostUpdate()
 											}
 											break;
 										case BattlePhase::LOSE:
-											playerPtr->currentAnimation = &playerPtr->dieF;
+											//playerPtr->currentAnimation = &playerPtr->dieF;
 											if (fxbool == true) {
 												fxbool = false;
 												app->audio->PlayFx(chdiefx);
@@ -575,7 +575,7 @@ bool Stages::PostUpdate()
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
-							app->render->DrawTexture(CharacterInList->data->spriteText, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
+							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
 
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
@@ -611,7 +611,7 @@ bool Stages::PostUpdate()
 
 									break;
 								case BattlePhase::LOSE:
-									CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+									//CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
 									if (fxbool == true) {
 										fxbool = false;
 										app->audio->PlayFx(chdiefx);
@@ -657,7 +657,7 @@ bool Stages::PostUpdate()
 		//case EnemyInBattleType::NORMAL:
 		//	app->battle->normalEnemyInBattle->currentAnimation = &app->battle->normalEnemyInBattle->battleAnim;
 		//	SDL_Rect rect = app->battle->normalEnemyInBattle->currentAnimation->GetCurrentFrame();
-		//	app->render->DrawTexture(app->battle->normalEnemyInBattle->spriteText, 500, 100, &rect);
+		//	app->render->DrawTexture(app->battle->normalEnemyInBattle->spriteTex, 500, 100, &rect);
 		//	break;
 
 		//default:

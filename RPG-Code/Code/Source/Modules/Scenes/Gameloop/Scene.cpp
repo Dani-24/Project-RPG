@@ -23,6 +23,9 @@
 #include "Party.h"
 #include "Inventory.h"
 
+#include "StaticEntity.h"
+#include "Item.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -476,8 +479,14 @@ bool Scene::CleanUp()
 
 	app->stages->ChangeStage(StageIndex::NONE);
 
-	ListItem<NPC*>* npcInList;
 	
+	ListItem<Item*>* itemInList;
+	for (itemInList = itemList.start; itemInList != NULL; itemInList = itemInList->next)
+	{
+		itemInList->data->CleanUp();
+	}
+
+	ListItem<NPC*>* npcInList;
 	for (npcInList = npcList.start; npcInList != NULL; npcInList = npcInList->next)
 	{
 		npcInList->data->CleanUp();
@@ -495,8 +504,10 @@ bool Scene::CleanUp()
 		characterInList->data->CleanUp();
 	}
 
+	itemList.clear();
 	npcList.clear();
 	normalEnemyList.clear();
+	partyList.clear();
 
 	player = nullptr;
 	delete player;

@@ -313,7 +313,8 @@ bool Player::Start()
 
 	canMove = true;
 
-	stats = new Stats(1, 20, 8 , 5, 5, 20);
+	/*stats = new Stats(1, 20, 8 , 5, 5, 20);*/
+	stats = new Stats(1, 20, 0, 0, 5, 20);
 
 	wait = false;
 
@@ -401,7 +402,7 @@ bool Player::CleanUp() {
 	delete currentAnimation;
 
 	//Textures
-	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTex);
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 

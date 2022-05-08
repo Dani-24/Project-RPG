@@ -57,7 +57,7 @@ public:
 	iPoint position;
 
 	// The entity's texture
-	SDL_Texture* spriteText = nullptr;
+	SDL_Texture* spriteTex;
 
 	SDL_Rect spriteRect;
 
