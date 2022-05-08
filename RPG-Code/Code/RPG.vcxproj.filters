@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Modules\Scenes\Inventory.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
+    <ClCompile Include="Source\Modules\QuestManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -118,6 +119,7 @@
     <ClInclude Include="Source\Modules\Scenes\Inventory.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
+    <ClInclude Include="Source\Modules\QuestManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

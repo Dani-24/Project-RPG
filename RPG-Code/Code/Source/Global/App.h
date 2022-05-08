@@ -26,6 +26,7 @@ class Configuration;
 class Map;
 class GuiManager;
 class EntityManager;
+class QuestManager;
 class EnemyMovement;
 class PauseMenu;
 
@@ -40,6 +41,7 @@ class Collisions;
 
 class DialogSystem;
 class Inventory;
+
 
 class App
 {
@@ -118,6 +120,7 @@ public:
 	Map* map;
 	GuiManager* guiManager;
 	EntityManager* entities;
+	QuestManager* questManager;
 	EnemyMovement* enemyMovement;
 	Camera* camera;
 	PauseMenu* pauseM;

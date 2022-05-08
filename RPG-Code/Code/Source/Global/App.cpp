@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "QuestManager.h"
 #include "PauseMenu.h"
 #include "Battle.h"
 #include "Stages.h"
@@ -49,7 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	stages = new Stages(this);
 
 	entities = new EntityManager(this);
-	
+	questManager = new QuestManager(this);
 
 	camera = new Camera(this);
 
