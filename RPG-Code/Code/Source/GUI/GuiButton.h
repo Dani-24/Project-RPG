@@ -32,8 +32,6 @@ public:
 	Animation buttonIddle;
 	Animation buttonPressed;
 	Animation* buttonAnim;
-
-	bool isSmol;
 };
 
 #endif // __GUIBUTTON_H__

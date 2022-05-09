@@ -16,9 +16,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool smol) : 
 	drawBasic = false;
 	app->guiManager->keyb = false;
 
-	isSmol = smol;
-
-	if (isSmol == true) {
+	if (smol == true) {
 		// Smol button
 		buttonTexture = app->tex->Load("Assets/gui/inventory/button_mini.png");
 
@@ -118,6 +116,12 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::DISABLED:
 		break;
 	case GuiControlState::NORMAL:
+
+		if (buttonAnim != &buttonIddle) {
+			buttonAnim = &buttonIddle;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
 		break;
 	case GuiControlState::FOCUSED:
 
@@ -127,6 +131,7 @@ bool GuiButton::Draw(Render* render)
 			buttonAnim = &buttonIddle;
 		}
 		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
 		break;
 	case GuiControlState::PRESSED:
 
@@ -136,8 +141,15 @@ bool GuiButton::Draw(Render* render)
 			buttonAnim = &buttonPressed;
 		}
 		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
 		break;
 	case GuiControlState::SELECTED:
+
+		if (buttonAnim != &buttonIddle) {
+			buttonAnim = &buttonIddle;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
 		break;
 	default:
 		break;
