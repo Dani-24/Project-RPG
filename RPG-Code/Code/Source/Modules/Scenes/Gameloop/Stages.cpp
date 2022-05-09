@@ -54,7 +54,7 @@ bool Stages::Start()
 	loseFx = app->audio->LoadFx("Assets/audio/sfx/fx_lose.wav");
 
 	//textures
-	LoseScreen = app->tex->Load("Assets/textures/losescreen.png");
+	LoseScreen = app->tex->Load("Assets/textures/lose_screen.png");
 	WinScreen = app->tex->Load("Assets/textures/win_screen.png");
 	WinMessage = app->tex->Load("Assets/textures/win_message.png");
 	LoseMessage = app->tex->Load("Assets/textures/lose_message.png");
@@ -239,7 +239,7 @@ bool Stages::PostUpdate()
 	case StageIndex::LOSE:
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(LoseScreen,0,0);
-		app->render->DrawTexture(LoseMessage, 0, 0);
+		app->render->DrawTexture(LoseMessage, 0, 40);
 		app->scene->player->canMove = false;	
 		/*backtoMenu->state = GuiControlState::DISABLED;*/
 		
