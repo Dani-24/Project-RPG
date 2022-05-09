@@ -5,8 +5,6 @@
 #include "Item.h"
 #include "Equipment.h"
 
-#define ITEM_SIZE 48
-
 
 Equipment::Equipment(EquipmentType equipmentType, const char* name) : Item(ItemType::EQUIPMENT)
 {
@@ -28,23 +26,37 @@ bool Equipment::Awake(pugi::xml_node& config)
 bool Equipment::Start()
 {
 
+	if (equipmentType != EquipmentType::WEAPON) {
+		weaponType = WeaponType::NONE;
+	}
+
 	switch (equipmentType) {
 		
 	case EquipmentType::WEAPON:
 		//_____________________[WEAPONS]______________________________
 
 		//Swords
+
+		if (name == std::string("Shovel")) { //Wood
+			weaponType = WeaponType::SWORD;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 4 * ITEM_SIZE, 6 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
 		if (name == std::string("Practice sword")) { //Wood
+			weaponType = WeaponType::SWORD;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 15 * ITEM_SIZE, 3 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Apprentice sword")) { //Iron
+			weaponType = WeaponType::SWORD;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 0 * ITEM_SIZE, 3 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Soldier sword")) { //Steel
+			weaponType = WeaponType::SWORD;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 1 * ITEM_SIZE, 3 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
@@ -56,21 +68,25 @@ bool Equipment::Start()
 
 		//Crosiers
 		if (name == std::string("Stick crosier")) { //Stick
+			weaponType = WeaponType::CROSIER;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 0 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Apprentice crosier")) { //Wood
+			weaponType = WeaponType::CROSIER;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 8 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Refined crosier")) { 
+			weaponType = WeaponType::CROSIER;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 1 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Magician crosier")) { 
+			weaponType = WeaponType::CROSIER;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 2 * ITEM_SIZE, 6 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
@@ -106,20 +122,24 @@ bool Equipment::Start()
 	case EquipmentType::HELMET:
 		//_____________________[HELMETS]______________________________ ////Faltan decidir los nombres y sprites
 
-		if (name == std::string("Wood helmet")) { //
-
+		if (name == std::string("Basic helmet")) { //
+			spriteTex = app->tex->Load("Assets/items/items1.png");
+			spriteRect = { 2 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Apprentice helmet")) { //
-
+			spriteTex = app->tex->Load("Assets/items/items1.png");
+			spriteRect = { 0 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Robust helmet")) { //
-
+		if (name == std::string("Soldier helmet")) { //
+			spriteTex = app->tex->Load("Assets/items/items1.png");
+			spriteRect = { 1 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Iron helmet")) { //
-
+		if (name == std::string("Defensive helmet")) { //
+			spriteTex = app->tex->Load("Assets/items/items1.png");
+			spriteRect = { 3 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
@@ -127,40 +147,48 @@ bool Equipment::Start()
 	case EquipmentType::ARMOR:
 		//_____________________[ARMORS]______________________________ ////Faltan decidir los nombres y sprites
 
-		if (name == std::string("Wood armor")) { //
-
+		if (name == std::string("Battle uniform")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 0 * ITEM_SIZE, 8 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Apprentice armor")) { //
-
+		if (name == std::string("Training vest")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 1 * ITEM_SIZE, 8 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Robust armor")) { //
-
+		if (name == std::string("Bronze armor")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 2 * ITEM_SIZE, 8 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Iron armor")) { //
-
+		if (name == std::string("Steel armor")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 3 * ITEM_SIZE, 8 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
 	case EquipmentType::GLOVES:
 		//_____________________[GLOVES]______________________________ ////Faltan decidir los nombres y sprites
 
-		if (name == std::string("Wood gloves")) { //
-
-		}
-
-		if (name == std::string("Apprentice gloves")) { //
-
-		}
-
-		if (name == std::string("Robust gloves")) { //
-
+		if (name == std::string("Leather gloves")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 6 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Iron gloves")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 7 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
 
+		if (name == std::string("Midas gloves")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 8 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Relic gloves")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 9 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
@@ -168,20 +196,24 @@ bool Equipment::Start()
 	case EquipmentType::BOOTS:
 		//_____________________[BOOTS]______________________________ ////Faltan decidir los nombres y sprites
 
-		if (name == std::string("Wood boots")) { //
-
+		if (name == std::string("Leather boots")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 0 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Apprentice boots")) { //
-
-		}
-
-		if (name == std::string("Robust boots")) { //
-
+		if (name == std::string("Training boots")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 1 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Iron boots")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 2 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
 
+		if (name == std::string("Golden boots")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 3 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
@@ -189,20 +221,24 @@ bool Equipment::Start()
 	case EquipmentType::TALISMAN:
 		//_____________________[TALISMANS]______________________________ ////Faltan decidir los nombres y sprites
 
-		if (name == std::string("Wood talisman")) { //
-
+		if (name == std::string("Belt")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 9 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Apprentice talisman")) { //
-
+		if (name == std::string("Magic ring")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 10 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Robust talisman")) { //
-
+		if (name == std::string("Golden ring")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 11 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Iron talisman")) { //
-
+		if (name == std::string("Mystic ring")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 12 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;

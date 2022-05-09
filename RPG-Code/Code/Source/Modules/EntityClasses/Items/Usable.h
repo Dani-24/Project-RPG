@@ -18,6 +18,8 @@ enum class UsableType
 	//Restore life
 	APPLE,
 	LIFE_POTION,
+	PIE,
+	DELICIOUS_PIE,
 
 	//Restore energy
 	ELIXIR,
@@ -47,7 +49,7 @@ public:
 
 
 public:
-
+	bool onlyInBattle;
 	UsableType usableType;
 
 };

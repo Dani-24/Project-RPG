@@ -11,6 +11,8 @@
 
 #include <vector>
 
+#define ITEM_SIZE 48
+
 struct SDL_Texture;
 
 enum class ItemType

@@ -57,6 +57,7 @@ public:
 	const char* giroideChar;
 	const char* fuenteChar;
 
+	bool isInteraction;
 	int npcId;
 	bool isMerchant;
 

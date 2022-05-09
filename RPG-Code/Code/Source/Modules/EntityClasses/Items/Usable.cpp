@@ -26,27 +26,47 @@ bool Usable::Start()
 
 	case UsableType::APPLE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 0 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
 	case UsableType::LIFE_POTION:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 13 * ITEM_SIZE, 11 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
+
+	case UsableType::PIE:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 5 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::DELICIOUS_PIE:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 14 * ITEM_SIZE, 1 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
 
 	case UsableType::ELIXIR:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 14 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
+
 
 	case UsableType::BOMB:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 15 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
 	case UsableType::SUPER_BOMB:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 0 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
+
 
 	case UsableType::WILL_TO_LIFE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 15 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
+	
 	}
 
 	return true;

@@ -12,7 +12,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 	position = { x,y };
 	this->NpcType = NPCType;
-
+	isInteraction = false;
 	switch (NPCType) {
 	case NPCType::COCK:
 
@@ -109,7 +109,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		npcID = 8;
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
-
+		isInteraction = true;
 		break;
 	default:
 		break;

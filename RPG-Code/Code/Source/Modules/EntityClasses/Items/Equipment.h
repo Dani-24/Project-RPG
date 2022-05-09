@@ -24,6 +24,16 @@ enum class EquipmentType
 	TALISMAN
 };
 
+enum class WeaponType
+{
+	SWORD,
+	CROSIER,
+	BOW,
+	LANCE,
+	
+	NONE
+};
+
 class Equipment : public Item
 {
 public:
@@ -42,7 +52,9 @@ public:
 
 public:
 
+	bool usableOutOfBattle;
 	EquipmentType equipmentType;
+	WeaponType weaponType;
 
 };
 
