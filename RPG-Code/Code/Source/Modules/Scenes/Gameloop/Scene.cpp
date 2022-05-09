@@ -430,7 +430,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 40)
 			{
 				LOG("Click on Restart");
-
+			
 				app->LoadGameRequest();
 				app->scene->player->canMove = true;
 

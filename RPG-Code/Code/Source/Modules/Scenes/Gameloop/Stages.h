@@ -72,6 +72,11 @@ private:
 
 	SDL_Texture* WinScreen;
 	SDL_Texture* LoseScreen;
+	SDL_Texture* WinMessage;
+	SDL_Texture* LoseMessage;
+
+	bool _wait;
+
 public:
 	bool pause;
 
@@ -91,6 +96,7 @@ public:
 
 	int intStage = 0;
 
+	bool elect;
 	
 	
 };

@@ -316,7 +316,7 @@ bool Player::Start()
 	/*stats = new Stats(1, 20, 8 , 5, 5, 20);*/
 	stats = new Stats(1, 20, 0, 0, 5, 20);
 
-	wait = false;
+	wait, _wait = false;
 
 	return ret;
 }
@@ -347,22 +347,28 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt) {
 	bool ret = true;
-
+	GamePad& pad = app->input->pads[0];
+	
+	if (!pad.r3 && !pad.l3)_wait = true;
 	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
-		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)) {
+		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) || pad.l3 && _wait && !PlayerErection && app->stages->actualStage==StageIndex::INTRODUCTION) {
 			if (PlayerErection != true) {
 				PlayerErection = true;
 				name = "Rhen";
 				app->audio->PlayFx(erectionFx);
 			}	
+			app->stages->elect = true;
+			_wait = false;
 		}
-		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
+		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) || pad.l3 && _wait && PlayerErection && app->stages->actualStage == StageIndex::INTRODUCTION) {
 			if (PlayerErection != false) {
 				PlayerErection = false;
 				name = "Briar";
 				app->audio->PlayFx(erectionFx);
 			}
+			app->stages->elect = true;
+			_wait = false;
 		}
 
 		if (app->fade->fading == false && app->stages->actualStage != StageIndex::INTRODUCTION) {
