@@ -79,14 +79,64 @@ bool Equipment::Start()
 			spriteRect = { 8 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Refined crosier")) { 
+		if (name == std::string("Magician crosier")) { 
 			weaponType = WeaponType::CROSIER;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 1 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Magician crosier")) { 
+		if (name == std::string("Refined crosier")) { 
 			weaponType = WeaponType::CROSIER;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 2 * ITEM_SIZE, 6 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		//Bow
+		if (name == std::string("Simple bow")) { 
+			weaponType = WeaponType::BOW;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 0 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Apprentice bow")) { 
+			weaponType = WeaponType::BOW;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 8 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Elf bow")) {
+			weaponType = WeaponType::BOW;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 1 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Heavy bow")) {
+			weaponType = WeaponType::BOW;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 2 * ITEM_SIZE, 6 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		//Lance
+		if (name == std::string("Stick lance")) { 
+			weaponType = WeaponType::LANCE;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 0 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Apprentice lance")) { 
+			weaponType = WeaponType::LANCE;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 8 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Armamentalist lance")) {
+			weaponType = WeaponType::LANCE;
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 1 * ITEM_SIZE, 5 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Ultra lance")) {
+			weaponType = WeaponType::LANCE;
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 2 * ITEM_SIZE, 6 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
@@ -237,6 +287,11 @@ bool Equipment::Start()
 		}
 
 		if (name == std::string("Mystic ring")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 12 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Clover")) { //
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 12 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}

@@ -44,12 +44,21 @@ bool Usable::Start()
 		spriteRect = { 14 * ITEM_SIZE, 1 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+	case UsableType::CANDY:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 15 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
 
 	case UsableType::ELIXIR:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 14 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+	case UsableType::DYNAMITE:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 3 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
 
 	case UsableType::BOMB:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
@@ -67,6 +76,43 @@ bool Usable::Start()
 		spriteRect = { 15 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 	
+
+	case UsableType::CHEST_KEY:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 4 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::DOOR_KEY:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 5 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+
+	case UsableType::TEDDY_BEAR:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 3 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::LETTER:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 5 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::CLOSE_PARCHMENT:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 7 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+	case UsableType::OPEN_PARCHMENT:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 6 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+
+	case UsableType::BONE:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 2 * ITEM_SIZE, 12 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
 	}
 
 	return true;

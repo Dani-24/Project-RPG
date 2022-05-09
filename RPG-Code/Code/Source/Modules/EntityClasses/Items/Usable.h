@@ -20,16 +20,31 @@ enum class UsableType
 	LIFE_POTION,
 	PIE,
 	DELICIOUS_PIE,
+	CANDY,
 
 	//Restore energy
 	ELIXIR,
 
 	//Damage all entities in battle (only a bit if they are allies)
+	DYNAMITE,
 	BOMB,
 	SUPER_BOMB,
 
 	//Revive
-	WILL_TO_LIFE
+	WILL_TO_LIFE,
+
+	//Map
+	CHEST_KEY,
+	DOOR_KEY,
+
+	//Missions
+	TEDDY_BEAR,
+
+	//Others
+	BONE,
+	LETTER,
+	CLOSE_PARCHMENT,
+	OPEN_PARCHMENT
 };
 
 class Usable : public Item
