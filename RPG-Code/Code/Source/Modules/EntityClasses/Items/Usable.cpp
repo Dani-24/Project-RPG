@@ -24,6 +24,7 @@ bool Usable::Start()
 {
 	switch (usableType) {
 
+		//Restore health
 	case UsableType::APPLE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 0 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
@@ -49,12 +50,39 @@ bool Usable::Start()
 		spriteRect = { 15 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+	case UsableType::MEAT:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 4 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
 
+	case UsableType::EGG:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 11 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::FRIED_EGG:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 6 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::HAMBURGER:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 1 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+		//Restore enery
 	case UsableType::ELIXIR:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 14 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+		//Boost
+	case UsableType::PILL:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 15 * ITEM_SIZE, 11 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+		//Damage
 	case UsableType::DYNAMITE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 3 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
@@ -70,24 +98,24 @@ bool Usable::Start()
 		spriteRect = { 0 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
-
+		//Revive
 	case UsableType::WILL_TO_LIFE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 15 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 	
-
+		//Map
 	case UsableType::CHEST_KEY:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
-		spriteRect = { 4 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		spriteRect = { 4 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
 	case UsableType::DOOR_KEY:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
-		spriteRect = { 5 * ITEM_SIZE, 7 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		spriteRect = { 5 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
-
+		//Missions
 	case UsableType::TEDDY_BEAR:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 3 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
@@ -107,12 +135,23 @@ bool Usable::Start()
 		spriteRect = { 6 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+		//Others
+	case UsableType::BAT_WING:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 6 * ITEM_SIZE, 15 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
+
+	case UsableType::EYE:
+		spriteTex = app->tex->Load("Assets/items/items2.png");
+		spriteRect = { 3 * ITEM_SIZE, 12 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		break;
 
 	case UsableType::BONE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 2 * ITEM_SIZE, 12 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		break;
 
+	
 	}
 
 	return true;

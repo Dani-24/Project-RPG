@@ -21,6 +21,10 @@ enum class UsableType
 	PIE,
 	DELICIOUS_PIE,
 	CANDY,
+	MEAT,
+	EGG,
+	FRIED_EGG,
+	HAMBURGER,
 
 	//Restore energy
 	ELIXIR,
@@ -29,6 +33,9 @@ enum class UsableType
 	DYNAMITE,
 	BOMB,
 	SUPER_BOMB,
+
+	//Boost
+	PILL,
 
 	//Revive
 	WILL_TO_LIFE,
@@ -39,12 +46,15 @@ enum class UsableType
 
 	//Missions
 	TEDDY_BEAR,
-
-	//Others
-	BONE,
 	LETTER,
 	CLOSE_PARCHMENT,
-	OPEN_PARCHMENT
+	OPEN_PARCHMENT,
+
+	//Others
+	BAT_WING,
+	EYE,
+	BONE
+	
 };
 
 class Usable : public Item

@@ -293,7 +293,7 @@ bool Equipment::Start()
 
 		if (name == std::string("Clover")) { //
 			spriteTex = app->tex->Load("Assets/items/items2.png");
-			spriteRect = { 12 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+			spriteRect = { 1 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
