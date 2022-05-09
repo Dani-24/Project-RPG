@@ -72,6 +72,8 @@ private:
 
 	SDL_Texture* WinScreen;
 	SDL_Texture* LoseScreen;
+	SDL_Texture* WinMessage;
+	SDL_Texture* LoseMessage;
 public:
 	bool pause;
 

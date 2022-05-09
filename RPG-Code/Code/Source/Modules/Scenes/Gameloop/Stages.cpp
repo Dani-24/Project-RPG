@@ -55,7 +55,10 @@ bool Stages::Start()
 
 	//textures
 	LoseScreen = app->tex->Load("Assets/textures/losescreen.png");
-	WinScreen = app->tex->Load("Assets/textures/winscreen2.png");
+	WinScreen = app->tex->Load("Assets/textures/win_screen.png");
+	WinMessage = app->tex->Load("Assets/textures/win_message.png");
+	LoseMessage = app->tex->Load("Assets/textures/lose_message.png");
+
 	
 	
 	return true;
@@ -227,6 +230,7 @@ bool Stages::PostUpdate()
 	case StageIndex::WIN:
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(WinScreen, 0, 0);
+		app->render->DrawTexture(WinMessage, 0, 0);
 		app->scene->player->canMove = false;
 		/*restart->state = GuiControlState::DISABLED;*/
 		
@@ -235,6 +239,7 @@ bool Stages::PostUpdate()
 	case StageIndex::LOSE:
 		app->camera->SetPos({ 0,0 });
 		app->render->DrawTexture(LoseScreen,0,0);
+		app->render->DrawTexture(LoseMessage, 0, 0);
 		app->scene->player->canMove = false;	
 		/*backtoMenu->state = GuiControlState::DISABLED;*/
 		
