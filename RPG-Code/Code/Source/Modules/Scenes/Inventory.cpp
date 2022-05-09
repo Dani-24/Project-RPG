@@ -61,10 +61,12 @@ bool Inventory::PostUpdate()
 {
 	bool ret = true;
 
-	int x = -app->camera->GetPos().x - app->win->GetWidth() / 2;
-	int y = -app->camera->GetPos().y - app->win->GetHeight() * 2;
+	int x = -app->camera->GetPos().x / 2 /* - app->win->GetWidth() / 2*/;
+	int y = -app->camera->GetPos().y / 2 /* - app->win->GetHeight() * 2*/;
 
 	app->font->DrawText("Inventory is Open", x, y);
+
+	LOG("%d %d %d %d %d %d", x, y, app->camera->GetPos().x, app->camera->GetPos().y, app->scene->player->position.x, app->scene->player->position.y);
 
 	return ret;
 }
