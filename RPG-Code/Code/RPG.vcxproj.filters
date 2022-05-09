@@ -45,6 +45,7 @@
     <ClCompile Include="Source\Modules\Extra\DialogSystem.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\PauseMenu.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Gameloop\PartyStats.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -112,6 +113,7 @@
     <ClInclude Include="Source\Modules\Extra\DialogSystem.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\PauseMenu.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
+    <ClInclude Include="Source\Modules\Scenes\Gameloop\PartyStats.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
