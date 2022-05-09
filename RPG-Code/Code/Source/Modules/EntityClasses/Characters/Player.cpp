@@ -146,17 +146,17 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
 
-	idleBattleF.PushBack({ 0 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 180 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 360 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 540 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 720 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 900 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 1080 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 1260 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 1440 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 1620 , 456 , 180 , 114 });
-	idleBattleF.PushBack({ 1800 , 456 ,  180 , 114 });
+	idleBattleF.PushBack({ 1 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 2 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 3 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 4 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 5 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 6 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 7 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 8 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 9 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 10 * 180 , 0 , 180 , 180 });
+	idleBattleF.PushBack({ 11 * 180 , 0 ,  180 , 180 });
 	idleBattleF.loop = true;
 	idleBattleF.speed = 0.015f;
 
@@ -304,7 +304,8 @@ bool Player::Start()
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
 	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
-	BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");
+	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
+	BattleFTex = app->tex->Load("Assets/sprites/characters/archer/combat/Idle.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
 	//player start with idle anim

@@ -173,23 +173,23 @@ bool Equipment::Start()
 		//_____________________[HELMETS]______________________________ ////Faltan decidir los nombres y sprites
 
 		if (name == std::string("Basic helmet")) { //
-			spriteTex = app->tex->Load("Assets/items/items1.png");
-			spriteRect = { 2 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 9 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Apprentice helmet")) { //
-			spriteTex = app->tex->Load("Assets/items/items1.png");
-			spriteRect = { 0 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 10 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Soldier helmet")) { //
-			spriteTex = app->tex->Load("Assets/items/items1.png");
-			spriteRect = { 1 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 11 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Defensive helmet")) { //
-			spriteTex = app->tex->Load("Assets/items/items1.png");
-			spriteRect = { 3 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 12 * ITEM_SIZE, 9 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
@@ -281,19 +281,34 @@ bool Equipment::Start()
 			spriteRect = { 10 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Golden ring")) { //
+		if (name == std::string("Wrath ring")) { //
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 11 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
-		if (name == std::string("Mystic ring")) { //
+		if (name == std::string("Golden ring")) { //
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 12 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Mystic ring")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 13 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		if (name == std::string("Clover")) { //
 			spriteTex = app->tex->Load("Assets/items/items2.png");
 			spriteRect = { 1 * ITEM_SIZE, 14 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Pearl necklace")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 14 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		}
+
+		if (name == std::string("Stone pendant")) { //
+			spriteTex = app->tex->Load("Assets/items/items2.png");
+			spriteRect = { 15 * ITEM_SIZE, 10 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 		}
 
 		break;
