@@ -44,6 +44,7 @@ public:
 private:
 
 	int speed;
+	bool _wait;
 
 public:
 

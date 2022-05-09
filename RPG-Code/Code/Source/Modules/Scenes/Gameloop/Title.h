@@ -88,7 +88,7 @@ private:
 	SDL_Texture* press_exitb;
 
 	//variable para que no pete con mando
-	bool wait;
+	bool wait, _wait;
 };
 
 #endif // !__TITLE_H__
