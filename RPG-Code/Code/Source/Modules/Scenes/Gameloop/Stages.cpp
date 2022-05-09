@@ -59,8 +59,8 @@ bool Stages::Start()
 	WinMessage = app->tex->Load("Assets/textures/win_message.png");
 	LoseMessage = app->tex->Load("Assets/textures/lose_message.png");
 
-	
-	
+	_wait = false;
+	elect = true;
 	return true;
 }
 
@@ -144,6 +144,10 @@ bool Stages::Update(float dt)
 bool Stages::PostUpdate()
 {
 	bool ret = true;
+	GamePad& pad = app->input->pads[0];
+
+	
+
 
 	switch (actualStage)
 	{
@@ -195,9 +199,11 @@ bool Stages::PostUpdate()
 				app->font->DrawTextDelayed("and asume your gender with them", epilogX - 50, epilogY);
 				break;
 			case 7:
+				
 				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY);
 				break;
 			case 8:
+				
 				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY);
 				break;
 			case 9:
@@ -221,9 +227,12 @@ bool Stages::PostUpdate()
 				break;
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				introductionFase++;
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _wait || pad.b && _wait) {
+				//if (introductionFase == 8)elect = false;
+				if(elect) introductionFase++;
+				_wait = false;
 			}
+			if (!pad.a && !pad.b) _wait = true;
 		}
 
 		break;
