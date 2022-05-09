@@ -21,6 +21,8 @@ enum class StageIndex {
 	SHOP,
 	SHOPSUB,
 	INTRODUCTION,
+	WIN,
+	LOSE
 };
 
 class Stages : public Module
@@ -52,13 +54,24 @@ public:
 
 	void ChangeStage(StageIndex newStage);
 
+	// Define multiple Gui Event methods
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 	/*bool SaveState(pugi::xml_node& data) const;
-	bool LoadState(pugi::xml_node& data);*/
+	bool 
+	
+	
+	
+	
+	State(pugi::xml_node& data);*/
 
 private:
-	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx;
+	int hitfx1, hitfx2, hitfx3, shieldfx, chdiefx, doorFx, loseFx;
 
 	int introductionFase = 0;
+
+	SDL_Texture* WinScreen;
+	SDL_Texture* LoseScreen;
 public:
 	bool pause;
 
@@ -77,6 +90,9 @@ public:
 	List<Character*>* partyListPtr;
 
 	int intStage = 0;
+
+	
+	
 };
 
 #endif // __STAGES_H__

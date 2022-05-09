@@ -15,6 +15,8 @@
 #include "Battle.h"
 #include "FadeToBlack.h"
 
+#include <time.h>
+
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
 
@@ -311,7 +313,10 @@ bool Player::Start()
 
 	canMove = true;
 
-	stats = new Stats(1, 20, 8 , 5, 5, 20);
+	/*stats = new Stats(1, 20, 8 , 5, 5, 20);*/
+	stats = new Stats(1, 20, 0, 0, 5, 20);
+
+	wait = false;
 
 	return ret;
 }
@@ -350,7 +355,7 @@ bool Player::Update(float dt) {
 				PlayerErection = true;
 				name = "Rhen";
 				app->audio->PlayFx(erectionFx);
-			}
+			}	
 		}
 		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)) {
 			if (PlayerErection != false) {
@@ -397,7 +402,7 @@ bool Player::CleanUp() {
 	delete currentAnimation;
 
 	//Textures
-	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTex);
 	app->tex->UnLoad(PlayerFTex);
 	app->tex->UnLoad(PlayerMTex);
 
@@ -407,10 +412,12 @@ bool Player::CleanUp() {
 void Player::MovementPlayer(float dt) {
 	speed = 0.2 * dt;
 
+	GamePad& pad = app->input->pads[0];
+
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
 		position.y -= speed;
 
 		if (currentAnimation != &walkAnimUp) {
@@ -422,7 +429,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
 		position.y += speed;
 
 		if (currentAnimation != &walkAnimDown) {
@@ -434,7 +441,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
 
 		if (currentAnimation != &walkAnimL) {
@@ -446,7 +453,7 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
 
 		if (currentAnimation != &walkAnimR) {
@@ -528,11 +535,48 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 				if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
 					
 					app->battle->entitiesInBattle[0] = this;
+					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
+
 					if (app->stages->partyListPtr->At(1) != nullptr) {
 						app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+
+						srand(time(NULL));
+						int enemySpawnChance = (rand() % 100);
+
+						if (enemySpawnChance >= 2) {
+							srand(time(NULL));
+							int enemyType = (rand() % 3);
+							if (enemyType == 0) {
+								NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
+								bat->onlyInBattle = true;
+								app->scene->normalEnemyList.add(bat);
+								app->battle->entitiesInBattle[5] = bat;
+							}
+							else if (enemyType == 1) {
+
+								NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
+								flyingEye->onlyInBattle = true;
+								app->scene->normalEnemyList.add(flyingEye);
+								app->battle->entitiesInBattle[5] = flyingEye;
+							}
+							else if (enemyType == 2) {
+								NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
+								skeleton->onlyInBattle = true;
+								app->scene->normalEnemyList.add(skeleton);
+								app->battle->entitiesInBattle[5] = skeleton;
+
+							}
+
+
+						}
 					}
+
 					
-					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
+
+					
+
+					
+				
 					//app->battle->normalEnemyInBattle = normalEnemyInList->data;
 					//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
 					app->battle->Enable();
@@ -743,7 +787,12 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 }
 
 void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+	GamePad& pad = app->input->pads[0];
+
+	if (!pad.a) wait = true;
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
 		app->dialogs->CreateDialog(npc, dialog);
 		if (npc == NPCType::FUENTE) {
 			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
@@ -754,6 +803,7 @@ void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 				characterList->data->deathAnim.Reset();
 			}
 		}
+		wait = false;
 	}
 	printInteractionButt = true;
 }

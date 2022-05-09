@@ -13,6 +13,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 
 	canClick = true;
 	drawBasic = false;
+	app->guiManager->keyb = false;
 }
 
 GuiButton::~GuiButton()
@@ -34,6 +35,7 @@ bool GuiButton::Update(float dt)
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))
 		{
+			app->guiManager->keyb = false;
 			state = GuiControlState::FOCUSED;
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
@@ -47,7 +49,8 @@ bool GuiButton::Update(float dt)
 				NotifyObserver();
 			}
 		}
-		else state = GuiControlState::NORMAL;
+		else 
+			if(!app->guiManager->keyb) state = GuiControlState::NORMAL;
 	}
 	
 	return false;

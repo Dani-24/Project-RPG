@@ -163,8 +163,9 @@ bool Party::Start()
 	switch (partyType) {
 	case PartyType::VALION:
 		/*stats = new Stats(1, 15, 10, 3, 10, 16);*/
-		stats = new Stats(1, 15, 10, 3, 10, 32);
-		spriteText = app->tex->Load(ValionChar);
+		//stats = new Stats(1, 15, 10, 3, 10, 32);
+		stats = new Stats(1, 15, 0, 0, 10, 32);
+		spriteTex = app->tex->Load(ValionChar);
 		break;
 	}
 	
@@ -182,7 +183,9 @@ bool Party::PreUpdate()
 bool Party::Update(float dt) 
 {
 	bool ret = true;
-	currentAnimation->Update(dt);
+	if (currentAnimation != nullptr) {
+		currentAnimation->Update(dt);
+	}
 	return ret;
 }
 
@@ -207,7 +210,7 @@ bool Party::CleanUp() {
 	delete currentAnimation;
 
 	//Textures
-	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTex);
 
 	return true;
 }

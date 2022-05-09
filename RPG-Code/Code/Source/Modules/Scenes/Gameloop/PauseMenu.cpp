@@ -79,6 +79,7 @@ bool PauseMenu::Start()
 	resumen = false;
 	pauseGame = false;
 	exitg = false;
+	_wait,wait = false; 
 
 	return true;
 }
@@ -137,6 +138,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				LOG("exit");
 				exitg = true;
+				resumen = true;
 			}
 
 		}
@@ -176,7 +178,10 @@ bool PauseMenu::PreUpdate()
 		load->SetPos({ xc - 100,yc - 115 });
 		exit->SetPos({ xc - 100,yc - 90 });
 
+		KeyboardControl();
+
 	}
+
 	
 	/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
 		if (app->pauseM->pauseGame == false && app->scene->playing == true)app->pauseM->pauseGame = true, app->scene->playing = true, app->conf->Enable() ;
@@ -211,6 +216,7 @@ bool PauseMenu::Update(float dt)
 {
 
 	int xt, yt, xc, yc;
+	GamePad& pad = app->input->pads[0];
 
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -219,8 +225,8 @@ bool PauseMenu::Update(float dt)
 	//variables for text
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
-	
-	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true)&&app->scene->playing&&!app->battle->isEnabled()) {
+	if (!pad.start) _wait = true;
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() ) {
 
 		
 		if (pauseGame){
@@ -248,7 +254,7 @@ bool PauseMenu::Update(float dt)
 				app->audio->ChangeVolume(app->audio->vol / 3);
 			}
 		}
-		
+		_wait = false;
 	}
 
 	
@@ -259,7 +265,8 @@ bool PauseMenu::Update(float dt)
 bool PauseMenu::PostUpdate()
 {
 	bool ret = true;
-
+	SDL_Color c = { 0,0,0 };
+	SDL_Color w = { 255,255,255 };
 	int xt, yt, xc, yc;
 
 	//variables for textures
@@ -276,21 +283,21 @@ bool PauseMenu::PostUpdate()
 
 		app->render->DrawTexture(Pausetex, xc - 120, yc - 280);
 
-		app->font->DrawText("Party", xc - 100,yc - 265);
+		party->state != GuiControlState::FOCUSED ? app->font->DrawText("Party", xc - 100,yc - 265, c) : app->font->DrawText("Party", xc - 100, yc - 265, w);
 
-		app->font->DrawText("Inventory", xc - 100,yc - 240);
+		invent->state != GuiControlState::FOCUSED ? app->font->DrawText("Inventory", xc - 100,yc - 240, c): app->font->DrawText("Inventory", xc - 100, yc - 240, w);
 
-		app->font->DrawText("Town", xc - 100,yc - 215);
+		town->state != GuiControlState::FOCUSED ? app->font->DrawText("Town", xc - 100,yc - 215, c): app->font->DrawText("Town", xc - 100, yc - 215, w);
 
-		app->font->DrawText("Resume", xc - 100, yc - 190);
+		resume->state != GuiControlState::FOCUSED ? app->font->DrawText("Resume", xc - 100, yc - 190, c): app->font->DrawText("Resume", xc - 100, yc - 190, w);
 
-		app->font->DrawText("Config.", xc - 100,yc - 165);
+		config->state != GuiControlState::FOCUSED ? app->font->DrawText("Config.", xc - 100,yc - 165, c): app->font->DrawText("Config.", xc - 100, yc - 165, w);
 
-		app->font->DrawText("Save", xc - 100,yc - 140);
+		save->state != GuiControlState::FOCUSED ? app->font->DrawText("Save", xc - 100,yc - 140, c): app->font->DrawText("Save", xc - 100, yc - 140, w);
 
-		app->font->DrawText("Load", xc - 100,yc - 115);
+		load->state != GuiControlState::FOCUSED ? app->font->DrawText("Load", xc - 100,yc - 115, c): app->font->DrawText("Load", xc - 100, yc - 115, w);
 
-		app->font->DrawText("Exit", xc - 100,yc - 90);
+		exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100,yc - 90, c): app->font->DrawText("Exit", xc - 100, yc - 90, w);
 	}
 
 	
@@ -323,4 +330,193 @@ bool PauseMenu::CleanUp()
 	app->audio->ChangeVolume(app->audio->vol * 3);
 
 	return true;
+}
+
+//called on preupdate
+void PauseMenu::KeyboardControl()
+{
+
+	GamePad& pad = app->input->pads[0];
+
+	if (party->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		town->state == GuiControlState::NORMAL && resume->state == GuiControlState::NORMAL &&
+		config->state == GuiControlState::NORMAL && save->state == GuiControlState::NORMAL &&
+		load->state == GuiControlState::NORMAL && exit->state == GuiControlState::NORMAL)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+			pad.right || pad.left || pad.up || pad.down)
+		{
+			party->state = GuiControlState::FOCUSED;
+			app->guiManager->keyb = true;
+		}
+	}
+
+	if (party->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			party->state = GuiControlState::PRESSED;
+			party->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			invent->state = GuiControlState::FOCUSED;
+			party->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		
+	}
+	else if (invent->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			invent->state = GuiControlState::PRESSED;
+			invent->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			town->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			party->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		
+	}
+	else if (town->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			town->state = GuiControlState::PRESSED;
+			town->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			resume->state = GuiControlState::FOCUSED;
+			town->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			invent->state = GuiControlState::FOCUSED;
+			town->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	else if (resume->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			resume->state = GuiControlState::PRESSED;
+			resume->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			config->state = GuiControlState::FOCUSED;
+			resume->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			town->state = GuiControlState::FOCUSED;
+			resume->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	else if (config->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			config->state = GuiControlState::PRESSED;
+			config->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			save->state = GuiControlState::FOCUSED;
+			config->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			resume->state = GuiControlState::FOCUSED;
+			config->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	else if (load->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			load->state = GuiControlState::PRESSED;
+			load->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			exit->state = GuiControlState::FOCUSED;
+			load->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			save->state = GuiControlState::FOCUSED;
+			load->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	else if (save->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			save->state = GuiControlState::PRESSED;
+			save->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+			load->state = GuiControlState::FOCUSED;
+			save->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			config->state = GuiControlState::FOCUSED;
+			save->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	else if (exit->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+		{
+			exit->state = GuiControlState::PRESSED;
+			exit->NotifyObserver();
+		}
+		if (!pad.right && !pad.left) wait = true;
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+			load->state = GuiControlState::FOCUSED;
+			exit->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+
 }

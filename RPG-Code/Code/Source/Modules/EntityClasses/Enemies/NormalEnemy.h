@@ -50,6 +50,8 @@ public:
 	NormalEnemyType normalEnemyType;
 	StageIndex activeOnStage;
 
+	bool onlyInBattle;
+
 
 };
 

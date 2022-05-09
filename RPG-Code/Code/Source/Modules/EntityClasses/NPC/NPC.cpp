@@ -148,38 +148,38 @@ bool NPC::Start()
 	switch (NpcType) {
 	case NPCType::COCK:
 
-		spriteText = app->tex->Load(chickenChar);
+		spriteTex = app->tex->Load(chickenChar);
 		break;
 	case NPCType::BARKEEPER:
 
-		spriteText = app->tex->Load(tavernChar);
+		spriteTex = app->tex->Load(tavernChar);
 		break;
 	case NPCType::MERCHANT:
 
 
-		spriteText = app->tex->Load(shoperChar);
+		spriteTex = app->tex->Load(shoperChar);
 		break;
 	case NPCType::TRAINER:
 
-		spriteText = app->tex->Load(trainerChar);
+		spriteTex = app->tex->Load(trainerChar);
 
 		break;
 	case NPCType::EMILIO:
 
-		spriteText = app->tex->Load(emilioChar);
+		spriteTex = app->tex->Load(emilioChar);
 		break;
 	case NPCType::GIROIDE:
 
-		spriteText = app->tex->Load(giroideChar);
+		spriteTex = app->tex->Load(giroideChar);
 		break;
 	case NPCType::FUENTE:
 
-		spriteText = NULL;
+		spriteTex = NULL;
 
 		break;
 	case NPCType::CARTELSUDTOWN:
 
-		spriteText = NULL;
+		spriteTex = NULL;
 	default:
 		break;
 	}
@@ -227,9 +227,9 @@ bool NPC::CleanUp()
 	baseCollider = nullptr;
 	delete baseCollider;
 
-	app->tex->UnLoad(spriteText);
-	spriteText = nullptr;
-	delete spriteText;
+	app->tex->UnLoad(spriteTex);
+	spriteTex = nullptr;
+	delete spriteTex;
 
 
 	chickenChar = nullptr;

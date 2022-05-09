@@ -375,6 +375,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 	}
 
 	isAlive = true;
+	onlyInBattle = false;
 
 	NormalEnemyID = app->scene->normalEnemyList.count();
 }
@@ -397,21 +398,21 @@ bool NormalEnemy::Start()
 	switch (normalEnemyType) {
 	case NormalEnemyType::FLYING_EYE:
 
-		spriteText = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
+		spriteTex = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
 
 		stats = new Stats(1, 10, 3, 3, 3, 18);
 
 		break;
 	case NormalEnemyType::BAT:
 
-		spriteText = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
+		spriteTex = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
 		stats = new Stats(1, 5, 10, 1, 1, 27);
 
 		break;
 	case NormalEnemyType::SKELETON:
 
-		spriteText = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
+		spriteTex = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
 
 		/*stats = new Stats(1, 15, 6, 5, 1, 10);*/
 		stats = new Stats(1, 15, 15, 5, 1, 18);
@@ -463,7 +464,7 @@ bool NormalEnemy::CleanUp()
 	baseCollider = nullptr;
 	delete baseCollider;
 
-	app->tex->UnLoad(spriteText);
+	app->tex->UnLoad(spriteTex);
 
 
 	currentAnimation = nullptr;

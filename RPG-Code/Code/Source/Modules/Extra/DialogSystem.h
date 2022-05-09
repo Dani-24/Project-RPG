@@ -38,7 +38,7 @@ private:
 	SDL_Texture* currentChara, *dialogueBox;
 	iPoint dialogPosition;
 	bool wait;
-
+	bool _waitpad;
 	NPCType npcType;
 
 	List<const char*> dialogList;

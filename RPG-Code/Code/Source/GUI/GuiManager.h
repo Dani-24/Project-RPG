@@ -50,6 +50,7 @@ public:
 	SDL_Texture* texture;
 	SDL_Texture* selector;
 	SDL_Texture* clicker;
+	bool keyb;
 };
 
 #endif // __GUIMANAGER_H__

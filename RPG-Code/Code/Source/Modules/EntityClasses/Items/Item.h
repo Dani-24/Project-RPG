@@ -15,8 +15,7 @@ struct SDL_Texture;
 
 enum class ItemType
 {
-	WEAPON,
-	ARMOR,
+	EQUIPMENT,
 	USABLE
 };
 
@@ -33,10 +32,6 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 
-	// Returns the enemy's collider
-	//const Collider* GetCollider() const;
-	//virtual void OnCollision(Collider* collider);
-
 	virtual bool CleanUp();
 
 
@@ -47,5 +42,3 @@ public:
 };
 
 #endif // !__ITEM_H__
-
-
