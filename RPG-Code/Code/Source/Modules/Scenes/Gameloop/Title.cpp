@@ -352,6 +352,16 @@ bool TitleScene::PostUpdate()
 	app->render->DrawTexture(titleLogo, 0, 0);
 
 	// Render Buttons
+	/*if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN ) {
+		a += 1;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		a -= 1;
+	}*/
+	//hpv = (partyList.At(1)->data->stats->health / partyList.At(1)->data->stats->maxHealth) * w;
+	/*SDL_Rect HPV = { 100,100,a/200*200,10 };
+	app->render->DrawRectangle({ 100, 100,200,10 }, 0, 0, 0);
+	app->render->DrawRectangle(HPV, 0, 255, 0);*/
 
 	btn1->state != GuiControlState::PRESSED ? app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250) : app->render->DrawTexture(press_startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
 	btn2->state != GuiControlState::PRESSED ? app->render->DrawTexture(continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250);

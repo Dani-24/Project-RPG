@@ -48,6 +48,9 @@ public:
 private:
 
 	float fpsdt;
+	//variables de interfaz
+	float hpc, hpv;
+	float pmc, pmv;
 
 public:
 	bool pause;
@@ -87,6 +90,7 @@ public:
 	SDL_Texture* backtoMenuTex;
 	SDL_Texture* press_backtoMenuTex;
 	
+
 };
 
 #endif // __SCENE_H__

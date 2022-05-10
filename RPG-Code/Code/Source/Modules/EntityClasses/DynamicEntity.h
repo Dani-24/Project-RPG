@@ -31,6 +31,7 @@ public:
 	int defense ;
 	int speed;
 	int mana;
+	
 
 	int Shealth;
 

@@ -89,6 +89,8 @@ private:
 
 	//variable para que no pete con mando
 	bool wait, _wait;
+
+	float a=200;
 };
 
 #endif // !__TITLE_H__
