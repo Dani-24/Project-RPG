@@ -47,14 +47,14 @@ bool PauseMenu::Start()
 	
 	
 	// GUI
-	party = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 21, "Party", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250 });
-	invent = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 22, "Inventory", { (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250 });
-	town = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 23, "Town", { (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250 });
-	resume = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 24, "Resume", { (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250 });
-	config = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 25, "Config", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250 });
-	save = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 26, "Save", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250 });
-	load = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 27, "Load", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250 });
-	exit = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 28, "Exit", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250 });
+	party = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	invent = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Albert", { (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	town = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 23, "sos", { (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	resume = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 24, "putaso", { (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	config = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 25, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	save = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 26, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	load = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 27, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
+	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 28, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	
 	party->state = GuiControlState::DISABLED;
 	invent->state = GuiControlState::DISABLED;

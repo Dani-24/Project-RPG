@@ -24,14 +24,21 @@ TitleScene::TitleScene(App* application, bool start_enabled) : Module(applicatio
 	name.Create("titleScene");
 }
 
+// Destructor
 TitleScene::~TitleScene()
 {}
 
+// Called before render is available
 bool TitleScene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Title");
 	bool ret = true;
 
+	startChar = config.child("startb").attribute("path").as_string();
+	contChar = config.child("continueb").attribute("path").as_string();
+	optChar = config.child("optionsb").attribute("path").as_string();
+	credChar = config.child("creditsb").attribute("path").as_string();
+	exitChar = config.child("exitb").attribute("path").as_string();
 	titlChar = config.child("title").attribute("path").as_string();
 	mustitlChar = config.child("mustitle").attribute("path").as_string();
 	fxselChar = config.child("sfsxconfirm").attribute("path").as_string();
@@ -40,17 +47,31 @@ bool TitleScene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+// Called before the first frame
 bool TitleScene::Start()
 {
 
 	// GUI
-	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 1, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250 } );
-	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 2, "Continue", { (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250 });
-	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 3, "Options", { (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250 });
-	btn4 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 4, "Credits", { (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250 });
-	btn5 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 5, "Exit", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250 });
+	btn1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	btn2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Albert", { (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	btn3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 3, "sos", { (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	btn4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 4, "putaso", { (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
+	btn5 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 5, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 32 }, this);
 
 	// Load Assets
+
+	startb = app->tex->Load("Assets/gui/buttons/button_start.png");
+	continueb = app->tex->Load("Assets/gui/buttons/button_continue.png");
+	optionsb = app->tex->Load("Assets/gui/buttons/button_options.png");
+	creditsb = app->tex->Load("Assets/gui/buttons/button_credits.png");
+	exitb = app->tex->Load("Assets/gui/buttons/button_exit.png");
+
+	press_startb = app->tex->Load("Assets/gui/buttons/pressed_button_start.png");
+	press_continueb = app->tex->Load("Assets/gui/buttons/pressed_button_continue.png");
+	press_optionsb = app->tex->Load("Assets/gui/buttons/pressed_button_options.png");
+	press_creditsb = app->tex->Load("Assets/gui/buttons/pressed_button_credits.png");
+	press_exitb = app->tex->Load("Assets/gui/buttons/pressed_button_exit.png");
+
 	titleBg = app->tex->Load("Assets/textures/title_screen_bg.png");
 	titleLogo = app->tex->Load("Assets/textures/title_screen_logo.png");
 
@@ -66,10 +87,15 @@ bool TitleScene::Start()
 
 	app->camera->SetPos({ 0,0 });
 
-	pause = exitGame = app->scene->playing = wait = false;
+	pause = exitGame = false;
+
+	app->scene->playing = false;
+
+	wait = false;
 
 	return true;
 }
+
 
 bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -146,6 +172,8 @@ bool TitleScene::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
+
+// Called each loop iteration
 bool TitleScene::PreUpdate()
 {
 	GamePad& pad = app->input->pads[0];
@@ -259,6 +287,7 @@ bool TitleScene::PreUpdate()
 		}
 		
 	}
+
 	else if (btn5->state == GuiControlState::FOCUSED) {
 
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
@@ -284,6 +313,7 @@ bool TitleScene::PreUpdate()
 	return true;
 }
 
+// Called each loop iteration
 bool TitleScene::Update(float dt)
 {
 	
@@ -296,6 +326,7 @@ bool TitleScene::Update(float dt)
 	return true;
 }
 
+// Called each loop iteration
 bool TitleScene::PostUpdate()
 {
 	bool ret = true;
@@ -304,9 +335,18 @@ bool TitleScene::PostUpdate()
 	app->render->DrawTexture(titleBg, titleBgPos.x, titleBgPos.y);
 	app->render->DrawTexture(titleLogo, 0, 0);
 
+	// Render Buttons
+
+	btn1->state != GuiControlState::PRESSED ? app->render->DrawTexture(startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250) : app->render->DrawTexture(press_startb, (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250);
+	btn2->state != GuiControlState::PRESSED ? app->render->DrawTexture(continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_continueb, (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250);
+	btn3->state != GuiControlState::PRESSED ? app->render->DrawTexture(optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_optionsb, (app->win->GetWidth() / 2) - 360, (app->win->GetWidth() / 50) + 250);
+	btn4->state != GuiControlState::PRESSED ? app->render->DrawTexture(creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_creditsb, (app->win->GetWidth() / 2) - 250, (app->win->GetWidth() / 50) + 250);
+	btn5->state != GuiControlState::PRESSED ? app->render->DrawTexture(exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250): app->render->DrawTexture(press_exitb, (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250);
+	
 	return ret;
 }
 
+// Called before quitting
 bool TitleScene::CleanUp()
 {
 	LOG("Freeing Title scene");
@@ -321,6 +361,18 @@ bool TitleScene::CleanUp()
 
 	app->tex->UnLoad(titleBg);
 	app->tex->UnLoad(titleLogo);
+
+	app->tex->UnLoad(startb);
+	app->tex->UnLoad(continueb);
+	app->tex->UnLoad(optionsb);
+	app->tex->UnLoad(creditsb);
+	app->tex->UnLoad(exitb);
+
+	app->tex->UnLoad(press_startb);
+	app->tex->UnLoad(press_continueb);
+	app->tex->UnLoad(press_optionsb);
+	app->tex->UnLoad(press_creditsb);
+	app->tex->UnLoad(press_exitb);
 
 	return true;
 }

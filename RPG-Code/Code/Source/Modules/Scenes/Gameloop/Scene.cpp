@@ -67,9 +67,8 @@ bool Scene::Start()
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
 	//buttons
-	restart = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 40, "Restart", { 280, 280});
-	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 41, "Back To Menu", { 240, 280});
-
+	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
+	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
 	restartTex = app->tex->Load("Assets/gui/buttons/button_restart.png");
 	press_restartTex = app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
 	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");

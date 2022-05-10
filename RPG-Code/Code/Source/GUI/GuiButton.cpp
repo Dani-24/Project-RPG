@@ -7,40 +7,28 @@
 #include "Textures.h"
 #include "GuiManager.h"
 
-GuiButton::GuiButton(uint32 id, iPoint position, const char* text, bool smol, bool drawButton) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool smol) : GuiControl(GuiControlType::BUTTON, id)
 {
-
-	this->position = position;
-
-	this->bounds.x = position.x;
-	this->bounds.y = position.y;
-
+	this->bounds = bounds;
 	this->text = text;
 
 	canClick = true;
-	this->drawButton = drawButton;
-
+	drawBasic = false;
 	app->guiManager->keyb = false;
 
 	if (smol == true) {
 		// Smol button
 		buttonTexture = app->tex->Load("Assets/gui/inventory/button_mini.png");
 
-		buttonIddle.PushBack({ 0, 0, 41, 28 });
-		buttonPressed.PushBack({ 41, 0, 41, 28 });
-
-		bounds.w = 41;
-		bounds.h = 28;
+		buttonIddle.PushBack({ 0, 28, 74, 28 });
+		buttonPressed.PushBack({ 74, 28, 74, 28 });
 	}
 	else {
 		// Default button
 		buttonTexture = app->tex->Load("Assets/gui/inventory/button_default.png");
 
-		buttonIddle.PushBack({ 0, 0, 74, 28 });
-		buttonPressed.PushBack({ 74, 0, 74, 28 });
-
-		bounds.w = 74;
-		bounds.h = 28;
+		buttonIddle.PushBack({ 0, 28, 41, 28 });
+		buttonPressed.PushBack({ 41, 28, 41, 28 });
 	}
 
 	buttonIddle.loop = false;
@@ -88,66 +76,7 @@ bool GuiButton::Update(float dt)
 
 bool GuiButton::Draw(Render* render)
 {
-	// ==========================================
-	//  Draw the right button depending on state
-	// ==========================================
-	if (drawButton) {
-		switch (state)
-		{
-		case GuiControlState::DISABLED:
-			break;
-		case GuiControlState::NORMAL:
 
-			if (buttonAnim != &buttonIddle) {
-				buttonAnim = &buttonIddle;
-			}
-			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
-
-			break;
-		case GuiControlState::FOCUSED:
-
-			if (buttonAnim != &buttonIddle) {
-				buttonAnim = &buttonIddle;
-			}
-			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
-
-			// Selector
-			render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
-
-			break;
-		case GuiControlState::PRESSED:
-
-			if (buttonAnim != &buttonPressed) {
-				buttonAnim = &buttonPressed;
-			}
-			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
-
-			// Clicker
-			render->DrawTexture(app->guiManager->clicker, bounds.x + bounds.w / 2 - 6, bounds.y + bounds.h / 2 + 6);
-
-			break;
-		case GuiControlState::SELECTED:
-
-			if (buttonAnim != &buttonIddle) {
-				buttonAnim = &buttonIddle;
-			}
-			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
-
-			break;
-		default:
-			break;
-		}
-
-	}
-
-	if (state != GuiControlState::DISABLED) {
-		if (state == GuiControlState::FOCUSED) {
-			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 255,255,255 });	// White
-		}
-		else {
-			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
-		}
-	}
 	// =================
 	//  DEBUG COLLIDERS
 	// =================
@@ -177,6 +106,57 @@ bool GuiButton::Draw(Render* render)
 		default:
 			break;
 		}
+	}
+
+	// ==========================================
+	//  Draw the right button depending on state
+	// ==========================================
+	switch (state)
+	{
+	case GuiControlState::DISABLED:
+		break;
+	case GuiControlState::NORMAL:
+
+		if (buttonAnim != &buttonIddle) {
+			buttonAnim = &buttonIddle;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
+		break;
+	case GuiControlState::FOCUSED:
+
+		render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
+
+		if (buttonAnim != &buttonIddle) {
+			buttonAnim = &buttonIddle;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
+		break;
+	case GuiControlState::PRESSED:
+
+		render->DrawTexture(app->guiManager->clicker, bounds.x + bounds.w / 2 - 6, bounds.y + bounds.h / 2 + 6);
+
+		if (buttonAnim != &buttonPressed) {
+			buttonAnim = &buttonPressed;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
+		break;
+	case GuiControlState::SELECTED:
+
+		if (buttonAnim != &buttonIddle) {
+			buttonAnim = &buttonIddle;
+		}
+		render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
+
+		break;
+	default:
+		break;
+	}
+
+	if (state != GuiControlState::DISABLED) {
+		app->font->DrawText(text.GetString(), bounds.x, bounds.y, {0,0,0});
 	}
 
 	return false;

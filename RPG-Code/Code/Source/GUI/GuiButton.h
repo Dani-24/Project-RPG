@@ -16,7 +16,7 @@ class GuiButton : public GuiControl
 {
 public:
 
-	GuiButton(uint32 id, iPoint position, const char* text, bool smol = false, bool drawButton = true);
+	GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool smol = false);
 	virtual ~GuiButton();
 
 	bool Update(float dt);
@@ -26,7 +26,7 @@ public:
 	unsigned int click;
 
 	bool canClick = true;
-	bool drawButton;
+	bool drawBasic = false;
 
 	SDL_Texture* buttonTexture;
 	Animation buttonIddle;

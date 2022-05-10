@@ -39,6 +39,11 @@ public:
 	bool CleanUp();
 
 public:
+	const char* startChar;
+	const char* contChar;
+	const char* optChar;
+	const char* credChar;
+	const char* exitChar;
 	const char* titlChar;
 	const char* mustitlChar;
 	const char* fxselChar;
@@ -69,6 +74,18 @@ private:
 	GuiButton* btn3;
 	GuiButton* btn4;
 	GuiButton* btn5;
+
+	SDL_Texture* startb;
+	SDL_Texture* continueb;
+	SDL_Texture* optionsb;
+	SDL_Texture* creditsb;
+	SDL_Texture* exitb;	
+
+	SDL_Texture* press_startb;
+	SDL_Texture* press_continueb;
+	SDL_Texture* press_optionsb;
+	SDL_Texture* press_creditsb;
+	SDL_Texture* press_exitb;
 
 	//variable para que no pete con mando
 	bool wait;

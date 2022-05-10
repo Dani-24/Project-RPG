@@ -39,7 +39,11 @@ public:
 
 	GuiControl(GuiControlType type, uint32 id) : type(type), id(id), state(GuiControlState::NORMAL) {}
 
-	GuiControl(GuiControlType type, iPoint position, const char* text) : type(type), state(GuiControlState::NORMAL), position(position), text(text)
+	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :
+		type(type),
+		state(GuiControlState::NORMAL),
+		bounds(bounds),
+		text(text)
 	{
 		color.r = 255; color.g = 255; color.b = 255;
 		texture = NULL;
@@ -63,8 +67,6 @@ public:
 
 	void SetPos(iPoint A)
 	{
-		position = A;
-
 		bounds.x = A.x;
 		bounds.y = A.y;
 	}
@@ -86,7 +88,6 @@ public:
 	GuiControlState state;
 
 	SString text;           // Control text (if required)
-	iPoint position;		// Position
 	SDL_Rect bounds;        // Position and size
 	SDL_Color color;        // Tint color
 

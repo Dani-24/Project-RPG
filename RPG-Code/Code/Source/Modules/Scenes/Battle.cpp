@@ -143,6 +143,25 @@ app->scene->player->toggleGui = false;
 		break;
 	}
 
+	//Load GUI textures
+	attackTex = app->tex->Load("Assets/gui/buttons/attack.png");
+	defenseTex = app->tex->Load("Assets/gui/buttons/defense.png");
+	itemsTex = app->tex->Load("Assets/gui/buttons/items.png");
+	escapeTex = app->tex->Load("Assets/gui/buttons/escape.png");
+
+	batButtonTex =app->tex->Load("Assets/gui/buttons/bat.png");
+	flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/flying_eye.png");
+	skeletonButtonTex = app->tex->Load("Assets/gui/buttons/skeleton.png");
+
+	press_attackTex = app->tex->Load("Assets/gui/buttons/pressed_attack.png");
+	press_defenseTex = app->tex->Load("Assets/gui/buttons/pressed_defense.png");
+	press_itemsTex = app->tex->Load("Assets/gui/buttons/pressed_items.png");
+	press_escapeTex = app->tex->Load("Assets/gui/buttons/pressed_escape.png");
+
+	press_batButtonTex = app->tex->Load("Assets/gui/buttons/pressed_bat.png");
+	press_flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/pressed_flying_eye.png");
+	press_skeletonButtonTex = app->tex->Load("Assets/gui/buttons/pressed_skeleton.png");
+
 	shield = app->tex->Load("Assets/textures/shield.png");
 
 	app->map->RemoveCol();
@@ -192,33 +211,34 @@ app->scene->player->toggleGui = false;
 	app->camera->SetPos({ 0, 0 });
 	
 	//GUI
-	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , app->win->GetHeight() / 2 - 50 });
-	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2,app->win->GetHeight() / 2 - 50 });
-	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, app->win->GetHeight() / 2 - 50 });
+	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	normalAttackButton = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 105, "Normal Attack", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50 });
+	normalAttackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 105, "NormalAttack", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 110, "Player Special 1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 111, "Player Special 2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
-	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 112, "Player Special 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
+	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, "PlayerSpecial1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, "PlayerSpecial2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, "PlayerSpecial3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 120, "Valion Special 1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 121, "Valion Special 2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
-	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 122, "Valion Special 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
+	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, "ValionSpecial1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, "ValionSpecial2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "ValionSpecial3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 130, "Rayla Special 1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 131, "Rayla Special 2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
-	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 132, "Rayla Special 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
+	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "RaylaSpecial1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, "RaylaSpecial2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, "RaylaSpecial3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 140, "Dhion Special 1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 141, "Dhion Special 2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
-	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 142, "Dhion Special 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
+	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, "DhionSpecial1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, "DhionSpecial2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "DhionSpecial3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
-	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 150, "Enemy 1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50 });
-	enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 151, "Enemy 2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 });
-	enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 152, "Enemy 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
-	enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 153, "Enemy 4", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
+
+	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 151, "Enemy2", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 152, "Enemy3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 153, "Enemy4", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
 
 
 	SetTurnOrder();
@@ -641,7 +661,9 @@ bool Battle::Update(float dt)
 			}
 
 		}
-
+		
+			
+		
 		if (app->stages->actualStage!=StageIndex::NONE) {
 			app->stages->playerPtr->currentAnimation->Update(dt);
 		}
@@ -744,6 +766,7 @@ bool Battle::Update(float dt)
 					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
 						, 0, &dojoAnim.GetCurrentFrame());
 				}
+
 			}
 
 			break;
@@ -763,6 +786,8 @@ bool Battle::PostUpdate()
 	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y,app->win->GetWidth()/2,80 }, 0, 0, 0, 200);
 	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y + app->win->GetHeight()/2 - 120 ,app->win->GetWidth(),125 }, 0, 0, 0, 200);
 
+
+		
 		//app->map->Draw();
 		//app->guiManager->Draw();
 
@@ -815,6 +840,11 @@ bool Battle::PostUpdate()
 				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
 				app->font->DrawTextDelayed(battleInfoChar, 50,50);
 
+				attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+				defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+				itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+				escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
 			}
 			break;
 			
@@ -825,6 +855,38 @@ bool Battle::PostUpdate()
 			}
 			else {
 				app->font->DrawText("Select an attack", 50, 50);
+
+				normalAttackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+
+				for (int i = 0; i < 8; i++) {
+					if (entitiesInBattle[i] == actualTurnEntity) {
+						switch (i) {
+						case 0:
+							playerSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+							playerSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+							playerSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+							break;
+						case 1:
+							valionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+							valionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+							valionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
+							break;
+						case 2:
+							raylaSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+							raylaSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+							raylaSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
+							break;
+						case 3:
+							dhionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+							dhionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+							dhionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+
+							break;
+						}
+					}
+				}
 			}
 
 			break;
@@ -835,7 +897,74 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawText("Select a target", 50, 50);	
+				app->font->DrawText("Select a target", 50, 50);
+
+				if (entitiesInBattle[4] != nullptr) {
+					if (entitiesInBattle[4]->isAlive == true) {
+						if (entitiesInBattle[4]->name == "Bat")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[4]->name == "Flying eye")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[4]->name == "Skeleton")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
+						}
+						
+					}
+				}
+				if (entitiesInBattle[5] != nullptr) {
+					if (entitiesInBattle[5]->isAlive == true) {
+						if (entitiesInBattle[5]->name == "Bat")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[5]->name == "Flying eye")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[5]->name == "Skeleton")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
+						}
+					}
+				}
+				if (entitiesInBattle[6] != nullptr) {
+					if (entitiesInBattle[6]->isAlive == true) {
+						if (entitiesInBattle[6]->name == "Bat")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[6]->name == "Flying eye")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[6]->name == "Skeleton")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
+						}
+					}
+				}
+				if (entitiesInBattle[7] != nullptr) {
+					if (entitiesInBattle[7]->isAlive == true) {
+						if (entitiesInBattle[7]->name == "Bat")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[7]->name == "Flying eye")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
+						else if (entitiesInBattle[7]->name == "Skeleton")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
+						}
+					}
+				}
+					
 			}
 			
 			break;
@@ -914,6 +1043,8 @@ bool Battle::PostUpdate()
 			}
 			
 			break;
+
+			
 		case BattlePhase::WIN:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
@@ -959,6 +1090,10 @@ bool Battle::PostUpdate()
 		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);*/
 	}
 	
+
+	
+
+
 	if (entitiesInBattle[1] != nullptr) {
 		if (entitiesInBattle[1]->stats->health == 0) {
 
@@ -1540,6 +1675,49 @@ bool Battle::CleanUp()
 	delete escapeButton;
 
 	//Textures
+	attackTex = nullptr;
+	delete attackTex;
+
+	defenseTex = nullptr;
+	delete defenseTex;
+
+	itemsTex = nullptr;
+	delete itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+	press_attackTex = nullptr;
+	delete press_attackTex;
+
+	press_defenseTex = nullptr;
+	delete press_defenseTex;
+
+	press_itemsTex = nullptr;
+	delete press_itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+
+	batButtonTex = nullptr;
+	delete batButtonTex;
+
+	flyingEyeButtonTex = nullptr;
+	delete flyingEyeButtonTex;
+
+	skeletonButtonTex = nullptr;
+	delete skeletonButtonTex;
+
+	press_batButtonTex = nullptr;
+	delete press_batButtonTex;
+
+	press_flyingEyeButtonTex = nullptr;
+	delete press_flyingEyeButtonTex;
+
+	press_skeletonButtonTex = nullptr;
+	delete press_skeletonButtonTex;
+
 
 	shield = nullptr;
 	delete shield;
