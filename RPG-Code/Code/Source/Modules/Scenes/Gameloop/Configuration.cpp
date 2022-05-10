@@ -46,15 +46,15 @@ bool Configuration::Start()
 	btnSelection= app->audio->LoadFx("Assets/audio/sfx/fx_select_next.wav");
 
 	// GUI
-	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
-	musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "mus-", { (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
-	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "FX+", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90, 32, 32 }, this);
-	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "FX-", { (app->win->GetWidth() / 2) - 350 , (app->win->GetWidth() / 50) + 90, 32, 32 }, this);
-	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "fulls", { (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, 32, 32 }, this);
-	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "vsync", { (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 170, 32, 32 }, this);
-	//frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "30fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 32, 32 }, this);
-	//frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "60fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230, 32, 32 }, this);
-	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "back", { (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37, 32, 32 }, this);
+	musp = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 6, "Music +", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50 }, false);
+	musm = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 7, "Music -", { (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50 }, false);
+	FXp = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 8, "FX +", { (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90 }, false);
+	FXm = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 9, "FX -", { (app->win->GetWidth() / 2) - 350 , (app->win->GetWidth() / 50) + 90 }, false);
+	fullS = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 10, "FullScreen", { (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130 }, false);
+	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 11, "Vsync", { (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 170 }, false);
+	//frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 12, "30fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230});
+	//frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 13, "60fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230});
+	back = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 14, "Close", { (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37 }, false);
 
 	
 	if(!app->scene->playing)app->camera->SetPos({ 0,0 });
@@ -101,76 +101,18 @@ bool Configuration::PostUpdate()
 	std::string sFX = std::to_string(app->audio->volFX);
 	char const* FXchar = sFX.c_str();
 
-
-	//if (app->pauseM->pauseGame == false && app->scene->playing==false )
-	//{
 	SDL_Color c = { 0,0,0 };
 	app->render->DrawTexture(background, (app->win->GetWidth() / 2) - 475, (app->win->GetWidth() / 50) + 40);
 
 	app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 50, c);
+	app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 50, c);
 	app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 90, c);
+	app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 90, c);
 
 	app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130, c);
 	if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, c);
 
 	app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170, c);
-	if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 170, c);
-
-
-	app->font->DrawText("X", (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37, c);
-
-	//}
-	//else if (app->pauseM->pauseGame == true && app->scene->playing == true)
-	//{
-
-	//	int xt, yt, xc, yc;
-
-	//	//variables for textures
-	//	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	//	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-
-	//	//variables for text
-	//	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
-	//	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
-
-	//	app->render->DrawTexture(background, xc - 475, yc + 40);
-
-	//	app->font->DrawText("Music", xc - 470, yc + 50);
-	//	app->font->DrawText("+", xc - 300, yc + 50);
-	//	app->font->DrawText("-", xc - 350, yc + 50);
-	//	app->font->DrawText(volchar, xc - 265, yc + 50);
-	//	app->font->DrawText("SFX", xc - 470, yc + 90);
-	//	app->font->DrawText("+", xc - 300, yc + 90);
-	//	app->font->DrawText("-", xc - 350, yc + 90);
-	//	app->font->DrawText(FXchar, xc - 265, yc + 90);
-
-	//	app->font->DrawText("FullScreen", xc - 470, yc + 130);
-	//	if (app->win->fullscreen == true) app->font->DrawText("X", xc - 325, yc + 130);
-
-	//	app->font->DrawText("VSync", xc - 470, yc + 170);
-	//	if (app->render->Vsync == true) app->font->DrawText("X", xc - 325, yc + 170);
-
-
-	//	app->font->DrawText("X", xc - 180, yc + 37);
-	//}
-
-
-	/*app->font->DrawText("Music", 170, 85);
-	app->font->DrawText("SFX", 170, 125);
-	app->font->DrawText("FullScreen", 170, 165);
-	app->font->DrawText("VSync", 170, 205);*/
-
-	/*app->font->DrawText("FPS cap", 170, 245);
-	app->font->DrawText("30", 290, 245);
-	fpscap == false? app->font->DrawText("X", 330, 245) : app->font->DrawText("X", 410, 245);
-	app->font->DrawText("60", 370, 245);*/
-	
 
 	return ret;
 }

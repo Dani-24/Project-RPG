@@ -144,73 +144,7 @@ public:
 	GuiButton* enemyButton2; // enemy 2 button
 	GuiButton* enemyButton3; // enemy 3 button
 	GuiButton* enemyButton4; // enemy 4 button
-
-	//Button textures
-
-	//Thinking
-	SDL_Texture* attackTex;
-	SDL_Texture* defenseTex;
-	SDL_Texture* itemsTex;
-	SDL_Texture* escapeTex;
-
-	//Choose attack
-	SDL_Texture* normalAttackButtonTex;
-
-	SDL_Texture* playerSpecialButton1Tex;
-	SDL_Texture* playerSpecialButton2Tex;
-	SDL_Texture* playerSpecialButton3Tex;
-
-	SDL_Texture* valionSpecialButton1Tex;
-	SDL_Texture* valionSpecialButton2Tex;
-	SDL_Texture* valionSpecialButton3Tex;
-
-	SDL_Texture* raylaSpecialButton1Tex;
-	SDL_Texture* raylaSpecialButton2Tex;
-	SDL_Texture* raylaSpecialButton3Tex;
-
-	SDL_Texture* dhionSpecialButton1Tex;
-	SDL_Texture* dhionSpecialButton2Tex;
-	SDL_Texture* dhionSpecialButton3Tex;
-
-	//Selecting
-	SDL_Texture* batButtonTex;
-	SDL_Texture* flyingEyeButtonTex;
-	SDL_Texture* skeletonButtonTex;
-
-
-	//Button pressed textures
-
-	//Thinking
-	SDL_Texture* press_attackTex;
-	SDL_Texture* press_defenseTex;
-	SDL_Texture* press_itemsTex;
-	SDL_Texture* press_escapeTex;
-
-	//Choose attack
-	SDL_Texture* press_normalAttackButtonTex;
-
-	SDL_Texture* press_playerSpecialButton1Tex;
-	SDL_Texture* press_playerSpecialButton2Tex;
-	SDL_Texture* press_playerSpecialButton3Tex;
-
-	SDL_Texture* press_valionSpecialButton1Tex;
-	SDL_Texture* press_valionSpecialButton2Tex;
-	SDL_Texture* press_valionSpecialButton3Tex;
-
-	SDL_Texture* press_raylaSpecialButton1Tex;
-	SDL_Texture* press_raylaSpecialButton2Tex;
-	SDL_Texture* press_raylaSpecialButton3Tex;
-
-	SDL_Texture* press_dhionSpecialButton1Tex;
-	SDL_Texture* press_dhionSpecialButton2Tex;
-	SDL_Texture* press_dhionSpecialButton3Tex;
-
-	//Selecting
-	SDL_Texture* press_batButtonTex;
-	SDL_Texture* press_flyingEyeButtonTex;
-	SDL_Texture* press_skeletonButtonTex;
-
-
+	
 	SDL_Texture* shield;
 
 	int battleTurn;
@@ -272,7 +206,6 @@ public:
 	int damageTaken;
 
 	bool hasChangedPhase;
-
 
 	int startFx;
 };

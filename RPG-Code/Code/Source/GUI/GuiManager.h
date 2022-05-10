@@ -35,9 +35,7 @@ public:
 	bool CleanUp();
 
 	// Additional methods
-	GuiControl* CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds = { 0,0,0,0 });
-	void DestroyGuiControl(GuiControl* entity);
-	void AddGuiControl(GuiControl* entity);
+	GuiControl* CreateGuiControl(Module* observer, GuiControlType type, int id, const char* text, iPoint position, bool drawElement = true, bool smol = false);
 
 public:
 
@@ -47,7 +45,6 @@ public:
 	float updateMsCycle = 0.0f;
 	bool doLogic = false;
 
-	SDL_Texture* texture;
 	SDL_Texture* selector;
 	SDL_Texture* clicker;
 	bool keyb;
