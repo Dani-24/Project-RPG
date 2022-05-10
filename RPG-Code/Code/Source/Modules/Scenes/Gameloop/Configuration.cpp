@@ -113,7 +113,6 @@ bool Configuration::PostUpdate()
 	if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, c);
 
 	app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170, c);
-	if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 240, (app->win->GetWidth() / 50) + 170, c);
 
 	return ret;
 }
