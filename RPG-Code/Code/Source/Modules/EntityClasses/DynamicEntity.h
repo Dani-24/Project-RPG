@@ -25,13 +25,14 @@ class Stats
 public:
 	int health;
 	int maxHealth;
+	
 
 	int level;
 	int attack;
 	int defense ;
 	int speed;
 	int mana;
-	
+	int maxMana;
 
 	int Shealth;
 
@@ -68,7 +69,9 @@ public:
 		this->attack = attack;
 		this->defense = defense;
 		this->speed = speed;
+
 		this->mana = mana;
+		this->maxMana = mana;
 
 		this->localTurn = 0;
 		this->defenseBuffed = false;
@@ -78,7 +81,7 @@ public:
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
-	void SetStats(int Health, int MaxHealth, int attack, int defense, int mana/*, int speed*/)
+	void SetStats(int Health, int MaxHealth, int attack, int defense, int mana, int MaxMana/*, int speed*/)
 	{
 
 		this->health = Health;
@@ -87,6 +90,7 @@ public:
 		this->defense = defense;
 		/*this->speed = speed;*/
 		this->mana = mana;
+		this->maxMana = MaxMana;
 
 
 
