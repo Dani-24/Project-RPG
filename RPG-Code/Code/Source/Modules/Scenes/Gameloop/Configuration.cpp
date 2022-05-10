@@ -27,7 +27,7 @@ Configuration::~Configuration()
 
 bool Configuration::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Configuration menu");
+	LOG("Loading Scene");
 	bool ret = true;
 
 	return ret;

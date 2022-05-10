@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Title.h"
 #include "FadeToBlack.h"
+#include "ModuleQFonts.h"
 #include "Stages.h"
 #include "Scene.h"
 #include "GuiManager.h"
@@ -309,6 +310,8 @@ bool TitleScene::PostUpdate()
 bool TitleScene::CleanUp()
 {
 	LOG("Freeing Title scene");
+
+	app->font->CleanFonts();
 	
 	btn1->state = GuiControlState::DISABLED;
 	btn2->state = GuiControlState::DISABLED;

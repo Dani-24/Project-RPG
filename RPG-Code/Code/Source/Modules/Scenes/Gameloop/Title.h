@@ -56,6 +56,7 @@ private:
 	fPoint centre = {-650, -800};
 	float angle = 0;
 
+
 	int confirmFx, titleFx;
 
 	bool pause;

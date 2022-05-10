@@ -6,8 +6,6 @@
 #include "Point.h"
 #include "List.h"
 
-#define FONT_SIZE 30
-
 #define TEXT_LENGTH 100
 #define DELAY_TIME 2
 
@@ -42,29 +40,30 @@ public:
 
 	bool CleanUp();
 
-public:
-	// Load font and set Size
-	TTF_Font* LoadFont(const char* fontPath, int size = FONT_SIZE);
+	// Your text, Position: X, Y, color {R,G,B}
+	void DrawText(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
 
 	// Your text, Position: X, Y, color {R,G,B}
-	void DrawText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color = { 255,255,255 });
-
-	// Your text, Position: X, Y, color {R,G,B}
-	void DrawTextDelayed(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color = { 255,255,255 });
-
-	// Call on each module that uses fonts CleanUp()
-	void UnloadFonts(TTF_Font* font);
+	void DrawTextDelayed(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
 
 private:
-	void RenderText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color);
+	void RenderText(const char* textToRender, int x, int y, SDL_Color color);
+
+	void LoadFont(const char* fontPath, int size = 30);
+
+	void UnloadFonts();
 
 	void AddToList(const char* textToRender, int x, int y);
 
-	// Free Delayed texts used memory
-	void CleanTexts();
+public:
 
+	// Ejecutar en el Cleanup() del modulo que use texto
+	void CleanFonts();
+	
 private:
 	List<DelayedTexts*> delayedTexts;
+
+	TTF_Font* fontDefault;
 
 	SDL_Texture* fontTexture;
 	SDL_Surface* fontSurface;
