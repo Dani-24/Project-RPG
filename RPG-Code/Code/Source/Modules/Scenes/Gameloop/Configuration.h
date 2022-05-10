@@ -44,15 +44,15 @@ public:
 
 private:
 
-	GuiButton* musp;		//increase the music volume
-	GuiButton* musm;		//decrease the music volume
-	GuiButton* FXp;			//increase the FX volume
-	GuiButton* FXm;			//decrease the FX volume
-	GuiButton* fullS;		//Change fullscreen mode
-	GuiButton* Vsync;		//enable/disable Vsync
-	//GuiButton* frcap30;	//change frcap to 30fps
-	//GuiButton* frcap60;	//change frcap to 60fps
-	GuiButton* back;		//back to the last screen
+	GuiButton* musp;//increse the music volume
+	GuiButton* musm;//decrese the music volume
+	GuiButton* FXp;//increse the FX volume
+	GuiButton* FXm;//decrese the FX volume
+	GuiButton* fullS;//Change fullscreen mode
+	GuiButton* Vsync;//active/deactive Vsync
+	//GuiButton* frcap30;//change frcap to 30fps
+	//GuiButton* frcap60;//change frcap to 60fps
+	GuiButton* back;//back to the last screen
 	
 	int backFx, loadFx, saveFx, btnSelection;
 
