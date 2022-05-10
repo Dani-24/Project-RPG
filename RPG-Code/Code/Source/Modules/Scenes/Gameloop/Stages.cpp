@@ -57,8 +57,7 @@ bool Stages::Start()
 	LoseScreen = app->tex->Load("Assets/textures/losescreen.png");
 	WinScreen = app->tex->Load("Assets/textures/winscreen2.png");
 	
-	fontDefault = app->font->LoadFont();
-
+	
 	return true;
 }
 
@@ -172,45 +171,45 @@ bool Stages::PostUpdate()
 			switch (introductionFase)
 			{
 			case 0:
-				app->font->DrawTextDelayed("Hello, traveler soul", epilogX + 35, epilogY, fontDefault);
+				app->font->DrawTextDelayed("Hello, traveler soul", epilogX + 35, epilogY);
 				break;
 			case 1:
-				app->font->DrawTextDelayed("Canonically, a truck have just ran over you", epilogX - 100, epilogY, fontDefault);
+				app->font->DrawTextDelayed("Canonically, a truck have just ran over you", epilogX - 100, epilogY);
 				break;
 			case 2:
-				app->font->DrawTextDelayed("Camion-kun, who rules this world", epilogX - 40, epilogY, fontDefault);
+				app->font->DrawTextDelayed("Camion-kun, who rules this world", epilogX - 40, epilogY);
 				break;
 			case 3:
-				app->font->DrawTextDelayed("he runs over people and bring their souls here", epilogX - 110, epilogY, fontDefault);
+				app->font->DrawTextDelayed("he runs over people and bring their souls here", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("with the goal of fighting at the tower", epilogX - 50, epilogY + 25, fontDefault, {255,0,0});
+				app->font->DrawTextDelayed("with the goal of fighting at the tower", epilogX - 50, epilogY + 25, {255,0,0});
 				break;
 			case 5:
-				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX - 60, epilogY, fontDefault);
+				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX - 60, epilogY);
 				break;
 			case 6:
-				app->font->DrawTextDelayed("and asume your gender with them", epilogX - 50, epilogY, fontDefault);
+				app->font->DrawTextDelayed("and asume your gender with them", epilogX - 50, epilogY);
 				break;
 			case 7:
-				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY, fontDefault);
+				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY);
 				break;
 			case 8:
-				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY, fontDefault);
+				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY);
 				break;
 			case 9:
 				if (playerPtr->PlayerErection == true) {
-					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20 , epilogY, fontDefault);
+					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20 , epilogY);
 				}
 				else {
-					app->font->DrawTextDelayed("OH! So you're a girl", epilogX + 20, epilogY, fontDefault);
+					app->font->DrawTextDelayed("OH! So you're a girl", epilogX + 20, epilogY);
 				}
 				break;
 			case 10:
-				app->font->DrawTextDelayed("(You can still change your gender with 1 or 2 )", epilogX - 100, epilogY, fontDefault);
+				app->font->DrawTextDelayed("(You can still change your gender with 1 or 2 )", epilogX - 100, epilogY);
 				break;
 			case 11:
-				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY, fontDefault);
+				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY);
 				break;
 			case 12:
 				ChangeStage(StageIndex::TOWN);
@@ -827,7 +826,7 @@ bool Stages::CleanUp()
 	normalEnemyListPtr = nullptr;
 	delete normalEnemyListPtr;
 
-	app->font->UnloadFonts(fontDefault);
+
 
 	return true;
 }

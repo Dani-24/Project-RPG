@@ -28,9 +28,6 @@ public:
 	bool PostUpdate();
 
 	bool CleanUp();
-
-private:
-	TTF_Font* fontDefault,* fontSmol;
 };
 
 #endif // __INVENTORY_H__

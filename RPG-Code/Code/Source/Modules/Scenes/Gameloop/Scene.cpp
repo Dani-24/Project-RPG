@@ -51,6 +51,7 @@ bool Scene::Start()
 {
 	LOG("Starting Scene");
 	
+
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
@@ -160,11 +161,6 @@ bool Scene::Start()
 		playloading = false;
 		app->LoadGameRequest();
 	}
-
-	// fonts
-
-	fontDefault = app->font->LoadFont();
-	fontSmol = app->font->LoadFont(15);
 
 	return true;
 }
@@ -355,7 +351,7 @@ bool Scene::PostUpdate()
 			app->render->DrawTexture(fpfgui, xt - 605, yt - 343);
 		}
 		sprintf_s(lifeprota, 50, "hp:%2d", hp);
-		app->font->DrawText(lifeprota, xt - 557, yt - 346, fontDefault, { 0,200,30 });
+		app->font->DrawText(lifeprota, xt - 557, yt - 346, { 0,200,30 });
 		
 
 		if (partyList.At(1))
@@ -363,7 +359,7 @@ bool Scene::PostUpdate()
 			app->render->DrawTexture(magogui, xt - 485, yt - 349);
 
 			sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-			app->font->DrawText(lifewizard, xt - 437, yt - 346, fontDefault, { 0,200,30 });
+			app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
 		}
 		switch (app->stages->actualStage) {
 		case StageIndex::NONE:
@@ -371,23 +367,23 @@ bool Scene::PostUpdate()
 		case StageIndex::TOWN:
 			
 			sprintf_s(towns,"TOWN");
-			app->font->DrawText(towns, xt - 115, yt - 346, fontDefault, { 0,0,0 });
+			app->font->DrawText(towns, xt - 115, yt - 346, { 0,0,0 });
 			break;
 		case StageIndex::DOJO:
 			sprintf_s(dojos, "DOJOS");
-			app->font->DrawText(dojos, xt - 115, yt - 346, fontDefault, { 0,0,0 });
+			app->font->DrawText(dojos, xt - 115, yt - 346, { 0,0,0 });
 			break;
 		case StageIndex::SHOP:
 			sprintf_s(shops, "SHOP");
-			app->font->DrawText(shops, xt - 115, yt - 346, fontDefault, { 0,0,0 });
+			app->font->DrawText(shops, xt - 115, yt - 346, { 0,0,0 });
 			break;
 		case StageIndex::SHOPSUB:
 			sprintf_s(shopsubs, "SHOPSUB");
-			app->font->DrawText(shopsubs, xt - 115, yt - 346, fontDefault, { 0,0,0 });
+			app->font->DrawText(shopsubs, xt - 115, yt - 346, { 0,0,0 });
 			break;
 		case StageIndex::TAVERN:
 			sprintf_s(taberns, "TAVERN");
-			app->font->DrawText(taberns, xt - 115, yt - 346, fontDefault, { 0,0,0 });
+			app->font->DrawText(taberns, xt - 115, yt - 346, { 0,0,0 });
 			break;
 		
 		}
@@ -395,9 +391,9 @@ bool Scene::PostUpdate()
 	}
 	if (app->collisions->debug)
 	{
-		app->font->DrawText(fpsChar, xt - 630, yt - 250, fontDefault);
+		app->font->DrawText(fpsChar, xt - 630, yt - 250);
 		
-		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275, fontDefault): app->font->DrawText("Vsync: Off", xt - 630, yt - 275, fontDefault);
+		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275): app->font->DrawText("Vsync: Off", xt - 630, yt - 275);
 		
 	}
 	if (app->stages->actualStage == StageIndex::WIN) {
@@ -464,8 +460,7 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 
-	app->font->UnloadFonts(fontDefault);
-	app->font->UnloadFonts(fontSmol);
+	app->font->CleanFonts();
 
 	app->camera->ReleaseTarget();
 

@@ -36,9 +36,6 @@ bool Inventory::Start()
 	// Block player movement
 	app->scene->player->canMove = false;
 
-	fontDefault = app->font->LoadFont();
-	fontSmol = app->font->LoadFont(15);
-
 	return true;
 }
 
@@ -67,7 +64,7 @@ bool Inventory::PostUpdate()
 	int x = -app->camera->GetPos().x / 2 /* - app->win->GetWidth() / 2*/;
 	int y = -app->camera->GetPos().y / 2 /* - app->win->GetHeight() * 2*/;
 
-	app->font->DrawText("Inventory is Open", x, y, fontDefault);
+	app->font->DrawText("Inventory is Open", x, y);
 
 	LOG("%d %d %d %d %d %d", x, y, app->camera->GetPos().x, app->camera->GetPos().y, app->scene->player->position.x, app->scene->player->position.y);
 
@@ -80,9 +77,6 @@ bool Inventory::CleanUp()
 
 	// Allow player to move
 	app->scene->player->canMove = true;
-
-	app->font->UnloadFonts(fontDefault);
-	app->font->UnloadFonts(fontSmol);
 
 	return true;
 }

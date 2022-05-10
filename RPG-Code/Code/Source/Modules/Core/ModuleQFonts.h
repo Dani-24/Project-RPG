@@ -6,7 +6,7 @@
 #include "Point.h"
 #include "List.h"
 
-#define FONT_SIZE 25
+#define FONT_SIZE 30
 
 #define TEXT_LENGTH 100
 #define DELAY_TIME 2
@@ -44,7 +44,7 @@ public:
 
 public:
 	// Load font and set Size
-	TTF_Font* LoadFont(int size = FONT_SIZE);
+	TTF_Font* LoadFont(const char* fontPath, int size = FONT_SIZE);
 
 	// Your text, Position: X, Y, color {R,G,B}
 	void DrawText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color = { 255,255,255 });
@@ -55,13 +55,13 @@ public:
 	// Call on each module that uses fonts CleanUp()
 	void UnloadFonts(TTF_Font* font);
 
-	// Free Delayed texts used memory
-	void CleanTexts();
-
 private:
 	void RenderText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color);
 
 	void AddToList(const char* textToRender, int x, int y);
+
+	// Free Delayed texts used memory
+	void CleanTexts();
 
 private:
 	List<DelayedTexts*> delayedTexts;

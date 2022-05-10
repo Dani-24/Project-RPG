@@ -92,8 +92,6 @@ private:
 	SDL_Texture* townBackground, * dojoBackground;
 	Animation dojoAnim;
 
-	TTF_Font* fontDefault, *fontSmol;
-
 public:
 
 	BattlePhase battlePhase;

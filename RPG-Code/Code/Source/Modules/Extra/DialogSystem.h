@@ -45,8 +45,6 @@ private:
 
 	int displayed;
 
-	TTF_Font* fontDefault;
-
 public:
 	// Block Scene Update is true
 	bool dialoging = false;
