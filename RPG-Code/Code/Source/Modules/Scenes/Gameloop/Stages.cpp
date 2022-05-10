@@ -228,8 +228,9 @@ bool Stages::PostUpdate()
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _wait || pad.b && _wait) {
-				//if (introductionFase == 8)elect = false;
+				
 				if(elect) introductionFase++;
+				if (introductionFase == 8) elect = false;
 				_wait = false;
 			}
 			if (!pad.a && !pad.b) _wait = true;

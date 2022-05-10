@@ -160,7 +160,8 @@ bool Scene::Start()
 		playloading = false;
 		app->LoadGameRequest();
 	}
-
+	restart->state = GuiControlState::DISABLED;
+	backtoMenu->state = GuiControlState::DISABLED;
 	return true;
 }
 
@@ -451,8 +452,13 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				LOG("Click on Restart");
 			
+				restart->state = GuiControlState::DISABLED;
+				backtoMenu->state = GuiControlState::DISABLED;
+
+				app->camera->SetTarget(player);
 				app->LoadGameRequest();
 				app->scene->player->canMove = true;
+				
 
 			}
 		}
@@ -461,7 +467,11 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 			{
 				LOG("Click on Back to Menu");
 
+				restart->state = GuiControlState::DISABLED;
+				backtoMenu->state = GuiControlState::DISABLED;
+
 				app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+
 
 			}
 		}
