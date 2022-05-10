@@ -14,7 +14,6 @@ FadeToBlack::FadeToBlack(App* application, bool start_enabled) : Module(applicat
 }
 FadeToBlack::~FadeToBlack()
 {
-
 }
 bool FadeToBlack::Start()
 {
@@ -26,6 +25,14 @@ bool FadeToBlack::Start()
 
 	fading = changeStage = false;
 
+	font = app->font->LoadFont();
+
+	return true;
+}
+
+bool FadeToBlack::CleanUp() {
+
+	app->font->UnloadFonts(font);
 	return true;
 }
 
@@ -79,8 +86,7 @@ bool FadeToBlack::PostUpdate()
 
 	// Draw Loading text
 	if (app->logoScene->isEnabled() == false) {	// Desactivado en el logo pa q quede bonico
-		app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110,
-			-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25);
+		app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110, -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25, font);
 	}
 
 	return true;

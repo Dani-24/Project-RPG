@@ -24,6 +24,9 @@ bool DialogSystem::Start() {
 
 	dialogueBox = app->tex->Load("Assets/gui/dialogue_box.png");
 	_waitpad = false;
+
+	fontDefault = app->font->LoadFont();
+
 	return true;
 }
 
@@ -64,31 +67,31 @@ bool DialogSystem::PostUpdate() {
 					switch (npcType)
 					{
 					case NPCType::COCK:
-						app->font->DrawTextDelayed("Kukock :", x + 150, y + 5, {0,0,0});
+						app->font->DrawTextDelayed("Kukock :", x + 150, y + 5, fontDefault, {0,0,0});
 						break;
 					case NPCType::BARKEEPER:
-						app->font->DrawTextDelayed("Dolores Delano :", x + 150, y + 5, {92, 0, 117});
+						app->font->DrawTextDelayed("Dolores Delano :", x + 150, y + 5, fontDefault, {92, 0, 117});
 						break;
 					case NPCType::MERCHANT:
-						app->font->DrawTextDelayed("Vincenç :", x + 150, y + 5, { 255, 255, 92 });
+						app->font->DrawTextDelayed("Vincenç :", x + 150, y + 5, fontDefault, { 255, 255, 92 });
 						break;
 					case NPCType::TRAINER:
-						app->font->DrawTextDelayed("Luca :", x + 150, y + 5, { 18, 117, 0 });
+						app->font->DrawTextDelayed("Luca :", x + 150, y + 5, fontDefault, { 18, 117, 0 });
 						break;
 					case NPCType::EMILIO:
-						app->font->DrawTextDelayed("Emilio :", x + 150, y + 5, { 247, 92, 255 });
+						app->font->DrawTextDelayed("Emilio :", x + 150, y + 5, fontDefault, { 247, 92, 255 });
 						break;
 					case NPCType::FUENTE:
-						app->font->DrawTextDelayed("Town Fountain :", x + 150, y + 5, { 66, 78, 245 });
+						app->font->DrawTextDelayed("Town Fountain :", x + 150, y + 5, fontDefault, { 66, 78, 245 });
 						break;
 					case NPCType::CARTELSUDTOWN:
-						app->font->DrawTextDelayed("Welcome Sign ( Post your text here ):", x + 150, y + 5, { 41, 2, 9 });
+						app->font->DrawTextDelayed("Welcome Sign ( Post your text here ):", x + 150, y + 5, fontDefault, { 41, 2, 9 });
 						break;
 					default:
 						break;
 					}
 
-					app->font->DrawTextDelayed(t->data, x + 120, y + 30);
+					app->font->DrawTextDelayed(t->data, x + 120, y + 30, fontDefault);
 
 					app->render->DrawTexture(currentChara, x, y);
 
@@ -119,6 +122,8 @@ bool DialogSystem::CleanUp() {
 	dialoging = false;
 
 	dialogList.clear();
+
+	app->font->UnloadFonts(fontDefault);
 
 	return true;
 }

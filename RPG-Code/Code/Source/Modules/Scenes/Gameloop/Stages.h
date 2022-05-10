@@ -72,6 +72,9 @@ private:
 
 	SDL_Texture* WinScreen;
 	SDL_Texture* LoseScreen;
+
+	TTF_Font* fontDefault;
+
 public:
 	bool pause;
 
@@ -90,9 +93,6 @@ public:
 	List<Character*>* partyListPtr;
 
 	int intStage = 0;
-
-	
-	
 };
 
 #endif // __STAGES_H__

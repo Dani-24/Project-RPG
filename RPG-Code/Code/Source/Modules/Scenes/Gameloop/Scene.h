@@ -49,6 +49,8 @@ private:
 
 	float fpsdt;
 
+	TTF_Font* fontDefault, * fontSmol;
+
 public:
 	bool pause;
 	bool playing;

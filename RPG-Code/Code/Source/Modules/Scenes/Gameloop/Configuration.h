@@ -11,7 +11,6 @@
 
 struct SDL_Texture;
 
-
 class Configuration : public Module
 {
 public:
@@ -56,6 +55,9 @@ private:
 	
 	int backFx, loadFx, saveFx, btnSelection;
 
+	TTF_Font* fontDefault;
+	TTF_Font* fontSmol;
+
 public:
 	bool pause;
 	
@@ -63,7 +65,4 @@ public:
 	SDL_Texture* background;
 
 };
-
-
-
 #endif

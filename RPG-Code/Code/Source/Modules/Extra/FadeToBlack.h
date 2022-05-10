@@ -21,6 +21,8 @@ public:
 
 	bool PostUpdate() override;
 
+	bool CleanUp();
+
 	// Call another module and starts the proces to fade
 	bool DoFadeToBlack(Module* toDisable, Module* toEnable, float frames = 60);
 
@@ -47,6 +49,8 @@ private:
 
 	Module* moduleToEnable = nullptr;
 	Module* moduleToDisable = nullptr;
+
+	TTF_Font* font;
 
 public:
 	bool fading;

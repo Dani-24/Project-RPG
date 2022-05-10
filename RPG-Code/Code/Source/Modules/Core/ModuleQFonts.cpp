@@ -43,27 +43,28 @@ bool ModuleQFonts::Awake(pugi::xml_node& config) {
 
 	// Load audio effect path from config ?
 
-	return true;
-}
+	LOG("Init Fonts");
 
-bool ModuleQFonts::Start() {
-
-	LOG("Init Module Fonts");
 	if (TTF_Init() == -1) {
 		LOG("Fonts can't initialize || TTF_Init: %s", TTF_GetError());
 		return false;
 	}
 
-	app->font->LoadFont(FONT_PATH, FONT_SIZE);
+	return true;
+}
 
+bool ModuleQFonts::Start() {
+
+	LOG("Start Module Fonts");
+	
 	soundEffect = app->audio->LoadFx("Assets/audio/sfx/fx_select_next_2.wav");
 
 	return true;
 }
 
-TTF_Font* ModuleQFonts::LoadFont(const char* fontPath, int size) {
+TTF_Font* ModuleQFonts::LoadFont(int size) {
 
-	return TTF_OpenFont(fontPath, size);
+	return TTF_OpenFont(FONT_PATH, size);
 }
 
 void ModuleQFonts::AddToList(const char* textToRender, int x, int y) {

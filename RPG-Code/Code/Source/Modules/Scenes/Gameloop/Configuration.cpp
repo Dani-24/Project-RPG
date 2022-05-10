@@ -35,10 +35,11 @@ bool Configuration::Awake(pugi::xml_node& config)
 
 bool Configuration::Start()
 {
-	
-	// Load music
-	//app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
+	// Open fonts:
+	fontDefault = app->font->LoadFont();
+	fontSmol = app->font->LoadFont(10);
 
+	// Load Assets
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	background = app->tex->Load("Assets/gui/marco_opciones.png");
 
@@ -56,10 +57,8 @@ bool Configuration::Start()
 	//frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 13, "60fps", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 230});
 	back = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 14, "Close", { (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37 }, false);
 
-	
 	if(!app->scene->playing)app->camera->SetPos({ 0,0 });
 	
-
 	pause = false;
 	
 	return true;
@@ -68,25 +67,11 @@ bool Configuration::Start()
 bool Configuration::PreUpdate()
 {
 	bool ret = true;
-
-	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
-		if (pause == false) {
-			pause = true;
-			app->audio->PlayFx(backFx);
-		}
-		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-	}*/
-
 	return ret;
 }
 
 bool Configuration::Update(float dt)
 {
-	if (pause == false) {
-		
-	}
-	//app->render->DrawRectangle({ (app->win->GetWidth() / 2)-500 , (app->win->GetWidth() / 50)+30 , 350, 200 },125,0,125);
-	
 	return true;
 }
 
@@ -101,23 +86,22 @@ bool Configuration::PostUpdate()
 	std::string sFX = std::to_string(app->audio->volFX);
 	char const* FXchar = sFX.c_str();
 
-	SDL_Color c = { 0,0,0 };
+	SDL_Color colorC = { 0,0,0 };
 	app->render->DrawTexture(background, (app->win->GetWidth() / 2) - 475, (app->win->GetWidth() / 50) + 40);
 
-	app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 90, c);
+	app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50, fontDefault, colorC);
+	app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 50, fontDefault, colorC);
+	app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90, fontDefault, colorC);
+	app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 220, (app->win->GetWidth() / 50) + 90, fontDefault, colorC);
 
-	app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130, c);
-	if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, c);
+	app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130, fontDefault, colorC);
+	if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, fontDefault, colorC);
 
-	app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170, c);
-	if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 240, (app->win->GetWidth() / 50) + 170, c);
+	app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170, fontDefault, colorC);
+	if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 240, (app->win->GetWidth() / 50) + 170, fontDefault, colorC);
 
 	return ret;
 }
-
 
 bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -214,10 +198,10 @@ bool Configuration::CleanUp()
 {
 	LOG("Freeing scene");
 
-	app->font->CleanFonts();
+	app->font->UnloadFonts(fontDefault);
+	app->font->UnloadFonts(fontSmol);
 
 	//Stages:
-	
 
 	//app->stages->ChangeStage(StageIndex::NONE);
 

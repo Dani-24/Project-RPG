@@ -32,6 +32,9 @@ public:
 	Animation buttonIddle;
 	Animation buttonPressed;
 	Animation* buttonAnim;
+
+private:
+	TTF_Font* font;
 };
 
 #endif // __GUIBUTTON_H__

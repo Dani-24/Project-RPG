@@ -9,7 +9,6 @@
 
 GuiButton::GuiButton(uint32 id, iPoint position, const char* text, bool smol, bool drawButton) : GuiControl(GuiControlType::BUTTON, id)
 {
-
 	this->position = position;
 
 	this->bounds.x = position.x;
@@ -31,6 +30,8 @@ GuiButton::GuiButton(uint32 id, iPoint position, const char* text, bool smol, bo
 
 		bounds.w = 41;
 		bounds.h = 28;
+
+		font = app->font->LoadFont(15);
 	}
 	else {
 		// Default button
@@ -41,6 +42,8 @@ GuiButton::GuiButton(uint32 id, iPoint position, const char* text, bool smol, bo
 
 		bounds.w = 74;
 		bounds.h = 28;
+
+		font = app->font->LoadFont();
 	}
 
 	buttonIddle.loop = false;
@@ -51,7 +54,7 @@ GuiButton::GuiButton(uint32 id, iPoint position, const char* text, bool smol, bo
 
 GuiButton::~GuiButton()
 {
-//a
+	app->font->UnloadFonts(font);
 }
 
 bool GuiButton::Update(float dt)
@@ -142,10 +145,10 @@ bool GuiButton::Draw(Render* render)
 
 	if (state != GuiControlState::DISABLED) {
 		if (state == GuiControlState::FOCUSED) {
-			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 255,255,255 });	// White
+			app->font->DrawText(text.GetString(), bounds.x, bounds.y, font, { 255,255,255 });	// White
 		}
 		else {
-			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
+			app->font->DrawText(text.GetString(), bounds.x, bounds.y, font, { 0,0,0 });	// Black
 		}
 	}
 	// =================

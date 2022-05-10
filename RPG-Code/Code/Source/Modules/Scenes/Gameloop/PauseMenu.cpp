@@ -282,25 +282,8 @@ bool PauseMenu::PostUpdate()
 		app->render->DrawRectangle({ xt + -1000 ,yt - 1000, 1000,1000  },0,0,0,120);
 
 		app->render->DrawTexture(Pausetex, xc - 120, yc - 280);
-
-		party->state != GuiControlState::FOCUSED ? app->font->DrawText("Party", xc - 100,yc - 265, c) : app->font->DrawText("Party", xc - 100, yc - 265, w);
-
-		invent->state != GuiControlState::FOCUSED ? app->font->DrawText("Inventory", xc - 100,yc - 240, c): app->font->DrawText("Inventory", xc - 100, yc - 240, w);
-
-		town->state != GuiControlState::FOCUSED ? app->font->DrawText("Town", xc - 100,yc - 215, c): app->font->DrawText("Town", xc - 100, yc - 215, w);
-
-		resume->state != GuiControlState::FOCUSED ? app->font->DrawText("Resume", xc - 100, yc - 190, c): app->font->DrawText("Resume", xc - 100, yc - 190, w);
-
-		config->state != GuiControlState::FOCUSED ? app->font->DrawText("Config.", xc - 100,yc - 165, c): app->font->DrawText("Config.", xc - 100, yc - 165, w);
-
-		save->state != GuiControlState::FOCUSED ? app->font->DrawText("Save", xc - 100,yc - 140, c): app->font->DrawText("Save", xc - 100, yc - 140, w);
-
-		load->state != GuiControlState::FOCUSED ? app->font->DrawText("Load", xc - 100,yc - 115, c): app->font->DrawText("Load", xc - 100, yc - 115, w);
-
-		exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100,yc - 90, c): app->font->DrawText("Exit", xc - 100, yc - 90, w);
 	}
 
-	
 	return ret;
 }
 

@@ -89,7 +89,7 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
-app->scene->player->toggleGui = false;
+	app->scene->player->toggleGui = false;
 
 	// initial fx
 	startFx = app->audio->LoadFx("Assets/audio/sfx/fx_battle.wav");
@@ -220,10 +220,12 @@ app->scene->player->toggleGui = false;
 	enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 152, "Enemy 3", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2,app->win->GetHeight() / 2 - 50 });
 	enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(this, GuiControlType::BUTTON, 153, "Enemy 4", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50 });
 
-
 	SetTurnOrder();
 
 	app->audio->PlayMusic("Assets/audio/music/music_battle.ogg");
+
+	fontDefault = app->font->LoadFont();
+	fontSmol = app->font->LoadFont(15);
 
 	return true;
 }
@@ -782,7 +784,7 @@ bool Battle::PostUpdate()
 
 	//Print battle Turn
 	sprintf_s(battleTurnChar, 9, "Turn: %02d", battleTurn);
-	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15);
+	app->font->DrawText(battleTurnChar, app->win->GetWidth() / 2 - 100, 15, fontDefault);
 
 	//Print turn value (depending on entities speed)
 	/*sprintf_s(turnValueChar, 20, "Turn Value: %.2f", turnValue);
@@ -797,9 +799,9 @@ bool Battle::PostUpdate()
 	if(battlePhase != BattlePhase::WIN && battlePhase != BattlePhase::LOSE)
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
 		sprintf_s(nameChar, 100, "              -> %s -> %s -> %s -> %s", turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
-		app->font->DrawText(nameChar, 40, 15);
+		app->font->DrawText(nameChar, 40, 15, fontDefault);
 		sprintf_s(actualTurnChar, 100, "%s", turnsTimeLine[0]->name);
-		app->font->DrawText(actualTurnChar, 40, 15, {150 ,150,255 });
+		app->font->DrawText(actualTurnChar, 40, 15, fontDefault, {150 ,150,255 });
 	}
 
 	
@@ -808,137 +810,137 @@ bool Battle::PostUpdate()
 	switch (battlePhase) {
 		case BattlePhase::THINKING:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
-				app->font->DrawTextDelayed(battleInfoChar, 50,50);
+				app->font->DrawTextDelayed(battleInfoChar, 50,50, fontDefault);
 
 			}
 			break;
 			
 		case BattlePhase::CHOOSE_ATTACK:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawText("Select an attack", 50, 50);
+				app->font->DrawText("Select an attack", 50, 50, fontDefault);
 			}
 
 			break;
 			
 		case BattlePhase::SELECTING:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawText("Select a target", 50, 50);	
+				app->font->DrawText("Select a target", 50, 50, fontDefault);
 			}
 			
 			break;
 		case BattlePhase::OUTCOME:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
 				if (damageTaken == 1) {
 					sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					app->font->DrawTextDelayed(nameChar, 50, 50, fontDefault, { 255,100,0 });
 					sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(damageChar, 50, 50);
+					app->font->DrawTextDelayed(damageChar, 50, 50, fontDefault);
 				}
 				else {
 					sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					app->font->DrawTextDelayed(nameChar, 50, 50, fontDefault, { 255,100,0 });
 					sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(damageChar, 50, 50);
+					app->font->DrawTextDelayed(damageChar, 50, 50, fontDefault);
 				}
 				
 			}
 			break;
 		case BattlePhase::ATTACKING:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
 				sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
-				app->font->DrawTextDelayed(nameChar, 50, 50);
+				app->font->DrawTextDelayed(nameChar, 50, 50, fontDefault);
 			}
 			break;
 
 		case BattlePhase::DEFENDING:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
 				sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
-				app->font->DrawTextDelayed(nameChar, 50, 50);
+				app->font->DrawTextDelayed(nameChar, 50, 50, fontDefault);
 			}
 			
 			break;
 
 		case BattlePhase::USING_ITEM:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("You have no items left!", 50, 50);
+				app->font->DrawTextDelayed("You have no items left!", 50, 50, fontDefault);
 			}
 			break;
 
 		case BattlePhase::ESCAPING:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
 				if (hasTriedToEscape == false) {
 					sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
-					app->font->DrawTextDelayed(nameChar, 50, 50);
+					app->font->DrawTextDelayed(nameChar, 50, 50, fontDefault);
 				}
 				else if (canEscape == false) {
 					sprintf_s(escapeChar, 50, "%s could not escape!", actualTurnEntity->name);
-					app->font->DrawTextDelayed(escapeChar, 50, 50);
+					app->font->DrawTextDelayed(escapeChar, 50, 50, fontDefault);
 				}
 				else if (canEscape == true) {
 					sprintf_s(escapeChar, 50, "%s could escape successfully!", actualTurnEntity->name);
-					app->font->DrawTextDelayed(escapeChar, 50, 50);
+					app->font->DrawTextDelayed(escapeChar, 50, 50, fontDefault);
 				}
 			}
 			
 			break;
 		case BattlePhase::WIN:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Victory! Press SPACE to continue", 50, 50, { 255,200,0 });
+				app->font->DrawTextDelayed("Victory! Press SPACE to continue", 50, 50, fontDefault, { 255,200,0 });
 				break;
 			}
 		case BattlePhase::LOSE:
 			if (hasChangedPhase == true) {
-				app->font->CleanFonts();
+				app->font->CleanTexts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Game over! Press SPACE to go back to title", 50, 50, { 255,30,10 });
+				app->font->DrawTextDelayed("Game over! Press SPACE to go back to title", 50, 50, fontDefault, { 255,30,10 });
 			}
 			break;
 	}
 
 	if (entitiesInBattle[0]->stats->health == 0) {
 		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 255,30,0 });
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, fontDefault, { 255,30,0 });
 		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85, fontDefault);
 
 
 	}
@@ -946,15 +948,15 @@ bool Battle::PostUpdate()
 
 	
 		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 180,0,0 });
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, fontDefault, { 180,0,0 });
 		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85, fontDefault);
 	}
 	else {
 		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 100,255,0 });
+		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, fontDefault, { 100,255,0 });
 		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85, fontDefault);
 		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
 		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);*/
 	}
@@ -963,24 +965,24 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[1]->stats->health == 0) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 255,30,0 });
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, fontDefault, { 255,30,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115, fontDefault);
 
 		}
 		else if (entitiesInBattle[1]->stats->health <= 5) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 180,0,0 });
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, fontDefault, { 180,0,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115, fontDefault);
 
 		}
 		else {
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 100,255,0 });
+			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, fontDefault, { 100,255,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115, fontDefault);
 		}
 		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
 		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);*/
@@ -991,23 +993,23 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[4]->stats->health == 0) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 255,30,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault, { 255,30,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault);
 
 		}
 		else if (entitiesInBattle[4]->stats->health <= 5) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 200,100,20 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault, { 200,100,20 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault);
 		}
 		else {
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 100,255,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault, { 100,255,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, fontDefault);
 		}
 		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
 		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
@@ -1017,32 +1019,27 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[5]->stats->health == 0) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,30,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault, { 255,30,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault);
 
 		}
 		else if (entitiesInBattle[5]->stats->health <= 5) {
 
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 200,100,20 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault, { 200,100,20 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault);
 		}
 		else {
 			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 100,255,0 });
+			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault, { 100,255,0 });
 			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85);
+			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, fontDefault);
 		}
 		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
 		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
 	}
-
-	
-	
-	
-
 	return ret;
 }
 
@@ -1248,7 +1245,6 @@ void Battle::SetTurnOrder()
 						}
 					}
 				}
-
 			}
 
 			//Compare if more than one entities have the same turn value
@@ -1365,15 +1361,8 @@ void Battle::SetTurnOrder()
 				turnsTimeLine[4]->stats->localTurn++;
 			}
 		}
-		
-		
-
 		actualTurnEntity = turnsTimeLine[0];
-
 	}
-	
-
-
 }
 
 void Battle::Attack(DynamicEntity *target) {
@@ -1516,6 +1505,10 @@ void Battle::ChangePhase(BattlePhase phase) {
 // Called before quitting
 bool Battle::CleanUp()
 {
+	// Fonts
+	app->font->UnloadFonts(fontDefault);
+	app->font->UnloadFonts(fontSmol);
+
 	//Buttons
 	attackButton->state = GuiControlState::DISABLED;
 	defenseButton->state = GuiControlState::DISABLED;
