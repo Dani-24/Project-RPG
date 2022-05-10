@@ -23,9 +23,12 @@
 // + Ahora DrawTextDelayed() se stackea en una lista por lo que se puede imprimir mas de un texto con delay por Scene.
 // + Ahora los espacios del texto con delay no suenan
 // -> No es compatible con movimientos, en ese caso usar el DrawText() normal. 
+//
+// v4.0.0
+// + Capacidad de tener varias fuentes con diferentes tamaños
+// Ahora LoadFont devuelve una fuente por lo que necesita crear fuente en cada modulo donde se usa
 
 #define FONT_PATH "Assets/fonts/DungeonFont.ttf"
-#define FONT_SIZE 25
 
 ModuleQFonts::ModuleQFonts(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -58,34 +61,9 @@ bool ModuleQFonts::Start() {
 	return true;
 }
 
-void ModuleQFonts::LoadFont(const char* fontPath, int size) {
+TTF_Font* ModuleQFonts::LoadFont(const char* fontPath, int size) {
 
-	fontDefault = TTF_OpenFont(fontPath,size);
-
-	if (!fontDefault) {
-		LOG("Error loading font || TTF_OpenFont: %s", TTF_GetError());
-	}
-	else {
-		LOG("Default Font loaded");
-	}
-
-	/*fontSmol = TTF_OpenFont(fontPath, size / 2);
-
-	if (!fontSmol) {
-		LOG("Error loading Smol font || TTF_OpenFont: %s", TTF_GetError());
-	}
-	else {
-		LOG("Smol Font loaded");
-	}
-
-	fontBig = TTF_OpenFont(fontPath, size * 2);
-
-	if (!fontBig) {
-		LOG("Error loading Big font || TTF_OpenFont: %s", TTF_GetError());
-	}
-	else {
-		LOG("Big Font loaded");
-	}*/
+	return TTF_OpenFont(fontPath, size);
 }
 
 void ModuleQFonts::AddToList(const char* textToRender, int x, int y) {
@@ -100,12 +78,12 @@ void ModuleQFonts::AddToList(const char* textToRender, int x, int y) {
 }
 
 // Print a lot of space or texts will fuse and random bullshit 
-void ModuleQFonts::DrawText(const char* textToRender, int x, int y, SDL_Color color) {
-	RenderText("                                                                                             ", 0, 0, color);
-	RenderText(textToRender, x, y, color);
+void ModuleQFonts::DrawText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color) {
+	RenderText("                                                                                             ", 0, 0, font, color);
+	RenderText(textToRender, x, y, font, color);
 }
 
-void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_Color color) {
+void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, TTF_Font* font, SDL_Color color) {
 	int cont = 0;
 	// Comprueba si el texto ya existe y si no lo añade a la lista
 	for (ListItem<DelayedTexts*>* c = delayedTexts.start; c != NULL; c = c->next) {
@@ -119,7 +97,7 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 
 					c->data->textToPrint[c->data->N] = c->data->text[c->data->N];
 
-					DrawText(c->data->textToPrint, x, y, color);
+					DrawText(c->data->textToPrint, x, y, font, color);
 
 					c->data->time = DELAY_TIME;
 					c->data->N++;
@@ -136,14 +114,14 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 					}
 
 					// When the delay finishes this allows us to continue seeing the text
-					DrawText(c->data->textToPrint, x, y, color);
+					DrawText(c->data->textToPrint, x, y, font, color);
 				}
 			}
 			else {
 				c->data->time--;
 
 				// This shows the text while delay time
-				DrawText(c->data->textToPrint, x, y, color);
+				DrawText(c->data->textToPrint, x, y, font, color);
 			}
 			break;
 		}
@@ -155,10 +133,10 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 }
 
 // This method is privated
-void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color color) {
+void ModuleQFonts::RenderText(const char* textToRender, int x, int y, TTF_Font* font, SDL_Color color) {
 
 	// Create the text on surface 
-	if (!(fontSurface = TTF_RenderText_Blended(fontDefault, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
+	if (!(fontSurface = TTF_RenderText_Blended(font, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
 		LOG("Error Rendering Text || TTF_OpenFont: %s", TTF_GetError());
 	}
 	else {
@@ -176,7 +154,7 @@ void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color 
 	SDL_FreeSurface(fontSurface);
 }
 
-void ModuleQFonts::CleanFonts() {
+void ModuleQFonts::CleanTexts() {
 
 	ListItem<DelayedTexts*>* c = delayedTexts.start;
 
@@ -196,9 +174,11 @@ void ModuleQFonts::CleanFonts() {
 	fontSurface = NULL;
 }
 
-void ModuleQFonts::UnloadFonts()
+void ModuleQFonts::UnloadFonts(TTF_Font* font)
 {
-	TTF_CloseFont(fontDefault);
+	CleanTexts();
+
+	TTF_CloseFont(font);
 
 	app->tex->UnLoad(fontTexture);
 
@@ -207,7 +187,6 @@ void ModuleQFonts::UnloadFonts()
 
 bool ModuleQFonts::CleanUp() {
 	
-	UnloadFonts();
 	TTF_Quit();
 
 	return true;
