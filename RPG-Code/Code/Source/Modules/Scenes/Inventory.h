@@ -41,6 +41,9 @@ private:
 	int InventorySpecialSlots = 5;
 	int CharacterSlots = 4;
 
+	int selectedSlot = 1;
+	int selectedCharSlot = 1;
+
 	// Lists
 	List<Character*>* charactersOnUI;
 	List<Item*>* itemsOnUI;

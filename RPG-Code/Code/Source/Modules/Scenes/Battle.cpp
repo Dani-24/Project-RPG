@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "ModuleQFonts.h"
 #include "Title.h"
+#include "Inventory.h"
 
 #include <time.h>
 
@@ -58,9 +59,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	//Higher it is -> Less shake in screen - 500 its ok
 	shakeForce = 500;
 
-
 	defenseBuff = 5;
-
 
 	//Dojoanim
 	int w = 640, h = 489;
@@ -89,7 +88,7 @@ bool Battle::Awake()
 
 bool Battle::Start()
 {
-app->scene->player->toggleGui = false;
+	app->scene->player->toggleGui = false;
 
 	// initial fx
 	startFx = app->audio->LoadFx("Assets/audio/sfx/fx_battle.wav");
@@ -1181,7 +1180,6 @@ bool Battle::PostUpdate()
 	return ret;
 }
 
-
 bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 {
 	if (canSelect == true && actualTurnEntity->isAlive == true && (
@@ -1212,6 +1210,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					ChangePhase(BattlePhase::USING_ITEM);
 					app->stages->fxbool = true;
 					canSelect = false;
+
+					app->inventory->Enable();
 			
 				break;
 			case 104:
