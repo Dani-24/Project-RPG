@@ -10,6 +10,9 @@
 
 struct SDL_Texture;
 
+class Character;
+class Item;
+
 class Inventory : public Module
 {
 public:
@@ -28,6 +31,20 @@ public:
 	bool PostUpdate();
 
 	bool CleanUp();
+
+private:
+	SDL_Texture* inventoryBG;
+
+	bool inventoryOnBattle = false;
+
+	int InventorySlots = 10;
+	int InventorySpecialSlots = 5;
+	int CharacterSlots = 4;
+
+	// Lists
+	List<Character*>* charactersOnUI;
+	List<Item*>* itemsOnUI;
+
 };
 
 #endif // __INVENTORY_H__
