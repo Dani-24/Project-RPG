@@ -32,6 +32,8 @@ public:
 
 	bool CleanUp();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 private:
 	SDL_Texture* inventoryBG;
 
@@ -47,6 +49,15 @@ private:
 	// Lists
 	List<Character*>* charactersOnUI;
 	List<Item*>* itemsOnUI;
+
+	GuiButton* backButton;
+	GuiButton* statsButton;
+
+	List<GuiButton*>* itemsButtons;
+	List<GuiButton*>* specialItemsButtons;
+	List<GuiButton*>* charactersButtons;
+
+	int buttonsIDCount = 300;
 
 };
 

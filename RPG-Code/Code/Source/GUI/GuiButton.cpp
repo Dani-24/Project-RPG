@@ -21,8 +21,6 @@ GuiButton::~GuiButton()
 //a
 }
 
-
-
 bool GuiButton::Update(float dt)
 {
 	if (state != GuiControlState::DISABLED)
