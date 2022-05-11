@@ -305,7 +305,7 @@ bool Player::Start()
 	PlayerFTex = app->tex->Load(FemaleChar);
 	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
-	BattleFTex = app->tex->Load("Assets/sprites/characters/archer/combat/Idle.png");
+	BattleFTex = app->tex->Load("Assets/sprites/characters/archer/combat/Attack.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
 	//player start with idle anim
@@ -318,6 +318,9 @@ bool Player::Start()
 	stats = new Stats(1, 20, 0, 0, 5, 20);
 
 	wait, _wait = false;
+
+	timeWalkingVer = 0;
+	timeWalkingHor = 0;
 
 	return ret;
 }
@@ -425,32 +428,99 @@ void Player::MovementPlayer(float dt) {
 	int cooldown = 450;
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
-		position.y -= speed;
+		
 
-		if (currentAnimation != &walkAnimUp) {
-			currentAnimation = &walkAnimUp;
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			if (timeWalkingHor < timeWalkingVer) {
+				position.x -= speed;
+				timeWalkingHor++;
+				timeWalkingVer++;
+				if (currentAnimation != &walkAnimL) {
+					currentAnimation = &walkAnimL;
+				}
+
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
 		}
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			if (timeWalkingHor < timeWalkingVer) {
+				position.x += speed;
+				timeWalkingHor++;
+				timeWalkingVer++;
+				if (currentAnimation != &walkAnimR) {
+					currentAnimation = &walkAnimR;
+				}
 
-		if (walkFxCooldown < 0) {
-			app->audio->PlayFx(walkFx);
-			walkFxCooldown = cooldown;
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
+		}
+		else {
+			position.y -= speed;
+			timeWalkingVer++;
+			timeWalkingHor = 0;
+			if (currentAnimation != &walkAnimUp) {
+				currentAnimation = &walkAnimUp;
+			}
+
+			if (walkFxCooldown < 0) {
+				app->audio->PlayFx(walkFx);
+				walkFxCooldown = cooldown;
+			}
 		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
-		position.y += speed;
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			if (timeWalkingHor < timeWalkingVer) {
+				position.x -= speed;
+				timeWalkingHor++;
+				timeWalkingVer++;
+				if (currentAnimation != &walkAnimL) {
+					currentAnimation = &walkAnimL;
+				}
 
-		if (currentAnimation != &walkAnimDown) {
-			currentAnimation = &walkAnimDown;
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
 		}
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			if (timeWalkingHor < timeWalkingVer) {
+				position.x += speed;
+				timeWalkingHor++;
+				timeWalkingVer++;
+				if (currentAnimation != &walkAnimR) {
+					currentAnimation = &walkAnimR;
+				}
 
-		if (walkFxCooldown < 0) {
-			app->audio->PlayFx(walkFx);
-			walkFxCooldown = cooldown;
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
+		}
+		else {
+			position.y += speed;
+			timeWalkingVer++;
+			if (currentAnimation != &walkAnimDown) {
+				currentAnimation = &walkAnimDown;
+			}
+
+			if (walkFxCooldown < 0) {
+				app->audio->PlayFx(walkFx);
+				walkFxCooldown = cooldown;
+			}
 		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
-
+		timeWalkingHor++;
 		if (currentAnimation != &walkAnimL) {
 			currentAnimation = &walkAnimL;
 		}
@@ -462,7 +532,7 @@ void Player::MovementPlayer(float dt) {
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
-
+		timeWalkingHor++;
 		if (currentAnimation != &walkAnimR) {
 			currentAnimation = &walkAnimR;
 		}
@@ -485,6 +555,8 @@ void Player::MovementPlayer(float dt) {
 		else if (currentAnimation == &walkAnimDown) {
 			currentAnimation = &idleAnimDown;
 		}
+		timeWalkingHor = 0;
+		timeWalkingVer = 0;
 	}
 
 	currentAnimation->Update(dt);

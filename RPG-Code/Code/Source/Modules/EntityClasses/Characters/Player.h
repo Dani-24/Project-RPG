@@ -101,6 +101,9 @@ public:
 
 	fPoint cameraSpeed = { 0.1f , 0.1f };
 
+	int timeWalkingVer;
+	int timeWalkingHor;
+
 	// Collisions:
 
 	// Distance from player top to his collider
