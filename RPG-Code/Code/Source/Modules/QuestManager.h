@@ -5,6 +5,25 @@
 #include "List.h"
 #include <vector>
 
+enum class QuestState 
+{
+	DISABLED,
+	AVAILABLE,
+	INPROCESS,
+	FINISHED	
+};
+
+struct Quest {
+	int QuestId;
+	int NPCId;
+	int QuestGold;
+	int QuestExp;
+	bool QuestChain;
+	const char* QuestType;
+	int QuestChainId;
+};
+
+
 class QuestManager : public Module
 {
 public:
@@ -24,8 +43,9 @@ public:
 	
 
 public:
+	QuestState ActualQuest;
 
-
+	List<Quest> quests;
 
 };
 

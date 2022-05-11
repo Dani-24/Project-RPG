@@ -39,6 +39,20 @@ bool QuestManager::PreUpdate()
 {
 	bool ret = true;
 
+	switch (ActualQuest)
+	{
+	case QuestState::DISABLED:
+		break;
+	case QuestState::AVAILABLE:
+		break;
+	case QuestState::INPROCESS:
+		break;
+	case QuestState::FINISHED:
+		break;
+	default:
+		break;
+	}
+
 	return ret;
 }
 
@@ -46,12 +60,41 @@ bool QuestManager::Update(float dt)
 {
 	bool ret = true;
 
+	switch (ActualQuest)
+	{
+	case QuestState::DISABLED:
+		break;
+	case QuestState::AVAILABLE:
+		break;
+	case QuestState::INPROCESS:
+		break;
+	case QuestState::FINISHED:
+		break;
+	default:
+		break;
+	}
+
 	return ret;
 }
 
 bool QuestManager::PostUpdate()
 {
 	bool ret = true;
+
+	switch (ActualQuest)
+	{
+	case QuestState::DISABLED:
+
+		break;
+	case QuestState::AVAILABLE:
+		break;
+	case QuestState::INPROCESS:
+		break;
+	case QuestState::FINISHED:
+		break;
+	default:
+		break;
+	}
 
 	return ret;
 }
