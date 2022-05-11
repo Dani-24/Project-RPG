@@ -97,6 +97,18 @@ public:
 	int intStage = 0;
 
 	bool elect;
+
+	const char* LoseScreenChar;
+	const char* WinScreenChar;
+	const char* LoseTextChar;
+	const char* WinTextChar;
+	const char* Hitfx1Char;
+	const char* Hitfx2Char;
+	const char* Hitfx3Char;
+	const char* ShieldfxChar;
+	const char* ChDiefxChar;
+	const char* DoorChar;
+	const char* LosefxChar;
 	
 	
 };

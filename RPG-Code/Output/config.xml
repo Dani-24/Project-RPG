@@ -96,5 +96,20 @@
 		<logo path="Assets/textures/logo.png"/>	
 		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
 	</logoScene>
+
+	<stages>
+		<losescreen path="Assets/textures/lose_screen.png"/>
+		<winscreen path="Assets/textures/win_screen.png"/>
+		<losetext path="Assets/textures/lose_message.png"/>
+		<wintext path="Assets/textures/win_message.png"/>
+		<hit1fx path="Assets/audio/sfx/fx_attack_hit.wav"/>
+		<hit2fx path="Assets/audio/sfx/fx_attack_hit_2.wav"/>
+		<hit3fx path="Assets/audio/sfx/fx_attack_hit_3.wav"/>
+		<shieldfx path="Assets/audio/sfx/fx_shield.wav"/>
+		<chdiefx path="Assets/audio/sfx/fx_character_die.wav"/>
+		<doorfx path="Assets/audio/sfx/fx_open_door.wav"/>
+		<losefx path="Assets/audio/sfx/fx_lose.wav"/>
+		
+	</stages>
 	
 </config>

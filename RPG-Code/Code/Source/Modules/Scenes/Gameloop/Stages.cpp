@@ -39,25 +39,37 @@ bool Stages::Awake(pugi::xml_node& config)
 	LOG("Loading Stages.cpp");
 	bool ret = true;
 
+	LoseScreenChar = config.child("losescreen").attribute("path").as_string();
+	WinScreenChar = config.child("winscreen").attribute("path").as_string();
+	LoseTextChar = config.child("losetext").attribute("path").as_string();
+	WinTextChar = config.child("wintext").attribute("path").as_string();
+	Hitfx1Char = config.child("hit1fx").attribute("path").as_string();
+	Hitfx2Char = config.child("hit2fx").attribute("path").as_string();
+	Hitfx3Char = config.child("hit3fx").attribute("path").as_string();
+	ShieldfxChar = config.child("shieldfx").attribute("path").as_string();
+	ChDiefxChar = config.child("chdiefx").attribute("path").as_string();
+	DoorChar = config.child("doorfx").attribute("path").as_string();
+	LosefxChar = config.child("losefx").attribute("path").as_string();
+
 	return ret;
 }
 
 bool Stages::Start()
 {
 	//sfx
-	hitfx1 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit.wav");
-	hitfx2 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_2.wav");
-	hitfx3 = app->audio->LoadFx("Assets/audio/sfx/fx_attack_hit_3.wav");
-	shieldfx = app->audio->LoadFx("Assets/audio/sfx/fx_shield.wav");
-	chdiefx = app->audio->LoadFx("Assets/audio/sfx/fx_character_die.wav");
-	doorFx = app->audio->LoadFx("Assets/audio/sfx/fx_open_door.wav");
-	loseFx = app->audio->LoadFx("Assets/audio/sfx/fx_lose.wav");
+	hitfx1 = app->audio->LoadFx(Hitfx1Char);
+	hitfx2 = app->audio->LoadFx(Hitfx2Char);
+	hitfx3 = app->audio->LoadFx(Hitfx3Char);
+	shieldfx = app->audio->LoadFx(ShieldfxChar);
+	chdiefx = app->audio->LoadFx(ChDiefxChar);
+	doorFx = app->audio->LoadFx(DoorChar);
+	loseFx = app->audio->LoadFx(LosefxChar);
 
 	//textures
-	LoseScreen = app->tex->Load("Assets/textures/lose_screen.png");
-	WinScreen = app->tex->Load("Assets/textures/win_screen.png");
-	WinMessage = app->tex->Load("Assets/textures/win_message.png");
-	LoseMessage = app->tex->Load("Assets/textures/lose_message.png");
+	LoseScreen = app->tex->Load(LoseScreenChar);
+	WinScreen = app->tex->Load(WinScreenChar);
+	WinMessage = app->tex->Load(WinTextChar);
+	LoseMessage = app->tex->Load(LoseTextChar);
 
 	_wait = false;
 	elect = true;
