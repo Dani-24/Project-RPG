@@ -232,7 +232,7 @@ bool Scene::Update(float dt)
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
-				partyList.At(i)->data->stats->SetStats(9999, partyList.At(i)->data->stats->maxHealth, 9999, 9999, 999, partyList.At(i)->data->stats->maxMana);;
+				partyList.At(i)->data->stats->SetStats(9999, partyList.At(i)->data->stats->maxHealth, 9999, 9999, 999, partyList.At(i)->data->stats->mana);
 			}
 			
 			godmode = true;
@@ -325,7 +325,7 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
-	int w = 45, h = 5;
+	int w = 45, h = 5, wpm=25;
 
 
 	std::string fps = std::to_string(fpsdt);
@@ -350,36 +350,15 @@ bool Scene::PostUpdate()
 		{
 			app->render->DrawTexture(fpfgui, xt - 605, yt - 343);
 		}
-		sprintf_s(lifeprota, 50, "hp:%2d", hp);
-		app->font->DrawText(lifeprota, xt - 557, yt - 330, { 0,200,30 });
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
-			 partyList.At(0)->data->stats->health += 1;
-			 partyList.At(1)->data->stats->health += 1;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-			partyList.At(0)->data->stats->health -= 1;
-			partyList.At(1)->data->stats->health -= 1;
-		}
-		///////hp bar prota
-		hpc = ((float)partyList.At(0)->data->stats->health / (float)partyList.At(0)->data->stats->maxHealth) * w;
-		//pmc = ((float)partyList.At(0)->data->stats->mana / (float)partyList.At(0)->data->stats->max) * w;
-		SDL_Rect HPCH = { xt - 557, yt - 340,hpc,h }, PMCH = { xt - 557, yt - 330,pmc,h };
-
-		app->render->DrawRectangle({ xt - 557, yt - 340,w,h }, 0, 0, 0);
-		app->render->DrawRectangle(HPCH,0,255,0);
-
-
-		////////
+		
+		
+		CharBars();
+		
 		if (partyList.At(1))
 		{
 			app->render->DrawTexture(magogui, xt - 485, yt - 349);
 
-			sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-			app->font->DrawText(lifewizard, xt - 437, yt - 330, { 0,200,30 });
-			hpv = ((float)partyList.At(1)->data->stats->health / (float)partyList.At(1)->data->stats->maxHealth) * w;
-			SDL_Rect HPV = { xt - 437, yt - 340,hpv,(int)h };
-			app->render->DrawRectangle({ xt - 437, yt - 340,w,h }, 0, 0, 0);
-			app->render->DrawRectangle(HPV, 0, 255, 0);
+			
 		}
 		switch (app->stages->actualStage) {
 		case StageIndex::NONE:
@@ -547,4 +526,67 @@ bool Scene::CleanUp()
 	app->map->Disable();
 
 	return true;
+}
+
+void Scene::CharBars()
+{
+
+	int w = 45, h = 5, wpm = 25;
+
+	int xt, yt;
+	//variables for textures
+	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
+	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+
+
+
+	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
+	{
+
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			partyList.At(0)->data->stats->health += 1;
+			partyList.At(1)->data->stats->health += 1;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+			partyList.At(0)->data->stats->health -= 1;
+			partyList.At(1)->data->stats->health -= 1;
+		}
+
+
+		////////////////Prota
+		sprintf_s(lifeprota, 50, "hp:%2d", hp);
+		app->font->DrawText(lifeprota, xt - 557, yt - 330, { 0,200,30 });
+		/////// bar prota
+		///// HP
+		hpc = ((float)partyList.At(0)->data->stats->health / (float)partyList.At(0)->data->stats->maxHealth) * w;
+		SDL_Rect HPCH = { xt - 557, yt - 340,hpc,h };
+
+		app->render->DrawRectangle({ xt - 557, yt - 340,w,h }, 0, 0, 0);
+		app->render->DrawRectangle(HPCH, 0, 255, 0);
+		///// PM
+		pmc = ((float)partyList.At(0)->data->stats->mana / (float)partyList.At(0)->data->stats->maxMana) * wpm;
+		SDL_Rect  PMCH = { xt - 557, yt - 330,pmc,h };
+		app->render->DrawRectangle({ xt - 557, yt - 330,wpm,h }, 0, 0, 0);
+		app->render->DrawRectangle(PMCH, 0, 78, 255);
+
+		//////////////////VALION
+
+		sprintf_s(lifewizard, 50, "hp:%2d", hpw);
+		app->font->DrawText(lifewizard, xt - 437, yt - 330, { 0,200,30 });
+
+		///// HP
+		hpv = ((float)partyList.At(1)->data->stats->health / (float)partyList.At(1)->data->stats->maxHealth) * w;
+		SDL_Rect HPV = { xt - 437, yt - 340,hpv,(int)h };
+
+		app->render->DrawRectangle({ xt - 437, yt - 340,w,h }, 0, 0, 0);
+		app->render->DrawRectangle(HPV, 0, 255, 0);
+		///// PM
+		pmv = ((float)partyList.At(1)->data->stats->mana / (float)partyList.At(1)->data->stats->maxMana) * wpm;
+		SDL_Rect  PMV = { xt - 437, yt - 330,pmv,h };
+		app->render->DrawRectangle({ xt - 437, yt - 330,wpm,h }, 0, 0, 0);
+		app->render->DrawRectangle(PMV, 0, 78, 255);
+
+		////////////////////FUTURO PERSOBNAJE EN LA PARTY
+
+	}
 }

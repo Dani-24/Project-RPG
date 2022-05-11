@@ -45,6 +45,9 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	//Draws character bars on gui
+	void CharBars();
+
 private:
 
 	float fpsdt;
