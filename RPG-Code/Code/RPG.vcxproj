@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\NPC\NPC.cpp" />
     <ClCompile Include="Source\Modules\Extra\FadeToBlack.cpp" />
     <ClCompile Include="Source\Modules\Core\Input.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\Gameloop\Shop.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Inventory.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Map.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Player.cpp" />
@@ -134,6 +136,7 @@
     <ClCompile Include="Source\Modules\Core\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Core\Window.cpp" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Character.h" />
     <ClInclude Include="Source\Modules\EntityClasses\NPC\NPC.h" />
     <ClInclude Include="Source\Modules\Extra\FadeToBlack.h" />
+    <ClInclude Include="Source\Modules\Scenes\Gameloop\Shop.h" />
     <ClInclude Include="Source\Modules\Scenes\Inventory.h" />
     <ClInclude Include="Source\Modules\Scenes\Map.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Player.h" />

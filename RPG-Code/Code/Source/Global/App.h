@@ -29,6 +29,7 @@ class EntityManager;
 class QuestManager;
 class EnemyMovement;
 class PauseMenu;
+class Shop;
 
 class Camera;
 class FadeToBlack;
@@ -124,6 +125,7 @@ public:
 	EnemyMovement* enemyMovement;
 	Camera* camera;
 	PauseMenu* pauseM;
+	Shop* shop;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;

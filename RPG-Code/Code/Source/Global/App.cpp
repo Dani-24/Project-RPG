@@ -24,6 +24,7 @@
 
 #include "DialogSystem.h"
 #include "Inventory.h"
+#include "Shop.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -59,6 +60,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
+	shop = new Shop(this, false);
 
 	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this, false);
@@ -90,6 +92,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(conf);
 	
 	AddModule(inventory);
+	AddModule(shop);
 
 	AddModule(guiManager);
 	AddModule(font);
