@@ -54,14 +54,7 @@ bool PauseMenu::Start()
 	load = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 27, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	exit = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 28, "comoLaAbuela", { (app->win->GetWidth() / 2) - 140, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	
-	party->state = GuiControlState::DISABLED;
-	invent->state = GuiControlState::DISABLED;
-	town->state = GuiControlState::DISABLED;
-	resume->state = GuiControlState::DISABLED;
-	config->state = GuiControlState::DISABLED;
-	save->state = GuiControlState::DISABLED;
-	load->state = GuiControlState::DISABLED;
-	exit->state = GuiControlState::DISABLED;
+	DissButt();
 	// Load Assets
 
 	// Audio 
@@ -90,12 +83,14 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 21)
 			{
 				LOG("partu");
+				DissButt();
 			}
 			if (control->id == 22)
 			{
 				LOG("invent");
 
 				app->inventory->Enable();
+				resumen = true;
 			}
 			if (control->id == 23)
 			{
@@ -112,6 +107,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 25)
 			{
 				LOG("config");
+				DissButt();
 				if (!app->conf->isEnabled())app->conf->Enable();
 			}
 			if (control->id == 26)
@@ -203,19 +199,11 @@ bool PauseMenu::Update(float dt)
 		}
 		else
 		{
-			if (app->inventory->isEnabled() == false) {
+			/*if (app->inventory->isEnabled() == false) {*/
 				pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
-				party->state = GuiControlState::NORMAL;
-				invent->state = GuiControlState::NORMAL;
-				town->state = GuiControlState::NORMAL;
-				resume->state = GuiControlState::NORMAL;
-				config->state = GuiControlState::NORMAL;
-				save->state = GuiControlState::NORMAL;
-				load->state = GuiControlState::NORMAL;
-				exit->state = GuiControlState::NORMAL;
-				party->state = GuiControlState::NORMAL;
+				EnButt();
 				app->audio->ChangeVolume(app->audio->vol / 3);
-			}
+			//}
 		}
 		_wait = false;
 	}
@@ -270,14 +258,7 @@ bool PauseMenu::CleanUp()
 
 	/*app->font->CleanFonts();*/
 
-	party->state = GuiControlState::DISABLED;
-	invent->state = GuiControlState::DISABLED;
-	town->state = GuiControlState::DISABLED;
-	resume->state = GuiControlState::DISABLED;
-	config->state = GuiControlState::DISABLED;
-	save->state = GuiControlState::DISABLED;
-	load->state = GuiControlState::DISABLED;
-	exit->state = GuiControlState::DISABLED;
+	DissButt();
 	
 	//app->tex->UnLoad(titleBg);
 	//app->tex->UnLoad(startb);
@@ -477,4 +458,31 @@ void PauseMenu::KeyboardControl()
 
 	}
 
+}
+
+void PauseMenu::EnButt()
+{
+	
+		party->state = GuiControlState::NORMAL;
+		invent->state = GuiControlState::NORMAL;
+		town->state = GuiControlState::NORMAL;
+		resume->state = GuiControlState::NORMAL;
+		config->state = GuiControlState::NORMAL;
+		save->state = GuiControlState::NORMAL;
+		load->state = GuiControlState::NORMAL;
+		exit->state = GuiControlState::NORMAL;
+		party->state = GuiControlState::NORMAL;	
+	
+}
+
+void PauseMenu::DissButt()
+{
+	party->state = GuiControlState::DISABLED;
+	invent->state = GuiControlState::DISABLED;
+	town->state = GuiControlState::DISABLED;
+	resume->state = GuiControlState::DISABLED;
+	config->state = GuiControlState::DISABLED;
+	save->state = GuiControlState::DISABLED;
+	load->state = GuiControlState::DISABLED;
+	exit->state = GuiControlState::DISABLED;
 }

@@ -38,6 +38,12 @@ public:
 	//manage the control of ui with keyboard/gamepad
 	void KeyboardControl();
 
+	//Enable buttons
+	void EnButt();
+
+	// dissable buttons
+	void DissButt();
+
 public:
 
 	/*Player* player = nullptr;*/
@@ -67,6 +73,7 @@ public:
 private:
 	//variable para que no pete con mando
 	bool wait, _wait;
+	bool pbutt;
 
 };
 
