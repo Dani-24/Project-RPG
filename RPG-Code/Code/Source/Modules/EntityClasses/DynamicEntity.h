@@ -33,9 +33,12 @@ public:
 	int speed;
 	int mana;
 	int maxMana;
+	int exp;
+	int nexp;
 
 	int Shealth;
 
+	
 	int Slevel;
 	int Sattack;
 	int Sdefense;
@@ -47,6 +50,8 @@ public:
 
 	Stats() {
 		this->level = 0;
+		this->exp = 0;
+		this->nexp = 100;
 
 		this->maxHealth = 100;
 		this->health = 100;
@@ -59,7 +64,7 @@ public:
 		this->localTurn = 0;
 		this->defenseBuffed = false;
 	}
-
+	//lvl mxhealth attak defense mana speed
 	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
 		this->level = level;
 
@@ -73,6 +78,9 @@ public:
 		this->mana = mana;
 		this->maxMana = mana;
 
+		/*this->exp = exp;
+		this->nexp = nexp;*/
+		this->nexp = 100;
 		this->localTurn = 0;
 		this->defenseBuffed = false;
 	}
@@ -97,25 +105,45 @@ public:
 	}
 	void SaveStats()
 	{
-		this->Slevel = level;
+		Slevel = level;
 
-		this->Shealth = health;
+		Shealth = health;
 
-		this->Sattack = attack;
-		this->Sdefense = defense;
+		Sattack = attack;
+		Sdefense = defense;
 		/*this->Sspeed = speed;*/
-		this->Smana = mana;
+		Smana = mana;
 	}
 	void LoadStats()
 	{
-		this->level = Slevel;
+		level = Slevel;
 
-		this->health = Shealth;
+		health = Shealth;
 
-		this->attack = Sattack;
-		this->defense = Sdefense;
+		attack = Sattack;
+		defense = Sdefense;
 		/*this->speed = Sspeed*/;
-		this->mana = Smana;
+		mana = Smana;
+	}
+
+	void lvlup(int rep)
+	{
+		int a = 0;
+		exp += rep;
+		if (exp>=nexp)
+		{
+			if (exp > nexp)a = exp - nexp;
+			exp = a;
+			level++;
+			attack*=1.2;
+			defense *= 1.2;
+			speed *= 1.2;
+			mana *= 1.2;
+			maxMana *= 1.2;
+			nexp *= 1.2;
+			maxHealth *= 1.2;
+			health *= 1.2;
+		}
 	}
 };
 
