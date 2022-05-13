@@ -610,57 +610,60 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 		for (normalEnemyInList = app->scene->normalEnemyList.start; normalEnemyInList != NULL; normalEnemyInList = normalEnemyInList->next)
 		{
-			if (normalEnemyInList->data->GetCollider() != nullptr) {
-				if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
-					
-					app->battle->entitiesInBattle[0] = this;
-					app->battle->entitiesInBattle[4] = normalEnemyInList->data;
+			if (normalEnemyInList->data->activeOnStage == app->stages->actualStage) {
+				if (normalEnemyInList->data->GetCollider() != nullptr) {
+					if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
 
-					if (app->stages->partyListPtr->At(1) != nullptr) {
-						app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+						app->battle->entitiesInBattle[0] = this;
+						app->battle->entitiesInBattle[4] = normalEnemyInList->data;
 
-						srand(time(NULL));
-						int enemySpawnChance = (rand() % 100);
+						if (app->stages->partyListPtr->At(1) != nullptr) {
+							app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
 
-						if (enemySpawnChance >= 2) {
 							srand(time(NULL));
-							int enemyType = (rand() % 3);
-							if (enemyType == 0) {
-								NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
-								bat->onlyInBattle = true;
-								app->scene->normalEnemyList.add(bat);
-								app->battle->entitiesInBattle[5] = bat;
+							int enemySpawnChance = (rand() % 100);
+
+							if (enemySpawnChance >= 2) {
+								srand(time(NULL));
+								int enemyType = (rand() % 3);
+								if (enemyType == 0) {
+									NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
+									bat->onlyInBattle = true;
+									app->scene->normalEnemyList.add(bat);
+									app->battle->entitiesInBattle[5] = bat;
+								}
+								else if (enemyType == 1) {
+
+									NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
+									flyingEye->onlyInBattle = true;
+									app->scene->normalEnemyList.add(flyingEye);
+									app->battle->entitiesInBattle[5] = flyingEye;
+								}
+								else if (enemyType == 2) {
+									NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
+									skeleton->onlyInBattle = true;
+									app->scene->normalEnemyList.add(skeleton);
+									app->battle->entitiesInBattle[5] = skeleton;
+
+								}
+
+
 							}
-							else if (enemyType == 1) {
-
-								NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
-								flyingEye->onlyInBattle = true;
-								app->scene->normalEnemyList.add(flyingEye);
-								app->battle->entitiesInBattle[5] = flyingEye;
-							}
-							else if (enemyType == 2) {
-								NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
-								skeleton->onlyInBattle = true;
-								app->scene->normalEnemyList.add(skeleton);
-								app->battle->entitiesInBattle[5] = skeleton;
-
-							}
-
-
 						}
+
+
+
+
+
+
+
+						//app->battle->normalEnemyInBattle = normalEnemyInList->data;
+						//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
+						app->battle->Enable();
 					}
-
-					
-
-					
-
-					
-				
-					//app->battle->normalEnemyInBattle = normalEnemyInList->data;
-					//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
-					app->battle->Enable();
 				}
 			}
+			
 			
 		}
 

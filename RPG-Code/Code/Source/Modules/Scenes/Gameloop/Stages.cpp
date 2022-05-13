@@ -719,6 +719,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		npcListPtr = nullptr;
 		delete npcListPtr;
+
+		normalEnemyListPtr = nullptr;
+		delete normalEnemyListPtr;
+
 		break;
 
 	case StageIndex::TOWN:

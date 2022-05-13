@@ -12,6 +12,7 @@
 #include "SDL/include/SDL_Scancode.h"
 
 #include "NPC.h"
+#include "NormalEnemy.h"
 
 Collisions::Collisions(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -164,7 +165,19 @@ void Collisions::DebugDraw()
 				break;
 
 			case Collider::Type::BATTLE: // light yellow
-				app->render->DrawRectangle(colliders[i]->rect, 150, 150, 0, alpha);
+
+				// Only print battle colliders if they are activated
+				if (app->stages->normalEnemyListPtr != nullptr) {
+
+					for (ListItem<NormalEnemy*>* NormalEnemyInList = app->stages->normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+					{
+						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr) {
+							if (colliders[i] == NormalEnemyInList->data->GetCollider())
+								app->render->DrawRectangle(colliders[i]->rect, 150, 150, 0, alpha);
+						}
+					}
+				}
+				
 				break;
 			
 			default:
