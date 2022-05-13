@@ -294,6 +294,18 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
 		app->fade->DoFadeToBlack(StageIndex::LOSE);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER0);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER1);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER2);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER3);
+	}
 
 	// Player movement
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
@@ -389,7 +401,28 @@ bool Scene::PostUpdate()
 
 				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 				break;
+			case StageIndex::TOWER0:
+				sprintf_s(currentPlace_UI, "Tower");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER1:
+				sprintf_s(currentPlace_UI, "Floor 1");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER2:
+				sprintf_s(currentPlace_UI, "Floor 2");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER3:
+				sprintf_s(currentPlace_UI, "Floor 3");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
 			}
+
 		}
 	}
 	if (app->collisions->debug)

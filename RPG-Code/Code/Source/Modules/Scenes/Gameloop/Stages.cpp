@@ -109,6 +109,18 @@ bool Stages::PreUpdate()
 	case StageIndex::LOSE:
 		intStage = 9;
 		break;
+	case StageIndex::TOWER0:
+		intStage = 10;
+		break;
+	case StageIndex::TOWER1:
+		intStage = 11;
+		break;
+	case StageIndex::TOWER2:
+		intStage = 12;
+		break;
+	case StageIndex::TOWER3:
+		intStage = 13;
+		break;
 	default:
 		break;
 	}
@@ -143,6 +155,14 @@ bool Stages::Update(float dt)
 	case StageIndex::WIN:
 		break;
 	case StageIndex::LOSE:
+		break;
+	case StageIndex::TOWER0:
+		break;
+	case StageIndex::TOWER1:
+		break;
+	case StageIndex::TOWER2:
+		break;
+	case StageIndex::TOWER3:
 		break;
 	default:
 
@@ -266,7 +286,17 @@ bool Stages::PostUpdate()
 		/*backtoMenu->state = GuiControlState::DISABLED;*/
 		
 		break;
+
+	case StageIndex::TOWER0:
+		break;
+	case StageIndex::TOWER1:
+		break;
+	case StageIndex::TOWER2:
+		break;
+	case StageIndex::TOWER3:
+		break;
 	}
+
 	
 
 	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
@@ -831,6 +861,67 @@ void Stages::ChangeStage(StageIndex newStage) {
 		LOG("Lose Screen");
 		app->audio->PlayFx(loseFx);
 		/*app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");*/
+
+		break;
+	case StageIndex::TOWER0:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_B.tmx");
+
+			playerPtr->position = playerPtr->tower0Pos;
+			app->camera->OnTarget();
+
+			LOG("Loading Tower map");
+
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break;
+
+	case StageIndex::TOWER1:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_floor_1.tmx");
+
+			playerPtr->position = playerPtr->tower1Pos;
+			app->camera->OnTarget();
+
+			LOG("Loading Floor 1 map");
+
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break;
+	case StageIndex::TOWER2:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_floor_2.tmx");
+
+			playerPtr->position = playerPtr->tower2Pos;
+			app->camera->OnTarget();
+
+			LOG("Loading Floor 2 map");
+
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break;
+	case StageIndex::TOWER3:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_boss_1.tmx");
+
+			playerPtr->position = playerPtr->tower3Pos;
+			app->camera->OnTarget();
+
+			LOG("Loading Floor 3 map");
+
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
 
 		break;
 	default:

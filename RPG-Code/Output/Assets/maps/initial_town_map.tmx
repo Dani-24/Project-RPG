@@ -36840,8 +36840,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="647"/>
-   <tile gid="648"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -36900,8 +36900,8 @@
    <tile/>
    <tile/>
    <tile gid="925"/>
-   <tile gid="655"/>
-   <tile gid="656"/>
+   <tile/>
+   <tile/>
    <tile gid="925"/>
    <tile/>
    <tile/>
@@ -65363,7 +65363,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="22" name="Wall collisions" width="60" height="60" visible="0" opacity="0.4">
+ <layer id="22" name="Wall collisions" width="60" height="60" opacity="0.4">
   <properties>
    <property name="Col" value="wall"/>
    <property name="Draw" type="int" value="0"/>
@@ -69366,8 +69366,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="799"/>
+   <tile gid="799"/>
    <tile/>
    <tile/>
    <tile/>
@@ -72579,7 +72579,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="27" name="Doors Colliders - Other" width="60" height="60" opacity="0.41">
+ <layer id="27" name="Doors Colliders - Other" width="60" height="60" visible="0" opacity="0.41">
   <data>
    <tile/>
    <tile/>

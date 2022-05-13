@@ -22,7 +22,11 @@ enum class StageIndex {
 	SHOPSUB,
 	INTRODUCTION,
 	WIN,
-	LOSE
+	LOSE,
+	TOWER0,
+	TOWER1,
+	TOWER2,
+	TOWER3,
 };
 
 class Stages : public Module
