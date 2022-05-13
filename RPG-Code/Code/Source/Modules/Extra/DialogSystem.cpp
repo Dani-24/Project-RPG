@@ -88,7 +88,7 @@ bool DialogSystem::PostUpdate() {
 						break;
 					}
 
-					app->font->DrawTextDelayed(t->data, x + 120, y + 30);
+					app->font->DrawTextDelayed(t->data, x + 120, y + 33);
 
 					app->render->DrawTexture(currentChara, x, y);
 
@@ -119,6 +119,8 @@ bool DialogSystem::CleanUp() {
 	dialoging = false;
 
 	dialogList.clear();
+
+	app->font->CleanFonts();
 
 	return true;
 }
