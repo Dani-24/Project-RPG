@@ -35,3 +35,43 @@ bool Shop::Awake(pugi::xml_node& config)
 	return ret;
 
 }
+
+bool Shop::Start() {
+	bool ret = true;
+
+	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
+	//app->scene->player->canMove = false;
+
+	return ret;
+}
+
+bool Shop::PreUpdate() {
+	bool ret = true;
+
+	return ret;
+}
+
+bool Shop::Update(float dt) {
+	bool ret = true;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && app->shop->isEnabled()==true)
+	{
+		app->shop->Disable();
+	}
+
+	return ret;
+}
+
+bool Shop::PostUpdate() {
+	bool ret = true;
+	int y = -app->camera->GetPos().y / 2;
+	int x = -app->camera->GetPos().x / 2;
+	
+	app->render->DrawTexture(ShopTex, x, y, 0);
+	return ret;
+}
+
+bool Shop::CleanUp() {
+	bool ret = true;
+
+	return ret;
+}

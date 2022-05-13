@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "Defs.h"
 #include "Log.h"
+#include "Shop.h"
 #include "GuiButton.h"
 #include "Configuration.h"
 #include "Battle.h"
@@ -186,7 +187,7 @@ bool PauseMenu::Update(float dt)
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 	if (!pad.start) _wait = true;
 
-	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() ) {
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() && app->shop->isEnabled()==false ) {
 
 		if (pauseGame){
 			if (app->conf->isEnabled())app->conf->Disable();

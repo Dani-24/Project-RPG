@@ -14,6 +14,7 @@
 #include "Stages.h"
 #include "Battle.h"
 #include "FadeToBlack.h"
+#include "Shop.h"
 
 #include <time.h>
 
@@ -1016,6 +1017,10 @@ void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 				dieF.Reset();
 				characterList->data->deathAnim.Reset();
 			}
+			
+		}
+		if (npc == NPCType::MERCHANT) {
+			app->shop->Enable();
 		}
 		wait = false;
 	}
