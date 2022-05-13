@@ -18,6 +18,8 @@ public:
 
 	virtual ~Shop();
 
+	bool Awake(pugi::xml_node& config);
+
 };
 
 #endif // !__SHOP_H__

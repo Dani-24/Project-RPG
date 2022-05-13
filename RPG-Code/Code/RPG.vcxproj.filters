@@ -49,7 +49,6 @@
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
     <ClCompile Include="Source\Modules\QuestManager.cpp" />
-    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Shop.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +121,6 @@
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
     <ClInclude Include="Source\Modules\QuestManager.h" />
-    <ClInclude Include="Shop.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Shop.h" />
   </ItemGroup>
   <ItemGroup>

@@ -26,3 +26,12 @@ Shop::~Shop()
 {
 
 }
+
+bool Shop::Awake(pugi::xml_node& config)
+{
+	LOG("Starting Shop");
+	bool ret = true;
+
+	return ret;
+
+}
