@@ -44,8 +44,6 @@ bool PauseMenu::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool PauseMenu::Start()
 {
-	
-	
 	// GUI
 	party = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 21, "Start", { (app->win->GetWidth() / 2) - 580, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
 	invent = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 22, "Albert", { (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 250, 74, 20 }, this);
@@ -71,11 +69,7 @@ bool PauseMenu::Start()
 	confirmFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 
 	Pausetex = app->tex->Load("Assets/gui/pause_menu2.png");
-	// Set camera to 0,0
-
-	//app->camera->SetPos({ 0,0 });
-
-	
+		
 	resumen = false;
 	pauseGame = false;
 	exitg = false;
@@ -83,7 +77,6 @@ bool PauseMenu::Start()
 
 	return true;
 }
-
 
 bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -150,8 +143,6 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 	return true;
 }
 
-
-// Called each loop iteration
 bool PauseMenu::PreUpdate()
 {
 	bool ret = true;
@@ -168,7 +159,6 @@ bool PauseMenu::PreUpdate()
 
 	if (pauseGame)
 	{
-		app->camera->SetPos({ 0,0 });
 		party->SetPos({ xc - 100,yc - 265 });
 		invent->SetPos({ xc - 100,yc - 240 });
 		town->SetPos({ xc - 100,yc - 215 });
@@ -181,33 +171,6 @@ bool PauseMenu::PreUpdate()
 		KeyboardControl();
 
 	}
-
-	
-	/*if (app->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
-		if (app->pauseM->pauseGame == false && app->scene->playing == true)app->pauseM->pauseGame = true, app->scene->playing = true, app->conf->Enable() ;
-		else app->pauseM->pauseGame = false, app->conf->Disable();
-	}*/
-
-	//if (start == true) {
-	//	if (pause == false) {
-	//		pause = true;
-	//		app->audio->PlayFx(confirmFx);
-	//	}
-	//	app->stages->ChangeStage(StageIndex::TOWN);
-
-	//	app->fade->DoFadeToBlack(this, (Module*)app->scene);
-	//}
-
-	//if (options == true) {
-	//	options = false;
-	//	app->audio->PlayFx(confirmFx);
-
-	//	app->fade->DoFadeToBlack(this, (Module*)app->conf);
-	//}
-
-	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || exit == true) {
-	//	ret = false;
-	//}
 	return ret;
 }
 
@@ -226,9 +189,9 @@ bool PauseMenu::Update(float dt)
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 	if (!pad.start) _wait = true;
+
 	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() ) {
 
-		
 		if (pauseGame){
 			if (app->conf->isEnabled())app->conf->Disable();
 			pauseGame = false;
@@ -256,9 +219,7 @@ bool PauseMenu::Update(float dt)
 		}
 		_wait = false;
 	}
-
-	
-		return true;
+	return true;
 }
 
 // Called each loop iteration
@@ -299,8 +260,6 @@ bool PauseMenu::PostUpdate()
 
 		exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100,yc - 90, c): app->font->DrawText("Exit", xc - 100, yc - 90, w);
 	}
-
-	
 	return ret;
 }
 
@@ -335,7 +294,6 @@ bool PauseMenu::CleanUp()
 //called on preupdate
 void PauseMenu::KeyboardControl()
 {
-
 	GamePad& pad = app->input->pads[0];
 
 	if (party->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&

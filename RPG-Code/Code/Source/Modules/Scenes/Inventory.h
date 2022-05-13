@@ -37,6 +37,10 @@ public:
 private:
 	SDL_Texture* inventoryBG;
 
+	SDL_Texture* characterBG;
+
+	SDL_Texture* weaponType;
+
 	bool inventoryOnBattle = false;
 
 	int InventorySlots = 10;

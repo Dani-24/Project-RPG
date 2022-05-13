@@ -56,8 +56,8 @@ bool Inventory::Start()
 		inventoryBG = app->tex->Load("Assets/gui/inventory/ui_inventory_battle.png");
 	}
 
-	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 298, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 20, 74, 32 }, this);
-	statsButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 299, "Stats", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 100, 74, 32 }, this);
+	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 298, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 10, 74, 32 }, this);
+	statsButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 299, "Stats", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 45, 74, 32 }, this);
 
 	return true;
 }
@@ -113,6 +113,9 @@ bool Inventory::CleanUp()
 	inventoryOnBattle = false;
 
 	buttonsIDCount = 300;
+
+	backButton->state = GuiControlState::DISABLED;
+	statsButton->state = GuiControlState::DISABLED;
 
 	return true;
 }
