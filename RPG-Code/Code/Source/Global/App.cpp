@@ -86,9 +86,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(entities);
 
-	AddModule(inventory);
 	AddModule(pauseM);
 	AddModule(conf);
+	
+	AddModule(inventory);
 
 	AddModule(guiManager);
 	AddModule(font);

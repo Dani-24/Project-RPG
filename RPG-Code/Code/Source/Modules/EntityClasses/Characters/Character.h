@@ -60,6 +60,8 @@ public:
 
 	Collider* battleCollider;
 
+	SDL_Texture* spriteFace;
+
 };
 
 #endif // !__ENEMY_H__

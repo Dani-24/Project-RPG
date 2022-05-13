@@ -6,6 +6,8 @@
 #include "Render.h"
 #include "Textures.h"
 #include "GuiManager.h"
+#include "Camera.h"
+
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -21,8 +23,6 @@ GuiButton::~GuiButton()
 //a
 }
 
-
-
 bool GuiButton::Update(float dt)
 {
 	if (state != GuiControlState::DISABLED)
@@ -31,6 +31,10 @@ bool GuiButton::Update(float dt)
 		// Update the state of the GUiButton according to the mouse position
 		int mouseX, mouseY;
 		app->input->GetMousePosition(mouseX, mouseY);
+
+		// Adjust Mouse position to camera
+		mouseX -= app->camera->GetPos().x / 2;
+		mouseY -= app->camera->GetPos().y / 2;
 
 		if ((mouseX > bounds.x ) && (mouseX < (bounds.x + bounds.w )) &&
 			(mouseY > bounds.y ) && (mouseY < (bounds.y + bounds.h )))

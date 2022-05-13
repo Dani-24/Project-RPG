@@ -10,6 +10,9 @@
 
 struct SDL_Texture;
 
+class Character;
+class Item;
+
 class Inventory : public Module
 {
 public:
@@ -28,6 +31,38 @@ public:
 	bool PostUpdate();
 
 	bool CleanUp();
+
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
+private:
+	SDL_Texture* inventoryBG;
+
+	SDL_Texture* characterBG;
+
+	SDL_Texture* weaponType;
+
+	bool inventoryOnBattle = false;
+
+	int InventorySlots = 10;
+	int InventorySpecialSlots = 5;
+	int CharacterSlots = 4;
+
+	int selectedSlot = 1;
+	int selectedCharSlot = 1;
+
+	// Lists
+	List<Character*>* charactersOnUI;
+	List<Item*>* itemsOnUI;
+
+	GuiButton* backButton;
+	GuiButton* statsButton;
+
+	List<GuiButton*>* itemsButtons;
+	List<GuiButton*>* specialItemsButtons;
+	List<GuiButton*>* charactersButtons;
+
+	int buttonsIDCount = 300;
+
 };
 
 #endif // __INVENTORY_H__
