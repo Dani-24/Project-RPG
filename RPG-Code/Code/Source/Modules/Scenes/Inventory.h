@@ -35,34 +35,37 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
-	SDL_Texture* inventoryBG;
-
-	SDL_Texture* characterBG;
-
-	SDL_Texture* weaponType;
+	SDL_Texture	* inventoryBG,
+				* weaponType;
 
 	bool inventoryOnBattle = false;
 
-	int InventorySlots = 10;
-	int InventorySpecialSlots = 5;
-	int CharacterSlots = 4;
-
-	int selectedSlot = 1;
-	int selectedCharSlot = 1;
+	int InventorySlots = 10,
+		InventorySpecialSlots = 5,
+		CharacterSlots = 4,
+		selectedSlot = 1,
+		selectedCharSlot = 1;
 
 	// Lists
 	List<Character*>* charactersOnUI;
 	List<Item*>* itemsOnUI;
 
-	GuiButton* backButton;
-	GuiButton* statsButton;
+	// Assets GUI_buttons
+	GuiButton	* backButton,
+				* statsButton;
 
-	List<GuiButton*>* itemsButtons;
-	List<GuiButton*>* specialItemsButtons;
-	List<GuiButton*>* charactersButtons;
+	SDL_Texture	* backButtonTexture,
+				* backButtonPressedTexture,
+				* statsButtonTexture,
+				* statsButtonPressedTexture;
+
+	List<GuiButton*>* itemsButtons,
+					* specialItemsButtons,
+					* charactersButtons;
 
 	int buttonsIDCount = 300;
 
+	int buttonSfx, backSfx;
 };
 
 #endif // __INVENTORY_H__

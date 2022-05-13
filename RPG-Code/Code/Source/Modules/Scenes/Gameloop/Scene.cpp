@@ -57,8 +57,6 @@ bool Scene::Start()
 	app->dialogs->Enable();
 
 	// Load textures
-	gui = app->tex->Load("Assets/gui/GUIFinal.png");
-
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
@@ -70,6 +68,7 @@ bool Scene::Start()
 	press_restartTex = app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
 	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");
 	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_back_to_menu.png");
+	locationUI = app->tex->Load("Assets/gui/inventory/ui_localizacion.png");
 
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
@@ -159,6 +158,11 @@ bool Scene::Start()
 	}
 	restart->state = GuiControlState::DISABLED;
 	backtoMenu->state = GuiControlState::DISABLED;
+
+	// UI
+
+	characterBG = app->tex->Load("Assets/gui/inventory/ui_inventory_char.png");
+
 	return true;
 }
 
@@ -328,60 +332,71 @@ bool Scene::PostUpdate()
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
 	
-	int xt, yt;
-	//variables for textures
-	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+	// Variables
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		charX = x + 110,
+		charY = y + 5;
 
 	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
 	{
-		
-		app->render->DrawTexture(gui, xt - 623, yt - 360);
+		// Checkear miembros de la party y imprimir sus carteles
 
-		
-		app->render->DrawTexture(player->spriteFace, xt - 605, yt - 346);
-		
-		CharBars();
-		
-		if (partyList.At(1))
-		{
-			app->render->DrawTexture(partyList.At(1)->data->spriteFace, xt - 485, yt - 349);
+		if (app->battle->isEnabled() == false) {
+			ListItem<Character*>* ch = partyList.start;
 
-			
+			for (ch; ch != NULL; ch = ch->next)
+			{
+				app->render->DrawTexture(characterBG, charX, charY);
+
+				app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+
+				app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+				charX += 130;
+			}
+
+			CharBars();
 		}
-		switch (app->stages->actualStage) {
-		case StageIndex::NONE:
-			break;
-		case StageIndex::TOWN:
-			
-			sprintf_s(towns,"TOWN");
-			app->font->DrawText(towns, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::DOJO:
-			sprintf_s(dojos, "DOJOS");
-			app->font->DrawText(dojos, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::SHOP:
-			sprintf_s(shops, "SHOP");
-			app->font->DrawText(shops, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::SHOPSUB:
-			sprintf_s(shopsubs, "SHOPSUB");
-			app->font->DrawText(shopsubs, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::TAVERN:
-			sprintf_s(taberns, "TAVERN");
-			app->font->DrawText(taberns, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		
-		}
+		// Current Stage on UI
+		if (showLocation == true) {
+			app->render->DrawTexture(locationUI, x + 10, y + 25);
 
+			switch (app->stages->actualStage) {
+			case StageIndex::NONE:
+				break;
+			case StageIndex::TOWN:
+				sprintf_s(currentPlace_UI, "Town");
+
+				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::DOJO:
+				sprintf_s(currentPlace_UI, "Dojo");
+
+				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::SHOP:
+				sprintf_s(currentPlace_UI, "Shop");
+
+				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::SHOPSUB:
+				sprintf_s(currentPlace_UI, "Shop -1");
+
+				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TAVERN:
+				sprintf_s(currentPlace_UI, "Tavern");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			}
+		}
 	}
 	if (app->collisions->debug)
 	{
-		app->font->DrawText(fpsChar, xt - 630, yt - 250);
+		app->font->DrawText(fpsChar, x + 10, y + 100);
 		
-		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275): app->font->DrawText("Vsync: Off", xt - 630, yt - 275);
+		app->render->Vsync == true?	app->font->DrawText("Vsync: On", x + 10, y + 120): app->font->DrawText("Vsync: Off", x + 10, y + 120);
 		
 	}
 	if (app->stages->actualStage == StageIndex::WIN) {
@@ -391,11 +406,8 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
-
-
 	return ret;
 }
-
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -461,11 +473,12 @@ bool Scene::CleanUp()
 
 	app->camera->ReleaseTarget();
 
-	app->tex->UnLoad(gui);
 	app->tex->UnLoad(restartTex);
 	app->tex->UnLoad(backtoMenuTex);
 	app->tex->UnLoad(press_restartTex);
 	app->tex->UnLoad(press_backtoMenuTex);
+	app->tex->UnLoad(characterBG);
+	app->tex->UnLoad(locationUI);
 
 	//Stages:
 	app->entities->DestroyEntity(player);
@@ -517,63 +530,51 @@ bool Scene::CleanUp()
 
 void Scene::CharBars()
 {
-
-	int w = 45, h = 5, wpm = 25;
-
-	int xt, yt;
-	//variables for textures
-	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-
-
-
+	// Variables
+	int w = 35, h = 6, wpm = 25;
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		barsX = x + 173,
+		barsY = y + 28;
+	
 	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
 	{
+		// Party List
+		ListItem<Character*>* ch = partyList.start;
 
+		// Debug Keys:
 		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
-			partyList.At(0)->data->stats->health += 1;
-			partyList.At(1)->data->stats->health += 1;
+			for (ch; ch != NULL; ch = ch->next) {
+				ch->data->stats->health += 1;
+			}
 		}
+		ch = partyList.start;
 		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-			partyList.At(0)->data->stats->health -= 1;
-			partyList.At(1)->data->stats->health -= 1;
+			for (ch; ch != NULL; ch = ch->next) {
+				ch->data->stats->health -= 1;
+			}
 		}
+		ch = partyList.start;
 
+		// Barras Stats Party
+		for (ch; ch != NULL; ch = ch->next) {
+			// HP bars
+			hpc = ((float)ch->data->stats->health / (float)ch->data->stats->maxHealth) * w;
+			SDL_Rect HPrect= { barsX + 7, barsY, hpc, h };
 
-		////////////////Prota
-		sprintf_s(lifeprota, 50, "hp:%2d", hp);
-		app->font->DrawText(lifeprota, xt - 557, yt - 330, { 0,200,30 });
-		/////// bar prota
-		///// HP
-		hpc = ((float)partyList.At(0)->data->stats->health / (float)partyList.At(0)->data->stats->maxHealth) * w;
-		SDL_Rect HPCH = { xt - 557, yt - 340,hpc,h };
+			app->render->DrawRectangle({ barsX + 7, barsY, w, h }, 0, 0, 0);
+			app->render->DrawRectangle(HPrect, 0, 255, 0);
 
-		app->render->DrawRectangle({ xt - 557, yt - 340,w,h }, 0, 0, 0);
-		app->render->DrawRectangle(HPCH, 0, 255, 0);
-		///// PM
-		pmc = ((float)partyList.At(0)->data->stats->mana / (float)partyList.At(0)->data->stats->maxMana) * wpm;
-		SDL_Rect  PMCH = { xt - 557, yt - 330,pmc,h };
-		app->render->DrawRectangle({ xt - 557, yt - 330,wpm,h }, 0, 0, 0);
-		app->render->DrawRectangle(PMCH, 0, 78, 255);
+			// PM bars
+			pmc = ((float)ch->data->stats->mana / (float)ch->data->stats->maxMana) * wpm;
+			SDL_Rect  PMrect = { barsX + 7, barsY + h + 1, pmc, h };
+			app->render->DrawRectangle({ barsX + 7, barsY + h + 1, wpm, h }, 0, 0, 0);
+			app->render->DrawRectangle(PMrect, 0, 78, 255);
 
-		//////////////////VALION
-
-		sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-		app->font->DrawText(lifewizard, xt - 437, yt - 330, { 0,200,30 });
-
-		///// HP
-		hpv = ((float)partyList.At(1)->data->stats->health / (float)partyList.At(1)->data->stats->maxHealth) * w;
-		SDL_Rect HPV = { xt - 437, yt - 340,hpv,(int)h };
-
-		app->render->DrawRectangle({ xt - 437, yt - 340,w,h }, 0, 0, 0);
-		app->render->DrawRectangle(HPV, 0, 255, 0);
-		///// PM
-		pmv = ((float)partyList.At(1)->data->stats->mana / (float)partyList.At(1)->data->stats->maxMana) * wpm;
-		SDL_Rect  PMV = { xt - 437, yt - 330,pmv,h };
-		app->render->DrawRectangle({ xt - 437, yt - 330,wpm,h }, 0, 0, 0);
-		app->render->DrawRectangle(PMV, 0, 78, 255);
-
-		////////////////////FUTURO PERSOBNAJE EN LA PARTY
-
+			// Life text
+			sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
+			app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
+			barsX += 130;
+		}
 	}
 }

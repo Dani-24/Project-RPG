@@ -68,15 +68,10 @@ public:
 	Character* valionchar;
 	int backFx, loadFx, saveFx;
 	int hp,hpw;
-	char lifeprota[100] = { "\0" };
-	char lifewizard[100] = { "\0" };
-	char towns[100] = { "\0" };
-	char dojos[100] = { "\0" };
-	char shops[100] = { "\0" };
-	char shopsubs[100] = { "\0" };
-	char taberns[100] = { "\0" };
+	char lifeTextUI[100] = { "\0" };
+	char currentPlace_UI[100] = { "\0" };
 
-	SDL_Texture* gui;
+	SDL_Texture* characterBG;
 
 	bool playloading = false;
 
@@ -89,8 +84,9 @@ public:
 
 	SDL_Texture* backtoMenuTex;
 	SDL_Texture* press_backtoMenuTex;
-	
 
+	SDL_Texture* locationUI;
+	bool showLocation = true;
 };
 
 #endif // __SCENE_H__
