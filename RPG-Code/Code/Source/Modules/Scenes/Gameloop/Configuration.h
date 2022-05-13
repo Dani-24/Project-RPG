@@ -54,10 +54,11 @@ private:
 	//GuiButton* frcap60;//change frcap to 60fps
 	GuiButton* back;//back to the last screen
 	
-	int backFx, loadFx, saveFx, btnSelection;
+	
 
 public:
 	bool pause;
+	int backFx, loadFx, saveFx, btnSelection;
 	
 	bool fulls;
 	SDL_Texture* background;

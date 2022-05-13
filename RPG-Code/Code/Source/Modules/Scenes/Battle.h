@@ -273,8 +273,11 @@ public:
 
 	bool hasChangedPhase;
 
-
+	//sfx
 	int startFx;
+	int explosionfx;
+
+
 };
 
 #endif // __BATTLE_H__

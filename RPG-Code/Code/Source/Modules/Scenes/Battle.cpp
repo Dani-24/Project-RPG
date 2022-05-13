@@ -15,6 +15,7 @@
 #include "ModuleQFonts.h"
 #include "Title.h"
 #include "Inventory.h"
+#include "Configuration.h"
 
 #include <time.h>
 
@@ -162,6 +163,9 @@ bool Battle::Start()
 	press_skeletonButtonTex = app->tex->Load("Assets/gui/buttons/pressed_skeleton.png");
 
 	shield = app->tex->Load("Assets/textures/shield.png");
+
+	//Load Sfx
+	explosionfx = app->audio->LoadFx("Assets/audio/sfx/fx_attack_explosion.wav");
 
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
@@ -402,6 +406,7 @@ bool Battle::Update(float dt)
 					app->stages->pAnim = rand() % 3 + 1;
 					app->stages->vAnim = rand() % 2 + 1;
 					Attack(targetEntity);
+					/*app->audio->PlayFx(hit1fx);*/
 					ChangePhase(BattlePhase::OUTCOME);
 					
 				}
@@ -1189,13 +1194,14 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		switch (control->type)
 		{
 		case GuiControlType::BUTTON:
-
+			
 			switch (control->id) {
 				//Thinking
 			case 101:
 					ChangePhase(BattlePhase::CHOOSE_ATTACK);
 					app->stages->fxbool = true;
 					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
 				
 				break;
 			case 102:
@@ -1203,19 +1209,19 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					ChangePhase(BattlePhase::DEFENDING);
 					app->stages->fxbool = true;
 					canSelect = false;
-				
+					app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 103:
 			
 					ChangePhase(BattlePhase::USING_ITEM);
 					app->stages->fxbool = true;
 					canSelect = false;
-
+					app->audio->PlayFx(app->conf->btnSelection);
 					app->inventory->Enable();
 			
 				break;
 			case 104:
-			
+				 app->audio->PlayFx(app->conf->btnSelection);
 					ChangePhase(BattlePhase::ESCAPING);
 					app->stages->fxbool = true;
 					canSelect = false;
@@ -1228,6 +1234,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 
 				//Special Attacks
@@ -1236,18 +1243,21 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 111:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 112:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 
 			case 120:
@@ -1255,18 +1265,21 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 121:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 122:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 
 			case 130:
@@ -1274,18 +1287,21 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 131:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 132:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 
 			case 140:
@@ -1293,18 +1309,21 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 141:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 142:
 				targetEntity = nullptr;
 				ChangePhase(BattlePhase::SELECTING);
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 
 				//Selecting
@@ -1312,21 +1331,25 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 				targetEntity = entitiesInBattle[4];
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 151:
 				targetEntity = entitiesInBattle[5];
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 152:
 				targetEntity = entitiesInBattle[6];
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			case 153:
 				targetEntity = entitiesInBattle[7];
 				app->stages->fxbool = true;
 				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			}
 
@@ -1519,6 +1542,7 @@ void Battle::Attack(DynamicEntity *target) {
 		damageTaken = actualTurnEntity->stats->attack - target->stats->defense;
 		target->stats->health = target->stats->health + target->stats->defense - actualTurnEntity->stats->attack;
 		hasToShake = true;
+		app->audio->PlayFx(explosionfx);
 		shakePos = 0;
 	}
 	

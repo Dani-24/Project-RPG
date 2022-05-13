@@ -860,7 +860,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Lose Screen");
 		app->audio->PlayFx(loseFx);
-		/*app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");*/
+		app->audio->PlayMusic("Assets/audio/music/music_lose.ogg");
 
 		break;
 	case StageIndex::TOWER0:
