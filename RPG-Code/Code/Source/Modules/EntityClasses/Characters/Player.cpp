@@ -308,6 +308,9 @@ bool Player::Start()
 	BattleFTex = app->tex->Load("Assets/sprites/characters/archer/combat/Attack.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
+	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
+	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
+
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
 	PlayerErection = 1;
@@ -346,6 +349,14 @@ bool Player::PreUpdate()
 
 		lastFramePos = position;
 	}
+
+	if (PlayerErection == true) {
+		spriteFace = male_character_face_gui;
+	}
+	else {
+		spriteFace = female_character_face_gui;
+	}
+
 	return true;
 }
 

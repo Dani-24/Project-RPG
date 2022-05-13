@@ -88,6 +88,9 @@ public:
 	SDL_Texture* BattleMTex = nullptr;
 	SDL_Texture* BattleFTex = nullptr;
 
+	SDL_Texture* male_character_face_gui;
+	SDL_Texture* female_character_face_gui;
+
 	// Current Sprite
 	bool PlayerErection = true;
 

@@ -77,9 +77,6 @@ public:
 	char taberns[100] = { "\0" };
 
 	SDL_Texture* gui;
-	SDL_Texture* mpfgui;
-	SDL_Texture* fpfgui;
-	SDL_Texture* magogui;
 
 	bool playloading = false;
 

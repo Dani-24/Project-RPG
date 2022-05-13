@@ -58,9 +58,6 @@ bool Scene::Start()
 
 	// Load textures
 	gui = app->tex->Load("Assets/gui/GUIFinal.png");
-	mpfgui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
-	fpfgui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
-	magogui = app->tex->Load("Assets/sprites/faces/wizardgui.png");
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
@@ -342,21 +339,13 @@ bool Scene::PostUpdate()
 		app->render->DrawTexture(gui, xt - 623, yt - 360);
 
 		
-		if (player->PlayerErection == true)
-		{
-			app->render->DrawTexture(mpfgui, xt - 605, yt - 346);
-		}
-		else if (player->PlayerErection == false)
-		{
-			app->render->DrawTexture(fpfgui, xt - 605, yt - 343);
-		}
-		
+		app->render->DrawTexture(player->spriteFace, xt - 605, yt - 346);
 		
 		CharBars();
 		
 		if (partyList.At(1))
 		{
-			app->render->DrawTexture(magogui, xt - 485, yt - 349);
+			app->render->DrawTexture(partyList.At(1)->data->spriteFace, xt - 485, yt - 349);
 
 			
 		}
@@ -473,8 +462,6 @@ bool Scene::CleanUp()
 	app->camera->ReleaseTarget();
 
 	app->tex->UnLoad(gui);
-	app->tex->UnLoad(mpfgui);
-	app->tex->UnLoad(fpfgui);
 	app->tex->UnLoad(restartTex);
 	app->tex->UnLoad(backtoMenuTex);
 	app->tex->UnLoad(press_restartTex);

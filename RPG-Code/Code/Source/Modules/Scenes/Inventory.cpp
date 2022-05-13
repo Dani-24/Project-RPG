@@ -56,6 +56,12 @@ bool Inventory::Start()
 		inventoryBG = app->tex->Load("Assets/gui/inventory/ui_inventory_battle.png");
 	}
 
+	characterBG = app->tex->Load("Assets/gui/inventory/ui_inventory_char.png");
+
+	// Esta deberia ir con un animation que cada frame sea cada arma
+	//weaponType = app->tex->Load("Assets/gui/inventory/ui_inventory.png");
+
+	// Buttons
 	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 298, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 10, 74, 32 }, this);
 	statsButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 299, "Stats", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 45, 74, 32 }, this);
 
@@ -67,7 +73,6 @@ bool Inventory::PreUpdate()
 	bool ret = true;
 
 	// Get Inputs here
-
 
 	return ret;
 }
@@ -97,8 +102,25 @@ bool Inventory::PostUpdate()
 	// Draw UI
 
 	app->render->DrawTexture(inventoryBG, x, y);
+	
+	// Checkear miembros de la party y imprimir sus carteles
 
-	// Draw Texts
+	if (app->battle->isEnabled() == false) {
+		ListItem<Character*>* ch = app->scene->partyList.start;
+
+		int charX = x + 110,
+			charY = y + 5;
+
+		for (ch; ch != NULL; ch = ch->next)
+		{
+			app->render->DrawTexture(characterBG, charX, charY);
+
+			app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+
+			app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+			charX += 130;
+		}
+	}
 
 	return ret;
 }
