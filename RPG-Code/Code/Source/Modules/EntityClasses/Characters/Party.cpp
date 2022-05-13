@@ -166,6 +166,8 @@ bool Party::Start()
 		//stats = new Stats(1, 15, 10, 3, 10, 32);
 		stats = new Stats(1, 15, 0, 0, 10, 32);
 		spriteTex = app->tex->Load(ValionChar);
+
+		spriteFace = app->tex->Load("Assets/sprites/faces/wizardgui.png");
 		break;
 	}
 	
@@ -211,6 +213,7 @@ bool Party::CleanUp() {
 
 	//Textures
 	app->tex->UnLoad(spriteTex);
+	app->tex->UnLoad(spriteFace);
 
 	return true;
 }
