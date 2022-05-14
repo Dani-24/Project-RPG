@@ -43,10 +43,6 @@ bool Inventory::Start()
 		inventoryOnBattle = true;
 	}
 
-	// Load party characters
-	charactersOnUI = app->stages->partyListPtr;
-	//itemsOnUI = app->stages->itemsList;
-
 	// Load assets
 
 	if (inventoryOnBattle == false) {
@@ -69,6 +65,22 @@ bool Inventory::Start()
 	statsButtonTexture = app->tex->Load("Assets/gui/buttons/stats.png");
 	statsButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_stats.png");
 
+	selectorItems = app->tex->Load("Assets/gui/inventory/selector_items.png");
+	selectorCharacters = app->tex->Load("Assets/gui/inventory/selector_personaje.png");
+
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		butX = x + 275,
+		butY = y + 141;
+
+	selectorItemPos = { butX, butY };
+	selectorCharsPos = { x + 110, y + 5 };
+
+	// Crear "botones" de la UI
+	/*for (int i = 0; i < inventorySlots; i++) {
+		Slot s = new Slot();
+	}*/
+
 	// SFX
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 	backSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
@@ -81,8 +93,6 @@ bool Inventory::Start()
 bool Inventory::PreUpdate()
 {
 	bool ret = true;
-
-	// Get Inputs here
 
 	return ret;
 }
@@ -104,8 +114,8 @@ bool Inventory::PostUpdate()
 {
 	bool ret = true;
 
-	int x = -app->camera->GetPos().x / 2;
-	int y = -app->camera->GetPos().y / 2;
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2;
 
 	// Draw UI
 
@@ -113,6 +123,9 @@ bool Inventory::PostUpdate()
 
 	backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
 	statsButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(statsButtonTexture, statsButton->bounds.x, statsButton->bounds.y) : app->render->DrawTexture(statsButtonPressedTexture, statsButton->bounds.x, statsButton->bounds.y);
+
+	app->render->DrawTexture(selectorItems, selectorItemPos.x, selectorItemPos.y);
+	app->render->DrawTexture(selectorCharacters, selectorCharsPos.x, selectorCharsPos.y);
 
 	return ret;
 }
@@ -126,8 +139,6 @@ bool Inventory::CleanUp()
 
 	inventoryOnBattle = false;
 
-	buttonsIDCount = 300;
-
 	backButton->state = GuiControlState::DISABLED;
 	statsButton->state = GuiControlState::DISABLED;
 
@@ -137,6 +148,8 @@ bool Inventory::CleanUp()
 	app->tex->UnLoad(backButtonPressedTexture);
 	app->tex->UnLoad(statsButtonPressedTexture);
 	app->tex->UnLoad(statsButtonTexture);
+	app->tex->UnLoad(selectorCharacters);
+	app->tex->UnLoad(selectorItems);
 
 	buttonSfx = NULL;
 
@@ -164,12 +177,6 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 			LOG("Stats button");
 
 			app->audio->PlayFx(buttonSfx);
-		}
-		
-		for (int i = 300; i < buttonsIDCount; i++) {
-			if (control->id == i) {
-				// PRESS ON X BUTTON
-			}
 		}
 
 		default: break;

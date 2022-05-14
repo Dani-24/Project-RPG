@@ -8,10 +8,20 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include "Item.h"
+#include "Equipment.h"
+#include "Usable.h"
+
 struct SDL_Texture;
 
 class Character;
 class Item;
+
+class Slot {
+	SDL_Rect* bounds;
+	bool isSelected;
+	bool activated;
+};
 
 class Inventory : public Module
 {
@@ -36,19 +46,23 @@ public:
 
 private:
 	SDL_Texture	* inventoryBG,
-				* weaponType;
+				* weaponType,
+				* selectorItems,
+				* selectorCharacters;
+
+	iPoint	selectorItemPos,
+			selectorCharsPos;
 
 	bool inventoryOnBattle = false;
 
-	int InventorySlots = 10,
-		InventorySpecialSlots = 5,
-		CharacterSlots = 4,
-		selectedSlot = 1,
-		selectedCharSlot = 1;
+	int inventorySlots = 10,
+		inventorySpecialSlots = 5;
 
 	// Lists
-	List<Character*>* charactersOnUI;
-	List<Item*>* itemsOnUI;
+	List<Item*>* items,
+			   * specialItems;
+
+	List<Slot*>  * slots;
 
 	// Assets GUI_buttons
 	GuiButton	* backButton,
@@ -58,12 +72,6 @@ private:
 				* backButtonPressedTexture,
 				* statsButtonTexture,
 				* statsButtonPressedTexture;
-
-	List<GuiButton*>* itemsButtons,
-					* specialItemsButtons,
-					* charactersButtons;
-
-	int buttonsIDCount = 300;
 
 	int buttonSfx, backSfx;
 };

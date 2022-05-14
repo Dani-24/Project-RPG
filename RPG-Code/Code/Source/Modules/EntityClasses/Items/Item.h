@@ -6,7 +6,7 @@
 #include "Animation.h"
 #include "Render.h"
 #include "Entity.h"
-
+#include "StaticEntity.h"
 #include "EntityManager.h"
 
 #include <vector>
@@ -24,7 +24,7 @@ enum class ItemType
 class Item : public StaticEntity
 {
 public:
-
+	
 	Item(ItemType type);
 	~Item();
 

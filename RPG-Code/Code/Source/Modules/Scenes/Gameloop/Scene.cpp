@@ -182,6 +182,7 @@ bool Scene::PreUpdate()
 		app->pauseM->CleanUp();
 	}
 	
+	// Hide UI
 	guiactivate = false;
 
 	if (app->inventory->isEnabled() == false) {
@@ -368,61 +369,61 @@ bool Scene::PostUpdate()
 			}
 
 			CharBars();
-		}
-		// Current Stage on UI
-		if (showLocation == true) {
-			app->render->DrawTexture(locationUI, x + 10, y + 25);
 
-			switch (app->stages->actualStage) {
-			case StageIndex::NONE:
-				break;
-			case StageIndex::TOWN:
-				sprintf_s(currentPlace_UI, "Town");
+			// Current Stage on UI
+			if (showLocation == true) {
+				app->render->DrawTexture(locationUI, x + 10, y + 25);
 
-				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::DOJO:
-				sprintf_s(currentPlace_UI, "Dojo");
+				switch (app->stages->actualStage) {
+				case StageIndex::NONE:
+					break;
+				case StageIndex::TOWN:
+					sprintf_s(currentPlace_UI, "Town");
 
-				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::SHOP:
-				sprintf_s(currentPlace_UI, "Shop");
+					app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::DOJO:
+					sprintf_s(currentPlace_UI, "Dojo");
 
-				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::SHOPSUB:
-				sprintf_s(currentPlace_UI, "Shop -1");
+					app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::SHOP:
+					sprintf_s(currentPlace_UI, "Shop");
 
-				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::TAVERN:
-				sprintf_s(currentPlace_UI, "Tavern");
+					app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::SHOPSUB:
+					sprintf_s(currentPlace_UI, "Shop -1");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::TOWER0:
-				sprintf_s(currentPlace_UI, "Tower");
+					app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TAVERN:
+					sprintf_s(currentPlace_UI, "Tavern");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::TOWER1:
-				sprintf_s(currentPlace_UI, "Floor 1");
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TOWER0:
+					sprintf_s(currentPlace_UI, "Tower");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::TOWER2:
-				sprintf_s(currentPlace_UI, "Floor 2");
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TOWER1:
+					sprintf_s(currentPlace_UI, "Floor 1");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-				break;
-			case StageIndex::TOWER3:
-				sprintf_s(currentPlace_UI, "Floor 3");
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TOWER2:
+					sprintf_s(currentPlace_UI, "Floor 2");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-				break;
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TOWER3:
+					sprintf_s(currentPlace_UI, "Floor 3");
+
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				}
 			}
-
 		}
 	}
 	if (app->collisions->debug)
@@ -592,22 +593,24 @@ void Scene::CharBars()
 		// Barras Stats Party
 		for (ch; ch != NULL; ch = ch->next) {
 			// HP bars
-			hpc = ((float)ch->data->stats->health / (float)ch->data->stats->maxHealth) * w;
-			SDL_Rect HPrect= { barsX + 7, barsY, hpc, h };
+			if (ch->data->stats != nullptr && ch->data->stats->health != NULL && ch->data->stats->maxHealth != NULL && ch->data->stats->mana != NULL && ch->data->stats->maxMana != NULL) {
+				hpc = ((float)ch->data->stats->health / (float)ch->data->stats->maxHealth) * w;
+				SDL_Rect HPrect = { barsX + 7, barsY, hpc, h };
 
-			app->render->DrawRectangle({ barsX + 7, barsY, w, h }, 0, 0, 0);
-			app->render->DrawRectangle(HPrect, 0, 255, 0);
+				app->render->DrawRectangle({ barsX + 7, barsY, w, h }, 0, 0, 0);
+				app->render->DrawRectangle(HPrect, 0, 255, 0);
 
-			// PM bars
-			pmc = ((float)ch->data->stats->mana / (float)ch->data->stats->maxMana) * wpm;
-			SDL_Rect  PMrect = { barsX + 7, barsY + h + 1, pmc, h };
-			app->render->DrawRectangle({ barsX + 7, barsY + h + 1, wpm, h }, 0, 0, 0);
-			app->render->DrawRectangle(PMrect, 0, 78, 255);
+				// PM bars
+				pmc = ((float)ch->data->stats->mana / (float)ch->data->stats->maxMana) * wpm;
+				SDL_Rect  PMrect = { barsX + 7, barsY + h + 1, pmc, h };
+				app->render->DrawRectangle({ barsX + 7, barsY + h + 1, wpm, h }, 0, 0, 0);
+				app->render->DrawRectangle(PMrect, 0, 78, 255);
 
-			// Life text
-			sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
-			app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
-			barsX += 130;
+				// Life text
+				sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
+				app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
+				barsX += 130;
+			}
 		}
 	}
 }
