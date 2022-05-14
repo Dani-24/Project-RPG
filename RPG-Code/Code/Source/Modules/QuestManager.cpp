@@ -13,6 +13,8 @@
 #include "Stages.h"
 #include "App.h"
 #include "Scene.h"
+#include "Shop.h"
+
 
 QuestManager::QuestManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -33,7 +35,6 @@ bool QuestManager::Start()
 	bool ret = true;
 	Quest* quest1 = new Quest();
 	questList.add(quest1);
-	//delete quest1;
 
 
 	return ret;
@@ -51,7 +52,16 @@ bool QuestManager::PreUpdate()
 bool QuestManager::Update(float dt)
 {
 	bool ret = true;
-
+	ListItem<Quest*>* QuestInList;
+	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
+	{
+		if (QuestInList->data->autoComplete)
+		{
+			GiveReward(QuestInList->data->QuestId);
+			CheckChain(QuestInList->data->QuestId);
+			QuestInList->data->State = QuestState::FINISHED;
+		}
+	}
 	
 
 	return ret;
@@ -71,6 +81,24 @@ bool QuestManager::CleanUp()
 	return ret;
 }
 
+void QuestManager::QInteract(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
+
+	app->dialogs->CreateDialog(npc, dialog);
+	if (npc == NPCType::FUENTE) {
+		for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
+			characterList->data->stats->health = characterList->data->stats->maxHealth;
+			characterList->data->isAlive = true;
+			app->scene->player->dieM.Reset();
+			app->scene->player->dieF.Reset();
+			characterList->data->deathAnim.Reset();
+		}
+
+	}
+	if (npc == NPCType::MERCHANT) {
+		app->shop->Enable();
+	}
+}
+
 void QuestManager::CheckQuest(int NPCid)
 {
 	bool n = false;
@@ -87,7 +115,6 @@ void QuestManager::CheckQuest(int NPCid)
 		if (QuestInList->data->questType == QuestType::INTERACT) {
 			if (QuestInList->data->NPCinteractId == NPCid)
 			{
-				
 				//CompleteInteract(QuestInList->data->QuestId);
 				if (QuestInList->data->State == QuestState::ACTIVE) 
 				{
@@ -95,9 +122,6 @@ void QuestManager::CheckQuest(int NPCid)
 					QuestInList->data->State = QuestState::COMPLETED;
 					CheckState(QuestInList->data->QuestId);
 				}
-				/*else {
-					n = false;
-				}*/
 				
 			}
 		}
@@ -108,7 +132,7 @@ void QuestManager::CheckQuest(int NPCid)
 		switch (NPCid)
 		{
 		case 1:
-			app->scene->player->Interact(NPCType::COCK, app->scene->player->cockDialog);
+			QInteract(NPCType::COCK, app->scene->player->cockDialog);
 			break;
 		case 2:
 			app->scene->player->Interact(NPCType::MERCHANT, app->scene->player->merchantDialog);
@@ -146,7 +170,7 @@ void QuestManager::CheckState(int Id)
 				switch (QuestInList->data->NPCId)
 				{
 				case 1:
-					app->scene->player->Interact(NPCType::COCK, app->scene->player->cockDialog);
+					QInteract(NPCType::COCK, app->scene->player->cockDialog);
 					break;
 				case 2:
 					app->scene->player->Interact(NPCType::MERCHANT, app->scene->player->merchantDialog);
@@ -203,7 +227,7 @@ void QuestManager::CheckState(int Id)
 				switch (QuestInList->data->NPCId)
 				{
 				case 1:
-					app->scene->player->Interact(NPCType::COCK, QuestInList->data->activeDialog);
+					QInteract(NPCType::COCK, QuestInList->data->activeDialog);
 					break;
 				case 2:
 					app->scene->player->Interact(NPCType::MERCHANT, QuestInList->data->activeDialog);
@@ -231,7 +255,7 @@ void QuestManager::CheckState(int Id)
 				switch (QuestInList->data->NPCId)
 				{
 				case 1:
-					app->scene->player->Interact(NPCType::COCK, QuestInList->data->completedDialog);
+					QInteract(NPCType::COCK, QuestInList->data->completedDialog);
 					break;
 				case 2:
 					app->scene->player->Interact(NPCType::MERCHANT, QuestInList->data->completedDialog);
@@ -262,7 +286,7 @@ void QuestManager::CheckState(int Id)
 				switch (QuestInList->data->NPCId)
 				{
 				case 1:
-					app->scene->player->Interact(NPCType::COCK, app->scene->player->cockDialog);
+					QInteract(NPCType::COCK, app->scene->player->cockDialog);
 					break;
 				case 2:
 					app->scene->player->Interact(NPCType::MERCHANT, app->scene->player->merchantDialog);
