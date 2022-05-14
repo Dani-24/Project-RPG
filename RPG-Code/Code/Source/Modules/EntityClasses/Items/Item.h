@@ -41,6 +41,9 @@ public:
 
 	ItemType itemType;
 
+	const char* effect = " ";
+	const char* description = " ";
+
 };
 
 #endif // !__ITEM_H__

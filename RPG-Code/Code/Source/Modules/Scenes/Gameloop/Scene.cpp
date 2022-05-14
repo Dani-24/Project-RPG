@@ -122,6 +122,12 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
+	Usable* testItem = (Usable*)app->entities->CreateEntity(UsableType::APPLE);
+	itemList.add(testItem);
+
+	Usable* testItem2 = (Usable*)app->entities->CreateEntity(UsableType::PILL);
+	itemList.add(testItem2);
+
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies

@@ -76,7 +76,6 @@ public:
 public:
 	bool onlyInBattle;
 	UsableType usableType;
-
 };
 
 #endif // !__USABLE_H__

@@ -102,9 +102,7 @@ private:
 	int inventorySlots = 10,
 		inventorySpecialSlots = 5;
 
-	// Lists
-	List<Item*>* items,
-			   * specialItems;
+	// List Slots
 
 	List<Slot*> slots;
 
@@ -121,7 +119,7 @@ private:
 				* statsButtonTexture,
 				* statsButtonPressedTexture;
 
-	int buttonSfx, backSfx, moveSfx;
+	int buttonSfx, backSfx, moveSfx, useSfx;
 };
 
 #endif // __INVENTORY_H__
