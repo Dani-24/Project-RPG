@@ -110,7 +110,11 @@ private:
 
 	// Assets GUI_buttons
 	GuiButton	* backButton,
-				* statsButton;
+				* statsButton,
+				* itemUseButton,
+				* itemBackButon,
+				* itemInfoButton,
+				* itemInfoCloseButton;
 
 	SDL_Texture	* backButtonTexture,
 				* backButtonPressedTexture,

@@ -149,6 +149,14 @@ bool Inventory::Start()
 		charX += 130;
 	}
 
+	// Botones al seleccionar items de la UI
+	itemUseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 300, "  Use", { x, y, 74, 32 }, this, true);
+	itemBackButon = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 301, "  Back", { x, y, 74, 32 }, this, true);
+	itemInfoButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 302, "  Info", { x, y, 74, 32 }, this, true);
+	itemInfoCloseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 303, "  Close", { x + 80, y + 320, 74, 32 }, this, true);
+
+	itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
+
 	// SFX
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 	moveSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_next_2.wav");
@@ -182,46 +190,67 @@ bool Inventory::Update(float dt)
 	mouseX -= app->camera->GetPos().x / 2;
 	mouseY -= app->camera->GetPos().y / 2;
 
-	if (&slots != nullptr) {
-		for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
+	if (itemUseButton->state == GuiControlState::DISABLED) {
+		if (&slots != nullptr) {
+			for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
-			// Selectors 
-			if ((mouseX > s->data->position.x) && (mouseX < (s->data->position.x + s->data->size.x)) &&
-				(mouseY > s->data->position.y) && (mouseY < (s->data->position.y + s->data->size.y))) {
+				// Selectors 
+				if ((mouseX > s->data->position.x) && (mouseX < (s->data->position.x + s->data->size.x)) &&
+					(mouseY > s->data->position.y) && (mouseY < (s->data->position.y + s->data->size.y))) {
 
-				if (s->data->isItem || s->data->isEquipment) {
-					selectorItemPos = s->data->position;
-					s->data->isSelected = true;
-				}
-				else if (s->data->isCharacter) {
-					selectorCharsPos = s->data->position;
-					s->data->isSelected = true;
-				}
-
-				if (selectorItemPos != lastItemPos || selectorCharsPos != lastCharPos) {
-					app->audio->PlayFx(moveSfx);
-
-					lastItemPos = selectorItemPos;
-					lastCharPos = selectorCharsPos;
-				}
-
-				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
-				{
-					if (s->data->isCharacter == false) {
-						app->audio->PlayFx(buttonSfx);
+					if (s->data->isEquipment && itemInfoCloseButton->state == GuiControlState::DISABLED) {
+						selectorItemPos = s->data->position;
+						s->data->isSelected = true;
 					}
-				}
-			}
-			else {
-				s->data->isSelected = false;
-			}
+					else if (s->data->isItem) {
+						selectorItemPos = s->data->position;
+						s->data->isSelected = true;
+					}
+					else if (s->data->isCharacter) {
+						selectorCharsPos = s->data->position;
+						s->data->isSelected = true;
+					}
 
-			if (s->data->isCharacter) {
-				if (selectorCharsPos == s->data->position) {
-					s->data->activated = true;
+					if (selectorItemPos != lastItemPos || selectorCharsPos != lastCharPos) {
+						app->audio->PlayFx(moveSfx);
+
+						lastItemPos = selectorItemPos;
+						lastCharPos = selectorCharsPos;
+					}
+					if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+						{
+
+							if (s->data->isCharacter == false) {
+								app->audio->PlayFx(buttonSfx);
+
+								// SHOW item UI
+								itemUseButton->state = itemInfoButton->state = itemBackButon->state = GuiControlState::NORMAL;
+
+								if (s->data->position.x > -app->camera->GetPos().x / 2 + 520) {
+									itemUseButton->SetPos({ s->data->position.x - 75, s->data->position.y - 15 });
+									itemInfoButton->SetPos({ s->data->position.x - 75, s->data->position.y + 15 });
+									itemBackButon->SetPos({ s->data->position.x - 75, s->data->position.y + 45 });
+								}
+								else {
+									itemUseButton->SetPos({ s->data->position.x + 50, s->data->position.y - 15 });
+									itemInfoButton->SetPos({ s->data->position.x + 50, s->data->position.y + 15 });
+									itemBackButon->SetPos({ s->data->position.x + 50, s->data->position.y + 45 });
+								}
+							}
+
+						}
 				}
 				else {
-					s->data->activated = false;
+					s->data->isSelected = false;
+				}
+
+				if (s->data->isCharacter) {
+					if (selectorCharsPos == s->data->position) {
+						s->data->activated = true;
+					}
+					else {
+						s->data->activated = false;
+					}
 				}
 			}
 		}
@@ -266,6 +295,10 @@ bool Inventory::PostUpdate()
 	app->render->DrawTexture(selectorItems, selectorItemPos.x, selectorItemPos.y);
 	app->render->DrawTexture(selectorCharacters, selectorCharsPos.x, selectorCharsPos.y);
 
+	if (itemInfoCloseButton->state != GuiControlState::DISABLED) {
+		app->render->DrawTexture(itemInfo, x + 9, y + 83);
+	}
+
 	return ret;
 }
 
@@ -280,6 +313,8 @@ bool Inventory::CleanUp()
 
 	backButton->state = GuiControlState::DISABLED;
 	statsButton->state = GuiControlState::DISABLED;
+
+	itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
 
 	app->scene->showLocation = true;
 
@@ -318,6 +353,29 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 			Disable();
 			app->stmen->Enable();
 			app->audio->PlayFx(buttonSfx);
+		}
+
+		if (control->id == 300) {
+			LOG("Use item");
+			app->audio->PlayFx(buttonSfx);
+		}
+
+		if (control->id == 301) {
+			LOG("Back item");
+			itemUseButton->state = itemInfoButton->state = itemBackButon->state = GuiControlState::DISABLED;
+			app->audio->PlayFx(backSfx);
+		}
+
+		if (control->id == 302) {
+			LOG("Show info item");
+			itemInfoCloseButton->state = GuiControlState::NORMAL;
+			app->audio->PlayFx(buttonSfx);
+		}
+
+		if (control->id == 303) {
+			LOG("Close info item");
+			itemInfoCloseButton->state = GuiControlState::DISABLED;
+			app->audio->PlayFx(backSfx);
 		}
 
 		default: break;
