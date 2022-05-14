@@ -15,6 +15,7 @@
 #include "Battle.h"
 #include "FadeToBlack.h"
 #include "Shop.h"
+#include "QuestManager.h"
 
 #include <time.h>
 
@@ -85,175 +86,175 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	//----------------------------------------------------------------------------------Battle Male------------------------------------
 
-	idleBattleM.PushBack({ 0, 0, 140, 83 });
-	idleBattleM.PushBack({ 140 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 280 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 420 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 560 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 700 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 840 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 980 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1120 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1260 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1400 , 0 , 140 , 83 });
-	idleBattleM.loop = true;
-	idleBattleM.speed = 0.015f;
+	attackM.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-	attackM.PushBack({ 0 , 83 , 140 , 83 });
-	attackM.PushBack({ 140 , 83 , 140 , 83 });
-	attackM.PushBack({ 280 , 83 , 140 , 83 });
-	attackM.PushBack({ 420 , 83 , 140 , 83 });
-	attackM.PushBack({ 560 , 83 , 140 , 83 });
-	attackM.PushBack({ 700 , 83 , 140 , 83 });
-	attackM.PushBack({ 0, 0, 140, 83 });
-	attackM.PushBack({ 140 , 0 , 140 , 83 });
-	attackM.PushBack({ 280 , 0 , 140 , 83 });
-	attackM.PushBack({ 420 , 0 , 140 , 83 });
-	attackM.PushBack({ 560 , 0 , 140 , 83 });
-	attackM.PushBack({ 700 , 0 , 140 , 83 });
-	attackM.PushBack({ 840 , 0 , 140 , 83 });
-	attackM.PushBack({ 980 , 0 , 140 , 83 });
-	attackM.PushBack({ 1120 , 0 , 140 , 83 });
-	attackM.PushBack({ 1260 , 0 , 140 , 83 });
-	attackM.PushBack({ 1400 , 0 , 140 , 83 });
 	attackM.loop = false;
 	attackM.speed = 0.008f;
 
-	protectM.PushBack({ 0 , 581 , 140 , 83 });
-	protectM.PushBack({ 140 , 581 , 140 , 83 });
-	protectM.PushBack({ 280 , 581 , 140 , 83 });
-	protectM.PushBack({ 420 , 581 , 140 , 83 });
+	protectM.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	protectM.loop = true;
 	protectM.speed = 0.006f;
 
-	hitM.PushBack({ 0 , 249 , 140 , 83 });
-	hitM.PushBack({ 140 , 249 , 140 , 83 });
-	hitM.PushBack({ 280 , 249 , 140 , 83 });
-	hitM.PushBack({ 420 , 249 , 140 , 83 });
-	hitM.loop = true;
-	hitM.speed = 0.006f;
-
-	dieM.PushBack({ 0, 166, 140, 83 });
-	dieM.PushBack({ 140 , 166 , 140 , 83 });
-	dieM.PushBack({ 280 , 166 , 140 , 83 });
-	dieM.PushBack({ 420 , 166 , 140 , 83 });
-	dieM.PushBack({ 560 , 166 , 140 , 83 });
-	dieM.PushBack({ 700 , 166 , 140 , 83 });
-	dieM.PushBack({ 840 , 166 , 140 , 83 });
-	dieM.PushBack({ 980 , 166 , 140 , 83 });
-	dieM.PushBack({ 1120 , 166 , 140 , 83 });
+	dieM.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 1 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 2 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 3 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 4 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 5 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 6 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 7 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 8 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	dieM.loop = false;
 	dieM.speed = 0.006f;
 
+	idleBattleM.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.loop = true;
+	idleBattleM.speed = 0.015f;
+
+	hitM.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.loop = true;
+	hitM.speed = 0.006f;
+
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
 
-	idleBattleF.PushBack({ 1 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 2 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 3 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 4 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 5 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 6 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 7 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 8 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 9 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 10 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 11 * 180 , 0 ,  180 , 180 });
-	idleBattleF.loop = true;
-	idleBattleF.speed = 0.015f;
+	attackF.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 6 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-	attackF.PushBack({ 0 , 0 , 180 , 114 });
-	attackF.PushBack({ 180 , 0 , 180 , 114 });
-	attackF.PushBack({ 360 , 0 , 180 , 114 });
-	attackF.PushBack({ 540 , 0 , 180 , 114 });
-	attackF.PushBack({ 720 , 0 , 180 , 114 });
-	attackF.PushBack({ 900 , 0 , 180 , 114 });
-	attackF.PushBack({ 1080 , 0 , 180 , 114 });
-	attackF.PushBack({ 0 , 456 , 180 , 114 });
-	attackF.PushBack({ 180 , 456 , 180 , 114 });
-	attackF.PushBack({ 360 , 456 , 180 , 114 });
-	attackF.PushBack({ 540 , 456 , 180 , 114 });
-	attackF.PushBack({ 720 , 456 , 180 , 114 });
-	attackF.PushBack({ 900 , 456 , 180 , 114 });
-	attackF.PushBack({ 1080 , 456 , 180 , 114 });
-	attackF.PushBack({ 1260 , 456 , 180 , 114 });
-	attackF.PushBack({ 1440 , 456 , 180 , 114 });
-	attackF.PushBack({ 1620 , 456 , 180 , 114 });
-	attackF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 	attackF.loop = false;
 	attackF.speed = 0.008f;
 
-	attackF2.PushBack({ 0 , 114 , 180 , 114 });
-	attackF2.PushBack({ 180 , 114 , 180 , 114 });
-	attackF2.PushBack({ 360 , 114 , 180 , 114 });
-	attackF2.PushBack({ 540 , 114 , 180 , 114 });
-	attackF2.PushBack({ 720 , 114 , 180 , 114 });
-	attackF2.PushBack({ 900 , 114 , 180 , 114 });
-	attackF2.PushBack({ 1080 , 114 , 180 , 114 });
-	attackF2.PushBack({ 0 , 456 , 180 , 114 });
-	attackF2.PushBack({ 180 , 456 , 180 , 114 });
-	attackF2.PushBack({ 360 , 456 , 180 , 114 });
-	attackF2.PushBack({ 540 , 456 , 180 , 114 });
-	attackF2.PushBack({ 720 , 456 , 180 , 114 });
-	attackF2.PushBack({ 900 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1080 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1260 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1440 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1620 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF2.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 4 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 5 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 6 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	attackF2.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
+
 	attackF2.loop = false;
 	attackF2.speed = 0.009f;
 
-	attackChainF.PushBack({ 0 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 0 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 0 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1260 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1440 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1620 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackChainF.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 6 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 4 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 5 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 6 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	idleBattleF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 	attackChainF.loop = false;
 	attackChainF.speed = 0.009f;
 
-	protectF.PushBack({ 540 , 228 , 180 , 114 });
+
+	dieF.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 1 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 2 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 3 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 4 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 5 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 6 * BATTLE_SIZE , 2 * BATTLE_SIZE,  BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 7 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 8 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 9 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 10 * BATTLE_SIZE , 2 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
+
+	dieF.loop = false;
+	dieF.speed = 0.006f;
+
+	protectF.PushBack({ 3 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
 	protectF.loop = true;
 
-	hitF.PushBack({ 0 , 798 , 180 , 114 });
-	hitF.PushBack({ 180 , 798 , 180 , 114 });
-	hitF.PushBack({ 360 , 798 , 180 , 114 });
-	hitF.PushBack({ 540 , 798 , 180 , 114 });
+	idleBattleF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	idleBattleF.loop = true;
+	idleBattleF.speed = 0.015f;
+
+	hitF.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitF.loop = true;
 	hitF.speed = 0.006f;
 
-	dieF.PushBack({ 0 , 228 , 180 , 114 });
-	dieF.PushBack({ 180 , 228 , 180 , 114 });
-	dieF.PushBack({ 360 , 228 , 180 , 114 });
-	dieF.PushBack({ 540 , 228 , 180 , 114 });
-	dieF.PushBack({ 720 , 228 , 180 , 114 });
-	dieF.PushBack({ 900 , 228 , 180 , 114 });
-	dieF.PushBack({ 1080 , 228 , 180 , 114 });
-	dieF.PushBack({ 1260 , 228 , 180 , 114 });
-	dieF.PushBack({ 1440 , 228 , 180 , 114 });
-	dieF.PushBack({ 1620 , 228 , 180 , 114 });
-	dieF.PushBack({ 1800 , 228 ,  180 , 114 });
-	dieF.loop = false;
-	dieF.speed = 0.006f;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
@@ -266,13 +267,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	baseCollider = app->collisions->AddCollider({ position.x + colRightDistance, position.y+ colDownDistance , 30,  24 }, Collider::Type::PLAYER, this);
 
+	zoom = 3;
+
 	mapPosition = { 0,0 };
-	battlePosition = { 150, 150 };
+	int xt = 80;
+	int yt = 50;
+	battlePosition = { xt*zoom - xt*(zoom-1), yt*zoom - yt * (zoom - 1) };
 
 	isAlive = true;
 
 	interactionButtonJustSpace.PushBack({ 83, 41, 36, 16 });
 	interactionButtonJustSpace.loop = false;
+
+
 }
 
 // Destructor
@@ -304,13 +311,13 @@ bool Player::Start()
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
-	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
+	BattleMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Combat/m_battle_spritesheet.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
-	BattleFTex = app->tex->Load("Assets/sprites/characters/wizard/wizardBattleSprite.png");
+	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Combat/f_battle_spritesheet.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
-	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
-	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
+	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
+	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
@@ -632,39 +639,50 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 						app->battle->entitiesInBattle[0] = this;
 						app->battle->entitiesInBattle[4] = normalEnemyInList->data;
 
-						if (app->stages->partyListPtr->At(1) != nullptr) {
-							app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+						int alliesCount = 1;
+						int enemiesCount = 1;
 
-							srand(time(NULL));
-							int enemySpawnChance = (rand() % 100);
-
-							if (enemySpawnChance >= 2) {
+						for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+							if (app->stages->partyListPtr->At(i) != nullptr) {
+								app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+								alliesCount++;
 								srand(time(NULL));
-								int enemyType = (rand() % 3);
-								if (enemyType == 0) {
-									NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
-									bat->onlyInBattle = true;
-									app->scene->normalEnemyList.add(bat);
-									app->battle->entitiesInBattle[5] = bat;
+								int enemySpawnChance = (rand() % 100);
+
+								if (enemySpawnChance >= 25) {
+									srand(time(NULL));
+									int enemyType = (rand() % 3);
+									if (enemyType == 0) {
+										NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
+										bat->onlyInBattle = true;
+										app->scene->normalEnemyList.add(bat);
+										app->battle->entitiesInBattle[4 + enemiesCount] = bat;
+									}
+									else if (enemyType == 1) {
+
+										NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
+										flyingEye->onlyInBattle = true;
+										app->scene->normalEnemyList.add(flyingEye);
+										app->battle->entitiesInBattle[4 + enemiesCount] = flyingEye;
+									}
+									else if (enemyType == 2) {
+										NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
+										skeleton->onlyInBattle = true;
+										app->scene->normalEnemyList.add(skeleton);
+										app->battle->entitiesInBattle[4 + enemiesCount] = skeleton;
+
+									}
+
+									enemiesCount++;
+
+
+
+
 								}
-								else if (enemyType == 1) {
-
-									NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
-									flyingEye->onlyInBattle = true;
-									app->scene->normalEnemyList.add(flyingEye);
-									app->battle->entitiesInBattle[5] = flyingEye;
-								}
-								else if (enemyType == 2) {
-									NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
-									skeleton->onlyInBattle = true;
-									app->scene->normalEnemyList.add(skeleton);
-									app->battle->entitiesInBattle[5] = skeleton;
-
-								}
-
-
 							}
 						}
+
+						
 
 
 
@@ -728,32 +746,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading floor 1 map");
 								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 3 map");
 								tower2Pos = { position.x, position.y + tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER3);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 
 								break;
-							case StageIndex::TOWER3:
+							case StageIndex::TOWER_3:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
 							}
@@ -770,7 +788,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading Tower map");
 								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
 							case StageIndex::DOJO:
@@ -791,32 +809,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading town map");
 								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER3:
+							case StageIndex::TOWER_3:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
 							}
@@ -832,7 +850,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading Tower map");
 								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
 							case StageIndex::DOJO:
@@ -847,25 +865,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading floor 1 map");
 								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 2 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
 							}
@@ -896,25 +914,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading town map");
 								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading floor 2 map");
 								tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
 							}
@@ -930,11 +948,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TAVERN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading floor 2 map");
 								tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 								break;
 							}
 
@@ -968,31 +986,41 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 					
 					if (entityInList->data->GetCollider() != nullptr) {
 						if (entityInList->data->GetCollider() == col2) {
-							switch (entityInList->data->npcID)
-							{
-							case 1:
-								Interact(NPCType::COCK, cockDialog);
-								break;
-							case 2:
-								Interact(NPCType::MERCHANT, merchantDialog);
-								break;
-							case 3:
-								Interact(NPCType::BARKEEPER, barkeeperDialog);
-								break;
-							case 4:
-								Interact(NPCType::TRAINER, trainerDialog);
-								break;
-							case 5:										
-								Interact(NPCType::EMILIO, emilioDialog);
-								break;
-							case 7:
-								Interact(NPCType::FUENTE, fuenteDialog);
-								break;
-							case 8:
-								Interact(NPCType::CARTELSUDTOWN, cartelSudTownDialog);
-							default:
-								break;
+							GamePad& pad = app->input->pads[0];
+
+							if (!pad.a) wait = true;
+
+							if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+								app->questManager->CheckQuest(entityInList->data->npcID);
+								/*switch (entityInList->data->npcID)
+								{
+								case 1:
+									Interact(NPCType::COCK, cockDialog);
+									break;
+								case 2:
+									Interact(NPCType::MERCHANT, merchantDialog);
+									break;
+								case 3:
+									Interact(NPCType::BARKEEPER, barkeeperDialog);
+									break;
+								case 4:
+									Interact(NPCType::TRAINER, trainerDialog);
+									break;
+								case 5:
+									Interact(NPCType::EMILIO, emilioDialog);
+									break;
+								case 7:
+									Interact(NPCType::FUENTE, fuenteDialog);
+									break;
+								case 8:
+									Interact(NPCType::CARTELSUDTOWN, cartelSudTownDialog);
+								default:
+									break;
+								}*/
+								wait = false;
 							}
+							printInteractionButt = true;
+							
 						}
 					}
 				}
@@ -1003,26 +1031,18 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 
-	GamePad& pad = app->input->pads[0];
-
-	if (!pad.a) wait = true;
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
-		app->dialogs->CreateDialog(npc, dialog);
-		if (npc == NPCType::FUENTE) {
-			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
-				characterList->data->stats->health = characterList->data->stats->maxHealth;
-				characterList->data->isAlive = true;
-				dieM.Reset();
-				dieF.Reset();
-				characterList->data->deathAnim.Reset();
-			}
+	app->dialogs->CreateDialog(npc, dialog);
+	if (npc == NPCType::FUENTE) {
+		for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
+			characterList->data->stats->health = characterList->data->stats->maxHealth;
+			characterList->data->isAlive = true;
+			dieM.Reset();
+			dieF.Reset();
+			characterList->data->deathAnim.Reset();
+		}
 			
-		}
-		if (npc == NPCType::MERCHANT) {
-			app->shop->Enable();
-		}
-		wait = false;
 	}
-	printInteractionButt = true;
+	if (npc == NPCType::MERCHANT) {
+		app->shop->Enable();
+	}
 }

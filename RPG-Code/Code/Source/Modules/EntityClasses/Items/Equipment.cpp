@@ -14,6 +14,15 @@ Equipment::Equipment(EquipmentType equipmentType, const char* name) : Item(ItemT
 	spriteTex = nullptr;
 }
 
+Equipment::Equipment(WeaponType weaponType, const char* name) : Item(ItemType::EQUIPMENT)
+{
+	this->equipmentType = EquipmentType::WEAPON;
+	this->weaponType = weaponType;
+	this->name = name;
+
+	spriteTex = nullptr;
+}
+
 Equipment::~Equipment()
 {}
 

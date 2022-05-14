@@ -15,20 +15,22 @@
 	<scene />
 	<map />
 	<EntityManager>
-		<playerpos x="355" y="522" />
-		<actualStage stage="10" />
+		<playerpos x="550" y="222" />
+		<actualStage stage="4" />
 		<stats />
 	</EntityManager>
 	<pauseMenu />
 	<conf />
 	<inventory />
+	<stmen />
+	<shop />
 	<guiManager />
 	<fonts />
 	<dialogSystem />
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="-61" y="-675" />
+		<camera x="-451" y="-75" />
 	</camera>
 	<renderer />
 </save_state>

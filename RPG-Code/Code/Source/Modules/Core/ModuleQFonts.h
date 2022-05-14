@@ -41,13 +41,13 @@ public:
 	bool CleanUp();
 
 	// Your text, Position: X, Y, color {R,G,B}
-	void DrawText(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
+	void DrawText(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 }, bool getScale = true, int zoom = 1);
 
 	// Your text, Position: X, Y, color {R,G,B}
-	void DrawTextDelayed(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 });
+	void DrawTextDelayed(const char* textToRender, int x, int y, SDL_Color color = { 255,255,255 }, bool getScale = true, int zoom = 1);
 
 private:
-	void RenderText(const char* textToRender, int x, int y, SDL_Color color);
+	void RenderText(const char* textToRender, int x, int y, SDL_Color color, bool getScale = true, int zoom = 1);
 
 	void LoadFont(const char* fontPath, int size = 30);
 

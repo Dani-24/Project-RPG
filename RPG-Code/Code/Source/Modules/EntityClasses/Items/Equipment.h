@@ -39,6 +39,7 @@ class Equipment : public Item
 public:
 
 	Equipment(EquipmentType type, const char*name);
+	Equipment(WeaponType type, const char* name);
 	~Equipment();
 
 	bool Awake(pugi::xml_node& config);

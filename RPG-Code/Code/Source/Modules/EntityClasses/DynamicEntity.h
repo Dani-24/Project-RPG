@@ -10,6 +10,8 @@
 
 #include <vector>
 
+#define BATTLE_SIZE 180
+
 struct SDL_Texture;
 
 enum class DynamicType
@@ -134,6 +136,7 @@ public:
 		{
 			if (exp > nexp)a = exp - nexp;
 			exp = a;
+			LOG("LEVEL UP! jovani de puerto rico");
 			level++;
 			attack*=1.2;
 			defense *= 1.2;
@@ -187,6 +190,8 @@ public:
 	iPoint mapPosition;
 	iPoint battlePosition;
 	Animation* mapAnimation;
+
+	int zoom;
 
 };
 

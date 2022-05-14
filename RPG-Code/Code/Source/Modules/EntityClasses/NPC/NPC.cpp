@@ -121,6 +121,8 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 	npcId = app->scene->npcList.count();
 
+	zoom = 1;
+
 }
 
 

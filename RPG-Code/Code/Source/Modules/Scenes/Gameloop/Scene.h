@@ -65,9 +65,8 @@ public:
 	List<NormalEnemy*> normalEnemyList;
 	List<Character*> partyList;
 	List<Item*> itemList;
-	Character* valionchar;
+	
 	int backFx, loadFx, saveFx;
-	int hp,hpw;
 	char lifeTextUI[100] = { "\0" };
 	char currentPlace_UI[100] = { "\0" };
 

@@ -77,11 +77,11 @@ bool Scene::Start()
 	app->camera->SetTarget(player);
 	partyList.add(player);
 
-	//Party members
-	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
-	partyList.add(valion);
+	////Party members
+	//Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
+	//partyList.add(valion);
+	//
 	
-	valionchar = valion;
 
 	app->stages->partyListPtr = &partyList;
 
@@ -121,6 +121,12 @@ bool Scene::Start()
 	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::CARTELSUDTOWN, cartelSudTownPos.x, cartelSudTownPos.y);
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
+
+	Usable* testItem = (Usable*)app->entities->CreateEntity(UsableType::APPLE);
+	itemList.add(testItem);
+
+	Usable* testItem2 = (Usable*)app->entities->CreateEntity(UsableType::PILL);
+	itemList.add(testItem2);
 
 	app->stages->npcListPtr = &npcList;
 
@@ -196,26 +202,22 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	//partyList.At(1)->data->stats->health;
-	//valionchar->stats->maxHealth;
-	//LOG("%d", valionchar->stats->maxHealth);
+
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-	hp = player->stats->health;
-	hpw = valionchar->stats->health;
+	
 
 	fpsdt = dt*3.75;
 	//GUI activation
-	//LOG("%d", partyList.count());
+
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (godmode)
 		{
 			godmode = false;
-			/*valionchar->stats->LoadStats();
-			player->stats->LoadStats();*/
+		
 
 			for (int i = 0; i < partyList.count(); i++)
 			{
@@ -225,10 +227,7 @@ bool Scene::Update(float dt)
 		}
 		else
 		{
-			/*valionchar->stats->SaveStats();
-			player->stats->SaveStats();
-			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999,999);
-			player->stats->SetStats(9999, player->stats->maxHealth, 9999, 9999,9999);*/
+			
 
 			
 			for (int i = 0; i < partyList.count(); i++)
@@ -296,30 +295,56 @@ bool Scene::Update(float dt)
 		app->fade->DoFadeToBlack(StageIndex::LOSE);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER0);
+		app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER1);
+		app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER2);
+		app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER3);
+		app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 	}
 
 	// Player movement
-	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		player->canMove ? player->canMove = false : player->canMove = true;
 	}
 
 	// Add ally to the party
-	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 
 		if (partyList.At(1) == nullptr) {
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50));
+			int x = 70;
+			int y = 80;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
 		}else{
 			partyList.del(partyList.At(1));
+		}
+		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	}
+	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
+
+		if (partyList.At(2) == nullptr) {
+			int x = -100;
+			int y = 70;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+		}
+		else {
+			partyList.del(partyList.At(2));
+		}
+		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	}
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+
+		if (partyList.At(3) == nullptr) {
+			int x = 150;
+			int y = -10;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+		}
+		else {
+			partyList.del(partyList.At(3));
 		}
 		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 	}
@@ -402,22 +427,22 @@ bool Scene::PostUpdate()
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 					break;
-				case StageIndex::TOWER0:
+				case StageIndex::TOWER_0:
 					sprintf_s(currentPlace_UI, "Tower");
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 					break;
-				case StageIndex::TOWER1:
+				case StageIndex::TOWER_1:
 					sprintf_s(currentPlace_UI, "Floor 1");
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 					break;
-				case StageIndex::TOWER2:
+				case StageIndex::TOWER_2:
 					sprintf_s(currentPlace_UI, "Floor 2");
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 					break;
-				case StageIndex::TOWER3:
+				case StageIndex::TOWER_3:
 					sprintf_s(currentPlace_UI, "Floor 3");
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });

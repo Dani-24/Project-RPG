@@ -2,8 +2,11 @@
 #define __SHOP_H__
 
 #include "Module.h"
+#include "App.h"
 #include "GuiButton.h"
 #include "GuiManager.h"
+#include "Animation.h"
+#include "Camera.h"
 struct SDL_Texture;
 
 
@@ -29,11 +32,44 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 	bool CleanUp();
+
+	void CheckMoney(int Cash, int Price);
 private:
 	SDL_Texture* ShopTex;
 
+	SDL_Texture* ItemTex;
 
+	Animation apple,
+		life_potion,
+		pie,
+		delicious_pie,
+		candy,
+		meat,
+		egg,
+		fried_egg,
+		hamburger,
+		elixir,
+		chest_key,
+		door_key;
+
+	int ShopSection = 1;
+	int ShopItem = 0;
+
+	int Money = 0;
+	bool canBuy = false;
+
+	GuiButton* Section1Btn;
+	GuiButton* Section2Btn;
+	GuiButton* Section3Btn;
+	GuiButton* Section4Btn;
+	GuiButton* Item1Btn;
+	GuiButton* Item2Btn;
+	GuiButton* Item3Btn;
+	GuiButton* Item4Btn;
+	GuiButton* WantToBuy;
 };
 
 #endif // !__SHOP_H__

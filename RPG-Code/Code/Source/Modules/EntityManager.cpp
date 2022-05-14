@@ -11,6 +11,9 @@
 #include "NormalEnemy.h"
 #include "Camera.h"
 
+#include "Item.h"
+#include "Equipment.h"
+#include "Usable.h"
 #include "Party.h"
 #include "Stages.h"
 #include "App.h"
@@ -209,17 +212,17 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	if (app->stages->intStage == 9 && app->stages->actualStage != StageIndex::LOSE) {
 		app->stages->ChangeStage(StageIndex::LOSE);
 	}
-	if (app->stages->intStage == 10 && app->stages->actualStage != StageIndex::TOWER0) {
-		app->stages->ChangeStage(StageIndex::TOWER0);
+	if (app->stages->intStage == 10 && app->stages->actualStage != StageIndex::TOWER_0) {
+		app->stages->ChangeStage(StageIndex::TOWER_0);
 	}
-	if (app->stages->intStage == 11 && app->stages->actualStage != StageIndex::TOWER1) {
-		app->stages->ChangeStage(StageIndex::TOWER1);
+	if (app->stages->intStage == 11 && app->stages->actualStage != StageIndex::TOWER_1) {
+		app->stages->ChangeStage(StageIndex::TOWER_1);
 	}
-	if (app->stages->intStage == 12 && app->stages->actualStage != StageIndex::TOWER2) {
-		app->stages->ChangeStage(StageIndex::TOWER2);
+	if (app->stages->intStage == 12 && app->stages->actualStage != StageIndex::TOWER_2) {
+		app->stages->ChangeStage(StageIndex::TOWER_2);
 	}
-	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER3) {
-		app->stages->ChangeStage(StageIndex::TOWER3);
+	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER_3) {
+		app->stages->ChangeStage(StageIndex::TOWER_3);
 	}
 
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
@@ -432,6 +435,45 @@ Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
 		entityList.add(ret);
 		//ret->position.x = x;
 		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(UsableType type)
+{
+	Entity* ret = nullptr;
+
+	ret = new Usable(type);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(EquipmentType type, const char* name)
+{
+	Entity* ret = nullptr;
+
+	ret = new Equipment(type, name);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(WeaponType type, const char* name)
+{
+	Entity* ret = nullptr;
+
+	ret = new Equipment(type, name);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
 	}
 
 	return ret;

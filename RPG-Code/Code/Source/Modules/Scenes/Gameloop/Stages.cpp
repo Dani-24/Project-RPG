@@ -109,16 +109,16 @@ bool Stages::PreUpdate()
 	case StageIndex::LOSE:
 		intStage = 9;
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		intStage = 10;
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		intStage = 11;
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		intStage = 12;
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		intStage = 13;
 		break;
 	default:
@@ -156,13 +156,13 @@ bool Stages::Update(float dt)
 		break;
 	case StageIndex::LOSE:
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		break;
 	default:
 
@@ -287,13 +287,13 @@ bool Stages::PostUpdate()
 		
 		break;
 
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		break;
 	}
 
@@ -530,7 +530,7 @@ bool Stages::PostUpdate()
 
 								if (playerPtr->PlayerErection == true) {
 									playerPtr->currentAnimation = &playerPtr->idleBattleM;
-									app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x - 1 * rect.w, playerPtr->position.y - 1 * rect.h, &rect, 2);
+									app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 									
 									if (playerPtr->isAlive == false) {
 										playerPtr->currentAnimation = &playerPtr->dieM;
@@ -574,7 +574,7 @@ bool Stages::PostUpdate()
 								}
 								if (playerPtr->PlayerErection == false) {
 									playerPtr->currentAnimation = &playerPtr->idleBattleF;
-									app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x - 160, playerPtr->position.y - 140, &rect, 2);
+									app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
 									if (playerPtr->isAlive == false) {
 										playerPtr-> currentAnimation = &playerPtr->dieF;
@@ -631,14 +631,15 @@ bool Stages::PostUpdate()
 							
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
-							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
-							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
+							
+							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect, CharacterInList->data->zoom, false);
+							
 
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
 							}
 
-							if (app->battle->actualTurnEntity->name == "Valion") {
+							if (app->battle->actualTurnEntity == CharacterInList->data) {
 								switch (app->battle->battlePhase) {
 								case BattlePhase::THINKING:
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
@@ -685,13 +686,10 @@ bool Stages::PostUpdate()
 							switch (i) {
 
 							case 0:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y);
-								break;
-							case 1:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							default:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							}
 						}
@@ -863,7 +861,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->audio->PlayMusic("Assets/audio/music/music_lose.ogg");
 
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -879,7 +877,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		break;
 
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -894,7 +892,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -909,7 +907,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
