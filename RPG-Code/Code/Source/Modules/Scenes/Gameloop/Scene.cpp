@@ -77,11 +77,11 @@ bool Scene::Start()
 	app->camera->SetTarget(player);
 	partyList.add(player);
 
-	//Party members
-	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
-	partyList.add(valion);
+	////Party members
+	//Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
+	//partyList.add(valion);
+	//
 	
-	valionchar = valion;
 
 	app->stages->partyListPtr = &partyList;
 
@@ -196,26 +196,22 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	//partyList.At(1)->data->stats->health;
-	//valionchar->stats->maxHealth;
-	//LOG("%d", valionchar->stats->maxHealth);
+
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-	hp = player->stats->health;
-	hpw = valionchar->stats->health;
+	
 
 	fpsdt = dt*3.75;
 	//GUI activation
-	//LOG("%d", partyList.count());
+
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (godmode)
 		{
 			godmode = false;
-			/*valionchar->stats->LoadStats();
-			player->stats->LoadStats();*/
+		
 
 			for (int i = 0; i < partyList.count(); i++)
 			{
@@ -225,10 +221,7 @@ bool Scene::Update(float dt)
 		}
 		else
 		{
-			/*valionchar->stats->SaveStats();
-			player->stats->SaveStats();
-			valionchar->stats->SetStats(9999, valionchar->stats->maxHealth, 9999, 9999,999);
-			player->stats->SetStats(9999, player->stats->maxHealth, 9999, 9999,9999);*/
+			
 
 			
 			for (int i = 0; i < partyList.count(); i++)
