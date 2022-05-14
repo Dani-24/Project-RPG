@@ -9,23 +9,28 @@
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
 #include "Stages.h"
-#include "Scene.h"
 #include "GuiManager.h"
 #include "Camera.h"
 #include "Defs.h"
 #include "Log.h"
 #include "GuiButton.h"
 #include "Inventory.h"
+#include "Scene.h"
+#include "Configuration.h"
 
 Shop::Shop(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("shop");
+
+	apple.PushBack({ 14,12,20,24 });
+	life_potion.PushBack({ 60,538,24,30 });
+	pie.PushBack({ 246,12,34,26 });
+	delicious_pie.PushBack({ 342,54,34,32 });
+	egg.PushBack({ 300,100,24,22 });
 }
 
 Shop::~Shop()
-{
-
-}
+{}
 
 bool Shop::Awake(pugi::xml_node& config)
 {
@@ -40,7 +45,11 @@ bool Shop::Start() {
 	bool ret = true;
 
 	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
-	//app->scene->player->canMove = false;
+	ItemTex = app->tex->Load("Assets/items/items2.png");
+	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { 88,85, 167, 35 }, this);
+	Section2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 251, "section2", { 88,138, 167, 35 }, this);
+	Section3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 252, "section3", { 88,192, 167, 35 }, this);
+	Section4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 253, "section4", { 88,245, 167, 35 }, this);
 
 	return ret;
 }
@@ -58,6 +67,24 @@ bool Shop::Update(float dt) {
 		app->shop->Disable();
 	}
 
+	switch (ShopSection) {
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+
+	default:
+		break;
+	}
+
 	return ret;
 }
 
@@ -67,11 +94,80 @@ bool Shop::PostUpdate() {
 	int x = -app->camera->GetPos().x / 2;
 	
 	app->render->DrawTexture(ShopTex, x, y, 0);
+	
+	switch (ShopSection) {
+	case 1:
+		app->render->DrawTexture(ItemTex, 288, 100, &apple.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 348, 100, &pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 416, 100, &delicious_pie.GetCurrentFrame());
+		break;
+	case 2:
+		app->render->DrawTexture(ItemTex, 288, 100, &life_potion.GetCurrentFrame());
+		break;
+	case 3:
+		app->render->DrawTexture(ItemTex, 288, 100, &egg.GetCurrentFrame());
+		break;
+	case 4:
+
+		break;
+
+	default:
+		break;
+	}
 	return ret;
+}
+
+bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
+	switch (control->type)
+	{
+	case GuiControlType::BUTTON:
+	{
+		//Checks the GUI element ID
+		if (control->id == 250)
+		{
+			LOG("Section 1");
+			app->audio->PlayFx(app->conf->btnSelection);
+			ShopSection = 1;
+		}
+
+		if (control->id == 251)
+		{
+			LOG("Section 2");
+			app->audio->PlayFx(app->conf->btnSelection);
+			ShopSection = 2;
+		}
+		if (control->id == 252)
+		{
+			LOG("Section 3");
+			app->audio->PlayFx(app->conf->btnSelection);
+			ShopSection = 3;
+	
+		}
+		if (control->id == 253)
+		{
+			LOG("Section 4");
+			app->audio->PlayFx(app->conf->btnSelection);
+			ShopSection = 4;			
+		}
+	
+	}
+	//Other cases here
+
+	default: break;
+	}
+
+	return true;
 }
 
 bool Shop::CleanUp() {
 	bool ret = true;
+	Section1Btn->state = GuiControlState::DISABLED;
+	Section2Btn->state = GuiControlState::DISABLED;
+	Section3Btn->state = GuiControlState::DISABLED;
+	Section4Btn->state = GuiControlState::DISABLED;
+
+	app->tex->UnLoad(ShopTex);
+	app->tex->UnLoad(ItemTex);
 
 	return ret;
 }

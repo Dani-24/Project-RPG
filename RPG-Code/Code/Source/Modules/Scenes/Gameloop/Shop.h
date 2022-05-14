@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "GuiManager.h"
+#include "Animation.h"
 struct SDL_Texture;
 
 
@@ -29,11 +30,33 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 	bool CleanUp();
 private:
 	SDL_Texture* ShopTex;
 
+	SDL_Texture* ItemTex;
 
+	Animation apple,
+		life_potion,
+		pie,
+		delicious_pie,
+		candy,
+		meat,
+		egg,
+		fried_egg,
+		hamburger,
+		elixir,
+		chest_key,
+		door_key;
+
+	int ShopSection = 1;
+
+	GuiButton* Section1Btn;
+	GuiButton* Section2Btn;
+	GuiButton* Section3Btn;
+	GuiButton* Section4Btn;
 };
 
 #endif // !__SHOP_H__
