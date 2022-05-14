@@ -190,6 +190,8 @@ public:
 	iPoint battlePosition;
 	Animation* mapAnimation;
 
+	int zoom;
+
 };
 
 #endif // !__DYNAMIC_ENTITY_H__

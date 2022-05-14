@@ -266,13 +266,19 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	baseCollider = app->collisions->AddCollider({ position.x + colRightDistance, position.y+ colDownDistance , 30,  24 }, Collider::Type::PLAYER, this);
 
+	zoom = 3;
+
 	mapPosition = { 0,0 };
-	battlePosition = { 100, 100 };
+	int xt = 80;
+	int yt = 50;
+	battlePosition = { xt*zoom - xt*(zoom-1), yt*zoom - yt * (zoom - 1) };
 
 	isAlive = true;
 
 	interactionButtonJustSpace.PushBack({ 83, 41, 36, 16 });
 	interactionButtonJustSpace.loop = false;
+
+
 }
 
 // Destructor
@@ -309,8 +315,8 @@ bool Player::Start()
 	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Combat/f_battle_spritesheet.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
-	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
-	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
+	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
+	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
@@ -632,39 +638,50 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 						app->battle->entitiesInBattle[0] = this;
 						app->battle->entitiesInBattle[4] = normalEnemyInList->data;
 
-						if (app->stages->partyListPtr->At(1) != nullptr) {
-							app->battle->entitiesInBattle[1] = app->stages->partyListPtr->At(1)->data;
+						int alliesCount = 1;
+						int enemiesCount = 1;
 
-							srand(time(NULL));
-							int enemySpawnChance = (rand() % 100);
-
-							if (enemySpawnChance >= 2) {
+						for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+							if (app->stages->partyListPtr->At(i) != nullptr) {
+								app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+								alliesCount++;
 								srand(time(NULL));
-								int enemyType = (rand() % 3);
-								if (enemyType == 0) {
-									NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
-									bat->onlyInBattle = true;
-									app->scene->normalEnemyList.add(bat);
-									app->battle->entitiesInBattle[5] = bat;
+								int enemySpawnChance = (rand() % 100);
+
+								if (enemySpawnChance >= 25) {
+									srand(time(NULL));
+									int enemyType = (rand() % 3);
+									if (enemyType == 0) {
+										NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
+										bat->onlyInBattle = true;
+										app->scene->normalEnemyList.add(bat);
+										app->battle->entitiesInBattle[4 + enemiesCount] = bat;
+									}
+									else if (enemyType == 1) {
+
+										NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
+										flyingEye->onlyInBattle = true;
+										app->scene->normalEnemyList.add(flyingEye);
+										app->battle->entitiesInBattle[4 + enemiesCount] = flyingEye;
+									}
+									else if (enemyType == 2) {
+										NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
+										skeleton->onlyInBattle = true;
+										app->scene->normalEnemyList.add(skeleton);
+										app->battle->entitiesInBattle[4 + enemiesCount] = skeleton;
+
+									}
+
+									enemiesCount++;
+
+
+
+
 								}
-								else if (enemyType == 1) {
-
-									NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
-									flyingEye->onlyInBattle = true;
-									app->scene->normalEnemyList.add(flyingEye);
-									app->battle->entitiesInBattle[5] = flyingEye;
-								}
-								else if (enemyType == 2) {
-									NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
-									skeleton->onlyInBattle = true;
-									app->scene->normalEnemyList.add(skeleton);
-									app->battle->entitiesInBattle[5] = skeleton;
-
-								}
-
-
 							}
 						}
+
+						
 
 
 

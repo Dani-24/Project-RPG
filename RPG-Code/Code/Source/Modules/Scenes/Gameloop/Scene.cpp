@@ -316,7 +316,9 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 
 		if (partyList.At(1) == nullptr) {
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 100, 100));
+			int x = 70;
+			int y = 80;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
 		}else{
 			partyList.del(partyList.At(1));
 		}
@@ -325,7 +327,9 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
 		if (partyList.At(2) == nullptr) {
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, 100, 100));
+			int x = -100;
+			int y = 70;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
 		}
 		else {
 			partyList.del(partyList.At(2));
@@ -335,7 +339,9 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 
 		if (partyList.At(3) == nullptr) {
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, 100, 100));
+			int x = 150;
+			int y = -10;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
 		}
 		else {
 			partyList.del(partyList.At(3));

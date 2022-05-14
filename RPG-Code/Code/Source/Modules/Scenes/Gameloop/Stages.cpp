@@ -574,7 +574,7 @@ bool Stages::PostUpdate()
 								}
 								if (playerPtr->PlayerErection == false) {
 									playerPtr->currentAnimation = &playerPtr->idleBattleF;
-									app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect);
+									app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
 									if (playerPtr->isAlive == false) {
 										playerPtr-> currentAnimation = &playerPtr->dieF;
@@ -631,14 +631,15 @@ bool Stages::PostUpdate()
 							
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
-							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
-							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect,2, false);
+							
+							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect, CharacterInList->data->zoom, false);
+							
 
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
 							}
 
-							//if (app->battle->actualTurnEntity->name == "Valion") {
+							if (app->battle->actualTurnEntity == CharacterInList->data) {
 								switch (app->battle->battlePhase) {
 								case BattlePhase::THINKING:
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
@@ -678,20 +679,17 @@ bool Stages::PostUpdate()
 									break;
 
 								}
-							//}
+							}
 						}
 
 						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
 							switch (i) {
 
 							case 0:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 120, app->battle->entitiesInBattle[i]->position.y);
-								break;
-							case 1:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							default:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 100, app->battle->entitiesInBattle[i]->position.y + 60);
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
 								break;
 							}
 						}
