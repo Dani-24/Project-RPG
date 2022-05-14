@@ -27,7 +27,7 @@ Shop::Shop(App* application, bool start_enabled) : Module(application, start_ena
 	pie.PushBack({ 246,12,34,26 });
 	delicious_pie.PushBack({ 342,54,34,32 });
 	meat.PushBack({ 730,59,28,28 });
-
+	egg.PushBack({300,110,24,22 });
 }
 
 Shop::~Shop()
@@ -47,7 +47,6 @@ bool Shop::Start() {
 
 	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
 	ItemTex = app->tex->Load("Assets/items/items2.png");
-
 	//Buttons
 	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { 88,85, 167, 35 }, this);
 	Section2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 251, "section2", { 88,138, 167, 35 }, this);
@@ -100,22 +99,71 @@ bool Shop::PostUpdate() {
 	int x = -app->camera->GetPos().x / 2;
 	
 	app->render->DrawTexture(ShopTex, x, y, 0);
+	app->font->DrawText("Food", 135, 92, { 255,234,123 });
+	app->font->DrawText("More Food", 100, 140, { 238,255,123 });
 	
 	switch (ShopSection) {
 	case 1:
-		app->render->DrawTexture(ItemTex, 288, 100, &apple.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, 348, 100, &pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 288, 103, &apple.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 348, 103, &pie.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, 416, 100, &delicious_pie.GetCurrentFrame());
+		if (ShopItem == 1) {
+			app->font->DrawText("Apple", 180, 20, { 255,255,255 });
+		}
+		if (ShopItem == 2) {
+			app->font->DrawText("Pie", 180, 20, { 255,255,255 });
+		}
+		if (ShopItem == 3) {
+			app->font->DrawText("Delicious", 170, 20, { 255,255,255 });
+		}
+		if (ShopItem == 4) {
+
+		}
 		break;
 	case 2:
 		app->render->DrawTexture(ItemTex, 290, 100, &life_potion.GetCurrentFrame());
+		if (ShopItem == 13) {
+			app->font->DrawText("Life Potion", 170, 20, { 255,255,255 });
+		}
+		if (ShopItem == 14) {
+
+		}
+		if (ShopItem == 15) {
+
+		}
+		if (ShopItem == 16) {
+
+		}
 		break;
 	case 3:
 		app->render->DrawTexture(ItemTex, 288, 100, &egg.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, 352, 100, &meat.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 354, 102, &meat.GetCurrentFrame());
+		if (ShopItem == 25) {
+			app->font->DrawText("Egg", 180, 20, { 255,255,255 });
+		}
+		if (ShopItem == 26) {
+			app->font->DrawText("Meat", 180, 20, { 255,255,255 });
+		}
+		if (ShopItem == 27) {
+
+		}
+		if (ShopItem == 28) {
+
+		}
 		break;
 	case 4:
+		if (ShopItem == 37) {
 
+		}
+		if (ShopItem == 38) {
+
+		}
+		if (ShopItem == 39) {
+
+		}
+		if (ShopItem == 40) {
+
+		}
 		break;
 
 	default:
@@ -156,72 +204,73 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			app->audio->PlayFx(app->conf->btnSelection);
 			ShopSection = 4;			
 		}
+		//---------------------------------------------//
 		if (control->id == 254)
 		{
 			LOG("item 1");
 			app->audio->PlayFx(app->conf->btnSelection);
-			if (ShopSection = 1) {
-
+			if (ShopSection == 1) {
+				ShopItem = 1;
 			}
-			if (ShopSection = 2) {
-
+			if (ShopSection == 2) {
+				ShopItem = 13;
 			}
-			if (ShopSection = 3) {
-
+			if (ShopSection == 3) {
+				ShopItem = 25;
 			}
-			if (ShopSection = 4) {
-
+			if (ShopSection == 4) {
+				ShopItem = 37;
 			}
 		}
 		if (control->id == 255)
 		{
 			LOG("item 2");
 			app->audio->PlayFx(app->conf->btnSelection);
-			if (ShopSection = 1) {
-
+			if (ShopSection == 1) {
+				ShopItem = 2;
 			}
-			if (ShopSection = 2) {
-
+			if (ShopSection == 2) {
+				ShopItem = 14;
 			}
-			if (ShopSection = 3) {
-
+			if (ShopSection == 3) {
+				ShopItem = 26;
 			}
-			if (ShopSection = 4) {
-
+			if (ShopSection == 4) {
+				ShopItem = 38;
 			}
 		}
 		if (control->id == 256)
 		{
 			LOG("item 3");
 			app->audio->PlayFx(app->conf->btnSelection);
-			if (ShopSection = 1) {
-
+			if (ShopSection == 1) {
+				ShopItem = 3;
 			}
-			if (ShopSection = 2) {
-
+			if (ShopSection == 2) {
+				ShopItem = 15;
 			}
-			if (ShopSection = 3) {
-
+			if (ShopSection == 3) {
+				ShopItem = 27;
 			}
-			if (ShopSection = 4) {
-
+			if (ShopSection == 4) {
+				ShopItem = 38;
 			}
 		}
 		if (control->id == 257)
 		{
 			LOG("item 4");
 			app->audio->PlayFx(app->conf->btnSelection);
-			if (ShopSection = 1) {
-
+			if (ShopSection == 1) {
+				ShopItem = 4;
 			}
-			if (ShopSection = 2) {
-
+			if (ShopSection == 2) {
+				ShopItem = 16;
 			}
-			if (ShopSection = 3) {
-
+			if (ShopSection == 3) {
+				ShopItem = 28;
 			}
-			if (ShopSection = 4) {
-
+			if (ShopSection == 4) {
+				ShopItem = 39;
 			}
 		}
 	
