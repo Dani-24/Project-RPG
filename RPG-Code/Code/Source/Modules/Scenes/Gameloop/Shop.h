@@ -57,6 +57,10 @@ private:
 	GuiButton* Section2Btn;
 	GuiButton* Section3Btn;
 	GuiButton* Section4Btn;
+	GuiButton* Item1Btn;
+	GuiButton* Item2Btn;
+	GuiButton* Item3Btn;
+	GuiButton* Item4Btn;
 };
 
 #endif // !__SHOP_H__

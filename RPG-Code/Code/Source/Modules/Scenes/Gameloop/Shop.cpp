@@ -26,7 +26,8 @@ Shop::Shop(App* application, bool start_enabled) : Module(application, start_ena
 	life_potion.PushBack({ 60,538,24,30 });
 	pie.PushBack({ 246,12,34,26 });
 	delicious_pie.PushBack({ 342,54,34,32 });
-	egg.PushBack({ 300,100,24,22 });
+	meat.PushBack({ 730,59,28,28 });
+
 }
 
 Shop::~Shop()
@@ -46,11 +47,16 @@ bool Shop::Start() {
 
 	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
 	ItemTex = app->tex->Load("Assets/items/items2.png");
+
+	//Buttons
 	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { 88,85, 167, 35 }, this);
 	Section2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 251, "section2", { 88,138, 167, 35 }, this);
 	Section3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 252, "section3", { 88,192, 167, 35 }, this);
 	Section4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 253, "section4", { 88,245, 167, 35 }, this);
-
+	Item1Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 254, "item1", { 282, 99, 33, 33 }, this);
+	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { 348, 99, 33, 33 }, this);
+	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { 415, 99, 33, 33 }, this);
+	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { 484, 99, 33, 33 }, this);
 	return ret;
 }
 
@@ -102,10 +108,11 @@ bool Shop::PostUpdate() {
 		app->render->DrawTexture(ItemTex, 416, 100, &delicious_pie.GetCurrentFrame());
 		break;
 	case 2:
-		app->render->DrawTexture(ItemTex, 288, 100, &life_potion.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 290, 100, &life_potion.GetCurrentFrame());
 		break;
 	case 3:
 		app->render->DrawTexture(ItemTex, 288, 100, &egg.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, 352, 100, &meat.GetCurrentFrame());
 		break;
 	case 4:
 
@@ -149,6 +156,74 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			app->audio->PlayFx(app->conf->btnSelection);
 			ShopSection = 4;			
 		}
+		if (control->id == 254)
+		{
+			LOG("item 1");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection = 1) {
+
+			}
+			if (ShopSection = 2) {
+
+			}
+			if (ShopSection = 3) {
+
+			}
+			if (ShopSection = 4) {
+
+			}
+		}
+		if (control->id == 255)
+		{
+			LOG("item 2");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection = 1) {
+
+			}
+			if (ShopSection = 2) {
+
+			}
+			if (ShopSection = 3) {
+
+			}
+			if (ShopSection = 4) {
+
+			}
+		}
+		if (control->id == 256)
+		{
+			LOG("item 3");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection = 1) {
+
+			}
+			if (ShopSection = 2) {
+
+			}
+			if (ShopSection = 3) {
+
+			}
+			if (ShopSection = 4) {
+
+			}
+		}
+		if (control->id == 257)
+		{
+			LOG("item 4");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection = 1) {
+
+			}
+			if (ShopSection = 2) {
+
+			}
+			if (ShopSection = 3) {
+
+			}
+			if (ShopSection = 4) {
+
+			}
+		}
 	
 	}
 	//Other cases here
@@ -165,6 +240,10 @@ bool Shop::CleanUp() {
 	Section2Btn->state = GuiControlState::DISABLED;
 	Section3Btn->state = GuiControlState::DISABLED;
 	Section4Btn->state = GuiControlState::DISABLED;
+	Item1Btn->state = GuiControlState::DISABLED;
+	Item2Btn->state = GuiControlState::DISABLED;
+	Item3Btn->state = GuiControlState::DISABLED;
+	Item4Btn->state = GuiControlState::DISABLED;
 
 	app->tex->UnLoad(ShopTex);
 	app->tex->UnLoad(ItemTex);
