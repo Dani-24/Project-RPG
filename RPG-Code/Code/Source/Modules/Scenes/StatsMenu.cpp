@@ -39,12 +39,13 @@ bool StatsMenu::Start()
 	app->scene->player->canMove = false;
 
 	// Buttons
-	//backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 298, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 10, 74, 32 }, this);
+	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 400, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 10, 74, 32 }, this);
 	//statsButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 299, "Stats", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 45, 74, 32 }, this);
 
 	backButtonTexture = app->tex->Load("Assets/gui/buttons/back_text.png");
 	backButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_back_text.png");
 
+	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png");
 
 	// SFX
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
@@ -86,9 +87,9 @@ bool StatsMenu::PostUpdate()
 
 	// Draw UI
 
-	//app->render->DrawTexture(inventoryBG, x, y);
+	app->render->DrawTexture(gui, x, y);
 
-	//backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
+	backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
 	//statsButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(statsButtonTexture, statsButton->bounds.x, statsButton->bounds.y) : app->render->DrawTexture(statsButtonPressedTexture, statsButton->bounds.x, statsButton->bounds.y);
 
 	return ret;
@@ -99,7 +100,7 @@ bool StatsMenu::CleanUp()
 	LOG("Closing STATS MENU");
 
 	//// Allow player to move
-	//app->scene->player->canMove = true;
+	app->scene->player->canMove = true;
 
 	//backButton->state = GuiControlState::DISABLED;
 	////statsButton->state = GuiControlState::DISABLED;
@@ -119,14 +120,20 @@ bool StatsMenu::OnGuiMouseClickEvent(GuiControl* control)
 		case GuiControlType::BUTTON:
 		{
 			
-			/*if (control->id == a)
+			if (control->id == 400)
 			{
 				LOG("Click on Back");
 
-				
+				Disable();
 
-			}*/
+			}
+			if (control->id == 401)
+			{
+				LOG("Click on Back");
 
+				Disable();
+				app->inventory->Enable();
+			}
 			
 		default: break;
 		}
