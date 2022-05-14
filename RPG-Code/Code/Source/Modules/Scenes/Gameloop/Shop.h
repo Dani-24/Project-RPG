@@ -35,6 +35,8 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	bool CleanUp();
+
+	void CheckMoney(int Cash, int Price);
 private:
 	SDL_Texture* ShopTex;
 
@@ -56,7 +58,8 @@ private:
 	int ShopSection = 1;
 	int ShopItem = 0;
 
-
+	int Money = 0;
+	bool canBuy = false;
 
 	GuiButton* Section1Btn;
 	GuiButton* Section2Btn;
@@ -66,6 +69,7 @@ private:
 	GuiButton* Item2Btn;
 	GuiButton* Item3Btn;
 	GuiButton* Item4Btn;
+	GuiButton* WantToBuy;
 };
 
 #endif // !__SHOP_H__

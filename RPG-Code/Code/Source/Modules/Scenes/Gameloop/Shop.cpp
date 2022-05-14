@@ -17,6 +17,7 @@
 #include "Inventory.h"
 #include "Scene.h"
 #include "Configuration.h"
+#include "Item.h"
 
 Shop::Shop(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -64,6 +65,7 @@ bool Shop::Start() {
 	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { a + 348,b + 99, 33, 33 }, this);
 	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { a + 415,b + 99, 33, 33 }, this);
 	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { a + 484, b + 99, 33, 33 }, this);
+	WantToBuy = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "buy", { a + 400, b + 10, 80, 30 }, this);
 	return ret;
 }
 
@@ -79,6 +81,11 @@ bool Shop::Update(float dt) {
 	{
 		app->shop->Disable();
 	}
+	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {
+		Money += 10;
+		LOG("%d", Money);
+	}
+	
 
 	switch (ShopSection) {
 	case 1:
@@ -112,7 +119,15 @@ bool Shop::PostUpdate() {
 	app->font->DrawText("Potions", x + 147, y+142, { 255,255,255 });
 	app->font->DrawText("Section 3", x + 147, y + 196, { 255,255,255 });
 	app->font->DrawText("Section 4", x + 147, y + 248, { 255,255,255 });
-	
+	app->font->DrawText("Buy", x + 400, y + 8, { 255,255,255 });
+
+	if (canBuy == true) {
+		app->font->DrawText("Item added to inventory", x + 100, y + 260, { 255,255,255 });
+	}
+	if (canBuy == false) {
+		app->font->DrawText("you have no money cabron", x + 100, y + 260, { 255,255,255 });
+	}
+
 	switch (ShopSection) {
 	case 1:
 		app->render->DrawTexture(ItemTex, x + 308, y + 103, &apple.GetCurrentFrame());
@@ -288,7 +303,33 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 				ShopItem = 39;
 			}
 		}
-	
+		if (control->id == 258)
+		{
+			if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
+				CheckMoney(Money, 20);
+			}
+			if (ShopItem == 36 || ShopItem == 3) {
+				CheckMoney(Money, 30);
+			}
+			if (ShopItem == 37) {
+				CheckMoney(Money, 40);
+			}
+			if (ShopItem == 13 || ShopItem == 38) {
+				CheckMoney(Money, 50);
+			}
+			if (ShopItem == 14) {
+				CheckMoney(Money, 80);
+			}
+			if (ShopItem == 37) {
+				CheckMoney(Money, 100);
+			}
+			if (ShopItem == 38) {
+				CheckMoney(Money, 200);
+			}
+			
+		
+		}
+		
 	}
 	//Other cases here
 
@@ -308,9 +349,21 @@ bool Shop::CleanUp() {
 	Item2Btn->state = GuiControlState::DISABLED;
 	Item3Btn->state = GuiControlState::DISABLED;
 	Item4Btn->state = GuiControlState::DISABLED;
+	WantToBuy->state = GuiControlState::DISABLED;
 
 	app->tex->UnLoad(ShopTex);
 	app->tex->UnLoad(ItemTex);
 
 	return ret;
+}
+
+void Shop::CheckMoney(int Cash, int Price) {
+
+	if (Cash - Price >= 0) {
+		canBuy = true;
+		Money -= Price;
+	}
+	else {
+		canBuy = false;
+	}
 }
