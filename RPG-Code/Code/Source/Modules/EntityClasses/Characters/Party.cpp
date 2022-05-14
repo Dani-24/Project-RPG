@@ -173,7 +173,7 @@ bool Party::Start()
 	case PartyType::VALION:
 		/*stats = new Stats(1, 15, 10, 3, 10, 16);*/
 		//stats = new Stats(1, 15, 10, 3, 10, 32);
-		stats = new Stats(1, 15, 0, 0, 10, 300);
+		stats = new Stats(1, 15, 0, 0, 10, 32);
 		spriteTex = app->tex->Load(ValionChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/wizardgui.png");

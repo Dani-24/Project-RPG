@@ -109,16 +109,16 @@ bool Stages::PreUpdate()
 	case StageIndex::LOSE:
 		intStage = 9;
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		intStage = 10;
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		intStage = 11;
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		intStage = 12;
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		intStage = 13;
 		break;
 	default:
@@ -156,13 +156,13 @@ bool Stages::Update(float dt)
 		break;
 	case StageIndex::LOSE:
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		break;
 	default:
 
@@ -287,13 +287,13 @@ bool Stages::PostUpdate()
 		
 		break;
 
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 		break;
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 		break;
 	}
 
@@ -863,7 +863,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->audio->PlayMusic("Assets/audio/music/music_lose.ogg");
 
 		break;
-	case StageIndex::TOWER0:
+	case StageIndex::TOWER_0:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -879,7 +879,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		break;
 
-	case StageIndex::TOWER1:
+	case StageIndex::TOWER_1:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -894,7 +894,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER2:
+	case StageIndex::TOWER_2:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -909,7 +909,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER3:
+	case StageIndex::TOWER_3:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
