@@ -134,6 +134,7 @@ public:
 		{
 			if (exp > nexp)a = exp - nexp;
 			exp = a;
+			LOG("LEVEL UP! jovani de puerto rico");
 			level++;
 			attack*=1.2;
 			defense *= 1.2;
