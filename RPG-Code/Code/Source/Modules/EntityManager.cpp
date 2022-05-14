@@ -11,6 +11,9 @@
 #include "NormalEnemy.h"
 #include "Camera.h"
 
+#include "Item.h"
+#include "Equipment.h"
+#include "Usable.h"
 #include "Party.h"
 #include "Stages.h"
 #include "App.h"
@@ -432,6 +435,45 @@ Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
 		entityList.add(ret);
 		//ret->position.x = x;
 		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(UsableType type)
+{
+	Entity* ret = nullptr;
+
+	ret = new Usable(type);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(EquipmentType type, const char* name)
+{
+	Entity* ret = nullptr;
+
+	ret = new Equipment(type, name);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(WeaponType type, const char* name)
+{
+	Entity* ret = nullptr;
+
+	ret = new Equipment(type, name);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
 	}
 
 	return ret;

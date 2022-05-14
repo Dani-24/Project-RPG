@@ -14,6 +14,9 @@ enum class CharacterType;
 enum class NPCType;
 enum class NormalEnemyType;
 enum class PartyType;
+enum class EquipmentType;
+enum class WeaponType;
+enum class UsableType;
 
 class EntityManager : public Module
 {
@@ -41,6 +44,9 @@ public:
 	Entity* CreateEntity(PartyType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NPCType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NormalEnemyType type, int x = 0, int y = 0);
+	Entity* CreateEntity(UsableType type);
+	Entity* CreateEntity(EquipmentType type, const char* name);
+	Entity* CreateEntity(WeaponType type, const char* name);
 
 	Entity* FindEntity(EntityType type);
 
