@@ -15,7 +15,7 @@
 	<scene />
 	<map />
 	<EntityManager>
-		<playerpos x="550" y="222" />
+		<playerpos x="508" y="216" />
 		<actualStage stage="4" />
 		<stats />
 	</EntityManager>
@@ -30,7 +30,7 @@
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="-451" y="-75" />
+		<camera x="-367" y="-81" />
 	</camera>
 	<renderer />
 </save_state>

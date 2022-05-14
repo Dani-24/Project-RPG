@@ -37,13 +37,13 @@ public:
 private:
 	SDL_Texture* backButtonTexture,
 		* backButtonPressedTexture,
-		* gui ;
+		* gui, *invTex,*presinvTex;
 
 	// Lists
 	List<Character*>* charactersOnUI;
 	
 	//  GUI_buttons
-	GuiButton*  backButton;
+	GuiButton*  backButton, *invent, *ch1,*ch2,*ch3,*ch4;
 
 	int buttonSfx, backSfx;
 };
