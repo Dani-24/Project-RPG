@@ -146,7 +146,7 @@ private:
 	//variable para que no pete con mando
 	bool wait;
 
-private: // DIALOGS
+public: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 
 	"Hello !, welcome to the tavern",

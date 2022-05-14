@@ -15,6 +15,7 @@
 #include "Battle.h"
 #include "FadeToBlack.h"
 #include "Shop.h"
+#include "QuestManager.h"
 
 #include <time.h>
 
@@ -985,31 +986,41 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 					
 					if (entityInList->data->GetCollider() != nullptr) {
 						if (entityInList->data->GetCollider() == col2) {
-							switch (entityInList->data->npcID)
-							{
-							case 1:
-								Interact(NPCType::COCK, cockDialog);
-								break;
-							case 2:
-								Interact(NPCType::MERCHANT, merchantDialog);
-								break;
-							case 3:
-								Interact(NPCType::BARKEEPER, barkeeperDialog);
-								break;
-							case 4:
-								Interact(NPCType::TRAINER, trainerDialog);
-								break;
-							case 5:										
-								Interact(NPCType::EMILIO, emilioDialog);
-								break;
-							case 7:
-								Interact(NPCType::FUENTE, fuenteDialog);
-								break;
-							case 8:
-								Interact(NPCType::CARTELSUDTOWN, cartelSudTownDialog);
-							default:
-								break;
+							GamePad& pad = app->input->pads[0];
+
+							if (!pad.a) wait = true;
+
+							if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+								app->questManager->CheckQuest(entityInList->data->npcID);
+								/*switch (entityInList->data->npcID)
+								{
+								case 1:
+									Interact(NPCType::COCK, cockDialog);
+									break;
+								case 2:
+									Interact(NPCType::MERCHANT, merchantDialog);
+									break;
+								case 3:
+									Interact(NPCType::BARKEEPER, barkeeperDialog);
+									break;
+								case 4:
+									Interact(NPCType::TRAINER, trainerDialog);
+									break;
+								case 5:
+									Interact(NPCType::EMILIO, emilioDialog);
+									break;
+								case 7:
+									Interact(NPCType::FUENTE, fuenteDialog);
+									break;
+								case 8:
+									Interact(NPCType::CARTELSUDTOWN, cartelSudTownDialog);
+								default:
+									break;
+								}*/
+								wait = false;
 							}
+							printInteractionButt = true;
+							
 						}
 					}
 				}
@@ -1020,26 +1031,18 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 void Player::Interact(NPCType npc, const char* dialog[DIALOG_LENGHT]) {
 
-	GamePad& pad = app->input->pads[0];
-
-	if (!pad.a) wait = true;
-
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
-		app->dialogs->CreateDialog(npc, dialog);
-		if (npc == NPCType::FUENTE) {
-			for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
-				characterList->data->stats->health = characterList->data->stats->maxHealth;
-				characterList->data->isAlive = true;
-				dieM.Reset();
-				dieF.Reset();
-				characterList->data->deathAnim.Reset();
-			}
+	app->dialogs->CreateDialog(npc, dialog);
+	if (npc == NPCType::FUENTE) {
+		for (ListItem<Character*>* characterList = app->scene->partyList.start; characterList != NULL; characterList = characterList->next) {
+			characterList->data->stats->health = characterList->data->stats->maxHealth;
+			characterList->data->isAlive = true;
+			dieM.Reset();
+			dieF.Reset();
+			characterList->data->deathAnim.Reset();
+		}
 			
-		}
-		if (npc == NPCType::MERCHANT) {
-			app->shop->Enable();
-		}
-		wait = false;
 	}
-	printInteractionButt = true;
+	if (npc == NPCType::MERCHANT) {
+		app->shop->Enable();
+	}
 }

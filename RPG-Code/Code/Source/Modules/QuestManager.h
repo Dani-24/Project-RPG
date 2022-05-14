@@ -3,30 +3,135 @@
 
 #include "Module.h"
 #include "List.h"
+#include "NPC.h"
+#include "DialogSystem.h"
 #include <vector>
+
+enum class QuestType
+{
+	KILL,
+	RECOLECT,
+	INTERACT
+};
 
 enum class QuestState 
 {
 	DISABLED,
 	AVAILABLE,
-	INPROCESS,
+	ACTIVE,
+	COMPLETED,
 	FINISHED	
 };
 
-struct Quest {
-	int QuestId;
-	int NPCId;
-	int QuestGold;
-	int QuestExp;
-	bool QuestChain;
-	const char* QuestType;
-	int QuestChainId;
+class Quest 
+{
+public:
+	QuestType questType;
+	QuestState State;
+	const char* questName; //Name of the quest
+	const char* questDescription; //A text to descrive the quest
+	int QuestId; //Number of the quest
+	int NPCId; //Npc that give you the quest
+	int QuestGold; //Gold reward
+	int QuestExp; //Exp reward
+	bool QuestChain; //if it's in a chain
+	bool QuestLastChain;
+	int QuestChainId; //chain id
+	int QuestInChainId; //in chain number
+
+	bool autoComplete;
+
+	int objectiveNum;
+	int objectiveProgress;
+
+	int NPCinteractId;
+
+	const char* availableDialog[DIALOG_LENGHT] = { "active quest" };
+	const char* activeDialog[DIALOG_LENGHT] = { "quest in process" };
+	const char* completedDialog[DIALOG_LENGHT] = { "take reward" };
+
+public:
+	Quest()
+	{
+		questType = QuestType::INTERACT;
+		State = QuestState::AVAILABLE;
+		questName = "Default Name";
+		questDescription = "Do something";
+		QuestId = 1;
+		NPCId = 8;
+		QuestGold = 0;
+		QuestExp = 100;
+		QuestChain = false;
+		QuestLastChain = false;
+		QuestChainId = 0;
+		QuestInChainId = 0;
+
+		autoComplete = false;
+
+		objectiveNum = 0;
+		objectiveProgress = 0;
+
+		NPCinteractId = 1;
+
+	}
+
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, bool _autoComplete, int ChainId, int inChainId, bool LastInChain)
+	{
+		questType = qtype;
+		State = qState;
+		questName = name;
+		questDescription = description;
+		QuestId = ID;
+		NPCId = NPCid;
+		QuestGold = Gold;
+		QuestExp = XP;
+		autoComplete = _autoComplete;
+		QuestChainId = ChainId;
+		QuestInChainId = inChainId;
+		if (QuestChainId != 0) {
+			QuestChain = true;
+		}
+		QuestLastChain = LastInChain;
+
+
+		switch (qtype) {
+		case QuestType::INTERACT:
+			objectiveNum = 0;
+			objectiveProgress = 0;
+
+			NPCinteractId = objective_NPCid;
+			break;
+		default:
+			objectiveNum = objective_NPCid;
+			objectiveProgress = 0;
+
+			NPCinteractId = 0;
+			break;
+		}
+	}
+
+	void QuestDialogs(const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char*  completed[DIALOG_LENGHT])
+	{
+		for (int i = 0; i < DIALOG_LENGHT; i++) {
+			if (available[i] != NULL) {
+				availableDialog[i] = available[i];
+			}
+			if (active[i] != NULL) {
+				activeDialog[i] = active[i];
+			}
+			if (completed[i] != NULL) {
+				completedDialog[i] = completed[i];
+			}
+		}
+	}
+
 };
 
 
 class QuestManager : public Module
 {
 public:
+
 	QuestManager(App* application, bool start_enabled = true);
 	~QuestManager();
 
@@ -37,15 +142,21 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
+	void QInteract(NPCType, const char* [DIALOG_LENGHT]);
+
+	void CheckQuest(int NPCid);
+	void CheckState(int ID);
+	void GiveReward(int ID);
+	void CheckChain(int ID);
+
 	//// Load / Save
 	//bool LoadState(pugi::xml_node&);
 	//bool SaveState(pugi::xml_node&) const;
 	
 
 public:
-	QuestState ActualQuest;
 
-	List<Quest> quests;
+	List<Quest*> questList;
 
 };
 
