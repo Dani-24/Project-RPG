@@ -100,12 +100,12 @@ void ModuleQFonts::AddToList(const char* textToRender, int x, int y) {
 }
 
 // Print a lot of space or texts will fuse and random bullshit 
-void ModuleQFonts::DrawText(const char* textToRender, int x, int y, SDL_Color color) {
-	RenderText("                                                                                             ", 0, 0, color);
-	RenderText(textToRender, x, y, color);
+void ModuleQFonts::DrawText(const char* textToRender, int x, int y, SDL_Color color, bool getScale, int zoom) {
+	RenderText("                                                                                             ", 0, 0, color, getScale, zoom);
+	RenderText(textToRender, x, y, color, getScale, zoom);
 }
 
-void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_Color color) {
+void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_Color color, bool getScale, int zoom) {
 	int cont = 0;
 	// Comprueba si el texto ya existe y si no lo añade a la lista
 	for (ListItem<DelayedTexts*>* c = delayedTexts.start; c != NULL; c = c->next) {
@@ -119,7 +119,7 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 
 					c->data->textToPrint[c->data->N] = c->data->text[c->data->N];
 
-					DrawText(c->data->textToPrint, x, y, color);
+					DrawText(c->data->textToPrint, x, y, color, getScale ,zoom);
 
 					c->data->time = DELAY_TIME;
 					c->data->N++;
@@ -136,14 +136,14 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 					}
 
 					// When the delay finishes this allows us to continue seeing the text
-					DrawText(c->data->textToPrint, x, y, color);
+					DrawText(c->data->textToPrint, x, y, color, getScale, zoom);
 				}
 			}
 			else {
 				c->data->time--;
 
 				// This shows the text while delay time
-				DrawText(c->data->textToPrint, x, y, color);
+				DrawText(c->data->textToPrint, x, y, color, getScale, zoom);
 			}
 			break;
 		}
@@ -155,7 +155,7 @@ void ModuleQFonts::DrawTextDelayed(const char* textToRender , int x, int y, SDL_
 }
 
 // This method is privated
-void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color color) {
+void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color color, bool getScale, int zoom) {
 
 	// Create the text on surface 
 	if (!(fontSurface = TTF_RenderText_Blended(fontDefault, textToRender, color))) {	// Blended means more quality than Solid (TTF_RenderText_Solid / TTF_RenderText_Blended )
@@ -171,7 +171,7 @@ void ModuleQFonts::RenderText(const char* textToRender, int x, int y, SDL_Color 
 		}
 
 		// Draw the text at X, Y
-		app->render->DrawTexture(fontTexture, x, y);
+		app->render->DrawTexture(fontTexture, x, y, 0, zoom, getScale);
 	}
 	SDL_FreeSurface(fontSurface);
 }

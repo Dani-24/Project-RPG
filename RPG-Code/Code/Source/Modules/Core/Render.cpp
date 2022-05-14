@@ -100,10 +100,14 @@ void Render::ResetViewPort()
 }
 
 // Blit to screen
-bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section , int zoom ,float speed, double angle, int pivotX, int pivotY) const
+bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section , int zoom , bool getScale, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
+	
 	uint scale = app->win->GetScale();
+	if (getScale == false) {
+		scale = 1;
+	}
 
 	SDL_Rect rect;
 	rect.x = (int)(app->camera->GetPos().x * speed) + x * scale;

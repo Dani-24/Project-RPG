@@ -530,7 +530,7 @@ bool Stages::PostUpdate()
 
 								if (playerPtr->PlayerErection == true) {
 									playerPtr->currentAnimation = &playerPtr->idleBattleM;
-									app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect);
+									app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 									
 									if (playerPtr->isAlive == false) {
 										playerPtr->currentAnimation = &playerPtr->dieM;
@@ -632,7 +632,7 @@ bool Stages::PostUpdate()
 							//CharacterInList->data->currentAnimation = &CharacterInList->data->battleAnim;
 							CharacterInList->data->spriteRect = CharacterInList->data->currentAnimation->GetCurrentFrame();
 							CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
-							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect);
+							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect,2, false);
 
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
