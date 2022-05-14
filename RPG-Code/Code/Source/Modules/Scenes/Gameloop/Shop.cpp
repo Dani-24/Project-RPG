@@ -27,7 +27,13 @@ Shop::Shop(App* application, bool start_enabled) : Module(application, start_ena
 	pie.PushBack({ 246,12,34,26 });
 	delicious_pie.PushBack({ 342,54,34,32 });
 	meat.PushBack({ 730,59,28,28 });
-	egg.PushBack({300,110,24,22 });
+	egg.PushBack({542,12,20,22 });
+	candy.PushBack({ 250,540,28,26 });
+	fried_egg.PushBack({ 300,110,24,22 });
+	hamburger.PushBack({ 60,108,22,26 });
+	elixir.PushBack({ 208,538,16,30 });
+	chest_key.PushBack({ 204,686,28,22 });
+	door_key.PushBack({ 250,684,30,24 });
 }
 
 Shop::~Shop()
@@ -44,18 +50,20 @@ bool Shop::Awake(pugi::xml_node& config)
 
 bool Shop::Start() {
 	bool ret = true;
+	int a = -app->camera->GetPos().y / 2 -9;
+	int b = -app->camera->GetPos().x / 2+61;
 
 	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
 	ItemTex = app->tex->Load("Assets/items/items2.png");
 	//Buttons
-	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { 88,85, 167, 35 }, this);
-	Section2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 251, "section2", { 88,138, 167, 35 }, this);
-	Section3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 252, "section3", { 88,192, 167, 35 }, this);
-	Section4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 253, "section4", { 88,245, 167, 35 }, this);
-	Item1Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 254, "item1", { 282, 99, 33, 33 }, this);
-	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { 348, 99, 33, 33 }, this);
-	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { 415, 99, 33, 33 }, this);
-	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { 484, 99, 33, 33 }, this);
+	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { a + 88,b + 85, 167, 35 }, this);
+	Section2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 251, "section2", { a + 88,b + 138, 167, 35 }, this);
+	Section3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 252, "section3", { a + 88,b + 192, 167, 35 }, this);
+	Section4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 253, "section4", { a + 88,b + 245, 167, 35 }, this);
+	Item1Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 254, "item1", { a + 282, b + 99, 33, 33 }, this);
+	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { a + 348,b + 99, 33, 33 }, this);
+	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { a + 415,b + 99, 33, 33 }, this);
+	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { a + 484, b + 99, 33, 33 }, this);
 	return ret;
 }
 
@@ -95,38 +103,42 @@ bool Shop::Update(float dt) {
 
 bool Shop::PostUpdate() {
 	bool ret = true;
+
 	int y = -app->camera->GetPos().y / 2;
-	int x = -app->camera->GetPos().x / 2;
+	int x = -app->camera->GetPos().x / 2+45;
 	
-	app->render->DrawTexture(ShopTex, x, y, 0);
-	app->font->DrawText("Food", 135, 92, { 255,234,123 });
-	app->font->DrawText("More Food", 100, 140, { 238,255,123 });
+	app->render->DrawTexture(ShopTex, x-45, y, 0);
+	app->font->DrawText("Food", x+170, y+92, { 255,255,255 });
+	app->font->DrawText("Potions", x + 147, y+142, { 255,255,255 });
+	app->font->DrawText("Section 3", x + 147, y + 196, { 255,255,255 });
+	app->font->DrawText("Section 4", x + 147, y + 248, { 255,255,255 });
 	
 	switch (ShopSection) {
 	case 1:
-		app->render->DrawTexture(ItemTex, 288, 103, &apple.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, 348, 103, &pie.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, 416, 100, &delicious_pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 308, y + 103, &apple.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 368, y + 103, &pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 437, y + 96, &delicious_pie.GetCurrentFrame());
 		if (ShopItem == 1) {
-			app->font->DrawText("Apple", 180, 20, { 255,255,255 });
+			app->font->DrawText("Apple", x + 204, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 2) {
-			app->font->DrawText("Pie", 180, 20, { 255,255,255 });
+			app->font->DrawText("Pie", x + 214, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 3) {
-			app->font->DrawText("Delicious", 170, 20, { 255,255,255 });
+			app->font->DrawText("Delicious", x + 208, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 4) {
 
 		}
 		break;
 	case 2:
-		app->render->DrawTexture(ItemTex, 290, 100, &life_potion.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 306, y + 100, &life_potion.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 371, y + 103, &elixir.GetCurrentFrame());
 		if (ShopItem == 13) {
-			app->font->DrawText("Life Potion", 170, 20, { 255,255,255 });
+			app->font->DrawText("Life Potion", x + 172, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 14) {
-
+			app->font->DrawText("Elixir", x + 204, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 15) {
 
@@ -136,27 +148,30 @@ bool Shop::PostUpdate() {
 		}
 		break;
 	case 3:
-		app->render->DrawTexture(ItemTex, 288, 100, &egg.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, 354, 102, &meat.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 306, y + 103, &egg.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 437, y + 103, &fried_egg.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 370, y + 102, &meat.GetCurrentFrame());
 		if (ShopItem == 25) {
-			app->font->DrawText("Egg", 180, 20, { 255,255,255 });
+			app->font->DrawText("Egg", x + 212, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 26) {
-			app->font->DrawText("Meat", 180, 20, { 255,255,255 });
+			app->font->DrawText("Meat", x + 210, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 27) {
-
+			app->font->DrawText("Fried Egg", x + 205, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 28) {
 
 		}
 		break;
 	case 4:
+		app->render->DrawTexture(ItemTex, x + 306, y + 103, &chest_key.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 370, y + 103, &door_key.GetCurrentFrame());
 		if (ShopItem == 37) {
-
+			app->font->DrawText("Chest Key", x + 197, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 38) {
-
+			app->font->DrawText("Door Key", x + 199, y + 20, { 255,255,255 });
 		}
 		if (ShopItem == 39) {
 

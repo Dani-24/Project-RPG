@@ -2,9 +2,11 @@
 #define __SHOP_H__
 
 #include "Module.h"
+#include "App.h"
 #include "GuiButton.h"
 #include "GuiManager.h"
 #include "Animation.h"
+#include "Camera.h"
 struct SDL_Texture;
 
 
@@ -51,8 +53,9 @@ private:
 		chest_key,
 		door_key;
 
-	int ShopSection = 0;
+	int ShopSection = 1;
 	int ShopItem = 0;
+
 
 
 	GuiButton* Section1Btn;
