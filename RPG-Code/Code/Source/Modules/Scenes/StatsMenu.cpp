@@ -67,11 +67,13 @@ bool StatsMenu::PreUpdate()
 
 bool StatsMenu::Update(float dt)
 {
+	int x = -app->camera->GetPos().x / 2;
+	int y = -app->camera->GetPos().y / 2;
 
 	//if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_UP) {
 	//	Disable();
 	//}
-
+	
 	//app->scene->guiactivate = true;
 
 	return true;
@@ -87,11 +89,11 @@ bool StatsMenu::PostUpdate()
 
 	// Draw UI
 
-	app->render->DrawTexture(gui, x, y);
+	app->render->DrawTexture(gui, x, y-10);
 
 	backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
 	//statsButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(statsButtonTexture, statsButton->bounds.x, statsButton->bounds.y) : app->render->DrawTexture(statsButtonPressedTexture, statsButton->bounds.x, statsButton->bounds.y);
-
+	app->render->DrawTexture(app->scene->partyList.At(0)->data->spriteFace, x+50,y+50);
 	return ret;
 }
 
@@ -101,8 +103,8 @@ bool StatsMenu::CleanUp()
 
 	//// Allow player to move
 	app->scene->player->canMove = true;
-
-	//backButton->state = GuiControlState::DISABLED;
+	
+	backButton->state = GuiControlState::DISABLED;
 	////statsButton->state = GuiControlState::DISABLED;
 
 	//app->scene->showLocation = true;
