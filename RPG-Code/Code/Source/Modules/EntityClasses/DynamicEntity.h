@@ -10,6 +10,8 @@
 
 #include <vector>
 
+#define BATTLE_SIZE 180
+
 struct SDL_Texture;
 
 enum class DynamicType

@@ -85,175 +85,175 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	//----------------------------------------------------------------------------------Battle Male------------------------------------
 
-	idleBattleM.PushBack({ 0, 0, 140, 83 });
-	idleBattleM.PushBack({ 140 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 280 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 420 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 560 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 700 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 840 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 980 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1120 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1260 , 0 , 140 , 83 });
-	idleBattleM.PushBack({ 1400 , 0 , 140 , 83 });
-	idleBattleM.loop = true;
-	idleBattleM.speed = 0.015f;
+	attackM.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackM.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-	attackM.PushBack({ 0 , 83 , 140 , 83 });
-	attackM.PushBack({ 140 , 83 , 140 , 83 });
-	attackM.PushBack({ 280 , 83 , 140 , 83 });
-	attackM.PushBack({ 420 , 83 , 140 , 83 });
-	attackM.PushBack({ 560 , 83 , 140 , 83 });
-	attackM.PushBack({ 700 , 83 , 140 , 83 });
-	attackM.PushBack({ 0, 0, 140, 83 });
-	attackM.PushBack({ 140 , 0 , 140 , 83 });
-	attackM.PushBack({ 280 , 0 , 140 , 83 });
-	attackM.PushBack({ 420 , 0 , 140 , 83 });
-	attackM.PushBack({ 560 , 0 , 140 , 83 });
-	attackM.PushBack({ 700 , 0 , 140 , 83 });
-	attackM.PushBack({ 840 , 0 , 140 , 83 });
-	attackM.PushBack({ 980 , 0 , 140 , 83 });
-	attackM.PushBack({ 1120 , 0 , 140 , 83 });
-	attackM.PushBack({ 1260 , 0 , 140 , 83 });
-	attackM.PushBack({ 1400 , 0 , 140 , 83 });
 	attackM.loop = false;
 	attackM.speed = 0.008f;
 
-	protectM.PushBack({ 0 , 581 , 140 , 83 });
-	protectM.PushBack({ 140 , 581 , 140 , 83 });
-	protectM.PushBack({ 280 , 581 , 140 , 83 });
-	protectM.PushBack({ 420 , 581 , 140 , 83 });
+	protectM.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	protectM.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	protectM.loop = true;
 	protectM.speed = 0.006f;
 
-	hitM.PushBack({ 0 , 249 , 140 , 83 });
-	hitM.PushBack({ 140 , 249 , 140 , 83 });
-	hitM.PushBack({ 280 , 249 , 140 , 83 });
-	hitM.PushBack({ 420 , 249 , 140 , 83 });
-	hitM.loop = true;
-	hitM.speed = 0.006f;
-
-	dieM.PushBack({ 0, 166, 140, 83 });
-	dieM.PushBack({ 140 , 166 , 140 , 83 });
-	dieM.PushBack({ 280 , 166 , 140 , 83 });
-	dieM.PushBack({ 420 , 166 , 140 , 83 });
-	dieM.PushBack({ 560 , 166 , 140 , 83 });
-	dieM.PushBack({ 700 , 166 , 140 , 83 });
-	dieM.PushBack({ 840 , 166 , 140 , 83 });
-	dieM.PushBack({ 980 , 166 , 140 , 83 });
-	dieM.PushBack({ 1120 , 166 , 140 , 83 });
+	dieM.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 1 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 2 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 3 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 4 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 5 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 6 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 7 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieM.PushBack({ 8 * BATTLE_SIZE , 2 * BATTLE_SIZE * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	dieM.loop = false;
 	dieM.speed = 0.006f;
 
+	idleBattleM.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleM.loop = true;
+	idleBattleM.speed = 0.015f;
+
+	hitM.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitM.loop = true;
+	hitM.speed = 0.006f;
+
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
 
-	idleBattleF.PushBack({ 1 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 2 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 3 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 4 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 5 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 6 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 7 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 8 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 9 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 10 * 180 , 0 , 180 , 180 });
-	idleBattleF.PushBack({ 11 * 180 , 0 ,  180 , 180 });
-	idleBattleF.loop = true;
-	idleBattleF.speed = 0.015f;
+	attackF.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 6 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-	attackF.PushBack({ 0 , 0 , 180 , 114 });
-	attackF.PushBack({ 180 , 0 , 180 , 114 });
-	attackF.PushBack({ 360 , 0 , 180 , 114 });
-	attackF.PushBack({ 540 , 0 , 180 , 114 });
-	attackF.PushBack({ 720 , 0 , 180 , 114 });
-	attackF.PushBack({ 900 , 0 , 180 , 114 });
-	attackF.PushBack({ 1080 , 0 , 180 , 114 });
-	attackF.PushBack({ 0 , 456 , 180 , 114 });
-	attackF.PushBack({ 180 , 456 , 180 , 114 });
-	attackF.PushBack({ 360 , 456 , 180 , 114 });
-	attackF.PushBack({ 540 , 456 , 180 , 114 });
-	attackF.PushBack({ 720 , 456 , 180 , 114 });
-	attackF.PushBack({ 900 , 456 , 180 , 114 });
-	attackF.PushBack({ 1080 , 456 , 180 , 114 });
-	attackF.PushBack({ 1260 , 456 , 180 , 114 });
-	attackF.PushBack({ 1440 , 456 , 180 , 114 });
-	attackF.PushBack({ 1620 , 456 , 180 , 114 });
-	attackF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 	attackF.loop = false;
 	attackF.speed = 0.008f;
 
-	attackF2.PushBack({ 0 , 114 , 180 , 114 });
-	attackF2.PushBack({ 180 , 114 , 180 , 114 });
-	attackF2.PushBack({ 360 , 114 , 180 , 114 });
-	attackF2.PushBack({ 540 , 114 , 180 , 114 });
-	attackF2.PushBack({ 720 , 114 , 180 , 114 });
-	attackF2.PushBack({ 900 , 114 , 180 , 114 });
-	attackF2.PushBack({ 1080 , 114 , 180 , 114 });
-	attackF2.PushBack({ 0 , 456 , 180 , 114 });
-	attackF2.PushBack({ 180 , 456 , 180 , 114 });
-	attackF2.PushBack({ 360 , 456 , 180 , 114 });
-	attackF2.PushBack({ 540 , 456 , 180 , 114 });
-	attackF2.PushBack({ 720 , 456 , 180 , 114 });
-	attackF2.PushBack({ 900 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1080 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1260 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1440 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1620 , 456 , 180 , 114 });
-	attackF2.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackF2.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 4 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 5 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 6 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	attackF2.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackF2.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
+
 	attackF2.loop = false;
 	attackF2.speed = 0.009f;
 
-	attackChainF.PushBack({ 0 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 0 , 180 , 114 });
-	attackChainF.PushBack({ 0 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 114 , 180 , 114 });
-	attackChainF.PushBack({ 0 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 180 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 360 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 540 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 720 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 900 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1080 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1260 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1440 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1620 , 456 , 180 , 114 });
-	attackChainF.PushBack({ 1800 , 456 ,  180 , 114 });
+	attackChainF.PushBack({ 0 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 1 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 2 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 3 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 4 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 5 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 6 * BATTLE_SIZE , 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 0 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 4 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 5 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	attackChainF.PushBack({ 6 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	idleBattleF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 	attackChainF.loop = false;
 	attackChainF.speed = 0.009f;
 
-	protectF.PushBack({ 540 , 228 , 180 , 114 });
+
+	dieF.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 1 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 2 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 3 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 4 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 5 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 6 * BATTLE_SIZE , 2 * BATTLE_SIZE,  BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 7 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 8 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 9 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	dieF.PushBack({ 10 * BATTLE_SIZE , 2 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
+
+	dieF.loop = false;
+	dieF.speed = 0.006f;
+
+	protectF.PushBack({ 3 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE , BATTLE_SIZE });
 	protectF.loop = true;
 
-	hitF.PushBack({ 0 , 798 , 180 , 114 });
-	hitF.PushBack({ 180 , 798 , 180 , 114 });
-	hitF.PushBack({ 360 , 798 , 180 , 114 });
-	hitF.PushBack({ 540 , 798 , 180 , 114 });
+	idleBattleF.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 2 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 3 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 4 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 5 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 6 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 7 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 8 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 9 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	idleBattleF.PushBack({ 10 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+	idleBattleF.loop = true;
+	idleBattleF.speed = 0.015f;
+
+	hitF.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	hitF.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitF.loop = true;
 	hitF.speed = 0.006f;
 
-	dieF.PushBack({ 0 , 228 , 180 , 114 });
-	dieF.PushBack({ 180 , 228 , 180 , 114 });
-	dieF.PushBack({ 360 , 228 , 180 , 114 });
-	dieF.PushBack({ 540 , 228 , 180 , 114 });
-	dieF.PushBack({ 720 , 228 , 180 , 114 });
-	dieF.PushBack({ 900 , 228 , 180 , 114 });
-	dieF.PushBack({ 1080 , 228 , 180 , 114 });
-	dieF.PushBack({ 1260 , 228 , 180 , 114 });
-	dieF.PushBack({ 1440 , 228 , 180 , 114 });
-	dieF.PushBack({ 1620 , 228 , 180 , 114 });
-	dieF.PushBack({ 1800 , 228 ,  180 , 114 });
-	dieF.loop = false;
-	dieF.speed = 0.006f;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
@@ -304,9 +304,9 @@ bool Player::Start()
 
 	PlayerMTex = app->tex->Load(MaleChar);
 	PlayerFTex = app->tex->Load(FemaleChar);
-	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
+	BattleMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Combat/m_battle_spritesheet.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
-	BattleFTex = app->tex->Load("Assets/sprites/characters/wizard/wizardBattleSprite.png");
+	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Combat/f_battle_spritesheet.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
