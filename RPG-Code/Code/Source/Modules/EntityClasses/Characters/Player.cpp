@@ -267,7 +267,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	baseCollider = app->collisions->AddCollider({ position.x + colRightDistance, position.y+ colDownDistance , 30,  24 }, Collider::Type::PLAYER, this);
 
 	mapPosition = { 0,0 };
-	battlePosition = { 150, 150 };
+	battlePosition = { 300, 300 };
 
 	isAlive = true;
 
@@ -728,32 +728,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading floor 1 map");
 								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 3 map");
 								tower2Pos = { position.x, position.y + tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER3);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 
 								break;
-							case StageIndex::TOWER3:
+							case StageIndex::TOWER_3:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
 							}
@@ -770,7 +770,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading Tower map");
 								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
 							case StageIndex::DOJO:
@@ -791,32 +791,32 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading town map");
 								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER3:
+							case StageIndex::TOWER_3:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
 							}
@@ -832,7 +832,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading Tower map");
 								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
 							case StageIndex::DOJO:
@@ -847,25 +847,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading floor 1 map");
 								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading tower map");
 								tower1Pos = { position.x, position.y - tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER0);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 2 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
 							}
@@ -896,25 +896,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER0:
+							case StageIndex::TOWER_0:
 
 								LOG("Loading town map");
 								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading floor 2 map");
 								tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 
 								break;
-							case StageIndex::TOWER2:
+							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
 							}
@@ -930,11 +930,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TAVERN);
 
 								break;
-							case StageIndex::TOWER1:
+							case StageIndex::TOWER_1:
 
 								LOG("Loading floor 2 map");
 								tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 								break;
 							}
 
