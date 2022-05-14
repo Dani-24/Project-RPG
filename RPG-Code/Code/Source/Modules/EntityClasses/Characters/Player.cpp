@@ -267,7 +267,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	baseCollider = app->collisions->AddCollider({ position.x + colRightDistance, position.y+ colDownDistance , 30,  24 }, Collider::Type::PLAYER, this);
 
 	mapPosition = { 0,0 };
-	battlePosition = { 300, 300 };
+	battlePosition = { 100, 100 };
 
 	isAlive = true;
 

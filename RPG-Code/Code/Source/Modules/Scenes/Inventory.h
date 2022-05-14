@@ -102,22 +102,24 @@ private:
 	int inventorySlots = 10,
 		inventorySpecialSlots = 5;
 
-	// Lists
-	List<Item*>* items,
-			   * specialItems;
+	// List Slots
 
 	List<Slot*> slots;
 
 	// Assets GUI_buttons
 	GuiButton	* backButton,
-				* statsButton;
+				* statsButton,
+				* itemUseButton,
+				* itemBackButon,
+				* itemInfoButton,
+				* itemInfoCloseButton;
 
 	SDL_Texture	* backButtonTexture,
 				* backButtonPressedTexture,
 				* statsButtonTexture,
 				* statsButtonPressedTexture;
 
-	int buttonSfx, backSfx, moveSfx;
+	int buttonSfx, backSfx, moveSfx, useSfx;
 };
 
 #endif // __INVENTORY_H__

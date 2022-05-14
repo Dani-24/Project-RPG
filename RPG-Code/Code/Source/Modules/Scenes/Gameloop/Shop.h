@@ -51,7 +51,9 @@ private:
 		chest_key,
 		door_key;
 
-	int ShopSection = 1;
+	int ShopSection = 0;
+	int ShopItem = 0;
+
 
 	GuiButton* Section1Btn;
 	GuiButton* Section2Btn;

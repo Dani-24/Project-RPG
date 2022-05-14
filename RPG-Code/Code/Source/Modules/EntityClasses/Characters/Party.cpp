@@ -17,7 +17,7 @@
 
 Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY)
 {
-	position = { 0,0 };
+
 	this->partyType = partyType;
 
 	switch (partyType) {
