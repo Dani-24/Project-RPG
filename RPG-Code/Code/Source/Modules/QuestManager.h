@@ -39,8 +39,6 @@ public:
 	int QuestChainId; //chain id
 	int QuestInChainId; //in chain number
 
-	bool autoComplete;
-
 	int objectiveNum;
 	int objectiveProgress;
 
@@ -66,8 +64,6 @@ public:
 		QuestChainId = 0;
 		QuestInChainId = 0;
 
-		autoComplete = false;
-
 		objectiveNum = 0;
 		objectiveProgress = 0;
 
@@ -75,7 +71,7 @@ public:
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, bool _autoComplete, int ChainId, int inChainId, bool LastInChain)
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain)
 	{
 		questType = qtype;
 		State = qState;
@@ -85,7 +81,6 @@ public:
 		NPCId = NPCid;
 		QuestGold = Gold;
 		QuestExp = XP;
-		autoComplete = _autoComplete;
 		QuestChainId = ChainId;
 		QuestInChainId = inChainId;
 		if (QuestChainId != 0) {
@@ -141,8 +136,6 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-
-	void QInteract(NPCType, const char* [DIALOG_LENGHT]);
 
 	void CheckQuest(int NPCid);
 	void CheckState(int ID);
