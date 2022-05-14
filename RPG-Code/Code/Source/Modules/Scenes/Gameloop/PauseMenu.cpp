@@ -20,6 +20,7 @@
 #include "Configuration.h"
 #include "Battle.h"
 #include "Inventory.h"
+#include "StatsMenu.h"
 
 PauseMenu::PauseMenu(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -84,6 +85,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 21)
 			{
 				LOG("partu");
+				app->stmen->Enable();
 				resumen = true;
 			}
 			if (control->id == 22)

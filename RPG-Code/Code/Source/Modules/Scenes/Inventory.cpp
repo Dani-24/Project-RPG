@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Inventory.h"
+#include "StatsMenu.h"
 
 #include "Input.h"
 #include "Textures.h"
@@ -175,7 +176,8 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 299)
 		{
 			LOG("Stats button");
-
+			Disable();
+			app->stmen->Enable();
 			app->audio->PlayFx(buttonSfx);
 		}
 
