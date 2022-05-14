@@ -326,6 +326,8 @@ bool Inventory::CleanUp()
 	app->tex->UnLoad(selectorItems);
 	app->tex->UnLoad(itemInfo);
 
+	slots.clear();
+
 	buttonSfx = NULL;
 
 	return true;
