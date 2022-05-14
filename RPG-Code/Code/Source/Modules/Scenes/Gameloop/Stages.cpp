@@ -436,7 +436,7 @@ bool Stages::PostUpdate()
 
 		//PRINT THE BATTLE ENTITIES
 
-		for (int i = 7; i >= 0; i--)
+		for (int i = 0; i <8; i++)
 		{
 			if (app->battle->entitiesInBattle[i] != nullptr) {
 
@@ -501,7 +501,7 @@ bool Stages::PostUpdate()
 								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
 								break;
 							case NormalEnemyType::BAT:
-								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 2 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y + 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 3);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x , NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3, false);
 								break;
 							case NormalEnemyType::SKELETON:
 								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
