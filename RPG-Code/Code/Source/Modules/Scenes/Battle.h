@@ -12,6 +12,13 @@ class DynamicEntity;
 
 enum class StageIndex;
 
+#define BUTTONS_SPACE_HOR 20
+#define BUTTONS_BOTTOM_SPACE 50
+#define BUTTONS_W 74
+#define BUTTONS_H 32
+#define NUM_BUTTONS 4
+#define LATERAL_MOVE 34
+
 enum class BattlePhase {
 
 	THINKING,
@@ -114,6 +121,9 @@ public:
 
 	//Buttons
 
+	//Back
+	GuiButton* backButton; // back button
+
 	//Thinking
 	GuiButton* attackButton; // attack button
 	GuiButton* defenseButton; // defense button
@@ -148,6 +158,8 @@ public:
 	//Button textures
 
 	//Thinking
+
+	SDL_Texture* backButtonTex;
 	SDL_Texture* attackTex;
 	SDL_Texture* defenseTex;
 	SDL_Texture* itemsTex;
@@ -181,6 +193,7 @@ public:
 	//Button pressed textures
 
 	//Thinking
+	SDL_Texture* press_backTex;
 	SDL_Texture* press_attackTex;
 	SDL_Texture* press_defenseTex;
 	SDL_Texture* press_itemsTex;
