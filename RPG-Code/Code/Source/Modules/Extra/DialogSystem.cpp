@@ -89,8 +89,11 @@ bool DialogSystem::PostUpdate() {
 					}
 
 					app->font->DrawTextDelayed(t->data, x + 120, y + 33);
-
-					app->render->DrawTexture(currentChara, x, y);
+					if(currentChara != nullptr)
+					{
+						app->render->DrawTexture(currentChara, x, y);
+					}
+					
 
 					break;
 				}

@@ -87,13 +87,17 @@ void QuestManager::CheckQuest(int NPCid)
 		if (QuestInList->data->questType == QuestType::INTERACT) {
 			if (QuestInList->data->NPCinteractId == NPCid)
 			{
-				n = true;
+				
 				//CompleteInteract(QuestInList->data->QuestId);
 				if (QuestInList->data->State == QuestState::ACTIVE) 
 				{
+					n = true;
 					QuestInList->data->State = QuestState::COMPLETED;
 					CheckState(QuestInList->data->QuestId);
 				}
+				/*else {
+					n = false;
+				}*/
 				
 			}
 		}
@@ -193,6 +197,7 @@ void QuestManager::CheckState(int Id)
 				default:
 					break;
 				}
+				QuestInList->data->State = QuestState::ACTIVE;
 				break;
 			case QuestState::ACTIVE:
 				switch (QuestInList->data->NPCId)

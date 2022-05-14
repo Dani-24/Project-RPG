@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "List.h"
+#include "NPC.h"
 #include "DialogSystem.h"
 #include <vector>
 
@@ -43,9 +44,9 @@ public:
 
 	int NPCinteractId;
 
-	const char* availableDialog[DIALOG_LENGHT];
-	const char* activeDialog[DIALOG_LENGHT];
-	const char* completedDialog[DIALOG_LENGHT];
+	const char* availableDialog[DIALOG_LENGHT] = { "active quest" };
+	const char* activeDialog[DIALOG_LENGHT] = { "quest in process" };
+	const char* completedDialog[DIALOG_LENGHT] = { "take reward" };
 
 public:
 	Quest()
@@ -68,9 +69,6 @@ public:
 
 		NPCinteractId = 1;
 
-		availableDialog[DIALOG_LENGHT] = { "active quest" };
-		activeDialog[DIALOG_LENGHT] = { "quest in process" };
-		completedDialog[DIALOG_LENGHT] = { "take reward" };
 	}
 
 	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain)
@@ -90,9 +88,6 @@ public:
 		}
 		QuestLastChain = LastInChain;
 
-		availableDialog[DIALOG_LENGHT] = "active quest";
-		activeDialog[DIALOG_LENGHT] = "quest in process";
-		completedDialog[DIALOG_LENGHT] = "take reward";
 
 		switch (qtype) {
 		case QuestType::INTERACT:
@@ -112,9 +107,17 @@ public:
 
 	void QuestDialogs(const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char*  completed[DIALOG_LENGHT])
 	{
-		availableDialog[DIALOG_LENGHT] = available[DIALOG_LENGHT];
-		activeDialog[DIALOG_LENGHT] = active[DIALOG_LENGHT];
-		completedDialog[DIALOG_LENGHT] = completed[DIALOG_LENGHT];
+		for (int i = 0; i < DIALOG_LENGHT; i++) {
+			if (available[i] != NULL) {
+				availableDialog[i] = available[i];
+			}
+			if (active[i] != NULL) {
+				activeDialog[i] = active[i];
+			}
+			if (completed[i] != NULL) {
+				completedDialog[i] = completed[i];
+			}
+		}
 	}
 
 };
