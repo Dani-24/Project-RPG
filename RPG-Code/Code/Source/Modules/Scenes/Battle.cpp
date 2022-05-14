@@ -1581,7 +1581,7 @@ void Battle::Attack(DynamicEntity *target) {
 			}
 			
 		}
-		awa++;
+		
 		/*LOG("%d aaaaaaaaaaaaaaaaaaa", awa);*/
 		//Fill the new timeline
 		for (int k = 0; k < emptySpots; k++) {
@@ -1591,19 +1591,19 @@ void Battle::Attack(DynamicEntity *target) {
 		for (int i = 0; i <= 2; i++) {
 			if (target->name == "Bat")
 			{
-				LOG("%d aaaaaaaaaaaaaaaaaaa", awa);
+				LOG("aaaaaaaaaaaaaaaaaaa");
 				entitiesInBattle[i]->stats->lvlup(20);
 
 			}
 			if (target->name == "Flying eye")
 			{
-				LOG("%d aaaaaaaaaaaaaaaaaaa", awa);
+				LOG("oooooooooooooooooooo");
 				 entitiesInBattle[i]->stats->lvlup(50);
 
 			}
 			if (target->name == "Skeleton")
 			{
-				LOG("%d aaaaaaaaaaaaaaaaaaa", awa);
+				LOG("eeeeeeeeeeeeeeeeeeeeeee");
 
 
 				 entitiesInBattle[i]->stats->lvlup(100);

@@ -135,6 +135,7 @@
     <ClCompile Include="Source\Modules\Core\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Core\Window.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\StatsMenu.cpp" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+    <ClInclude Include="Source\Modules\Scenes\StatsMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource\RPG.rc" />

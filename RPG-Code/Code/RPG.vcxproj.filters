@@ -50,6 +50,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
     <ClCompile Include="Source\Modules\QuestManager.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Shop.cpp" />
+    <ClCompile Include="Source\Modules\Scenes\StatsMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -122,6 +123,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
     <ClInclude Include="Source\Modules\QuestManager.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Shop.h" />
+    <ClInclude Include="Source\Modules\Scenes\StatsMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

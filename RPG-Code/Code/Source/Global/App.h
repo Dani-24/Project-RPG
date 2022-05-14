@@ -42,7 +42,7 @@ class Collisions;
 
 class DialogSystem;
 class Inventory;
-
+class StatsMenu;
 
 class App
 {
@@ -134,7 +134,7 @@ public:
 
 	DialogSystem* dialogs;
 	Inventory* inventory;
-
+	StatsMenu* stmen;
 private:
 
 	int argc;

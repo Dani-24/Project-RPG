@@ -275,14 +275,11 @@ public:
 
 	//sfx
 	int startFx;
-<<<<<<< Updated upstream
+
 	int explosionfx;
 
 
-=======
 
-	int awa = 1;
->>>>>>> Stashed changes
 };
 
 #endif // __BATTLE_H__

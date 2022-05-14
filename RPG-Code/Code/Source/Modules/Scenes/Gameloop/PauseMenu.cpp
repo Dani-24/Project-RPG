@@ -84,7 +84,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 21)
 			{
 				LOG("partu");
-				DissButt();
+				resumen = true;
 			}
 			if (control->id == 22)
 			{
@@ -189,7 +189,7 @@ bool PauseMenu::Update(float dt)
 
 	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() && app->shop->isEnabled()==false ) {
 
-		if (pauseGame){
+		if (pauseGame && resumen){
 			if (app->conf->isEnabled())app->conf->Disable();
 			pauseGame = false;
 			resumen = false;
