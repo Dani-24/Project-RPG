@@ -31,9 +31,8 @@ bool QuestManager::Awake(pugi::xml_node& config)
 bool QuestManager::Start() 
 {
 	bool ret = true;
-	Quest* quest1 = new Quest();
-	questList.add(quest1);
-	//delete quest1;
+	/*Quest* quest1 = new Quest();
+	questList.add(quest1);*/
 
 
 	return ret;
@@ -77,6 +76,8 @@ bool QuestManager::CleanUp()
 {
 	bool ret = true;
 
+	questList.clear();
+
 	return ret;
 }
 
@@ -102,7 +103,7 @@ void QuestManager::CheckQuest(int NPCid)
 				{
 					n = true;
 					QuestInList->data->State = QuestState::COMPLETED;
-					CheckState(QuestInList->data->QuestId);
+					InteractComplete(QuestInList->data->QuestId);
 				}
 				/*else {
 					n = false;
@@ -140,6 +141,42 @@ void QuestManager::CheckQuest(int NPCid)
 		default:
 			break;
 		}
+	}
+}
+
+void QuestManager::InteractComplete(int id){
+	ListItem<Quest*>* QuestInList;
+	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
+	{
+		switch (QuestInList->data->NPCinteractId)
+		{
+		case 1:
+			app->scene->player->Interact(NPCType::COCK, QuestInList->data->completedDialog);
+			break;
+		case 2:
+			app->scene->player->Interact(NPCType::MERCHANT, QuestInList->data->completedDialog);
+			break;
+		case 3:
+			app->scene->player->Interact(NPCType::BARKEEPER, QuestInList->data->completedDialog);
+			break;
+		case 4:
+			app->scene->player->Interact(NPCType::TRAINER, QuestInList->data->completedDialog);
+			break;
+		case 5:
+			app->scene->player->Interact(NPCType::EMILIO, QuestInList->data->completedDialog);
+			break;
+		case 7:
+			app->scene->player->Interact(NPCType::FUENTE, QuestInList->data->completedDialog);
+			break;
+		case 8:
+			app->scene->player->Interact(NPCType::CARTELSUDTOWN, QuestInList->data->completedDialog);
+			break;
+		default:
+			break;
+		}
+		GiveReward(QuestInList->data->QuestId);
+		CheckChain(QuestInList->data->QuestId);
+		QuestInList->data->State = QuestState::FINISHED;
 	}
 }
 

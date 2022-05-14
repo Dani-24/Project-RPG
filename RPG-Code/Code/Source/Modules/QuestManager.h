@@ -56,10 +56,10 @@ public:
 		State = QuestState::AVAILABLE;
 		questName = "Default Name";
 		questDescription = "Do something";
-		QuestId = 1;
-		NPCId = 8;
+		QuestId = 0;
+		NPCId = 0;
 		QuestGold = 0;
-		QuestExp = 100;
+		QuestExp = 0;
 		autoComplete = false;
 		QuestChain = false;
 		QuestLastChain = false;
@@ -69,7 +69,7 @@ public:
 		objectiveNum = 0;
 		objectiveProgress = 0;
 
-		NPCinteractId = 1;
+		NPCinteractId = 0;
 
 	}
 
@@ -144,6 +144,7 @@ public:
 	void CheckState(int ID);
 	void GiveReward(int ID);
 	void CheckChain(int ID);
+	void InteractComplete(int ID);
 
 	//// Load / Save
 	//bool LoadState(pugi::xml_node&);
