@@ -88,7 +88,8 @@ private:
 	SDL_Texture	* inventoryBG,
 				* weaponType,
 				* selectorItems,
-				* selectorCharacters;
+				* selectorCharacters,
+				* itemInfo;
 
 	iPoint	selectorItemPos,
 			selectorCharsPos,
