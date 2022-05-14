@@ -343,7 +343,7 @@ bool Player::PreUpdate()
 	if (toggleGui == true && app->stages->actualStage != StageIndex::INTRODUCTION) {
 		if (lastFramePos == position) {
 			showGuiCont++;
-			if (showGuiCont >= 120) {
+			if (showGuiCont >= 30) {
 				app->scene->guiactivate = true;
 			}
 		}
