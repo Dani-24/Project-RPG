@@ -52,7 +52,16 @@ bool QuestManager::Update(float dt)
 {
 	bool ret = true;
 
-	
+	ListItem<Quest*>* QuestInList;
+	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
+	{
+		if (QuestInList->data->autoComplete)
+		{
+			GiveReward(QuestInList->data->QuestId);
+			CheckChain(QuestInList->data->QuestId);
+			QuestInList->data->State = QuestState::FINISHED;
+		}
+	}
 
 	return ret;
 }

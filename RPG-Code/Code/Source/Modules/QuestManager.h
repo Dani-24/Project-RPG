@@ -34,6 +34,7 @@ public:
 	int NPCId; //Npc that give you the quest
 	int QuestGold; //Gold reward
 	int QuestExp; //Exp reward
+	bool autoComplete; //if the quests gets complete inmediatly
 	bool QuestChain; //if it's in a chain
 	bool QuestLastChain;
 	int QuestChainId; //chain id
@@ -59,6 +60,7 @@ public:
 		NPCId = 8;
 		QuestGold = 0;
 		QuestExp = 100;
+		autoComplete = false;
 		QuestChain = false;
 		QuestLastChain = false;
 		QuestChainId = 0;
@@ -71,7 +73,7 @@ public:
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain)
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, bool _autoComplete, int objective_NPCid, int ChainId, int inChainId, bool LastInChain)
 	{
 		questType = qtype;
 		State = qState;
@@ -81,6 +83,7 @@ public:
 		NPCId = NPCid;
 		QuestGold = Gold;
 		QuestExp = XP;
+		autoComplete = _autoComplete;
 		QuestChainId = ChainId;
 		QuestInChainId = inChainId;
 		if (QuestChainId != 0) {
