@@ -189,9 +189,9 @@ bool PauseMenu::Update(float dt)
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
 	if (!pad.start) _wait = true;
 
-	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true)&&app->scene->playing&&!app->battle->isEnabled() && app->shop->isEnabled()==false ) {
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN|| resumen == true || pad.start && _wait == true)&&app->scene->playing/*&&!app->battle->isEnabled() && !app->shop->isEnabled()*/) {
 
-		if (pauseGame && resumen){
+		if (pauseGame ){
 			if (app->conf->isEnabled())app->conf->Disable();
 			pauseGame = false;
 			resumen = false;

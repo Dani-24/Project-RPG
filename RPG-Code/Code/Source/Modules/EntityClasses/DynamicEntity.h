@@ -39,13 +39,14 @@ public:
 	int nexp;
 
 	int Shealth;
-
+	int SmaxHealth;
 	
 	int Slevel;
 	int Sattack;
 	int Sdefense;
 	int Sspeed;
 	int Smana;
+	int SmaxMana;
 
 	int localTurn;
 	bool defenseBuffed;
@@ -91,16 +92,16 @@ public:
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
-	void SetStats(int Health, int MaxHealth, int attack, int defense, int mana, int MaxMana/*, int speed*/)
+	void SetStats(int Health, int attack, int defense, int mana/*, int speed*/)
 	{
 
 		this->health = Health;
-		this->maxHealth = MaxHealth;
+		this->maxHealth = Health;
 		this->attack = attack;
 		this->defense = defense;
 		/*this->speed = speed;*/
 		this->mana = mana;
-		this->maxMana = MaxMana;
+		this->maxMana = mana;
 
 
 
@@ -110,22 +111,27 @@ public:
 		Slevel = level;
 
 		Shealth = health;
-
+		SmaxHealth = maxHealth;
 		Sattack = attack;
 		Sdefense = defense;
 		/*this->Sspeed = speed;*/
 		Smana = mana;
+
+		SmaxMana = maxMana;
 	}
 	void LoadStats()
 	{
 		level = Slevel;
-
+		maxHealth = SmaxHealth;
 		health = Shealth;
+		
 
 		attack = Sattack;
 		defense = Sdefense;
 		/*this->speed = Sspeed*/;
 		mana = Smana;
+
+		maxMana = SmaxMana;
 	}
 
 	void lvlup(int rep)

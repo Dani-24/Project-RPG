@@ -59,6 +59,7 @@ bool Inventory::Start()
 	// Buttons
 	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 298, "Back", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 10, 74, 32 }, this);
 	statsButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 299, "Stats", { (-app->camera->GetPos().x / 2) + 20, (-app->camera->GetPos().y / 2) + 45, 74, 32 }, this);
+	statsButton->state = GuiControlState::DISABLED;
 
 	backButtonTexture = app->tex->Load("Assets/gui/buttons/back_text.png");
 	backButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_back_text.png");
@@ -337,7 +338,9 @@ bool Inventory::PostUpdate()
 				}
 
 			}
+
 		}
+		if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
 	}
 	return ret;
 }
@@ -392,8 +395,10 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 299)
 		{
 			LOG("Stats button");
-			Disable();
+			statsButton->state = GuiControlState::DISABLED;
 			app->stmen->Enable();
+			Disable();
+			
 			app->audio->PlayFx(buttonSfx);
 		}
 

@@ -73,14 +73,13 @@ bool Scene::Start()
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
 
+	/*Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
+	partyList.add(valion);*/
+
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 	partyList.add(player);
 
-	////Party members
-	//Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
-	//partyList.add(valion);
-	//
 	
 
 	app->stages->partyListPtr = &partyList;
@@ -233,7 +232,7 @@ bool Scene::Update(float dt)
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
-				partyList.At(i)->data->stats->SetStats(9999, partyList.At(i)->data->stats->maxHealth, 9999, 9999, 999, partyList.At(i)->data->stats->mana);
+				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, partyList.At(i)->data->stats->mana);
 			}
 			
 			godmode = true;
