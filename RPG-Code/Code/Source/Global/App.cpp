@@ -93,6 +93,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(pauseM);
 	AddModule(conf);
 	
+	
 	AddModule(inventory);
 	AddModule(stmen);
 	AddModule(shop);
@@ -100,6 +101,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(guiManager);
 	AddModule(font);
 	AddModule(dialogs);
+	AddModule(questManager);
 
 	AddModule(collisions);
 
