@@ -12,15 +12,55 @@
 #include "Equipment.h"
 #include "Usable.h"
 
+#include "List.h"
+#include "Point.h"
+
 struct SDL_Texture;
 
 class Character;
 class Item;
 
 class Slot {
-	SDL_Rect* bounds;
-	bool isSelected;
-	bool activated;
+public:
+	Slot(iPoint position, iPoint size, Item* asignedItem = nullptr, bool isEquipment = false) {
+		this->position = position;
+		this->size = size;
+
+		if (isEquipment) {
+			this->isItem = false;
+		}
+		else {
+			this->isItem = true;
+		}
+		this->isEquipment = isEquipment;
+		this->isCharacter = false;
+
+		this->asignedItem = asignedItem;
+		this->asignedCharacter = nullptr;
+	}
+	Slot(iPoint position, iPoint size, Character* asignedCharacter = nullptr) {
+		this->position = position;
+		this->size = size;
+		this->isItem = false;
+		this->isCharacter = true;
+		this->isEquipment = false;
+
+		this->asignedItem = nullptr;
+		this->asignedCharacter = asignedCharacter;
+	}
+public:
+	iPoint	position,
+			size;
+
+	bool	isSelected = false,
+			activated = false;
+
+	bool	isItem,
+			isCharacter,
+			isEquipment;
+
+	Item* asignedItem;
+	Character* asignedCharacter;
 };
 
 class Inventory : public Module
@@ -51,7 +91,10 @@ private:
 				* selectorCharacters;
 
 	iPoint	selectorItemPos,
-			selectorCharsPos;
+			selectorCharsPos,
+			// for sfx:
+			lastItemPos, 
+			lastCharPos;
 
 	bool inventoryOnBattle = false;
 
@@ -62,7 +105,7 @@ private:
 	List<Item*>* items,
 			   * specialItems;
 
-	List<Slot*>  * slots;
+	List<Slot*> slots;
 
 	// Assets GUI_buttons
 	GuiButton	* backButton,
@@ -73,7 +116,7 @@ private:
 				* statsButtonTexture,
 				* statsButtonPressedTexture;
 
-	int buttonSfx, backSfx;
+	int buttonSfx, backSfx, moveSfx;
 };
 
 #endif // __INVENTORY_H__

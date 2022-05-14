@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Inventory.h"
+#include "StatsMenu.h"
 
 #include "Input.h"
 #include "Textures.h"
@@ -70,19 +71,45 @@ bool Inventory::Start()
 
 	int x = -app->camera->GetPos().x / 2,
 		y = -app->camera->GetPos().y / 2,
-		butX = x + 275,
-		butY = y + 141;
+		butX = x + 270,
+		butY = y + 136,
+		charX = x + 105,
+		charY = y + 7;
 
-	selectorItemPos = { butX, butY };
-	selectorCharsPos = { x + 110, y + 5 };
+	selectorItemPos = lastItemPos = { butX, butY };
+	selectorCharsPos = lastCharPos = { charX, charY };
 
-	// Crear "botones" de la UI
-	/*for (int i = 0; i < inventorySlots; i++) {
-		Slot s = new Slot();
-	}*/
+	// Crear "botones" de la UI || ITEMS
+	for (int i = 0; i < inventorySlots; i++) {
+		if (i == 5) {
+			butX = x + 270;
+			butY = y + 196;
+		}
+		Slot* s = new Slot({ butX,butY }, {45, 45}, nullptr, false);
+
+		slots.add(s);
+
+		s = nullptr;
+		delete s;
+
+		butX += 67;
+	}
+
+	// Crear "botones" de la UI || Characters
+	for (ListItem<Character*>* party = app->scene->partyList.start; party != NULL; party = party->next) 
+	{
+		Slot* s = new Slot({ charX, charY }, { 121, 67 }, party->data);
+
+		slots.add(s);
+		s = nullptr;
+		delete s;
+
+		charX += 130;
+	}
 
 	// SFX
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
+	moveSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_next_2.wav");
 	backSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 
 	app->scene->showLocation = false;
@@ -105,6 +132,45 @@ bool Inventory::Update(float dt)
 	}
 
 	app->scene->guiactivate = true;
+
+	// Get Mouse position for selected Slot
+
+	int mouseX, mouseY;
+	app->input->GetMousePosition(mouseX, mouseY);
+	mouseX -= app->camera->GetPos().x / 2;
+	mouseY -= app->camera->GetPos().y / 2;
+
+	if (&slots != nullptr) {
+		for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
+			if ((mouseX > s->data->position.x) && (mouseX < (s->data->position.x + s->data->size.x)) &&
+				(mouseY > s->data->position.y) && (mouseY < (s->data->position.y + s->data->size.y))) {
+
+				if (s->data->isItem || s->data->isEquipment) {
+					selectorItemPos = s->data->position;
+					s->data->isSelected = true;
+				}
+				else if (s->data->isCharacter) {
+					selectorCharsPos = s->data->position;
+					s->data->isSelected = true;
+				}
+
+				if (selectorItemPos != lastItemPos || selectorCharsPos != lastCharPos) {
+					app->audio->PlayFx(moveSfx);
+
+					lastItemPos = selectorItemPos;
+					lastCharPos = selectorCharsPos;
+				}
+
+				if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_DOWN)
+				{
+					app->audio->PlayFx(buttonSfx);
+				}
+			}
+			else {
+				s->data->isSelected = false;
+			}
+		}
+	}
 
 	return true;
 }
@@ -175,7 +241,8 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 299)
 		{
 			LOG("Stats button");
-
+			Disable();
+			app->stmen->Enable();
 			app->audio->PlayFx(buttonSfx);
 		}
 
