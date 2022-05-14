@@ -306,7 +306,7 @@ bool Player::Start()
 	PlayerFTex = app->tex->Load(FemaleChar);
 	BattleMTex = app->tex->Load("Assets/sprites/main_ch/mainChM/battle/mBattleSprite.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
-	BattleFTex = app->tex->Load("Assets/sprites/characters/archer/combat/Attack.png");
+	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Combat/Idle.png");
 	interactionButton = app->tex->Load(interactionButtonChar);
 
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
