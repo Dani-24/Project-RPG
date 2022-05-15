@@ -223,6 +223,23 @@ public: // DIALOGS
 	"Just a developing gift :D"
 	};
 
+	const char* deadTreeDialog[DIALOG_LENGHT] = {
+	"Is a dead tree...",
+	"There is somethings graved on the wood:",
+	"The little tree is guarding the door.",
+	"Maybe this is a clue?"
+	};
+
+	const char* TreeDialog[DIALOG_LENGHT] = {
+	"This little tree...",
+	"Have something graved on the wood:",
+	"You visit my dead friend, you can pass."
+	};
+
+	const char* RipDialog[DIALOG_LENGHT] = {
+	"Its a tombstone"
+	};
+
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);
 
 };

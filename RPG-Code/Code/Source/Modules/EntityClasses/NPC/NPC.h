@@ -25,7 +25,12 @@ enum class NPCType
 	EMILIO,
 	GIROIDE,
 	FUENTE,
-	CARTELSUDTOWN
+	CARTELSUDTOWN,
+	DEAD_TREE,
+	TREE,
+	RIP,
+	RIP_2,
+	RIP_3
 };
 
 class NPC : public DynamicEntity

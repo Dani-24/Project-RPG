@@ -111,6 +111,46 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
+	case NPCType::DEAD_TREE:
+		configName = "dead_tree";
+
+		npcID = 9;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::TREE:
+		configName = "tree";
+
+		npcID = 10;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::RIP:
+		configName = "rip";
+
+		npcID = 11;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::RIP_2:
+		configName = "rip2";
+
+		npcID = 12;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::RIP_3:
+		configName = "rip3";
+
+		npcID = 13;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
 	default:
 		break;
 	}
@@ -180,6 +220,21 @@ bool NPC::Start()
 
 		break;
 	case NPCType::CARTELSUDTOWN:
+
+		spriteTex = NULL;
+	case NPCType::DEAD_TREE:
+
+		spriteTex = NULL;
+	case NPCType::TREE:
+
+		spriteTex = NULL;
+	case NPCType::RIP:
+
+		spriteTex = NULL;
+	case NPCType::RIP_2:
+
+		spriteTex = NULL;
+	case NPCType::RIP_3:
 
 		spriteTex = NULL;
 	default:

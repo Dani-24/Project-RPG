@@ -84,6 +84,21 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::CARTELSUDTOWN:
 						app->font->DrawTextDelayed("Welcome Sign ( Post your text here ):", x + 150, y + 5, { 41, 2, 9 });
 						break;
+					case NPCType::DEAD_TREE:
+						app->font->DrawTextDelayed("Dead Tree:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::TREE:
+						app->font->DrawTextDelayed("Tree:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP_2:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP_3:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
 					default:
 						break;
 					}

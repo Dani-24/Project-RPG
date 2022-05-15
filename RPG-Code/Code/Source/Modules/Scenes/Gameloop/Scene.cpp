@@ -93,6 +93,11 @@ bool Scene::Start()
 	iPoint emilioPos = { 850, 200 };
 	iPoint fuentePos = { 380, 1390 };
 	iPoint cartelSudTownPos = { 1000, 1764 };
+	iPoint deadTreePos = { 2690 , 2030 };
+	iPoint treePos = { 573 , 332 };
+	iPoint ripPos = { 720 , 2700 };
+	iPoint rip2Pos = { 2969 , 1970 };
+	iPoint rip3Pos = { 2549 , 866 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -121,6 +126,26 @@ bool Scene::Start()
 	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::CARTELSUDTOWN, cartelSudTownPos.x, cartelSudTownPos.y);
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
+
+	NPC* deadTree = (NPC*)app->entities->CreateEntity(NPCType::DEAD_TREE, deadTreePos.x, deadTreePos.y);
+	npcList.add(deadTree);
+	deadTree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* tree = (NPC*)app->entities->CreateEntity(NPCType::TREE, treePos.x, treePos.y);
+	npcList.add(tree);
+	tree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* rip = (NPC*)app->entities->CreateEntity(NPCType::RIP, ripPos.x, ripPos.y);
+	npcList.add(rip);
+	rip->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip2 = (NPC*)app->entities->CreateEntity(NPCType::RIP_2, rip2Pos.x, rip2Pos.y);
+	npcList.add(rip2);
+	rip2->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip3 = (NPC*)app->entities->CreateEntity(NPCType::RIP_3, rip3Pos.x, rip3Pos.y);
+	npcList.add(rip3);
+	rip3->activeOnStage = StageIndex::TOWER_3;
 
 	// ============================
 
