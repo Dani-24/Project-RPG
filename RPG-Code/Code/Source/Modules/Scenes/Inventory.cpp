@@ -37,6 +37,8 @@ bool Inventory::Start()
 {
 	LOG("Starting Inventory");
 
+	srand(SDL_GetTicks());
+
 	// Block player movement
 	app->scene->player->canMove = false;
 
@@ -73,103 +75,108 @@ bool Inventory::Start()
 	itemInfo = app->tex->Load("Assets/gui/inventory/ui_inventory_info.png");
 
 	int x = -app->camera->GetPos().x / 2,
-		y = -app->camera->GetPos().y / 2,
-		butX = x + 270,
-		butY = y + 136,
-		charX = x + 105,
-		charY = y + 7,
-		specialX = x + 270,
-		specialY = y + 292,
-		equipX = x + 112,
-		equipY = y + 172;
+		y = -app->camera->GetPos().y / 2;
 
-	selectorItemPos = lastItemPos = { butX, butY };
-	selectorCharsPos = lastCharPos = { charX, charY };
 
-	// Crear "botones" de la UI || ITEMS
-	ListItem<Item*>* obtainedItem = app->scene->itemList.start;
+	if (!inventoryOnBattle) {
 
-	for (int i = 0; i < inventorySlots; i++) {
-		if (i == 5) {
-			butX = x + 270;
-			butY = y + 196;
+		int	butX = x + 270,
+			butY = y + 136,
+			charX = x + 105,
+			charY = y + 7,
+			specialX = x + 270,
+			specialY = y + 292,
+			equipX = x + 112,
+			equipY = y + 172;
+
+		selectorItemPos = lastItemPos = { butX, butY };
+		selectorCharsPos = lastCharPos = { charX, charY };
+
+		// Crear "botones" de la UI || ITEMS
+		ListItem<Item*>* obtainedItem = app->scene->itemList.start;
+
+		for (int i = 0; i < inventorySlots; i++) {
+			if (i == 5) {
+				butX = x + 270;
+				butY = y + 196;
+			}
+
+			if (obtainedItem != NULL) {
+				Slot* s = new Slot({ butX,butY }, { 45, 45 }, obtainedItem->data, false);
+
+				slots.add(s);
+
+				s = nullptr;
+				delete s;
+
+				obtainedItem = obtainedItem->next;
+			}
+			else {
+				Slot* s = new Slot({ butX,butY }, { 45, 45 }, nullptr, false);
+
+				slots.add(s);
+
+				s = nullptr;
+				delete s;
+			}
+
+			butX += 67;
 		}
 
-		if (obtainedItem != NULL) {
-			Slot* s = new Slot({ butX,butY }, { 45, 45 }, obtainedItem->data, false);
+		// Crear "botones" de la UI || Special Items
+		for (int i = 0; i < inventorySpecialSlots; i++) {
+			Slot* s = new Slot({ specialX, specialY }, { 45, 45 }, nullptr, false);
 
 			slots.add(s);
 
 			s = nullptr;
 			delete s;
 
-			obtainedItem = obtainedItem->next;
+			specialX += 67;
 		}
-		else {
-			Slot* s = new Slot({ butX,butY }, { 45, 45 }, nullptr, false);
+
+		// Crear "botones" de la UI || Equipment
+		for (int i = 0; i < 7; i++)
+		{
+			if (i == 2) {
+				equipX = x + 112;
+				equipY = y + 220;
+			}
+			if (i == 4) {
+				equipX = x + 112;
+				equipY = y + 283;
+			}
+			if (i == 6) {
+				equipX = x + 39;
+			}
+
+			Slot* s = new Slot({ equipX, equipY }, { 45, 45 }, nullptr, true);
 
 			slots.add(s);
 
 			s = nullptr;
 			delete s;
+			equipX += 48;
 		}
 
-		butX += 67;
-	}
+		// Crear "botones" de la UI || Characters
+		for (ListItem<Character*>* party = app->scene->partyList.start; party != NULL; party = party->next)
+		{
+			Slot* s = new Slot({ charX, charY }, { 121, 67 }, party->data);
 
-	// Crear "botones" de la UI || Special Items
-	for (int i = 0; i < inventorySpecialSlots; i++) {
-		Slot* s = new Slot({ specialX, specialY }, { 45, 45 }, nullptr, false);
+			slots.add(s);
+			s = nullptr;
+			delete s;
 
-		slots.add(s);
-
-		s = nullptr;
-		delete s;
-
-		specialX += 67;
-	}
-
-	// Crear "botones" de la UI || Equipment
-	for (int i = 0; i < 7; i++) 
-	{
-		if (i == 2) {
-			equipX = x + 112;
-			equipY = y + 220;
-		}
-		if (i == 4) {
-			equipX = x + 112;
-			equipY = y + 283;
-		}
-		if (i == 6) {
-			equipX = x + 39;
+			charX += 130;
 		}
 
-		Slot* s = new Slot({ equipX, equipY }, { 45, 45 }, nullptr, true);
-
-		slots.add(s);
-
-		s = nullptr;
-		delete s;
-		equipX += 48;
+		// Botones al seleccionar items de la UI
+		itemUseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 300, "  Use", { x, y, 74, 32 }, this, true);
+		itemBackButon = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 301, " Cancel", { x, y, 74, 32 }, this, true);
+		itemInfoButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 302, "  Info", { x, y, 74, 32 }, this, true);
+		itemInfoCloseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 303, "  Close", { x + 80, y + 320, 74, 32 }, this, true);
 	}
-
-	// Crear "botones" de la UI || Characters
-	for (ListItem<Character*>* party = app->scene->partyList.start; party != NULL; party = party->next) 
-	{
-		Slot* s = new Slot({ charX, charY }, { 121, 67 }, party->data);
-
-		slots.add(s);
-		s = nullptr;
-		delete s;
-
-		charX += 130;
-	}
-
-	// Botones al seleccionar items de la UI
-	itemUseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 300, "  Use", { x, y, 74, 32 }, this, true);
-	itemBackButon = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 301, " Cancel", { x, y, 74, 32 }, this, true);
-	itemInfoButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 302, "  Info", { x, y, 74, 32 }, this, true);
-	itemInfoCloseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 303, "  Close", { x + 80, y + 320, 74, 32 }, this, true);
 
 	itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
 
@@ -208,7 +215,7 @@ bool Inventory::Update(float dt)
 	mouseY -= app->camera->GetPos().y / 2;
 
 	if (inventoryOnBattle == false) {
-		if (itemUseButton->state == GuiControlState::DISABLED) {
+		if (itemBackButon->state == GuiControlState::DISABLED) {
 			if (&slots != nullptr) {
 				for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
@@ -242,7 +249,10 @@ bool Inventory::Update(float dt)
 									app->audio->PlayFx(buttonSfx);
 
 									// SHOW selected item UI
-									itemUseButton->state = itemInfoButton->state = itemBackButon->state = GuiControlState::NORMAL;
+									if (s->data->asignedItem->usableFromInventory) {
+										itemUseButton->state = GuiControlState::NORMAL;
+									}
+									itemInfoButton->state = itemBackButon->state = GuiControlState::NORMAL;
 
 									if (s->data->position.x > -app->camera->GetPos().x / 2 + 520) {
 										itemUseButton->SetPos({ s->data->position.x - 75, s->data->position.y - 15 });
@@ -411,14 +421,24 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 					// Consume item
 					if (s->data->isItem) {
 						for (ListItem<Item*>* it = app->scene->itemList.start; it != NULL; it = it->next) {
-							if (it->data == s->data->asignedItem) {
-								LOG("deleting %s item",it->data->name);
+							if (it->data == s->data->asignedItem) 
+							{
+								for (ListItem<Slot*>* ch = slots.start; ch != NULL; ch = ch->next) {
+									if (ch->data->isCharacter && ch->data->activated && it->data->itemType == ItemType::USABLE) {
 
+										LOG("Using %s item on %d", it->data->name, ch->data->asignedCharacter->name);
+
+										AddStats(ch->data->asignedCharacter, (Usable*)it->data);
+
+										break;
+									}
+								}
+
+								// Delete item from inventory & close menu
 								s->data->asignedItem = nullptr;
 								app->scene->itemList.del(it);
 
 								itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
-
 								break;
 							}
 						}
@@ -434,7 +454,7 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 
 		if (control->id == 301) {
 			LOG("Back item");
-			itemUseButton->state = itemInfoButton->state = itemBackButon->state = GuiControlState::DISABLED;
+			itemUseButton->state = itemInfoButton->state = itemBackButon->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
 			app->audio->PlayFx(backSfx);
 		}
 
@@ -454,4 +474,221 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 		}
 	}
 	return true;
+}
+
+void Inventory::AddStats(Character* character, Usable* item) {
+
+	int addHP,
+		addMaxHP,
+		addMP,
+		addMaxMP,
+		addAttack,
+		addDefense,
+		addSpeed,
+		addExp,
+		add = 10,
+	    randomValue = rand() % 7,
+		badChance = rand() % 10;
+
+	switch (item->usableType)
+	{
+	case UsableType::APPLE:
+
+		addHP = 5;
+
+		if (character->stats->health < character->stats->maxHealth - addHP) {
+			character->stats->health += addHP;
+		}
+		else {
+			character->stats->health = character->stats->maxHealth;
+		}
+
+		break;
+	case UsableType::LIFE_POTION:
+
+		addHP = 10;
+
+		if (character->stats->health < character->stats->maxHealth - addHP) {
+			character->stats->health += addHP;
+		}
+		else {
+			character->stats->health = character->stats->maxHealth;
+		}
+
+		break;
+	case UsableType::PIE:
+
+		addSpeed = 1;
+
+		character->stats->speed+= addSpeed;
+
+		break;
+	case UsableType::DELICIOUS_PIE:
+
+		addSpeed = 10;
+
+		character->stats->speed += addSpeed;
+
+		break;
+	case UsableType::CANDY:
+
+		addExp = 100;
+
+		character->stats->exp += addExp;
+
+		break;
+	case UsableType::MEAT:
+
+		addMaxHP = 10;
+
+		character->stats->maxHealth += addMaxHP;
+		character->stats->health += addMaxHP;
+
+		break;
+	case UsableType::EGG:
+
+		addDefense = 1;
+
+		character->stats->defense += addDefense;
+
+		break;
+	case UsableType::FRIED_EGG:
+
+		addDefense = 5;
+
+		character->stats->defense += addDefense;
+
+		break;
+	case UsableType::HAMBURGER:
+
+		addHP = 15;
+		addSpeed = -1;
+
+		if (character->stats->health < character->stats->maxHealth - addHP) {
+			character->stats->health += addHP;
+		}
+		else {
+			character->stats->health = character->stats->maxHealth;
+		}
+
+		character->stats->speed += addSpeed;
+
+		break;
+	case UsableType::ELIXIR:
+
+		addMP = 20;
+
+		if (character->stats->mana < character->stats->maxMana - addMP) {
+			character->stats->mana += addMP;
+		}
+		else {
+			character->stats->mana = character->stats->maxMana;
+		}
+
+		break;
+	case UsableType::DYNAMITE:
+		break;
+	case UsableType::BOMB:
+		break;
+	case UsableType::SUPER_BOMB:
+		break;
+	case UsableType::PILL:
+
+		if (badChance == 0) {
+			add = -add;
+		}
+
+		switch (randomValue)
+		{
+		case 0:
+
+			// Add HP
+
+			if (character->stats->health < character->stats->maxHealth - add) {
+				character->stats->health += add;
+			}
+			else {
+				character->stats->health = character->stats->maxHealth;
+			}
+
+			break;
+		case 1:
+
+			// Add Max HP
+
+			character->stats->maxHealth += add;
+			character->stats->health += add;
+
+			break;
+		case 2:
+
+			// Add mana
+
+			if (character->stats->mana < character->stats->maxMana - add) {
+				character->stats->mana += add;
+			}
+			else {
+				character->stats->mana = character->stats->maxMana;
+			}
+
+			break;
+		case 3:
+
+			// Add max mana
+
+			character->stats->maxMana += add;
+			character->stats->mana += add;
+
+			break;
+		case 4:
+
+			// add attack
+
+			character->stats->attack += add;
+
+			break;
+		case 5:
+
+			// add defense
+			character->stats->defense += add;
+
+			break;
+		default:
+
+			// Chance to do absolutely nothing
+
+			break;
+		}
+		
+		break;
+	case UsableType::WILL_TO_LIFE:
+		break;
+	case UsableType::CHEST_KEY:
+		break;
+	case UsableType::DOOR_KEY:
+		break;
+	case UsableType::TEDDY_BEAR:
+
+		addMaxMP = 5;
+
+		character->stats->maxMana += addMaxMP;
+		character->stats->mana += addMaxMP;
+
+		break;
+	case UsableType::LETTER:
+		break;
+	case UsableType::CLOSE_PARCHMENT:
+		break;
+	case UsableType::OPEN_PARCHMENT:
+		break;
+	case UsableType::BAT_WING:
+		break;
+	case UsableType::EYE:
+		break;
+	case UsableType::BONE:
+		break;
+	default:
+		break;
+	}
+
 }

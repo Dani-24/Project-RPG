@@ -33,6 +33,8 @@ bool Usable::Start()
 		effect = "+5 HP";
 		description = "Apple are red, bc they are SUS";
 
+		usableFromInventory = true;
+
 		break;
 
 	case UsableType::LIFE_POTION:
@@ -43,6 +45,8 @@ bool Usable::Start()
 		effect = "+10 HP";
 		description = "Apiretal > Dalsy";
 
+		usableFromInventory = true;
+
 		break;
 
 	case UsableType::PIE:
@@ -50,8 +54,10 @@ bool Usable::Start()
 		spriteRect = { 5 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Pie";
-		effect = "+5 MP";
+		effect = "+1 speed";
 		description = "Pie, in spanish: patas";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -60,8 +66,10 @@ bool Usable::Start()
 		spriteRect = { 14 * ITEM_SIZE, 1 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Delicious Pie";
-		effect = "+10 MP";
+		effect = "+10 speed";
 		description = "Pie delicioso??? pero bueno Xavi 2";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -70,8 +78,10 @@ bool Usable::Start()
 		spriteRect = { 15 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Candy";
-		effect = "+1 HP";
+		effect = "+100 exp points";
 		description = "Proviene de una furgoneta";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -80,8 +90,10 @@ bool Usable::Start()
 		spriteRect = { 4 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Meat";
-		effect = "+25 HP";
+		effect = "+10 max HP";
 		description = "Not vegan-friendly product";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -90,8 +102,10 @@ bool Usable::Start()
 		spriteRect = { 11 * ITEM_SIZE, 0 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Egg";
-		effect = "+1 HP";
+		effect = "+1 defense";
 		description = "A simple Eggggg";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -100,8 +114,10 @@ bool Usable::Start()
 		spriteRect = { 6 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Fried Egg";
-		effect = "+5 HP";
+		effect = "+5 defense";
 		description = "Where are the fried potatos?";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -110,8 +126,10 @@ bool Usable::Start()
 		spriteRect = { 1 * ITEM_SIZE, 2 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Hamburger";
-		effect = "+15 HP";
-		description = "Hambur, burger, burbur, gerham, burhamger";
+		effect = "+15 HP but -1 speed";
+		description = "Fat Hambur, burger, burbur, gerham, burhamger";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -124,6 +142,8 @@ bool Usable::Start()
 		effect = "+20 MP";
 		description = "Recover some mana with elixir kh6!";
 
+		usableFromInventory = true;
+
 		break;
 
 		//Boost
@@ -132,8 +152,10 @@ bool Usable::Start()
 		spriteRect = { 15 * ITEM_SIZE, 11 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Pill";
-		effect = "+50 Drugs";
+		effect = "+20 random stat";
 		description = "Drohaaa";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -206,8 +228,10 @@ bool Usable::Start()
 		spriteRect = { 3 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
 
 		name = "Teddy bear";
-		effect = "+5 Hapiness";
-		description = "Yes";
+		effect = "+5 max MP";
+		description = "Furry";
+
+		usableFromInventory = true;
 
 		break;
 
@@ -224,29 +248,52 @@ bool Usable::Start()
 	case UsableType::CLOSE_PARCHMENT:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 7 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+
+		name = "Close Parchment";
+		effect = "?????";
+		description = "Closes ????";
+
 		break;
 	case UsableType::OPEN_PARCHMENT:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 6 * ITEM_SIZE, 13 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		
+		name = "Open Parchment";
+		effect = "?????";
+		description = "Opens ????";
+		
 		break;
 
 		//Others
 	case UsableType::BAT_WING:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 6 * ITEM_SIZE, 15 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		
+		name = "Bat Wing";
+		effect = "Monster loot";
+		description = "Tasty";
+		
 		break;
 
 	case UsableType::EYE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 3 * ITEM_SIZE, 12 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
+		
+		name = "Eye";
+		effect = "Monster loot";
+		description = "Perfect for a fresh drink";
+		
 		break;
 
 	case UsableType::BONE:
 		spriteTex = app->tex->Load("Assets/items/items2.png");
 		spriteRect = { 2 * ITEM_SIZE, 12 * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE };
-		break;
 
-	
+		name = "Bone";
+		effect = "Monster loot";
+		description = "Rich in Calcium";
+
+		break;
 	}
 
 	return true;

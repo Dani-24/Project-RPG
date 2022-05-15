@@ -121,11 +121,30 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
+	// ============================ Testing Items
+
 	Usable* testItem = (Usable*)app->entities->CreateEntity(UsableType::APPLE);
 	itemList.add(testItem);
 
 	Usable* testItem2 = (Usable*)app->entities->CreateEntity(UsableType::PILL);
 	itemList.add(testItem2);
+
+	Usable* testItem3 = (Usable*)app->entities->CreateEntity(UsableType::BONE);
+	itemList.add(testItem3);
+
+	Usable* testItem4 = (Usable*)app->entities->CreateEntity(UsableType::CHEST_KEY);
+	itemList.add(testItem4);
+
+	Usable* testItem5 = (Usable*)app->entities->CreateEntity(UsableType::MEAT);
+	itemList.add(testItem5);
+
+	Usable* testItem6 = (Usable*)app->entities->CreateEntity(UsableType::EGG);
+	itemList.add(testItem6);
+
+	Usable* testItem7 = (Usable*)app->entities->CreateEntity(UsableType::BOMB);
+	itemList.add(testItem7);
+
+	// ============================
 
 	app->stages->npcListPtr = &npcList;
 

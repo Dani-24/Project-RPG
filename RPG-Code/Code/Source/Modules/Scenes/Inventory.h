@@ -22,7 +22,7 @@ class Item;
 
 class Slot {
 public:
-	Slot(iPoint position, iPoint size, Item* asignedItem = nullptr, bool isEquipment = false) {
+	Slot(iPoint position, iPoint size, Item* asignedItem = nullptr, bool isEquipment = false, bool isSpecial = false) {
 		this->position = position;
 		this->size = size;
 
@@ -57,7 +57,8 @@ public:
 
 	bool	isItem,
 			isCharacter,
-			isEquipment;
+			isEquipment,
+			isSpecial;
 
 	Item* asignedItem;
 	Character* asignedCharacter;
@@ -83,6 +84,8 @@ public:
 	bool CleanUp();
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
+
+	void AddStats(Character* character, Usable* item);
 
 private:
 	SDL_Texture	* inventoryBG,

@@ -31,7 +31,7 @@ public:
 
 	int level;
 	int attack;
-	int defense ;
+	int defense;
 	int speed;
 	int mana;
 	int maxMana;

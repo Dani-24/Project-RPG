@@ -43,6 +43,7 @@ public:
 
 	const char* effect = " ";
 	const char* description = " ";
+	bool usableFromInventory = false;
 
 };
 
