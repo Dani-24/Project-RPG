@@ -175,7 +175,7 @@ bool Stages::Update(float dt)
 		break;
 	}
 
-	if (normalEnemyListPtr != nullptr) {
+	if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
 		ListItem<NormalEnemy*>* NormalEnemyInList;
 		NormalEnemyInList = normalEnemyListPtr->start;
 		for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
