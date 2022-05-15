@@ -171,7 +171,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.loop = false;
 		dieAnim.speed = 0.006f;
 
-		baseCollider = app->collisions->AddCollider({ position.x + 56, position.y + 60, 47, 43 }, Collider::Type::INSTANT, this);
+		SpriteEdges = {80,90};
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 36, 28 }, Collider::Type::INSTANT, this);
 
 		currentAnimation = &idleAnimL;
 
@@ -281,6 +282,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.loop = false;
 		dieAnim.speed = 0.006f;
 
+		SpriteEdges = { 80,90 };
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 16, 16 }, Collider::Type::INSTANT, this);
 
 		currentAnimation = &idleAnimL;
@@ -407,7 +409,8 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		dieAnim.loop = false;
 		dieAnim.speed = 0.01f;
 
-		baseCollider = app->collisions->AddCollider({ position.x + 60, position.y + 50, 45, 51 }, Collider::Type::INSTANT, this);
+		SpriteEdges = { 90,60 };//90 60
+		baseCollider = app->collisions->AddCollider({ position.x, position.y, 45, 80 }, Collider::Type::INSTANT, this);
 
 		currentAnimation = &idleAnimL;
 

@@ -127,9 +127,9 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 615, 20 };
-	iPoint batPos = { 600, 96 };
-	iPoint skeletonPos = { 690, 20 };
+	iPoint eyePos = { 660, 100 }; // 680 100
+	iPoint batPos = { 600, 100 };
+	iPoint skeletonPos = { 750, 50 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);

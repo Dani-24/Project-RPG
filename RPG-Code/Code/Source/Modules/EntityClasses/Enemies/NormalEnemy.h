@@ -46,7 +46,7 @@ public:
 public:
 
 	int NormalEnemyID;
-
+	iPoint SpriteEdges;
 	NormalEnemyType normalEnemyType;
 	StageIndex activeOnStage;
 
