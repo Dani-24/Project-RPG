@@ -1040,7 +1040,12 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("You have no items left!", 10, 25);
+				if (app->scene->itemList.count() == 0) {
+					app->font->DrawTextDelayed("You have no items left!", 10, 25);
+				}
+				else {
+					app->inventory->Enable();
+				}
 			}
 			break;
 
@@ -1271,189 +1276,190 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		actualTurnEntity == entitiesInBattle[0] || actualTurnEntity == entitiesInBattle[1] ||
 		actualTurnEntity == entitiesInBattle[2] || actualTurnEntity == entitiesInBattle[3])) {
 
-		switch (control->type)
-		{
-		case GuiControlType::BUTTON:
-			
-			switch (control->id) {
-				//Thinking
-			case 100:
-				switch (battlePhase) {
-				case BattlePhase::CHOOSE_ATTACK:
+		if (!app->inventory->isEnabled()) {
+			switch (control->type)
+			{
+			case GuiControlType::BUTTON:
+
+				switch (control->id) {
+					//Thinking
+				case 100:
+					switch (battlePhase) {
+					case BattlePhase::CHOOSE_ATTACK:
 						ChangePhase(BattlePhase::THINKING);
 						app->stages->fxbool = true;
 						canSelect = false;
 						app->audio->PlayFx(app->conf->btnSelection);
 						break;
-				case BattlePhase::SELECTING:
+					case BattlePhase::SELECTING:
+						ChangePhase(BattlePhase::CHOOSE_ATTACK);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+						break;
+					}
+					break;
+				case 101:
 					ChangePhase(BattlePhase::CHOOSE_ATTACK);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+
+					break;
+				case 102:
+
+					ChangePhase(BattlePhase::DEFENDING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 103:
+
+					ChangePhase(BattlePhase::USING_ITEM);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+
+					break;
+				case 104:
+					app->audio->PlayFx(app->conf->btnSelection);
+					ChangePhase(BattlePhase::ESCAPING);
+					app->stages->fxbool = true;
+					canSelect = false;
+
+					break;
+
+					//Normal Attack
+				case 105:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+					//Special Attacks
+				case 110:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 111:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 112:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 120:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 121:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 122:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 130:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 131:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 132:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 140:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 141:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 142:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+					//Selecting
+				case 150:
+					targetEntity = entitiesInBattle[4];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 151:
+					targetEntity = entitiesInBattle[5];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 152:
+					targetEntity = entitiesInBattle[6];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 153:
+					targetEntity = entitiesInBattle[7];
 					app->stages->fxbool = true;
 					canSelect = false;
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				}
-				break;
-			case 101:
-					ChangePhase(BattlePhase::CHOOSE_ATTACK);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-				
-				break;
-			case 102:
-			
-					ChangePhase(BattlePhase::DEFENDING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 103:
-			
-					ChangePhase(BattlePhase::USING_ITEM);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					app->inventory->Enable();
-			
-				break;
-			case 104:
-				 app->audio->PlayFx(app->conf->btnSelection);
-					ChangePhase(BattlePhase::ESCAPING);
-					app->stages->fxbool = true;
-					canSelect = false;
-			
+
 				break;
 
-				//Normal Attack
-			case 105:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-
-				//Special Attacks
-			case 110:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 111:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 112:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-
-			case 120:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 121:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 122:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-
-			case 130:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 131:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 132:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-
-			case 140:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 141:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 142:
-				targetEntity = nullptr;
-				ChangePhase(BattlePhase::SELECTING);
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-
-				//Selecting
-			case 150:
-				targetEntity = entitiesInBattle[4];
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 151:
-				targetEntity = entitiesInBattle[5];
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 152:
-				targetEntity = entitiesInBattle[6];
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
-				break;
-			case 153:
-				targetEntity = entitiesInBattle[7];
-				app->stages->fxbool = true;
-				canSelect = false;
-				app->audio->PlayFx(app->conf->btnSelection);
+				//Other cases here
+			default:
 				break;
 			}
-
-			break;
-
-			//Other cases here
-		default:
-			break;
 		}
 	}
 		

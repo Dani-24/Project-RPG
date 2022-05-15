@@ -52,6 +52,8 @@ bool Scene::Start()
 {
 	LOG("Starting Scene");
 	
+	// Apple just for inventory testing
+	AddItem(UsableType::APPLE);
 
 	// Enables & idk
 	app->map->Enable();
@@ -80,8 +82,6 @@ bool Scene::Start()
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 	partyList.add(player);
-
-	
 
 	app->stages->partyListPtr = &partyList;
 
@@ -218,7 +218,6 @@ bool Scene::Update(float dt)
 		{
 			godmode = false;
 		
-
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->LoadStats();
@@ -226,10 +225,7 @@ bool Scene::Update(float dt)
 
 		}
 		else
-		{
-			
-
-			
+		{			
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
@@ -372,83 +368,14 @@ bool Scene::PostUpdate()
 	
 	// Variables
 	int x = -app->camera->GetPos().x / 2,
-		y = -app->camera->GetPos().y / 2,
-		charX = x + 110,
-		charY = y + 5;
+		y = -app->camera->GetPos().y / 2;
 
 	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
 	{
 		// Checkear miembros de la party y imprimir sus carteles
 
 		if (app->battle->isEnabled() == false) {
-			ListItem<Character*>* ch = partyList.start;
-
-			for (ch; ch != NULL; ch = ch->next)
-			{
-				app->render->DrawTexture(characterBG, charX, charY);
-
-				app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
-
-				app->font->DrawText(ch->data->name, charX + 25, charY - 2);
-				charX += 130;
-			}
-
-			CharBars();
-
-			// Current Stage on UI
-			if (showLocation == true) {
-				app->render->DrawTexture(locationUI, x + 10, y + 25);
-
-				switch (app->stages->actualStage) {
-				case StageIndex::NONE:
-					break;
-				case StageIndex::TOWN:
-					sprintf_s(currentPlace_UI, "Town");
-
-					app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::DOJO:
-					sprintf_s(currentPlace_UI, "Dojo");
-
-					app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::SHOP:
-					sprintf_s(currentPlace_UI, "Shop");
-
-					app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::SHOPSUB:
-					sprintf_s(currentPlace_UI, "Shop -1");
-
-					app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::TAVERN:
-					sprintf_s(currentPlace_UI, "Tavern");
-
-					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::TOWER_0:
-					sprintf_s(currentPlace_UI, "Tower");
-
-					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::TOWER_1:
-					sprintf_s(currentPlace_UI, "Floor 1");
-
-					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::TOWER_2:
-					sprintf_s(currentPlace_UI, "Floor 2");
-
-					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-					break;
-				case StageIndex::TOWER_3:
-					sprintf_s(currentPlace_UI, "Floor 3");
-
-					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
-					break;
-				}
-			}
+			ShowGUI();
 		}
 	}
 	if (app->collisions->debug)
@@ -587,6 +514,82 @@ bool Scene::CleanUp()
 	return true;
 }
 
+void Scene::ShowGUI() 
+{
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		charX = x + 110,
+		charY = y + 5;
+
+	ListItem<Character*>* ch = partyList.start;
+
+	for (ch; ch != NULL; ch = ch->next)
+	{
+		app->render->DrawTexture(characterBG, charX, charY);
+
+		app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+
+		app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+		charX += 130;
+	}
+
+	CharBars();
+
+	// Current Stage on UI
+	if (showLocation == true) {
+		app->render->DrawTexture(locationUI, x + 10, y + 25);
+
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			sprintf_s(currentPlace_UI, "Town");
+
+			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::DOJO:
+			sprintf_s(currentPlace_UI, "Dojo");
+
+			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::SHOP:
+			sprintf_s(currentPlace_UI, "Shop");
+
+			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::SHOPSUB:
+			sprintf_s(currentPlace_UI, "Shop -1");
+
+			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TAVERN:
+			sprintf_s(currentPlace_UI, "Tavern");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_0:
+			sprintf_s(currentPlace_UI, "Tower");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_1:
+			sprintf_s(currentPlace_UI, "Floor 1");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_2:
+			sprintf_s(currentPlace_UI, "Floor 2");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_3:
+			sprintf_s(currentPlace_UI, "Floor 3");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		}
+	}
+}
 void Scene::CharBars()
 {
 	// Variables

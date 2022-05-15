@@ -49,6 +49,7 @@ public:
 
 public:
 	//Draws character bars on gui
+	void ShowGUI();
 	void CharBars();
 
 	bool AddItem(UsableType type);

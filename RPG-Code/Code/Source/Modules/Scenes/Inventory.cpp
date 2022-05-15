@@ -48,12 +48,7 @@ bool Inventory::Start()
 
 	// Load assets
 
-	if (inventoryOnBattle == false) {
-		inventoryBG = app->tex->Load("Assets/gui/inventory/ui_inventory.png");
-	}
-	else {
-		inventoryBG = app->tex->Load("Assets/gui/inventory/ui_inventory_battle.png");
-	}
+	inventoryBG = app->tex->Load("Assets/gui/inventory/ui_inventory.png");
 
 	// Esta deberia ir con un animation que cada frame sea cada arma
 	//weaponType = app->tex->Load("Assets/gui/inventory/ui_inventory.png");
@@ -77,96 +72,92 @@ bool Inventory::Start()
 	int x = -app->camera->GetPos().x / 2,
 		y = -app->camera->GetPos().y / 2;
 
+	int	butX = x + 270,
+		butY = y + 154,
+		charX = x + 105,
+		charY = y + 7,
+		equipX = x + 112,
+		equipY = y + 172;
 
-	if (!inventoryOnBattle) {
+	selectorItemPos = lastItemPos = { butX, butY };
+	selectorCharsPos = lastCharPos = { charX, charY };
 
-		int	butX = x + 270,
-			butY = y + 154,
-			charX = x + 105,
-			charY = y + 7,
-			equipX = x + 112,
-			equipY = y + 172;
+	// Crear "botones" de la UI || ITEMS
+	ListItem<Item*>* obtainedItem = app->scene->itemList.start;
 
-		selectorItemPos = lastItemPos = { butX, butY };
-		selectorCharsPos = lastCharPos = { charX, charY };
-
-		// Crear "botones" de la UI || ITEMS
-		ListItem<Item*>* obtainedItem = app->scene->itemList.start;
-
-		for (int i = 0; i < inventorySlots; i++) {
-			if (i == 5) {
-				butX = x + 270;
-				butY = y + 214;
-			}
-			if (i == 10) {
-				butX = x + 270;
-				butY = y + 274;
-			}
-
-			if (obtainedItem != NULL) {
-				Slot* s = new Slot({ butX,butY }, { 45, 45 }, obtainedItem->data, false);
-
-				slots.add(s);
-
-				s = nullptr;
-				delete s;
-
-				obtainedItem = obtainedItem->next;
-			}
-			else {
-				Slot* s = new Slot({ butX,butY }, { 45, 45 }, nullptr, false);
-
-				slots.add(s);
-
-				s = nullptr;
-				delete s;
-			}
-
-			butX += 67;
+	for (int i = 0; i < inventorySlots; i++) {
+		if (i == 5) {
+			butX = x + 270;
+			butY = y + 214;
+		}
+		if (i == 10) {
+			butX = x + 270;
+			butY = y + 274;
 		}
 
-		// Crear "botones" de la UI || Equipment
-		for (int i = 0; i < 7; i++)
-		{
-			if (i == 2) {
-				equipX = x + 112;
-				equipY = y + 220;
-			}
-			if (i == 4) {
-				equipX = x + 112;
-				equipY = y + 283;
-			}
-			if (i == 6) {
-				equipX = x + 39;
-			}
-
-			Slot* s = new Slot({ equipX, equipY }, { 45, 45 }, nullptr, true);
+		if (obtainedItem != NULL) {
+			Slot* s = new Slot({ butX,butY }, { 45, 45 }, obtainedItem->data, false);
 
 			slots.add(s);
 
 			s = nullptr;
 			delete s;
-			equipX += 48;
-		}
 
-		// Crear "botones" de la UI || Characters
-		for (ListItem<Character*>* party = app->scene->partyList.start; party != NULL; party = party->next)
-		{
-			Slot* s = new Slot({ charX, charY }, { 121, 67 }, party->data);
+			obtainedItem = obtainedItem->next;
+		}
+		else {
+			Slot* s = new Slot({ butX,butY }, { 45, 45 }, nullptr, false);
 
 			slots.add(s);
+
 			s = nullptr;
 			delete s;
-
-			charX += 130;
 		}
 
-		// Botones al seleccionar items de la UI
-		itemUseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 300, "  Use", { x, y, 74, 32 }, this, true);
-		itemBackButon = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 301, " Cancel", { x, y, 74, 32 }, this, true);
-		itemInfoButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 302, "  Info", { x, y, 74, 32 }, this, true);
-		itemInfoCloseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 303, "  Close", { x + 80, y + 320, 74, 32 }, this, true);
+		butX += 67;
 	}
+
+	// Crear "botones" de la UI || Equipment
+	for (int i = 0; i < 7; i++)
+	{
+		if (i == 2) {
+			equipX = x + 112;
+			equipY = y + 220;
+		}
+		if (i == 4) {
+			equipX = x + 112;
+			equipY = y + 283;
+		}
+		if (i == 6) {
+			equipX = x + 39;
+		}
+
+		Slot* s = new Slot({ equipX, equipY }, { 45, 45 }, nullptr, true);
+
+		slots.add(s);
+
+		s = nullptr;
+		delete s;
+		equipX += 48;
+	}
+
+	// Crear "botones" de la UI || Characters
+	for (ListItem<Character*>* party = app->scene->partyList.start; party != NULL; party = party->next)
+	{
+		Slot* s = new Slot({ charX, charY }, { 121, 67 }, party->data);
+
+		slots.add(s);
+		s = nullptr;
+		delete s;
+
+		charX += 130;
+	}
+
+	// Botones al seleccionar items de la UI
+	itemUseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 300, "  Use", { x, y, 74, 32 }, this, true);
+	itemBackButon = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 301, " Cancel", { x, y, 74, 32 }, this, true);
+	itemInfoButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 302, "  Info", { x, y, 74, 32 }, this, true);
+	itemInfoCloseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 303, "  Close", { x + 80, y + 320, 74, 32 }, this, true);
 
 	itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
 
@@ -204,7 +195,6 @@ bool Inventory::Update(float dt)
 	mouseX -= app->camera->GetPos().x / 2;
 	mouseY -= app->camera->GetPos().y / 2;
 
-	if (inventoryOnBattle == false) {
 		if (itemBackButon->state == GuiControlState::DISABLED) {
 			if (&slots != nullptr) {
 				for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
@@ -274,7 +264,6 @@ bool Inventory::Update(float dt)
 				}
 			}
 		}
-	}
 
 	return true;
 }
@@ -289,16 +278,17 @@ bool Inventory::PostUpdate()
 
 	// Draw UI
 
+	if (app->battle->isEnabled()) {
+		app->scene->ShowGUI();
+	}
+
 	app->render->DrawTexture(inventoryBG, x, y);
 
-	if (inventoryOnBattle == false) {
+	char moneyText[100];
+	sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
+	app->font->DrawText(moneyText, x + 120, y + 100);
 
-		char moneyText[100];
-		sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
-
-		app->font->DrawText(moneyText, x + 120, y + 100);
-
-		if (&slots != nullptr) {
+	if (&slots != nullptr) {
 			for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
 				// ======================
@@ -345,9 +335,9 @@ bool Inventory::PostUpdate()
 			}
 
 		}
-		if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
+	if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
 
-	}
+
 	return ret;
 }
 
@@ -363,7 +353,9 @@ bool Inventory::CleanUp()
 	backButton->state = GuiControlState::DISABLED;
 	statsButton->state = GuiControlState::DISABLED;
 
-	itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
+	if (itemUseButton != nullptr) {
+		itemUseButton->state = itemBackButon->state = itemInfoButton->state = itemInfoCloseButton->state = GuiControlState::DISABLED;
+	}
 
 	app->scene->showLocation = true;
 
@@ -377,7 +369,7 @@ bool Inventory::CleanUp()
 
 	slots.clear();
 
-	buttonSfx = NULL;
+	buttonSfx = backSfx = moveSfx = useSfx = NULL;
 
 	return true;
 }
