@@ -12,7 +12,7 @@ class DynamicEntity;
 
 enum class StageIndex;
 
-#define BUTTONS_SPACE_HOR 20
+#define BUTTONS_SPACE_HOR 15
 #define BUTTONS_BOTTOM_SPACE 50
 #define BUTTONS_W 74
 #define BUTTONS_H 32

@@ -122,29 +122,6 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
-	// ============================ Testing Items
-
-	Usable* testItem = (Usable*)app->entities->CreateEntity(UsableType::APPLE);
-	itemList.add(testItem);
-
-	Usable* testItem2 = (Usable*)app->entities->CreateEntity(UsableType::PILL);
-	itemList.add(testItem2);
-
-	Usable* testItem3 = (Usable*)app->entities->CreateEntity(UsableType::BONE);
-	itemList.add(testItem3);
-
-	Usable* testItem4 = (Usable*)app->entities->CreateEntity(UsableType::CHEST_KEY);
-	itemList.add(testItem4);
-
-	Usable* testItem5 = (Usable*)app->entities->CreateEntity(UsableType::MEAT);
-	itemList.add(testItem5);
-
-	Usable* testItem6 = (Usable*)app->entities->CreateEntity(UsableType::EGG);
-	itemList.add(testItem6);
-
-	Usable* testItem7 = (Usable*)app->entities->CreateEntity(UsableType::BOMB);
-	itemList.add(testItem7);
-
 	// ============================
 
 	app->stages->npcListPtr = &npcList;
@@ -339,8 +316,8 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
 
 		if (partyList.At(1) == nullptr) {
-			int x = 70;
-			int y = 80;
+			int x = 80;
+			int y = 130;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
 		}else{
 			partyList.del(partyList.At(1));
@@ -350,8 +327,8 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
 		if (partyList.At(2) == nullptr) {
-			int x = -100;
-			int y = 70;
+			int x = -200;
+			int y = 120;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
 		}
 		else {
@@ -362,8 +339,8 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 
 		if (partyList.At(3) == nullptr) {
-			int x = 150;
-			int y = -10;
+			int x = 200;
+			int y = 0;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
 		}
 		else {
@@ -660,5 +637,18 @@ void Scene::CharBars()
 				barsX += 130;
 			}
 		}
+	}
+}
+
+bool Scene::AddItem(UsableType type) {
+	if (itemList.count() < app->inventory->inventorySlots) {
+		Usable* item = (Usable*)app->entities->CreateEntity(type);
+		itemList.add(item);
+
+		return true;
+	}
+	else {
+		LOG("Inventory is full");
+		return false;
 	}
 }

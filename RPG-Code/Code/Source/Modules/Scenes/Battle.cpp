@@ -232,21 +232,21 @@ bool Battle::Start()
 
 	normalAttackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 105, "NormalAttack", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
-	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, "PlayerSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, "PlayerSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, "PlayerSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, " Shield", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, " Sword", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, " Aqua", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 
-	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, "ValionSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, "ValionSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "ValionSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, " Stoned ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, " Catacl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "  Deer ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 
-	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "RaylaSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, "RaylaSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, "RaylaSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "   Log  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, " Acid  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, " Sacred", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 
-	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, "DhionSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, "DhionSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
-	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "DhionSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, " Judge", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, " Electro", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "  Expl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 
 
 	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
@@ -1794,6 +1794,9 @@ void Battle::ChangePhase(BattlePhase phase) {
 bool Battle::CleanUp()
 {
 	//Buttons
+
+	backButton->state = GuiControlState::DISABLED;
+
 	attackButton->state = GuiControlState::DISABLED;
 	defenseButton->state = GuiControlState::DISABLED;
 	itemButton->state = GuiControlState::DISABLED;
@@ -1803,6 +1806,29 @@ bool Battle::CleanUp()
 	enemyButton2->state = GuiControlState::DISABLED;
 	enemyButton3->state = GuiControlState::DISABLED;
 	enemyButton4->state = GuiControlState::DISABLED;
+
+	normalAttackButton->state = GuiControlState::DISABLED;
+
+	playerSpecialButton1->state = GuiControlState::DISABLED;
+	playerSpecialButton2->state = GuiControlState::DISABLED;
+	playerSpecialButton3->state = GuiControlState::DISABLED;
+
+	valionSpecialButton1->state = GuiControlState::DISABLED;
+	valionSpecialButton2->state = GuiControlState::DISABLED;
+	valionSpecialButton3->state = GuiControlState::DISABLED;
+
+	raylaSpecialButton1->state = GuiControlState::DISABLED;
+	raylaSpecialButton2->state = GuiControlState::DISABLED;
+	raylaSpecialButton3->state = GuiControlState::DISABLED;
+
+	dhionSpecialButton1->state = GuiControlState::DISABLED;
+	dhionSpecialButton2->state = GuiControlState::DISABLED;
+	dhionSpecialButton3->state = GuiControlState::DISABLED;
+
+
+
+	backButton = nullptr;
+	delete backButton;
 
 	attackButton = nullptr;
 	delete attackButton;
@@ -1816,7 +1842,51 @@ bool Battle::CleanUp()
 	escapeButton = nullptr;
 	delete escapeButton;
 
+	//Skills
+
+	normalAttackButton = nullptr;
+	delete normalAttackButton;
+
+	playerSpecialButton1 = nullptr;
+	delete playerSpecialButton1;
+
+	playerSpecialButton2 = nullptr;
+	delete playerSpecialButton2;
+
+	playerSpecialButton3 = nullptr;
+	delete playerSpecialButton3;
+
+
+	valionSpecialButton1 = nullptr;
+	delete valionSpecialButton1;
+
+	valionSpecialButton2 = nullptr;
+	delete valionSpecialButton2;
+
+	valionSpecialButton3 = nullptr;
+	delete valionSpecialButton3;
+
+
+	raylaSpecialButton1 = nullptr;
+	delete raylaSpecialButton1;
+	raylaSpecialButton2 = nullptr;
+	delete raylaSpecialButton2;
+	raylaSpecialButton3 = nullptr;
+	delete raylaSpecialButton3;
+
+
+	dhionSpecialButton1 = nullptr;
+	delete dhionSpecialButton1;
+	dhionSpecialButton2 = nullptr;
+	delete dhionSpecialButton2;
+	dhionSpecialButton3 = nullptr;
+	delete dhionSpecialButton3;
+
 	//Textures
+
+	backButtonTex = nullptr;
+	delete backButtonTex;
+
 	attackTex = nullptr;
 	delete attackTex;
 

@@ -31,7 +31,7 @@ bool Usable::Start()
 
 		name = "Apple";
 		effect = "+5 HP";
-		description = "Apple are red, bc they are SUS";
+		description = "Apple are red";
 
 		usableFromInventory = true;
 
@@ -55,7 +55,7 @@ bool Usable::Start()
 
 		name = "Pie";
 		effect = "+1 speed";
-		description = "Pie, in spanish: patas";
+		description = "In spanish: patas";
 
 		usableFromInventory = true;
 
@@ -67,7 +67,7 @@ bool Usable::Start()
 
 		name = "Delicious Pie";
 		effect = "+10 speed";
-		description = "Pie delicioso??? pero bueno Xavi 2";
+		description = "pero bueno Xavi 2";
 
 		usableFromInventory = true;
 
@@ -79,7 +79,7 @@ bool Usable::Start()
 
 		name = "Candy";
 		effect = "+100 exp points";
-		description = "Proviene de una furgoneta";
+		description = "It's rare";
 
 		usableFromInventory = true;
 
@@ -91,7 +91,7 @@ bool Usable::Start()
 
 		name = "Meat";
 		effect = "+10 max HP";
-		description = "Not vegan-friendly product";
+		description = "Not vegan-friendly";
 
 		usableFromInventory = true;
 
@@ -115,7 +115,7 @@ bool Usable::Start()
 
 		name = "Fried Egg";
 		effect = "+5 defense";
-		description = "Where are the fried potatos?";
+		description = "fried potatos?";
 
 		usableFromInventory = true;
 
@@ -127,7 +127,7 @@ bool Usable::Start()
 
 		name = "Hamburger";
 		effect = "+15 HP but -1 speed";
-		description = "Fat Hambur, burger, burbur, gerham, burhamger";
+		description = "Fat Hamburger";
 
 		usableFromInventory = true;
 
@@ -140,7 +140,7 @@ bool Usable::Start()
 
 		name = "Elixir";
 		effect = "+20 MP";
-		description = "Recover some mana with elixir kh6!";
+		description = "Recover some mana";
 
 		usableFromInventory = true;
 
@@ -176,7 +176,7 @@ bool Usable::Start()
 
 		name = "Bomb";
 		effect = "+10 Terrorism";
-		description = "Now backpack-sized";
+		description = "Backpack-sized";
 
 		break;
 
@@ -186,7 +186,7 @@ bool Usable::Start()
 
 		name = "Super Bomb";
 		effect = "+20 Terrorism";
-		description = "No one will survive";
+		description = "UwU";
 
 		break;
 
@@ -208,7 +208,7 @@ bool Usable::Start()
 
 		name = "Chest key";
 		effect = "Opens a chest";
-		description = "All locks can be opened with the correct key";
+		description = "No lock resist";
 
 		break;
 
@@ -218,7 +218,7 @@ bool Usable::Start()
 
 		name = "Door key";
 		effect = "+5 Amogus";
-		description = "That are the keys you thought you lost";
+		description = "What will open?";
 
 		break;
 
@@ -241,7 +241,7 @@ bool Usable::Start()
 
 		name = "Letter";
 		effect = "+5 Comprensión Lectora";
-		description = "Incluye una carta para Tom";
+		description = "Essay for Tom";
 
 		break;
 
@@ -281,7 +281,7 @@ bool Usable::Start()
 		
 		name = "Eye";
 		effect = "Monster loot";
-		description = "Perfect for a fresh drink";
+		description = "For a fresh drink";
 		
 		break;
 
@@ -291,7 +291,7 @@ bool Usable::Start()
 
 		name = "Bone";
 		effect = "Monster loot";
-		description = "Rich in Calcium";
+		description = "Calcium Rich";
 
 		break;
 	}

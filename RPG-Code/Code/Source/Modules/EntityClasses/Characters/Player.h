@@ -121,6 +121,8 @@ public:
 
 	bool toggleGui = true;
 
+	int PlayerMoney = 0;
+
 public:
 	iPoint townPos = {950, 1730};
 	iPoint shopPos = { 69, 238 };

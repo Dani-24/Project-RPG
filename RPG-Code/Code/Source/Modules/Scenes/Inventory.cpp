@@ -293,6 +293,11 @@ bool Inventory::PostUpdate()
 
 	if (inventoryOnBattle == false) {
 
+		char moneyText[100];
+		sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
+
+		app->font->DrawText(moneyText, x + 120, y + 100);
+
 		if (&slots != nullptr) {
 			for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
@@ -332,7 +337,7 @@ bool Inventory::PostUpdate()
 						if (s->data->asignedItem->name != NULL) {
 							app->font->DrawText(s->data->asignedItem->name, x + 75, y + 155, {0,0,0});
 							app->font->DrawText(s->data->asignedItem->effect, x + 30, y + 200);
-							app->font->DrawText(s->data->asignedItem->description, x + 30, y + 250);
+							app->font->DrawText(s->data->asignedItem->description, x + 15, y + 250);
 						}
 					}
 				}
@@ -341,6 +346,7 @@ bool Inventory::PostUpdate()
 
 		}
 		if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
+
 	}
 	return ret;
 }

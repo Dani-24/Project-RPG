@@ -53,7 +53,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 2;
 
-		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15 , 60,  100 }, Collider::Type::INTERACT, this);
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 5 , 60,  80 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::TRAINER:

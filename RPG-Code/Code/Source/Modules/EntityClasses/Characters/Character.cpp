@@ -9,6 +9,9 @@
 Character::Character(CharacterType characterType) : DynamicEntity(DynamicType::CHARACTER)
 {
 	this->characterType = characterType;
+	skillsList[0] = false;
+	skillsList[1] = false;
+	skillsList[2] = false;
 }
 
 Character::~Character()
