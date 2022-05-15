@@ -680,6 +680,12 @@ bool Stages::PostUpdate()
 
 								}
 							}
+							else {
+								CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
+								CharacterInList->data->attackAnim1.Reset();
+								CharacterInList->data->attackAnim2.Reset();
+								CharacterInList->data->dieAnim.Reset();
+							}
 						}
 
 						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {

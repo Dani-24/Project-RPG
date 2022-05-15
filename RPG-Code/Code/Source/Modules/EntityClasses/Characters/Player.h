@@ -130,6 +130,8 @@ public:
 	iPoint tower1Pos = { 1212, 1651 };
 	iPoint tower2Pos = { 1850, 2198 };
 	iPoint tower3Pos = { 393, 697 };
+
+	int winCount = 0;
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
