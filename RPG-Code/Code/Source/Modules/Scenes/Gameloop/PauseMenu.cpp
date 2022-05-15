@@ -188,9 +188,9 @@ bool PauseMenu::Update(float dt)
 	//variables for text
 	xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
 	yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
-	if (!pad.start) _wait = true;
+	if (!pad.start && !pad.b) _wait = true;
 
-	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN|| resumen == true || pad.start && _wait == true)&&app->scene->playing/*&&!app->battle->isEnabled() && !app->shop->isEnabled()*/) {
+	if ((app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resumen == true || pad.start && _wait == true || pad.b&& _wait == true)&&app->scene->playing&&!app->battle->isEnabled() && !app->shop->isEnabled()) {
 
 		if (pauseGame ){
 			if (app->conf->isEnabled())app->conf->Disable();
@@ -281,6 +281,7 @@ bool PauseMenu::CleanUp()
 void PauseMenu::KeyboardControl()
 {
 	GamePad& pad = app->input->pads[0];
+	if (!pad.down && !pad.up) wait = true;
 
 	if (party->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
 		town->state == GuiControlState::NORMAL && resume->state == GuiControlState::NORMAL &&
@@ -303,14 +304,18 @@ void PauseMenu::KeyboardControl()
 			party->state = GuiControlState::PRESSED;
 			party->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
+		if (!pad.down && !pad.up) wait = true;
 		
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			invent->state = GuiControlState::FOCUSED;
 			party->state = GuiControlState::NORMAL;
 			wait = false;
 		}
-
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+			exit->state = GuiControlState::FOCUSED;
+			party->state = GuiControlState::NORMAL;
+			wait = false;
+		}
 		
 	}
 	else if (invent->state == GuiControlState::FOCUSED) {
@@ -320,14 +325,14 @@ void PauseMenu::KeyboardControl()
 			invent->state = GuiControlState::PRESSED;
 			invent->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			town->state = GuiControlState::FOCUSED;
 			invent->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			party->state = GuiControlState::FOCUSED;
 			invent->state = GuiControlState::NORMAL;
 			wait = false;
@@ -342,14 +347,14 @@ void PauseMenu::KeyboardControl()
 			town->state = GuiControlState::PRESSED;
 			town->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			resume->state = GuiControlState::FOCUSED;
 			town->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			invent->state = GuiControlState::FOCUSED;
 			town->state = GuiControlState::NORMAL;
 			wait = false;
@@ -364,14 +369,14 @@ void PauseMenu::KeyboardControl()
 			resume->state = GuiControlState::PRESSED;
 			resume->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			config->state = GuiControlState::FOCUSED;
 			resume->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			town->state = GuiControlState::FOCUSED;
 			resume->state = GuiControlState::NORMAL;
 			wait = false;
@@ -386,14 +391,14 @@ void PauseMenu::KeyboardControl()
 			config->state = GuiControlState::PRESSED;
 			config->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			save->state = GuiControlState::FOCUSED;
 			config->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			resume->state = GuiControlState::FOCUSED;
 			config->state = GuiControlState::NORMAL;
 			wait = false;
@@ -408,14 +413,14 @@ void PauseMenu::KeyboardControl()
 			load->state = GuiControlState::PRESSED;
 			load->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			exit->state = GuiControlState::FOCUSED;
 			load->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			save->state = GuiControlState::FOCUSED;
 			load->state = GuiControlState::NORMAL;
 			wait = false;
@@ -430,14 +435,14 @@ void PauseMenu::KeyboardControl()
 			save->state = GuiControlState::PRESSED;
 			save->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			load->state = GuiControlState::FOCUSED;
 			save->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			config->state = GuiControlState::FOCUSED;
 			save->state = GuiControlState::NORMAL;
 			wait = false;
@@ -452,9 +457,9 @@ void PauseMenu::KeyboardControl()
 			exit->state = GuiControlState::PRESSED;
 			exit->NotifyObserver();
 		}
-		if (!pad.right && !pad.left) wait = true;
+		if (!pad.down && !pad.up) wait = true;
 
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			load->state = GuiControlState::FOCUSED;
 			exit->state = GuiControlState::NORMAL;
 			wait = false;
