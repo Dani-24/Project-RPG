@@ -2207,6 +2207,8 @@ bool Battle::CleanUp()
 	shield = nullptr;
 	delete shield;
 
+	app->camera->SetTarget(app->stages->playerPtr);
+
 	switch(battlePhase) {
 	case BattlePhase::REWARD:
 		
@@ -2250,6 +2252,21 @@ bool Battle::CleanUp()
 			break;
 		case StageIndex::TAVERN:
 			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			break;
+		case StageIndex::TOWER_0:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_1:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_2:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_3:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_4:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			break;
 		}
 

@@ -135,9 +135,12 @@ bool Scene::Start()
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
 
+
+
 	/*NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWER_4;*/
+
 
 	NPC* deadTree = (NPC*)app->entities->CreateEntity(NPCType::DEAD_TREE, deadTreePos.x, deadTreePos.y);
 	npcList.add(deadTree);
@@ -159,6 +162,21 @@ bool Scene::Start()
 	npcList.add(rip3);
 	rip3->activeOnStage = StageIndex::TOWER_3;
 
+
+	
+
+	//NPC* archer = (NPC*)app->entities->CreateEntity(NPCType::ARCHER, archerPos.x, archerPos.y);
+	//npcList.add(archer);
+	//archer->activeOnStage = StageIndex::TOWER_1;
+
+
+	//NPC* lancer = (NPC*)app->entities->CreateEntity(NPCType::LANCER, lancerPos.x, lancerPos.y);
+	//npcList.add(lancer);
+	//lancer->activeOnStage = StageIndex::TOWER_3;
+
+	//NPC* wizard = (NPC*)app->entities->CreateEntity(NPCType::WIZARD, wizardPos.x, wizardPos.y);
+	//npcList.add(wizard);
+	//wizard->activeOnStage = StageIndex::TOWER_2;
 
 	// ============================
 
