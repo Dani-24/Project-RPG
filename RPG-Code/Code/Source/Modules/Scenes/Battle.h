@@ -17,7 +17,9 @@ enum class StageIndex;
 #define BUTTONS_W 74
 #define BUTTONS_H 32
 #define NUM_BUTTONS 4
-#define LATERAL_MOVE 34
+#define LATERAL_MOVE 17
+
+#define LIFE_DISTANCE 120
 
 enum class BattlePhase {
 

@@ -1123,30 +1123,30 @@ bool Battle::PostUpdate()
 		
 	}
 
-	//Enemies health
-	for (int i = 7; i >= 4; i--) {
+	//Allies mana
+	for (int i = 0; i < 4; i++) {
 		if (entitiesInBattle[i] != nullptr) {
 			if (entitiesInBattle[i] != nullptr) {
 				if (entitiesInBattle[i]->stats->health == 0) {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i-4)) * app->win->GetScale(), { 255,30,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 255,30,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
 
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 180,0,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 180,0,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 255,255,255 }, false, 1);
 				}
 				else {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 100,255,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
-					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - 100)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 100,255,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - 15 * i) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
 			}
@@ -1154,116 +1154,36 @@ bool Battle::PostUpdate()
 
 	}
 
-	//if (entitiesInBattle[0]->stats->health == 0) {
-	//	sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 55)* app->win->GetScale(), { 255,30,0 }, false, 2);
-	//	sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 55)* app->win->GetScale(), { 255,255,255 }, false, 2);
+	//Enemies health
+	for (int i = 7; i >= 4; i--) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i] != nullptr) {
+				if (entitiesInBattle[i]->stats->health == 0) {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i-4)) * app->win->GetScale(), { 255,30,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+
+				}
+				else if (entitiesInBattle[i]->stats->health <= 5) {
 
 
-	//}
-	//else if(entitiesInBattle[0]->stats->health <= 5) {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 180,0,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+				}
+				else {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 100,255,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (i - 4)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
-	//
-	//	sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 85)* app->win->GetScale(), { 180,0,0 }, false, 1);
-	//	sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 85)* app->win->GetScale(), { 255,255,255 }, false, 1);
-	//}
-	//else {
-	//	sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 55)* app->win->GetScale(), { 100,255,0 }, false, 1);
-	//	sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 55)* app->win->GetScale(), { 255,255,255 }, false, 1);
-	//	/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-	//	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);*/
-	//}
-	//
+				}
+			}
+		}
 
-	
-
-
-	//if (entitiesInBattle[1] != nullptr) {
-	//	if (entitiesInBattle[1]->stats->health == 0) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 115) * app->win->GetScale(), { 255,30,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 115)*app->win->GetScale(), { 255,255,255 }, false, 1);
-
-	//	}
-	//	else if (entitiesInBattle[1]->stats->health <= 5) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 180,0,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 255,255,255 }, false, 1);
-
-	//	}
-	//	else {
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(lifeChar, 50, (app->win->GetHeight() / 2 - 25)* app->win->GetScale(), { 100,255,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//		app->font->DrawText(nameChar, 50, (app->win->GetHeight() / 2 - 25)* app->win->GetScale(), { 255,255,255 }, false, 1);
-	//	}
-	//	/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-	//	app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);*/
-	//}
-	//
-	//if (entitiesInBattle[4] != nullptr) {
-
-	//	if (entitiesInBattle[4]->stats->health == 0) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, (app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 255,30,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, (app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 255,255,255 }, false, 1);
-
-	//	}
-	//	else if (entitiesInBattle[4]->stats->health <= 5) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, (app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 200,100,20 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250,( app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 255,255,255 }, false, 1);
-	//	}
-	//	else {
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250,( app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 100,255,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250,( app->win->GetHeight() / 2 - 115)* app->win->GetScale(), { 255,255,255 }, false, 1);
-	//	}
-	//	/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-	//	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
-	//}
-	//if (entitiesInBattle[5] != nullptr) {
-
-	//	if (entitiesInBattle[5]->stats->health == 0) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,30,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,255,255 }, false, 1);
-
-	//	}
-	//	else if (entitiesInBattle[5]->stats->health <= 5) {
-
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 200,100,20 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,255,255 }, false, 1);
-	//	}
-	//	else {
-	//		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 100,255,0 }, false, 1);
-	//		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[5]->name, entitiesInBattle[5]->stats->health);
-	//		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 85, { 255,255,255 }, false, 1);
-	//	}
-	//	/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-	//	app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
-	//}
-
-	//
+	}
 	
 	
 

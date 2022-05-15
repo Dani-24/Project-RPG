@@ -521,13 +521,13 @@ bool Stages::PostUpdate()
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						switch (NormalEnemyInList->data->normalEnemyType) {
 						case NormalEnemyType::FLYING_EYE:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
 							break;
 						case NormalEnemyType::BAT:
 							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3, false);
 							break;
 						case NormalEnemyType::SKELETON:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - 1 * NormalEnemyInList->data->spriteRect.w, NormalEnemyInList->data->position.y - 1 * NormalEnemyInList->data->spriteRect.h, &NormalEnemyInList->data->spriteRect, 2);
+							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
 							break;
 						default:
 							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
