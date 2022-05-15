@@ -308,6 +308,8 @@ public:
 
 	Usable* itemCount[4];
 
+	int skill;
+
 
 
 };
