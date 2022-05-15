@@ -393,6 +393,26 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 
 		ret = new NPC(NPCType::CARTELSUDTOWN, x, y);
 		break;
+	case NPCType::DEAD_TREE:
+
+		ret = new NPC(NPCType::DEAD_TREE, x, y);
+		break;
+	case NPCType::TREE:
+
+		ret = new NPC(NPCType::TREE, x, y);
+		break;
+	case NPCType::RIP:
+
+		ret = new NPC(NPCType::RIP, x, y);
+		break;
+	case NPCType::RIP_2:
+
+		ret = new NPC(NPCType::RIP_2, x, y);
+		break;
+	case NPCType::RIP_3:
+
+		ret = new NPC(NPCType::RIP_3, x, y);
+		break;
 	default:
 
 		LOG("ERROR: Entity Type not set when creating");

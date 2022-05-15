@@ -65,7 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	shop = new Shop(this, false);
 
 	font = new ModuleQFonts(this);
-	pathfinder = new Pathfinder(this, false);
+	pathfinder = new Pathfinder(this);
 
 	collisions = new Collisions(this);
 

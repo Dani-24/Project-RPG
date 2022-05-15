@@ -18,6 +18,7 @@
 #include "NPC.h"
 #include "NormalEnemy.h"
 #include "Camera.h"
+#include "Pathfinder.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -174,6 +175,44 @@ bool Stages::Update(float dt)
 		break;
 	}
 
+	if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
+		ListItem<NormalEnemy*>* NormalEnemyInList;
+		NormalEnemyInList = normalEnemyListPtr->start;
+		for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+		{
+			if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+				// "" Chase player ""
+				if (NormalEnemyInList->data->chasePlayer) {
+					int chaseDist = 100;
+
+					if (abs(NormalEnemyInList->data->position.x - playerPtr->position.x) < chaseDist || abs(NormalEnemyInList->data->position.y - playerPtr->position.y) < chaseDist)
+					{
+						if (NormalEnemyInList->data->position.x > playerPtr->position.x) {
+							NormalEnemyInList->data->position.x -= NormalEnemyInList->data->chaseSpeed;
+						}
+						else {
+							NormalEnemyInList->data->position.x += NormalEnemyInList->data->chaseSpeed;
+						}
+						if (NormalEnemyInList->data->position.y > playerPtr->position.y + 30) {
+							NormalEnemyInList->data->position.y -= NormalEnemyInList->data->chaseSpeed;
+						}
+						else {
+							NormalEnemyInList->data->position.y += NormalEnemyInList->data->chaseSpeed;
+						}
+
+						// Move enemy collider
+						NormalEnemyInList->data->baseCollider->SetPos(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+
+						// ""Pathfinding""
+						iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+						iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
+						int path = app->pathfinder->CreatePath(origin, destination);
+					}
+				}
+			}
+		}
+	}
+
 	return true;
 }
 
@@ -182,9 +221,6 @@ bool Stages::PostUpdate()
 {
 	bool ret = true;
 	GamePad& pad = app->input->pads[0];
-
-	
-
 
 	switch (actualStage)
 	{
@@ -293,6 +329,7 @@ bool Stages::PostUpdate()
 		break;
 
 	case StageIndex::TOWER_0:
+
 		break;
 	case StageIndex::TOWER_1:
 		break;
@@ -305,7 +342,6 @@ bool Stages::PostUpdate()
 	}
 
 	
-
 	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
 	//oka doka
 	if (onBattle == false && actualStage != StageIndex::NONE) {
@@ -773,8 +809,35 @@ bool Stages::PostUpdate()
 		//	break;
 		//}
 	}
-	return ret;
 
+	// Debug DRAW Pathfinding
+
+	if (app->collisions->debug) {
+		if (normalEnemyListPtr != nullptr) {
+			ListItem<NormalEnemy*>* NormalEnemyInList;
+			NormalEnemyInList = normalEnemyListPtr->start;
+			for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+			{
+				if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+					// Draw
+					if (NormalEnemyInList->data->chasePlayer) {
+						const DynArray<iPoint>* path = app->pathfinder->GetLastPath();
+
+						for (uint i = 0; i < path->Count(); ++i)
+						{
+							iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+							app->render->DrawTexture(app->pathfinder->pathTexture, pos.x, pos.y);
+						}
+
+						iPoint originScreen = app->map->MapToWorld(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+						app->render->DrawTexture(app->pathfinder->pathOriginTexture, originScreen.x, originScreen.y);
+					}
+				}
+			}
+		}
+	}
+
+	return ret;
 }
 
 void Stages::ChangeStage(StageIndex newStage) {
@@ -925,7 +988,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Tower map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -941,7 +1004,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 1 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -956,7 +1019,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 2 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -971,7 +1034,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 3 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -986,7 +1049,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 4 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 		break;

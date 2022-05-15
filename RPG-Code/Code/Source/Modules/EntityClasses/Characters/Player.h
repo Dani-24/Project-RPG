@@ -136,6 +136,12 @@ public:
 
 	int winCount = 0;
 	bool TowerKey = false;
+	bool Floor1Key = false;
+	bool Floor2Key = false;
+	bool Key1 = false;
+	bool Key2 = false;
+	bool Key3 = false;
+	//bool Floor3Key = false;
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
@@ -221,6 +227,18 @@ public: // DIALOGS
 	"The Tower is currently unavailable",
 	"Remember that you have an extra party member",
 	"Just a developing gift :D"
+	};
+
+	const char* deadTreeDialog[DIALOG_LENGHT] = {
+	"Is a dead tree..."
+	};
+
+	const char* TreeDialog[DIALOG_LENGHT] = {
+	"This little tree..."	
+	};
+
+	const char* RipDialog[DIALOG_LENGHT] = {
+	"Its a tombstone"
 	};
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);

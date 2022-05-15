@@ -86,6 +86,15 @@
 	<giroide>
 		<g path="Assets/sprites/npc/extra/npc_giroide.png"/>
 	</giroide>
+	<archer>
+		<archer path="Assets/sprites/characters/archer/walk/rayla.png"/>
+	</archer>
+	<lancer>
+		<glancer path="Assets/sprites/characters/lancer/walk/dhion.png"/>
+	</lancer>
+	<wizard>
+		<wizard path="Assets/sprites/characters/wizard/Valion.png"/>
+	</wizard>
 
 	<pathfinder>
 		<pathtex path="Assets/textures/path.png"/>

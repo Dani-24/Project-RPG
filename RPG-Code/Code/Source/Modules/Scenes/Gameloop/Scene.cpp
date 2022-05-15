@@ -94,6 +94,18 @@ bool Scene::Start()
 	iPoint fuentePos = { 380, 1390 };
 	iPoint cartelSudTownPos = { 1000, 1764 };
 
+	iPoint bigtreePos = { 1000, 1764 };
+	iPoint archerPos = { 1000, 1764 };
+	iPoint lancerPos = { 1000, 1764 };
+	iPoint wizardPos = { 1000, 1764 };
+
+	iPoint deadTreePos = { 2690 , 2030 };
+	iPoint treePos = { 573 , 332 };
+	iPoint ripPos = { 720 , 2700 };
+	iPoint rip2Pos = { 2969 , 1970 };
+	iPoint rip3Pos = { 2549 , 866 };
+
+
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
 	cock->activeOnStage = StageIndex::TOWN;
@@ -122,172 +134,196 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
+
+
+
+	/*NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
+	npcList.add(cartelSudTown);
+	cartelSudTown->activeOnStage = StageIndex::TOWER_4;*/
+
+
+	NPC* deadTree = (NPC*)app->entities->CreateEntity(NPCType::DEAD_TREE, deadTreePos.x, deadTreePos.y);
+	npcList.add(deadTree);
+	deadTree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* tree = (NPC*)app->entities->CreateEntity(NPCType::TREE, treePos.x, treePos.y);
+	npcList.add(tree);
+	tree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* rip = (NPC*)app->entities->CreateEntity(NPCType::RIP, ripPos.x, ripPos.y);
+	npcList.add(rip);
+	rip->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip2 = (NPC*)app->entities->CreateEntity(NPCType::RIP_2, rip2Pos.x, rip2Pos.y);
+	npcList.add(rip2);
+	rip2->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip3 = (NPC*)app->entities->CreateEntity(NPCType::RIP_3, rip3Pos.x, rip3Pos.y);
+	npcList.add(rip3);
+	rip3->activeOnStage = StageIndex::TOWER_3;
+
+
+	
+
+	//NPC* archer = (NPC*)app->entities->CreateEntity(NPCType::ARCHER, archerPos.x, archerPos.y);
+	//npcList.add(archer);
+	//archer->activeOnStage = StageIndex::TOWER_1;
+
+
+	//NPC* lancer = (NPC*)app->entities->CreateEntity(NPCType::LANCER, lancerPos.x, lancerPos.y);
+	//npcList.add(lancer);
+	//lancer->activeOnStage = StageIndex::TOWER_3;
+
+	//NPC* wizard = (NPC*)app->entities->CreateEntity(NPCType::WIZARD, wizardPos.x, wizardPos.y);
+	//npcList.add(wizard);
+	//wizard->activeOnStage = StageIndex::TOWER_2;
+
 	// ============================
 
 	app->stages->npcListPtr = &npcList;
 
-	// Normal Enemies
-	iPoint eyePos = { 660, 100 }; // 680 100
-	iPoint batPos = { 600, 100 };
-	iPoint skeletonPos = { 750, 50 };
+	{
+		//iPoint batPos = { 600, 100 };
 
-	//ENEMIES TOWER1
-	iPoint eyePosT1 = { 1354, 1476}; 
-	iPoint batPosT1 = { 835, 999 };
-	iPoint skeletonPosT1 = { 483, 259 };
+		NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
+		normalEnemyList.add(eye);
+		eye->activeOnStage = StageIndex::DOJO;
 
-	iPoint eyePosT1_2 = { 1343, 1103 }; 
-	iPoint batPosT1_2= { 784, 999 };
-	iPoint skeletonPosT1_2 = { 483, 294 };
+		NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
+		normalEnemyList.add(bat);
+		bat->activeOnStage = StageIndex::DOJO;
 
-	iPoint eyePosT1_3 = { 2753, 524 };
-	
-	iPoint skeletonPosT1_3 = { 2464, 281 };
-
-	//ENEMIES TOWER2
-	iPoint eyePosT2 = { 2198, 1614 };
-	iPoint batPosT2 = { 2286, 1678 };
-	iPoint skeletonPosT2 = { 2616, 2014 };
-
-	iPoint eyePosT2_2 = { 2616, 2080 };
-	iPoint batPosT2_2 = { 4026, 1283 };
-	iPoint skeletonPosT2_2 = { 3317, 598 };
-
-	iPoint eyePosT2_3 = { 3317, 657 };
-
-	iPoint skeletonPosT2_3 = { 1127, 1045 };
+		NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
+		normalEnemyList.add(skeleton);
+		skeleton->activeOnStage = StageIndex::DOJO;
 
 
-	//ENEMIES TOWER3
-	iPoint eyePosT3 = { 1599, 2858 };
-	iPoint batPosT3 = { 723, 2858 };
-	iPoint skeletonPosT3 = { 2616, 2014 };
+		// TOWER ENEMIES 1
+		NormalEnemy* batT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1.x, batPosT1.y);
+		batT1->chasePlayer = true;
+		normalEnemyList.add(batT1);
+		batT1->activeOnStage = StageIndex::TOWER_1;
 
-	iPoint eyePosT3_2 = { 454, 1868 };
-	iPoint batPosT3_2 = { 3973, 841 };
-	iPoint skeletonPosT3_2 = { 366, 304 };
+		NormalEnemy* batT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1_2.x, batPosT1_2.y);
+		batT1_2->chasePlayer = true;
+		normalEnemyList.add(batT1_2);
+		batT1_2->activeOnStage = StageIndex::TOWER_1;
 
-	iPoint eyePosT3_3 = { 366, 350 };
+		NormalEnemy* skeletonT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_2.x, skeletonPosT1_2.y);
+		skeletonT1->chasePlayer = true;
+		normalEnemyList.add(skeletonT1);
+		skeletonT1->activeOnStage = StageIndex::TOWER_1;
 
-	iPoint skeletonPosT3_3 = { 1127, 1045 };
+		NormalEnemy* skeletonT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_3.x, skeletonPosT1_3.y);
+		skeletonT1_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT1_2);
+		skeletonT1_2->activeOnStage = StageIndex::TOWER_1;
 
+		NormalEnemy* skeletonT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1.x, skeletonPosT1.y);
+		skeletonT1_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT1_3);
+		skeletonT1_3->activeOnStage = StageIndex::TOWER_1;
 
-	//iPoint batPos = { 600, 100 };
+		NormalEnemy* eyeT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1.x, eyePosT1.y);
+		eyeT1->chasePlayer = true;
+		normalEnemyList.add(eyeT1);
+		eyeT1->activeOnStage = StageIndex::TOWER_1;
 
-	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
-	normalEnemyList.add(eye);
-	eye->activeOnStage = StageIndex::DOJO;
+		NormalEnemy* eyeT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_2.x, eyePosT1_2.y);
+		eyeT1_2->chasePlayer = true;
+		normalEnemyList.add(eyeT1_2);
+		eyeT1_2->activeOnStage = StageIndex::TOWER_1;
 
-	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
-	normalEnemyList.add(bat);
-	bat->activeOnStage = StageIndex::DOJO;
+		NormalEnemy* eyeT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_3.x, eyePosT1_3.y);
+		eyeT1_3->chasePlayer = true;
+		normalEnemyList.add(eyeT1_3);
+		eyeT1_3->activeOnStage = StageIndex::TOWER_1;
 
-	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
-	normalEnemyList.add(skeleton);
-	skeleton->activeOnStage = StageIndex::DOJO;
+		// TOWER ENEMIES 2
 
+		NormalEnemy* batT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2.x, batPosT2.y);
+		batT2->chasePlayer = true;
 
-	// TOWER ENEMIES 1
-	NormalEnemy* batT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1.x, batPosT1.y);
-	normalEnemyList.add(batT1);
-	batT1->activeOnStage = StageIndex::TOWER_1;
+		normalEnemyList.add(batT2);
+		batT2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* batT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1_2.x, batPosT1_2.y);
-	normalEnemyList.add(batT1_2);
-	batT1_2->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* batT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2_2.x, batPosT2_2.y);
+		batT2_2->chasePlayer = true;
+		normalEnemyList.add(batT2_2);
+		batT2_2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* skeletonT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_2.x, skeletonPosT1_2.y);
-	normalEnemyList.add(skeletonT1);
-	skeletonT1->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* skeletonT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_2.x, skeletonPosT2_2.y);
+		skeletonT2->chasePlayer = true;
+		normalEnemyList.add(skeletonT2);
+		skeletonT2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* skeletonT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_3.x, skeletonPosT1_3.y);
-	normalEnemyList.add(skeletonT1_2);
-	skeletonT1_2->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* skeletonT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_3.x, skeletonPosT2_3.y);
+		skeletonT2_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT2_2);
+		skeletonT2_2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* skeletonT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1.x, skeletonPosT1.y);
-	normalEnemyList.add(skeletonT1_3);
-	skeletonT1_3->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* skeletonT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2.x, skeletonPosT2.y);
+		skeletonT2_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT2_3);
+		skeletonT2_3->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* eyeT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1.x, eyePosT1.y);
-	normalEnemyList.add(eyeT1);
-	eyeT1->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* eyeT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2.x, eyePosT2.y);
+		eyeT2->chasePlayer = true;
+		normalEnemyList.add(eyeT2);
+		eyeT2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* eyeT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_2.x, eyePosT1_2.y);
-	normalEnemyList.add(eyeT1_2);
-	eyeT1_2->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* eyeT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_2.x, eyePosT2_2.y);
+		eyeT2_2->chasePlayer = true;
+		normalEnemyList.add(eyeT2_2);
+		eyeT2_2->activeOnStage = StageIndex::TOWER_2;
 
-	NormalEnemy* eyeT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_3.x, eyePosT1_3.y);
-	normalEnemyList.add(eyeT1_3);
-	eyeT1_3->activeOnStage = StageIndex::TOWER_1;
+		NormalEnemy* eyeT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_3.x, eyePosT2_3.y);
+		eyeT2_3->chasePlayer = true;
+		normalEnemyList.add(eyeT2_3);
+		eyeT2_3->activeOnStage = StageIndex::TOWER_2;
 
-	// TOWER ENEMIES 2
+		// TOWER ENEMIES 3
 
-	NormalEnemy* batT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2.x, batPosT2.y);
-	normalEnemyList.add(batT2);
-	batT2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* batT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3.x, batPosT3.y);
+		batT3->chasePlayer = true;
+		normalEnemyList.add(batT3);
+		batT3->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* batT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2_2.x, batPosT2_2.y);
-	normalEnemyList.add(batT2_2);
-	batT2_2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* batT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3_2.x, batPosT3_2.y);
+		batT3_2->chasePlayer = true;
+		normalEnemyList.add(batT3_2);
+		batT3_2->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* skeletonT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_2.x, skeletonPosT2_2.y);
-	normalEnemyList.add(skeletonT2);
-	skeletonT2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* skeletonT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_2.x, skeletonPosT3_2.y);
+		skeletonT3->chasePlayer = true;
+		normalEnemyList.add(skeletonT3);
+		skeletonT3->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* skeletonT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_3.x, skeletonPosT2_3.y);
-	normalEnemyList.add(skeletonT2_2);
-	skeletonT2_2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* skeletonT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_3.x, skeletonPosT3_3.y);
+		skeletonT3_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT3_2);
+		skeletonT3_2->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* skeletonT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2.x, skeletonPosT2.y);
-	normalEnemyList.add(skeletonT2_3);
-	skeletonT2_3->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* skeletonT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3.x, skeletonPosT3.y);
+		skeletonT3_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT3_3);
+		skeletonT3_3->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* eyeT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2.x, eyePosT2.y);
-	normalEnemyList.add(eyeT2);
-	eyeT2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* eyeT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3.x, eyePosT3.y);
+		eyeT3->chasePlayer = true;
+		normalEnemyList.add(eyeT3);
+		eyeT3->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* eyeT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_2.x, eyePosT2_2.y);
-	normalEnemyList.add(eyeT2_2);
-	eyeT2_2->activeOnStage = StageIndex::TOWER_2;
+		NormalEnemy* eyeT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_2.x, eyePosT3_2.y);
+		eyeT3_2->chasePlayer = true;
+		normalEnemyList.add(eyeT3_2);
+		eyeT3_2->activeOnStage = StageIndex::TOWER_3;
 
-	NormalEnemy* eyeT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_3.x, eyePosT2_3.y);
-	normalEnemyList.add(eyeT2_3);
-	eyeT2_3->activeOnStage = StageIndex::TOWER_2;
-
-	// TOWER ENEMIES 3
-
-	NormalEnemy* batT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3.x, batPosT3.y);
-	normalEnemyList.add(batT3);
-	batT3->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* batT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3_2.x, batPosT3_2.y);
-	normalEnemyList.add(batT3_2);
-	batT3_2->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* skeletonT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_2.x, skeletonPosT3_2.y);
-	normalEnemyList.add(skeletonT3);
-	skeletonT3->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* skeletonT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_3.x, skeletonPosT3_3.y);
-	normalEnemyList.add(skeletonT3_2);
-	skeletonT3_2->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* skeletonT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3.x, skeletonPosT3.y);
-	normalEnemyList.add(skeletonT3_3);
-	skeletonT3_3->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* eyeT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3.x, eyePosT3.y);
-	normalEnemyList.add(eyeT3);
-	eyeT3->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* eyeT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_2.x, eyePosT3_2.y);
-	normalEnemyList.add(eyeT3_2);
-	eyeT3_2->activeOnStage = StageIndex::TOWER_3;
-
-	NormalEnemy* eyeT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_3.x, eyePosT3_3.y);
-	normalEnemyList.add(eyeT3_3);
-	eyeT3_3->activeOnStage = StageIndex::TOWER_3;
-
+		NormalEnemy* eyeT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_3.x, eyePosT3_3.y);
+		eyeT3_3->chasePlayer = true;
+		normalEnemyList.add(eyeT3_3);
+		eyeT3_3->activeOnStage = StageIndex::TOWER_3;
+	}
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
