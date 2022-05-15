@@ -52,6 +52,8 @@ public:
 
 	bool onlyInBattle;
 
+	bool chasePlayer = false;
+	float chaseSpeed = 1;
 
 };
 
