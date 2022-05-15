@@ -141,8 +141,43 @@ bool QuestManager::Start()
 	"Take a beer camarada"
 	};
 
-	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
+	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 5, 0, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
 	questList.add(quest3_1);
+
+	Quest* questFloor1 = new Quest(QuestType::KILL, QuestState::ACTIVE, 6, 0, "Lvl1", "mata a todos los enemigos", 0, 0, 8, 0, 0, false, available, active, completed);
+	questList.add(questFloor1);
+
+
+	const char* availablefloor2[DIALOG_LENGHT] = {
+	"There is somethings graved on the wood:",
+	"The little tree is guarding the door.",
+	"Maybe this is a clue?"
+	};
+	const char* activefloor2[DIALOG_LENGHT] = {
+	"There is somethings graved on the wood:",
+	"The little tree is guarding the door.",
+	"Maybe this is a clue?"
+	};
+	const char* completedFloor2[DIALOG_LENGHT] = {
+	"Have something graved on the wood:",
+	"You visit my dead friend, you can pass."
+	};
+		
+	Quest* questFloor2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 7, 9, "Lvl2", "??", 0, 0, 10, 0, 0, false, availablefloor2, activefloor2, completedFloor2);
+	questList.add(questFloor2);
+
+	const char* completedFloor3[DIALOG_LENGHT] = {
+	"There is a key fragment on the tombstone"
+	};
+	Quest* questFloor3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 8, 0, "Lvl2", "??", 0, 0, 11, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	questList.add(questFloor3_1);
+
+	Quest* questFloor3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 9, 0, "Lvl2", "??", 0, 0, 12, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	questList.add(questFloor3_2);
+
+	Quest* questFloor3_3 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 10, 0, "Lvl2", "??", 0, 0, 13, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	questList.add(questFloor3_3);
+
 
 	return ret;
 }
@@ -180,10 +215,22 @@ bool QuestManager::Update(float dt)
 		if (QuestInList->data->QuestId == 3 && QuestInList->data->State == QuestState::ACTIVE) {
 			if (app->scene->player->winCount == QuestInList->data->objectiveNum) {
 				QuestInList->data->State = QuestState::COMPLETED;
+				app->scene->player->winCount = 0;
 				//app->scene->player->TowerKey = true;
 				
 			}
 		}
+		if (app->scene->player != nullptr) {
+			if (QuestInList->data->QuestId == 6 && QuestInList->data->State == QuestState::ACTIVE) {
+				if (app->scene->player->winCount == QuestInList->data->objectiveNum) {
+					QuestInList->data->State = QuestState::FINISHED;
+					app->scene->player->winCount = 0;
+					app->scene->player->Floor1Key = true;
+					//app->scene->player->TowerKey = true;
+				}
+			}
+		}
+		
 
 		/*if (QuestInList->data->QuestId == 4 && QuestInList->data->State == QuestState::COMPLETED) {
 			if (app->scene->player->TowerKey == false) {
@@ -344,6 +391,19 @@ void QuestManager::InteractComplete(int id){
 		if (QuestInList->data->QuestId == 4) {
 			app->scene->player->TowerKey = true;
 		}
+		if (QuestInList->data->QuestId == 7) {
+			app->scene->player->Floor2Key = true;
+		}
+		if (QuestInList->data->QuestId == 8) {
+			app->scene->player->Key1 = true;
+		}
+		if (QuestInList->data->QuestId == 9) {
+			app->scene->player->Key2 = true;
+		}
+		if (QuestInList->data->QuestId == 10) {
+			app->scene->player->Key3 = true;
+		}
+
 		CheckChain(QuestInList->data->QuestId);
 		}
 		
@@ -535,6 +595,9 @@ void QuestManager::CheckState(int Id)
 				QuestInList->data->State = QuestState::FINISHED;
 				if (QuestInList->data->QuestId == 4) {
 					app->scene->player->TowerKey = true;
+				}
+				if (QuestInList->data->QuestId == 7) {
+					app->scene->player->Floor2Key = true;
 				}
 				CheckChain(QuestInList->data->QuestId);
 				break;
