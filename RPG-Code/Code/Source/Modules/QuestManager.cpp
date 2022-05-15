@@ -271,6 +271,21 @@ void QuestManager::CheckQuest(int NPCid)
 		case 8:
 			app->scene->player->Interact(NPCType::CARTELSUDTOWN, app->scene->player->cartelSudTownDialog);
 			break;
+		case 9:
+			app->scene->player->Interact(NPCType::DEAD_TREE, app->scene->player->deadTreeDialog);
+			break;
+		case 10:
+			app->scene->player->Interact(NPCType::TREE, app->scene->player->TreeDialog);
+			break;
+		case 11:
+			app->scene->player->Interact(NPCType::RIP, app->scene->player->RipDialog);
+			break;
+		case 12:
+			app->scene->player->Interact(NPCType::RIP_2, app->scene->player->RipDialog);
+			break;
+		case 13:
+			app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
+			break;
 		default:
 			break;
 		}
@@ -305,6 +320,21 @@ void QuestManager::InteractComplete(int id){
 			break;
 		case 8:
 			app->scene->player->Interact(NPCType::CARTELSUDTOWN, QuestInList->data->completedDialog);
+			break;
+		case 9:
+			app->scene->player->Interact(NPCType::DEAD_TREE, QuestInList->data->completedDialog);
+			break;
+		case 10:
+			app->scene->player->Interact(NPCType::TREE, QuestInList->data->completedDialog);
+			break;
+		case 11:
+			app->scene->player->Interact(NPCType::RIP, QuestInList->data->completedDialog);
+			break;
+		case 12:
+			app->scene->player->Interact(NPCType::RIP_2, QuestInList->data->completedDialog);
+			break;
+		case 13:
+			app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
 			break;
 		default:
 			break;
@@ -352,6 +382,21 @@ void QuestManager::CheckState(int Id)
 				case 8:
 					app->scene->player->Interact(NPCType::CARTELSUDTOWN, app->scene->player->cartelSudTownDialog);
 					break;
+				case 9:
+					app->scene->player->Interact(NPCType::DEAD_TREE, app->scene->player->deadTreeDialog);
+					break;
+				case 10:
+					app->scene->player->Interact(NPCType::TREE, app->scene->player->TreeDialog);
+					break;
+				case 11:
+					app->scene->player->Interact(NPCType::RIP, app->scene->player->RipDialog);
+					break;
+				case 12:
+					app->scene->player->Interact(NPCType::RIP_2, app->scene->player->RipDialog);
+					break;
+				case 13:
+					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
+					break;
 				default:
 					break;
 				}
@@ -379,6 +424,21 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 8:
 					app->scene->player->Interact(NPCType::CARTELSUDTOWN, QuestInList->data->availableDialog);
+					break;
+				case 9:
+					app->scene->player->Interact(NPCType::DEAD_TREE, QuestInList->data->availableDialog);
+					break;
+				case 10:
+					app->scene->player->Interact(NPCType::TREE, QuestInList->data->availableDialog);
+					break;
+				case 11:
+					app->scene->player->Interact(NPCType::RIP, QuestInList->data->availableDialog);
+					break;
+				case 12:
+					app->scene->player->Interact(NPCType::RIP_2, QuestInList->data->completedDialog);
+					break;
+				case 13:
+					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -410,6 +470,21 @@ void QuestManager::CheckState(int Id)
 				case 8:
 					app->scene->player->Interact(NPCType::CARTELSUDTOWN, QuestInList->data->activeDialog);
 					break;
+				case 9:
+					app->scene->player->Interact(NPCType::DEAD_TREE, QuestInList->data->availableDialog);
+					break;
+				case 10:
+					app->scene->player->Interact(NPCType::TREE, QuestInList->data->availableDialog);
+					break;
+				case 11:
+					app->scene->player->Interact(NPCType::RIP, QuestInList->data->availableDialog);
+					break;
+				case 12:
+					app->scene->player->Interact(NPCType::RIP_2, QuestInList->data->completedDialog);
+					break;
+				case 13:
+					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+					break;
 				default:
 					break;
 				}
@@ -437,6 +512,21 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 8:
 					app->scene->player->Interact(NPCType::CARTELSUDTOWN, QuestInList->data->completedDialog);
+					break;
+				case 9:
+					app->scene->player->Interact(NPCType::DEAD_TREE, QuestInList->data->completedDialog);
+					break;
+				case 10:
+					app->scene->player->Interact(NPCType::TREE, QuestInList->data->completedDialog);
+					break;
+				case 11:
+					app->scene->player->Interact(NPCType::RIP, QuestInList->data->completedDialog);
+					break;
+				case 12:
+					app->scene->player->Interact(NPCType::RIP_2, QuestInList->data->completedDialog);
+					break;
+				case 13:
+					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -471,6 +561,21 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 8:
 					app->scene->player->Interact(NPCType::CARTELSUDTOWN, app->scene->player->cartelSudTownDialog);
+					break;
+				case 9:
+					app->scene->player->Interact(NPCType::DEAD_TREE, app->scene->player->deadTreeDialog);
+					break;
+				case 10:
+					app->scene->player->Interact(NPCType::TREE, app->scene->player->TreeDialog);
+					break;
+				case 11:
+					app->scene->player->Interact(NPCType::RIP, app->scene->player->RipDialog);
+					break;
+				case 12:
+					app->scene->player->Interact(NPCType::RIP_2, app->scene->player->RipDialog);
+					break;
+				case 13:
+					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 					break;
 				default:
 					break;

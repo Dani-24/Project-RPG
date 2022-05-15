@@ -112,34 +112,70 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		isInteraction = true;
 		break;
 
+
 	case NPCType::BIGTREE:
 		configName = "bigtree";
 
 		npcID = 8;
 
+	case NPCType::DEAD_TREE:
+		configName = "dead_tree";
+
+		npcID = 9;
+
+
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
+
 	case NPCType::ARCHER:
 		configName = "archer";
 
 		npcID = 8;
 
+	case NPCType::TREE:
+		configName = "tree";
+
+		npcID = 10;
+
+
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
+
 	case NPCType::LANCER:
 		configName = "lancer";
 
 		npcID = 8;
 
+	case NPCType::RIP:
+		configName = "rip";
+
+		npcID = 11;
+
+
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
+
 	case NPCType::WIZARD:
 		configName = "wizard";
 
 		npcID = 8;
+
+	case NPCType::RIP_2:
+		configName = "rip2";
+
+		npcID = 12;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::RIP_3:
+		configName = "rip3";
+
+		npcID = 13;
+
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
@@ -217,6 +253,7 @@ bool NPC::Start()
 	case NPCType::CARTELSUDTOWN:
 
 		spriteTex = NULL;
+
 		break;
 	case NPCType::BIGTREE:
 
@@ -233,7 +270,29 @@ bool NPC::Start()
 	case NPCType::WIZARD:
 
 		spriteTex = app->tex->Load(wizardChar);
-		
+		break;
+
+	case NPCType::DEAD_TREE:
+
+		spriteTex = NULL;
+		break;
+	case NPCType::TREE:
+
+		spriteTex = NULL;
+			break;
+	case NPCType::RIP:
+
+		spriteTex = NULL;
+		break;
+	case NPCType::RIP_2:
+
+		spriteTex = NULL;
+		break;
+	case NPCType::RIP_3:
+
+		spriteTex = NULL;
+		break;
+
 	default:
 		break;
 	}

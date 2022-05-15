@@ -29,7 +29,12 @@ enum class NPCType
 	BIGTREE,
 	ARCHER,
 	LANCER,
-	WIZARD
+	WIZARD,
+	DEAD_TREE,
+	TREE,
+	RIP,
+	RIP_2,
+	RIP_3
 
 };
 
