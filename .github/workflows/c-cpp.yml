@@ -13,11 +13,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
-      
-    - name: Builds
-      working-directory: src
-      run: msbuild MyProject.csproj
+    - name: Build c++ project
+      uses: nicledomaS/cmake_build_action@v1.4
+      with:
+        submodule_update: ON
+        run_tests: ON
+        unit_test_build: -Dtest=ON   
+    - uses: actions/upload-artifact@v2
+      with:
+        path: build/*.tar.gz
+        name: artifact_${{ matrix.os }}_${{ matrix.configs }}.tar.gz  
       
