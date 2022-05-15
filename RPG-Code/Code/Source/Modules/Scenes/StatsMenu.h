@@ -34,6 +34,9 @@ public:
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	//manage the control of ui with keyboard/gamepad
+	void KeyboardControl();
+
 private:
 
 	void Statss();
@@ -54,6 +57,8 @@ private:
 	int chselect;
 
 	int buttonSfx, backSfx;
+
+	bool wait, _wait;
 };
 
 #endif

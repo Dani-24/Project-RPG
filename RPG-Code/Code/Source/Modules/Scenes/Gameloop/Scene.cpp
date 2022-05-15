@@ -207,7 +207,8 @@ bool Scene::Update(float dt)
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-	
+
+	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
 
 	fpsdt = dt*3.75;
 	//GUI activation
