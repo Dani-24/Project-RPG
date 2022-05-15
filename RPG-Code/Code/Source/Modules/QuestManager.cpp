@@ -129,7 +129,7 @@ void QuestManager::CheckQuest(int NPCid)
 				if (QuestInList->data->State == QuestState::ACTIVE)
 				{
 					n = true;
-					/*QuestInList->data->State = QuestState::COMPLETED;*/
+					QuestInList->data->State = QuestState::COMPLETED;
 					InteractComplete(QuestInList->data->QuestId);
 				}
 				/*else {
@@ -179,6 +179,8 @@ void QuestManager::InteractComplete(int id){
 	ListItem<Quest*>* QuestInList;
 	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
 	{
+		if (QuestInList->data->QuestId == id) {
+
 		switch (QuestInList->data->NPCinteractId)
 		{
 		case 1:
@@ -205,8 +207,8 @@ void QuestManager::InteractComplete(int id){
 		default:
 			break;
 		}
+		}
 		GiveReward(QuestInList->data->QuestId);
-	
 		QuestInList->data->State = QuestState::FINISHED;
 		CheckChain(QuestInList->data->QuestId);
 	}
@@ -404,7 +406,7 @@ void QuestManager::CheckChain(int Id)
 
 		if (QuestInList->data->QuestChainId == sChainId) {
 			if (QuestInList->data->QuestInChainId == sInChainId+1) {
-				QuestInList->data->State = QuestState::AVAILABLE;
+				QuestInList->data->State = QuestState::ACTIVE;
 			}
 		}
 	}
