@@ -2305,7 +2305,7 @@ bool Battle::CleanUp()
 	shield = nullptr;
 	delete shield;
 
-	app->camera->SetTarget(app->stages->playerPtr);
+	
 
 	switch(battlePhase) {
 	case BattlePhase::REWARD:
@@ -2324,7 +2324,7 @@ bool Battle::CleanUp()
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
-		app->camera->SetLimits(640, 350, 4490, 4200);
+		//app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -2387,7 +2387,7 @@ bool Battle::CleanUp()
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
-		app->camera->SetLimits(640, 350, 4490, 4200);
+		//app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -2466,7 +2466,7 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->position = { app->stages->playerPtr->mapPosition.x ,entitiesInBattle[4]->baseCollider->rect.y + entitiesInBattle[4]->baseCollider->rect.h +1 - app->stages->playerPtr->colDownDistance };
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
-			app->camera->SetLimits(640, 350, 4490, 4200);
+			//app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -2512,7 +2512,7 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
-			app->camera->SetLimits(640, 350, 4490, 4200);
+			//app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;

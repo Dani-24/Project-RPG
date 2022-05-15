@@ -986,7 +986,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->tower0Pos;
 			app->camera->OnTarget();
-
+			app->camera->FreeLimits();
 			LOG("Loading Tower map");
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
@@ -1002,7 +1002,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->tower1Pos;
 			app->camera->OnTarget();
-
+			app->camera->FreeLimits();
 			LOG("Loading Floor 1 map");
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
@@ -1017,6 +1017,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->tower2Pos;
 			app->camera->OnTarget();
+			app->camera->FreeLimits();
 
 			LOG("Loading Floor 2 map");
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
@@ -1032,7 +1033,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->tower3Pos;
 			app->camera->OnTarget();
-
+			app->camera->FreeLimits();
 			LOG("Loading Floor 3 map");
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
@@ -1047,7 +1048,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 			playerPtr->position = playerPtr->tower4Pos;
 			app->camera->OnTarget();
-
+			app->camera->FreeLimits();
 			LOG("Loading Floor 4 map");
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
