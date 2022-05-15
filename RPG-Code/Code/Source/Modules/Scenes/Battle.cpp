@@ -1924,15 +1924,21 @@ void Battle::Attack(DynamicEntity *target) {
 		if (target->name == "Bat")
 		{
 			expCount += 20;
+			goldCount += 2;
+			app->scene->player->PlayerMoney += 2;
 
 		}
 		if (target->name == "Flying eye")
 		{
 			expCount += 50;
+			goldCount += 6;
+			app->scene->player->PlayerMoney += 6;
 		}
 		if (target->name == "Skeleton")
 		{
 			expCount += 100;
+			goldCount += 10;
+			app->scene->player->PlayerMoney += 10;
 		}
 
 		for (int i = 0; i < app->scene->partyList.count(); i++) {
