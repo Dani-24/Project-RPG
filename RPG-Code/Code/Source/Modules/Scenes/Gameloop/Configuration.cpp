@@ -104,26 +104,25 @@ bool Configuration::PostUpdate()
 
 	//if (app->pauseM->pauseGame == false && app->scene->playing==false )
 	//{
-	SDL_Color c = {0,0,0};
 		app->render->DrawTexture(background, (app->win->GetWidth() / 2) - 475, (app->win->GetWidth() / 50) + 40);
 
-		app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50,c);
-		app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50, c);
-		app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50, c);
-		app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 50, c);
-		app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90, c);
-		app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90, c);
-		app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 90, c);
-		app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 90, c);
+		app->font->DrawText("Music", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 50);
+		app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 50);
+		app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 50);
+		app->font->DrawText(volchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 50);
+		app->font->DrawText("SFX", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 90);
+		app->font->DrawText("+", (app->win->GetWidth() / 2) - 300, (app->win->GetWidth() / 50) + 90);
+		app->font->DrawText("-", (app->win->GetWidth() / 2) - 350, (app->win->GetWidth() / 50) + 90);
+		app->font->DrawText(FXchar, (app->win->GetWidth() / 2) - 265, (app->win->GetWidth() / 50) + 90);
 
-		app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130, c);
-		if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130, c);
+		app->font->DrawText("FullScreen", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 130);
+		if (app->win->fullscreen == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 130);
 
-		app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170, c);
-		if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 170, c);
+		app->font->DrawText("VSync", (app->win->GetWidth() / 2) - 470, (app->win->GetWidth() / 50) + 170);
+		if (app->render->Vsync == true) app->font->DrawText("X", (app->win->GetWidth() / 2) - 325, (app->win->GetWidth() / 50) + 170);
 
 
-		app->font->DrawText("X", (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37, c);
+		app->font->DrawText("X", (app->win->GetWidth() / 2) - 180, (app->win->GetWidth() / 50) + 37);
 
 	//}
 	//else if (app->pauseM->pauseGame == true && app->scene->playing == true)
