@@ -325,6 +325,7 @@ bool Stages::PostUpdate()
 		break;
 
 	case StageIndex::TOWER_0:
+
 		break;
 	case StageIndex::TOWER_1:
 		break;
@@ -983,7 +984,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Tower map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -999,7 +1000,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 1 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1014,7 +1015,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 2 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1029,7 +1030,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 3 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1044,7 +1045,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 
 			LOG("Loading Floor 4 map");
-
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 		break;
