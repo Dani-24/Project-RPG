@@ -1,0 +1,28 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ Master ]
+  pull_request:
+    branches: [ Master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build c++ project
+      uses: nicledomaS/cmake_build_action@v1.4
+      with:
+        config: ${{ matrix.configs }}
+        submodule_update: ON
+        run_tests: ON
+        unit_test_build: -DFIND_TESTS=ON
+        cmake_args: -DFIND_MODULES=ON;-DENABLE_TIDY=ON
+        create_package: ON
+    - uses: actions/upload-artifact@v2
+      with:
+        path: build/*.tar.gz
+        name: artifact ${{ matrix.os }}_${{ matrix.configs }}
