@@ -210,6 +210,7 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 			}
 			else
 			{
+				app->pauseM->EnButt();
 				Disable();
 			}
 		}

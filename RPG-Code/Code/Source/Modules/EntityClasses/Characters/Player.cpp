@@ -442,8 +442,10 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	speed = 0.2 * dt;
-
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT )speed = 0.28 * dt;
+	else if(app->scene->godmode)speed = 0.35 * dt;
+	else speed = 0.2 * dt;
+	
 	GamePad& pad = app->input->pads[0];
 
 	walkFxCooldown -= dt;

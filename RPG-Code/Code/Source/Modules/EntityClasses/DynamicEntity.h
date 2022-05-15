@@ -69,8 +69,8 @@ public:
 	}
 	//lvl mxhealth attak defense mana speed
 	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
-		this->level = level;
-		
+		this->level = 1;
+
 		this->maxHealth = maxHealth;
 		this->health = maxHealth;
 
@@ -87,6 +87,18 @@ public:
 		this->nexp = 100;
 		this->localTurn = 0;
 		this->defenseBuffed = false;
+
+		if (level > 1) {
+			int lvl = this->nexp;
+			for (int i = 0; i < level - 1; i++)
+			{
+
+				lvl *= 1.2;
+				lvlup(lvl);
+			}
+
+		}
+
 	}
 
 	float TurnValue() {
@@ -125,7 +137,7 @@ public:
 		level = Slevel;
 		maxHealth = SmaxHealth;
 		health = Shealth;
-		
+
 
 		attack = Sattack;
 		defense = Sdefense;
@@ -137,22 +149,25 @@ public:
 
 	void lvlup(int rep)
 	{
-		int a = 0;
+
 		exp += rep;
-		if (exp>=nexp)
+		if (exp >= nexp)
 		{
-			if (exp > nexp)a = exp - nexp;
-			exp = a;
-			LOG("LEVEL UP! jovani de puerto rico");
-			level++;
-			attack*=1.2;
-			defense *= 1.2;
-			speed *= 1.2;
-			mana *= 1.2;
-			maxMana *= 1.2;
-			nexp *= 1.2;
-			maxHealth *= 1.2;
-			health *= 1.2;
+			while (exp >= nexp) {
+				int a = 0;
+				a = exp - nexp;
+				exp = a;
+				LOG("LEVEL UP! jovani de puerto rico");
+				level++;
+				attack *= 1.2;
+				defense *= 1.2;
+				speed *= 1.2;
+				mana *= 1.2;
+				maxMana *= 1.2;
+				nexp *= 1.2;
+				maxHealth *= 1.2;
+				health *= 1.2;
+			}
 		}
 	}
 };
