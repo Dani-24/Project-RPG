@@ -73,7 +73,8 @@ public:
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, bool _autoComplete, int objective_NPCid, int ChainId, int inChainId, bool LastInChain)
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, bool _autoComplete, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
+		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT])
 	{
 		questType = qtype;
 		State = qState;
@@ -106,10 +107,7 @@ public:
 			NPCinteractId = 0;
 			break;
 		}
-	}
 
-	void QuestDialogs(const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char*  completed[DIALOG_LENGHT])
-	{
 		for (int i = 0; i < DIALOG_LENGHT; i++) {
 			if (available[i] != NULL) {
 				availableDialog[i] = available[i];
@@ -120,8 +118,10 @@ public:
 			if (completed[i] != NULL) {
 				completedDialog[i] = completed[i];
 			}
+
 		}
 	}
+
 
 };
 

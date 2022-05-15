@@ -37,6 +37,8 @@ public:
 	bool CleanUp();
 
 	void CheckMoney(int Cash, int Price);
+
+	void showPrice(int item, int x, int y);
 private:
 	SDL_Texture* ShopTex;
 
@@ -59,7 +61,8 @@ private:
 	int ShopItem = 0;
 
 	int Money = 0;
-	bool canBuy = false;
+	int canBuy = 0;
+	int price = 0;
 
 	GuiButton* Section1Btn;
 	GuiButton* Section2Btn;

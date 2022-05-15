@@ -34,6 +34,35 @@ bool QuestManager::Start()
 	/*Quest* quest1 = new Quest();
 	questList.add(quest1);*/
 
+	
+	const char* available[DIALOG_LENGHT] = { 
+	"Buenos dias camarada",
+	"busca a la señora tabernera"};
+	const char* active[DIALOG_LENGHT] = {
+	"te he dicho que busques algo",
+	"puto imbecil" };
+	const char* completed[DIALOG_LENGHT] = {
+	"buenas busca a emilio",
+	"aaaaaaaaaaaa" };
+	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, false, 3, 1, 1, false,available,active,completed );
+	questList.add(quest1_1);
+
+	
+	
+	const char* completed3[DIALOG_LENGHT] = {
+	"aaaaaaaasssss",
+	"aaaaaaaaaaaa" };
+	const char* active2[DIALOG_LENGHT] = {
+	"sdasdasd",
+	"puto imbecil" };
+	const char* completed2[DIALOG_LENGHT] = {
+	"ah bueno pues aqui estoy",
+	"no te dejo entrar ostia" };
+
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, false,5, 1, 2, true, completed3, active2, completed2);
+	questList.add(quest1_2);
+
+
 
 	return ret;
 }
@@ -51,16 +80,15 @@ bool QuestManager::Update(float dt)
 {
 	bool ret = true;
 
-	ListItem<Quest*>* QuestInList;
-	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
-	{
-		if (QuestInList->data->autoComplete)
-		{
-			GiveReward(QuestInList->data->QuestId);
-			CheckChain(QuestInList->data->QuestId);
-			QuestInList->data->State = QuestState::FINISHED;
-		}
-	}
+	//ListItem<Quest*>* QuestInList;
+
+	//for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next) {
+	//	if (QuestInList->data->QuestId == 1) {
+	//		if (QuestInList->data->State == QuestState::FINISHED) {
+
+	//		}
+	//	}
+	//}
 
 	return ret;
 }
@@ -93,26 +121,29 @@ void QuestManager::CheckQuest(int NPCid)
 			n = true;
 			CheckState(QuestInList->data->QuestId);
 		}
-
-		if (QuestInList->data->questType == QuestType::INTERACT) {
+		else if (QuestInList->data->questType == QuestType::INTERACT) {
 			if (QuestInList->data->NPCinteractId == NPCid)
 			{
-				
+
 				//CompleteInteract(QuestInList->data->QuestId);
-				if (QuestInList->data->State == QuestState::ACTIVE) 
+				if (QuestInList->data->State == QuestState::ACTIVE)
 				{
 					n = true;
-					QuestInList->data->State = QuestState::COMPLETED;
+					/*QuestInList->data->State = QuestState::COMPLETED;*/
 					InteractComplete(QuestInList->data->QuestId);
 				}
 				/*else {
 					n = false;
 				}*/
-				
+
 			}
 		}
+		
 
 	}
+	
+		
+	
 
 	if (n == false) {
 		switch (NPCid)
@@ -175,8 +206,9 @@ void QuestManager::InteractComplete(int id){
 			break;
 		}
 		GiveReward(QuestInList->data->QuestId);
-		CheckChain(QuestInList->data->QuestId);
+	
 		QuestInList->data->State = QuestState::FINISHED;
+		CheckChain(QuestInList->data->QuestId);
 	}
 }
 
@@ -301,8 +333,8 @@ void QuestManager::CheckState(int Id)
 					break;
 				}
 				GiveReward(QuestInList->data->QuestId);
-				CheckChain(QuestInList->data->QuestId);
 				QuestInList->data->State = QuestState::FINISHED;
+				CheckChain(QuestInList->data->QuestId);
 				break;
 			case QuestState::FINISHED:
 				switch (QuestInList->data->NPCId)

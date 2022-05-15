@@ -85,26 +85,12 @@ bool Shop::Update(float dt) {
 		Money += 10;
 		LOG("%d", Money);
 	}
+
+	int y = -app->camera->GetPos().y / 2;
+	int x = -app->camera->GetPos().x / 2 + 45;
+
+	showPrice(ShopItem, x, y);
 	
-
-	switch (ShopSection) {
-	case 1:
-
-		break;
-	case 2:
-
-		break;
-	case 3:
-
-		break;
-	case 4:
-
-		break;
-
-	default:
-		break;
-	}
-
 	return ret;
 }
 
@@ -115,17 +101,35 @@ bool Shop::PostUpdate() {
 	int x = -app->camera->GetPos().x / 2+45;
 	
 	app->render->DrawTexture(ShopTex, x-45, y, 0);
+
+	//Text
 	app->font->DrawText("Food", x+170, y+92, { 255,255,255 });
 	app->font->DrawText("Potions", x + 147, y+142, { 255,255,255 });
 	app->font->DrawText("Section 3", x + 147, y + 196, { 255,255,255 });
 	app->font->DrawText("Section 4", x + 147, y + 248, { 255,255,255 });
-	app->font->DrawText("Buy", x + 400, y + 8, { 255,255,255 });
+	app->font->DrawText("Buy", x + 445, y + 6, { 255,255,255 });
 
-	if (canBuy == true) {
-		app->font->DrawText("Item added to inventory", x + 100, y + 260, { 255,255,255 });
+	std::string money = std::to_string(Money);
+	char const* MoneyChar = money.c_str();
+	app->font->DrawText(MoneyChar, x + 455, y + 40, { 255,255,255 }); //money
+
+	std::string Price = std::to_string(price);
+	char const* PriceChar = Price.c_str();
+	app->font->DrawText(PriceChar, x + 18, y + 263, { 255,255,255 }); //cost
+
+	if (canBuy == 0) {
+		app->font->DrawText("Select", x - 22, y + 115, { 255,255,255 });
+		app->font->DrawText("one ", x + 5, y + 135, { 255,255,255 });
+		app->font->DrawText("item", x - 16, y + 155, { 255,255,255 });
 	}
-	if (canBuy == false) {
-		app->font->DrawText("you have no money cabron", x + 100, y + 260, { 255,255,255 });
+	if (canBuy == 1) {
+		app->font->DrawText("Item added", x-28, y + 115, { 255,255,255 });
+		app->font->DrawText("to ", x+5, y + 135, { 255,255,255 });
+		app->font->DrawText("inventory", x - 27, y + 155, { 255,255,255 });
+	}
+	if (canBuy == 2) {
+		app->font->DrawText("you have", x-23, y + 120, { 255,255,255 });
+		app->font->DrawText("no money", x-23, y + 140, { 255,255,255 });
 	}
 
 	switch (ShopSection) {
@@ -305,6 +309,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		}
 		if (control->id == 258)
 		{
+			//Moneyy
 			if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
 				CheckMoney(Money, 20);
 			}
@@ -331,12 +336,57 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		}
 		
 	}
+	
 	//Other cases here
 
 	default: break;
 	}
+	switch (control->state) {
+	case GuiControlState::FOCUSED:
+		canBuy = 0;
+			break;
+		default: break;
+	}
+	
 
 	return true;
+}
+
+void Shop::showPrice(int item, int x, int y) 
+{
+	if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
+		price = 20;
+	}
+	if (ShopItem == 36 || ShopItem == 3) {
+		price = 30;
+	}
+	if (ShopItem == 37) {
+		price = 40;
+	}
+	if (ShopItem == 13 || ShopItem == 38) {
+		price = 50;
+	}
+	if (ShopItem == 14) {
+		price = 80;
+	}
+	if (ShopItem == 37) {
+		price = 100;
+	}
+	if (ShopItem == 38) {
+		price = 200;
+	}
+	
+}
+
+void Shop::CheckMoney(int Cash, int Price) {
+
+	if (Cash - Price >= 0) {
+		canBuy = 1;
+		Money -= Price;
+	}
+	else if (Cash - Price < 0) {
+		canBuy = 2;
+	}
 }
 
 bool Shop::CleanUp() {
@@ -355,15 +405,4 @@ bool Shop::CleanUp() {
 	app->tex->UnLoad(ItemTex);
 
 	return ret;
-}
-
-void Shop::CheckMoney(int Cash, int Price) {
-
-	if (Cash - Price >= 0) {
-		canBuy = true;
-		Money -= Price;
-	}
-	else {
-		canBuy = false;
-	}
 }
