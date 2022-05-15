@@ -59,7 +59,7 @@ private:
 
 	int ShopSection = 1;
 	int ShopItem = 0;
-
+	int bought = 0;
 
 	int canBuy = 0;
 	int price = 0;
