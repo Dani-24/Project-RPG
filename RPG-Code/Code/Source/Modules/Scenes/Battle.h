@@ -9,6 +9,8 @@
 struct SDL_Texture;
 class Player;
 class DynamicEntity;
+class Items;
+class Usable;
 
 enum class StageIndex;
 
@@ -36,6 +38,9 @@ enum class BattlePhase {
 	ESCAPING,
 
 	OUTCOME,
+
+	REWARD,
+	LOOT,
 
 	WIN,
 	LOSE
@@ -244,6 +249,8 @@ public:
 	char lifeChar[100] = { "\0" };
 	char escapeChar[100] = { "\0" };
 	char actualTurnChar[50] = { "\0" };
+	char lootChar[100] = { "\0" };
+	char rewardChar[150] = { "\0" };
 
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
@@ -295,6 +302,11 @@ public:
 	int startFx;
 
 	int explosionfx;
+
+	int goldCount;
+	int expCount;
+
+	Usable* itemCount[4];
 
 
 

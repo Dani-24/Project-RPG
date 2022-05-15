@@ -16,6 +16,9 @@
 #include "Title.h"
 #include "Inventory.h"
 #include "Configuration.h"
+#include "Item.h"
+#include "Usable.h"
+#include "Equipment.h"
 
 #include <time.h>
 
@@ -108,6 +111,9 @@ bool Battle::Start()
 	cont = 0;
 	battleTurn = 0;
 	turnValue = 321.123f;
+	expCount = 0;
+	goldCount = 0;
+
 	LOG("Loading Battle");
 	
 	battleStage = &app->stages->actualStage;
@@ -509,11 +515,54 @@ bool Battle::Update(float dt)
 				//WINNING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-						this->Disable();
+						cont = 0;
+						ChangePhase(BattlePhase::REWARD);
 					}
 				}
 				break;
+			case BattlePhase::REWARD:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//REWARD
+				else {
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						if (itemCount[0]!=nullptr) {
+							cont = 0;
+							ChangePhase(BattlePhase::LOOT);
+						}
+						else {
+							this->Disable();
+						}
+						
+					}
+				}
+				break;
+			case BattlePhase::LOOT:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//LOOT
+				else {
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+						app->scene->AddItem(itemCount[0]->usableType);
+						itemCount[0] = nullptr;
+						for (int i = 0; i < 4; i++) {
+							itemCount[i] = itemCount[i + 1];
+						}
+
+						if (itemCount[0] != nullptr) {
+							cont = 0;
+							ChangePhase(BattlePhase::LOOT);
+						}
+						else {
+							this->Disable();
+						}
+					}
+				}
+				break;
+
 
 			case BattlePhase::LOSE:
 				if (cont < loseTime) {
@@ -1073,7 +1122,7 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
 	}*/
 
-	if(battlePhase != BattlePhase::WIN && battlePhase != BattlePhase::LOSE)
+	if(battlePhase != BattlePhase::WIN && battlePhase != BattlePhase::LOSE && battlePhase != BattlePhase::REWARD && battlePhase != BattlePhase::LOOT)
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
 		sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
 		app->font->DrawText(nameChar, 40, 15, {255,255,255}, false);
@@ -1314,9 +1363,35 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Victory! Press SPACE to continue", 10, 25, { 255,200,0 });
+				app->font->DrawTextDelayed("Victory! All the enemies have been defeated", 10, 25, { 255,200,0 });
 				break;
 			}
+
+		case BattlePhase::REWARD:
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				sprintf_s(rewardChar, 150, "All the team members receive %i EXP and %i gold!", expCount, goldCount);
+				app->font->DrawTextDelayed(rewardChar, 10, 25);
+				break;
+			}
+
+		case BattlePhase::LOOT:
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				if (itemCount[0] != nullptr) {
+					sprintf_s(lootChar, 100, "The enemies have dropped %s", itemCount[0]->name);
+					app->font->DrawTextDelayed(lootChar, 10, 25);
+				}
+				
+				break;
+			}
+
 		case BattlePhase::LOSE:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
@@ -1844,6 +1919,22 @@ void Battle::Attack(DynamicEntity *target) {
 
 			SetTurnOrder();
 		}
+
+
+		if (target->name == "Bat")
+		{
+			expCount += 20;
+
+		}
+		if (target->name == "Flying eye")
+		{
+			expCount += 50;
+		}
+		if (target->name == "Skeleton")
+		{
+			expCount += 100;
+		}
+
 		for (int i = 0; i < app->scene->partyList.count(); i++) {
 			if (target->name == "Bat")
 			{
@@ -1855,14 +1946,30 @@ void Battle::Attack(DynamicEntity *target) {
 			{
 				LOG("oooooooooooooooooooo");
 				app->scene->partyList.At(i)->data->stats->lvlup(50);
-
 			}
 			if (target->name == "Skeleton")
 			{
 				LOG("eeeeeeeeeeeeeeeeeeeeeee");
-
-
 				app->scene->partyList.At(i)->data->stats->lvlup(100);
+
+			}
+		}
+
+		optionPercent = 0;
+		srand(time(NULL));
+		optionPercent = rand() % 100;
+
+		if (optionPercent <= 20) {
+			for (int i = 0; i < 4; i++) {
+				if (itemCount[i] == nullptr) {
+
+					optionPercent = 0;
+					srand(time(NULL));
+					optionPercent = rand() % 24;
+					itemCount[i] = new Usable(UsableType(optionPercent));
+
+					break;
+				}
 
 			}
 		}
@@ -2095,7 +2202,7 @@ bool Battle::CleanUp()
 	delete shield;
 
 	switch(battlePhase) {
-	case BattlePhase::WIN:
+	case BattlePhase::REWARD:
 		
 		//Destroy enemy
 		for (int i = 4; i < 8; i++) {
@@ -2107,6 +2214,54 @@ bool Battle::CleanUp()
 
 		app->stages->playerPtr->winCount += 1;
 		
+		//Take back player position
+		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+		app->camera->SetTarget(app->stages->playerPtr);
+		app->camera->OnTarget();
+		app->camera->SetLimits(640, 350, 4490, 4200);
+
+		//Take back player animation
+		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+		app->stages->playerPtr->canMove = true;
+		app->map->LoadCol();
+		app->stages->onBattle = false;
+
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+			break;
+		case StageIndex::DOJO:
+			app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+			break;
+		case StageIndex::SHOP:
+			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+			break;
+		case StageIndex::SHOPSUB:
+			app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+			break;
+		case StageIndex::TAVERN:
+			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			break;
+		}
+
+		app->scene->player->toggleGui = true;
+
+		break;
+	case BattlePhase::LOOT:
+
+		//Destroy enemy
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+
+		app->stages->playerPtr->winCount += 1;
+
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);

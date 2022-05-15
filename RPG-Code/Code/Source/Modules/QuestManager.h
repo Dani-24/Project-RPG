@@ -147,7 +147,7 @@ public:
 public:
 
 	List<Quest*> questList;
-
+	bool q2 = false;
 };
 
 

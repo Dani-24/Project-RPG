@@ -376,7 +376,7 @@ bool Scene::Update(float dt)
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
-				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, partyList.At(i)->data->stats->mana);
+				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
 			}
 			
 			godmode = true;
@@ -396,7 +396,7 @@ bool Scene::Update(float dt)
 		//       SAVE / LOAD requests
 		// ================================
 
-		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		/*if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->audio->PlayFx(loadFx);
 			app->LoadGameRequest();
 		}
@@ -404,7 +404,7 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
-		}
+		}*/
 	}
 
 	// ================================

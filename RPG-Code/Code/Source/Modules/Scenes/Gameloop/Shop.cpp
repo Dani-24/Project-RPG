@@ -580,6 +580,7 @@ void Shop::CheckMoney(int Cash, int Price) {
 
 bool Shop::CleanUp() {
 	bool ret = true;
+	app->scene->player->canMove = true;
 
 	Section1Btn->state = GuiControlState::DISABLED;
 	Section2Btn->state = GuiControlState::DISABLED;
