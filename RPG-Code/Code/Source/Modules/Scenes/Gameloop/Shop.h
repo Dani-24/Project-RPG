@@ -52,10 +52,11 @@ private:
 		meat,
 		egg,
 		fried_egg,
-		hamburger,
 		elixir,
 		chest_key,
-		door_key;
+		door_key,
+		bomb,
+		super_bomb;
 
 	int ShopSection = 1;
 	int ShopItem = 0;
@@ -72,6 +73,9 @@ private:
 	GuiButton* Item2Btn;
 	GuiButton* Item3Btn;
 	GuiButton* Item4Btn;
+	GuiButton* Item5Btn;
+	GuiButton* Item6Btn;
+	GuiButton* Item7Btn;
 	GuiButton* WantToBuy;
 };
 

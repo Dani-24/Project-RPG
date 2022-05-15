@@ -33,10 +33,12 @@ Shop::Shop(App* application, bool start_enabled) : Module(application, start_ena
 	egg.PushBack({542,12,20,22 });
 	candy.PushBack({ 250,540,28,26 });
 	fried_egg.PushBack({ 300,110,24,22 });
-	hamburger.PushBack({ 60,108,22,26 });
+	//hamburger.PushBack({ 60,108,22,26 });
 	elixir.PushBack({ 208,538,16,30 });
 	chest_key.PushBack({ 204,686,28,22 });
 	door_key.PushBack({ 250,684,30,24 });
+	bomb.PushBack({730,630,28,36});
+	super_bomb.PushBack({ 632,634,34,26 });
 }
 
 Shop::~Shop()
@@ -69,7 +71,11 @@ bool Shop::Start() {
 	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { a + 348,b + 99, 33, 33 }, this);
 	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { a + 415,b + 99, 33, 33 }, this);
 	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { a + 484, b + 99, 33, 33 }, this);
-	WantToBuy = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "buy", { a + 410, b + 6, 80, 30 }, this);
+	Item5Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "item5", { a + 282, b + 150, 33, 33 }, this);
+	Item6Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 259, "item6", { a + 348, b + 150, 33, 33 }, this);
+	Item7Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 260, "item7", { a + 415, b + 150, 33, 33 }, this);
+	WantToBuy = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 262, "buy", { a + 410, b + 6, 80, 30 }, this);
+
 
 	return ret;
 }
@@ -120,9 +126,11 @@ bool Shop::PostUpdate() {
 	char const* MoneyChar = money.c_str();
 	app->font->DrawText(MoneyChar, x + 455, y + 40, { 255,255,255 }); //money
 
-	std::string Price = std::to_string(price);
-	char const* PriceChar = Price.c_str();
-	app->font->DrawText(PriceChar, x + 8, y + 263, { 255,255,255 }); //cost
+	if (canBuy != 3) {
+		std::string Price = std::to_string(price);
+		char const* PriceChar = Price.c_str();
+		app->font->DrawText(PriceChar, x + 8, y + 263, { 255,255,255 }); //cost
+	}
 
 	/*---------------Draws items according to section-------------------*/
 	switch (ShopSection) {
@@ -130,8 +138,11 @@ bool Shop::PostUpdate() {
 
 		app->render->DrawTexture(ItemTex, x + 308, y + 103, &apple.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 368, y + 103, &pie.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, x + 437, y + 96, &delicious_pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 436, y + 96, &delicious_pie.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 505, y + 98, &candy.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 306, y + 170, &egg.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 437, y + 170, &fried_egg.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 370, y + 170, &meat.GetCurrentFrame());
 		if (ShopItem == 1) {
 			app->font->DrawText("Apple", x + 206, y + 20, { 255,255,255 });
 			canBuy = 4;
@@ -146,6 +157,18 @@ bool Shop::PostUpdate() {
 		}
 		if (ShopItem == 4) {
 			app->font->DrawText("Candy", x + 206, y + 20, { 255,255,255 });
+			canBuy = 4;
+		}
+		if (ShopItem == 5) {
+			app->font->DrawText("Egg", x + 220, y + 20, { 255,255,255 });
+			canBuy = 4;
+		}
+		if (ShopItem == 6) {
+			app->font->DrawText("Meat", x + 210, y + 20, { 255,255,255 });
+			canBuy = 4;
+		}
+		if (ShopItem == 7) {
+			app->font->DrawText("Fried Egg", x + 205, y + 20, { 255,255,255 });
 			canBuy = 4;
 		}
 		break;
@@ -167,25 +190,41 @@ bool Shop::PostUpdate() {
 		if (ShopItem == 16) {
 			canBuy = 3;
 		}
+		if (ShopItem == 17) {
+			canBuy = 3;
+		}
+		if (ShopItem == 18) {
+			canBuy = 3;
+		}
+		if (ShopItem == 19) {
+			canBuy = 3;
+		}
 		break;
 	case 3:
-
-		app->render->DrawTexture(ItemTex, x + 306, y + 103, &egg.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, x + 437, y + 103, &fried_egg.GetCurrentFrame());
-		app->render->DrawTexture(ItemTex, x + 370, y + 102, &meat.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 305, y + 98, &bomb.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 368, y + 100, &super_bomb.GetCurrentFrame());
+		
 		if (ShopItem == 25) {
-			app->font->DrawText("Egg", x + 220, y + 20, { 255,255,255 });
+			app->font->DrawText("Bomb", x + 220, y + 20, { 255,255,255 });
 			canBuy = 4;
 		}
 		if (ShopItem == 26) {
-			app->font->DrawText("Meat", x + 210, y + 20, { 255,255,255 });
+			app->font->DrawText("Super Bomb", x + 205, y + 20, { 255,255,255 });
 			canBuy = 4;
 		}
 		if (ShopItem == 27) {
-			app->font->DrawText("Fried Egg", x + 205, y + 20, { 255,255,255 });
-			canBuy = 4;
+			canBuy = 3;
 		}
 		if (ShopItem == 28) {
+			canBuy = 3;
+		}
+		if (ShopItem == 29) {
+			canBuy = 3;
+		}
+		if (ShopItem == 30) {
+			canBuy = 3;
+		}
+		if (ShopItem == 31) {
 			canBuy = 3;
 		}
 		break;
@@ -205,6 +244,15 @@ bool Shop::PostUpdate() {
 			canBuy = 3;
 		}
 		if (ShopItem == 40) {
+			canBuy = 3;
+		}
+		if (ShopItem == 41) {
+			canBuy = 3;
+		}
+		if (ShopItem == 42) {
+			canBuy = 3;
+		}
+		if (ShopItem == 43) {
 			canBuy = 3;
 		}
 		break;
@@ -236,47 +284,37 @@ bool Shop::PostUpdate() {
 		app->font->DrawText("slot", x , y + 155, { 255,255,255 });
 	}
 	if (canBuy == 4) {
-		app->font->DrawText("aaaaaaaaaaaaaaaaa", x - 28, y + 115, { 255,255,255 });
-	/*	if (ShopItem == 1 || ShopItem == 25) {
-			app->font->DrawText("+5 HP", x - 28, y + 115, { 255,255,255 });
-		}
-		if (ShopItem == 2) {
-			app->font->DrawText("+1 speed", x - 28, y + 115, { 255,255,255 });
-		}
-		if (ShopItem == 3) {
-			app->font->DrawText("+10 speed", x - 28, y + 115, { 255,255,255 });
-		}
+
+		if (ShopItem == 1)app->font->DrawText("+5 HP", x - 18, y + 115, { 255,255,255 });//apple
+		if (ShopItem == 2)app->font->DrawText("+1 speed", x - 18, y + 115, { 255,255,255 });//pie
+		if (ShopItem == 3)app->font->DrawText("+10 speed", x - 20, y + 115, { 255,255,255 });//delicious pie
 		if (ShopItem == 4) {
-			app->font->DrawText("+100 exp", x - 28, y + 115, { 255,255,255 });
-		}
+			app->font->DrawText("+100 exp", x - 20, y + 115, { 255,255,255 });
+			app->font->DrawText("points", x - 10, y + 140, { 255,255,255 });
+		}//candy
+		if (ShopItem == 5)app->font->DrawText("+1 defense", x - 28, y + 115, { 255,255,255 });//egg
+		if (ShopItem == 6)app->font->DrawText("+10 max HP", x - 29, y + 115, { 255,255,255 });//meat
+		if (ShopItem == 7)app->font->DrawText("+5 defense", x - 24, y + 115, { 255,255,255 });//fried egg
+		if (ShopItem == 13)app->font->DrawText("+10 HP", x - 13, y + 115, { 255,255,255 });//lifepotion
+		if (ShopItem == 14)app->font->DrawText("+20 MP", x - 15, y + 115, { 255,255,255 });//elixir
+		if (ShopItem == 25) {
+			app->font->DrawText("+10", x - 5, y + 115, { 255,255,255 });
+			app->font->DrawText("Terrorism", x - 20, y + 140, { 255,255,255 });
+		}//bomb
 		if (ShopItem == 26) {
-			app->font->DrawText("+10 HP", x - 28, y + 115, { 255,255,255 });
-		}
-		if (ShopItem == 36 || ShopItem == 3) {
-			app->font->DrawText("+4hp", x - 28, y + 115, { 255,255,255 });
-		}
+			app->font->DrawText("+20", x - 5, y + 115, { 255,255,255 });
+			app->font->DrawText("Terrorism", x - 20, y + 140, { 255,255,255 });
+		} //superb
 		if (ShopItem == 37) {
-			app->font->DrawText("+5hp", x - 28, y + 115, { 255,255,255 });
-		}
-		if (ShopItem == 13 || ShopItem == 38) {
-			price = 50;
-		}
-		if (ShopItem == 14) {
-			price = 80;
-		}
-		if (ShopItem == 37) {
-			app->font->DrawText("+5hp", x - 28, y + 115, { 255,255,255 });
-		}
-		if (ShopItem == 38) {
-			app->font->DrawText("+5hp", x - 28, y + 115, { 255,255,255 });
-		}*/
+			app->font->DrawText("No lock", x - 21, y + 115, { 255,255,255 });
+			app->font->DrawText("resist", x - 22, y + 140, { 255,255,255 });
+		}//chest_key
+		if (ShopItem == 38) { 
+			app->font->DrawText("What will", x - 28, y + 115, { 255,255,255 }); 
+			app->font->DrawText("open?", x - 22, y + 140, { 255,255,255 });
+		} //door_key
 	}
 
-	/*std::string descrip = std::to_string(app->scene->player->PlayerMoney);
-	char const* DescripChar = descrip.c_str();
-	app->font->DrawText(DescripChar, x - 28, y + 115, { 255,255,255 });*/
-	
-	
 
 	return ret;
 }
@@ -397,20 +435,74 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		}
 		if (control->id == 258)
 		{
+			LOG("item 4");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection == 1) {
+				ShopItem = 5;
+			}
+			if (ShopSection == 2) {
+				ShopItem = 17;
+			}
+			if (ShopSection == 3) {
+				ShopItem = 29;
+			}
+			if (ShopSection == 4) {
+				ShopItem = 41;
+			}
+			bought = 0;
+		}
+		if (control->id == 259)
+		{
+			LOG("item 4");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection == 1) {
+				ShopItem = 6;
+			}
+			if (ShopSection == 2) {
+				ShopItem = 18;
+			}
+			if (ShopSection == 3) {
+				ShopItem = 30;
+			}
+			if (ShopSection == 4) {
+				ShopItem = 42;
+			}
+			bought = 0;
+		}
+		if (control->id == 260)
+		{
+			LOG("item 4");
+			app->audio->PlayFx(app->conf->btnSelection);
+			if (ShopSection == 1) {
+				ShopItem = 7;
+			}
+			if (ShopSection == 2) {
+				ShopItem = 19;
+			}
+			if (ShopSection == 3) {
+				ShopItem = 31;
+			}
+			if (ShopSection == 4) {
+				ShopItem = 43;
+			}
+			bought = 0;
+		}
+		if (control->id == 262)
+		{
 			//Moneyy
 			if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
 				CheckMoney(app->scene->player->PlayerMoney, 20);
 			}
-			if (ShopItem == 36 || ShopItem == 3) {
+			if (ShopItem == 36 || ShopItem == 3 || ShopItem == 4) {
 				CheckMoney(app->scene->player->PlayerMoney, 30);
 			}
-			if (ShopItem == 37) {
+			if (ShopItem == 37 || ShopItem == 5) {
 				CheckMoney(app->scene->player->PlayerMoney, 40);
 			}
-			if (ShopItem == 13 || ShopItem == 38) {
+			if (ShopItem == 13 || ShopItem == 38 || ShopItem == 6) {
 				CheckMoney(app->scene->player->PlayerMoney, 50);
 			}
-			if (ShopItem == 14) {
+			if (ShopItem == 14 || ShopItem == 7) {
 				CheckMoney(app->scene->player->PlayerMoney, 80);
 			}
 			if (ShopItem == 37) {
@@ -438,13 +530,13 @@ void Shop::showPrice(int item, int x, int y)
 	if (ShopItem == 4 || ShopItem == 3) {
 		price = 30;
 	}
-	if (ShopItem == 27) {
+	if (ShopItem == 27 || ShopItem == 5) {
 		price = 40;
 	}
-	if (ShopItem == 13 || ShopItem == 26) {
+	if (ShopItem == 13 || ShopItem == 26 || ShopItem == 6 || ShopItem == 7) {
 		price = 50;
 	}
-	if (ShopItem == 14) {
+	if (ShopItem == 14 ) {
 		price = 80;
 	}
 	if (ShopItem == 37) {
