@@ -230,7 +230,7 @@ bool Scene::Update(float dt)
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
-				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, partyList.At(i)->data->stats->mana);
+				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
 			}
 			
 			godmode = true;
