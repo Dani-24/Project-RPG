@@ -124,8 +124,9 @@ bool QuestManager::Start()
 	questList.add(quest2_2);
 
 	const char* availableQ32[DIALOG_LENGHT] = {
-	"...",
-	"..."
+	"Do you know the way",
+	"Go to the tower",
+	"Someone is waiting in the 4rth floor"
 	};
 	const char* activeQ3[DIALOG_LENGHT] = {
 	"..."
