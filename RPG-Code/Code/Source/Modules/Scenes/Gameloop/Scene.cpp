@@ -10,6 +10,7 @@
 #include "FadeToBlack.h"
 #include "Player.h"
 #include "PauseMenu.h"
+#include "StatsMenu.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -21,7 +22,10 @@
 #include "EntityManager.h"
 
 #include "Party.h"
+#include "Inventory.h"
 
+#include "StaticEntity.h"
+#include "Item.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,33 +51,37 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	LOG("Starting Scene");
+	
+	// Apple just for inventory testing
+	AddItem(UsableType::APPLE);
 
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
 
 	// Load textures
-	gui = app->tex->Load("Assets/gui/GUIFinal.png");
-	mpfgui = app->tex->Load("Assets/sprites/faces/mrotamascgui.png");
-	fpfgui = app->tex->Load("Assets/sprites/faces/ProtaFemgui.png");
-	magogui = app->tex->Load("Assets/sprites/faces/wizardgui.png");
-
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
 	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
 
+	//buttons
+	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
+	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
+	restartTex = app->tex->Load("Assets/gui/buttons/button_restart.png");
+	press_restartTex = app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
+	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");
+	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_back_to_menu.png");
+	locationUI = app->tex->Load("Assets/gui/inventory/ui_localizacion.png");
+
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
+
+	/*Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
+	partyList.add(valion);*/
 
 	app->stages->playerPtr = player;
 	app->camera->SetTarget(player);
 	partyList.add(player);
-
-	//Party members
-	Party* valion = (Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50);
-	partyList.add(valion);
-	
-	valionchar = valion;
 
 	app->stages->partyListPtr = &partyList;
 
@@ -85,6 +93,18 @@ bool Scene::Start()
 	iPoint emilioPos = { 850, 200 };
 	iPoint fuentePos = { 380, 1390 };
 	iPoint cartelSudTownPos = { 1000, 1764 };
+
+	iPoint bigtreePos = { 1000, 1764 };
+	iPoint archerPos = { 1000, 1764 };
+	iPoint lancerPos = { 1000, 1764 };
+	iPoint wizardPos = { 1000, 1764 };
+
+	iPoint deadTreePos = { 2690 , 2030 };
+	iPoint treePos = { 573 , 332 };
+	iPoint ripPos = { 720 , 2700 };
+	iPoint rip2Pos = { 2969 , 1970 };
+	iPoint rip3Pos = { 2549 , 866 };
+
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -114,24 +134,196 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
+
+
+
+	/*NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
+	npcList.add(cartelSudTown);
+	cartelSudTown->activeOnStage = StageIndex::TOWER_4;*/
+
+
+	NPC* deadTree = (NPC*)app->entities->CreateEntity(NPCType::DEAD_TREE, deadTreePos.x, deadTreePos.y);
+	npcList.add(deadTree);
+	deadTree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* tree = (NPC*)app->entities->CreateEntity(NPCType::TREE, treePos.x, treePos.y);
+	npcList.add(tree);
+	tree->activeOnStage = StageIndex::TOWER_2;
+
+	NPC* rip = (NPC*)app->entities->CreateEntity(NPCType::RIP, ripPos.x, ripPos.y);
+	npcList.add(rip);
+	rip->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip2 = (NPC*)app->entities->CreateEntity(NPCType::RIP_2, rip2Pos.x, rip2Pos.y);
+	npcList.add(rip2);
+	rip2->activeOnStage = StageIndex::TOWER_3;
+
+	NPC* rip3 = (NPC*)app->entities->CreateEntity(NPCType::RIP_3, rip3Pos.x, rip3Pos.y);
+	npcList.add(rip3);
+	rip3->activeOnStage = StageIndex::TOWER_3;
+
+
+	
+
+	//NPC* archer = (NPC*)app->entities->CreateEntity(NPCType::ARCHER, archerPos.x, archerPos.y);
+	//npcList.add(archer);
+	//archer->activeOnStage = StageIndex::TOWER_1;
+
+
+	//NPC* lancer = (NPC*)app->entities->CreateEntity(NPCType::LANCER, lancerPos.x, lancerPos.y);
+	//npcList.add(lancer);
+	//lancer->activeOnStage = StageIndex::TOWER_3;
+
+	//NPC* wizard = (NPC*)app->entities->CreateEntity(NPCType::WIZARD, wizardPos.x, wizardPos.y);
+	//npcList.add(wizard);
+	//wizard->activeOnStage = StageIndex::TOWER_2;
+
+	// ============================
+
 	app->stages->npcListPtr = &npcList;
 
-	// Normal Enemies
-	iPoint eyePos = { 615, 20 };
-	iPoint batPos = { 600, 96 };
-	iPoint skeletonPos = { 690, 20 };
+	{
+		//iPoint batPos = { 600, 100 };
 
-	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
-	normalEnemyList.add(eye);
-	eye->activeOnStage = StageIndex::DOJO;
+		NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
+		normalEnemyList.add(eye);
+		eye->activeOnStage = StageIndex::DOJO;
 
-	NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
-	normalEnemyList.add(bat);
-	bat->activeOnStage = StageIndex::DOJO;
+		NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPos.x, batPos.y);
+		normalEnemyList.add(bat);
+		bat->activeOnStage = StageIndex::DOJO;
 
-	NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
-	normalEnemyList.add(skeleton);
-	skeleton->activeOnStage = StageIndex::DOJO;
+		NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPos.x, skeletonPos.y);
+		normalEnemyList.add(skeleton);
+		skeleton->activeOnStage = StageIndex::DOJO;
+
+
+		// TOWER ENEMIES 1
+		NormalEnemy* batT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1.x, batPosT1.y);
+		batT1->chasePlayer = true;
+		normalEnemyList.add(batT1);
+		batT1->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* batT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1_2.x, batPosT1_2.y);
+		batT1_2->chasePlayer = true;
+		normalEnemyList.add(batT1_2);
+		batT1_2->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* skeletonT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_2.x, skeletonPosT1_2.y);
+		skeletonT1->chasePlayer = true;
+		normalEnemyList.add(skeletonT1);
+		skeletonT1->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* skeletonT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1_3.x, skeletonPosT1_3.y);
+		skeletonT1_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT1_2);
+		skeletonT1_2->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* skeletonT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT1.x, skeletonPosT1.y);
+		skeletonT1_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT1_3);
+		skeletonT1_3->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* eyeT1 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1.x, eyePosT1.y);
+		eyeT1->chasePlayer = true;
+		normalEnemyList.add(eyeT1);
+		eyeT1->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* eyeT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_2.x, eyePosT1_2.y);
+		eyeT1_2->chasePlayer = true;
+		normalEnemyList.add(eyeT1_2);
+		eyeT1_2->activeOnStage = StageIndex::TOWER_1;
+
+		NormalEnemy* eyeT1_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT1_3.x, eyePosT1_3.y);
+		eyeT1_3->chasePlayer = true;
+		normalEnemyList.add(eyeT1_3);
+		eyeT1_3->activeOnStage = StageIndex::TOWER_1;
+
+		// TOWER ENEMIES 2
+
+		NormalEnemy* batT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2.x, batPosT2.y);
+		batT2->chasePlayer = true;
+
+		normalEnemyList.add(batT2);
+		batT2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* batT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT2_2.x, batPosT2_2.y);
+		batT2_2->chasePlayer = true;
+		normalEnemyList.add(batT2_2);
+		batT2_2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* skeletonT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_2.x, skeletonPosT2_2.y);
+		skeletonT2->chasePlayer = true;
+		normalEnemyList.add(skeletonT2);
+		skeletonT2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* skeletonT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2_3.x, skeletonPosT2_3.y);
+		skeletonT2_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT2_2);
+		skeletonT2_2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* skeletonT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT2.x, skeletonPosT2.y);
+		skeletonT2_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT2_3);
+		skeletonT2_3->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* eyeT2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2.x, eyePosT2.y);
+		eyeT2->chasePlayer = true;
+		normalEnemyList.add(eyeT2);
+		eyeT2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* eyeT2_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_2.x, eyePosT2_2.y);
+		eyeT2_2->chasePlayer = true;
+		normalEnemyList.add(eyeT2_2);
+		eyeT2_2->activeOnStage = StageIndex::TOWER_2;
+
+		NormalEnemy* eyeT2_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT2_3.x, eyePosT2_3.y);
+		eyeT2_3->chasePlayer = true;
+		normalEnemyList.add(eyeT2_3);
+		eyeT2_3->activeOnStage = StageIndex::TOWER_2;
+
+		// TOWER ENEMIES 3
+
+		NormalEnemy* batT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3.x, batPosT3.y);
+		batT3->chasePlayer = true;
+		normalEnemyList.add(batT3);
+		batT3->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* batT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT3_2.x, batPosT3_2.y);
+		batT3_2->chasePlayer = true;
+		normalEnemyList.add(batT3_2);
+		batT3_2->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* skeletonT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_2.x, skeletonPosT3_2.y);
+		skeletonT3->chasePlayer = true;
+		normalEnemyList.add(skeletonT3);
+		skeletonT3->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* skeletonT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3_3.x, skeletonPosT3_3.y);
+		skeletonT3_2->chasePlayer = true;
+		normalEnemyList.add(skeletonT3_2);
+		skeletonT3_2->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* skeletonT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, skeletonPosT3.x, skeletonPosT3.y);
+		skeletonT3_3->chasePlayer = true;
+		normalEnemyList.add(skeletonT3_3);
+		skeletonT3_3->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* eyeT3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3.x, eyePosT3.y);
+		eyeT3->chasePlayer = true;
+		normalEnemyList.add(eyeT3);
+		eyeT3->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* eyeT3_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_2.x, eyePosT3_2.y);
+		eyeT3_2->chasePlayer = true;
+		normalEnemyList.add(eyeT3_2);
+		eyeT3_2->activeOnStage = StageIndex::TOWER_3;
+
+		NormalEnemy* eyeT3_3 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePosT3_3.x, eyePosT3_3.y);
+		eyeT3_3->chasePlayer = true;
+		normalEnemyList.add(eyeT3_3);
+		eyeT3_3->activeOnStage = StageIndex::TOWER_3;
+	}
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
 
@@ -148,6 +340,12 @@ bool Scene::Start()
 		playloading = false;
 		app->LoadGameRequest();
 	}
+	restart->state = GuiControlState::DISABLED;
+	backtoMenu->state = GuiControlState::DISABLED;
+
+	// UI
+
+	characterBG = app->tex->Load("Assets/gui/inventory/ui_inventory_char.png");
 
 	return true;
 }
@@ -162,12 +360,24 @@ bool Scene::PreUpdate()
 			app->audio->PlayFx(backFx);
 		}
 		app->pauseM->exitg = false;
-		app->pauseM->resumen = true;
+		
+		
 		app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
 		app->pauseM->CleanUp();
 	}
 	
+	// Hide UI
 	guiactivate = false;
+
+	if (app->inventory->isEnabled() == false) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			app->inventory->Enable();
+		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		app->stmen->Enable();
+	}
 
 	return ret;
 }
@@ -179,8 +389,8 @@ bool Scene::Update(float dt)
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-	hp = player->stats->health;
-	hpw = valionchar->stats->health;
+
+	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
 
 	fpsdt = dt*3.75;
 	//GUI activation
@@ -190,15 +400,21 @@ bool Scene::Update(float dt)
 		if (godmode)
 		{
 			godmode = false;
-			valionchar->stats->LoadStats();
-			player->stats->LoadStats();
+		
+			for (int i = 0; i < partyList.count(); i++)
+			{
+				partyList.At(i)->data->stats->LoadStats();
+			}
+
 		}
 		else
-		{
-			valionchar->stats->SaveStats();
-			player->stats->SaveStats();
-			valionchar->stats->SetStats(9999, 999, 9999, 9999);
-			player->stats->SetStats(9999, 999, 9999, 9999);
+		{			
+			for (int i = 0; i < partyList.count(); i++)
+			{
+				partyList.At(i)->data->stats->SaveStats();
+				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
+			}
+			
 			godmode = true;
 			
 		}
@@ -209,7 +425,6 @@ bool Scene::Update(float dt)
 		guiactivate = true;
 	}
 
-
 	//LOG("INT VALUES: %d", app->map->intValues.count());
 
 	if (pause == false) {
@@ -217,7 +432,7 @@ bool Scene::Update(float dt)
 		//       SAVE / LOAD requests
 		// ================================
 
-		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		/*if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->audio->PlayFx(loadFx);
 			app->LoadGameRequest();
 		}
@@ -225,7 +440,7 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
-		}
+		}*/
 	}
 
 	// ================================
@@ -252,21 +467,78 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
 		app->fade->DoFadeToBlack(StageIndex::TAVERN);
 	}
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::WIN);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::LOSE);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_0);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_1);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+	}
 
 	// Player movement
-	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
 		player->canMove ? player->canMove = false : player->canMove = true;
 	}
 
 	// Add ally to the party
+	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
+
+		if (partyList.At(1) == nullptr) {
+			int x = 80;
+			int y = 130 - 50;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+		}else{
+			partyList.del(partyList.At(1));
+		}
+		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	}
 	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
-		//if (partyList.At(1) == nullptr) {
-			//partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50));
-		//}
+		if (partyList.At(2) == nullptr) {
+			int x = -200;
+			int y = 120 - 50;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+		}
+		else {
+			partyList.del(partyList.At(2));
+		}
 		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-		//app->battle->isEnabled() == false ? app->battle->Enable(): app->battle->Disable();
 	}
+	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
+
+		if (partyList.At(3) == nullptr) {
+			int x = 200;
+			int y = 0 - 50;
+			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+		}
+		else {
+			partyList.del(partyList.At(3));
+		}
+		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	}
+	if (app->stages->actualStage == StageIndex::WIN) {
+		restart->state = GuiControlState::DISABLED;
+		backtoMenu->state = GuiControlState::NORMAL;
+	}
+	if (app->stages->actualStage == StageIndex::LOSE) {
+		backtoMenu->state = GuiControlState::DISABLED;
+		restart->state = GuiControlState::NORMAL;
+	}
+
 	return true;
 }
 
@@ -274,77 +546,40 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+	int w = 45, h = 5, wpm=25;
+
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
 	
-	int xt, yt;
-	//variables for textures
-	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
-	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
+	// Variables
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2;
 
-	if (guiactivate == true)
+	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
 	{
-		app->render->DrawTexture(gui, xt - 623, yt - 360);
-		if (player->PlayerErection == true)
-		{
-			app->render->DrawTexture(mpfgui, xt - 605, yt - 346);
-		}
-		else if (player->PlayerErection == false)
-		{
-			app->render->DrawTexture(fpfgui, xt - 605, yt - 343);
-		}
-		sprintf_s(lifeprota, 50, "hp:%2d", hp);
-		app->font->DrawText(lifeprota, xt - 557, yt - 346, { 0,200,30 });
-		
+		// Checkear miembros de la party y imprimir sus carteles
 
-		if (partyList.At(1))
-		{
-			app->render->DrawTexture(magogui, xt - 485, yt - 349);
-
-			sprintf_s(lifewizard, 50, "hp:%2d", hpw);
-			app->font->DrawText(lifewizard, xt - 437, yt - 346, { 0,200,30 });
+		if (app->battle->isEnabled() == false) {
+			ShowGUI();
 		}
-		switch (app->stages->actualStage) {
-		case StageIndex::NONE:
-			break;
-		case StageIndex::TOWN:
-			
-			sprintf_s(towns,"TOWN");
-			app->font->DrawText(towns, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::DOJO:
-			sprintf_s(dojos, "DOJOS");
-			app->font->DrawText(dojos, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::SHOP:
-			sprintf_s(shops, "SHOP");
-			app->font->DrawText(shops, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::SHOPSUB:
-			sprintf_s(shopsubs, "SHOPSUB");
-			app->font->DrawText(shopsubs, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		case StageIndex::TAVERN:
-			sprintf_s(taberns, "TAVERN");
-			app->font->DrawText(taberns, xt - 115, yt - 346, { 0,0,0 });
-			break;
-		
-		}
-
 	}
 	if (app->collisions->debug)
 	{
-		app->font->DrawText(fpsChar, xt - 630, yt - 250);
+		app->font->DrawText(fpsChar, x + 10, y + 100);
 		
-		app->render->Vsync == true?	app->font->DrawText("Vsync: On", xt - 630, yt - 275): app->font->DrawText("Vsync: Off", xt - 630, yt - 275);
+		app->render->Vsync == true?	app->font->DrawText("Vsync: On", x + 10, y + 120): app->font->DrawText("Vsync: Off", x + 10, y + 120);
 		
 	}
+	if (app->stages->actualStage == StageIndex::WIN) {
+		backtoMenu->state != GuiControlState::PRESSED ? app->render->DrawTexture(backtoMenuTex, 240, 280) : app->render->DrawTexture(press_backtoMenuTex, 240, 280);
+	}
+	if (app->stages->actualStage == StageIndex::LOSE) {
+		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
-
+	}
 	return ret;
 }
-
 
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -361,6 +596,36 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 2)
 		{
 			LOG("Click on button 2");
+		}
+
+		if (app->stages->actualStage == StageIndex::LOSE) {
+	
+			if (control->id == 40)
+			{
+				LOG("Click on Restart");
+			
+				restart->state = GuiControlState::DISABLED;
+				backtoMenu->state = GuiControlState::DISABLED;
+
+				app->camera->SetTarget(player);
+				app->LoadGameRequest();
+				app->scene->player->canMove = true;
+				
+
+			}
+		}
+		if (app->stages->actualStage == StageIndex::WIN) {
+			if (control->id == 41)
+			{
+				LOG("Click on Back to Menu");
+
+				restart->state = GuiControlState::DISABLED;
+				backtoMenu->state = GuiControlState::DISABLED;
+
+				app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
+
+
+			}
 		}
 	}
 	//Other cases here
@@ -380,19 +645,29 @@ bool Scene::CleanUp()
 
 	app->camera->ReleaseTarget();
 
-	app->tex->UnLoad(gui);
-	app->tex->UnLoad(mpfgui);
-	app->tex->UnLoad(fpfgui);
+	app->tex->UnLoad(restartTex);
+	app->tex->UnLoad(backtoMenuTex);
+	app->tex->UnLoad(press_restartTex);
+	app->tex->UnLoad(press_backtoMenuTex);
+	app->tex->UnLoad(characterBG);
+	app->tex->UnLoad(locationUI);
 
 	//Stages:
 	app->entities->DestroyEntity(player);
 
-	
+	restart->state = GuiControlState::DISABLED;
+	backtoMenu->state = GuiControlState::DISABLED;
 
 	app->stages->ChangeStage(StageIndex::NONE);
 
-	ListItem<NPC*>* npcInList;
 	
+	ListItem<Item*>* itemInList;
+	for (itemInList = itemList.start; itemInList != NULL; itemInList = itemInList->next)
+	{
+		itemInList->data->CleanUp();
+	}
+
+	ListItem<NPC*>* npcInList;
 	for (npcInList = npcList.start; npcInList != NULL; npcInList = npcInList->next)
 	{
 		npcInList->data->CleanUp();
@@ -404,8 +679,16 @@ bool Scene::CleanUp()
 		normalEnemyInList->data->CleanUp();
 	}
 
+	ListItem<Character*>* characterInList;
+	for (characterInList = partyList.start; characterInList != NULL; characterInList = characterInList->next)
+	{
+		characterInList->data->CleanUp();
+	}
+
+	itemList.clear();
 	npcList.clear();
 	normalEnemyList.clear();
+	partyList.clear();
 
 	player = nullptr;
 	delete player;
@@ -415,4 +698,151 @@ bool Scene::CleanUp()
 	app->map->Disable();
 
 	return true;
+}
+
+void Scene::ShowGUI() 
+{
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		charX = x + 110,
+		charY = y + 5;
+
+	ListItem<Character*>* ch = partyList.start;
+
+	for (ch; ch != NULL; ch = ch->next)
+	{
+		app->render->DrawTexture(characterBG, charX, charY);
+
+		app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+
+		app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+		charX += 130;
+	}
+
+	CharBars();
+
+	// Current Stage on UI
+	if (showLocation == true) {
+		app->render->DrawTexture(locationUI, x + 10, y + 25);
+
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			sprintf_s(currentPlace_UI, "Town");
+
+			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::DOJO:
+			sprintf_s(currentPlace_UI, "Dojo");
+
+			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::SHOP:
+			sprintf_s(currentPlace_UI, "Shop");
+
+			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::SHOPSUB:
+			sprintf_s(currentPlace_UI, "Shop -1");
+
+			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TAVERN:
+			sprintf_s(currentPlace_UI, "Tavern");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_0:
+			sprintf_s(currentPlace_UI, "Tower");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_1:
+			sprintf_s(currentPlace_UI, "Floor 1");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_2:
+			sprintf_s(currentPlace_UI, "Floor 2");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_4:
+			sprintf_s(currentPlace_UI, "Floor 4");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_3:
+			sprintf_s(currentPlace_UI, "Floor 3");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		}
+	}
+}
+void Scene::CharBars()
+{
+	// Variables
+	int w = 35, h = 6, wpm = 25;
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2,
+		barsX = x + 173,
+		barsY = y + 28;
+	
+	if (guiactivate == true && app->stages->actualStage != StageIndex::WIN && app->stages->actualStage != StageIndex::LOSE)
+	{
+		// Party List
+		ListItem<Character*>* ch = partyList.start;
+
+		// Debug Keys:
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			for (ch; ch != NULL; ch = ch->next) {
+				ch->data->stats->health += 1;
+			}
+		}
+		ch = partyList.start;
+		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+			for (ch; ch != NULL; ch = ch->next) {
+				ch->data->stats->health -= 1;
+			}
+		}
+		ch = partyList.start;
+
+		// Barras Stats Party
+		for (ch; ch != NULL; ch = ch->next) {
+			// HP bars
+			if (ch->data->stats != nullptr && ch->data->stats->health != NULL && ch->data->stats->maxHealth != NULL && ch->data->stats->mana != NULL && ch->data->stats->maxMana != NULL) {
+				hpc = ((float)ch->data->stats->health / (float)ch->data->stats->maxHealth) * w;
+				SDL_Rect HPrect = { barsX + 7, barsY, hpc, h };
+
+				app->render->DrawRectangle({ barsX + 7, barsY, w, h }, 0, 0, 0);
+				app->render->DrawRectangle(HPrect, 0, 255, 0);
+
+				// PM bars
+				pmc = ((float)ch->data->stats->mana / (float)ch->data->stats->maxMana) * wpm;
+				SDL_Rect  PMrect = { barsX + 7, barsY + h + 1, pmc, h };
+				app->render->DrawRectangle({ barsX + 7, barsY + h + 1, wpm, h }, 0, 0, 0);
+				app->render->DrawRectangle(PMrect, 0, 78, 255);
+
+				// Life text
+				sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
+				app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
+				barsX += 130;
+			}
+		}
+	}
+}
+
+bool Scene::AddItem(UsableType type) {
+	if (itemList.count() < app->inventory->inventorySlots) {
+		Usable* item = (Usable*)app->entities->CreateEntity(type);
+		itemList.add(item);
+
+		return true;
+	}
+	else {
+		LOG("Inventory is full");
+		return false;
+	}
 }

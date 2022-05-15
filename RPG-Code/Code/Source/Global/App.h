@@ -26,8 +26,10 @@ class Configuration;
 class Map;
 class GuiManager;
 class EntityManager;
+class QuestManager;
 class EnemyMovement;
 class PauseMenu;
+class Shop;
 
 class Camera;
 class FadeToBlack;
@@ -39,6 +41,8 @@ class Battle;
 class Collisions;
 
 class DialogSystem;
+class Inventory;
+class StatsMenu;
 
 class App
 {
@@ -117,9 +121,11 @@ public:
 	Map* map;
 	GuiManager* guiManager;
 	EntityManager* entities;
+	QuestManager* questManager;
 	EnemyMovement* enemyMovement;
 	Camera* camera;
 	PauseMenu* pauseM;
+	Shop* shop;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
@@ -127,7 +133,8 @@ public:
 	Collisions* collisions;
 
 	DialogSystem* dialogs;
-
+	Inventory* inventory;
+	StatsMenu* stmen;
 private:
 
 	int argc;

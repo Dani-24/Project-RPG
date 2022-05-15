@@ -6,24 +6,25 @@
 #include "Animation.h"
 #include "Render.h"
 #include "Entity.h"
-
+#include "StaticEntity.h"
 #include "EntityManager.h"
 
 #include <vector>
+
+#define ITEM_SIZE 48
 
 struct SDL_Texture;
 
 enum class ItemType
 {
-	WEAPON,
-	ARMOR,
+	EQUIPMENT,
 	USABLE
 };
 
 class Item : public StaticEntity
 {
 public:
-
+	
 	Item(ItemType type);
 	~Item();
 
@@ -33,10 +34,6 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 
-	// Returns the enemy's collider
-	//const Collider* GetCollider() const;
-	//virtual void OnCollision(Collider* collider);
-
 	virtual bool CleanUp();
 
 
@@ -44,8 +41,10 @@ public:
 
 	ItemType itemType;
 
+	const char* effect = " ";
+	const char* description = " ";
+	bool usableFromInventory = false;
+
 };
 
 #endif // !__ITEM_H__
-
-

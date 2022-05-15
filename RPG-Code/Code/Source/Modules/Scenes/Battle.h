@@ -9,19 +9,38 @@
 struct SDL_Texture;
 class Player;
 class DynamicEntity;
+class Items;
+class Usable;
 
 enum class StageIndex;
+
+#define BUTTONS_SPACE_HOR 10
+#define BUTTONS_BOTTOM_SPACE 50
+#define BUTTONS_W 74
+#define BUTTONS_H 32
+#define NUM_BUTTONS 4
+#define LATERAL_MOVE 25
+
+#define LIFE_DISTANCE_HOR 120
+#define LIFE_DISTANCE 25
+
+#define BACK_HEIGH 100
 
 enum class BattlePhase {
 
 	THINKING,
 	SELECTING,
-	OUTCOME,
+	CHOOSE_ATTACK,
 
 	ATTACKING,
 	DEFENDING,
 	USING_ITEM,
 	ESCAPING,
+
+	OUTCOME,
+
+	REWARD,
+	LOOT,
 
 	WIN,
 	LOSE
@@ -112,20 +131,108 @@ public:
 
 	//Buttons
 
+	//Back
+	GuiButton* backButton; // back button
+
+	//Thinking
 	GuiButton* attackButton; // attack button
 	GuiButton* defenseButton; // defense button
 	GuiButton* itemButton; // item button
 	GuiButton* escapeButton; // escape button
 
+	//Choose attack
+	GuiButton* normalAttackButton; 
+
+	GuiButton* playerSpecialButton1; 
+	GuiButton* playerSpecialButton2; 
+	GuiButton* playerSpecialButton3; 
+
+	GuiButton* valionSpecialButton1; 
+	GuiButton* valionSpecialButton2; 
+	GuiButton* valionSpecialButton3; 
+
+	GuiButton* raylaSpecialButton1; 
+	GuiButton* raylaSpecialButton2; 
+	GuiButton* raylaSpecialButton3; 
+
+	GuiButton* dhionSpecialButton1; 
+	GuiButton* dhionSpecialButton2; 
+	GuiButton* dhionSpecialButton3; 
+
+	//Selecting
+	GuiButton* enemyButton1; // enemy 1 button
+	GuiButton* enemyButton2; // enemy 2 button
+	GuiButton* enemyButton3; // enemy 3 button
+	GuiButton* enemyButton4; // enemy 4 button
+
+	//Button textures
+
+	//Thinking
+
+	SDL_Texture* backButtonTex;
 	SDL_Texture* attackTex;
 	SDL_Texture* defenseTex;
 	SDL_Texture* itemsTex;
 	SDL_Texture* escapeTex;
 
+	//Choose attack
+	SDL_Texture* normalAttackButtonTex;
+
+	SDL_Texture* playerSpecialButton1Tex;
+	SDL_Texture* playerSpecialButton2Tex;
+	SDL_Texture* playerSpecialButton3Tex;
+
+	SDL_Texture* valionSpecialButton1Tex;
+	SDL_Texture* valionSpecialButton2Tex;
+	SDL_Texture* valionSpecialButton3Tex;
+
+	SDL_Texture* raylaSpecialButton1Tex;
+	SDL_Texture* raylaSpecialButton2Tex;
+	SDL_Texture* raylaSpecialButton3Tex;
+
+	SDL_Texture* dhionSpecialButton1Tex;
+	SDL_Texture* dhionSpecialButton2Tex;
+	SDL_Texture* dhionSpecialButton3Tex;
+
+	//Selecting
+	SDL_Texture* batButtonTex;
+	SDL_Texture* flyingEyeButtonTex;
+	SDL_Texture* skeletonButtonTex;
+
+
+	//Button pressed textures
+
+	//Thinking
+	SDL_Texture* press_backTex;
 	SDL_Texture* press_attackTex;
 	SDL_Texture* press_defenseTex;
 	SDL_Texture* press_itemsTex;
 	SDL_Texture* press_escapeTex;
+
+	//Choose attack
+	SDL_Texture* press_normalAttackButtonTex;
+
+	SDL_Texture* press_playerSpecialButton1Tex;
+	SDL_Texture* press_playerSpecialButton2Tex;
+	SDL_Texture* press_playerSpecialButton3Tex;
+
+	SDL_Texture* press_valionSpecialButton1Tex;
+	SDL_Texture* press_valionSpecialButton2Tex;
+	SDL_Texture* press_valionSpecialButton3Tex;
+
+	SDL_Texture* press_raylaSpecialButton1Tex;
+	SDL_Texture* press_raylaSpecialButton2Tex;
+	SDL_Texture* press_raylaSpecialButton3Tex;
+
+	SDL_Texture* press_dhionSpecialButton1Tex;
+	SDL_Texture* press_dhionSpecialButton2Tex;
+	SDL_Texture* press_dhionSpecialButton3Tex;
+
+	//Selecting
+	SDL_Texture* press_batButtonTex;
+	SDL_Texture* press_flyingEyeButtonTex;
+	SDL_Texture* press_skeletonButtonTex;
+
 
 	SDL_Texture* shield;
 
@@ -142,6 +249,8 @@ public:
 	char lifeChar[100] = { "\0" };
 	char escapeChar[100] = { "\0" };
 	char actualTurnChar[50] = { "\0" };
+	char lootChar[100] = { "\0" };
+	char rewardChar[150] = { "\0" };
 
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
@@ -189,8 +298,20 @@ public:
 
 	bool hasChangedPhase;
 
-
+	//sfx
 	int startFx;
+
+	int explosionfx;
+
+	int goldCount;
+	int expCount;
+
+	Usable* itemCount[4];
+
+	int skill;
+
+
+
 };
 
 #endif // __BATTLE_H__

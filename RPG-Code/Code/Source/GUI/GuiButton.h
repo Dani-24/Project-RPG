@@ -7,6 +7,7 @@
 #include "SString.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Animation.h"
 
 struct SDL_Texture;
 
@@ -14,7 +15,7 @@ class GuiButton : public GuiControl
 {
 public:
 
-	GuiButton(uint32 id, SDL_Rect bounds, const char* text);
+	GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool autoDraw);
 	virtual ~GuiButton();
 
 
@@ -27,7 +28,10 @@ public:
 	bool canClick = true;
 	bool drawBasic = false;
 
-	
+	bool autoDraw;
+
+	SDL_Texture* buttonTexture;
+	Animation buttonIddle, buttonPressed, *buttonAnim;
 };
 
 #endif // __GUIBUTTON_H__

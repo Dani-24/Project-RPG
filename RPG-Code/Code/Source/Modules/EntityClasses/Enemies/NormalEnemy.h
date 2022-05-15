@@ -46,10 +46,14 @@ public:
 public:
 
 	int NormalEnemyID;
-
+	iPoint SpriteEdges;
 	NormalEnemyType normalEnemyType;
 	StageIndex activeOnStage;
 
+	bool onlyInBattle;
+
+	bool chasePlayer = false;
+	float chaseSpeed = 1;
 
 };
 

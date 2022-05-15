@@ -15,19 +15,23 @@
 	<scene />
 	<map />
 	<EntityManager>
-		<playerpos x="944" y="1451" />
-		<actualStage stage="2" />
-		<stats PlayerHp="20" ValionHp="15" />
+		<playerpos x="478" y="222" />
+		<actualStage stage="4" />
+		<stats />
 	</EntityManager>
 	<pauseMenu />
 	<conf />
+	<inventory />
+	<stmen />
+	<shop />
 	<guiManager />
 	<fonts />
 	<dialogSystem />
+	<QuestManager />
 	<collisions />
 	<fade />
 	<camera>
-		<camera x="-1305" y="-2596" />
+		<camera x="-307" y="-93" />
 	</camera>
 	<renderer />
 </save_state>

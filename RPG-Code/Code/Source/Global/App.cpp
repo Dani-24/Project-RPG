@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "GuiManager.h"
 #include "EntityManager.h"
+#include "QuestManager.h"
 #include "PauseMenu.h"
 #include "Battle.h"
 #include "Stages.h"
@@ -22,6 +23,9 @@
 #include "Pathfinder.h"
 
 #include "DialogSystem.h"
+#include "Inventory.h"
+#include "StatsMenu.h"
+#include "Shop.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -48,17 +52,20 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	stages = new Stages(this);
 
 	entities = new EntityManager(this);
-	
+	questManager = new QuestManager(this);
 
 	camera = new Camera(this);
 
 	map = new Map(this, false);
+	inventory = new Inventory(this, false);
+	stmen = new StatsMenu(this, false);
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
+	shop = new Shop(this, false);
 
 	font = new ModuleQFonts(this);
-	pathfinder = new Pathfinder(this, false);
+	pathfinder = new Pathfinder(this);
 
 	collisions = new Collisions(this);
 
@@ -82,12 +89,19 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 
 	AddModule(entities);
+
 	AddModule(pauseM);
 	AddModule(conf);
+	
+	
+	AddModule(inventory);
+	AddModule(stmen);
+	AddModule(shop);
 
 	AddModule(guiManager);
 	AddModule(font);
 	AddModule(dialogs);
+	AddModule(questManager);
 
 	AddModule(collisions);
 

@@ -10,6 +10,8 @@
 
 #include <vector>
 
+#define BATTLE_SIZE 180
+
 struct SDL_Texture;
 
 enum class DynamicType
@@ -25,96 +27,148 @@ class Stats
 public:
 	int health;
 	int maxHealth;
+	
 
 	int level;
 	int attack;
-	int deffense ;
+	int defense;
 	int speed;
 	int mana;
+	int maxMana;
+	int exp;
+	int nexp;
 
 	int Shealth;
 	int SmaxHealth;
-
+	
 	int Slevel;
 	int Sattack;
-	int Sdeffense;
+	int Sdefense;
 	int Sspeed;
 	int Smana;
+	int SmaxMana;
 
 	int localTurn;
 	bool defenseBuffed;
 
 	Stats() {
 		this->level = 0;
+		this->exp = 0;
+		this->nexp = 100;
 
 		this->maxHealth = 100;
 		this->health = 100;
 
 		this->attack = 1;
-		this->deffense = 1;
+		this->defense = 1;
 		this->speed = 20;
 		this->mana = 10;
 
 		this->localTurn = 0;
 		this->defenseBuffed = false;
 	}
-
-	Stats(int level, int maxHealth, int attack, int deffense, int mana, int speed) {
-		this->level = level;
+	//lvl mxhealth attak defense mana speed
+	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
+		this->level = 1;
 
 		this->maxHealth = maxHealth;
 		this->health = maxHealth;
 
 		this->attack = attack;
-		this->deffense = deffense;
+		this->defense = defense;
 		this->speed = speed;
-		this->mana = mana;
 
+		this->mana = mana;
+		this->maxMana = mana;
+
+		/*this->exp = exp;
+		this->nexp = nexp;*/
+		this->exp = 0;
+		this->nexp = 100;
 		this->localTurn = 0;
 		this->defenseBuffed = false;
+
+		if (level > 1) {
+			int lvl = this->nexp;
+			for (int i = 0; i < level - 1; i++)
+			{
+
+				lvl *= 1.2;
+				lvlup(lvl);
+			}
+
+		}
+
 	}
 
 	float TurnValue() {
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
-	void SetStats(int maxHealth, int attack, int deffense, int mana/*, int speed*/)
+	void SetStats(int Health, int attack, int defense, int mana/*, int speed*/)
 	{
 
-		this->maxHealth = maxHealth;
-		this->health = maxHealth;
-
+		this->health = Health;
+		this->maxHealth = Health;
 		this->attack = attack;
-		this->deffense = deffense;
+		this->defense = defense;
 		/*this->speed = speed;*/
 		this->mana = mana;
+		this->maxMana = mana;
 
-		
+
 
 	}
 	void SaveStats()
 	{
-		this->Slevel = level;
+		Slevel = level;
 
-		this->SmaxHealth = maxHealth;
-		this->Shealth = maxHealth;
-
-		this->Sattack = attack;
-		this->Sdeffense = deffense;
+		Shealth = health;
+		SmaxHealth = maxHealth;
+		Sattack = attack;
+		Sdefense = defense;
 		/*this->Sspeed = speed;*/
-		this->Smana = mana;
+		Smana = mana;
+
+		SmaxMana = maxMana;
 	}
 	void LoadStats()
 	{
-		this->level = Slevel;
+		level = Slevel;
+		maxHealth = SmaxHealth;
+		health = Shealth;
 
-		this->maxHealth = SmaxHealth;
-		this->health = SmaxHealth;
 
-		this->attack = Sattack;
-		this->deffense = Sdeffense;
+		attack = Sattack;
+		defense = Sdefense;
 		/*this->speed = Sspeed*/;
-		this->mana = Smana;
+		mana = Smana;
+
+		maxMana = SmaxMana;
+	}
+
+	void lvlup(int rep)
+	{
+
+		exp += rep;
+		if (exp >= nexp)
+		{
+			while (exp >= nexp) {
+				int a = 0;
+				a = exp - nexp;
+				exp = a;
+				LOG("LEVEL UP! jovani de puerto rico");
+				level++;
+				attack *= 1.2;
+				defense *= 1.2;
+				speed *= 1.2;
+				mana *= 1.2;
+				maxMana *= 1.2;
+				nexp *= 1.2;
+				maxHealth *= 1.2;
+				health *= 1.2;
+			}
+		}
 	}
 };
 
@@ -158,6 +212,8 @@ public:
 	iPoint mapPosition;
 	iPoint battlePosition;
 	Animation* mapAnimation;
+
+	int zoom;
 
 };
 

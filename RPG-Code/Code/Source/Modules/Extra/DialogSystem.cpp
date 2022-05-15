@@ -23,17 +23,22 @@ bool DialogSystem::Awake(pugi::xml_node& config) {
 bool DialogSystem::Start() {
 
 	dialogueBox = app->tex->Load("Assets/gui/dialogue_box.png");
-
+	_waitpad = false;
 	return true;
 }
 
 bool DialogSystem::PreUpdate() {
 
+	GamePad& pad = app->input->pads[0];
+
+	if (!pad.a) _waitpad = true;
+
 	if (dialoging == true) {
 
 		// Inputs
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _waitpad == true) {
 			wait = false;
+			_waitpad = false;
 		}
 		app->scene->player->toggleGui = false;
 	}
@@ -79,13 +84,31 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::CARTELSUDTOWN:
 						app->font->DrawTextDelayed("Welcome Sign ( Post your text here ):", x + 150, y + 5, { 41, 2, 9 });
 						break;
+					case NPCType::DEAD_TREE:
+						app->font->DrawTextDelayed("Dead Tree:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::TREE:
+						app->font->DrawTextDelayed("Tree:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP_2:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
+					case NPCType::RIP_3:
+						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
+						break;
 					default:
 						break;
 					}
 
-					app->font->DrawTextDelayed(t->data, x + 120, y + 30);
-
-					app->render->DrawTexture(currentChara, x, y);
+					app->font->DrawTextDelayed(t->data, x + 120, y + 33);
+					if(currentChara != nullptr)
+					{
+						app->render->DrawTexture(currentChara, x, y);
+					}
+					
 
 					break;
 				}
@@ -114,6 +137,8 @@ bool DialogSystem::CleanUp() {
 	dialoging = false;
 
 	dialogList.clear();
+
+	app->font->CleanFonts();
 
 	return true;
 }

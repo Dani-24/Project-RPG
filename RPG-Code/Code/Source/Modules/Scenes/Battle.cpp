@@ -14,6 +14,11 @@
 #include "Camera.h"
 #include "ModuleQFonts.h"
 #include "Title.h"
+#include "Inventory.h"
+#include "Configuration.h"
+#include "Item.h"
+#include "Usable.h"
+#include "Equipment.h"
 
 #include <time.h>
 
@@ -58,14 +63,12 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	//Higher it is -> Less shake in screen - 500 its ok
 	shakeForce = 500;
 
-
 	defenseBuff = 5;
-
 
 	//Dojoanim
 	int w = 640, h = 489;
 	for (int i = 0; i < 6; i++) {
-		dojoAnim.PushBack({ w * i, 0, w, h });
+		dojoAnim.PushBack({ w * i, 25, w, h });
 		
 	}
 
@@ -108,9 +111,29 @@ bool Battle::Start()
 	cont = 0;
 	battleTurn = 0;
 	turnValue = 321.123f;
+	expCount = 0;
+	goldCount = 0;
+	skill = 0;
+
 	LOG("Loading Battle");
 	
 	battleStage = &app->stages->actualStage;
+
+	for (int i = 0; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i]->hasStarted == false) {
+				entitiesInBattle[i]->Start();
+				entitiesInBattle[i]->hasStarted = true;
+
+			}
+
+			if (entitiesInBattle[i]->stats->defenseBuffed == true) {
+				entitiesInBattle[i]->stats->defense -= defenseBuff;
+				entitiesInBattle[i]->stats->defenseBuffed = false;
+			}
+			
+		}
+	}
 
 	switch (*battleStage) {
 	case StageIndex::NONE:
@@ -123,22 +146,58 @@ bool Battle::Start()
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
+	case StageIndex::TOWER_0:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_1:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_2:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_3:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_4:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+
 	default:
 		break;
 	}
 
 	//Load GUI textures
+	backButtonTex = app->tex->Load("Assets/gui/buttons/back.png");
+
 	attackTex = app->tex->Load("Assets/gui/buttons/attack.png");
 	defenseTex = app->tex->Load("Assets/gui/buttons/defense.png");
 	itemsTex = app->tex->Load("Assets/gui/buttons/items.png");
 	escapeTex = app->tex->Load("Assets/gui/buttons/escape.png");
+
+	batButtonTex =app->tex->Load("Assets/gui/buttons/bat.png");
+	flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/flying_eye.png");
+	skeletonButtonTex = app->tex->Load("Assets/gui/buttons/skeleton.png");
+
+	press_backTex = app->tex->Load("Assets/gui/buttons/pressed_back.png");
 
 	press_attackTex = app->tex->Load("Assets/gui/buttons/pressed_attack.png");
 	press_defenseTex = app->tex->Load("Assets/gui/buttons/pressed_defense.png");
 	press_itemsTex = app->tex->Load("Assets/gui/buttons/pressed_items.png");
 	press_escapeTex = app->tex->Load("Assets/gui/buttons/pressed_escape.png");
 
+	press_batButtonTex = app->tex->Load("Assets/gui/buttons/pressed_bat.png");
+	press_flyingEyeButtonTex = app->tex->Load("Assets/gui/buttons/pressed_flying_eye.png");
+	press_skeletonButtonTex = app->tex->Load("Assets/gui/buttons/pressed_skeleton.png");
+
 	shield = app->tex->Load("Assets/textures/shield.png");
+
+	//Load Sfx
+	explosionfx = app->audio->LoadFx("Assets/audio/sfx/fx_attack_explosion.wav");
 
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
@@ -164,15 +223,26 @@ bool Battle::Start()
 
 
 	//Enemies
-	entitiesInBattle[4]->mapPosition = entitiesInBattle[4]->position;
-	entitiesInBattle[4]->position = { 500, 100 };
-	entitiesInBattle[4]->mapAnimation = entitiesInBattle[4]->currentAnimation;
+
+	
+
+	/*if (entitiesInBattle[5] != nullptr) {
+		entitiesInBattle[5]->mapPosition = entitiesInBattle[5]->position;
+		entitiesInBattle[5]->position = { 550, 100 };
+		entitiesInBattle[5]->mapAnimation = entitiesInBattle[5]->currentAnimation;
+	}*/
 
 
 	for (int i = 0; i < 8; i++) {
 		if (entitiesInBattle[i] != nullptr) {
 			if (entitiesInBattle[i]->isAlive == true) {
 				entitiesInBattle[i]->stats->localTurn = 1;
+				if (i > 3) {
+					entitiesInBattle[i]->mapPosition = entitiesInBattle[i]->position;
+					entitiesInBattle[i]->position = { 700 + 25 * i, 25 * i };
+					entitiesInBattle[i]->mapAnimation = entitiesInBattle[i]->currentAnimation;
+				}
+			
 			}
 		}
 		
@@ -181,10 +251,37 @@ bool Battle::Start()
 	app->camera->SetPos({ 0, 0 });
 	
 	//GUI
-	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (74*4 + 50*3) /2  , app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
-	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50 ,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
-	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  + 74*2 +50*2,app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
-	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74*3 + 50*3, app->win->GetHeight() / 2 - 50 , 74, 32 }, this);
+	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 100, "Back", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , 34, 32 }, this);
+
+	attackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 101, "Attack", { app->win->GetWidth()/2/2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR *3) /2  + LATERAL_MOVE , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	defenseButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 102, "Defense", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	itemButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 103, "Item", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2  + BUTTONS_W *2 + BUTTONS_SPACE_HOR *2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	escapeButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 104, "Escape", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W *3 + BUTTONS_SPACE_HOR *3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+
+	normalAttackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 105, "Attack", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+
+	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, " Shield", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, " Sword", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, " Aqua", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+
+	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, " Stoned ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, " Catacl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "  Deer ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+
+	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "   Log  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, " Acid  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, " Sacred", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+
+	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, " Judge", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, " Electro", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "  Expl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+
+
+	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 151, "Enemy2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE ,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 152, "Enemy3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 153, "Enemy4", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+
 
 	SetTurnOrder();
 
@@ -213,6 +310,37 @@ bool Battle::Update(float dt)
 		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 			dojoAnim.Update(dt);
 		//}
+
+			backButton->state = GuiControlState::DISABLED;
+
+			attackButton->state = GuiControlState::DISABLED;
+			defenseButton->state = GuiControlState::DISABLED;
+			itemButton->state = GuiControlState::DISABLED;
+			escapeButton->state = GuiControlState::DISABLED;
+
+			normalAttackButton->state = GuiControlState::DISABLED;
+
+			playerSpecialButton1->state = GuiControlState::DISABLED;
+			playerSpecialButton2->state = GuiControlState::DISABLED;
+			playerSpecialButton3->state = GuiControlState::DISABLED;
+
+			valionSpecialButton1->state = GuiControlState::DISABLED;
+			valionSpecialButton2->state = GuiControlState::DISABLED;
+			valionSpecialButton3->state = GuiControlState::DISABLED;
+
+			raylaSpecialButton1->state = GuiControlState::DISABLED;
+			raylaSpecialButton2->state = GuiControlState::DISABLED;
+			raylaSpecialButton3->state = GuiControlState::DISABLED;
+
+			dhionSpecialButton1->state = GuiControlState::DISABLED;
+			dhionSpecialButton2->state = GuiControlState::DISABLED;
+			dhionSpecialButton3->state = GuiControlState::DISABLED;
+
+			enemyButton1->state = GuiControlState::DISABLED;
+			enemyButton2->state = GuiControlState::DISABLED;
+			enemyButton3->state = GuiControlState::DISABLED;
+			enemyButton4->state = GuiControlState::DISABLED;
+
 		//Player turn
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
@@ -220,8 +348,103 @@ bool Battle::Update(float dt)
 			case BattlePhase::THINKING:
 				//Debuff if protected las turn
 				if (actualTurnEntity->stats->defenseBuffed == true) {
-					actualTurnEntity->stats->deffense -= defenseBuff;
+					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
+				}
+				attackButton->state = GuiControlState::NORMAL;
+				defenseButton->state = GuiControlState::NORMAL;
+				itemButton->state = GuiControlState::NORMAL;
+				escapeButton->state = GuiControlState::NORMAL;
+				canSelect = true;
+				skill = 0;
+				break;
+			case BattlePhase::CHOOSE_ATTACK:
+				backButton->state = GuiControlState::NORMAL;
+				normalAttackButton->state = GuiControlState::NORMAL;
+				skill = 0;
+				for (int i = 0; i < 8; i++) {
+					if (entitiesInBattle[i] == actualTurnEntity) {
+
+						switch (i) {
+						case 0:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								playerSpecialButton1->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								playerSpecialButton2->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								playerSpecialButton3->state = GuiControlState::NORMAL;
+							}
+							break;
+						case 1:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								valionSpecialButton1->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								valionSpecialButton2->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								valionSpecialButton3->state = GuiControlState::NORMAL;
+							}
+
+							break;
+						case 2:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								raylaSpecialButton1->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								raylaSpecialButton2->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								raylaSpecialButton3->state = GuiControlState::NORMAL;
+							}
+
+							break;
+						case 3:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								dhionSpecialButton1->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								dhionSpecialButton2->state = GuiControlState::NORMAL;
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								dhionSpecialButton3->state = GuiControlState::NORMAL;
+							}
+							break;
+						}
+					}
+				}
+				canSelect = true;
+				
+				break;
+			case BattlePhase::SELECTING:
+				backButton->state = GuiControlState::NORMAL;
+				if (entitiesInBattle[4] != nullptr) {
+					if (entitiesInBattle[4]->isAlive == true) {
+						enemyButton1->state = GuiControlState::NORMAL;
+					}
+					
+				}
+				if (entitiesInBattle[5] != nullptr) {
+					if (entitiesInBattle[5]->isAlive == true) {
+						enemyButton2->state = GuiControlState::NORMAL;
+					}
+				}
+				if (entitiesInBattle[6] != nullptr) {
+					if (entitiesInBattle[6]->isAlive == true) {
+						enemyButton3->state = GuiControlState::NORMAL;
+					}
+				}
+				if (entitiesInBattle[7] != nullptr) {
+					if (entitiesInBattle[7]->isAlive == true) {
+						enemyButton4->state = GuiControlState::NORMAL;
+					}
+				}
+				
+
+				if (targetEntity != nullptr) {
+					ChangePhase(BattlePhase::ATTACKING);
 				}
 				canSelect = true;
 				break;
@@ -253,6 +476,7 @@ bool Battle::Update(float dt)
 					app->stages->pAnim = rand() % 3 + 1;
 					app->stages->vAnim = rand() % 2 + 1;
 					Attack(targetEntity);
+					/*app->audio->PlayFx(hit1fx);*/
 					ChangePhase(BattlePhase::OUTCOME);
 					
 				}
@@ -320,11 +544,54 @@ bool Battle::Update(float dt)
 				//WINNING
 				else {
 					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-						this->Disable();
+						cont = 0;
+						ChangePhase(BattlePhase::REWARD);
 					}
 				}
 				break;
+			case BattlePhase::REWARD:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//REWARD
+				else {
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+						if (itemCount[0]!=nullptr) {
+							cont = 0;
+							ChangePhase(BattlePhase::LOOT);
+						}
+						else {
+							this->Disable();
+						}
+						
+					}
+				}
+				break;
+			case BattlePhase::LOOT:
+				if (cont < winTime) {
+					cont += dt;
+				}
+				//LOOT
+				else {
+					if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+						app->scene->AddItem(itemCount[0]->usableType);
+						itemCount[0] = nullptr;
+						for (int i = 0; i < 4; i++) {
+							itemCount[i] = itemCount[i + 1];
+						}
+
+						if (itemCount[0] != nullptr) {
+							cont = 0;
+							ChangePhase(BattlePhase::LOOT);
+						}
+						else {
+							this->Disable();
+						}
+					}
+				}
+				break;
+
 
 			case BattlePhase::LOSE:
 				if (cont < loseTime) {
@@ -348,7 +615,7 @@ bool Battle::Update(float dt)
 				
 				//Debuff if protected las turn
 				if (actualTurnEntity->stats->defenseBuffed == true) {
-					actualTurnEntity->stats->deffense -= defenseBuff;
+					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
 				}
 				optionPercent = 0;
@@ -356,13 +623,27 @@ bool Battle::Update(float dt)
 				optionPercent = (rand() % (100 - 0)) + 0;
 				//If the enemy is NOT afraid
 				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
-					if (optionPercent < 70) {
+					if (optionPercent < 70) {//70
 						
-						int targetNum = (rand() % 2);
-						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 2);
+						DynamicEntity *targets[4];
+
+						int n = 0;
+						for (int i = 0; i < 4; i++) {
+							if (entitiesInBattle[i] != nullptr) {
+								if (entitiesInBattle[i]->isAlive == true) {
+									targets[n] = entitiesInBattle[i];
+									n++;
+								}
+							}
 						}
-						targetEntity = entitiesInBattle[targetNum];
+						
+						int targetNum = (rand() % n);
+						
+						/*while (entitiesInBattle[targetNum]->isAlive == false) {
+							targetNum = (rand() % 4);
+						}*/
+
+						targetEntity = targets[targetNum];
 
 						ChangePhase(BattlePhase::ATTACKING);
 					}
@@ -373,7 +654,7 @@ bool Battle::Update(float dt)
 				}
 				//If the enemy IS afraid
 				else {
-					if (optionPercent < 60) {
+					if (optionPercent < 60) {//60
 						
 						int targetNum = (rand() % 2);
 						while (entitiesInBattle[targetNum]->isAlive == false) {
@@ -382,7 +663,7 @@ bool Battle::Update(float dt)
 						targetEntity = entitiesInBattle[targetNum];
 						ChangePhase(BattlePhase::ATTACKING);
 					}
-					else if(optionPercent < 85) {
+					else if(optionPercent < 85) {//85
 						ChangePhase(BattlePhase::DEFENDING);
 					}
 					else {
@@ -458,11 +739,30 @@ bool Battle::Update(float dt)
 					cont = 0;
 					if (canEscape == true) {
 						//app->fade->DoFadeToBlack(this, (Module*)app->titleScene);
-						this->Disable();
+						if (CountEnemies() == 1) {
+							this->Disable();
+						}
+						else {
+
+
+							for (int i = 0; i < 8; i++) {
+								if (entitiesInBattle[i] == actualTurnEntity) {
+									entitiesInBattle[i] = nullptr;
+								}
+							}
+							app->entities->DestroyEntity(actualTurnEntity);
+							app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)actualTurnEntity)));
+
+							hasTriedToEscape = false;
+							SetTurnOrder();
+							battleTurn++;
+							ChangePhase(BattlePhase::THINKING);
+						}
+
 					}
 					else {
 						hasTriedToEscape = false;
-						actualTurnEntity = entitiesInBattle[0];
+						SetTurnOrder();
 						battleTurn++;
 						ChangePhase(BattlePhase::THINKING);
 					}
@@ -573,10 +873,15 @@ bool Battle::Update(float dt)
 					hasToShake = false;
 				}
 
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
 				if (shakePos == 0) {
 					shakePos += dt;
 					changeSide += dt;
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos > 0) {
 					shakePos += dt;
@@ -585,7 +890,7 @@ bool Battle::Update(float dt)
 						changeSide = 0;
 						shakePos = shakePos * -1;
 					}
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce / damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
 				}
 				else if (shakePos < 0) {
 					shakePos -= dt;
@@ -594,7 +899,204 @@ bool Battle::Update(float dt)
 						changeSide = 0;
 						shakePos = shakePos * -1;
 					}
-					app->render->DrawTexture(dojoBackground, (int)shakePos / (shakeForce * damageTaken), 0, &dojoAnim.GetCurrentFrame());
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_1:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_2:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_3:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_4:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
 				}
 
 			}
@@ -613,7 +1115,7 @@ bool Battle::PostUpdate()
 {
 	bool ret = true;
 	
-	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y,app->win->GetWidth()/2,80 }, 0, 0, 0, 200);
+	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y,app->win->GetWidth()/2,50 }, 0, 0, 0, 200);
 	app->render->DrawRectangle({app->camera->GetPos().x,app->camera->GetPos().y + app->win->GetHeight()/2 - 120 ,app->win->GetWidth(),125 }, 0, 0, 0, 200);
 
 
@@ -649,11 +1151,12 @@ bool Battle::PostUpdate()
 		app->font->DrawText(turnValueChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 30);
 	}*/
 
+	if(battlePhase != BattlePhase::WIN && battlePhase != BattlePhase::LOSE && battlePhase != BattlePhase::REWARD && battlePhase != BattlePhase::LOOT)
 	if (turnsTimeLine[0]!=nullptr && turnsTimeLine[1] != nullptr && turnsTimeLine[2] != nullptr &&  turnsTimeLine[3] != nullptr && turnsTimeLine[4] != nullptr) {
-		sprintf_s(nameChar, 100, "              -> %s -> %s -> %s -> %s", turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
-		app->font->DrawText(nameChar, 40, 15);
+		sprintf_s(nameChar, 100, "%s -> %s -> %s -> %s -> %s", turnsTimeLine[0]->name, turnsTimeLine[1]->name, turnsTimeLine[2]->name, turnsTimeLine[3]->name, turnsTimeLine[4]->name);
+		app->font->DrawText(nameChar, 40, 15, {255,255,255}, false);
 		sprintf_s(actualTurnChar, 100, "%s", turnsTimeLine[0]->name);
-		app->font->DrawText(actualTurnChar, 40, 15, {150 ,150,255 });
+		app->font->DrawText(actualTurnChar, 40, 15, {150 ,150,255 }, false);
 	}
 
 	
@@ -667,17 +1170,173 @@ bool Battle::PostUpdate()
 			}
 			else if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
-				app->font->DrawTextDelayed(battleInfoChar, 50,50);
+				app->font->DrawTextDelayed(battleInfoChar, 10,25);
+
+				attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+				defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+				itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+				escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
 			}
 			break;
+			
+		case BattlePhase::CHOOSE_ATTACK:
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				app->font->DrawText("Select an attack", 10, 25);
 
+				backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_backTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+				normalAttackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+				for (int i = 0; i < 8; i++) {
+					if (entitiesInBattle[i] == actualTurnEntity) {
+						switch (i) {
+						case 0:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								playerSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								playerSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								playerSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							break;
+						case 1:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								valionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								valionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								valionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							
+							break;
+						case 2:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								raylaSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								raylaSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								raylaSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							
+							break;
+						case 3:
+							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+								dhionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+								dhionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+								dhionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+							}
+						
+							break;
+						}
+					}
+				}
+			}
+
+			break;
+			
 		case BattlePhase::SELECTING:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawText("Select a target", 50, 50);
+				app->font->DrawText("Select a target", 10, 25);
+
+				backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_backTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+
+
+				if (entitiesInBattle[4] != nullptr) {
+					if (entitiesInBattle[4]->isAlive == true) {
+						if (entitiesInBattle[4]->name == "Bat")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[4]->name == "Flying eye")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[4]->name == "Skeleton")
+						{
+							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						
+					}
+				}
+				if (entitiesInBattle[5] != nullptr) {
+					if (entitiesInBattle[5]->isAlive == true) {
+						if (entitiesInBattle[5]->name == "Bat")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[5]->name == "Flying eye")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[5]->name == "Skeleton")
+						{
+							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+					}
+				}
+				if (entitiesInBattle[6] != nullptr) {
+					if (entitiesInBattle[6]->isAlive == true) {
+						if (entitiesInBattle[6]->name == "Bat")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[6]->name == "Flying eye")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[6]->name == "Skeleton")
+						{
+								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+					}
+				}
+				if (entitiesInBattle[7] != nullptr) {
+					if (entitiesInBattle[7]->isAlive == true) {
+						if (entitiesInBattle[7]->name == "Bat")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[7]->name == "Flying eye")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+						else if (entitiesInBattle[7]->name == "Skeleton")
+						{
+								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						}
+					}
+				}
+					
 			}
 			
 			break;
@@ -689,15 +1348,15 @@ bool Battle::PostUpdate()
 			else {
 				if (damageTaken == 1) {
 					sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
 					sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(damageChar, 50, 50);
+					app->font->DrawTextDelayed(damageChar, 10, 25);
 				}
 				else {
 					sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 50, 50, { 255,100,0 });
+					app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
 					sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(damageChar, 50, 50);
+					app->font->DrawTextDelayed(damageChar, 10, 25);
 				}
 				
 			}
@@ -709,7 +1368,7 @@ bool Battle::PostUpdate()
 			}
 			else {
 				sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
-				app->font->DrawTextDelayed(nameChar, 50, 50);
+				app->font->DrawTextDelayed(nameChar, 10, 25);
 			}
 			break;
 
@@ -720,7 +1379,7 @@ bool Battle::PostUpdate()
 			}
 			else {
 				sprintf_s(nameChar, 50, "%s is protected!", actualTurnEntity->name);
-				app->font->DrawTextDelayed(nameChar, 50, 50);
+				app->font->DrawTextDelayed(nameChar, 10, 25);
 			}
 			
 			break;
@@ -731,7 +1390,12 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("You have no items left!", 50, 50);
+				if (app->scene->itemList.count() == 0) {
+					app->font->DrawTextDelayed("You have no items left!", 10, 25);
+				}
+				else {
+					app->inventory->Enable();
+				}
 			}
 			break;
 
@@ -743,15 +1407,15 @@ bool Battle::PostUpdate()
 			else {
 				if (hasTriedToEscape == false) {
 					sprintf_s(nameChar, 50, "%s is trying to escape...", actualTurnEntity->name);
-					app->font->DrawTextDelayed(nameChar, 50, 50);
+					app->font->DrawTextDelayed(nameChar, 10, 25);
 				}
 				else if (canEscape == false) {
 					sprintf_s(escapeChar, 50, "%s could not escape!", actualTurnEntity->name);
-					app->font->DrawTextDelayed(escapeChar, 50, 50);
+					app->font->DrawTextDelayed(escapeChar, 10, 25);
 				}
 				else if (canEscape == true) {
 					sprintf_s(escapeChar, 50, "%s could escape successfully!", actualTurnEntity->name);
-					app->font->DrawTextDelayed(escapeChar, 50, 50);
+					app->font->DrawTextDelayed(escapeChar, 10, 25);
 				}
 			}
 			
@@ -764,114 +1428,141 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Victory! Press SPACE to continue", 50, 50, { 255,200,0 });
+				app->font->DrawTextDelayed("Victory! All the enemies have been defeated", 10, 25, { 255,200,0 });
 				break;
 			}
+
+		case BattlePhase::REWARD:
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				sprintf_s(rewardChar, 150, "All the team members receive %i EXP and %i gold!", expCount, goldCount);
+				app->font->DrawTextDelayed(rewardChar, 10, 25);
+				break;
+			}
+
+		case BattlePhase::LOOT:
+			if (hasChangedPhase == true) {
+				app->font->CleanFonts();
+				hasChangedPhase = false;
+			}
+			else {
+				if (itemCount[0] != nullptr) {
+					sprintf_s(lootChar, 100, "The enemies have dropped %s", itemCount[0]->name);
+					app->font->DrawTextDelayed(lootChar, 10, 25);
+				}
+				
+				break;
+			}
+
 		case BattlePhase::LOSE:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Game over! Press SPACE to go back to title", 50, 50, { 255,30,10 });
+				app->font->DrawTextDelayed("Game over! Press SPACE", 10, 25, { 255,30,10 });
 			}
 			break;
 	}
 
-	if (entitiesInBattle[0]->stats->health == 0) {
-		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 255,30,0 });
-		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+	//Allies health
+	for (int i = 3; i >=0; i--) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i] != nullptr) {
+				if (entitiesInBattle[i]->stats->health == 0) {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3-i)) * app->win->GetScale(), { 255,30,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
+				}
+				else if (entitiesInBattle[i]->stats->health <= 5) {
+
+
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+				}
+				else {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 100,255,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+					
+				}
+			}
+		}
+		
+	}
+
+	//Allies mana
+	for (int i = 3; i >= 0; i--) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i] != nullptr) {
+				if (entitiesInBattle[i]->stats->health == 0) {
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,30,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+
+				}
+				else if (entitiesInBattle[i]->stats->health <= 5) {
+
+
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+				}
+				else {
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 100,255,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
+
+				}
+			}
+		}
 
 	}
-	else if(entitiesInBattle[0]->stats->health <= 5) {
 
-	
-		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 180,0,0 });
-		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
+	//Enemies health
+	for (int i = 7; i >= 4; i--) {
+		if (entitiesInBattle[i] != nullptr) {
+			if (entitiesInBattle[i] != nullptr) {
+				if (entitiesInBattle[i]->stats->health == 0) {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i-4))) * app->win->GetScale(), { 255,30,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 255,255,255 }, false, 1);
+
+				}
+				else if (entitiesInBattle[i]->stats->health <= 5) {
+
+
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 180,0,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4)))* app->win->GetScale(), { 255,255,255 }, false, 1);
+				}
+				else {
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 100,255,0 }, false, 1);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 255,255,255 }, false, 1);
+
+				}
+			}
+		}
+
 	}
-	else {
-		sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 85, { 100,255,0 });
-		sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);
-		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[0]->name, entitiesInBattle[0]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);*/
-	}
-	
-
-	
-
-
-	if (entitiesInBattle[1] != nullptr) {
-		if (entitiesInBattle[1]->stats->health == 0) {
-
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 255,30,0 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
-
-		}
-		else if (entitiesInBattle[1]->stats->health <= 5) {
-
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 180,0,0 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
-
-		}
-		else {
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(lifeChar, 50, app->win->GetHeight() / 2 - 115, { 100,255,0 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-			app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 115);
-		}
-		/*sprintf_s(nameChar, 50, "%s's health: %2d", entitiesInBattle[1]->name, entitiesInBattle[1]->stats->health);
-		app->font->DrawText(nameChar, 50, app->win->GetHeight() / 2 - 85);*/
-	}
-	
-	if (entitiesInBattle[4] != nullptr) {
-
-		if (entitiesInBattle[4]->stats->health == 0) {
-
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 255,30,0 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
-
-		}
-		else if (entitiesInBattle[4]->stats->health <= 5) {
-
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 200,100,20 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
-		}
-		else {
-			sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(lifeChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115, { 100,255,0 });
-			sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[4]->name, entitiesInBattle[4]->stats->health);
-			app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 250, app->win->GetHeight() / 2 - 115);
-		}
-		/*sprintf_s(nameChar, 50, "Enemy health: %2d", entitiesInBattle[4]->stats->health);
-		app->font->DrawText(nameChar, app->win->GetWidth() / 2 - 200, app->win->GetHeight() / 2 - 120);*/
-	}
-	
-	
-
-	attackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2  , app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2, app->win->GetHeight() / 2 - 50);
-	defenseButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_defenseTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 + 50, app->win->GetHeight() / 2 - 50);
-	itemButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_itemsTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 2 + 50 * 2, app->win->GetHeight() / 2 - 50);
-	escapeButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50): app->render->DrawTexture(press_escapeTex, app->win->GetWidth() / 2 / 2 - (74 * 4 + 50 * 3) / 2 + 74 * 3 + 50 * 3, app->win->GetHeight() / 2 - 50);
-
 
 	return ret;
 }
-
 
 bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -879,46 +1570,202 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		actualTurnEntity == entitiesInBattle[0] || actualTurnEntity == entitiesInBattle[1] ||
 		actualTurnEntity == entitiesInBattle[2] || actualTurnEntity == entitiesInBattle[3])) {
 
-		switch (control->type)
-		{
-		case GuiControlType::BUTTON:
+		if (!app->inventory->isEnabled()) {
+			switch (control->type)
+			{
+			case GuiControlType::BUTTON:
 
-			switch (control->id) {
-			case 101:
-					targetEntity = entitiesInBattle[4];
-					ChangePhase(BattlePhase::ATTACKING);
+				switch (control->id) {
+					//Thinking
+				case 100:
+					switch (battlePhase) {
+					case BattlePhase::CHOOSE_ATTACK:
+						ChangePhase(BattlePhase::THINKING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+						break;
+					case BattlePhase::SELECTING:
+						ChangePhase(BattlePhase::CHOOSE_ATTACK);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+						break;
+					}
+					break;
+				case 101:
+					ChangePhase(BattlePhase::CHOOSE_ATTACK);
 					app->stages->fxbool = true;
 					canSelect = false;
-				
-				break;
-			case 102:
-			
+					app->audio->PlayFx(app->conf->btnSelection);
+
+					break;
+				case 102:
+
 					ChangePhase(BattlePhase::DEFENDING);
 					app->stages->fxbool = true;
 					canSelect = false;
-				
-				break;
-			case 103:
-			
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 103:
+
 					ChangePhase(BattlePhase::USING_ITEM);
 					app->stages->fxbool = true;
 					canSelect = false;
-			
-				break;
-			case 104:
-			
+					app->audio->PlayFx(app->conf->btnSelection);
+
+					break;
+				case 104:
+					app->audio->PlayFx(app->conf->btnSelection);
 					ChangePhase(BattlePhase::ESCAPING);
 					app->stages->fxbool = true;
 					canSelect = false;
-			
+
+					break;
+
+					//Normal Attack
+				case 105:
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+					//Special Attacks
+				case 110:
+					skill = 1;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 111:
+					skill = 2;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 112:
+					skill = 3;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 120:
+					skill = 1;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 121:
+					skill = 2;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 122:
+					skill = 3;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 130:
+					skill = 1;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 131:
+					skill = 2;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 132:
+					skill = 3;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+				case 140:
+					skill = 1;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 141:
+					skill = 2;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 142:
+					skill = 3;
+					targetEntity = nullptr;
+					ChangePhase(BattlePhase::SELECTING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+
+					//Selecting
+				case 150:
+					targetEntity = entitiesInBattle[4];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 151:
+					targetEntity = entitiesInBattle[5];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 152:
+					targetEntity = entitiesInBattle[6];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				case 153:
+					targetEntity = entitiesInBattle[7];
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					break;
+				}
+
+				break;
+
+				//Other cases here
+			default:
 				break;
 			}
-
-			break;
-
-			//Other cases here
-		default:
-			break;
 		}
 	}
 		
@@ -1098,16 +1945,38 @@ void Battle::SetTurnOrder()
 void Battle::Attack(DynamicEntity *target) {
 
 	damageTaken = 0;
+	switch (skill) {
+	case 0:
+		actualTurnEntity->stats->attack += 0;
+		break;
+	case 1:
+		actualTurnEntity->stats->attack += 3;
+		actualTurnEntity->stats->mana -= 2;
+		break;
+	case 2:
+		actualTurnEntity->stats->attack += 6;
+		actualTurnEntity->stats->mana -= 4;
+		break;
+	case 3:
+		actualTurnEntity->stats->attack += 10;
+		actualTurnEntity->stats->mana -= 6;
+		break;
+	default:
+		actualTurnEntity->stats->attack += 0;
+		break;
+	}
 
-	if (target->stats->deffense  < actualTurnEntity->stats->attack) {
-		damageTaken = actualTurnEntity->stats->attack - target->stats->deffense;
-		target->stats->health = target->stats->health + target->stats->deffense - actualTurnEntity->stats->attack;
+	if (target->stats->defense  < actualTurnEntity->stats->attack) {
+		damageTaken = actualTurnEntity->stats->attack - target->stats->defense;
+		target->stats->health = target->stats->health + target->stats->defense - actualTurnEntity->stats->attack;
 		hasToShake = true;
+		app->audio->PlayFx(explosionfx);
 		shakePos = 0;
 	}
 	
 	if (target->stats->health <= 0) {
 		target->stats->health = 0;
+		target->stats->defense -= defenseBuff;
 		target->stats->defenseBuffed = false;
 		target->isAlive = false;
 
@@ -1140,18 +2009,79 @@ void Battle::Attack(DynamicEntity *target) {
 			}
 			
 		}
-
+		
+		/*LOG("%d aaaaaaaaaaaaaaaaaaa", awa);*/
 		//Fill the new timeline
 		for (int k = 0; k < emptySpots; k++) {
 
 			SetTurnOrder();
 		}
-		
+
+
+		if (target->name == "Bat")
+		{
+			expCount += 20;
+			goldCount += 2;
+			app->scene->player->PlayerMoney += 2;
+
+		}
+		if (target->name == "Flying eye")
+		{
+			expCount += 50;
+			goldCount += 6;
+			app->scene->player->PlayerMoney += 6;
+		}
+		if (target->name == "Skeleton")
+		{
+			expCount += 100;
+			goldCount += 10;
+			app->scene->player->PlayerMoney += 10;
+		}
+
+		for (int i = 0; i < app->scene->partyList.count(); i++) {
+			if (target->name == "Bat")
+			{
+				LOG("aaaaaaaaaaaaaaaaaaa");
+				app->scene->partyList.At(i)->data->stats->lvlup(20);
+
+			}
+			if (target->name == "Flying eye")
+			{
+				LOG("oooooooooooooooooooo");
+				app->scene->partyList.At(i)->data->stats->lvlup(50);
+			}
+			if (target->name == "Skeleton")
+			{
+				LOG("eeeeeeeeeeeeeeeeeeeeeee");
+				app->scene->partyList.At(i)->data->stats->lvlup(100);
+
+			}
+		}
+
+		optionPercent = 0;
+		srand(time(NULL));
+		optionPercent = rand() % 100;
+
+		if (optionPercent <= 20) {
+			for (int i = 0; i < 4; i++) {
+				if (itemCount[i] == nullptr) {
+
+					optionPercent = 0;
+					srand(time(NULL));
+					optionPercent = rand() % 24;
+					itemCount[i] = new Usable(UsableType(optionPercent));
+
+					break;
+				}
+
+			}
+		}
 	}
+	skill = 0;
 }
 
 void Battle::Defense() {
-	actualTurnEntity->stats->deffense += defenseBuff;
+	actualTurnEntity->stats->defense += defenseBuff;
 	actualTurnEntity->stats->defenseBuffed = true;
 }
 
@@ -1234,11 +2164,42 @@ void Battle::ChangePhase(BattlePhase phase) {
 // Called before quitting
 bool Battle::CleanUp()
 {
+	//Buttons
+
+	backButton->state = GuiControlState::DISABLED;
 
 	attackButton->state = GuiControlState::DISABLED;
 	defenseButton->state = GuiControlState::DISABLED;
 	itemButton->state = GuiControlState::DISABLED;
 	escapeButton->state = GuiControlState::DISABLED;
+
+	enemyButton1->state = GuiControlState::DISABLED;
+	enemyButton2->state = GuiControlState::DISABLED;
+	enemyButton3->state = GuiControlState::DISABLED;
+	enemyButton4->state = GuiControlState::DISABLED;
+
+	normalAttackButton->state = GuiControlState::DISABLED;
+
+	playerSpecialButton1->state = GuiControlState::DISABLED;
+	playerSpecialButton2->state = GuiControlState::DISABLED;
+	playerSpecialButton3->state = GuiControlState::DISABLED;
+
+	valionSpecialButton1->state = GuiControlState::DISABLED;
+	valionSpecialButton2->state = GuiControlState::DISABLED;
+	valionSpecialButton3->state = GuiControlState::DISABLED;
+
+	raylaSpecialButton1->state = GuiControlState::DISABLED;
+	raylaSpecialButton2->state = GuiControlState::DISABLED;
+	raylaSpecialButton3->state = GuiControlState::DISABLED;
+
+	dhionSpecialButton1->state = GuiControlState::DISABLED;
+	dhionSpecialButton2->state = GuiControlState::DISABLED;
+	dhionSpecialButton3->state = GuiControlState::DISABLED;
+
+
+
+	backButton = nullptr;
+	delete backButton;
 
 	attackButton = nullptr;
 	delete attackButton;
@@ -1252,18 +2213,181 @@ bool Battle::CleanUp()
 	escapeButton = nullptr;
 	delete escapeButton;
 
+	//Skills
+
+	normalAttackButton = nullptr;
+	delete normalAttackButton;
+
+	playerSpecialButton1 = nullptr;
+	delete playerSpecialButton1;
+
+	playerSpecialButton2 = nullptr;
+	delete playerSpecialButton2;
+
+	playerSpecialButton3 = nullptr;
+	delete playerSpecialButton3;
+
+
+	valionSpecialButton1 = nullptr;
+	delete valionSpecialButton1;
+
+	valionSpecialButton2 = nullptr;
+	delete valionSpecialButton2;
+
+	valionSpecialButton3 = nullptr;
+	delete valionSpecialButton3;
+
+
+	raylaSpecialButton1 = nullptr;
+	delete raylaSpecialButton1;
+	raylaSpecialButton2 = nullptr;
+	delete raylaSpecialButton2;
+	raylaSpecialButton3 = nullptr;
+	delete raylaSpecialButton3;
+
+
+	dhionSpecialButton1 = nullptr;
+	delete dhionSpecialButton1;
+	dhionSpecialButton2 = nullptr;
+	delete dhionSpecialButton2;
+	dhionSpecialButton3 = nullptr;
+	delete dhionSpecialButton3;
+
+	//Textures
+
+	backButtonTex = nullptr;
+	delete backButtonTex;
+
+	attackTex = nullptr;
+	delete attackTex;
+
+	defenseTex = nullptr;
+	delete defenseTex;
+
+	itemsTex = nullptr;
+	delete itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+	press_attackTex = nullptr;
+	delete press_attackTex;
+
+	press_defenseTex = nullptr;
+	delete press_defenseTex;
+
+	press_itemsTex = nullptr;
+	delete press_itemsTex;
+
+	press_escapeTex = nullptr;
+	delete press_escapeTex;
+
+
+	batButtonTex = nullptr;
+	delete batButtonTex;
+
+	flyingEyeButtonTex = nullptr;
+	delete flyingEyeButtonTex;
+
+	skeletonButtonTex = nullptr;
+	delete skeletonButtonTex;
+
+	press_batButtonTex = nullptr;
+	delete press_batButtonTex;
+
+	press_flyingEyeButtonTex = nullptr;
+	delete press_flyingEyeButtonTex;
+
+	press_skeletonButtonTex = nullptr;
+	delete press_skeletonButtonTex;
+
+
+	shield = nullptr;
+	delete shield;
+
+	
+
 	switch(battlePhase) {
-	case BattlePhase::WIN:
+	case BattlePhase::REWARD:
 		
 		//Destroy enemy
-		app->entities->DestroyEntity(entitiesInBattle[4]);
-		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+
+		app->stages->playerPtr->winCount += 1;
+		
+		//Take back player position
+		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
+		app->camera->SetTarget(app->stages->playerPtr);
+		app->camera->OnTarget();
+		//app->camera->SetLimits(640, 350, 4490, 4200);
+
+		//Take back player animation
+		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
+
+		app->stages->playerPtr->canMove = true;
+		app->map->LoadCol();
+		app->stages->onBattle = false;
+
+		switch (app->stages->actualStage) {
+		case StageIndex::NONE:
+			break;
+		case StageIndex::TOWN:
+			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
+			break;
+		case StageIndex::DOJO:
+			app->audio->PlayMusic("Assets/audio/music/music_dojo.ogg");
+			break;
+		case StageIndex::SHOP:
+			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+			break;
+		case StageIndex::SHOPSUB:
+			app->audio->PlayMusic("Assets/audio/music/music_shopsub.ogg");
+			break;
+		case StageIndex::TAVERN:
+			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
+			break;
+		case StageIndex::TOWER_0:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_1:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_2:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_3:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_4:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		}
+
+		app->scene->player->toggleGui = true;
+
+		break;
+	case BattlePhase::LOOT:
+
+		//Destroy enemy
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+
+		app->stages->playerPtr->winCount += 1;
 
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
-		app->camera->SetLimits(640, 350, 4490, 4200);
+		//app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -1298,9 +2422,13 @@ bool Battle::CleanUp()
 	case BattlePhase::LOSE:
 		
 		//Destroy enemy
-		app->entities->DestroyEntity(entitiesInBattle[4]);
-		app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
-
+		for (int i = 4; i < 8; i++) {
+			if (entitiesInBattle[i] != nullptr) {
+				app->entities->DestroyEntity(entitiesInBattle[i]);
+				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+			}
+		}
+	
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
@@ -1312,14 +2440,22 @@ bool Battle::CleanUp()
 
 		app->stages->onBattle = false;
 
-		app->scene->Disable();
-		app->titleScene->Enable();
+	/*	app->scene->Disable();
+		app->titleScene->Enable();*/
+		app->stages->ChangeStage(StageIndex::LOSE);
 
 		break;
 
 	case BattlePhase::ESCAPING:
 		if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 
+			//Destroy enemy
+			for (int i = 5; i < 8; i++) {
+				if (entitiesInBattle[i] != nullptr ) {
+					app->entities->DestroyEntity(entitiesInBattle[i]);
+					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+				}
+			}
 			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 			//Take back enemy animation
@@ -1330,7 +2466,7 @@ bool Battle::CleanUp()
 			app->stages->playerPtr->position = { app->stages->playerPtr->mapPosition.x ,entitiesInBattle[4]->baseCollider->rect.y + entitiesInBattle[4]->baseCollider->rect.h +1 - app->stages->playerPtr->colDownDistance };
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
-			app->camera->SetLimits(640, 350, 4490, 4200);
+			//app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
@@ -1365,14 +2501,18 @@ bool Battle::CleanUp()
 		if (actualTurnEntity->dynamicType == DynamicType::ENEMY) {
 
 			//Destroy enemy
-			app->entities->DestroyEntity(entitiesInBattle[4]);
-			app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])));
-
+			for (int i = 4; i < 8; i++) {
+				if (entitiesInBattle[i] != nullptr) {
+					app->entities->DestroyEntity(entitiesInBattle[i]);
+					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
+				}
+			}
+			
 			//Take back player position
 			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 			app->camera->SetTarget(app->stages->playerPtr);
 			app->camera->OnTarget();
-			app->camera->SetLimits(640, 350, 4490, 4200);
+			//app->camera->SetLimits(640, 350, 4490, 4200);
 
 			//Take back player animation
 			app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;

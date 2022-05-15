@@ -44,6 +44,7 @@ public:
 private:
 
 	int speed;
+	bool _wait;
 
 public:
 
@@ -87,6 +88,9 @@ public:
 	SDL_Texture* BattleMTex = nullptr;
 	SDL_Texture* BattleFTex = nullptr;
 
+	SDL_Texture* male_character_face_gui;
+	SDL_Texture* female_character_face_gui;
+
 	// Current Sprite
 	bool PlayerErection = true;
 
@@ -99,6 +103,9 @@ public:
 	bool canMove;
 
 	fPoint cameraSpeed = { 0.1f , 0.1f };
+
+	int timeWalkingVer;
+	int timeWalkingHor;
 
 	// Collisions:
 
@@ -114,12 +121,34 @@ public:
 
 	bool toggleGui = true;
 
+	int PlayerMoney = 0;
+
 public:
 	iPoint townPos = {950, 1730};
 	iPoint shopPos = { 69, 238 };
 	bool shopPosOn = false;
+	
+	iPoint tower0Pos = { 364, 600 };
+	iPoint tower1Pos = { 1212, 1651 };
+	iPoint tower2Pos = { 1850, 2198 };
+	iPoint tower3Pos = { 393, 697 };
+	iPoint tower4Pos = { 1789 , 3019 };
+
+	int winCount = 0;
+	bool TowerKey = false;
+	bool Floor1Key = false;
+	bool Floor2Key = false;
+	bool Key1 = false;
+	bool Key2 = false;
+	bool Key3 = false;
+	//bool Floor3Key = false;
 private:
 	int townPosYAxisfix = 5;
+	int tower0PosYAxisfix = 5;
+	int tower1PosYAxisfix = 5;
+	int tower2PosYAxisfix = 5;
+	int tower3PosYAxisfix = 5;
+	int tower4PosYAxisfix = 6;
 
 	iPoint lastFramePos;
 	int showGuiCont;
@@ -127,8 +156,10 @@ private:
 	SDL_Texture* interactionButton;
 	Animation interactionButtonJustSpace;
 	bool printInteractionButt = false;
+	//variable para que no pete con mando
+	bool wait;
 
-private: // DIALOGS
+public: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 
 	"Hello !, welcome to the tavern",
@@ -138,12 +169,8 @@ private: // DIALOGS
 	"I will interpret your silence as a no" 
 	};
 
-	const char* trainerDialog[DIALOG_LENGHT] = { 
-	"jo jo jo",
-	"So you are the new one",
-	"Common, show me what you know",
-	"Fight with the enemies on your right", 
-	"and destroy them before they destroy you",
+	const char* trainerDialog[DIALOG_LENGHT] = {
+	"Remember",
 	"A tope jefe de equipo"
 	};
 
@@ -200,6 +227,18 @@ private: // DIALOGS
 	"The Tower is currently unavailable",
 	"Remember that you have an extra party member",
 	"Just a developing gift :D"
+	};
+
+	const char* deadTreeDialog[DIALOG_LENGHT] = {
+	"Is a dead tree..."
+	};
+
+	const char* TreeDialog[DIALOG_LENGHT] = {
+	"This little tree..."	
+	};
+
+	const char* RipDialog[DIALOG_LENGHT] = {
+	"Its a tombstone"
 	};
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);

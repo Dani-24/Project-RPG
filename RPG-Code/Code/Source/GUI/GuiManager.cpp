@@ -3,7 +3,6 @@
 #include "Textures.h"
 #include "Render.h"
 
-
 #include "GuiButton.h"
 #include "Audio.h"
 
@@ -21,7 +20,7 @@ bool GuiManager::Start()
 	return true;
 }
 
-GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
+GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, bool autoDraw, SDL_Rect sliderBounds)
 {
 	// Create a GUI control and add it to the list of controls
 
@@ -31,7 +30,7 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	switch (type)
 	{
 	case GuiControlType::BUTTON:
-		control = new GuiButton(id, bounds, text);
+		control = new GuiButton(id, bounds, text, autoDraw);
 		break;
 	
 	// More Gui Controls can go here
@@ -113,4 +112,20 @@ bool GuiManager::CleanUp()
 	return true;
 
 	return false;
+}
+
+void GuiManager::ChangeButtonText(int id, const char* newText) {
+	ListItem<GuiControl*>* control = controls.start;
+
+	for (control; control != NULL; control = control->next) {
+		if (control->data->id == id) {
+
+			LOG("Changed %d button text from %s to %s", id, control->data->text.GetString(), newText);
+
+			control->data->text.Clear();
+			control->data->text.Create(newText);
+			break;
+		}
+	}
+
 }

@@ -13,6 +13,8 @@
 #include <vector>
 
 struct SDL_Texture;
+class Equipment;
+enum class EquipmentType;
 
 enum class CharacterType
 {
@@ -33,14 +35,16 @@ public:
 	virtual bool Update(float dt);
 	virtual bool PostUpdate();
 
-	// Returns the enemy's collider
-	//const Collider* GetCollider() const;
-	//virtual void OnCollision(Collider* collider);
+	virtual void Equip(Equipment*equip);
+	virtual void Unequip(EquipmentType slot);
 
 	virtual bool CleanUp();
 
 
 public:
+
+	Equipment* equipment[7];
+
 	Animation
 		idleBattle,
 		attackAnim1,
@@ -55,6 +59,10 @@ public:
 	CharacterType characterType;
 
 	Collider* battleCollider;
+
+	SDL_Texture* spriteFace;
+
+	bool skillsList[3];
 
 };
 
