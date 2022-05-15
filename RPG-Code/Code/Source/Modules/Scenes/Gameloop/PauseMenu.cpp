@@ -87,6 +87,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 				LOG("partu");
 				app->stmen->Enable();
 				resumen = true;
+				
 			}
 			if (control->id == 22)
 			{
@@ -193,6 +194,7 @@ bool PauseMenu::Update(float dt)
 
 		if (pauseGame ){
 			if (app->conf->isEnabled())app->conf->Disable();
+			
 			pauseGame = false;
 			resumen = false;
 			app->scene->player->canMove = true; app->scene->player->toggleGui = true;

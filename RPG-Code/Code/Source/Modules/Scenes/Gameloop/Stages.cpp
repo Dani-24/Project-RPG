@@ -341,10 +341,10 @@ bool Stages::PostUpdate()
 					for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 					{
 						if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-							if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+							if (NormalEnemyInList->data->baseCollider->rect.y + NormalEnemyInList->data->baseCollider->rect.h <= playerPtr->baseCollider->rect.y) {
 								NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 								if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-									app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+									app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x- NormalEnemyInList->data->SpriteEdges.x, NormalEnemyInList->data->position.y - NormalEnemyInList->data->SpriteEdges.y, &NormalEnemyInList->data->spriteRect, 1, true);
 								}
 							}
 						}
@@ -424,10 +424,10 @@ bool Stages::PostUpdate()
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
 					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						if (NormalEnemyInList->data->position.y + NormalEnemyInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
+						if (NormalEnemyInList->data->baseCollider->rect.y + NormalEnemyInList->data->baseCollider->rect.h >playerPtr->baseCollider->rect.y) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 							if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - NormalEnemyInList->data->SpriteEdges.x, NormalEnemyInList->data->position.y - NormalEnemyInList->data->SpriteEdges.y, &NormalEnemyInList->data->spriteRect, 1, true);
 							}
 						}
 					}

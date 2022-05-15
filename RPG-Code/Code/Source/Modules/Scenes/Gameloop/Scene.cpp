@@ -127,9 +127,9 @@ bool Scene::Start()
 	app->stages->npcListPtr = &npcList;
 
 	// Normal Enemies
-	iPoint eyePos = { 615, 20 };
-	iPoint batPos = { 600, 96 };
-	iPoint skeletonPos = { 690, 20 };
+	iPoint eyePos = { 660, 100 }; // 680 100
+	iPoint batPos = { 600, 100 };
+	iPoint skeletonPos = { 750, 50 };
 
 	NormalEnemy* eye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, eyePos.x, eyePos.y);
 	normalEnemyList.add(eye);
@@ -207,7 +207,8 @@ bool Scene::Update(float dt)
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
-	
+
+	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
 
 	fpsdt = dt*3.75;
 	//GUI activation
@@ -249,7 +250,7 @@ bool Scene::Update(float dt)
 		//       SAVE / LOAD requests
 		// ================================
 
-		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		/*if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->audio->PlayFx(loadFx);
 			app->LoadGameRequest();
 		}
@@ -257,7 +258,7 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
-		}
+		}*/
 	}
 
 	// ================================

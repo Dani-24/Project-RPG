@@ -121,34 +121,10 @@ bool StatsMenu::PostUpdate()
 		app->render->DrawTexture(app->scene->partyList.At(i)->data->spriteFace, x + 33, y + 94 + i * 50);
 		app->font->DrawText(app->scene->partyList.At(i)->data->name, x + 85, y + 103 + i * 50);
 
-		//app->font->DrawText(app->scene->partyList.At(i)->data->stats,x,y);
+
 	}
 	Statss();
-	/*app->font->DrawText(app->scene->partyList.At(by)->data->name,x+340,y+89);
-	if(app->scene->partyList.At(by)->data->name=="Rhen"|| app->scene->partyList.At(by)->data->name == "Briar")app->font->DrawText("Paladin", x + 490, y + 89);
-	else if (app->scene->partyList.At(by)->data->name == "Valion" )app->font->DrawText("Mage", x + 490, y + 89);
-	else if (app->scene->partyList.At(by)->data->name == "Rayla")app->font->DrawText("Archer", x + 490, y + 89);
-	else if (app->scene->partyList.At(by)->data->name == "Dhion")app->font->DrawText("Lancer", x + 490, y + 89);
-
-	std::string hp = std::to_string(app->scene->partyList.At(by)->data->stats->health);
-	char const* hpc = hp.c_str();
-
-	app->font->DrawText(hpc, x + 360, y + 175);
-	app->font->DrawText("/", x + 402, y + 175);
-
-
-
-	std::string hpm = std::to_string(app->scene->partyList.At(by)->data->stats->health);
-	char const* hpmc = hpm.c_str();
-
-	app->font->DrawText(hpmc, x + 410, y + 175);*/
-
-	/*app->font->DrawText(app->scene->partyList.At(by)->data->stats, x, y);
-	app->font->DrawText(app->scene->partyList.At(by)->data->stats, x, y);
-	app->font->DrawText(app->scene->partyList.At(by)->data->stats, x, y);
-	app->font->DrawText(app->scene->partyList.At(by)->data->stats, x, y);*/
-
-
+	KeyboardControl();
 	return ret;
 }
 
@@ -351,4 +327,224 @@ void StatsMenu::Statss()
 	
 		
 	
+}
+
+//called on preupdate
+void StatsMenu::KeyboardControl()
+{
+	GamePad& pad = app->input->pads[0];
+	if (!pad.a && !pad.b) _wait = true;
+	if (!pad.down && !pad.up) wait = true;
+	/*if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		ch1->state == GuiControlState::NORMAL && (ch2->state == GuiControlState::NORMAL&&app->scene->partyList.count()>1) &&
+		(ch3->state == GuiControlState::NORMAL && app->scene->partyList.count() > 2) && (ch4->state == GuiControlState::NORMAL && app->scene->partyList.count() > 3) )
+	{
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+			pad.right || pad.left || pad.up || pad.down)
+		{
+			ch1->state = GuiControlState::FOCUSED;
+			app->guiManager->keyb = true;
+		}
+	}*/
+	
+	switch (app->scene->partyList.count())
+	{
+	case 1:
+		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+			ch1->state == GuiControlState::NORMAL)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+				app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+				pad.right || pad.left || pad.up || pad.down)
+			{
+				ch1->state = GuiControlState::FOCUSED;
+				app->guiManager->keyb = true;
+			}
+		}
+		break;
+	case 2:
+		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+				app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+				pad.right || pad.left || pad.up || pad.down)
+			{
+				ch1->state = GuiControlState::FOCUSED;
+				app->guiManager->keyb = true;
+			}
+		}
+		break;
+	case 3:
+		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL && ch3->state == GuiControlState::NORMAL)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+				app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+				pad.right || pad.left || pad.up || pad.down)
+			{
+				ch1->state = GuiControlState::FOCUSED;
+				app->guiManager->keyb = true;
+			}
+		}
+		break;
+	case 4:
+		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL && ch3->state == GuiControlState::NORMAL&&
+			ch4->state == GuiControlState::NORMAL)
+		{
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+				app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+				pad.right || pad.left || pad.up || pad.down)
+			{
+				ch1->state = GuiControlState::FOCUSED;
+				app->guiManager->keyb = true;
+			}
+		}
+		break;
+	}
+
+	if (ch1->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+		{
+			ch1->state = GuiControlState::PRESSED;
+			ch1->NotifyObserver();
+			ch1->state = GuiControlState::NORMAL;
+		}
+		if (!pad.down && !pad.up) wait = true;
+
+		if (ch2 != NULL ) {
+			if ((app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) && app->scene->partyList.count() > 1) {
+				ch2->state = GuiControlState::FOCUSED;
+				ch1->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+			invent->state = GuiControlState::FOCUSED;
+			ch1->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+	}
+	else if (invent->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+		{
+			invent->state = GuiControlState::PRESSED;
+			invent->NotifyObserver();
+		}
+		if (!pad.down && !pad.up) wait = true;
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
+			ch1->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+			backButton->state = GuiControlState::FOCUSED;
+			invent->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+
+
+	}
+	
+	else if (backButton->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+		{
+			backButton->state = GuiControlState::PRESSED;
+			backButton->NotifyObserver();
+		}
+		if (!pad.down && !pad.up) wait = true;
+
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
+			invent->state = GuiControlState::FOCUSED;
+			backButton->state = GuiControlState::NORMAL;
+			wait = false;
+		}
+		if (ch4!=NULL) {
+			if ((app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) && app->scene->partyList.count() > 3) {
+				ch4->state = GuiControlState::FOCUSED;
+				backButton->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+		}
+
+
+	}
+	else if (ch2 != NULL) {
+		 if (ch2->state == GuiControlState::FOCUSED && app->scene->partyList.count() > 1) {
+
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+			{
+				ch2->state = GuiControlState::PRESSED;
+				ch2->NotifyObserver();
+				ch2->state = GuiControlState::NORMAL;
+			}
+			if (!pad.down && !pad.up) wait = true;
+			if (ch3 != NULL) {
+				if ((app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) && app->scene->partyList.count() > 2) {
+					ch2->state = GuiControlState::FOCUSED;
+					ch3->state = GuiControlState::NORMAL;
+					wait = false;
+				}
+			}
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+				ch1->state = GuiControlState::FOCUSED;
+				ch2->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+		}
+	}
+	else if (ch3 != NULL) {
+		if (ch3->state == GuiControlState::FOCUSED && app->scene->partyList.count() > 2) {
+
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+			{
+				ch3->state = GuiControlState::PRESSED;
+				ch3->NotifyObserver();
+				ch3->state = GuiControlState::NORMAL;
+			}
+			if (!pad.down && !pad.up) wait = true;
+			if (ch4 != NULL) {
+				if ((app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) && app->scene->partyList.count() > 3) {
+					ch4->state = GuiControlState::FOCUSED;
+					ch3->state = GuiControlState::NORMAL;
+					wait = false;
+				}
+			}
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true && _wait) {
+				ch2->state = GuiControlState::FOCUSED;
+				ch3->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+		}
+	}
+	else if (ch4 != NULL) {
+		if (ch4->state == GuiControlState::FOCUSED && app->scene->partyList.count() > 3) {
+
+			if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a)
+			{
+				ch4->state = GuiControlState::PRESSED;
+				ch4->NotifyObserver();
+				ch4->state = GuiControlState::NORMAL;
+			}
+			if (!pad.down && !pad.up) wait = true;
+
+			if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
+				backButton->state = GuiControlState::FOCUSED;
+				ch4->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+
+			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+				ch3->state = GuiControlState::FOCUSED;
+				ch4->state = GuiControlState::NORMAL;
+				wait = false;
+			}
+		}
+	}
 }

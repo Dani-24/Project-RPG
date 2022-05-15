@@ -61,6 +61,7 @@ bool Shop::Start() {
 
 	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
 	ItemTex = app->tex->Load("Assets/items/items2.png");
+	app->scene->player->canMove = false;
 
 	//Buttons
 	Section1Btn= (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 250, "section1", { a + 88,b + 85, 167, 35 }, this);
@@ -71,9 +72,9 @@ bool Shop::Start() {
 	Item2Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 255, "item2", { a + 348,b + 99, 33, 33 }, this);
 	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { a + 415,b + 99, 33, 33 }, this);
 	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { a + 484, b + 99, 33, 33 }, this);
-	Item5Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "item5", { a + 282, b + 150, 33, 33 }, this);
-	Item6Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 259, "item6", { a + 348, b + 150, 33, 33 }, this);
-	Item7Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 260, "item7", { a + 415, b + 150, 33, 33 }, this);
+	Item5Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "item5", { a + 282, b + 165, 33, 33 }, this);
+	Item6Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 259, "item6", { a + 348, b + 165, 33, 33 }, this);
+	Item7Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 260, "item7", { a + 415, b + 165, 33, 33 }, this);
 	WantToBuy = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 262, "buy", { a + 410, b + 6, 80, 30 }, this);
 
 
@@ -118,7 +119,7 @@ bool Shop::PostUpdate() {
 	/*---------------Sections Text------------------*/
 	app->font->DrawText("Food", x+170, y+91, { 255,255,255 });
 	app->font->DrawText("Potions", x + 152, y+142, { 255,255,255 });
-	app->font->DrawText("Typical food", x + 130, y + 196, { 255,255,255 });
+	app->font->DrawText("Objects", x + 152, y + 196, { 255,255,255 });
 	app->font->DrawText("Keys", x + 162, y + 248, { 255,255,255 });
 	app->font->DrawText("Buy", x + 445, y + 6, { 255,255,255 });
 
@@ -275,8 +276,8 @@ bool Shop::PostUpdate() {
 	}
 	if (bought==2) {
 		canBuy = 5;
-		app->font->DrawText("you have", x - 23, y + 120, { 255,255,255 });
-		app->font->DrawText("no money", x - 23, y + 140, { 255,255,255 });
+		app->font->DrawText("you have", x - 23, y + 120, { 255,0,0 });
+		app->font->DrawText("no money", x - 23, y + 140, { 255,0,0 });
 	}
 	if (canBuy == 3) {
 		app->font->DrawText("No Item", x - 19, y + 115, { 255,255,255 });
@@ -332,6 +333,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			ShopSection = 1;	
 			canBuy = 0;
 			ShopItem = 0;
+			bought = 0;
 		}
 
 		if (control->id == 251)
@@ -341,6 +343,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			ShopSection = 2;	
 			canBuy = 0;
 			ShopItem = 0;
+			bought = 0;
 		}
 		if (control->id == 252)
 		{
@@ -349,6 +352,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			ShopSection = 3;	
 			canBuy = 0;
 			ShopItem = 0;
+			bought = 0;
 		}
 		if (control->id == 253)
 		{
@@ -357,6 +361,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			ShopSection = 4;	
 			canBuy = 0;
 			ShopItem = 0;
+			bought = 0;
 		}
 
 		//---------------------------------------------//
@@ -490,19 +495,19 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		if (control->id == 262)
 		{
 			//Moneyy
-			if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
+			if (ShopItem == 1 || ShopItem == 2 ) {
 				CheckMoney(app->scene->player->PlayerMoney, 20);
 			}
-			if (ShopItem == 36 || ShopItem == 3 || ShopItem == 4) {
+			if ( ShopItem == 3 || ShopItem == 4) {
 				CheckMoney(app->scene->player->PlayerMoney, 30);
 			}
-			if (ShopItem == 37 || ShopItem == 5) {
+			if (ShopItem == 13 || ShopItem == 5) {
 				CheckMoney(app->scene->player->PlayerMoney, 40);
 			}
-			if (ShopItem == 13 || ShopItem == 38 || ShopItem == 6) {
+			if (ShopItem == 6 || ShopItem == 25) {
 				CheckMoney(app->scene->player->PlayerMoney, 50);
 			}
-			if (ShopItem == 14 || ShopItem == 7) {
+			if (ShopItem == 26 || ShopItem == 14 || ShopItem == 7) {
 				CheckMoney(app->scene->player->PlayerMoney, 80);
 			}
 			if (ShopItem == 37) {
