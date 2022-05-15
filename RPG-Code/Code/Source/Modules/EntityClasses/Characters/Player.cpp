@@ -271,7 +271,7 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	mapPosition = { 0,0 };
 	int xt = 80;
-	int yt = 100;
+	int yt = 100 - 50;
 	battlePosition = { xt, yt};
 
 	isAlive = true;
