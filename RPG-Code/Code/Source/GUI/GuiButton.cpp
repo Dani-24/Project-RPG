@@ -123,7 +123,12 @@ bool GuiButton::Draw(Render* render)
 
 		// Text
 		if (state != GuiControlState::DISABLED) {
-			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
+			if (state != GuiControlState::PRESSED) {
+				app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
+			}
+			else {
+				app->font->DrawText(text.GetString(), bounds.x, bounds.y + 1, { 0,0,0 });	// Black
+			}
 		}
 	}
 
