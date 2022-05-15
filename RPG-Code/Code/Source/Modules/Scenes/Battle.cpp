@@ -2207,6 +2207,8 @@ bool Battle::CleanUp()
 	shield = nullptr;
 	delete shield;
 
+	app->camera->SetTarget(app->stages->playerPtr);
+
 	switch(battlePhase) {
 	case BattlePhase::REWARD:
 		
