@@ -123,6 +123,26 @@ bool QuestManager::Start()
 	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2);
 	questList.add(quest2_2);
 
+	const char* availableQ32[DIALOG_LENGHT] = {
+	"...",
+	"..."
+	};
+	const char* activeQ3[DIALOG_LENGHT] = {
+	"..."
+	};
+	const char* completeQ3[DIALOG_LENGHT] = {
+	"...",
+	"Welcome adventurer",
+	"you have defeated de 4 first floors",
+	"Congratulations!!!,",
+	"Now, you have to wait to unlock next levels",
+	"Thank you so much for helping us,"
+	"Take a beer camarada"
+	};
+
+	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
+	questList.add(quest3_1);
+
 	return ret;
 }
 

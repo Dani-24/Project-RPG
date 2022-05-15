@@ -145,6 +145,27 @@ bool Battle::Start()
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
+	case StageIndex::TOWER_0:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_1:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_2:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_3:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+	case StageIndex::TOWER_4:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
+		break;
+
 	default:
 		break;
 	}
@@ -808,6 +829,202 @@ bool Battle::Update(float dt)
 				
 			}
 		case StageIndex::DOJO:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_1:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_2:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_3:
+			//app->render->DrawTexture(townBackground, -200, -250);
+			if (hasToShake == false) {
+				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
+				changeSide = 0;
+			}
+			else {
+
+				if (shakePos > shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				if (shakePos < -shakeTime * damageTaken) {
+					hasToShake = false;
+				}
+
+				int totalShake = shakeForce / damageTaken;
+				if (totalShake < 1) {
+					totalShake = 1;
+				}
+
+				if (shakePos == 0) {
+					shakePos += dt;
+					changeSide += dt;
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos > 0) {
+					shakePos += dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake, 0, &dojoAnim.GetCurrentFrame());
+				}
+				else if (shakePos < 0) {
+					shakePos -= dt;
+					changeSide += dt;
+					if (changeSide >= 50) {
+						changeSide = 0;
+						shakePos = shakePos * -1;
+					}
+					app->render->DrawTexture(dojoBackground, (int)shakePos / totalShake
+						, 0, &dojoAnim.GetCurrentFrame());
+				}
+
+			}
+
+			break;
+		case StageIndex::TOWER_4:
 			//app->render->DrawTexture(townBackground, -200, -250);
 			if (hasToShake == false) {
 				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
