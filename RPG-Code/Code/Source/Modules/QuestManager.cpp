@@ -141,7 +141,7 @@ bool QuestManager::Start()
 	"Take a beer camarada"
 	};
 
-	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
+	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 17, 0, 0, false, available, active, completed);
 	questList.add(quest3_1);
 
 	return ret;
