@@ -2253,6 +2253,21 @@ bool Battle::CleanUp()
 		case StageIndex::TAVERN:
 			app->audio->PlayMusic("Assets/audio/music/music_tavern.ogg");
 			break;
+		case StageIndex::TOWER_0:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_1:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_2:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_3:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
+		case StageIndex::TOWER_4:
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			break;
 		}
 
 		app->scene->player->toggleGui = true;

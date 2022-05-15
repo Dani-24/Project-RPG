@@ -56,6 +56,8 @@ bool Pathfinder::CheckBoundaries(const iPoint& pos) const
 // Utility: returns true is the tile is walkable
 bool Pathfinder::IsWalkable(const iPoint& pos) const
 {
+	return true;
+
 	uchar t = GetTileAt(pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
@@ -257,4 +259,3 @@ int Pathfinder::CreatePath(const iPoint& origin, const iPoint& destination)
 
 	return ret;
 }
-
