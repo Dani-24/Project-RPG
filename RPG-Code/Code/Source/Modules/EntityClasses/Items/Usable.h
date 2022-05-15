@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "Render.h"
 #include "Entity.h"
+#include "Item.h"
 
 #include "EntityManager.h"
 

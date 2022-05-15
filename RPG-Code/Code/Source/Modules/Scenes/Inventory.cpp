@@ -332,7 +332,7 @@ bool Inventory::PostUpdate()
 						if (s->data->asignedItem->name != NULL) {
 							app->font->DrawText(s->data->asignedItem->name, x + 75, y + 155, {0,0,0});
 							app->font->DrawText(s->data->asignedItem->effect, x + 30, y + 200);
-							app->font->DrawText(s->data->asignedItem->description, x + 30, y + 250);
+							app->font->DrawText(s->data->asignedItem->description, x + 15, y + 250);
 						}
 					}
 				}
