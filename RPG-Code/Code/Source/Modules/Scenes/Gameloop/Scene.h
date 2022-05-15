@@ -4,8 +4,6 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "Animation.h"
-#include "Usable.h"
-#include "Item.h"
 
 struct SDL_Texture;
 class Player;
@@ -47,12 +45,8 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
-public:
 	//Draws character bars on gui
-	void ShowGUI();
 	void CharBars();
-
-	bool AddItem(UsableType type);
 
 private:
 

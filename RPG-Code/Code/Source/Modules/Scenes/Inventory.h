@@ -100,13 +100,10 @@ private:
 			lastItemPos, 
 			lastCharPos;
 
-public:
+	bool inventoryOnBattle = false;
 
 	int inventorySlots = 15;
 
-private:
-
-	bool inventoryOnBattle = false;
 	// List Slots
 
 	List<Slot*> slots;

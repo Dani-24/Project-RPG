@@ -232,21 +232,21 @@ bool Battle::Start()
 
 	normalAttackButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 105, "NormalAttack", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
-	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, " Shield", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, " Sword", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, " Aqua", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, "PlayerSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, "PlayerSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, "PlayerSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
-	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, " Stoned ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, " Catacl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "  Deer ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, "ValionSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, "ValionSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "ValionSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
-	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "   Log  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, " Acid  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, " Sacred", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "RaylaSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, "RaylaSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, "RaylaSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
-	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, " Judge", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, " Electro", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "  Expl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, "DhionSpecial1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, "DhionSpecial2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
+	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "DhionSpecial3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
 
 
 	enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this);
@@ -1040,12 +1040,7 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				if (app->scene->itemList.count() == 0) {
-					app->font->DrawTextDelayed("You have no items left!", 10, 25);
-				}
-				else {
-					app->inventory->Enable();
-				}
+				app->font->DrawTextDelayed("You have no items left!", 10, 25);
 			}
 			break;
 
@@ -1276,190 +1271,189 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 		actualTurnEntity == entitiesInBattle[0] || actualTurnEntity == entitiesInBattle[1] ||
 		actualTurnEntity == entitiesInBattle[2] || actualTurnEntity == entitiesInBattle[3])) {
 
-		if (!app->inventory->isEnabled()) {
-			switch (control->type)
-			{
-			case GuiControlType::BUTTON:
-
-				switch (control->id) {
-					//Thinking
-				case 100:
-					switch (battlePhase) {
-					case BattlePhase::CHOOSE_ATTACK:
+		switch (control->type)
+		{
+		case GuiControlType::BUTTON:
+			
+			switch (control->id) {
+				//Thinking
+			case 100:
+				switch (battlePhase) {
+				case BattlePhase::CHOOSE_ATTACK:
 						ChangePhase(BattlePhase::THINKING);
 						app->stages->fxbool = true;
 						canSelect = false;
 						app->audio->PlayFx(app->conf->btnSelection);
 						break;
-					case BattlePhase::SELECTING:
-						ChangePhase(BattlePhase::CHOOSE_ATTACK);
-						app->stages->fxbool = true;
-						canSelect = false;
-						app->audio->PlayFx(app->conf->btnSelection);
-						break;
-					}
-					break;
-				case 101:
+				case BattlePhase::SELECTING:
 					ChangePhase(BattlePhase::CHOOSE_ATTACK);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-
-					break;
-				case 102:
-
-					ChangePhase(BattlePhase::DEFENDING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 103:
-
-					ChangePhase(BattlePhase::USING_ITEM);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-
-					break;
-				case 104:
-					app->audio->PlayFx(app->conf->btnSelection);
-					ChangePhase(BattlePhase::ESCAPING);
-					app->stages->fxbool = true;
-					canSelect = false;
-
-					break;
-
-					//Normal Attack
-				case 105:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-
-					//Special Attacks
-				case 110:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 111:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 112:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-
-				case 120:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 121:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 122:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-
-				case 130:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 131:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 132:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-
-				case 140:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 141:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 142:
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-
-					//Selecting
-				case 150:
-					targetEntity = entitiesInBattle[4];
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 151:
-					targetEntity = entitiesInBattle[5];
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 152:
-					targetEntity = entitiesInBattle[6];
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
-					break;
-				case 153:
-					targetEntity = entitiesInBattle[7];
 					app->stages->fxbool = true;
 					canSelect = false;
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				}
-
+				break;
+			case 101:
+					ChangePhase(BattlePhase::CHOOSE_ATTACK);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+				
+				break;
+			case 102:
+			
+					ChangePhase(BattlePhase::DEFENDING);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 103:
+			
+					ChangePhase(BattlePhase::USING_ITEM);
+					app->stages->fxbool = true;
+					canSelect = false;
+					app->audio->PlayFx(app->conf->btnSelection);
+					app->inventory->Enable();
+			
+				break;
+			case 104:
+				 app->audio->PlayFx(app->conf->btnSelection);
+					ChangePhase(BattlePhase::ESCAPING);
+					app->stages->fxbool = true;
+					canSelect = false;
+			
 				break;
 
-				//Other cases here
-			default:
+				//Normal Attack
+			case 105:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+
+				//Special Attacks
+			case 110:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 111:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 112:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+
+			case 120:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 121:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 122:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+
+			case 130:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 131:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 132:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+
+			case 140:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 141:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 142:
+				targetEntity = nullptr;
+				ChangePhase(BattlePhase::SELECTING);
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+
+				//Selecting
+			case 150:
+				targetEntity = entitiesInBattle[4];
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 151:
+				targetEntity = entitiesInBattle[5];
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 152:
+				targetEntity = entitiesInBattle[6];
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
+				break;
+			case 153:
+				targetEntity = entitiesInBattle[7];
+				app->stages->fxbool = true;
+				canSelect = false;
+				app->audio->PlayFx(app->conf->btnSelection);
 				break;
 			}
+
+			break;
+
+			//Other cases here
+		default:
+			break;
 		}
 	}
 		
@@ -1800,9 +1794,6 @@ void Battle::ChangePhase(BattlePhase phase) {
 bool Battle::CleanUp()
 {
 	//Buttons
-
-	backButton->state = GuiControlState::DISABLED;
-
 	attackButton->state = GuiControlState::DISABLED;
 	defenseButton->state = GuiControlState::DISABLED;
 	itemButton->state = GuiControlState::DISABLED;
@@ -1812,29 +1803,6 @@ bool Battle::CleanUp()
 	enemyButton2->state = GuiControlState::DISABLED;
 	enemyButton3->state = GuiControlState::DISABLED;
 	enemyButton4->state = GuiControlState::DISABLED;
-
-	normalAttackButton->state = GuiControlState::DISABLED;
-
-	playerSpecialButton1->state = GuiControlState::DISABLED;
-	playerSpecialButton2->state = GuiControlState::DISABLED;
-	playerSpecialButton3->state = GuiControlState::DISABLED;
-
-	valionSpecialButton1->state = GuiControlState::DISABLED;
-	valionSpecialButton2->state = GuiControlState::DISABLED;
-	valionSpecialButton3->state = GuiControlState::DISABLED;
-
-	raylaSpecialButton1->state = GuiControlState::DISABLED;
-	raylaSpecialButton2->state = GuiControlState::DISABLED;
-	raylaSpecialButton3->state = GuiControlState::DISABLED;
-
-	dhionSpecialButton1->state = GuiControlState::DISABLED;
-	dhionSpecialButton2->state = GuiControlState::DISABLED;
-	dhionSpecialButton3->state = GuiControlState::DISABLED;
-
-
-
-	backButton = nullptr;
-	delete backButton;
 
 	attackButton = nullptr;
 	delete attackButton;
@@ -1848,51 +1816,7 @@ bool Battle::CleanUp()
 	escapeButton = nullptr;
 	delete escapeButton;
 
-	//Skills
-
-	normalAttackButton = nullptr;
-	delete normalAttackButton;
-
-	playerSpecialButton1 = nullptr;
-	delete playerSpecialButton1;
-
-	playerSpecialButton2 = nullptr;
-	delete playerSpecialButton2;
-
-	playerSpecialButton3 = nullptr;
-	delete playerSpecialButton3;
-
-
-	valionSpecialButton1 = nullptr;
-	delete valionSpecialButton1;
-
-	valionSpecialButton2 = nullptr;
-	delete valionSpecialButton2;
-
-	valionSpecialButton3 = nullptr;
-	delete valionSpecialButton3;
-
-
-	raylaSpecialButton1 = nullptr;
-	delete raylaSpecialButton1;
-	raylaSpecialButton2 = nullptr;
-	delete raylaSpecialButton2;
-	raylaSpecialButton3 = nullptr;
-	delete raylaSpecialButton3;
-
-
-	dhionSpecialButton1 = nullptr;
-	delete dhionSpecialButton1;
-	dhionSpecialButton2 = nullptr;
-	delete dhionSpecialButton2;
-	dhionSpecialButton3 = nullptr;
-	delete dhionSpecialButton3;
-
 	//Textures
-
-	backButtonTex = nullptr;
-	delete backButtonTex;
-
 	attackTex = nullptr;
 	delete attackTex;
 
@@ -1950,8 +1874,6 @@ bool Battle::CleanUp()
 				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
 			}
 		}
-
-		app->stages->playerPtr->winCount += 1;
 		
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
