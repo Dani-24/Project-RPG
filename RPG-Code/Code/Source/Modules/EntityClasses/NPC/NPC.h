@@ -25,7 +25,12 @@ enum class NPCType
 	EMILIO,
 	GIROIDE,
 	FUENTE,
-	CARTELSUDTOWN
+	CARTELSUDTOWN,
+	BIGTREE,
+	ARCHER,
+	LANCER,
+	WIZARD
+
 };
 
 class NPC : public DynamicEntity
@@ -56,6 +61,10 @@ public:
 	const char* emilioChar;
 	const char* giroideChar;
 	const char* fuenteChar;
+	const char* bigtreeChar;
+	const char* archerChar;
+	const char* lancerChar;
+	const char* wizardChar;
 
 	bool isInteraction;
 	int npcId;

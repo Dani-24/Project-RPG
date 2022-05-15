@@ -93,6 +93,10 @@ bool Scene::Start()
 	iPoint emilioPos = { 850, 200 };
 	iPoint fuentePos = { 380, 1390 };
 	iPoint cartelSudTownPos = { 1000, 1764 };
+	iPoint bigtreePos = { 1000, 1764 };
+	iPoint archerPos = { 1000, 1764 };
+	iPoint lancerPos = { 1000, 1764 };
+	iPoint wizardPos = { 1000, 1764 };
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
 	npcList.add(cock);
@@ -121,6 +125,10 @@ bool Scene::Start()
 	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::CARTELSUDTOWN, cartelSudTownPos.x, cartelSudTownPos.y);
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
+
+	NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
+	npcList.add(cartelSudTown);
+	cartelSudTown->activeOnStage = StageIndex::TOWER_4;
 
 	// ============================
 

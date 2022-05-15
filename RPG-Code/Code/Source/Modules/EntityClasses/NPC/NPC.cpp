@@ -111,6 +111,39 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
+
+	case NPCType::BIGTREE:
+		configName = "bigtree";
+
+		npcID = 8;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::ARCHER:
+		configName = "archer";
+
+		npcID = 8;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::LANCER:
+		configName = "lancer";
+
+		npcID = 8;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
+	case NPCType::WIZARD:
+		configName = "wizard";
+
+		npcID = 8;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
+		isInteraction = true;
+		break;
 	default:
 		break;
 	}
@@ -138,7 +171,9 @@ bool NPC::Awake(pugi::xml_node& config)
 	shoperChar = config.child("shoper").attribute("path").as_string();
 	emilioChar = config.child("korb").attribute("path").as_string();
 	giroideChar = config.child("g").attribute("path").as_string();
-
+	archerChar = config.child("archer").attribute("path").as_string();
+	lancerChar = config.child("lancer").attribute("path").as_string();
+	wizardChar = config.child("wizard").attribute("path").as_string();
 	return true;
 }
 
@@ -182,6 +217,23 @@ bool NPC::Start()
 	case NPCType::CARTELSUDTOWN:
 
 		spriteTex = NULL;
+		break;
+	case NPCType::BIGTREE:
+
+		spriteTex = NULL;
+		break;
+	case NPCType::ARCHER:
+
+		spriteTex = app->tex->Load(archerChar);
+		break;
+	case NPCType::LANCER:
+
+		spriteTex = app->tex->Load(lancerChar);
+		break;
+	case NPCType::WIZARD:
+
+		spriteTex = app->tex->Load(wizardChar);
+		
 	default:
 		break;
 	}
@@ -245,6 +297,18 @@ bool NPC::CleanUp()
 
 	shoperChar = nullptr;
 	delete shoperChar;
+
+	archerChar = nullptr;
+	delete archerChar;
+
+	lancerChar = nullptr;
+	delete lancerChar;
+
+	wizardChar = nullptr;
+	delete wizardChar;
+
+	bigtreeChar = nullptr;
+	delete bigtreeChar;
 
 	currentAnimation = nullptr;
 	delete currentAnimation;
