@@ -34,7 +34,6 @@ public:
 	int NPCId; //Npc that give you the quest
 	int QuestGold; //Gold reward
 	int QuestExp; //Exp reward
-	bool autoComplete; //if the quests gets complete inmediatly
 	bool QuestChain; //if it's in a chain
 	bool QuestLastChain;
 	int QuestChainId; //chain id
@@ -60,7 +59,6 @@ public:
 		NPCId = 0;
 		QuestGold = 0;
 		QuestExp = 0;
-		autoComplete = false;
 		QuestChain = false;
 		QuestLastChain = false;
 		QuestChainId = 0;
@@ -84,7 +82,6 @@ public:
 		NPCId = NPCid;
 		QuestGold = Gold;
 		QuestExp = XP;
-		autoComplete = _autoComplete;
 		QuestChainId = ChainId;
 		QuestInChainId = inChainId;
 		if (QuestChainId != 0) {

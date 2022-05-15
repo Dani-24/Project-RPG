@@ -80,16 +80,6 @@ bool QuestManager::Update(float dt)
 {
 	bool ret = true;
 
-	//ListItem<Quest*>* QuestInList;
-
-	//for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next) {
-	//	if (QuestInList->data->QuestId == 1) {
-	//		if (QuestInList->data->State == QuestState::FINISHED) {
-
-	//		}
-	//	}
-	//}
-
 	return ret;
 }
 
