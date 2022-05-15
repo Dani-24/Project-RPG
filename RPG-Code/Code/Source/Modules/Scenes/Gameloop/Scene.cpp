@@ -10,6 +10,7 @@
 #include "FadeToBlack.h"
 #include "Player.h"
 #include "PauseMenu.h"
+#include "StatsMenu.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -213,6 +214,10 @@ bool Scene::PreUpdate()
 		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
 			app->inventory->Enable();
 		}
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		app->stmen->Enable();
 	}
 
 	return ret;

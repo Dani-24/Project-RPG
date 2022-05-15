@@ -70,7 +70,7 @@ public:
 	//lvl mxhealth attak defense mana speed
 	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
 		this->level = level;
-
+		
 		this->maxHealth = maxHealth;
 		this->health = maxHealth;
 
@@ -83,6 +83,7 @@ public:
 
 		/*this->exp = exp;
 		this->nexp = nexp;*/
+		this->exp = 0;
 		this->nexp = 100;
 		this->localTurn = 0;
 		this->defenseBuffed = false;

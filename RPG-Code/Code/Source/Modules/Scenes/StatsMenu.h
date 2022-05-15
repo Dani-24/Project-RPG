@@ -35,6 +35,12 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
+
+	void Statss();
+	//variables de interfaz
+	float hpc, hpv;
+	float pmc, pmv;
+	float expc;
 	SDL_Texture* backButtonTexture,
 		* backButtonPressedTexture,
 		* gui, *invTex,*presinvTex;
@@ -44,6 +50,8 @@ private:
 	
 	//  GUI_buttons
 	GuiButton*  backButton, *invent, *ch1,*ch2,*ch3,*ch4;
+
+	int chselect;
 
 	int buttonSfx, backSfx;
 };

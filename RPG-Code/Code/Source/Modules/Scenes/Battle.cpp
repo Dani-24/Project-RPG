@@ -1684,17 +1684,17 @@ void Battle::Attack(DynamicEntity *target) {
 
 			SetTurnOrder();
 		}
-		for (int i = 0; i <= 2; i++) {
+		for (int i = 0; i < app->scene->partyList.count(); i++) {
 			if (target->name == "Bat")
 			{
 				LOG("aaaaaaaaaaaaaaaaaaa");
-				entitiesInBattle[i]->stats->lvlup(20);
+				app->scene->partyList.At(i)->data->stats->lvlup(20);
 
 			}
 			if (target->name == "Flying eye")
 			{
 				LOG("oooooooooooooooooooo");
-				 entitiesInBattle[i]->stats->lvlup(50);
+				app->scene->partyList.At(i)->data->stats->lvlup(50);
 
 			}
 			if (target->name == "Skeleton")
@@ -1702,7 +1702,7 @@ void Battle::Attack(DynamicEntity *target) {
 				LOG("eeeeeeeeeeeeeeeeeeeeeee");
 
 
-				 entitiesInBattle[i]->stats->lvlup(100);
+				app->scene->partyList.At(i)->data->stats->lvlup(100);
 
 			}
 		}
