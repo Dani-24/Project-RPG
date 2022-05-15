@@ -442,7 +442,7 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT )speed = 0.28 * dt;
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT)speed = 0.28 * dt;
 	else if(app->scene->godmode)speed = 0.35 * dt;
 	else speed = 0.2 * dt;
 	
