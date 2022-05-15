@@ -762,16 +762,23 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								break;
 							case StageIndex::TOWER_2:
 
-								LOG("Loading floor 3 map");
+								LOG("Loading floor 4 map");
 								tower2Pos = { position.x, position.y + tower2PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+
+								break;
+							case StageIndex::TOWER_4:
+
+								LOG("Loading floor 2 map");
+								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 
 								break;
 							case StageIndex::TOWER_3:
 
-								LOG("Loading floor 2 map");
-								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								LOG("Loading floor 3 map");
+								tower4Pos = { position.x, position.y + tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_4);
 
 								break;
 							}
@@ -830,11 +837,18 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
-							case StageIndex::TOWER_3:
+							case StageIndex::TOWER_4:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+
+								break;
+							case StageIndex::TOWER_3:
+
+								LOG("Loading floor 3 map");
+								tower4Pos = { position.x, position.y + tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_4);
 
 								break;
 							}
@@ -886,6 +900,13 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
+							case StageIndex::TOWER_3:
+
+								LOG("Loading floor 3 map");
+								tower4Pos = { position.x, position.y + tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+
+								break;
 							}
 
 							break;
@@ -935,6 +956,13 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
 
 								break;
+							case StageIndex::TOWER_3:
+
+								LOG("Loading floor 3 map");
+								tower4Pos = { position.x, position.y - tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+
+								break;
 							}
 							
 							break;
@@ -954,9 +982,16 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								tower1Pos = { position.x, position.y + tower1PosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 								break;
+							case StageIndex::TOWER_3:
+
+								LOG("Loading floor 2 map");
+								tower4Pos = { position.x, position.y - tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								break;
 							}
 
 							break;
+						
 						default:
 							if (app->stages->actualStage == StageIndex::DOJO) {
 								LOG("Returning to town");
@@ -966,6 +1001,13 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								LOG("going to dojo");
 								townPos = { position.x, position.y + townPosYAxisfix };
 								app->fade->DoFadeToBlack(StageIndex::DOJO);
+							}
+							if (app->stages->actualStage == StageIndex::TOWER_3)
+							{
+
+								LOG("Loading floor 2 map");
+								tower4Pos = { position.x, position.y - tower4PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 							}
 							break;
 					}

@@ -130,12 +130,15 @@ public:
 	iPoint tower1Pos = { 1212, 1651 };
 	iPoint tower2Pos = { 1850, 2198 };
 	iPoint tower3Pos = { 393, 697 };
+	iPoint tower4Pos = { 1789 , 3019 };
+	
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
 	int tower1PosYAxisfix = 5;
 	int tower2PosYAxisfix = 5;
 	int tower3PosYAxisfix = 5;
+	int tower4PosYAxisfix = 6;
 
 	iPoint lastFramePos;
 	int showGuiCont;

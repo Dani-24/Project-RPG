@@ -327,6 +327,9 @@ bool Scene::Update(float dt)
 		app->fade->DoFadeToBlack(StageIndex::TOWER_2);
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
 		app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 	}
 
@@ -462,6 +465,11 @@ bool Scene::PostUpdate()
 					break;
 				case StageIndex::TOWER_2:
 					sprintf_s(currentPlace_UI, "Floor 2");
+
+					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+					break;
+				case StageIndex::TOWER_4:
+					sprintf_s(currentPlace_UI, "Floor 4");
 
 					app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 					break;
