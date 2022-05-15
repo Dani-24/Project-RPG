@@ -293,6 +293,11 @@ bool Inventory::PostUpdate()
 
 	if (inventoryOnBattle == false) {
 
+		char moneyText[100];
+		sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
+
+		app->font->DrawText(moneyText, x + 120, y + 100);
+
 		if (&slots != nullptr) {
 			for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
@@ -341,6 +346,7 @@ bool Inventory::PostUpdate()
 
 		}
 		if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
+
 	}
 	return ret;
 }
