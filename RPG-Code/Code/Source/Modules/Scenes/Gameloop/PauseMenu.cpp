@@ -296,7 +296,7 @@ bool PauseMenu::PostUpdate()
 // Called before quitting
 bool PauseMenu::CleanUp()
 {
-	LOG("Freeing pause scene");
+	LOG("Freeing Title scene");
 
 	/*app->font->CleanFonts();*/
 

@@ -93,7 +93,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Modules\Scenes\Gameloop\PartyStats.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\PauseMenu.cpp" />
     <ClCompile Include="Source\Modules\Extra\DialogSystem.cpp" />
@@ -131,7 +130,6 @@
     <ClCompile Include="Source\Modules\Core\Textures.cpp" />
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Core\Window.cpp" />
-    <ClInclude Include="Source\Modules\Scenes\Gameloop\PartyStats.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\PauseMenu.h" />
     <ClInclude Include="Source\Modules\Extra\DialogSystem.h" />

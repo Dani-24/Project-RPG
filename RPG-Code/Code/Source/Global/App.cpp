@@ -12,12 +12,10 @@
 #include "GuiManager.h"
 #include "EntityManager.h"
 #include "PauseMenu.h"
-#include "PartyStats.h"
 #include "Battle.h"
 #include "Stages.h"
 #include "Collisions.h"
 #include "Camera.h"
-
 
 #include "FadeToBlack.h"
 #include "ModuleQFonts.h"
@@ -56,7 +54,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	map = new Map(this, false);
 	pauseM = new PauseMenu(this);
-	statsM = new PartyStats(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
 
@@ -86,8 +83,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	AddModule(entities);
 	AddModule(pauseM);
-	AddModule(statsM);
-
 	AddModule(conf);
 
 	AddModule(guiManager);

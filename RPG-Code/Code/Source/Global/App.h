@@ -28,7 +28,6 @@ class GuiManager;
 class EntityManager;
 class EnemyMovement;
 class PauseMenu;
-class PartyStats:
 
 class Camera;
 class FadeToBlack;
@@ -121,7 +120,6 @@ public:
 	EnemyMovement* enemyMovement;
 	Camera* camera;
 	PauseMenu* pauseM;
-	PartyStats* statsM;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
