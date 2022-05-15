@@ -132,12 +132,12 @@ bool FadeToBlack::PostUpdate()
 	case  Fade_Step::ZOOM:
 	case Fade_Step::DISSOLVE:
 		if (step >= 1)
-			SceneChange();
+			app->stages->ChangeStage(stageToChange);
 		break;
 
 	default:
 		if (2 * step >= transitionTime)
-			SceneChange();
+			app->stages->ChangeStage(stageToChange);
 		break;
 	}
 
@@ -209,11 +209,12 @@ bool FadeToBlack::DoFadeToBlack(StageIndex stage, float frames)
 	}
 	return ret;
 }
-void FadeToBlack::SceneChange()
-{
-	preScene->Disable();
-	postScene->Enable();
-}
+//void FadeToBlack::SceneChange()
+//{
+//	
+//	preScene->Disable();
+//	postScene->Enable();
+//}
 
 
 

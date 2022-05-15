@@ -91,7 +91,7 @@ public:
 	}
 
 private:
-	void SceneChange();
+	//void SceneChange();
 
 	//TransitionModules
 	void Squared();
