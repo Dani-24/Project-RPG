@@ -209,7 +209,7 @@ bool FadeToBlack::DoFadeToBlack(StageIndex stage, float frames)
 	}
 	return ret;
 }
-void Fade::SceneChange()
+void FadeToBlack::SceneChange()
 {
 	preScene->Disable();
 	postScene->Enable();
@@ -217,7 +217,7 @@ void Fade::SceneChange()
 
 
 
-void ModuleTransitions::Squared()
+void FadeToBlack::Squared()
 {
 	int percentage = ((float)step / (float)transitionTime) * 40.0f;
 	int w = SCREEN_WIDTH / 10;
@@ -233,7 +233,7 @@ void ModuleTransitions::Squared()
 	}
 }
 
-void ModuleTransitions::Circle()
+void FadeToBlack::Circle()
 {
 	if (sprite == nullptr)
 		sprite = App->textures->Load("Assets/circle.png");
@@ -248,7 +248,7 @@ void ModuleTransitions::Circle()
 	App->renderer->DrawTexture(sprite, SCREEN_WIDTH / 2.0f - 150.0f * scale, SCREEN_HEIGHT / 2.0f - 150.0f * scale, scale);
 }
 
-void ModuleTransitions::Slash()
+void FadeToBlack::Slash()
 {
 	if (sprite == nullptr)
 		sprite = App->textures->Load("Assets/slash.png");
@@ -267,7 +267,7 @@ void ModuleTransitions::Slash()
 		(SCREEN_HEIGHT - (300 * scale)) / 2, scale, true);
 }
 
-void ModuleTransitions::Theatre()
+void FadeToBlack::Theatre()
 {
 	if (sprite == nullptr)
 		sprite = App->textures->Load("Assets/semicircle.png");
@@ -279,7 +279,7 @@ void ModuleTransitions::Theatre()
 	App->renderer->DrawTexture(sprite, ((SCREEN_WIDTH - (300 * scale)) / 2), SCREEN_HEIGHT, scale, false, NULL, 1.0f, percentage, 150 * scale, 0);
 }
 
-void ModuleTransitions::Dissolve()
+void FadeToBlack::Dissolve()
 {
 	//If screenshot is made, load it
 	if (App->renderer->screenshot) {
@@ -300,7 +300,7 @@ void ModuleTransitions::Dissolve()
 	App->renderer->DrawTexture(sprite, 0, 0);
 }
 
-void ModuleTransitions::Zoom()
+void FadeToBlack::Zoom()
 {
 	//If screenshot is made, load it
 	if (App->renderer->screenshot) {
@@ -320,7 +320,7 @@ void ModuleTransitions::Zoom()
 }
 
 //TODO 6: Defineix la funció de transició
-void ModuleTransitions::Cut() {
+void FadeToBlack::Cut() {
 	//If screenshot is made, load it
 	if (App->renderer->screenshot) {
 		sprite = App->textures->Load("Assets/screenshot.bmp");
@@ -336,8 +336,8 @@ void ModuleTransitions::Cut() {
 
 	SDL_Rect top = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2 };
 	SDL_Rect bot = { 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2 };
-	App->renderer->DrawTexture(sprite, 0, -percentage, 1.0f, false, &top);
-	App->renderer->DrawTexture(sprite, 0, SCREEN_HEIGHT / 2 + percentage, 1.0f, false, &bot);
+	app->render->DrawTexture(sprite, 0, -percentage, 1.0f, false, &top);
+	app->render->DrawTexture(sprite, 0, SCREEN_HEIGHT / 2 + percentage, 1.0f, false, &bot);
 }
 //
 
