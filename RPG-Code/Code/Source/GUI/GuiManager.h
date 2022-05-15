@@ -37,6 +37,8 @@ public:
 	// If autodraw = true, it draws a default button with the text written here
 	GuiControl* CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, bool autoButtonDraw = false, SDL_Rect sliderBounds = { 0,0,0,0 });
 
+	void ChangeButtonText(int id, const char* newText);
+
 public:
 
 	List<GuiControl*> controls;

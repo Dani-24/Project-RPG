@@ -81,11 +81,9 @@ bool Inventory::Start()
 	if (!inventoryOnBattle) {
 
 		int	butX = x + 270,
-			butY = y + 136,
+			butY = y + 154,
 			charX = x + 105,
 			charY = y + 7,
-			specialX = x + 270,
-			specialY = y + 292,
 			equipX = x + 112,
 			equipY = y + 172;
 
@@ -98,7 +96,11 @@ bool Inventory::Start()
 		for (int i = 0; i < inventorySlots; i++) {
 			if (i == 5) {
 				butX = x + 270;
-				butY = y + 196;
+				butY = y + 214;
+			}
+			if (i == 10) {
+				butX = x + 270;
+				butY = y + 274;
 			}
 
 			if (obtainedItem != NULL) {
@@ -121,18 +123,6 @@ bool Inventory::Start()
 			}
 
 			butX += 67;
-		}
-
-		// Crear "botones" de la UI || Special Items
-		for (int i = 0; i < inventorySpecialSlots; i++) {
-			Slot* s = new Slot({ specialX, specialY }, { 45, 45 }, nullptr, false);
-
-			slots.add(s);
-
-			s = nullptr;
-			delete s;
-
-			specialX += 67;
 		}
 
 		// Crear "botones" de la UI || Equipment
@@ -462,6 +452,7 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 			LOG("Show info item");
 			itemInfoCloseButton->state = GuiControlState::NORMAL;
 			app->audio->PlayFx(buttonSfx);
+
 		}
 
 		if (control->id == 303) {

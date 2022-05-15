@@ -102,8 +102,7 @@ private:
 
 	bool inventoryOnBattle = false;
 
-	int inventorySlots = 10,
-		inventorySpecialSlots = 5;
+	int inventorySlots = 15;
 
 	// List Slots
 

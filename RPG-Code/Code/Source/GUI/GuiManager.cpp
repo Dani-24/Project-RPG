@@ -113,3 +113,19 @@ bool GuiManager::CleanUp()
 
 	return false;
 }
+
+void GuiManager::ChangeButtonText(int id, const char* newText) {
+	ListItem<GuiControl*>* control = controls.start;
+
+	for (control; control != NULL; control = control->next) {
+		if (control->data->id == id) {
+
+			LOG("Changed %d button text from %s to %s", id, control->data->text.GetString(), newText);
+
+			control->data->text.Clear();
+			control->data->text.Create(newText);
+			break;
+		}
+	}
+
+}

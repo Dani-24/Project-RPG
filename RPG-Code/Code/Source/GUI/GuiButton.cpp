@@ -123,12 +123,7 @@ bool GuiButton::Draw(Render* render)
 
 		// Text
 		if (state != GuiControlState::DISABLED) {
-			if (state == GuiControlState::FOCUSED) {
-				app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 255,255,255 });	// White
-			}
-			else {
-				app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
-			}
+			app->font->DrawText(text.GetString(), bounds.x, bounds.y, { 0,0,0 });	// Black
 		}
 	}
 
