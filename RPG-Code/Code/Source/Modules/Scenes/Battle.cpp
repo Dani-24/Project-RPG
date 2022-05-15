@@ -1950,6 +1950,8 @@ bool Battle::CleanUp()
 				app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
 			}
 		}
+
+		app->stages->playerPtr->winCount += 1;
 		
 		//Take back player position
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;

@@ -51,7 +51,7 @@ bool QuestManager::Start()
 	"is defeating Camion-kun",
 	"but in order to do that",
 	"you will have to complete the tower"};
-	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, false, 3, 1, 1, false,available,active,completed );
+	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, 3, 1, 1, false,available,active,completed );
 	questList.add(quest1_1);
 
 	const char* completed3[DIALOG_LENGHT] = {
@@ -74,10 +74,36 @@ bool QuestManager::Start()
 	"Become more strong, you don't have any chances now",
 	"poyo" };
 
-	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, false,5, 1, 2, true, completed3, active2, completed2);
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, true, completed3, active2, completed2);
 	questList.add(quest1_2);
 
-
+	const char* availableQ2[DIALOG_LENGHT] = {
+	"Welcome to the Dojo, traveler soul",
+	"Oh so you need to become stronger?",
+	"Ok, I will help you",
+	"First, let's learn how to battle:",
+	"Once you enter the battle",
+	"you will see diferent buttons",
+	"you can attack the enemy, or defense yourself.",
+	"If you have any item you can us it pressing the",
+	"ITEM button.",
+	"You can see the turns order in the up-left corner",
+	"of the screen, they are based on the velocity.",
+	"Now you know the basic, go fight!",
+	"If you are able to bet the 3 enemies that are here in",
+	"the dojo, you will be able to enter the Tower."
+	};
+	const char* activeQ2[DIALOG_LENGHT] = {
+	"If you are able to bet the 3 enemies that are here in",
+	"the dojo, you will be able to enter the Tower." 
+	};
+	const char* completeQ2[DIALOG_LENGHT] = {
+	"Oh, so you bet the 3 enemies,",
+	"I can see in your face you're now more stronger",
+	"Go talk to Emilio and tell him that you trained here."
+	};
+	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 3, 2, 1, false, availableQ2, activeQ2, completeQ2);
+	questList.add(quest2_1);
 
 	return ret;
 }
@@ -94,13 +120,30 @@ bool QuestManager::PreUpdate()
 bool QuestManager::Update(float dt)
 {
 	bool ret = true;
-
-	/*ListItem<Quest*>* QuestInList;
+	bool q2 = false;
+	ListItem<Quest*>* QuestInList;
 
 	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
 	{
-		if()
-	}*/
+		if (QuestInList->data->QuestId == 2 && QuestInList->data->State == QuestState::FINISHED)
+		{
+			q2 = true;
+		}
+
+		if(q2)
+		{
+			if (QuestInList->data->QuestId == 3 && QuestInList->data->State == QuestState::DISABLED)
+			{
+				QuestInList->data->State = QuestState::AVAILABLE;
+			}
+		}
+
+		if (QuestInList->data->QuestId == 3 && QuestInList->data->State == QuestState::ACTIVE) {
+			if (app->scene->player->winCount == QuestInList->data->objectiveNum) {
+				QuestInList->data->State = QuestState::COMPLETED;
+			}
+		}
+	}
 
 	return ret;
 }
