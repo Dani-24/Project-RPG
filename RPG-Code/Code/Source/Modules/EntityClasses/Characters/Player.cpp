@@ -271,8 +271,8 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	mapPosition = { 0,0 };
 	int xt = 80;
-	int yt = 100;
-	battlePosition = { xt, yt};
+	int yt = 50;
+	battlePosition = { xt*zoom - xt*(zoom-1), yt*zoom - yt * (zoom - 1) };
 
 	isAlive = true;
 
@@ -326,7 +326,7 @@ bool Player::Start()
 	canMove = true;
 
 	/*stats = new Stats(1, 20, 8 , 5, 5, 20);*/
-	stats = new Stats(1, 20, 8, 5, 10, 20);
+	stats = new Stats(1, 20, 0, 0, 5, 20);
 
 	wait, _wait = false;
 

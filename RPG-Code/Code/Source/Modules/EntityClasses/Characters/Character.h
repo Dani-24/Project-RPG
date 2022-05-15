@@ -62,8 +62,6 @@ public:
 
 	SDL_Texture* spriteFace;
 
-	bool skillsList[3];
-
 };
 
 #endif // !__ENEMY_H__

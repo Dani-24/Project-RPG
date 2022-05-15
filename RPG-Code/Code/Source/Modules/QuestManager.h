@@ -40,6 +40,7 @@ public:
 	int QuestInChainId; //in chain number
 
 	int objectiveNum;
+	int objectiveProgress;
 
 	int NPCinteractId;
 
@@ -64,12 +65,13 @@ public:
 		QuestInChainId = 0;
 
 		objectiveNum = 0;
+		objectiveProgress = 0;
 
 		NPCinteractId = 0;
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, bool _autoComplete, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
 		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT])
 	{
 		questType = qtype;
@@ -91,11 +93,13 @@ public:
 		switch (qtype) {
 		case QuestType::INTERACT:
 			objectiveNum = 0;
+			objectiveProgress = 0;
 
 			NPCinteractId = objective_NPCid;
 			break;
 		default:
 			objectiveNum = objective_NPCid;
+			objectiveProgress = 0;
 
 			NPCinteractId = 0;
 			break;
