@@ -250,7 +250,7 @@ bool Scene::Update(float dt)
 		//       SAVE / LOAD requests
 		// ================================
 
-		if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
+		/*if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
 			app->audio->PlayFx(loadFx);
 			app->LoadGameRequest();
 		}
@@ -258,7 +258,7 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 			app->audio->PlayFx(saveFx);
 			app->SaveGameRequest();
-		}
+		}*/
 	}
 
 	// ================================
