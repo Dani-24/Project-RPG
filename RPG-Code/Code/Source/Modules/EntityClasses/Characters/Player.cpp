@@ -794,10 +794,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								break;
 							case StageIndex::TOWN:
-
-								LOG("Loading Tower map");
-								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
+								if (TowerKey == true){
+									LOG("Loading Tower map");
+									townPos = { position.x, position.y + townPosYAxisfix };
+									app->fade->DoFadeToBlack(StageIndex::TOWER_0);
+								}
 
 								break;
 							case StageIndex::DOJO:
@@ -863,11 +864,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								break;
 							case StageIndex::TOWN:
-
-								LOG("Loading Tower map");
-								townPos = { position.x, position.y + townPosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_0);
-
+								if (TowerKey == true) {
+									LOG("Loading Tower map");
+									townPos = { position.x, position.y + townPosYAxisfix };
+									app->fade->DoFadeToBlack(StageIndex::TOWER_0);
+								}
 								break;
 							case StageIndex::DOJO:
 

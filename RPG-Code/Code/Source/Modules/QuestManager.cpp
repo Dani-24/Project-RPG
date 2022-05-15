@@ -45,12 +45,7 @@ bool QuestManager::Start()
 	"If you want some information",
 	"please, talk with the barkeeper" };
 	const char* completed[DIALOG_LENGHT] = {
-	"Oh!! I'ts good to se new faces here",
-	"I supose camion-kun killed you...",
-	"Well, the only way for you to revive",
-	"is defeating Camion-kun",
-	"but in order to do that",
-	"you will have to complete the tower"};
+	"Hello"};
 	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, 3, 1, 1, false,available,active,completed );
 	questList.add(quest1_1);
 
@@ -60,7 +55,9 @@ bool QuestManager::Start()
 	"Well, the only way for you to revive",
 	"is defeating Camion-kun",
 	"but in order to do that",
-	"you will have to complete the tower" };
+	"you will have to complete the tower",
+	"If you want to try, search for Emilio.",
+	"He's at the entrance of the tower..." };
 	const char* active2[DIALOG_LENGHT] = {
 	"If you want to try, search for Emilio.",
 	"He's at the entrance of the tower..." };
@@ -74,7 +71,7 @@ bool QuestManager::Start()
 	"Become more strong, you don't have any chances now",
 	"poyo" };
 
-	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, true, completed3, active2, completed2);
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, false, completed3, active2, completed2);
 	questList.add(quest1_2);
 
 	const char* availableQ2[DIALOG_LENGHT] = {
@@ -102,8 +99,29 @@ bool QuestManager::Start()
 	"I can see in your face you're now more stronger",
 	"Go talk to Emilio and tell him that you trained here."
 	};
-	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 3, 2, 1, false, availableQ2, activeQ2, completeQ2);
+	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 3, 1, 3, false, availableQ2, activeQ2, completeQ2);
 	questList.add(quest2_1);
+
+	const char* availableQ2_2[DIALOG_LENGHT] = {
+	"Remember",
+	"A tope jefe de equipo"
+	};
+	const char* activeQ2_2[DIALOG_LENGHT] = {
+	"..."
+	};
+	const char* completeQ2_2[DIALOG_LENGHT] = {
+	"...",
+	"Oh, I see, so you trained in the dojo",
+	"poyo",
+	"Ok, I see your determination,",
+	"poyo",
+	"Alright, I let you pass",
+	"poyo",
+	"But please, don't die.",
+	"poyo"
+	};
+	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2);
+	questList.add(quest2_2);
 
 	return ret;
 }
@@ -120,12 +138,12 @@ bool QuestManager::PreUpdate()
 bool QuestManager::Update(float dt)
 {
 	bool ret = true;
-	bool q2 = false;
+	
 	ListItem<Quest*>* QuestInList;
 
 	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
 	{
-		if (QuestInList->data->QuestId == 2 && QuestInList->data->State == QuestState::FINISHED)
+		/*if (QuestInList->data->QuestId == 2 && QuestInList->data->State == QuestState::FINISHED)
 		{
 			q2 = true;
 		}
@@ -136,13 +154,21 @@ bool QuestManager::Update(float dt)
 			{
 				QuestInList->data->State = QuestState::AVAILABLE;
 			}
-		}
+		}*/
 
 		if (QuestInList->data->QuestId == 3 && QuestInList->data->State == QuestState::ACTIVE) {
 			if (app->scene->player->winCount == QuestInList->data->objectiveNum) {
 				QuestInList->data->State = QuestState::COMPLETED;
+				//app->scene->player->TowerKey = true;
+				
 			}
 		}
+
+		/*if (QuestInList->data->QuestId == 4 && QuestInList->data->State == QuestState::COMPLETED) {
+			if (app->scene->player->TowerKey == false) {
+				app->scene->player->TowerKey = true;
+			}
+		}*/
 	}
 
 	return ret;
@@ -235,7 +261,7 @@ void QuestManager::InteractComplete(int id){
 	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
 	{
 		if (QuestInList->data->QuestId == id) {
-
+			
 		switch (QuestInList->data->NPCinteractId)
 		{
 		case 1:
@@ -264,6 +290,9 @@ void QuestManager::InteractComplete(int id){
 		}
 		GiveReward(QuestInList->data->QuestId);
 		QuestInList->data->State = QuestState::FINISHED;
+		if (QuestInList->data->QuestId == 4) {
+			app->scene->player->TowerKey = true;
+		}
 		CheckChain(QuestInList->data->QuestId);
 		}
 		
@@ -393,6 +422,9 @@ void QuestManager::CheckState(int Id)
 				}
 				GiveReward(QuestInList->data->QuestId);
 				QuestInList->data->State = QuestState::FINISHED;
+				if (QuestInList->data->QuestId == 4) {
+					app->scene->player->TowerKey = true;
+				}
 				CheckChain(QuestInList->data->QuestId);
 				break;
 			case QuestState::FINISHED:
@@ -440,7 +472,10 @@ void QuestManager::GiveReward(int Id) {
 			for (int i = 0; i < app->scene->partyList.count(); i++) {
 				app->scene->partyList.At(i)->data->stats->lvlup(QuestInList->data->QuestExp);
 			}
+		}
 
+		if (QuestInList->data->QuestId == Id) {
+			app->scene->player->PlayerMoney += QuestInList->data->QuestGold;
 		}
 	}
 }
@@ -502,7 +537,7 @@ void QuestManager::CheckChain(int Id)
 		if (NextAv) {
 			if (QuestInList->data->QuestChain == ChainId && QuestInList->data->QuestInChainId == InChainId + 1)
 			{
-				QuestInList->data->State = QuestState::ACTIVE;
+				QuestInList->data->State = QuestState::AVAILABLE;
 			}
 		}
 	}

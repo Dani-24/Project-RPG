@@ -135,6 +135,7 @@ public:
 	iPoint tower4Pos = { 1789 , 3019 };
 
 	int winCount = 0;
+	bool TowerKey = false;
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
@@ -162,12 +163,8 @@ public: // DIALOGS
 	"I will interpret your silence as a no" 
 	};
 
-	const char* trainerDialog[DIALOG_LENGHT] = { 
-	"jo jo jo",
-	"So you are the new one",
-	"Common, show me what you know",
-	"Fight with the enemies on your right", 
-	"and destroy them before they destroy you",
+	const char* trainerDialog[DIALOG_LENGHT] = {
+	"Remember",
 	"A tope jefe de equipo"
 	};
 
