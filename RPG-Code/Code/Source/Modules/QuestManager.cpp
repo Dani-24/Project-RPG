@@ -71,10 +71,10 @@ bool QuestManager::Start()
 	"poyo",
 	"Everybody dies in the first two levels",
 	"poyo",
-	"Become more strong, you don't have any chances now"
+	"Become more strong, you don't have any chances now",
 	"poyo" };
 
-	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, false,5, 1, 2, true, completed3, active2, completed2);
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, false,5, 1, 2, true, completed3, active2, completed2);
 	questList.add(quest1_2);
 
 
@@ -94,6 +94,13 @@ bool QuestManager::PreUpdate()
 bool QuestManager::Update(float dt)
 {
 	bool ret = true;
+
+	/*ListItem<Quest*>* QuestInList;
+
+	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
+	{
+		if()
+	}*/
 
 	return ret;
 }
@@ -283,6 +290,7 @@ void QuestManager::CheckState(int Id)
 				default:
 					break;
 				}
+				CheckChain(QuestInList->data->QuestId);
 				QuestInList->data->State = QuestState::ACTIVE;
 				break;
 			case QuestState::ACTIVE:
@@ -389,29 +397,68 @@ void QuestManager::GiveReward(int Id) {
 			for (int i = 0; i < app->scene->partyList.count(); i++) {
 				app->scene->partyList.At(i)->data->stats->lvlup(QuestInList->data->QuestExp);
 			}
+
 		}
 	}
 }
 
 void QuestManager::CheckChain(int Id)
 {
-	int sChainId = 0, sInChainId = 0;
+	int ChainId = 0, InChainId = 0;
+	bool PreFinish = false, NextAv = false;
 	ListItem<Quest*>* QuestInList;
+	ListItem<Quest*>* QuestInList2;
 	for (QuestInList = questList.start; QuestInList != NULL; QuestInList = QuestInList->next)
 	{
-		if (QuestInList->data->QuestId == Id) {
-			if (QuestInList->data->QuestChain) 
+		for (QuestInList2 = questList.start; QuestInList2 != NULL; QuestInList2 = QuestInList2->next)
+		{
+			if (QuestInList2->data->QuestId == Id && QuestInList2->data->State == QuestState::AVAILABLE)
 			{
-				if (!QuestInList->data->QuestLastChain)
+				if (QuestInList2->data->QuestChain)
 				{
-					sChainId = QuestInList->data->QuestChainId;
-					sInChainId = QuestInList->data->QuestInChainId;
+					if (QuestInList2->data->QuestLastChain)
+					{
+						ChainId = QuestInList2->data->QuestChain;
+						InChainId = QuestInList2->data->QuestInChainId;
+						PreFinish = true;
+					}
+					else
+					{
+						if (QuestInList2->data->QuestInChainId != 1) 
+						{
+							ChainId = QuestInList2->data->QuestChain;
+							InChainId = QuestInList2->data->QuestInChainId;
+							PreFinish = true;
+						}
+					}
+				}
+			}
+
+			if (QuestInList2->data->QuestId == Id && QuestInList2->data->State == QuestState::FINISHED) 
+			{
+				if (QuestInList2->data->QuestChain)
+				{
+					if (!QuestInList2->data->QuestLastChain)
+					{
+						ChainId = QuestInList2->data->QuestChain;
+						InChainId = QuestInList2->data->QuestInChainId;
+						NextAv = true;
+					}
+
 				}
 			}
 		}
 
-		if (QuestInList->data->QuestChainId == sChainId) {
-			if (QuestInList->data->QuestInChainId == sInChainId+1) {
+		if (PreFinish) {
+			if (QuestInList->data->QuestChain == ChainId && QuestInList->data->QuestInChainId == InChainId - 1 && QuestInList->data->State != QuestState::FINISHED)
+			{
+				GiveReward(QuestInList->data->QuestId);
+				QuestInList->data->State = QuestState::FINISHED;
+			}
+		}
+		if (NextAv) {
+			if (QuestInList->data->QuestChain == ChainId && QuestInList->data->QuestInChainId == InChainId + 1)
+			{
 				QuestInList->data->State = QuestState::ACTIVE;
 			}
 		}
