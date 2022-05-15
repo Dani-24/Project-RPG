@@ -220,15 +220,15 @@ void FadeToBlack::SceneChange()
 void FadeToBlack::Squared()
 {
 	int percentage = ((float)step / (float)transitionTime) * 40.0f;
-	int w = SCREEN_WIDTH / 10;
-	int h = SCREEN_HEIGHT / 10;
+	int w = app->win->screenSurface->w / 10;
+	int h = app->win->screenSurface->h / 10;
 
 	if (step * 2 >= transitionTime)
 		percentage = 40 - percentage;
 
 	for (int j = 0; j < percentage; ++j) {
 		for (int i = 0; i < percentage; ++i) {
-			App->renderer->DrawQuad(SDL_Rect{ w * i, h * (10 - j + i), w, h }, 0, 0, 0, 255);
+			app->render->DrawRectangle(SDL_Rect{ w * i, h * (10 - j + i), w, h }, 0, 0, 0, 255);
 		}
 	}
 }
@@ -236,7 +236,7 @@ void FadeToBlack::Squared()
 void FadeToBlack::Circle()
 {
 	if (sprite == nullptr)
-		sprite = App->textures->Load("Assets/circle.png");
+		sprite = app->tex->Load("Assets/circle.png");
 
 	float percentage = ((float)step / (float)transitionTime) * 2.0f;
 
@@ -245,13 +245,13 @@ void FadeToBlack::Circle()
 
 	float scale = 5.0f * percentage;
 
-	App->renderer->DrawTexture(sprite, SCREEN_WIDTH / 2.0f - 150.0f * scale, SCREEN_HEIGHT / 2.0f - 150.0f * scale, scale);
+	app->render->DrawTexture2(sprite, app->win->screenSurface->w / 2.0f - 150.0f * scale, app->win->screenSurface->h / 2.0f - 150.0f * scale, scale);
 }
 
 void FadeToBlack::Slash()
 {
 	if (sprite == nullptr)
-		sprite = App->textures->Load("Assets/slash.png");
+		sprite = app->tex->Load("Assets/slash.png");
 
 	float percentage = ((float)step / (float)transitionTime) * 200.0f;
 
@@ -260,35 +260,35 @@ void FadeToBlack::Slash()
 
 	int scale = 3;
 
-	App->renderer->DrawTexture(sprite, ((SCREEN_WIDTH / 2) * ((100.0f - percentage) / 100.0f)) + ((SCREEN_WIDTH - (600 * scale)) / 2),
-		(SCREEN_HEIGHT - (300 * scale)) / 2, scale);
+	app->render->DrawTexture2(sprite, ((app->win->screenSurface->h / 2) * ((100.0f - percentage) / 100.0f)) + ((app->win->screenSurface->w - (600 * scale)) / 2),
+		(app->win->screenSurface->h - (300 * scale)) / 2, scale);
 
-	App->renderer->DrawTexture(sprite, ((SCREEN_WIDTH - (600 * scale)) / 2) - ((SCREEN_WIDTH / 2) * ((100.0f - percentage) / 100.0f)),
-		(SCREEN_HEIGHT - (300 * scale)) / 2, scale, true);
+	app->render->DrawTexture2(sprite, ((app->win->screenSurface->w - (600 * scale)) / 2) - ((app->win->screenSurface->w / 2) * ((100.0f - percentage) / 100.0f)),
+		(app->win->screenSurface->h - (300 * scale)) / 2, scale, true);
 }
 
 void FadeToBlack::Theatre()
 {
 	if (sprite == nullptr)
-		sprite = App->textures->Load("Assets/semicircle.png");
+		sprite = app->tex->Load("Assets/semicircle.png");
 
 	float percentage = ((float)step / (float)transitionTime) * 360.0f;
 
 	int scale = 7;
 
-	App->renderer->DrawTexture(sprite, ((SCREEN_WIDTH - (300 * scale)) / 2), SCREEN_HEIGHT, scale, false, NULL, 1.0f, percentage, 150 * scale, 0);
+	app->render->DrawTexture2(sprite, ((app->win->screenSurface->w - (300 * scale)) / 2), app->win->screenSurface->h, 1.0f, scale, false, NULL,  percentage, 150 * scale, 0);
 }
 
 void FadeToBlack::Dissolve()
 {
 	//If screenshot is made, load it
-	if (App->renderer->screenshot) {
-		sprite = App->textures->Load("Assets/screenshot.bmp");
+	if (app->render->screenshot) {
+		sprite = app->tex->Load("Assets/screenshot.bmp");
 	}
 
 	//Call for screenshot
 	if (sprite == nullptr) {
-		App->renderer->pendingToScreenshot = true;
+		app->render->pendingToScreenshot = true;
 		return;
 	}
 
@@ -297,47 +297,47 @@ void FadeToBlack::Dissolve()
 	SDL_SetTextureBlendMode(sprite, SDL_BLENDMODE_BLEND);
 	SDL_SetTextureAlphaMod(sprite, 255.0f - percentage);
 
-	App->renderer->DrawTexture(sprite, 0, 0);
+	app->render->DrawTexture2(sprite, 0, 0, 1.0f);
 }
 
 void FadeToBlack::Zoom()
 {
 	//If screenshot is made, load it
-	if (App->renderer->screenshot) {
-		sprite = App->textures->Load("Assets/screenshot.bmp");
+	if (app->render->screenshot) {
+		sprite = app->tex->Load("Assets/screenshot.bmp");
 	}
 
 	//Call for screenshot
 	if (sprite == nullptr) {
-		App->renderer->pendingToScreenshot = true;
+		app->render->pendingToScreenshot = true;
 		return;
 	}
 
 	float percentage = ((float)step / (float)transitionTime) * 5.0f;
 
-	App->renderer->DrawTexture(sprite, 0, 0, 1.0f + percentage);
+	app->render->DrawTexture2(sprite, 0, 0, 1.0f + percentage);
 
 }
 
 //TODO 6: Defineix la funció de transició
 void FadeToBlack::Cut() {
 	//If screenshot is made, load it
-	if (App->renderer->screenshot) {
-		sprite = App->textures->Load("Assets/screenshot.bmp");
+	if (app->render->screenshot) {
+		sprite = app->tex->Load("Assets/screenshot.bmp");
 	}
 
 	//Call for screenshot
 	if (sprite == nullptr) {
-		App->renderer->pendingToScreenshot = true;
+		app->render->pendingToScreenshot = true;
 		return;
 	}
 
-	float percentage = ((float)step / (float)transitionTime) * ((float)SCREEN_HEIGHT / 2.0f);
+	float percentage = ((float)step / (float)transitionTime) * ((float)app->win->screenSurface->h / 2.0f);
 
-	SDL_Rect top = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2 };
-	SDL_Rect bot = { 0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT / 2 };
-	app->render->DrawTexture(sprite, 0, -percentage, 1.0f, false, &top);
-	app->render->DrawTexture(sprite, 0, SCREEN_HEIGHT / 2 + percentage, 1.0f, false, &bot);
+	SDL_Rect top = { 0, 0, app->win->screenSurface->w, app->win->screenSurface->h / 2 };
+	SDL_Rect bot = { 0, app->win->screenSurface->h / 2, app->win->screenSurface->w, app->win->screenSurface->h / 2 };
+	app->render->DrawTexture2(sprite, 0, -percentage, 1.0f, false, &top);
+	app->render->DrawTexture2(sprite, 0, app->win->screenSurface->h / 2 + percentage, 1.0f, false, &bot);
 }
 //
 

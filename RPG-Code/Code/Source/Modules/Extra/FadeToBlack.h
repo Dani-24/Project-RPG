@@ -63,6 +63,7 @@ private:
 	int step;
 	int transitionTime;
 	Fade_Step transitionType;
+	SDL_Texture* sprite = nullptr;
 	Module* preScene;
 	Module* postScene;
 
