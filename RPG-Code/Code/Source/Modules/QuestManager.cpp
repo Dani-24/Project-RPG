@@ -207,10 +207,11 @@ void QuestManager::InteractComplete(int id){
 		default:
 			break;
 		}
-		}
 		GiveReward(QuestInList->data->QuestId);
 		QuestInList->data->State = QuestState::FINISHED;
 		CheckChain(QuestInList->data->QuestId);
+		}
+		
 	}
 }
 
