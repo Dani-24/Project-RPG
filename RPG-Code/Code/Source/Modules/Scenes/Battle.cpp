@@ -1106,7 +1106,7 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				app->font->DrawTextDelayed("Game over! Press SPACE to go back to title", 10, 25, { 255,30,10 });
+				app->font->DrawTextDelayed("Game over! Press SPACE", 10, 25, { 255,30,10 });
 			}
 			break;
 	}
@@ -1947,8 +1947,9 @@ bool Battle::CleanUp()
 
 		app->stages->onBattle = false;
 
-		app->scene->Disable();
-		app->titleScene->Enable();
+	/*	app->scene->Disable();
+		app->titleScene->Enable();*/
+		app->stages->ChangeStage(StageIndex::LOSE);
 
 		break;
 
