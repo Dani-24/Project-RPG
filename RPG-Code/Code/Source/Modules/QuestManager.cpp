@@ -36,28 +36,43 @@ bool QuestManager::Start()
 
 	
 	const char* available[DIALOG_LENGHT] = { 
-	"Buenos dias camarada",
-	"busca a la señora tabernera"};
+	"Good morning camarada",
+	"You seem confused...",
+	"If you want some information",
+	"please, talk with the barkeeper"};
 	const char* active[DIALOG_LENGHT] = {
-	"te he dicho que busques algo",
-	"puto imbecil" };
+	"what are you waiting for?",
+	"If you want some information",
+	"please, talk with the barkeeper" };
 	const char* completed[DIALOG_LENGHT] = {
-	"buenas busca a emilio",
-	"aaaaaaaaaaaa" };
+	"Oh!! I'ts good to se new faces here",
+	"I supose camion-kun killed you...",
+	"Well, the only way for you to revive",
+	"is defeating Camion-kun",
+	"but in order to do that",
+	"you will have to complete the tower"};
 	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, false, 3, 1, 1, false,available,active,completed );
 	questList.add(quest1_1);
 
-	
-	
 	const char* completed3[DIALOG_LENGHT] = {
-	"aaaaaaaasssss",
-	"aaaaaaaaaaaa" };
+	"Oh!! I'ts good to se new faces here",
+	"I supose camion-kun killed you...",
+	"Well, the only way for you to revive",
+	"is defeating Camion-kun",
+	"but in order to do that",
+	"you will have to complete the tower" };
 	const char* active2[DIALOG_LENGHT] = {
-	"sdasdasd",
-	"puto imbecil" };
+	"If you want to try, search for Emilio.",
+	"He's at the entrance of the tower..." };
 	const char* completed2[DIALOG_LENGHT] = {
-	"ah bueno pues aqui estoy",
-	"no te dejo entrar ostia" };
+	"What's wrong with you?",
+	"poyo",
+	"You're crazy, I will not let anyone enter again",
+	"poyo",
+	"Everybody dies in the first two levels",
+	"poyo",
+	"Become more strong, you don't have any chances now"
+	"poyo" };
 
 	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, false,5, 1, 2, true, completed3, active2, completed2);
 	questList.add(quest1_2);

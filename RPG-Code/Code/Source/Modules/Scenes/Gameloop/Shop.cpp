@@ -66,6 +66,17 @@ bool Shop::Start() {
 	Item3Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 256, "item3", { a + 415,b + 99, 33, 33 }, this);
 	Item4Btn = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 257, "item4", { a + 484, b + 99, 33, 33 }, this);
 	WantToBuy = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 258, "buy", { a + 400, b + 10, 80, 30 }, this);
+
+	Section1Btn->state = GuiControlState::DISABLED;
+	Section2Btn->state = GuiControlState::DISABLED;
+	Section3Btn->state = GuiControlState::DISABLED;
+	Section4Btn->state = GuiControlState::DISABLED;
+	Item1Btn->state = GuiControlState::DISABLED;
+	Item2Btn->state = GuiControlState::DISABLED;
+	Item3Btn->state = GuiControlState::DISABLED;
+	Item4Btn->state = GuiControlState::DISABLED;
+	WantToBuy->state = GuiControlState::DISABLED;
+
 	return ret;
 }
 
@@ -99,9 +110,19 @@ bool Shop::PostUpdate() {
 
 	int y = -app->camera->GetPos().y / 2;
 	int x = -app->camera->GetPos().x / 2+45;
-	
-	app->render->DrawTexture(ShopTex, x-45, y, 0);
 
+	app->render->DrawTexture(ShopTex, x - 45, y, 0);
+
+	Section1Btn->state = GuiControlState::NORMAL;
+	Section2Btn->state = GuiControlState::NORMAL;
+	Section3Btn->state = GuiControlState::NORMAL;
+	Section4Btn->state = GuiControlState::NORMAL;
+	Item1Btn->state = GuiControlState::NORMAL;
+	Item2Btn->state = GuiControlState::NORMAL;
+	Item3Btn->state = GuiControlState::NORMAL;
+	Item4Btn->state = GuiControlState::NORMAL;
+	WantToBuy->state = GuiControlState::NORMAL;
+	
 	//Text
 	app->font->DrawText("Food", x+170, y+92, { 255,255,255 });
 	app->font->DrawText("Potions", x + 147, y+142, { 255,255,255 });
@@ -132,6 +153,7 @@ bool Shop::PostUpdate() {
 		app->font->DrawText("no money", x-23, y + 140, { 255,255,255 });
 	}
 
+	//Draws items according to section
 	switch (ShopSection) {
 	case 1:
 		app->render->DrawTexture(ItemTex, x + 308, y + 103, &apple.GetCurrentFrame());
@@ -203,6 +225,8 @@ bool Shop::PostUpdate() {
 	default:
 		break;
 	}
+
+
 	return ret;
 }
 
@@ -343,7 +367,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 	}
 	switch (control->state) {
 	case GuiControlState::FOCUSED:
-		canBuy = 0;
+	/*	canBuy = 0;*/
 			break;
 		default: break;
 	}
