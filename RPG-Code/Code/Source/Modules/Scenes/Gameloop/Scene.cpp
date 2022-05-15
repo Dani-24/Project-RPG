@@ -316,7 +316,7 @@ bool Scene::Update(float dt)
 
 		if (partyList.At(1) == nullptr) {
 			int x = 80;
-			int y = 130;
+			int y = 130 - 50;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
 		}else{
 			partyList.del(partyList.At(1));
@@ -327,7 +327,7 @@ bool Scene::Update(float dt)
 
 		if (partyList.At(2) == nullptr) {
 			int x = -200;
-			int y = 120;
+			int y = 120 - 50;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
 		}
 		else {
@@ -339,7 +339,7 @@ bool Scene::Update(float dt)
 
 		if (partyList.At(3) == nullptr) {
 			int x = 200;
-			int y = 0;
+			int y = 0 - 50;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
 		}
 		else {

@@ -127,10 +127,11 @@ bool Shop::PostUpdate() {
 	/*---------------Draws items according to section-------------------*/
 	switch (ShopSection) {
 	case 1:
-		canBuy = 0;
+
 		app->render->DrawTexture(ItemTex, x + 308, y + 103, &apple.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 368, y + 103, &pie.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 437, y + 96, &delicious_pie.GetCurrentFrame());
+		app->render->DrawTexture(ItemTex, x + 505, y + 98, &candy.GetCurrentFrame());
 		if (ShopItem == 1) {
 			app->font->DrawText("Apple", x + 206, y + 20, { 255,255,255 });
 			canBuy = 4;
@@ -144,11 +145,12 @@ bool Shop::PostUpdate() {
 			canBuy = 4;
 		}
 		if (ShopItem == 4) {
-			canBuy = 3;
+			app->font->DrawText("Candy", x + 206, y + 20, { 255,255,255 });
+			canBuy = 4;
 		}
 		break;
 	case 2:
-		canBuy = 0;
+
 		app->render->DrawTexture(ItemTex, x + 306, y + 100, &life_potion.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 375, y + 100, &elixir.GetCurrentFrame());
 		if (ShopItem == 13) {
@@ -167,7 +169,7 @@ bool Shop::PostUpdate() {
 		}
 		break;
 	case 3:
-		canBuy = 0;
+
 		app->render->DrawTexture(ItemTex, x + 306, y + 103, &egg.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 437, y + 103, &fried_egg.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 370, y + 102, &meat.GetCurrentFrame());
@@ -188,7 +190,7 @@ bool Shop::PostUpdate() {
 		}
 		break;
 	case 4:
-		canBuy = 0;
+	
 		app->render->DrawTexture(ItemTex, x + 306, y + 103, &chest_key.GetCurrentFrame());
 		app->render->DrawTexture(ItemTex, x + 370, y + 103, &door_key.GetCurrentFrame());
 		if (ShopItem == 37) {
@@ -217,21 +219,24 @@ bool Shop::PostUpdate() {
 		app->font->DrawText("one ", x + 2, y + 135, { 255,255,255 });
 		app->font->DrawText("item", x - 6, y + 155, { 255,255,255 });
 	}
-	if (canBuy == 1) {
+	if (bought==1) {
+		canBuy = 5;
 		app->font->DrawText("Item added", x - 28, y + 115, { 255,255,255 });
 		app->font->DrawText("to ", x + 5, y + 135, { 255,255,255 });
 		app->font->DrawText("inventory", x - 27, y + 155, { 255,255,255 });
 	}
-	if (canBuy == 2) {
+	if (bought==2) {
+		canBuy = 5;
 		app->font->DrawText("you have", x - 23, y + 120, { 255,255,255 });
 		app->font->DrawText("no money", x - 23, y + 140, { 255,255,255 });
 	}
 	if (canBuy == 3) {
-		app->font->DrawText("No Item", x - 28, y + 115, { 255,255,255 });
-		app->font->DrawText("in this ", x + 5, y + 135, { 255,255,255 });
-		app->font->DrawText("slot", x - 27, y + 155, { 255,255,255 });
+		app->font->DrawText("No Item", x - 19, y + 115, { 255,255,255 });
+		app->font->DrawText("in this ", x -5, y + 135, { 255,255,255 });
+		app->font->DrawText("slot", x , y + 155, { 255,255,255 });
 	}
 	if (canBuy == 4) {
+		app->font->DrawText("aaaaaaaaaaaaaaaaa", x - 28, y + 115, { 255,255,255 });
 	/*	if (ShopItem == 1 || ShopItem == 25) {
 			app->font->DrawText("+5 HP", x - 28, y + 115, { 255,255,255 });
 		}
@@ -286,26 +291,34 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		{
 			LOG("Section 1");
 			app->audio->PlayFx(app->conf->btnSelection);
-			ShopSection = 1;		
+			ShopSection = 1;	
+			canBuy = 0;
+			ShopItem = 0;
 		}
 
 		if (control->id == 251)
 		{
 			LOG("Section 2");
 			app->audio->PlayFx(app->conf->btnSelection);
-			ShopSection = 2;			
+			ShopSection = 2;	
+			canBuy = 0;
+			ShopItem = 0;
 		}
 		if (control->id == 252)
 		{
 			LOG("Section 3");
 			app->audio->PlayFx(app->conf->btnSelection);
-			ShopSection = 3;		
+			ShopSection = 3;	
+			canBuy = 0;
+			ShopItem = 0;
 		}
 		if (control->id == 253)
 		{
 			LOG("Section 4");
 			app->audio->PlayFx(app->conf->btnSelection);
-			ShopSection = 4;		
+			ShopSection = 4;	
+			canBuy = 0;
+			ShopItem = 0;
 		}
 
 		//---------------------------------------------//
@@ -325,6 +338,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			if (ShopSection == 4) {
 				ShopItem = 37;			
 			}
+			bought = 0;
 		}
 		if (control->id == 255)
 		{
@@ -342,6 +356,8 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			if (ShopSection == 4) {
 				ShopItem = 38;
 			}
+
+			bought = 0;
 		}
 		if (control->id == 256)
 		{
@@ -359,6 +375,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			if (ShopSection == 4) {
 				ShopItem = 39;
 			}
+			bought = 0;
 		}
 		if (control->id == 257)
 		{
@@ -376,6 +393,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			if (ShopSection == 4) {
 				ShopItem = 40;
 			}
+			bought = 0;
 		}
 		if (control->id == 258)
 		{
@@ -400,7 +418,7 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 			}
 			if (ShopItem == 38) {
 				CheckMoney(app->scene->player->PlayerMoney, 200);
-			}			
+			}		
 		}		
 	}
 	
@@ -417,13 +435,13 @@ void Shop::showPrice(int item, int x, int y)
 	if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
 		price = 20;
 	}
-	if (ShopItem == 36 || ShopItem == 3) {
+	if (ShopItem == 4 || ShopItem == 3) {
 		price = 30;
 	}
-	if (ShopItem == 37) {
+	if (ShopItem == 27) {
 		price = 40;
 	}
-	if (ShopItem == 13 || ShopItem == 38) {
+	if (ShopItem == 13 || ShopItem == 26) {
 		price = 50;
 	}
 	if (ShopItem == 14) {
@@ -443,9 +461,23 @@ void Shop::CheckMoney(int Cash, int Price) {
 	if (Cash - Price >= 0) {
 		canBuy = 1;
 		app->scene->player->PlayerMoney -= Price;
+		if (ShopItem == 1)app->scene->AddItem(UsableType::APPLE);
+		if (ShopItem == 2)app->scene->AddItem(UsableType::PIE);
+		if (ShopItem == 3)app->scene->AddItem(UsableType::DELICIOUS_PIE);
+		if (ShopItem == 4)app->scene->AddItem(UsableType::CANDY);
+		if (ShopItem == 13)app->scene->AddItem(UsableType::LIFE_POTION);
+		if (ShopItem == 14)app->scene->AddItem(UsableType::ELIXIR);
+		if (ShopItem == 25)app->scene->AddItem(UsableType::EGG);
+		if (ShopItem == 26)app->scene->AddItem(UsableType::MEAT);
+		if (ShopItem == 27)app->scene->AddItem(UsableType::FRIED_EGG);
+		if (ShopItem == 37)app->scene->AddItem(UsableType::CHEST_KEY);
+		if (ShopItem == 38)app->scene->AddItem(UsableType::DOOR_KEY);
+
+		bought = 1;
 	}
-	else if (Cash - Price < 0) {
+	else /*(Cash - Price < 0)*/ {
 		canBuy = 2;
+		bought = 2;
 	}
 }
 
