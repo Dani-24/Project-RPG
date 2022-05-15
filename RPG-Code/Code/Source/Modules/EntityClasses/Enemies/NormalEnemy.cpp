@@ -279,6 +279,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		idleAnim.PushBack({ 1 * BATTLE_SIZE, 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		idleAnim.PushBack({ 2 * BATTLE_SIZE, 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		idleAnim.PushBack({ 3 * BATTLE_SIZE, 0 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		idleAnim.loop = true;
 		idleAnim.speed = 0.01f;
 
@@ -286,91 +287,106 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		walkAnim.PushBack({ 1 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		walkAnim.PushBack({ 2 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		walkAnim.PushBack({ 3 * BATTLE_SIZE , 1 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		walkAnim.loop = true;
 		walkAnim.speed = 0.01f;
 
-		idleAnimL.PushBack({ 1050 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		idleAnimL.PushBack({ 900 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		idleAnimL.PushBack({ 750 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		idleAnimL.PushBack({ 600 , 810 , BATTLE_SIZE , BATTLE_SIZE });
+		idleAnimL.PushBack({ 4 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		idleAnimL.PushBack({ 5 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		idleAnimL.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		idleAnimL.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		idleAnimL.loop = true;
 		idleAnimL.speed = 0.01f;
 
-		walkAnimL.PushBack({ 1050 , 911 , BATTLE_SIZE , BATTLE_SIZE });
-		walkAnimL.PushBack({ 900 , 911 , BATTLE_SIZE , BATTLE_SIZE });
-		walkAnimL.PushBack({ 750 , 911 , BATTLE_SIZE , BATTLE_SIZE });
-		walkAnimL.PushBack({ 600 , 911 , BATTLE_SIZE , BATTLE_SIZE });
+		walkAnimL.PushBack({ 4 * BATTLE_SIZE , 9 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		walkAnimL.PushBack({ 5 * BATTLE_SIZE , 9 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		walkAnimL.PushBack({ 6 * BATTLE_SIZE , 9 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		walkAnimL.PushBack({ 7 * BATTLE_SIZE , 9 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		walkAnimL.loop = true;
 		walkAnimL.speed = 0.01f;
 
-		battleAnim.PushBack({ 1050 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		battleAnim.PushBack({ 900 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		battleAnim.PushBack({ 750 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		battleAnim.PushBack({ 600 , 810 , BATTLE_SIZE , BATTLE_SIZE });
+		battleAnim.PushBack({ 4 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		battleAnim.PushBack({ 5 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		battleAnim.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		battleAnim.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		battleAnim.loop = true;
 		battleAnim.speed = 0.01f;
 
-		attackAnim.PushBack({ 1050 , BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 900 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 750 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 600 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 450 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 300 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ BATTLE_SIZE , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 0 , BATTLE_SIZE2 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 1050 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 900 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 750 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim.PushBack({ 600 , 810 , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 7 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 6 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 5 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 4 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 3 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 2 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 1 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 0 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+		attackAnim.PushBack({ 4 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 5 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		attackAnim.loop = false;
 		attackAnim.speed = 0.01f;
 
-		attackAnim2.PushBack({ 1050 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 900 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 750 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 600 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 450 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 300 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ BATTLE_SIZE , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 0 , 1113 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 1050 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 900 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 750 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim2.PushBack({ 600 , 810 , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 7 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 6 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 5 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 4 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 3 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 2 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 1 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 0 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+		attackAnim2.PushBack({ 4 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 5 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim2.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		attackAnim2.loop = false;
 		attackAnim2.speed = 0.01f;
 
-		attackAnim3.PushBack({ 1050 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 900 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 750 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 600 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 450 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 300 , 1214 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 1050 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 900 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 750 , 810 , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 600 , 810 , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 7 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 6 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 5 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 4 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 3 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 2 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 1 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 0 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+		attackAnim3.PushBack({ 4 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 5 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		attackAnim3.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		attackAnim3.loop = false;
 		attackAnim3.speed = 0.01f;
 
-		protectAnim.PushBack({ 1050 , 1315 , BATTLE_SIZE , BATTLE_SIZE });
-		protectAnim.PushBack({ 900 , 1315 , BATTLE_SIZE , BATTLE_SIZE });
-		protectAnim.PushBack({ 750 , 1315 , BATTLE_SIZE , BATTLE_SIZE });
-		protectAnim.PushBack({ 600 , 1315 , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 4 * BATTLE_SIZE , 13 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 5 * BATTLE_SIZE , 13 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 6 * BATTLE_SIZE , 13 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 7 * BATTLE_SIZE , 13 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		protectAnim.loop = false;
 		protectAnim.speed = 0.01f;
 
-		hitAnim.PushBack({ 1050 , 1416 , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 900 , 1416 , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 750 , 1416 , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 600 , 1416 , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 4 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 5 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 6 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 7 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		hitAnim.loop = true;
 		hitAnim.speed = 0.01f;
 
-		dieAnim.PushBack({ 1050 , 1517 , BATTLE_SIZE , BATTLE_SIZE });
-		dieAnim.PushBack({ 900 , 1517 , BATTLE_SIZE , BATTLE_SIZE });
-		dieAnim.PushBack({ 750 , 1517 , BATTLE_SIZE , BATTLE_SIZE });
-		dieAnim.PushBack({ 600 , 1517 , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 4 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 5 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 6 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		protectAnim.PushBack({ 7 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
 		dieAnim.loop = false;
 		dieAnim.speed = 0.01f;
 
