@@ -118,8 +118,11 @@ bool Stages::PreUpdate()
 	case StageIndex::TOWER_2:
 		intStage = 12;
 		break;
-	case StageIndex::TOWER_3:
+	case StageIndex::TOWER_4:
 		intStage = 13;
+		break;
+	case StageIndex::TOWER_3:
+		intStage = 14;
 		break;
 	default:
 		break;
@@ -161,6 +164,8 @@ bool Stages::Update(float dt)
 	case StageIndex::TOWER_1:
 		break;
 	case StageIndex::TOWER_2:
+		break;
+	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
 		break;
@@ -292,6 +297,8 @@ bool Stages::PostUpdate()
 	case StageIndex::TOWER_1:
 		break;
 	case StageIndex::TOWER_2:
+		break;
+	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
 		break;
@@ -954,7 +961,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER_3:
+	case StageIndex::TOWER_4:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -968,6 +975,20 @@ void Stages::ChangeStage(StageIndex newStage) {
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
+		break;
+	case StageIndex::TOWER_3:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_floor_5.tmx");
+
+			playerPtr->position = playerPtr->tower4Pos;
+			app->camera->OnTarget();
+
+			LOG("Loading Floor 4 map");
+
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
 		break;
 	default:
 

@@ -221,7 +221,10 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	if (app->stages->intStage == 12 && app->stages->actualStage != StageIndex::TOWER_2) {
 		app->stages->ChangeStage(StageIndex::TOWER_2);
 	}
-	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER_3) {
+	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER_4) {
+		app->stages->ChangeStage(StageIndex::TOWER_4);
+	}
+	if (app->stages->intStage == 14 && app->stages->actualStage != StageIndex::TOWER_3) {
 		app->stages->ChangeStage(StageIndex::TOWER_3);
 	}
 

@@ -27,6 +27,7 @@ enum class StageIndex {
 	TOWER_1,
 	TOWER_2,
 	TOWER_3,
+	TOWER_4,
 };
 
 class Stages : public Module
