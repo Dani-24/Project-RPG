@@ -301,8 +301,8 @@ bool Inventory::PostUpdate()
 				if (s->data->isCharacter && s->data->activated) {
 					app->font->DrawText(s->data->asignedCharacter->name, equipX + 24, equipY + 13);
 
-					if (s->data->asignedCharacter->spriteTex != NULL) {
-						app->render->DrawTexture(s->data->asignedCharacter->spriteTex, equipX, equipY + 30, &s->data->asignedCharacter->currentAnimation->GetCurrentFrame());
+					if (s->data->asignedCharacter->spriteTex != nullptr) {
+						//app->render->DrawTexture(s->data->asignedCharacter->spriteTex, equipX, equipY + 30, &s->data->asignedCharacter->currentAnimation->GetCurrentFrame());
 					}
 				}
 
