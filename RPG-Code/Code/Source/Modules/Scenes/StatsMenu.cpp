@@ -48,13 +48,24 @@ bool StatsMenu::Start()
 
 
 	ch1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 402, "ch1", { x + 29, y + 93, 196, 45 }, this);
-	if (app->scene->partyList.count() > 1)ch2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 403, "ch2", { x + 29, y + 143, 196, 45 }, this);
-	if (app->scene->partyList.count() > 2)ch3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 404, "ch3", { x + 29, y + 193, 196, 45 }, this);
-	if (app->scene->partyList.count() > 3)ch4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 405, "ch4", { x + 29, y + 243, 196, 45 }, this);
+	ch2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 403, "ch2", { x + 29, y + 143, 196, 45 }, this);
+	ch3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 404, "ch3", { x + 29, y + 193, 196, 45 }, this);
+	ch4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 405, "ch4", { x + 29, y + 243, 196, 45 }, this);
+	
 	//ch1->state = GuiControlState::DISABLED;
-	/*ch2->state = GuiControlState::DISABLED;
+	ch2->state = GuiControlState::DISABLED;
 	ch3->state = GuiControlState::DISABLED;
-	ch4->state = GuiControlState::DISABLED;*/
+	ch4->state = GuiControlState::DISABLED;
+
+	if (app->scene->partyList.count() > 1) {
+		ch2->state = GuiControlState::NORMAL;
+	}
+	if (app->scene->partyList.count() > 2) {
+		ch3->state = GuiControlState::NORMAL;
+	}
+	if (app->scene->partyList.count() > 3) {
+		ch4->state = GuiControlState::NORMAL;
+	}
 
 	backButtonTexture = app->tex->Load("Assets/gui/buttons/back_text.png");
 	backButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_back_text.png");
