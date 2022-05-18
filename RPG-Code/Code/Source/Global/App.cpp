@@ -26,6 +26,7 @@
 #include "Inventory.h"
 #include "StatsMenu.h"
 #include "Shop.h"
+#include "ModuleParticles.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -63,6 +64,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
 	shop = new Shop(this, false);
+	particlesM = new ModuleParticles(this);
 
 	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this);

@@ -30,7 +30,7 @@ class QuestManager;
 class EnemyMovement;
 class PauseMenu;
 class Shop;
-
+class ModuleParticles;
 class Camera;
 class FadeToBlack;
 class Pathfinder;
@@ -126,6 +126,7 @@ public:
 	Camera* camera;
 	PauseMenu* pauseM;
 	Shop* shop;
+	ModuleParticles* particlesM;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
