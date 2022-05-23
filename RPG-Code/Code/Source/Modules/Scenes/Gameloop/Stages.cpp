@@ -125,6 +125,9 @@ bool Stages::PreUpdate()
 	case StageIndex::TOWER_3:
 		intStage = 14;
 		break;
+	case StageIndex::PROLOGUE:
+
+		break;
 	default:
 		break;
 	}
@@ -169,6 +172,9 @@ bool Stages::Update(float dt)
 	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
+		break;
+	case StageIndex::PROLOGUE:
+
 		break;
 	default:
 
@@ -340,6 +346,9 @@ bool Stages::PostUpdate()
 	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
+		break;
+	case StageIndex::PROLOGUE:
+
 		break;
 	}
 
@@ -846,7 +855,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 	introductionFase = 0;
 
 	// Door sfx
-	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::WIN && newStage != StageIndex::LOSE) {
+	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::WIN && newStage != StageIndex::LOSE && newStage != StageIndex::PROLOGUE) {
 		app->audio->PlayFx(doorFx);
 	}
 
@@ -1055,6 +1064,9 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
+		break;
+	case StageIndex::PROLOGUE:
+
 		break;
 	default:
 
