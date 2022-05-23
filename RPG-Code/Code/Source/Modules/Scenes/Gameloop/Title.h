@@ -44,7 +44,7 @@ public:
 	const char* optChar;
 	const char* credChar;
 	const char* exitChar;
-	const char* titlChar;
+	SString titlChar;
 	const char* mustitlChar;
 	const char* fxselChar;
 	const char* fxtitleChar;

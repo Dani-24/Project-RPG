@@ -71,7 +71,7 @@ bool TitleScene::Start()
 	press_creditsb = app->tex->Load("Assets/gui/buttons/pressed_button_credits.png");
 	press_exitb = app->tex->Load("Assets/gui/buttons/pressed_button_exit.png");
 
-	titleBg = app->tex->Load("Assets/textures/title_screen_bg.png");
+	titleBg = app->tex->Load(titlChar.GetString());
 	titleLogo = app->tex->Load("Assets/textures/title_screen_logo.png");
 
 	// Audio 

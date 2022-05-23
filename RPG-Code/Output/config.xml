@@ -40,14 +40,16 @@
 		<interactionButton path="Assets/gui/controllers/ui_mixed.png"/>
 	   <exampleNumber num="6"/>
 	</player>
-	
+
 	<titleScene>
-		<startb path="Assets/gui/button_start.png"/>
-		<continueb path="Assets/gui/button_continue.png"/>
-		<optionsb path="Assets/gui/button_options.png"/>
-		<creditsb path="Assets/gui/button_credits.png"/>
-		<exitb path="Assets/gui/button_exit.png"/>
+		<startb path="Assets/gui/buttons/button_start.png"/>
+		<continueb path="Assets/gui/buttons/button_continue.png"/>
+		<optionsb path="Assets/gui/buttons/button_options.png"/>
+		<creditsb path="Assets/gui/buttons/button_credits.png"/>
+		<exitb path="Assets/gui/buttons/button_exit.png"/>
+		
 		<title path="Assets/textures/title_screen_bg.png"/>
+		<logo path="Assets/textures/title_screen_logo.png"/>
 		<mustitle path="Assets/audio/music/music_title.ogg"/>
 		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
 		<sfxtitle path="Assets/audio/sfx/fx_title.wav"/>
