@@ -28,6 +28,9 @@ enum class StageIndex {
 	TOWER_2,
 	TOWER_3,
 	TOWER_4,
+	TOWER_BOSS_1,
+	TOWER_BOSS_2,
+	TOWER_BOSS_3,
 	PROLOGUE
 };
 
