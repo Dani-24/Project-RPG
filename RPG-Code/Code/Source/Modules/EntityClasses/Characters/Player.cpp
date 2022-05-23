@@ -453,12 +453,10 @@ void Player::MovementPlayer(float dt) {
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
 		
-
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
-				timeWalkingHor++;
-				timeWalkingVer++;
 				if (currentAnimation != &walkAnimL) {
 					currentAnimation = &walkAnimL;
 				}
@@ -468,12 +466,25 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV W
+			else {
+					position.y -= speed;
+					if (currentAnimation != &walkAnimUp) {
+						currentAnimation = &walkAnimUp;
+					}
+
+					if (walkFxCooldown < 0) {
+						app->audio->PlayFx(walkFx);
+						walkFxCooldown = cooldown;
+					}
+				
+			}
 		}
+		
 		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
-				timeWalkingHor++;
-				timeWalkingVer++;
 				if (currentAnimation != &walkAnimR) {
 					currentAnimation = &walkAnimR;
 				}
@@ -483,7 +494,21 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV W
+			else {
+					position.y -= speed;
+					if (currentAnimation != &walkAnimUp) {
+						currentAnimation = &walkAnimUp;
+					}
+
+					if (walkFxCooldown < 0) {
+						app->audio->PlayFx(walkFx);
+						walkFxCooldown = cooldown;
+					}
+				
+			}
 		}
+		//MOV W
 		else {
 			position.y -= speed;
 			timeWalkingVer++;
@@ -499,7 +524,9 @@ void Player::MovementPlayer(float dt) {
 		}
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
+
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
 				timeWalkingHor++;
@@ -513,8 +540,21 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV S
+			else {
+				position.y += speed;
+				if (currentAnimation != &walkAnimDown) {
+					currentAnimation = &walkAnimDown;
+				}
+
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
 		}
 		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
 				timeWalkingHor++;
@@ -528,10 +568,24 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV S
+			else {
+				position.y += speed;
+				if (currentAnimation != &walkAnimDown) {
+					currentAnimation = &walkAnimDown;
+				}
+
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
 		}
+		//MOV S
 		else {
 			position.y += speed;
 			timeWalkingVer++;
+			timeWalkingHor = 0;
 			if (currentAnimation != &walkAnimDown) {
 				currentAnimation = &walkAnimDown;
 			}
@@ -544,6 +598,7 @@ void Player::MovementPlayer(float dt) {
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
+		timeWalkingVer = 0;
 		timeWalkingHor++;
 		if (currentAnimation != &walkAnimL) {
 			currentAnimation = &walkAnimL;
@@ -556,6 +611,7 @@ void Player::MovementPlayer(float dt) {
 	}
 	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
+		timeWalkingVer = 0;
 		timeWalkingHor++;
 		if (currentAnimation != &walkAnimR) {
 			currentAnimation = &walkAnimR;

@@ -125,6 +125,15 @@ bool Stages::PreUpdate()
 	case StageIndex::TOWER_3:
 		intStage = 14;
 		break;
+	case StageIndex::TOWER_BOSS_1:
+		intStage = 15;
+		break;
+	case StageIndex::TOWER_BOSS_2:
+		intStage = 16;
+		break;
+	case StageIndex::TOWER_BOSS_3:
+		intStage = 17;
+		break;
 	case StageIndex::PROLOGUE:
 
 		break;
@@ -172,6 +181,12 @@ bool Stages::Update(float dt)
 	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
+		break;
+	case StageIndex::TOWER_BOSS_1:
+		break;
+	case StageIndex::TOWER_BOSS_2:
+		break;
+	case StageIndex::TOWER_BOSS_3:
 		break;
 	case StageIndex::PROLOGUE:
 
@@ -346,6 +361,12 @@ bool Stages::PostUpdate()
 	case StageIndex::TOWER_4:
 		break;
 	case StageIndex::TOWER_3:
+		break;
+	case StageIndex::TOWER_BOSS_1:
+		break;
+	case StageIndex::TOWER_BOSS_2:
+		break;
+	case StageIndex::TOWER_BOSS_3:
 		break;
 	case StageIndex::PROLOGUE:
 
@@ -1065,6 +1086,50 @@ void Stages::ChangeStage(StageIndex newStage) {
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 		break;
+	case StageIndex::TOWER_BOSS_1:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_boss_2.tmx");
+
+			playerPtr->position = playerPtr->tower3Pos;
+			app->camera->OnTarget();
+			app->camera->FreeLimits();
+			LOG("Loading Boss Floor 1 map");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break;
+	case StageIndex::TOWER_BOSS_2:
+
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_boss_2.tmx");
+
+			playerPtr->position = playerPtr->tower3Pos;
+			app->camera->OnTarget();
+			app->camera->FreeLimits();
+			LOG("Loading Boss Floor 2 map");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break; case StageIndex::TOWER_BOSS_3:
+
+			// Load Map
+			if (app->map->isEnabled() == true) {
+				app->map->Load("tower_boss_2.tmx");
+
+				playerPtr->position = playerPtr->tower3Pos;
+				app->camera->OnTarget();
+				app->camera->FreeLimits();
+				LOG("Loading Boss Floor 3 map");
+				app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+				//app->audio->PlayMusic("Assets/audio/music/");
+			}
+
+			break;
 	case StageIndex::PROLOGUE:
 
 		break;
