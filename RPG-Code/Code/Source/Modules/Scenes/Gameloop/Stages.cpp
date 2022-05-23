@@ -58,19 +58,19 @@ bool Stages::Awake(pugi::xml_node& config)
 bool Stages::Start()
 {
 	//sfx
-	hitfx1 = app->audio->LoadFx(Hitfx1Char);
-	hitfx2 = app->audio->LoadFx(Hitfx2Char);
-	hitfx3 = app->audio->LoadFx(Hitfx3Char);
-	shieldfx = app->audio->LoadFx(ShieldfxChar);
-	chdiefx = app->audio->LoadFx(ChDiefxChar);
-	doorFx = app->audio->LoadFx(DoorChar);
-	loseFx = app->audio->LoadFx(LosefxChar);
+	hitfx1 = app->audio->LoadFx(Hitfx1Char.GetString());
+	hitfx2 = app->audio->LoadFx(Hitfx2Char.GetString());
+	hitfx3 = app->audio->LoadFx(Hitfx3Char.GetString());
+	shieldfx = app->audio->LoadFx(ShieldfxChar.GetString());
+	chdiefx = app->audio->LoadFx(ChDiefxChar.GetString());
+	doorFx = app->audio->LoadFx(DoorChar.GetString());
+	loseFx = app->audio->LoadFx(LosefxChar.GetString());
 
 	//textures
-	LoseScreen = app->tex->Load(LoseScreenChar);
-	WinScreen = app->tex->Load(WinScreenChar);
-	WinMessage = app->tex->Load(WinTextChar);
-	LoseMessage = app->tex->Load(LoseTextChar);
+	LoseScreen = app->tex->Load(LoseScreenChar.GetString());
+	WinScreen = app->tex->Load(WinScreenChar.GetString());
+	WinMessage = app->tex->Load(WinTextChar.GetString());
+	LoseMessage = app->tex->Load(LoseTextChar.GetString());
 
 	_wait = false;
 	elect = true;

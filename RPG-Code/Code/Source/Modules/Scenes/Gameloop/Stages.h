@@ -107,17 +107,17 @@ public:
 
 	bool elect;
 
-	const char* LoseScreenChar;
-	const char* WinScreenChar;
-	const char* LoseTextChar;
-	const char* WinTextChar;
-	const char* Hitfx1Char;
-	const char* Hitfx2Char;
-	const char* Hitfx3Char;
-	const char* ShieldfxChar;
-	const char* ChDiefxChar;
-	const char* DoorChar;
-	const char* LosefxChar;
+	SString LoseScreenChar;
+	SString WinScreenChar;
+	SString LoseTextChar;
+	SString WinTextChar;
+	SString Hitfx1Char;
+	SString Hitfx2Char;
+	SString Hitfx3Char;
+	SString ShieldfxChar;
+	SString ChDiefxChar;
+	SString DoorChar;
+	SString LosefxChar;
 	
 	
 };

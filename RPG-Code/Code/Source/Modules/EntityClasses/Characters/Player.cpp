@@ -306,15 +306,15 @@ bool Player::Start()
 	LOG("start Player");
 	bool ret = true;
 
-	erectionFx = app->audio->LoadFx(electionfxChar);
-	walkFx = app->audio->LoadFx(WalkfxChar);
+	erectionFx = app->audio->LoadFx(electionfxChar.GetString());
+	walkFx = app->audio->LoadFx(WalkfxChar.GetString());
 
-	PlayerMTex = app->tex->Load(MaleChar);
-	PlayerFTex = app->tex->Load(FemaleChar);
+	PlayerMTex = app->tex->Load(MaleChar.GetString());
+	PlayerFTex = app->tex->Load(FemaleChar.GetString());
 	BattleMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Combat/m_battle_spritesheet.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
 	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Combat/f_battle_spritesheet.png");
-	interactionButton = app->tex->Load(interactionButtonChar);
+	interactionButton = app->tex->Load(interactionButtonChar.GetString());
 
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
 	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");

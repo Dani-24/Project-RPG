@@ -94,11 +94,11 @@ public:
 	// Current Sprite
 	bool PlayerErection = true;
 
-	const char* MaleChar;
-	const char* FemaleChar;
-	const char* electionfxChar;
-	const char* WalkfxChar;
-	const char* interactionButtonChar;
+	SString MaleChar;
+	SString FemaleChar;
+	SString electionfxChar;
+	SString WalkfxChar;
+	SString interactionButtonChar;
 	
 	bool canMove;
 
