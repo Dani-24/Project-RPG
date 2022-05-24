@@ -27,9 +27,19 @@ Stages::Stages(App* application, bool start_enabled) : Module(application, start
 	actualStage = StageIndex::NONE;
 	playerPtr = nullptr;
 
-	onBattle = false;
+	onBattle = pause = false;
 
-	pause = false;
+	carRedL.PushBack({ 0, 32, 64, 32 });
+	carRedR.PushBack({ 0, 0, 64, 32 });
+	carBlueL.PushBack({ 64, 32, 64, 32 });
+	carBlueR.PushBack({ 64, 0, 64, 32 });
+	carGreenL.PushBack({ 128, 32, 64, 32 });
+	carGreenR.PushBack({ 128, 0, 64, 32 });
+	carPinkL.PushBack({ 192, 32, 64, 32 });
+	carPinkR.PushBack({ 192, 0, 64, 32 });
+	carGreyL.PushBack({ 256, 32, 64, 32 });
+	carGreyR.PushBack({ 256, 0, 64, 32 });
+
 }
 
 Stages::~Stages()
@@ -74,13 +84,16 @@ bool Stages::Start()
 
 	_wait = false;
 	elect = true;
+
+	srand(SDL_GetTicks());
+
 	return true;
 }
 
 bool Stages::PreUpdate()
 {
 	bool ret = true;
-	
+
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
@@ -135,7 +148,7 @@ bool Stages::PreUpdate()
 		intStage = 17;
 		break;
 	case StageIndex::PROLOGUE:
-
+		intStage = 18;
 		break;
 	default:
 		break;
@@ -146,56 +159,7 @@ bool Stages::PreUpdate()
 
 bool Stages::Update(float dt)
 {
-	switch (actualStage)
-	{
-	case StageIndex::NONE:
-		break;
-
-	case StageIndex::TOWN:
-
-		break;
-	case StageIndex::DOJO:
-
-		break;
-	case StageIndex::SHOP:
-
-		break;
-	case StageIndex::SHOPSUB:
-
-		break;
-	case StageIndex::TAVERN:
-
-		break;
-	case StageIndex::INTRODUCTION:
-		break;
-	case StageIndex::WIN:
-		break;
-	case StageIndex::LOSE:
-		break;
-	case StageIndex::TOWER_0:
-		break;
-	case StageIndex::TOWER_1:
-		break;
-	case StageIndex::TOWER_2:
-		break;
-	case StageIndex::TOWER_4:
-		break;
-	case StageIndex::TOWER_3:
-		break;
-	case StageIndex::TOWER_BOSS_1:
-		break;
-	case StageIndex::TOWER_BOSS_2:
-		break;
-	case StageIndex::TOWER_BOSS_3:
-		break;
-	case StageIndex::PROLOGUE:
-
-		break;
-	default:
-
-		break;
-	}
-
+	// movimiento enemigos en el mapa
 	if (actualStage != StageIndex::NONE) {
 		if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
 			ListItem<NormalEnemy*>* NormalEnemyInList;
@@ -266,7 +230,7 @@ bool Stages::PostUpdate()
 
 		break;
 	case StageIndex::INTRODUCTION:
-		
+
 		if (app->fade->fading == false) {
 			int epilogX = -app->camera->GetPos().x / app->win->GetScale() + 200;
 			int epilogY = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / app->win->GetScale() - 300;
@@ -286,7 +250,7 @@ bool Stages::PostUpdate()
 				app->font->DrawTextDelayed("he runs over people and bring their souls here", epilogX - 110, epilogY);
 				break;
 			case 4:
-				app->font->DrawTextDelayed("with the goal of fighting at the tower", epilogX - 50, epilogY + 25, {255,0,0});
+				app->font->DrawTextDelayed("with the goal of fighting at the tower", epilogX - 50, epilogY + 25, { 255,0,0 });
 				break;
 			case 5:
 				app->font->DrawTextDelayed("But well, I came to ask you some things", epilogX - 60, epilogY);
@@ -295,16 +259,16 @@ bool Stages::PostUpdate()
 				app->font->DrawTextDelayed("and asume your gender with them", epilogX - 50, epilogY);
 				break;
 			case 7:
-				
+
 				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY);
 				break;
 			case 8:
-				
+
 				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY);
 				break;
 			case 9:
 				if (playerPtr->PlayerErection == true) {
-					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20 , epilogY);
+					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20, epilogY);
 				}
 				else {
 					app->font->DrawTextDelayed("OH! So you're a girl", epilogX + 20, epilogY);
@@ -324,8 +288,8 @@ bool Stages::PostUpdate()
 			}
 
 			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _wait || pad.b && _wait) {
-				
-				if(elect) introductionFase++;
+
+				if (elect) introductionFase++;
 				if (introductionFase == 8) elect = false;
 				_wait = false;
 			}
@@ -339,16 +303,16 @@ bool Stages::PostUpdate()
 		app->render->DrawTexture(WinMessage, 0, 0);
 		app->scene->player->canMove = false;
 		/*restart->state = GuiControlState::DISABLED;*/
-		
-	
+
+
 		break;
 	case StageIndex::LOSE:
 		app->camera->SetPos({ 0,0 });
-		app->render->DrawTexture(LoseScreen,0,0);
+		app->render->DrawTexture(LoseScreen, 0, 0);
 		app->render->DrawTexture(LoseMessage, 0, 40);
-		app->scene->player->canMove = false;	
+		app->scene->player->canMove = false;
 		/*backtoMenu->state = GuiControlState::DISABLED;*/
-		
+
 		break;
 
 	case StageIndex::TOWER_0:
@@ -373,9 +337,7 @@ bool Stages::PostUpdate()
 		break;
 	}
 
-	
-	// Si me pones este if solo dentro de town el resto de mapas no se me imprimen :( -> Fixeado con el actualStage != NONE
-	//oka doka
+	// NPC & ENEMIES DRAWING
 	if (onBattle == false && actualStage != StageIndex::NONE) {
 
 		// Below de player
@@ -412,7 +374,7 @@ bool Stages::PostUpdate()
 							if (NormalEnemyInList->data->baseCollider->rect.y + NormalEnemyInList->data->baseCollider->rect.h <= playerPtr->baseCollider->rect.y) {
 								NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 								if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-									app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x- NormalEnemyInList->data->SpriteEdges.x, NormalEnemyInList->data->position.y - NormalEnemyInList->data->SpriteEdges.y, &NormalEnemyInList->data->spriteRect, 1, true);
+									app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - NormalEnemyInList->data->SpriteEdges.x, NormalEnemyInList->data->position.y - NormalEnemyInList->data->SpriteEdges.y, &NormalEnemyInList->data->spriteRect, 1, true);
 								}
 							}
 						}
@@ -451,7 +413,7 @@ bool Stages::PostUpdate()
 				}
 			}
 		}
-	
+
 		//PRINT THE PLAYER 
 		if (playerPtr != nullptr) {
 			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
@@ -466,6 +428,7 @@ bool Stages::PostUpdate()
 				}
 			}
 		}
+
 		// Above the player
 		if (actualStage != StageIndex::INTRODUCTION) {
 			//PRINT THE NPCs ABOVE THE PLAYER
@@ -492,7 +455,7 @@ bool Stages::PostUpdate()
 				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL && ret == true; NormalEnemyInList = NormalEnemyInList->next)
 				{
 					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-						if (NormalEnemyInList->data->baseCollider->rect.y + NormalEnemyInList->data->baseCollider->rect.h >playerPtr->baseCollider->rect.y) {
+						if (NormalEnemyInList->data->baseCollider->rect.y + NormalEnemyInList->data->baseCollider->rect.h > playerPtr->baseCollider->rect.y) {
 							NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 							if (NormalEnemyInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
 								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x - NormalEnemyInList->data->SpriteEdges.x, NormalEnemyInList->data->position.y - NormalEnemyInList->data->SpriteEdges.y, &NormalEnemyInList->data->spriteRect, 1, true);
@@ -504,6 +467,11 @@ bool Stages::PostUpdate()
 
 			app->map->ReDraw();
 		}
+
+		if (actualStage == StageIndex::PROLOGUE) {
+			CarManagement();
+			TrafficLightSystem();
+		}
 	}
 
 	//PRINT THE BATTLE SPRITES
@@ -511,7 +479,7 @@ bool Stages::PostUpdate()
 
 		//PRINT THE BATTLE ENTITIES
 
-		for (int i = 0; i <8; i++)
+		for (int i = 0; i < 8; i++)
 		{
 
 			switch (i) {
@@ -828,8 +796,8 @@ bool Stages::PostUpdate()
 				break;
 			}
 		}
-	
-		
+
+
 		//switch (app->battle->CurrentEnemyType) {
 		//case EnemyInBattleType::NORMAL:
 		//	app->battle->normalEnemyInBattle->currentAnimation = &app->battle->normalEnemyInBattle->battleAnim;
@@ -843,7 +811,6 @@ bool Stages::PostUpdate()
 	}
 
 	// Debug DRAW Pathfinding
-
 	if (app->collisions->debug) {
 		if (normalEnemyListPtr != nullptr) {
 			ListItem<NormalEnemy*>* NormalEnemyInList;
@@ -885,6 +852,21 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->map->Disable();
 		app->map->Enable();
 		app->camera->FreeLimits();
+	}
+
+	if (actualStage == StageIndex::PROLOGUE) {
+		// Clean prologue memory
+		cars.clear();
+		app->tex->UnLoad(TLVertical.sprite);
+		app->tex->UnLoad(TLVertical.lightSprite);
+		app->tex->UnLoad(TLPeIzq.sprite);
+		app->tex->UnLoad(TLPeIzq.lightSprite);
+		app->tex->UnLoad(TLPeDer.sprite);
+		app->tex->UnLoad(TLPeDer.lightSprite);
+		app->tex->UnLoad(TLIzq.sprite);
+		app->tex->UnLoad(TLIzq.lightSprite);
+		app->tex->UnLoad(TLDer.sprite);
+		app->tex->UnLoad(TLDer.lightSprite);
 	}
 
 	switch (newStage)
@@ -951,7 +933,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			LOG("Loading Shop map");
 
 			if (actualStage != StageIndex::SHOPSUB) {
-			app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
+				app->audio->PlayMusic("Assets/audio/music/music_shop.ogg");
 			}
 		}
 
@@ -1115,23 +1097,92 @@ void Stages::ChangeStage(StageIndex newStage) {
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
-		break; case StageIndex::TOWER_BOSS_3:
+	break; case StageIndex::TOWER_BOSS_3:
 
-			// Load Map
-			if (app->map->isEnabled() == true) {
-				app->map->Load("tower_boss_2.tmx");
+		// Load Map
+		if (app->map->isEnabled() == true) {
+			app->map->Load("tower_boss_2.tmx");
 
-				playerPtr->position = playerPtr->tower3Pos;
-				app->camera->OnTarget();
-				app->camera->FreeLimits();
-				LOG("Loading Boss Floor 3 map");
-				app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
-				//app->audio->PlayMusic("Assets/audio/music/");
+			playerPtr->position = playerPtr->tower3Pos;
+			app->camera->OnTarget();
+			app->camera->FreeLimits();
+			LOG("Loading Boss Floor 3 map");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			//app->audio->PlayMusic("Assets/audio/music/");
+		}
+
+		break;
+	case StageIndex::PROLOGUE:
+		if (app->map->isEnabled() == true) {
+
+			LOG("Loading Prologue map");
+
+			app->map->Load("prologue.tmx");
+
+			// Recolocar al player
+			playerPtr->position =/* { 350, 420 }*/{ 60 * TILE_SIZE, 14 * TILE_SIZE };
+
+			// Camera
+			app->camera->OnTarget();
+			//app->camera->SetLimits(0, 0, 3152, 736);
+
+			// Audio
+			app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
+
+			// Load Semáforos
+			{
+				TLVertical.state = TLState::STOP;
+				TLVertical.sprite = app->tex->Load("Assets/sprites/trafficLights/vertical.png");
+				TLVertical.lightSprite = app->tex->Load("Assets/sprites/trafficLights/luces.png");
+				TLVertical.animStop.PushBack({ 0, 0, 5, 5 });
+				TLVertical.animPass.PushBack({ 6, 0, 5, 5 });
+				TLVertical.animCaution.PushBack({ 12, 0, 5, 5 });
+				TLVertical.position = { 57 * TILE_SIZE, 11 * TILE_SIZE };
+
+				TLPeIzq.state = TLState::STOP;
+				TLPeIzq.sprite = app->tex->Load("Assets/sprites/trafficLights/peaton.png");
+				TLPeIzq.lightSprite = app->tex->Load("Assets/sprites/trafficLights/luces.png");
+				TLPeIzq.animStop.PushBack({ 0, 6, 7, 10 });
+				TLPeIzq.animPass.PushBack({ 8, 6, 7, 9 });
+				TLPeIzq.animCaution.PushBack({ 16, 6, 7, 9 });
+				TLPeIzq.position = { 51 * TILE_SIZE, 11 * TILE_SIZE };
+
+				TLPeDer.state = TLState::STOP;
+				TLPeDer.sprite = app->tex->Load("Assets/sprites/trafficLights/peaton.png");
+				TLPeDer.lightSprite = app->tex->Load("Assets/sprites/trafficLights/luces.png");
+				TLPeDer.animStop.PushBack({ 0, 6, 7, 10 });
+				TLPeDer.animPass.PushBack({ 8, 6, 7, 9 });
+				TLPeDer.animCaution.PushBack({ 16, 6, 7, 9 });
+				TLPeDer.position = { 62 * TILE_SIZE, 11 * TILE_SIZE };
+
+				TLIzq.state = TLState::PASS;
+				TLIzq.sprite = app->tex->Load("Assets/sprites/trafficLights/horizontal_izquierda.png");
+				TLIzq.lightSprite = app->tex->Load("Assets/sprites/trafficLights/luces.png");
+				TLIzq.animStop.PushBack({ 0, 0, 5, 5 });
+				TLIzq.animPass.PushBack({ 6, 0, 5, 5 });
+				TLIzq.animCaution.PushBack({ 12, 0, 5, 5 });
+				TLIzq.position = { 51 * TILE_SIZE, 19 * TILE_SIZE };
+				TLIzq.hitbox.x = TLIzq.position.x - 32;
+				TLIzq.hitbox.y = TLIzq.position.y - 100;
+				TLIzq.hitbox.w = 64;
+				TLIzq.hitbox.h = 200;
+
+				TLDer.state = TLState::PASS;
+				TLDer.sprite = app->tex->Load("Assets/sprites/trafficLights/horizontal_derecha.png");
+				TLDer.lightSprite = app->tex->Load("Assets/sprites/trafficLights/luces.png");
+				TLDer.animStop.PushBack({ 0, 0, 5, 5 });
+				TLDer.animPass.PushBack({ 6, 0, 5, 5 });
+				TLDer.animCaution.PushBack({ 12, 0, 5, 5 });
+				TLDer.position = { 67 * TILE_SIZE, 11 * TILE_SIZE };
+				TLDer.hitbox.x = TLDer.position.x;
+				TLDer.hitbox.y = TLDer.position.y;
+				TLDer.hitbox.w = 64;
+				TLDer.hitbox.h = 200;
 			}
 
-			break;
-	case StageIndex::PROLOGUE:
-
+			changeTL = TRAFFIC_LIGHT_TIME;
+			tlOrder = TLOrder::HORIZONTAL;
+		}
 		break;
 	default:
 
@@ -1157,33 +1208,345 @@ bool Stages::CleanUp()
 	normalEnemyListPtr = nullptr;
 	delete normalEnemyListPtr;
 
-
-
 	return true;
 }
 
-//bool Stages::SaveState(pugi::xml_node& data) const
-//{
-//	pugi::xml_node stage = data.append_child("stages");
-//
-//	stage.append_attribute("actualstage") = intStage;
-//
-//	//Saved.attribute("saved").set_value(saved);
-//
-//	return false;
-//}
-//
-//bool Stages::LoadState(pugi::xml_node& data)
-//{
-//	intStage = data.child("actualStage").attribute("actualstage").as_int();
-//
-//	//saved= data.child("Saved").attribute("saved").as_bool();
-//
-//	return false;
-//}
+void Stages::TrafficLightSystem() {
+	if (changeTL <= 0) {
+		// === Cambiar ciclo semaforos ===
 
-bool Stages::OnGuiMouseClickEvent(GuiControl* control)
-{
-	
-	return true;
+		// Reiniciar Contadores
+		changeTL = TRAFFIC_LIGHT_TIME;
+		cautionTL = TRAFFIC_LIGHT_TIME / 5;
+
+		bool tlChanged = false;
+
+		// --- Prio Horizontal --- 
+		if (tlOrder == TLOrder::UNGAUNGAS) {
+			TLPeDer.state = TLState::CAUTION;
+			TLPeIzq.state = TLState::CAUTION;
+
+			tlOrder = TLOrder::HORIZONTAL;
+			tlChanged = true;
+		}
+
+		// --- Prio Peatones --- 
+		if (tlOrder == TLOrder::VERTICAL && tlChanged == false) {
+			TLVertical.state = TLState::CAUTION;
+
+			tlOrder = TLOrder::UNGAUNGAS;
+			tlChanged = true;
+		}
+
+		// --- Prio Vertical --- 
+		if (tlOrder == TLOrder::HORIZONTAL && tlChanged == false) {
+			TLDer.state = TLState::CAUTION;
+			TLIzq.state = TLState::CAUTION;
+
+			tlOrder = TLOrder::VERTICAL;
+		}
+	}
+	else {
+		// Se pasa un tiempo en ambar hasta q cambia a rojo y cambia el ciclo
+		if (cautionTL <= 0) {
+
+			if (TLDer.state == TLState::CAUTION && TLIzq.state == TLState::CAUTION) {		// Prio Vertical
+				TLDer.state = TLState::STOP;
+				TLIzq.state = TLState::STOP;
+
+				TLVertical.state = TLState::PASS;
+			}
+			if (TLVertical.state == TLState::CAUTION) {										// Prio Peatones
+				TLVertical.state = TLState::STOP;
+
+				TLPeDer.state = TLState::PASS;
+				TLPeIzq.state = TLState::PASS;
+			}
+			if (TLPeDer.state == TLState::CAUTION && TLPeIzq.state == TLState::CAUTION) {	// Prio Horizontal
+				TLPeDer.state = TLState::STOP;
+				TLPeIzq.state = TLState::STOP;
+
+				TLDer.state = TLState::PASS;
+				TLIzq.state = TLState::PASS;
+			}
+
+			// El contador del semaforo empieza en cuanto acaba el contador del ambar
+			changeTL--;
+		}
+		else {
+			cautionTL--;
+		}
+	}
+
+	// Imprimir semaforos
+	app->render->DrawTexture(TLVertical.sprite, TLVertical.position.x, TLVertical.position.y);
+	app->render->DrawTexture(TLDer.sprite, TLDer.position.x, TLDer.position.y);
+	app->render->DrawTexture(TLIzq.sprite, TLIzq.position.x, TLIzq.position.y);
+	app->render->DrawTexture(TLPeDer.sprite, TLPeDer.position.x, TLPeDer.position.y);
+	app->render->DrawTexture(TLPeIzq.sprite, TLPeIzq.position.x, TLPeIzq.position.y);
+
+	// Hitboxes
+	if (app->collisions->debug) {
+		app->render->DrawRectangle(TLDer.hitbox, 0, 0, 255, 100);
+		app->render->DrawRectangle(TLIzq.hitbox, 0, 0, 255, 100);
+	}
+
+	// Imprimir luces
+	{
+		TrafficLight semaforo = TLVertical;
+
+		switch (semaforo.state)
+		{
+		case TLState::CAUTION:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 47, semaforo.position.y + 5, &semaforo.animCaution.GetCurrentFrame());
+			break;
+		case TLState::PASS:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 39, semaforo.position.y + 5, &semaforo.animPass.GetCurrentFrame());
+			break;
+		case TLState::STOP:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 55, semaforo.position.y + 5, &semaforo.animStop.GetCurrentFrame());
+			break;
+		}
+
+		semaforo = TLDer;
+
+		switch (semaforo.state)
+		{
+		case TLState::CAUTION:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 15, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+			break;
+		case TLState::PASS:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 15, semaforo.position.y + 26, &semaforo.animPass.GetCurrentFrame());
+			break;
+		case TLState::STOP:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 15, semaforo.position.y + 14, &semaforo.animStop.GetCurrentFrame());
+			break;
+		}
+		semaforo = TLIzq;
+
+		switch (semaforo.state)
+		{
+		case TLState::CAUTION:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 9, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+			break;
+		case TLState::PASS:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 9, semaforo.position.y + 26, &semaforo.animPass.GetCurrentFrame());
+			break;
+		case TLState::STOP:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 9, semaforo.position.y + 14, &semaforo.animStop.GetCurrentFrame());
+			break;
+		}
+
+		semaforo = TLPeDer;
+
+		switch (semaforo.state)
+		{
+		case TLState::CAUTION:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+			break;
+		case TLState::PASS:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animPass.GetCurrentFrame());
+			break;
+		case TLState::STOP:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 8, &semaforo.animStop.GetCurrentFrame());
+			break;
+		}
+		semaforo = TLPeIzq;
+
+		switch (semaforo.state)
+		{
+		case TLState::CAUTION:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+			break;
+		case TLState::PASS:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animPass.GetCurrentFrame());
+			break;
+		case TLState::STOP:
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 8, &semaforo.animStop.GetCurrentFrame());
+			break;
+		}
+	}
+}
+
+void Stages::CarManagement() {
+
+	// Car generator
+	if (randomCarCount <= 0)
+	{
+		randomCarCount = rand() % 300 + 60;
+		int direction = rand() % 2;
+
+		// Create new Car
+		if (direction == 1) {
+			Car* randomCar = new Car(true, { -2 * TILE_SIZE, 18 * TILE_SIZE });
+
+			int color = rand() % 5;
+
+			switch (color) {
+			case 0:
+				randomCar->carType = &carBlueR;
+				break;
+			case 1:
+				randomCar->carType = &carGreenR;
+				break;
+			case 2:
+				randomCar->carType = &carGreyR;
+				break;
+			case 3:
+				randomCar->carType = &carRedR;
+				break;
+			case 4:
+				randomCar->carType = &carPinkR;
+				break;
+			}
+
+			randomCar->hitbox.x = randomCar->position.x;
+			randomCar->hitbox.y = randomCar->position.y;
+			randomCar->hitbox.w = 64 * 2;
+			randomCar->hitbox.h = 32 * 2;
+
+			randomCar->collider = app->collisions->AddCollider(randomCar->hitbox, Collider::Type::WALL);
+
+			LOG("Car created circulating to east");
+			cars.add(randomCar);
+
+			randomCar = nullptr;
+			delete randomCar;
+
+		}
+		else {
+			Car* randomCar = new Car(false, { 101 * TILE_SIZE, 15 * TILE_SIZE });
+
+			int color = rand() % 5;
+
+			switch (color) {
+			case 0:
+				randomCar->carType = &carBlueL;
+				break;
+			case 1:
+				randomCar->carType = &carGreenL;
+				break;
+			case 2:
+				randomCar->carType = &carGreyL;
+				break;
+			case 3:
+				randomCar->carType = &carRedL;
+				break;
+			case 4:
+				randomCar->carType = &carPinkL;
+				break;
+			}
+
+			randomCar->hitbox.x = randomCar->position.x;
+			randomCar->hitbox.y = randomCar->position.y;
+			randomCar->hitbox.w = 64 * 2;
+			randomCar->hitbox.h = 32 * 2;
+
+			randomCar->collider = app->collisions->AddCollider(randomCar->hitbox, Collider::Type::WALL);
+
+			LOG("Car created circulating to weast");
+			cars.add(randomCar);
+
+			randomCar = nullptr;
+			delete randomCar;
+		}
+	}
+	else {
+		randomCarCount--;
+	}
+
+	// Car management
+	for (ListItem<Car*>* c = cars.start; c != nullptr; c = c->next) {
+
+		// === Move ===
+		if (c->data->speed < c->data->maxSpeed) {
+			c->data->speed += c->data->acceleration;
+		}
+
+		c->data->position.x += c->data->speed * c->data->direction;
+		c->data->hitbox.x = c->data->position.x;
+		c->data->hitbox.y = c->data->position.y;
+		c->data->collider->SetPos(c->data->position.x, c->data->position.y);
+
+		// === Collisions ===
+
+		int colliderFix = 64;
+
+		// --- Collision with other cars ---
+		for (ListItem<Car*>* c2 = cars.start; c2 != nullptr; c2 = c2->next) {
+
+			// Cant move Left
+			if (c2->data->hitbox.x + c2->data->hitbox.w > c->data->hitbox.x &&
+				c2->data->hitbox.x + c2->data->hitbox.w < c->data->hitbox.x + c->data->hitbox.w &&
+				c->data->hitbox.y < c2->data->hitbox.y + c2->data->hitbox.h &&
+				c->data->hitbox.y + c->data->hitbox.h > c2->data->hitbox.y)
+			{
+				c->data->position.x = c2->data->hitbox.x + c2->data->hitbox.w;
+				c->data->speed = 0;
+			}
+
+			// Cant move Right
+			if (c2->data->hitbox.x > c->data->hitbox.x &&
+				c2->data->hitbox.x < c->data->hitbox.x + c->data->hitbox.w &&
+				c->data->hitbox.y < c2->data->hitbox.y + c2->data->hitbox.h &&
+				c->data->hitbox.y + c2->data->hitbox.h > c2->data->hitbox.y)
+			{
+				c->data->position.x = c2->data->hitbox.x - c2->data->hitbox.w;
+				c->data->speed = 0;
+			}
+		}
+
+		// --- Collision with TL ---
+		{
+			if (c->data->direction == -1) {
+				// Stop at TL going to weast
+				if (TLDer.hitbox.x + TLDer.hitbox.w > c->data->hitbox.x &&
+					TLDer.hitbox.x + TLDer.hitbox.w < c->data->hitbox.x + c->data->hitbox.w &&
+					c->data->hitbox.y < TLDer.hitbox.y + TLDer.hitbox.h &&
+					c->data->hitbox.y + c->data->hitbox.h > TLDer.hitbox.y && TLDer.state == TLState::STOP)
+				{
+					c->data->position.x = TLDer.hitbox.x + TLDer.hitbox.w;
+					c->data->speed = 0;
+				}
+			}
+			else {
+				// Stop at TL going to east
+				if (TLIzq.hitbox.x > c->data->hitbox.x &&
+					TLIzq.hitbox.x < c->data->hitbox.x + c->data->hitbox.w &&
+					c->data->hitbox.y < TLIzq.hitbox.y + TLIzq.hitbox.h &&
+					c->data->hitbox.y + TLIzq.hitbox.h > TLIzq.hitbox.y && TLIzq.state == TLState::STOP)
+				{
+					c->data->position.x = TLIzq.hitbox.x - TLIzq.hitbox.w - colliderFix;
+					c->data->speed = 0;
+				}
+			}
+		}
+
+		// === Print ===
+		app->render->DrawTexture(c->data->sprite, c->data->position.x, c->data->position.y, &c->data->carType->GetCurrentFrame(), 2);
+
+		/*if (app->collisions->debug) {
+			app->render->DrawRectangle(c->data->hitbox, 255, 0, 0, 100);
+		}*/
+
+		// === Delete ===
+		if (c->data->direction == 1 && c->data->position.x > 101 * TILE_SIZE) {
+			DeleteCars(c);
+		}
+		else if (c->data->direction == -1 && c->data->position.x < -2 * TILE_SIZE) {
+			DeleteCars(c);
+		}
+	}
+}
+
+bool Stages::DeleteCars(ListItem<Car*>* c) {
+	for (ListItem<Car*>* ca = cars.start; ca != nullptr; ca = ca->next) {
+		if (ca == c) {
+			app->tex->UnLoad(ca->data->sprite);
+			ca->data->collider->pendingToDelete = true;
+			cars.del(ca);
+			LOG("Car deleted");
+			return true;
+		}
+	}
 }

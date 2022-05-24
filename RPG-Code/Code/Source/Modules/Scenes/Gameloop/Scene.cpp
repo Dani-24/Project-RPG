@@ -379,6 +379,10 @@ bool Scene::PreUpdate()
 		app->stmen->Enable();
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		app->stages->ChangeStage(StageIndex::PROLOGUE);
+	}
+
 	return ret;
 }
 
@@ -777,6 +781,11 @@ void Scene::ShowGUI()
 			sprintf_s(currentPlace_UI, "Floor 3");
 
 			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::PROLOGUE:
+			sprintf_s(currentPlace_UI, "The City");
+
+			app->font->DrawText(currentPlace_UI, x + 15, y + 30, { 0, 0, 0 });
 			break;
 		}
 	}
