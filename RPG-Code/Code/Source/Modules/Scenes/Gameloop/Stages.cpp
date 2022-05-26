@@ -856,6 +856,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 	if (actualStage == StageIndex::PROLOGUE) {
 		// Clean prologue memory
+		for(ListItem<Car*>* c = cars.start; c != NULL; c= c->next){
+			app->tex->UnLoad(c->data->sprite);
+			c->data->collider->pendingToDelete = true;
+		}
 		cars.clear();
 		app->tex->UnLoad(TLVertical.sprite);
 		app->tex->UnLoad(TLVertical.lightSprite);
