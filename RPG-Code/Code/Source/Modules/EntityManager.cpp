@@ -9,6 +9,7 @@
 
 #include "NPC.h"
 #include "NormalEnemy.h"
+#include "BossEnemy.h"
 #include "Camera.h"
 
 #include "Item.h"
@@ -360,69 +361,11 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 {
 	Entity* ret = nullptr;
 
-	switch (type)
-	{
-	case NPCType::COCK:
+	ret = new NPC(type, x, y);
 
-		ret = new NPC(NPCType::COCK, x, y);
-		break;
-
-	case NPCType::BARKEEPER:
-
-		ret = new NPC(NPCType::BARKEEPER, x, y);
-		break;
-
-	case NPCType::MERCHANT:
-
-		ret = new NPC(NPCType::MERCHANT, x, y);
-		break;
-	
-	case NPCType::TRAINER:
-
-		ret = new NPC(NPCType::TRAINER, x, y);
-		break;
-	case NPCType::EMILIO:
-
-		ret = new NPC(NPCType::EMILIO, x, y);
-		break;
-	case NPCType::FUENTE:
-
-		ret = new NPC(NPCType::FUENTE, x, y);
-		break;
-	case NPCType::CARTELSUDTOWN:
-
-		ret = new NPC(NPCType::CARTELSUDTOWN, x, y);
-		break;
-	case NPCType::DEAD_TREE:
-
-		ret = new NPC(NPCType::DEAD_TREE, x, y);
-		break;
-	case NPCType::TREE:
-
-		ret = new NPC(NPCType::TREE, x, y);
-		break;
-	case NPCType::RIP:
-
-		ret = new NPC(NPCType::RIP, x, y);
-		break;
-	case NPCType::RIP_2:
-
-		ret = new NPC(NPCType::RIP_2, x, y);
-		break;
-	case NPCType::RIP_3:
-
-		ret = new NPC(NPCType::RIP_3, x, y);
-		break;
-	default:
-
-		LOG("ERROR: Entity Type not set when creating");
-		break;
-	}
 
 	if (ret != nullptr) {
 		entityList.add(ret);
-		//ret->position.x = x;
-		//ret->position.y = y;
 	}
 
 	return ret;
@@ -458,6 +401,19 @@ Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
 		entityList.add(ret);
 		//ret->position.x = x;
 		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(BossType type)
+{
+	Entity* ret = nullptr;
+
+	ret = new BossEnemy(type);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
 	}
 
 	return ret;

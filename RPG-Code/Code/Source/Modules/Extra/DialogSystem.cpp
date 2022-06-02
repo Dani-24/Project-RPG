@@ -7,6 +7,12 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Player.h"
+#include "Battle.h"
+
+#include "Entity.h"
+#include "DynamicEntity.h"
+#include "Enemy.h"
+#include "BossEnemy.h"
 
 DialogSystem::DialogSystem(App* application, bool start_enabled) : Module(application, start_enabled) {
 	name.Create("dialogSystem");
@@ -99,6 +105,9 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::RIP_3:
 						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
 						break;
+					case NPCType::VALION:
+						app->font->DrawTextDelayed("Valion:", x + 150, y + 5, { 0, 0, 0 });
+						break;
 					default:
 						break;
 					}
@@ -123,6 +132,22 @@ bool DialogSystem::PostUpdate() {
 			dialoging = false;
 			dialogList.clear();
 			app->scene->player->toggleGui = true;
+			if (app->scene->player->entityTalking->name != nullptr) {
+				if (app->scene->player->entityTalking->name == std::string("Valion NPC")) {
+					if (app->battle->isEnabled() == false) {
+
+						app->battle->entitiesInBattle[0] = app->scene->player;
+						app->battle->entitiesInBattle[4] = (DynamicEntity*)app->entities->CreateEntity(BossType::VALION);
+
+						int alliesCount = 1;
+						int enemiesCount = 1;
+
+						
+						app->battle->Enable();
+					}
+				}
+			}
+			app->scene->player->entityTalking = nullptr;
 		}
 	}
 
@@ -166,6 +191,10 @@ void DialogSystem::CreateDialog(NPCType charaType, const char* text[DIALOG_LENGH
 		break;
 	case NPCType::EMILIO:
 		currentChara = app->tex->Load("Assets/sprites/faces/emilio.png");
+		break;
+	case NPCType::VALION:
+		currentChara = app->tex->Load("Assets/sprites/faces/wizard.png");
+		break;
 	default:
 		break;
 	}

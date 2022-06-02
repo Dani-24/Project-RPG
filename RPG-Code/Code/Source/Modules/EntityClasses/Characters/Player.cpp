@@ -333,6 +333,8 @@ bool Player::Start()
 	timeWalkingVer = 0;
 	timeWalkingHor = 0;
 
+	entityTalking = nullptr;
+
 	return ret;
 }
 
@@ -1092,6 +1094,8 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							if (!pad.a) wait = true;
 
 							if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+
+								entityTalking = entityInList->data;
 								app->questManager->CheckQuest(entityInList->data->npcID);
 								/*switch (entityInList->data->npcID)
 								{

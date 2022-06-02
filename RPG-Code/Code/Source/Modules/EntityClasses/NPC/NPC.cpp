@@ -13,6 +13,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 	position = { x,y };
 	this->NpcType = NPCType;
 	isInteraction = false;
+	name = nullptr;
 	switch (NPCType) {
 	case NPCType::COCK:
 
@@ -210,7 +211,21 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;*/
+	case NPCType::VALION:
+		idleAnim.PushBack({ 4,10,14,22 });
+		idleAnim.PushBack({ 28,10,14,22 });
+		idleAnim.PushBack({ 51,10,14,22 });
+		
+		idleAnim.speed = 0.004f;
 
+		name = "Valion NPC";
+		configName = "valionNPC";
+
+		npcID = 14;
+
+		baseCollider = app->collisions->AddCollider({ position.x -15, position.y -15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
 	default:
 		break;
 	}
@@ -238,9 +253,10 @@ bool NPC::Awake(pugi::xml_node& config)
 	shoperChar = config.child("shoper").attribute("path").as_string();
 	emilioChar = config.child("korb").attribute("path").as_string();
 	giroideChar = config.child("g").attribute("path").as_string();
-	/*archerChar = config.child("archer").attribute("path").as_string();
+	archerChar = config.child("archer").attribute("path").as_string();
 	lancerChar = config.child("lancer").attribute("path").as_string();
-	wizardChar = config.child("wizard").attribute("path").as_string();*/
+	//wizardChar = config.child("wizard").attribute("path").as_string();
+	wizardChar = "Assets/sprites/characters/wizard/Valion.png";
 	return true;
 }
 
@@ -323,7 +339,9 @@ bool NPC::Start()
 
 		spriteTex = NULL;
 		break;
-
+	case NPCType::VALION:
+		spriteTex = app->tex->Load(wizardChar);
+		break;
 	default:
 		break;
 	}

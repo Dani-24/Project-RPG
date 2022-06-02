@@ -142,6 +142,9 @@ public:
 	bool Key2 = false;
 	bool Key3 = false;
 	//bool Floor3Key = false;
+
+	Entity *entityTalking;
+
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
@@ -239,6 +242,11 @@ public: // DIALOGS
 
 	const char* RipDialog[DIALOG_LENGHT] = {
 	"Its a tombstone"
+	};
+
+	const char* ValionDialog[DIALOG_LENGHT] = {
+	"fnsbydgsd",
+	"wsdgndysndg"
 	};
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);

@@ -337,6 +337,9 @@ void QuestManager::CheckQuest(int NPCid)
 		case 13:
 			app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 			break;
+		case 14:
+			app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+			break;
 		default:
 			break;
 		}
@@ -386,6 +389,9 @@ void QuestManager::InteractComplete(int id){
 			break;
 		case 13:
 			app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+			break;
+		case 14:
+			app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 			break;
 		default:
 			break;
@@ -461,6 +467,9 @@ void QuestManager::CheckState(int Id)
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+					break;
 				default:
 					break;
 				}
@@ -503,6 +512,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -549,6 +561,9 @@ void QuestManager::CheckState(int Id)
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
 					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
+					break;
 				default:
 					break;
 				}
@@ -591,6 +606,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -643,6 +661,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;

@@ -95,15 +95,17 @@ bool Scene::Start()
 	iPoint cartelSudTownPos = { 1000, 1764 };
 
 	iPoint bigtreePos = { 1000, 1764 };
-	iPoint archerPos = { 1000, 1764 };
+	/*iPoint archerPos = { 1000, 1764 };
 	iPoint lancerPos = { 1000, 1764 };
-	iPoint wizardPos = { 1000, 1764 };
+	iPoint wizardPos = { 1000, 1764 };*/
 
 	iPoint deadTreePos = { 2690 , 2030 };
 	iPoint treePos = { 573 , 332 };
 	iPoint ripPos = { 720 , 2700 };
 	iPoint rip2Pos = { 2969 , 1970 };
 	iPoint rip3Pos = { 2549 , 866 };
+
+	iPoint valionPos = { 930 , 1000 };
 
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
@@ -134,6 +136,9 @@ bool Scene::Start()
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWN;
 
+	NPC* valion = (NPC*)app->entities->CreateEntity(NPCType::VALION, valionPos.x, valionPos.y);
+	npcList.add(valion);
+	valion->activeOnStage = StageIndex::TOWN;
 
 
 
@@ -162,6 +167,9 @@ bool Scene::Start()
 	npcList.add(rip3);
 	rip3->activeOnStage = StageIndex::TOWER_3;
 
+	/*NPC* valion = (NPC*)app->entities->CreateEntity(NPCType::VALION, valionPos.x, valionPos.y);
+	npcList.add(valion);
+	cartelSudTown->activeOnStage = StageIndex::TOWN;*/
 
 	
 
