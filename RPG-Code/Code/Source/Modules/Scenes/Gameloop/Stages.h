@@ -92,6 +92,8 @@ public:
 	SDL_Texture* sprite;
 
 	Animation* carType = nullptr;
+
+	int claxonCooldown = 0;
 };
 
 class Stages : public Module
@@ -195,6 +197,8 @@ private:
 	List<Car*> cars;
 
 	int randomCarCount;
+
+	int fxCar1, fxCar2, fxCar3, fxCar4;
 };
 
 #endif // __STAGES_H__

@@ -1131,7 +1131,12 @@ void Stages::ChangeStage(StageIndex newStage) {
 			//app->camera->SetLimits(0, 0, 3152, 736);
 
 			// Audio
-			app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_city.ogg");
+
+			fxCar1 = app->audio->LoadFx("Assets/audio/sfx/fx_car1.wav");
+			fxCar2 = app->audio->LoadFx("Assets/audio/sfx/fx_car2.wav");
+			fxCar3 = app->audio->LoadFx("Assets/audio/sfx/fx_car3.wav");
+			fxCar4 = app->audio->LoadFx("Assets/audio/sfx/fx_car4.wav");
 
 			// Load Semáforos
 			{
@@ -1288,6 +1293,8 @@ void Stages::TrafficLightSystem() {
 	app->render->DrawTexture(TLIzq.sprite, TLIzq.position.x, TLIzq.position.y);
 	app->render->DrawTexture(TLPeDer.sprite, TLPeDer.position.x, TLPeDer.position.y);
 	app->render->DrawTexture(TLPeIzq.sprite, TLPeIzq.position.x, TLPeIzq.position.y);
+	app->render->DrawTexture(TLPeDer.sprite, TLPeDer.position.x + 5 * TILE_SIZE, TLPeDer.position.y + 8 * TILE_SIZE);
+	app->render->DrawTexture(TLPeIzq.sprite, TLPeIzq.position.x + 5 * TILE_SIZE, TLPeIzq.position.y + 8 * TILE_SIZE);
 
 	// Hitboxes
 	if (app->collisions->debug) {
@@ -1347,12 +1354,18 @@ void Stages::TrafficLightSystem() {
 		{
 		case TLState::CAUTION:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animCaution.GetCurrentFrame());
 			break;
 		case TLState::PASS:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animPass.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animPass.GetCurrentFrame());
 			break;
 		case TLState::STOP:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 8, &semaforo.animStop.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animStop.GetCurrentFrame());
 			break;
 		}
 		semaforo = TLPeIzq;
@@ -1361,12 +1374,18 @@ void Stages::TrafficLightSystem() {
 		{
 		case TLState::CAUTION:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animCaution.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animCaution.GetCurrentFrame());
 			break;
 		case TLState::PASS:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 20, &semaforo.animPass.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animPass.GetCurrentFrame());
 			break;
 		case TLState::STOP:
 			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13, semaforo.position.y + 8, &semaforo.animStop.GetCurrentFrame());
+
+			app->render->DrawTexture(semaforo.lightSprite, semaforo.position.x + 13 + 5 * TILE_SIZE, semaforo.position.y + 20 + 8 * TILE_SIZE, &semaforo.animStop.GetCurrentFrame());
 			break;
 		}
 	}
@@ -1523,6 +1542,35 @@ void Stages::CarManagement() {
 					c->data->position.x = TLIzq.hitbox.x - TLIzq.hitbox.w - colliderFix;
 					c->data->speed = 0;
 				}
+			}
+		}
+
+		// --- Collision with player --- 
+
+		if (playerPtr->baseCollider->Intersects(c->data->hitbox))
+		{
+			if(c->data->claxonCooldown < 0){
+				c->data->claxonCooldown = 60;
+
+				int sound = rand() % 4;
+				switch (sound)
+				{
+				case 1:
+					app->audio->PlayFx(fxCar1);
+					break;
+				case 2:
+					app->audio->PlayFx(fxCar2);
+					break;
+				case 3:
+					app->audio->PlayFx(fxCar3);
+					break;
+				case 4:
+					app->audio->PlayFx(fxCar4);
+					break;
+				}
+			}
+			else {
+				c->data->claxonCooldown--;
 			}
 		}
 

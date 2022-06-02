@@ -2,7 +2,8 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Map.h"
-
+#include "Stages.h"
+#include "Player.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -18,6 +19,662 @@ Map::Map(App* application, bool start_enabled) : Module(application, start_enabl
 	name.Create("map");
 	
 	mapLoaded = false;
+
+	LoadAnimatedTiles();
+}
+
+void Map::LoadAnimatedTiles() {
+	
+	float animSpeed = 0.012f;
+
+	// === Animated Water ===
+
+	// Rock dark water
+	Animation* anim = &rockDarkWtopL;
+	{
+		anim->PushBack({ 5 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWleft;
+
+		anim->PushBack({ 5 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWdownL;
+
+		anim->PushBack({ 5 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWtop;
+
+		anim->PushBack({ 6 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWmid;
+
+		anim->PushBack({ 6 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWdown;
+
+		anim->PushBack({ 6 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWtopR;
+
+		anim->PushBack({ 7 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, 0 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWright;
+
+		anim->PushBack({ 7 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, 1 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockDarkWdownR;
+
+		anim->PushBack({ 7 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, 2 * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+	}
+
+	//Clean rock water
+	{
+	int Y = 6;
+
+		anim = &rockCleanWtopL;
+
+		anim->PushBack({ 5 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWleft;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWdownL;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWtop;
+
+		anim->PushBack({ 6 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWmid;
+
+		anim->PushBack({ 6 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWdown;
+
+		anim->PushBack({ 6 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWtopR;
+
+		anim->PushBack({ 7 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWright;
+
+		anim->PushBack({ 7 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockCleanWdownR;
+
+		anim->PushBack({ 7 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockInterTopL;
+
+		anim->PushBack({ 4 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 12 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 20 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 28 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 36 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 44 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 52 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 60 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockInterDownL;
+
+		anim->PushBack({ 4 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 12 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 20 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 28 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 36 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 44 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 52 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 60 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockInterTopR;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 3) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &rockInterDownR;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 4) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+	}
+		// clean water
+	{
+		int Y = 30;
+
+		anim = &cleanWtopL;
+
+		anim->PushBack({ 5 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWleft;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWdownL;
+
+		anim->PushBack({ 5 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 13 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 21 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 29 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 37 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 45 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 53 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 61 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWtop;
+
+		anim->PushBack({ 6 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWmid;
+
+		anim->PushBack({ 6 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWdown;
+
+		anim->PushBack({ 6 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 14 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 22 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 30 * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 38 * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 46 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 54 * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 62 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWtopR;
+
+		anim->PushBack({ 7 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, Y * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWright;
+
+		anim->PushBack({ 7 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE,  (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+		anim = &cleanWdownR;
+
+		anim->PushBack({ 7 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 15 * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 23 * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 31 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 39 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 47 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 55 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->PushBack({ 63 * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+		anim->speed = animSpeed;
+		anim->loop = true;
+
+	}
+
+	// WATERFALLS
+	
+	int X = 5, Y = 0, diff = 8;
+	// Dark
+	anim = &cascOTopL; 
+
+	anim->PushBack({ (X) * TILE_SIZE, (Y) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y) * TILE_SIZE, TILE_SIZE, TILE_SIZE});
+	anim->PushBack({ (X + diff*2) * TILE_SIZE,(Y) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff*3) * TILE_SIZE, (Y) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascOLeft; 
+
+	anim->PushBack({ (X) * TILE_SIZE, (Y + 1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y + 1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2) * TILE_SIZE,(Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3) * TILE_SIZE, (Y +1 )*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascODownL; 
+
+	anim->PushBack({ (X)*TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascOTop; 
+
+	anim->PushBack({ (X + 1)*TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff +1) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 +1) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 +1) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascOMid; 
+
+	anim->PushBack({ (X + 1) * TILE_SIZE, (Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 1) * TILE_SIZE,(Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 1) * TILE_SIZE,(Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 1) * TILE_SIZE, (Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascODown; 
+
+	anim->PushBack({ (X + 1) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 1) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 1) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 1) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascOTopR; 
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascORight; 
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y +1)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascODownR;
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	// Clear
+
+	Y = 6;
+	// Dark
+	anim = &cascTopL;
+
+	anim->PushBack({ (X)*TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascLeft;
+
+	anim->PushBack({ (X)*TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3) * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascDownL;
+
+	anim->PushBack({ (X)*TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascTop;
+
+	anim->PushBack({ (X + 1) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 1) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 1) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 1) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascMid;
+
+	anim->PushBack({ (X + 1) * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 1) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 1) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 1) * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascDown;
+
+	anim->PushBack({ (X + 1) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 1) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 1) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 1) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascTopR;
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y)*TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascRight;
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y + 1) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+
+	anim = &cascDownR;
+
+	anim->PushBack({ (X + 2) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff + 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 2 + 2) * TILE_SIZE,(Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->PushBack({ (X + diff * 3 + 2) * TILE_SIZE, (Y + 2) * TILE_SIZE, TILE_SIZE, TILE_SIZE });
+	anim->speed = animSpeed;
+	anim->loop = true;
+	
+	anim = nullptr;
+	delete anim;
+}
+
+void Map::UpdateAnimatedTiles() // Optimizar el código está sobrevalorado
+{
+	// Water
+	rockDarkWtopL.Update();
+	rockDarkWleft.Update();
+	rockDarkWdownL.Update();
+	rockDarkWtop.Update();
+	rockDarkWmid.Update();
+	rockDarkWdown.Update();
+	rockDarkWtopR.Update();
+	rockDarkWright.Update();
+	rockDarkWdownR.Update();
+
+	rockCleanWtopL.Update();
+	rockCleanWleft.Update();
+	rockCleanWdownL.Update();
+	rockCleanWtop.Update();
+	rockCleanWmid.Update();
+	rockCleanWdown.Update();
+	rockCleanWtopR.Update();
+	rockCleanWright.Update();
+	rockCleanWdownR.Update();
+
+	rockInterTopL.Update();
+	rockInterTopR.Update();
+	rockInterDownL.Update();
+	rockInterDownR.Update();
+
+	cleanWtopL.Update();
+	cleanWleft.Update();
+	cleanWdownL.Update();
+	cleanWtop.Update();
+	cleanWmid.Update();
+	cleanWdown.Update();
+	cleanWtopR.Update();
+	cleanWright.Update();
+	cleanWdownR.Update();
+
+	// Waterfalls
+	cascOTopL.Update(); 
+	cascOLeft.Update(); 
+	cascODownL.Update(); 
+	cascOTop.Update(); 
+	cascOMid.Update(); 
+	cascODown.Update(); 
+	cascOTopR.Update(); 
+	cascORight.Update(); 
+	cascODownR.Update();
+	cascTopL.Update(); 
+	cascLeft.Update(); 
+	cascDownL.Update(); 
+	cascTop.Update(); 
+	cascMid.Update();
+	cascDown.Update(); 
+	cascTopR.Update(); 
+	cascRight.Update(); 
+	cascDownR.Update();
 }
 
 // Destructor
@@ -111,6 +768,7 @@ bool Map::Start() {
 	charValues.add("Col");
 	return true;
 }
+
 // Draw the map (all requried layers)
 void Map::Draw()
 {
@@ -120,44 +778,219 @@ void Map::Draw()
 	ListItem<MapLayer*>* mapLayerItem;
 	mapLayerItem = mapData.layers.start;
 
+	UpdateAnimatedTiles();
+
 	// Draw all the layers and not just the first one
 	while (mapLayerItem != NULL) {
 
 		if (mapLayerItem->data->isHigh == false) {
 
-			if (mapLayerItem->data->properties.GetProperty<int>("Draw") == 1) {
-
-				for (int x = 0; x < mapLayerItem->data->width; x++)
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
 				{
-					for (int y = 0; y < mapLayerItem->data->height; y++)
-					{
-						// L04: DONE 9: Complete the draw function
+
+					if (mapLayerItem->data->properties.GetProperty<int>("Draw") == 1) {
+
 						int gid = mapLayerItem->data->Get(x, y);
 
 						if (gid > 0) {
 
-							//Obtain the tile set using GetTilesetFromTileId
-							//now we always use the firt tileset in the list
-							//TileSet* tileset = mapData.tilesets.start->data;
-							TileSet* tileset = GetTilesetFromTileId(gid);
-
-							SDL_Rect r = tileset->GetTileRect(gid);
 							iPoint pos = MapToWorld(x, y);
 
-							app->render->DrawTexture(tileset->texture,
-								pos.x,
-								pos.y,
-								&r);
+							TileSet* tileset = GetTilesetFromTileId(gid);
+							SDL_Rect r = tileset->GetTileRect(gid);
+
+							app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 						}
-
 					}
+					else if (mapLayerItem->data->properties.GetProperty<int>("hasWater") == 1) {
 
+						// Complete the draw function
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							iPoint pos = MapToWorld(x, y);
+								// Print the specific water animation on each tile
+								switch (mapLayerItem->data->properties.GetProperty<int>("water"))
+								{
+									// Dark
+								case 1:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWtopL.GetCurrentFrame());
+									break;
+								case 2:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWleft.GetCurrentFrame());
+									break;
+								case 3:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWdownL.GetCurrentFrame());
+									break;
+								case 4:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWtop.GetCurrentFrame());
+									break;
+								case 5:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWmid.GetCurrentFrame());
+									break;
+								case 6:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWdown.GetCurrentFrame());
+									break;
+								case 7:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWtopR.GetCurrentFrame());
+									break;
+								case 8:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWright.GetCurrentFrame());
+									break;
+								case 9:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockDarkWdownR.GetCurrentFrame());
+									break;
+
+									// Rock Clean
+								case 10:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWtopL.GetCurrentFrame());
+									break;
+								case 11:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWleft.GetCurrentFrame());
+									break;
+								case 12:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWdownL.GetCurrentFrame());
+									break;
+								case 13:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWtop.GetCurrentFrame());
+									break;
+								case 14:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWmid.GetCurrentFrame());
+									break;
+								case 15:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWdown.GetCurrentFrame());
+									break;
+								case 16:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWtopR.GetCurrentFrame());
+									break;
+								case 17:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWright.GetCurrentFrame());
+									break;
+								case 18:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockCleanWdownR.GetCurrentFrame());
+									break;
+
+									// Clean
+								case 19:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWtopL.GetCurrentFrame());
+									break;
+								case 20:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWleft.GetCurrentFrame());
+									break;
+								case 21:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWdownL.GetCurrentFrame());
+									break;
+								case 22:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWtop.GetCurrentFrame());
+									break;
+								case 23:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWmid.GetCurrentFrame());
+									break;
+								case 24:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWdown.GetCurrentFrame());
+									break;
+								case 25:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWtopR.GetCurrentFrame());
+									break;
+								case 26:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWright.GetCurrentFrame());
+									break;
+								case 27:
+									app->render->DrawTexture(water, pos.x, pos.y, &cleanWdownR.GetCurrentFrame());
+									break;
+
+									// rock clean inter
+								case 28:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockInterTopL.GetCurrentFrame());
+									break;
+								case 29:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockInterDownL.GetCurrentFrame());
+									break;
+								case 30:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockInterTopR.GetCurrentFrame());
+									break;
+								case 31:
+									app->render->DrawTexture(water, pos.x, pos.y, &rockInterDownR.GetCurrentFrame());
+									break;
+
+								default:
+									break;
+								}
+						}
+					}
+					else if (mapLayerItem->data->properties.GetProperty<int>("hasWaterfall") == 1) {
+						// Complete the draw function
+						int gid = mapLayerItem->data->Get(x, y);
+
+						if (gid > 0) {
+
+							iPoint pos = MapToWorld(x, y);
+							// Print the specific water animation on each tile
+
+							switch (mapLayerItem->data->properties.GetProperty<int>("waterfallType"))
+							{
+							case 1:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascOTopL.GetCurrentFrame());
+								break;
+							case 2:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascOLeft.GetCurrentFrame());
+								break;
+							case 3:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascODownL.GetCurrentFrame());
+								break;
+							case 4:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascOTop.GetCurrentFrame());
+								break;
+							case 5:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascOMid.GetCurrentFrame());
+								break;
+							case 6:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascODown.GetCurrentFrame());
+								break;
+							case 7:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascOTopR.GetCurrentFrame());
+								break;
+							case 8:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascORight.GetCurrentFrame());
+								break;
+							case 9:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascODownR.GetCurrentFrame());
+								break;
+							case 10:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascTopL.GetCurrentFrame());
+								break;
+							case 11:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascLeft.GetCurrentFrame());
+								break;
+							case 12:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascDownL.GetCurrentFrame());
+								break;
+							case 13:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascTop.GetCurrentFrame());
+								break;
+							case 14:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascMid.GetCurrentFrame());
+								break;
+							case 15:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascDown.GetCurrentFrame());
+								break;
+							case 16:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascTopR.GetCurrentFrame());
+								break;
+							case 17:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascRight.GetCurrentFrame());
+								break;
+							case 18:
+								app->render->DrawTexture(waterfall, pos.x, pos.y, &cascDownR.GetCurrentFrame());
+							}
+						}
+					}
 				}
-
 			}
-
 		}
-
 		mapLayerItem = mapLayerItem->next;
 	}
 
@@ -183,25 +1016,17 @@ void Map::ReDraw()
 				{
 					for (int y = 0; y < mapLayerItem->data->height; y++)
 					{
-						// L04: DONE 9: Complete the draw function
 						int gid = mapLayerItem->data->Get(x, y);
 
 						if (gid > 0) {
 
-							//Obtain the tile set using GetTilesetFromTileId
-							//now we always use the firt tileset in the list
-							//TileSet* tileset = mapData.tilesets.start->data;
-							TileSet* tileset = GetTilesetFromTileId(gid);
-
-							SDL_Rect r = tileset->GetTileRect(gid);
 							iPoint pos = MapToWorld(x, y);
 
-							app->render->DrawTexture(tileset->texture,
-								pos.x,
-								pos.y,
-								&r);
-						}
+								TileSet* tileset = GetTilesetFromTileId(gid);
+								SDL_Rect r = tileset->GetTileRect(gid);
 
+								app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+						}
 					}
 				}
 			}
@@ -314,33 +1139,32 @@ bool Map::Load(const char* filename)
         ret = false;
     }
 
-	// Load general info
+	// load and fill all your map data
     if(ret == true)
     {
-        // L03: DONE 3: Create and call a private function to load and fill all your map data
 		ret = LoadMap(mapFile);
 	}
 
-    // Create and call a private function to load a tileset
-    // remember to support more any number of tilesets!
+    // Load a tileset
 	if (ret == true)
 	{
 		ret = LoadTileSets(mapFile.child("map"));
 	}
 
-	// Iterate all layers and load each of them
 	// Load layer info
 	if (ret == true)
 	{
 		ret = LoadAllLayers(mapFile.child("map"));
 	}
     
-
 	mapLoaded = ret;
 
     if(ret == true)
     {
 		LoadCol();
+		
+		water = app->tex->Load("Assets/maps/tiles/[A]Water_pipo.png");
+		waterfall = app->tex->Load("Assets/maps/tiles/[A]WaterFall_pipo.png");
     }
 
 	return ret;
@@ -507,7 +1331,6 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	
 	return ret;
 }
-
 
 void Map::LoadCol() {
 
@@ -714,6 +1537,9 @@ bool Map::CleanUp()
 	LOG("Unloading map");
 
 	RemoveCol();
+
+	app->tex->UnLoad(water);
+	app->tex->UnLoad(waterfall);
 
 	app->entities->DestroyEntity(wallsEntity);
 	wallsEntity = nullptr;
