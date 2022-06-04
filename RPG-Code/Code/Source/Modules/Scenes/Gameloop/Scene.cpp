@@ -140,7 +140,9 @@ bool Scene::Start()
 	npcList.add(valion);
 	valion->activeOnStage = StageIndex::TOWN;
 
-
+	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK_KUN, 10 * TILE_SIZE, 14 * TILE_SIZE);
+	npcList.add(camionKun);
+	camionKun->activeOnStage = StageIndex::PROLOGUE;
 
 	/*NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
 	npcList.add(cartelSudTown);
@@ -388,7 +390,7 @@ bool Scene::PreUpdate()
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		app->stages->ChangeStage(StageIndex::PROLOGUE);
+		app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
 	}
 
 	return ret;

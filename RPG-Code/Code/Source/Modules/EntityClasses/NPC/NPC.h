@@ -35,7 +35,8 @@ enum class NPCType
 	RIP,
 	RIP_2,
 	RIP_3,
-	VALION
+	VALION,
+	TRUCK_KUN
 
 };
 

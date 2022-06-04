@@ -281,7 +281,7 @@ bool Stages::PostUpdate()
 				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY);
 				break;
 			case 12:
-				ChangeStage(StageIndex::TOWN);
+				app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
 				break;
 			default:
 				break;
@@ -357,7 +357,12 @@ bool Stages::PostUpdate()
 							if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h <= playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 								if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+									if (npcInList->data->npcID == 69) {
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+									}
+									else {
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+									}
 								}
 							}
 						}
@@ -441,7 +446,12 @@ bool Stages::PostUpdate()
 						if (npcInList->data->position.y + npcInList->data->currentAnimation->GetCurrentFrame().h > playerPtr->position.y + playerPtr->currentAnimation->GetCurrentFrame().h) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+								if (npcInList->data->npcID == 69) {
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+								}
+								else {
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+								}
 							}
 						}
 					}
@@ -1124,7 +1134,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->map->Load("prologue.tmx");
 
 			// Recolocar al player
-			playerPtr->position =/* { 350, 420 }*/{ 60 * TILE_SIZE, 14 * TILE_SIZE };
+			playerPtr->position ={ 10 * TILE_SIZE, 10 * TILE_SIZE };
 
 			// Camera
 			app->camera->OnTarget();
