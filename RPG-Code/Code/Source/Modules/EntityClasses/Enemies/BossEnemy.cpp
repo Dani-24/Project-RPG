@@ -124,7 +124,7 @@ BossEnemy::BossEnemy(BossType bossType) : Enemy(EnemyType::BOSS)
 
 		currentAnimation = &idleAnimL;
 
-		name = "Evil Valion";
+		name = "Valion";
 		battleName = " Valion";
 		configName = "evilValion";
 

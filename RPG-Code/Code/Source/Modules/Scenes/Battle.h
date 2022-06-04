@@ -5,6 +5,7 @@
 #include "GuiButton.h"
 #include "Animation.h"
 #include "Stages.h"
+#include "Party.h"
 
 struct SDL_Texture;
 class Player;
@@ -13,6 +14,7 @@ class Items;
 class Usable;
 
 enum class StageIndex;
+enum class PartyType;
 
 #define BUTTONS_SPACE_HOR 10
 #define BUTTONS_BOTTOM_SPACE 50

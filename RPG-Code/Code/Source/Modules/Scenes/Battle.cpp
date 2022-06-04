@@ -659,8 +659,38 @@ bool Battle::Update(float dt)
 				optionPercent = 0;
 				srand(time(NULL));
 				optionPercent = (rand() % (100 - 0)) + 0;
+				//If the enemy is a BOSS, can't be afraid
+				if (actualTurnEntity->name == "Valion" || actualTurnEntity->name == "Rayla" || actualTurnEntity->name == "Dhion") {
+					if (optionPercent < 70) {//70
+
+						DynamicEntity* targets[4];
+
+						int n = 0;
+						for (int i = 0; i < 4; i++) {
+							if (entitiesInBattle[i] != nullptr) {
+								if (entitiesInBattle[i]->isAlive == true) {
+									targets[n] = entitiesInBattle[i];
+									n++;
+								}
+							}
+						}
+
+						int targetNum = (rand() % n);
+
+						/*while (entitiesInBattle[targetNum]->isAlive == false) {
+							targetNum = (rand() % 4);
+						}*/
+
+						targetEntity = targets[targetNum];
+
+						ChangePhase(BattlePhase::ATTACKING);
+					}
+					else {
+						ChangePhase(BattlePhase::DEFENDING);
+					}
+				}
 				//If the enemy is NOT afraid
-				if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
+				else if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
 					if (optionPercent < 70) {//70
 						
 						DynamicEntity *targets[4];
@@ -2351,6 +2381,40 @@ bool Battle::CleanUp()
 	switch(battlePhase) {
 	case BattlePhase::REWARD:
 		
+		if (entitiesInBattle[4]->name == "Valion") {
+			int newX = 80;
+			int newY = 130 - 50;
+			if (app->scene->partyList.At(1) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(1));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+			}
+		}
+		if (entitiesInBattle[4]->name == "Rayla") {
+			int newX = -200;
+			int newY = 120 - 50;
+			if (app->scene->partyList.At(2) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(2));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+		}
+		if (entitiesInBattle[4]->name == "Dhion") {
+			int newX = 200;
+			int newY = 0 - 50;
+			if (app->scene->partyList.At(3) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(3));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+		}
+
 		//Destroy enemy
 		for (int i = 4; i < 8; i++) {
 			if (entitiesInBattle[i] != nullptr) {
@@ -2413,6 +2477,40 @@ bool Battle::CleanUp()
 
 		break;
 	case BattlePhase::LOOT:
+
+		if (entitiesInBattle[4]->name == "Valion") {
+			int newX = 80;
+			int newY = 130 - 50;
+			if (app->scene->partyList.At(1) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(1));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+			}
+		}
+		if (entitiesInBattle[4]->name == "Rayla") {
+			int newX = -200;
+			int newY = 120 - 50;
+			if (app->scene->partyList.At(2) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(2));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+		}
+		if (entitiesInBattle[4]->name == "Dhion") {
+			int newX = 200;
+			int newY = 0 - 50;
+			if (app->scene->partyList.At(3) == nullptr) {
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
+			}
+			else {
+				app->scene->partyList.del(app->scene->partyList.At(3));
+				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+			}
+		}
 
 		//Destroy enemy
 		for (int i = 4; i < 8; i++) {
