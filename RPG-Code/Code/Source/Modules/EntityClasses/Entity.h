@@ -51,6 +51,7 @@ public:
 	bool hasStarted = false;
 
 	const char* name;
+	const char* battleName;
 	SString configName;
 
 	EntityType entityType;

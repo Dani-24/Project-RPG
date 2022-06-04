@@ -255,6 +255,11 @@ public:
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
 
+	char enemyName1[50] = { "\0" };
+	char enemyName2[50] = { "\0" };
+	char enemyName3[50] = { "\0" };
+	char enemyName4[50] = { "\0" };
+
 	bool someoneAttacking;
 	bool someoneDefending;
 	bool itsPlayerTurn;

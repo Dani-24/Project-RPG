@@ -177,6 +177,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Flying eye";
+		battleName = " Fl. Eye";
 		configName = "flying_eye";
 
 		break;
@@ -288,6 +289,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Bat";
+		battleName = " Bat";
 		configName = "bat";
 
 		break;
@@ -415,6 +417,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Skeleton";
+		battleName = " Skelet.";
 		configName = "skeleton";
 
 		break;
