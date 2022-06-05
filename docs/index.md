@@ -30,7 +30,8 @@
 ![Alt Text](https://thumbs.gfycat.com/LateWhisperedArcticseal-max-1mb.gif)
 
 - Xavier Lopez - [Xavierlm11](https://github.com/Xavierlm11) - QA
-
+- 
+![Alt Text](https://www.meme-arsenal.com/memes/fa99667b78e49c49e085ae7120d71130.jpg)
 
 ### History
 
