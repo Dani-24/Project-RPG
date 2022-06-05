@@ -67,7 +67,19 @@ bool GuiButton::Update(float dt)
 		else 
 			if(!app->guiManager->keyb) state = GuiControlState::NORMAL;
 	}
-	
+
+	if (cont % 2 == 0) {
+
+		if (xp)xd++;
+		else if (!xp)xd--;
+	}
+
+	if (xd <= 0)xp = true;
+	else if (xd >= 8)xp = false;
+
+	cont += dt;
+	if (cont > 500)cont = 0;
+
 	return false;
 }
 
@@ -152,7 +164,9 @@ bool GuiButton::Draw(Render* render)
 			if (app->collisions->debug)render->DrawRectangle(bounds, 255, 255, 255, 100);
 
 			//render->DrawRectangle({bounds.x-100,bounds.y,bounds.w,bounds.h}, 255, 255, 255, 100);
-			render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h/2-6 );
+			render->DrawTexture(app->guiManager->selector, bounds.x - 15 - xd, bounds.y + bounds.h/2-6 );
+			
+			LOG("%f", xd);
 
 		} break;
 
@@ -168,6 +182,7 @@ bool GuiButton::Draw(Render* render)
 		default:
 			break;
 		}
+		
 	
 	return false;
 }

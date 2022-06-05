@@ -170,6 +170,7 @@ public:
 	SString DoorChar;
 	SString LosefxChar;
 
+
 private:
 
 	// TL => Traffic light ---- Pe => Peaton

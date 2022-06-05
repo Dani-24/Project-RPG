@@ -110,23 +110,23 @@ bool Configuration::PostUpdate()
 
 	app->render->DrawTexture(background, x + (app->win->GetWidth() / 2) - 475, y + (app->win->GetWidth() / 50) + 40);
 
-	app->font->DrawText("Music", x + (app->win->GetWidth() / 2) - 470, y + (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText(volchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 50, c);
-	app->font->DrawText("SFX", x + (app->win->GetWidth() / 2) - 470, y + (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 90, c);
-	app->font->DrawText(FXchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 90, c);
+	app->font->DrawText("Music", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 50 -yt, c);
+	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText(volchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText("SFX", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText(FXchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 90 - yt, c);
 
-	app->font->DrawText("FullScreen", x + (app->win->GetWidth() / 2) - 470, y + (app->win->GetWidth() / 50) + 130, c);
-	if (app->win->fullscreen == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 130, c);
+	app->font->DrawText("FullScreen", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 130 - yt, c);
+	if (app->win->fullscreen == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 130 - yt, c);
 
-	app->font->DrawText("VSync", x + (app->win->GetWidth() / 2) - 470, y + (app->win->GetWidth() / 50) + 170, c);
-	if (app->render->Vsync == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 170, c);
+	app->font->DrawText("VSync", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 170 - yt, c);
+	if (app->render->Vsync == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 170 - yt, c);
 
 
-	app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 180, y + (app->win->GetWidth() / 50) + 37, c);
+	app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 170, y + (app->win->GetWidth() / 50) + 47, c);
 
 	return ret;
 }

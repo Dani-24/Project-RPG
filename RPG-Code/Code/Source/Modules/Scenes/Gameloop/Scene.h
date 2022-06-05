@@ -56,6 +56,15 @@ public:
 
 private:
 
+	SString CharRest;
+	SString	_CharRest;
+	SString	CharBackTex;
+	SString	_CharBackTex;
+	SString	CharLoc;
+	SString	CharFxBack;
+	SString	CharFxLoad;
+	SString	CharFxSave;
+
 	float fpsdt;
 	//variables de interfaz
 	float hpc, hpv;

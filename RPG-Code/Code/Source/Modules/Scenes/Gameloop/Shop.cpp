@@ -49,6 +49,9 @@ bool Shop::Awake(pugi::xml_node& config)
 	LOG("Starting Shop");
 	bool ret = true;
 
+	uiChar = config.child("uishop").attribute("path").as_string();
+	itmChar = config.child("itm2").attribute("path").as_string();
+
 	return ret;
 
 }
@@ -59,8 +62,8 @@ bool Shop::Start() {
 	int a = -app->camera->GetPos().y / 2;
 	int b = -app->camera->GetPos().x / 2+65;
 
-	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
-	ItemTex = app->tex->Load("Assets/items/items2.png");
+	ShopTex = app->tex->Load(uiChar.GetString());
+	ItemTex = app->tex->Load(itmChar.GetString());
 	app->scene->player->canMove = false;
 
 	//Buttons

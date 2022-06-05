@@ -45,6 +45,15 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	CharRest = config.child("rest").attribute("path").as_string();
+	_CharRest = config.child("prest").attribute("path").as_string();
+	CharBackTex = config.child("back").attribute("path").as_string();
+	_CharBackTex = config.child("pback").attribute("path").as_string();
+	CharLoc = config.child("loc").attribute("path").as_string();
+	CharFxBack = config.child("bFx").attribute("path").as_string();
+	CharFxLoad = config.child("lFx").attribute("path").as_string();
+	CharFxSave = config.child("sFx").attribute("path").as_string();
+
 	return ret;
 }
 
@@ -60,18 +69,18 @@ bool Scene::Start()
 	app->dialogs->Enable();
 
 	// Load textures
-	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
-	loadFx = app->audio->LoadFx("Assets/audio/sfx/fx_load.wav");
-	saveFx = app->audio->LoadFx("Assets/audio/sfx/fx_save.wav");
+	backFx = app->audio->LoadFx(CharFxBack.GetString());
+	loadFx = app->audio->LoadFx(CharFxLoad.GetString());
+	saveFx = app->audio->LoadFx(CharFxSave.GetString());
 
 	//buttons
 	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
 	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
-	restartTex = app->tex->Load("Assets/gui/buttons/button_restart.png");
-	press_restartTex = app->tex->Load("Assets/gui/buttons/pressed_button_restart.png");
-	backtoMenuTex = app->tex->Load("Assets/gui/buttons/button_back_to_menu.png");
-	press_backtoMenuTex = app->tex->Load("Assets/gui/buttons/pressed_button_back_to_menu.png");
-	locationUI = app->tex->Load("Assets/gui/inventory/ui_localizacion.png");
+	restartTex = app->tex->Load(CharRest.GetString());
+	press_restartTex = app->tex->Load(_CharRest.GetString());
+	backtoMenuTex = app->tex->Load(CharBackTex.GetString());
+	press_backtoMenuTex = app->tex->Load(_CharBackTex.GetString());
+	locationUI = app->tex->Load(CharLoc.GetString());
 
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);

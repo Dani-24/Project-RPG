@@ -54,7 +54,7 @@ private:
 	//GuiButton* frcap60;//change frcap to 60fps
 	GuiButton* back;//back to the last screen
 	
-	
+	int xt=460, yt=-15;
 
 public:
 	bool pause;
