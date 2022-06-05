@@ -26,20 +26,33 @@ ModuleParticles::~ModuleParticles()
 
 bool ModuleParticles::Start()
 {
-	ShootTex = app->tex->Load("Assets/textures/AmogusTex.png");
+	SmokeTex = app->tex->Load("Assets/particles/smoke_particles.png");
 
 	//Particle
-	PlayerAttack.anim.PushBack({ 0,0, 20, 35 });
-	PlayerAttack.anim.loop = false;
-	PlayerAttack.anim.speed = 0.2f;
-	PlayerAttack.lifetime = 200;
+	SmokeParticle.anim.PushBack({ 0,0, 27, 53 });
+	SmokeParticle.anim.PushBack({ 31, 0, 22, 53 });
+	SmokeParticle.anim.PushBack({ 58,0, 20, 53 });
+	SmokeParticle.anim.PushBack({ 85,0, 21, 43 });
+	SmokeParticle.anim.loop = true;
+	SmokeParticle.anim.speed = 0.5f;
+	SmokeParticle.lifetime = 300;
 
+	FireTex = app->tex->Load("Assets/particles/flames_particles.png");
+
+	FireParticle.anim.PushBack({ 2,48, 12,18 });
+	FireParticle.anim.PushBack({ 18, 48, 12, 19 });
+	FireParticle.anim.PushBack({ 34,48, 12, 18 });
+	FireParticle.anim.PushBack({ 51,48, 12, 19 });
+	FireParticle.anim.loop = true;
+	FireParticle.anim.speed = 0.5f;
+	FireParticle.lifetime = 300;
+	
 	return true;
 }
 
 bool ModuleParticles::CleanUp()
 {
-	/*LOG("Unloading particles");*/
+	LOG("Unloading particles");
 
 	// Delete all remaining active particles on application exit 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -114,16 +127,16 @@ bool ModuleParticles::PostUpdate()
 
 		if (particle != nullptr && particle->isAlive)
 		{
-
-			app->render->DrawTexture(ShootTex, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
-
+			if (particle->type == 1)app->render->DrawTexture(SmokeTex, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
+			if (particle->type == 2)app->render->DrawTexture(FireTex, particle->position.x, particle->position.y, &(particle->anim.GetCurrentFrame()));
+			
 		}
 	}
 
 	return true;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int type, Collider::Type colliderType, uint delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int type/*, Collider::Type colliderType*/, uint delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -135,7 +148,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, int ty
 			p->type = type;
 			p->frameCount = -(int)delay;			// We start the frameCount as the negative delay
 			p->position.x = x;						// so when frameCount reaches 0 the particle will be activated
-			p->position.y = y - 20;
+			p->position.y = y;
 
 			//Adding the particle's collider
 

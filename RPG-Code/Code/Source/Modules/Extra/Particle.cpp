@@ -1,5 +1,6 @@
 #include "Particle.h"
-
+#include "ModuleParticles.h"
+#include "App.h"
 #include "Collider.h"
 
 Particle::Particle()
@@ -24,6 +25,7 @@ bool Particle::Update()
 {
 	bool ret = true;
 	frameCount++;
+	app->particlesM->SmokeParticle.anim.Update();
 
 	// The particle is set to 'alive' when the delay has been reached
 	if (!isAlive && frameCount >= 0)
@@ -47,11 +49,11 @@ bool Particle::Update()
 		position.x += speed.x;
 		position.y += speed.y;
 
-		if (collider != nullptr) {
+		/*if (collider != nullptr) {
 			if (type == 1) {
 				collider->SetPos(position.x, position.y + 25);
 			}
-		}
+		}*/
 	}
 
 	return ret;

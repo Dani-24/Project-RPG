@@ -45,18 +45,19 @@ public:
 	// Param x, y		- Position x,y in the screen (upper left axis)
 	// Param delay		- Delay time from the moment the function is called until the particle is displayed in screen
 
-	void AddParticle(const Particle& particle, int x, int y, int type, Collider::Type colliderType = Collider::Type::NONE, uint delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, int type, /*Collider::Type colliderType = Collider::Type::NONE,*/ uint delay = 0);
 
 private:
 	// Particles spritesheet loaded into an SDL Texture
-	SDL_Texture* ShootTex = nullptr;
+	SDL_Texture* SmokeTex = nullptr;
+	SDL_Texture* FireTex = nullptr;
 
 	// An array to store and handle all the particles
 	Particle* particles[MAX_ACTIVE_PARTICLES] = { nullptr };
 
 public:
 	//Template particle for an explosion
-	Particle PlayerAttack;
+	Particle SmokeParticle, FireParticle;
 };
 
 #endif // !__MODULEPARTICLES_H__
