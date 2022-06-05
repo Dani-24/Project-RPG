@@ -30,8 +30,32 @@
 ![Alt Text](https://thumbs.gfycat.com/LateWhisperedArcticseal-max-1mb.gif)
 
 - Xavier Lopez - [Xavierlm11](https://github.com/Xavierlm11) - QA
-- 
+
+
 ### History
 
+
+
 ### Controls
+- WASD - Movement
+- Left Click - Interact
+- ESC - Back
+- SPACE : Confirm/Talk
+- Left mouse button (UI) : Confirm
+- Mouse movement (UI) : Select
+- G (UI) : Show UI
+- 1 / 2 - Change Gender
+
+## Debug Keys
+
+- 7 - Lock / Unlock player movement
+- 9 - Save Data
+- 0 - Load Data
+- F1 - Town map
+- F2 - Dojo map
+- F3 - Shop map
+- F4 - Shop (lower floor) map
+- F5 - Tavern map
+- F9 - Show / Hide Colliders
+- F10 - GOD mode: Fly-around mode, infinite stats.
 
