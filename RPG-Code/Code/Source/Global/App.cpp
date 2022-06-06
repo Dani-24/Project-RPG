@@ -89,17 +89,16 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	
 	AddModule(map);
+	AddModule(particlesM);
 
-	AddModule(entities);
-
+	AddModule(entities);	
 	AddModule(pauseM);
 	AddModule(conf);
-	
 	
 	AddModule(inventory);
 	AddModule(stmen);
 	AddModule(shop);
-	AddModule(particlesM);
+
 
 	AddModule(guiManager);
 	AddModule(font);

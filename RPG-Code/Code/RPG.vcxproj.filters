@@ -52,7 +52,6 @@
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Shop.cpp" />
     <ClCompile Include="Source\Modules\Scenes\StatsMenu.cpp" />
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
-    <ClCompile Include="Source\Modules\Extra\Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -127,7 +126,6 @@
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Shop.h" />
     <ClInclude Include="Source\Modules\Scenes\StatsMenu.h" />
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
-    <ClInclude Include="Source\Modules\Extra\Particle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
