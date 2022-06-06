@@ -600,10 +600,7 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
-	if (app->stages->actualStage == StageIndex::TOWN) {
-		app->particlesM->AddParticle(app->particlesM->SmokeParticle, 388, 1010, 1);
-		app->particlesM->AddParticle(app->particlesM->FireParticle, 1294, 505, 2);
-	}
+	
 	return ret;
 }
 
