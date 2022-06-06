@@ -35,7 +35,9 @@
 
 ### History
 
-
+Rhen/Briar are the main character which you can choose on the beginning of the game. They were normal people on a city in our world, but one day Truck-Kun run over him/her, and they got isekaid to de game world. This new world has been kidnapped by a villian whose purpose is to dominated that world. In the center of the biggest city there is a tower with a lot of levels, the villian is on the top of the tower, and in the levels below there are a lot of enemies, some stronger than the others, the level of strenghth of the enemies depends in the level of the tower.
+A lot of heroes of that world haf tried to defeat the villian, but they all lost against the tower. None of them came back out.
+There is a legend that says that the ones who lose against the tower becomes part of it.
 
 ### Controls
 - WASD - Movement
