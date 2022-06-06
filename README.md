@@ -2,6 +2,10 @@
 
 <img width="500" height="300" src="https://i.ytimg.com/vi/ghmDKAFPX0g/mqdefault.jpg">
 
+## Github Project:
+
+https://github.com/Dani-24/RPG
+
 ## Description
 
 This is a nice RPG game :D
@@ -13,9 +17,36 @@ Why this place exists?? Who is in the tower?? Why all the inhabitant have lived 
 
 Only you can discover that by exploring the tower.
 
-## Github Project:
+## DEFAULT CONTROLS: (If "/" that means both keys do the same)
 
-https://github.com/Dani-24/RPG
+	ASDW / Arrows 	- Player / UI movement
+	Shift / CTRL 	- Run / Speed Up dialogues
+
+	ESC 		- Close current menu
+	Enter / Space 	- Interact / UI Press Button
+
+* On Pause Menu you can access all stats/inventory menus
+* UI buttons are mouse reactive
+
+## DEBUG KEYS:
+
+	F10 		- GODMODE (Required to use other Debug Keys)
+
+		F9 		- Show/Hide Colliders & Debug info
+
+		TAB 		- Change Player gender
+
+		F1 		- Scroll Maps backward (last)
+		F2 		- Scroll Maps forward (next)
+
+		I 		- Inventory
+		E 		- Stats
+
+		1 		- Add / Delete Valion
+		2 		- Add / Delete Rayla
+		3 		- Add / Delete Dhion
+
+		4 (has the $ symbol) - Add +10 money
 
 ## Suspicious Team members (With a Descriptive Image):
 
@@ -47,40 +78,8 @@ https://github.com/Dani-24/RPG
 
 ![Alt Text](https://www.meme-arsenal.com/memes/fa99667b78e49c49e085ae7120d71130.jpg)
 
-
-DEFAULT CONTROLS: (If "/" that means both keys do the same)
-
-	ASDW / Arrows 	- Player / UI movement
-	Shift / CTRL 	- Run / Speed Up dialogues
-
-	ESC 		- Close current menu
-	Enter / Space 	- Interact / UI Press Button
-
-* On Pause Menu you can access all stats/inventory menus
-* UI buttons are mouse reactive
-
-DEBUG KEYS:
-
-	F10 		- GODMODE (Required to use other Debug Keys)
-
-		F9 		- Show/Hide Colliders & Debug info
-
-		TAB 		- Change Player gender
-
-		F1 		- Scroll Maps backward (last)
-		F2 		- Scroll Maps forward (next)
-
-		I 		- Inventory
-		E 		- Stats
-
-		1 		- Add / Delete Valion
-		2 		- Add / Delete Rayla
-		3 		- Add / Delete Dhion
-
-		4 (has the $ symbol) - Add +10 money
-
 ## Additional Comments
-This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
+This game has been done with hate and adwnkadjia thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
   
 ## License
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/Dani-24/RPG/blob/main/LICENSE) for further details.
