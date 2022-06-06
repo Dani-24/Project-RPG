@@ -376,8 +376,6 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim3.PushBack({ 4 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 3 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 2 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 1 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 0 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		attackAnim3.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });

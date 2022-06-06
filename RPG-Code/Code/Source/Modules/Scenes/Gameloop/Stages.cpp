@@ -570,8 +570,6 @@ bool Stages::PostUpdate()
 
 								}
 							}
-
-
 						}
 
 						if (NormalEnemyInList->data->isAlive == false) {
@@ -584,7 +582,7 @@ bool Stages::PostUpdate()
 							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
 							break;
 						case NormalEnemyType::BAT:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 3, false);
+							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y-30, &NormalEnemyInList->data->spriteRect, 3, false);
 							break;
 						case NormalEnemyType::SKELETON:
 							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
@@ -595,8 +593,32 @@ bool Stages::PostUpdate()
 							break;
 						}
 
+						//SHIELDS IN ENEMIES
+						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
+							
+							switch (NormalEnemyInList->data->normalEnemyType) {
+							case NormalEnemyType::FLYING_EYE:
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x- 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false);
+								break;
+							case NormalEnemyType::BAT:
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false);
+								break;
+							case NormalEnemyType::SKELETON:
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x-20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false);
+								break;
+							default:
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 90, 0, 2, false);
 
+								break;
+							}
+
+							
+						}
+
+
+					
 					}
+
 				}
 
 				//IF THEY ARE BOSSES
@@ -664,6 +686,33 @@ bool Stages::PostUpdate()
 
 							break;
 						}
+					}
+				}
+
+				//SHIELDS IN BOSSES
+				if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
+					switch (i) {
+					//	//Player
+					//case 0:
+					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 50, app->battle->entitiesInBattle[i]->position.y + 70);
+					//	break;
+					//	//Rayla
+					//case 1:
+					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 140, app->battle->entitiesInBattle[i]->position.y + 20);
+					//	break;
+					//	//Valion
+					//case 2:
+					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w + 90, app->battle->entitiesInBattle[i]->position.y + 70);
+					//	break;
+					//	//Dhion
+					//case 3:
+					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 130, app->battle->entitiesInBattle[i]->position.y + 130);
+					//	break;
+					default:
+						if (i != 0 && i != 1 && i != 2 && i != 3) {
+							//app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
+						}
+					break;
 					}
 				}
 
@@ -884,6 +933,7 @@ bool Stages::PostUpdate()
 							}
 						}
 
+						//SHIELDS IN ALLIES
 						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
 							switch (i) {
 
