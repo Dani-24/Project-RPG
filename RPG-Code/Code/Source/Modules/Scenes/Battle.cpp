@@ -2108,24 +2108,25 @@ void Battle::Attack(DynamicEntity *target) {
 			goldCount += 10;
 			app->scene->player->PlayerMoney += 10;
 		}
+		if (!app->scene->godmode) {
+			for (int i = 0; i < app->scene->partyList.count(); i++) {
+				if (target->name == "Bat")
+				{
+					LOG("aaaaaaaaaaaaaaaaaaa");
+					app->scene->partyList.At(i)->data->stats->lvlup(20);
 
-		for (int i = 0; i < app->scene->partyList.count(); i++) {
-			if (target->name == "Bat")
-			{
-				LOG("aaaaaaaaaaaaaaaaaaa");
-				app->scene->partyList.At(i)->data->stats->lvlup(20);
+				}
+				if (target->name == "Flying eye")
+				{
+					LOG("oooooooooooooooooooo");
+					app->scene->partyList.At(i)->data->stats->lvlup(50);
+				}
+				if (target->name == "Skeleton")
+				{
+					LOG("eeeeeeeeeeeeeeeeeeeeeee");
+					app->scene->partyList.At(i)->data->stats->lvlup(100);
 
-			}
-			if (target->name == "Flying eye")
-			{
-				LOG("oooooooooooooooooooo");
-				app->scene->partyList.At(i)->data->stats->lvlup(50);
-			}
-			if (target->name == "Skeleton")
-			{
-				LOG("eeeeeeeeeeeeeeeeeeeeeee");
-				app->scene->partyList.At(i)->data->stats->lvlup(100);
-
+				}
 			}
 		}
 

@@ -38,6 +38,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Control buttons
+	void PadBut();
+
 public:
 	const char* startChar;
 	const char* contChar;
@@ -48,6 +51,9 @@ public:
 	const char* mustitlChar;
 	const char* fxselChar;
 	const char* fxtitleChar;
+
+	//variable para que no pete con mando
+	bool wait, _wait;
 
 private:
 
@@ -87,8 +93,7 @@ private:
 	SDL_Texture* press_creditsb;
 	SDL_Texture* press_exitb;
 
-	//variable para que no pete con mando
-	bool wait, _wait;
+	
 
 	float a=200;
 };

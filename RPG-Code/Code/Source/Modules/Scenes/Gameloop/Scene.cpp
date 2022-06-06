@@ -525,6 +525,14 @@ bool Scene::Update(float dt)
 			int x = 80;
 			int y = 130 - 50;
 			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+
+			/*if (godmode) {
+
+				partyList.At(1)->data->stats->SaveStats();
+				partyList.At(1)->data->stats->SetStats(9999, 9999, 9999, 9999);
+
+			}*/
+
 		}else{
 			partyList.del(partyList.At(1));
 		}

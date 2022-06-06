@@ -13,6 +13,7 @@
 #include "GuiManager.h"
 #include "PauseMenu.h"
 #include "Scene.h"
+#include "Title.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -48,26 +49,36 @@ bool Configuration::Start()
 	// GUI
 	int x = -app->camera->GetPos().x / 2,
 		y = -app->camera->GetPos().y / 2;
-
-	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", {x + (app->win->GetWidth() / 2) - 300,y + (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
-	musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "mus-", { x + (app->win->GetWidth() / 2) - 350,y + (app->win->GetWidth() / 50) + 50, 32, 32 }, this);
-	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "FX+", { x + (app->win->GetWidth() / 2) - 300,y + (app->win->GetWidth() / 50) + 90, 32, 32 }, this);
-	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "FX-", { x + (app->win->GetWidth() / 2) - 350 ,y + (app->win->GetWidth() / 50) + 90, 32, 32 }, this);
-	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "fulls", { x + (app->win->GetWidth() / 2) - 325,y + (app->win->GetWidth() / 50) + 130, 32, 32 }, this);
-	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "vsync", { x + (app->win->GetWidth() / 2) - 325,y + (app->win->GetWidth() / 50) + 170, 32, 32 }, this);
+	int xb = 10, yb = 10;
+	musp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 6, "mus+", {x + (app->win->GetWidth() / 2) - 300 -xb,y + (app->win->GetWidth() / 50) + 50 +yb, 32, 32 }, this);
+	musm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 7, "mus-", { x + (app->win->GetWidth() / 2) - 350 - xb,y + (app->win->GetWidth() / 50) + 50 + yb, 32, 32 }, this);
+	FXp = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 8, "FX+", { x + (app->win->GetWidth() / 2) - 300 - xb,y + (app->win->GetWidth() / 50) + 90 + yb, 32, 32 }, this);
+	FXm = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 9, "FX-", { x + (app->win->GetWidth() / 2) - 350 - xb ,y + (app->win->GetWidth() / 50) + 90 + yb, 32, 32 }, this);
+	fullS = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 10, "fulls", { x + (app->win->GetWidth() / 2) - 325 - xb,y + (app->win->GetWidth() / 50) + 130 + yb, 32, 32 }, this);
+	Vsync = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 11, "vsync", { x + (app->win->GetWidth() / 2) - 325 - xb,y + (app->win->GetWidth() / 50) + 170 + yb, 32, 32 }, this);
 	//frcap30 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 12, "30fps", {x + (app->win->GetWidth() / 2) - 580,y + (app->win->GetWidth() / 50) + 230, 32, 32 }, this);
 	//frcap60 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 13, "60fps", {x + (app->win->GetWidth() / 2) - 580,y + (app->win->GetWidth() / 50) + 230, 32, 32 }, this);
-	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "back", { x + (app->win->GetWidth() / 2) - 180,y + (app->win->GetWidth() / 50) + 37, 32, 32 }, this);
+	back = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 14, "back", { x + (app->win->GetWidth() / 2) - 178,y + (app->win->GetWidth() / 50) + 33 + yb, 32, 32 }, this);
+	conb.add(musm);
+	conb.add(musp);
+	conb.add(FXm);
+	conb.add(FXp);
+	conb.add(fullS);
+	conb.add(Vsync);
+	conb.add(back);
+
 
 	pause = false;
 	
+	ab = 0;
+
 	return true;
 }
 
 bool Configuration::PreUpdate()
 {
 	bool ret = true;
-
+	GampadBut();
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (pause == false) {
 			pause = true;
@@ -248,4 +259,91 @@ bool Configuration::CleanUp()
 
 
 	return true;
+}
+
+void Configuration::GampadBut()
+{
+	GamePad& pad = app->input->pads[0];
+	if (!pad.a && !pad.b) _wait = true;
+	
+	int uplim = 6, dowlim = 0;
+
+	//btn1->state = GuiControlState::PRESSED;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN  || pad.b && _wait) {
+		if (!app->scene->playing) {
+			if (pause == false) {
+				pause = true;
+				app->audio->PlayFx(backFx);
+			}
+			Disable();
+		}
+		else
+		{
+			app->pauseM->EnButt();
+			Disable();
+		}
+		app->titleScene->_wait = false;
+		_wait = false;
+		
+	}
+
+	if (musp->state == GuiControlState::NORMAL && musm->state == GuiControlState::NORMAL &&
+		FXp->state == GuiControlState::NORMAL && FXm->state == GuiControlState::NORMAL && fullS->state == GuiControlState::NORMAL
+		&& Vsync->state == GuiControlState::NORMAL && back->state == GuiControlState::NORMAL)
+	{
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
+			app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
+		{
+			conb.At(ab)->data->state = GuiControlState::FOCUSED;
+			app->guiManager->keyb = true;
+		}
+	}
+
+	if (conb.At(ab)->data->state == GuiControlState::FOCUSED) {
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
+		{
+
+			conb.At(ab)->data->state = GuiControlState::PRESSED;
+			conb.At(ab)->data->NotifyObserver();
+			conb.At(ab)->data->state = GuiControlState::FOCUSED;
+			_wait = false;
+		}
+
+		
+		if (!pad.down && !pad.up) wait = true;
+
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
+			if (ab!= uplim)
+			{
+				conb.At(ab)->data->state = GuiControlState::NORMAL;
+				ab += 1;
+				conb.At(ab)->data->state = GuiControlState::FOCUSED;
+			}
+			else
+			{
+				conb.At(ab)->data->state = GuiControlState::NORMAL;
+				ab = dowlim;
+				conb.At(ab)->data->state = GuiControlState::FOCUSED;
+				
+			}
+			wait = false;
+		}
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
+			if (ab != dowlim)
+			{
+				conb.At(ab)->data->state = GuiControlState::NORMAL;
+				ab -= 1;
+				conb.At(ab)->data->state = GuiControlState::FOCUSED;
+			}
+			else
+			{
+				conb.At(ab)->data->state = GuiControlState::NORMAL;
+				ab = uplim;
+				conb.At(ab)->data->state = GuiControlState::FOCUSED;	
+			}
+			wait = false;
+		}
+		
+	}
 }

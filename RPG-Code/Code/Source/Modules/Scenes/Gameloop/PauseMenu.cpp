@@ -168,7 +168,7 @@ bool PauseMenu::PreUpdate()
 		load->SetPos({ xc - 100,yc - 115 });
 		exit->SetPos({ xc - 100,yc - 90 });
 
-		KeyboardControl();
+		if(!app->conf->isEnabled()) KeyboardControl();
 
 	}
 	return ret;

@@ -68,17 +68,18 @@ bool GuiButton::Update(float dt)
 			if(!app->guiManager->keyb) state = GuiControlState::NORMAL;
 	}
 
-	if (cont % 2 == 0) {
+	
+
+	if (cont % 3 == 0) {
 
 		if (xp)xd++;
 		else if (!xp)xd--;
 	}
-
 	if (xd <= 0)xp = true;
-	else if (xd >= 8)xp = false;
-
-	cont += dt;
-	if (cont > 500)cont = 0;
+	else if (xd >= 3)xp = false;
+	
+	cont ++;
+	if (cont >500)cont = 0;
 
 	return false;
 }
