@@ -185,9 +185,11 @@
     <ClInclude Include="Source\Tools\Animation.h" />
     <ClInclude Include="Source\Tools\Collider.h" />
     <ClInclude Include="Source\Tools\Defs.h" />
+    <ClInclude Include="Source\Tools\EasingFunctions.h" />
     <ClInclude Include="Source\Tools\List.h" />
     <ClInclude Include="Source\Tools\Log.h" />
     <ClCompile Include="Source\Tools\Collider.cpp" />
+    <ClCompile Include="Source\Tools\EasingFunctions.cpp" />
     <ClCompile Include="Source\Tools\Log.cpp" />
     <ClInclude Include="Source\Tools\Point.h" />
     <ClInclude Include="Source\Tools\SString.h" />
