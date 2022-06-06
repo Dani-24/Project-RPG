@@ -156,6 +156,12 @@ private: // Hacer listas esta sobrevalorado supongo:
 	public:
 	// Just a counter to limit the DEBUG stage change listItem causing crash at start
 	int delayForCrashUwU = 60;
+
+	bool debugMODE = false;
+
+	int debugMessagesCooldown = 120;
+	int showDebug = debugMessagesCooldown, showGod = debugMessagesCooldown,
+		dontShowDebug = 0, dontShowGod = 0;
 };
 
 #endif // __SCENE_H__

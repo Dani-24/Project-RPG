@@ -424,12 +424,22 @@ bool Scene::Update(float dt)
 
 	fpsdt = dt*3.75;
 
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		debugMODE = !debugMODE;
+
+		LOG("Turning on/off Debug Mode");
+	}
+	// ================================
+	//			DEBUG KEYS 
+	// ================================
+
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
 		if (godmode)
 		{
 			godmode = false;
-		
+
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->LoadStats();
@@ -439,22 +449,20 @@ bool Scene::Update(float dt)
 
 		}
 		else
-		{			
+		{
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
 				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
 			}
-			
+
 			godmode = true;
 			LOG("GOD MODE ON");
-			
+
 		}
 	}
-	// ================================
-	//			DEBUG KEYS 
-	// ================================
-	if (godmode) 
+
+	if (debugMODE) 
 	{
 
 		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
@@ -588,7 +596,33 @@ bool Scene::PostUpdate()
 	y = -app->camera->GetPos().y / 2;
 
 	if (godmode) {
-		app->font->DrawText("Godmode is Enabled", x, y);
+		if (showGod > 0) {
+			app->font->DrawText("Godmode is Enabled", x, y + 150);
+			showGod--;
+		}
+		dontShowGod = debugMessagesCooldown;
+	}
+	else {
+		if (dontShowGod > 0) {
+			app->font->DrawText("Godmode Disabled", x, y + 150);
+			dontShowGod--;
+		}
+		showGod = debugMessagesCooldown;
+	}
+
+	if (debugMODE) {
+		if (showDebug > 0) {
+			app->font->DrawText("Debug mode is Enabled", x, y + 180);
+			showDebug--;
+		}
+		dontShowDebug = debugMessagesCooldown;
+	}
+	else {
+		if (dontShowDebug > 0) {
+			app->font->DrawText("Debug mode disabled", x, y + 180);
+			dontShowDebug--;
+		}
+		showDebug = debugMessagesCooldown;
 	}
 
 	return ret;

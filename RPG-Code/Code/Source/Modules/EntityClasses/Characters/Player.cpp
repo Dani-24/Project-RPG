@@ -484,7 +484,7 @@ bool Player::Start()
 bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
-	if (app->scene->godmode) {
+	if (app->scene->debugMODE) {
 		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
 			LOG("position x %d y %d", position.x, position.y);
 		}

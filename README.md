@@ -32,9 +32,11 @@ Only you can discover that by exploring the tower.
 
 	TAB 		- Change Player gender
 
-	F10 		- GODMODE (Required to use other Debug Keys)
+	F9		- GODMODE
 
-		F9 		- Show/Hide Colliders & Debug info
+	F10 		- Show/Hide Colliders & Debug info
+
+	F11 		- Enable/Disable DEBUG KEYS
 
 		F1 		- Scroll Maps backward (last)
 		F2 		- Scroll Maps forward (next)
