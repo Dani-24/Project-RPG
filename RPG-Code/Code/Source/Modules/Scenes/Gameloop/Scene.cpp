@@ -384,6 +384,14 @@ bool Scene::Start()
 
 bool Scene::PreUpdate()
 {
+	if (delayForCrashUwU > 0) {
+		delayForCrashUwU--;
+
+		if (delayForCrashUwU < 5) {
+			app->scene->stageSwap->data = app->stages->actualStage;
+		}
+	}
+
 	bool ret = true;
 
 	if (app->pauseM->exitg) {
@@ -478,10 +486,6 @@ bool Scene::Update(float dt)
 		// Stats
 		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			app->stmen->Enable();
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-			app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
 		}
 
 		// Add ally to the party
@@ -705,6 +709,8 @@ bool Scene::CleanUp()
 	app->dialogs->Disable();
 
 	app->map->Disable();
+
+	delayForCrashUwU = 60;
 
 	return true;
 }

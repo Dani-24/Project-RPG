@@ -152,6 +152,10 @@ private: // Hacer listas esta sobrevalorado supongo:
 	iPoint eyePosT3_3 = { 366, 350 };
 
 	iPoint skeletonPosT3_3 = { 1127, 1045 };
+
+	public:
+	// Just a counter to limit the DEBUG stage change listItem causing crash at start
+	int delayForCrashUwU = 60;
 };
 
 #endif // __SCENE_H__

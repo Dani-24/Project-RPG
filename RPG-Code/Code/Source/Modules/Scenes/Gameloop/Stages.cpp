@@ -277,13 +277,13 @@ bool Stages::PostUpdate()
 					app->font->DrawTextDelayed("OH! So you're a girl-like thing", epilogX - 40, epilogY);
 					break;
 				case 3:
-					app->font->DrawTextDelayed("OH! So you're a Apache combat Helicopter", epilogX - 60, epilogY);
+					app->font->DrawTextDelayed("OH! So you're an Apache combat Helicopter", epilogX - 65, epilogY);
 					break;
 				}
 
 				break;
 			case 10:
-				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY);
+				app->font->DrawTextDelayed("An amazing adventure awaits you", epilogX - 50, epilogY);
 				break;
 			case 11:
 				app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
@@ -982,6 +982,10 @@ bool Stages::PostUpdate()
 
 void Stages::ChangeStage(StageIndex newStage) {
 	introductionFase = 0;
+
+	if (app->scene->delayForCrashUwU <= 0) {
+		app->scene->stageSwap->data = newStage;
+	}
 
 	// Door sfx
 	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::WIN && newStage != StageIndex::LOSE && newStage != StageIndex::PROLOGUE) {
