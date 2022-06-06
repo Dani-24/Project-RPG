@@ -106,9 +106,6 @@ bool Scene::Start()
 	iPoint cartelSudTownPos = { 1000, 1764 };
 
 	iPoint bigtreePos = { 1000, 1764 };
-	/*iPoint archerPos = { 1000, 1764 };
-	iPoint lancerPos = { 1000, 1764 };
-	iPoint wizardPos = { 1000, 1764 };*/
 
 	iPoint deadTreePos = { 2690 , 2030 };
 	iPoint treePos = { 573 , 332 };
@@ -153,13 +150,13 @@ bool Scene::Start()
 	npcList.add(valion);
 	valion->activeOnStage = StageIndex::TOWN;
 
-	/*NPC* rayla = (NPC*)app->entities->CreateEntity(NPCType::RAYLA, valionPos.x, valionPos.y);
+	NPC* rayla = (NPC*)app->entities->CreateEntity(NPCType::RAYLA, raylaPos.x, raylaPos.y);
 	npcList.add(rayla);
 	rayla->activeOnStage = StageIndex::TOWN;
 
-	NPC* dhion = (NPC*)app->entities->CreateEntity(NPCType::DHION, valionPos.x, valionPos.y);
+	NPC* dhion = (NPC*)app->entities->CreateEntity(NPCType::DHION, dhionPos.x, dhionPos.y);
 	npcList.add(dhion);
-	dhion->activeOnStage = StageIndex::TOWN;*/
+	dhion->activeOnStage = StageIndex::TOWN;
 
 	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK_KUN, 10 * TILE_SIZE, 14 * TILE_SIZE);
 	npcList.add(camionKun);
@@ -189,25 +186,6 @@ bool Scene::Start()
 	NPC* rip3 = (NPC*)app->entities->CreateEntity(NPCType::RIP_3, rip3Pos.x, rip3Pos.y);
 	npcList.add(rip3);
 	rip3->activeOnStage = StageIndex::TOWER_3;
-
-	/*NPC* valion = (NPC*)app->entities->CreateEntity(NPCType::VALION, valionPos.x, valionPos.y);
-	npcList.add(valion);
-	cartelSudTown->activeOnStage = StageIndex::TOWN;*/
-
-	
-
-	//NPC* archer = (NPC*)app->entities->CreateEntity(NPCType::ARCHER, archerPos.x, archerPos.y);
-	//npcList.add(archer);
-	//archer->activeOnStage = StageIndex::TOWER_1;
-
-
-	//NPC* lancer = (NPC*)app->entities->CreateEntity(NPCType::LANCER, lancerPos.x, lancerPos.y);
-	//npcList.add(lancer);
-	//lancer->activeOnStage = StageIndex::TOWER_3;
-
-	//NPC* wizard = (NPC*)app->entities->CreateEntity(NPCType::WIZARD, wizardPos.x, wizardPos.y);
-	//npcList.add(wizard);
-	//wizard->activeOnStage = StageIndex::TOWER_2;
 
 	// ============================
 

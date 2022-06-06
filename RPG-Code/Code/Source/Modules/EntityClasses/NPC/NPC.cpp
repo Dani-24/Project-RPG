@@ -219,11 +219,41 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		idleAnim.speed = 0.004f;
 
 		name = "Valion NPC";
-		configName = "valionNPC";
+		configName = "valion_npc";
 
 		npcID = 14;
 
 		baseCollider = app->collisions->AddCollider({ position.x -15, position.y -15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::RAYLA:
+		idleAnim.PushBack({ 4,10,14,22 });
+		idleAnim.PushBack({ 28,10,14,22 });
+		idleAnim.PushBack({ 51,10,14,22 });
+
+		idleAnim.speed = 0.004f;
+
+		name = "Rayla NPC";
+		configName = "rayla_npc";
+
+		npcID = 15;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::DHION:
+		idleAnim.PushBack({ 4,10,14,22 });
+		idleAnim.PushBack({ 28,10,14,22 });
+		idleAnim.PushBack({ 51,10,14,22 });
+
+		idleAnim.speed = 0.004f;
+
+		name = "Dhion NPC";
+		configName = "dhion_npc";
+
+		npcID = 16;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15, 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
 	case NPCType::TRUCK_KUN:
@@ -232,6 +262,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		idleAnim.speed = 0.004f;
 
 		name = "Truck-Kun";
+		configName = "truck_npc";
 
 		npcID = 69;
 

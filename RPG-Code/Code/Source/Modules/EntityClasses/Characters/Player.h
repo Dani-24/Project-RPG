@@ -274,9 +274,10 @@ public: // DIALOGS
 
 	//DHION
 	const char* DhionDialog[DIALOG_LENGHT] = {
-	"I like chocolate",
-	"Let's battle!",
-	"Tiri tiri tiri"
+	"Never gonna give you up",
+	"Never gonna let you down",
+	"Never gonna tell a lie",
+	"but hurt you"
 	};
 
 	const char* DhionDialog2[DIALOG_LENGHT] = {

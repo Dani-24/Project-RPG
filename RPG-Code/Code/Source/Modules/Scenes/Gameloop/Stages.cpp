@@ -643,10 +643,11 @@ bool Stages::PostUpdate()
 
 						BossInList->data->spriteRect = BossInList->data->currentAnimation->GetCurrentFrame();
 						switch (BossInList->data->bossType) {
-					/*	case BossType::VALION:
-							break;*/
+						case BossType::VALION:
+							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
+							break;
 						default:
-							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x/ BossInList->data->zoom, BossInList->data->position.y / BossInList->data->zoom, &BossInList->data->spriteRect);
+							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y - 100, &BossInList->data->spriteRect, BossInList->data->zoom, false);
 
 							break;
 						}
@@ -828,15 +829,19 @@ bool Stages::PostUpdate()
 						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
 							switch (i) {
 
+								//Player
 							case 0:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 50, app->battle->entitiesInBattle[i]->position.y + 70);
 								break;
+								//Rayla
 							case 1:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 140, app->battle->entitiesInBattle[i]->position.y + 20);
 								break;
+								//Valion
 							case 2:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w + 90, app->battle->entitiesInBattle[i]->position.y + 70);
 								break;
+								//Dhion
 							case 3:
 								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 130, app->battle->entitiesInBattle[i]->position.y + 130);
 								break;

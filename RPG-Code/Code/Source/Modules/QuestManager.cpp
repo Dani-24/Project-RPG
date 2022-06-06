@@ -345,6 +345,22 @@ void QuestManager::CheckQuest(int NPCid)
 				app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog2);
 			}
 			break;
+		case 15:
+			if (app->scene->player->raylaDefeated == false) {
+				app->scene->player->Interact(NPCType::RAYLA, app->scene->player->RaylaDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::RAYLA, app->scene->player->RaylaDialog2);
+			}
+			break;
+		case 16:
+			if (app->scene->player->dhionDefeated == false) {
+				app->scene->player->Interact(NPCType::DHION, app->scene->player->DhionDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::DHION, app->scene->player->DhionDialog2);
+			}
+			break;
 		default:
 			break;
 		}

@@ -108,6 +108,12 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::VALION:
 						app->font->DrawTextDelayed("Valion:", x + 150, y + 5, { 0, 0, 0 });
 						break;
+					case NPCType::RAYLA:
+						app->font->DrawTextDelayed("Rayla:", x + 150, y + 5, { 0, 0, 0 });
+						break;
+					case NPCType::DHION:
+						app->font->DrawTextDelayed("Dhion:", x + 150, y + 5, { 0, 0, 0 });
+						break;
 					default:
 						break;
 					}
@@ -173,11 +179,11 @@ bool DialogSystem::PostUpdate() {
 				}
 				if (app->scene->player->entityTalking->name == std::string("Rayla NPC")) {
 					if (app->battle->isEnabled() == false) {
-						if (app->scene->player->valionDefeated == false) {
+						if (app->scene->player->raylaDefeated == false) {
 							app->battle->entitiesInBattle[0] = app->scene->player;
-							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
-							app->scene->bossList.add(EvilValion);
-							app->battle->entitiesInBattle[4] = EvilValion;
+							BossEnemy* EvilRayla = (BossEnemy*)app->entities->CreateEntity(BossType::RAYLA);
+							app->scene->bossList.add(EvilRayla);
+							app->battle->entitiesInBattle[4] = EvilRayla;
 
 							int alliesCount = 1;
 							int enemiesCount = 1;
@@ -210,11 +216,11 @@ bool DialogSystem::PostUpdate() {
 
 				if (app->scene->player->entityTalking->name == std::string("Dhion NPC")) {
 					if (app->battle->isEnabled() == false) {
-						if (app->scene->player->valionDefeated == false) {
+						if (app->scene->player->dhionDefeated == false) {
 							app->battle->entitiesInBattle[0] = app->scene->player;
-							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
-							app->scene->bossList.add(EvilValion);
-							app->battle->entitiesInBattle[4] = EvilValion;
+							BossEnemy* EvilDhion = (BossEnemy*)app->entities->CreateEntity(BossType::DHION);
+							app->scene->bossList.add(EvilDhion);
+							app->battle->entitiesInBattle[4] = EvilDhion;
 
 							int alliesCount = 1;
 							int enemiesCount = 1;
@@ -292,6 +298,12 @@ void DialogSystem::CreateDialog(NPCType charaType, const char* text[DIALOG_LENGH
 		break;
 	case NPCType::VALION:
 		currentChara = app->tex->Load("Assets/sprites/faces/wizard.png");
+		break;
+	case NPCType::RAYLA:
+		currentChara = app->tex->Load("Assets/sprites/faces/archer.png");
+		break;
+	case NPCType::DHION:
+		currentChara = app->tex->Load("Assets/sprites/faces/lancer.png");
 		break;
 	default:
 		break;

@@ -17,7 +17,7 @@ enum class BossType
 {
 	TRUCK,
 	VALION,
-	RYLA,
+	RAYLA,
 	DHION
 };
 

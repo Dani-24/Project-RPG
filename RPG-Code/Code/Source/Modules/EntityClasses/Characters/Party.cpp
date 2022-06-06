@@ -346,6 +346,8 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		runAnim.PushBack({ 6 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		runAnim.PushBack({ 7 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.speed = 0.006f;
+
 		name = "Dhion";
 		configName = "dhion";
 
