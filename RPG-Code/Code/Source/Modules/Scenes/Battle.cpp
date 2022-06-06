@@ -2383,37 +2383,16 @@ bool Battle::CleanUp()
 	case BattlePhase::REWARD:
 		
 		if (entitiesInBattle[4]->name == "Valion") {
-			int newX = 80;
-			int newY = 130 - 50;
-			if (app->scene->partyList.At(1) == nullptr) {
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
-			}
-			else {
-				app->scene->partyList.del(app->scene->partyList.At(1));
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
-			}
+			app->scene->player->valionDefeated = true;
+			app->scene->player->autoTalk = true;
 		}
 		if (entitiesInBattle[4]->name == "Rayla") {
-			int newX = -200;
-			int newY = 120 - 50;
-			if (app->scene->partyList.At(2) == nullptr) {
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
-			}
-			else {
-				app->scene->partyList.del(app->scene->partyList.At(2));
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
-			}
+			app->scene->player->raylaDefeated = true;
+			app->scene->player->autoTalk = true;
 		}
 		if (entitiesInBattle[4]->name == "Dhion") {
-			int newX = 200;
-			int newY = 0 - 50;
-			if (app->scene->partyList.At(3) == nullptr) {
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
-			}
-			else {
-				app->scene->partyList.del(app->scene->partyList.At(3));
-				app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
-			}
+			app->scene->player->dhionDefeated = true;
+			app->scene->player->autoTalk = true;
 		}
 
 		//Destroy enemy

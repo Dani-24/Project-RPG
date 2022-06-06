@@ -244,10 +244,47 @@ public: // DIALOGS
 	"Its a tombstone"
 	};
 
+	bool valionDefeated;
+	bool raylaDefeated;
+	bool dhionDefeated;
+
+	//VALION
 	const char* ValionDialog[DIALOG_LENGHT] = {
-	"fnsbydgsd",
-	"wsdgndysndg"
+	"I like chocolate",
+	"Let's battle!",
+	"Tiri tiri tiri"
 	};
+
+	const char* ValionDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bitch"
+	};
+
+	//RAYLA
+	const char* RaylaDialog[DIALOG_LENGHT] = {
+	"I-It's not like I want to battle with you",
+	"or anything...",
+	"Kyaaaah!"
+	};
+
+	const char* RaylaDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bitch"
+	};
+
+	//DHION
+	const char* DhionDialog[DIALOG_LENGHT] = {
+	"I like chocolate",
+	"Let's battle!",
+	"Tiri tiri tiri"
+	};
+
+	const char* DhionDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bitch"
+	};
+
+	bool autoTalk;
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);
 

@@ -335,6 +335,12 @@ bool Player::Start()
 
 	entityTalking = nullptr;
 
+	valionDefeated = false;
+	raylaDefeated = false;
+	dhionDefeated = false;
+
+	autoTalk = false;
+
 	return ret;
 }
 
@@ -1093,7 +1099,11 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 							if (!pad.a) wait = true;
 
-							if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+							if (autoTalk == true) {
+								entityTalking = entityInList->data;
+								app->questManager->CheckQuest(entityInList->data->npcID);
+								autoTalk = false;
+							}else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
 
 								entityTalking = entityInList->data;
 								app->questManager->CheckQuest(entityInList->data->npcID);

@@ -68,7 +68,7 @@ bool QuestManager::Start()
 	"poyo",
 	"Everybody dies in the first two levels",
 	"poyo",
-	"Become more strong, you don't have any chances now",
+	"Become stronger, you don't have any chances now",
 	"poyo" };
 
 	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, false, completed3, active2, completed2);
@@ -338,7 +338,12 @@ void QuestManager::CheckQuest(int NPCid)
 			app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 			break;
 		case 14:
-			app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+			if (app->scene->player->valionDefeated == false) {
+				app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog2);
+			}
 			break;
 		default:
 			break;

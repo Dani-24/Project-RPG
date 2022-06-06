@@ -134,18 +134,114 @@ bool DialogSystem::PostUpdate() {
 			app->scene->player->toggleGui = true;
 			if (app->scene->player->entityTalking->name != nullptr) {
 				if (app->scene->player->entityTalking->name == std::string("Valion NPC")) {
+					if (app->scene->player->valionDefeated == false) {
+						if (app->battle->isEnabled() == false) {
+
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
+							app->scene->bossList.add(EvilValion);
+							app->battle->entitiesInBattle[4] = EvilValion;
+
+							int alliesCount = 1;
+							int enemiesCount = 1;
+
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
+
+							app->battle->Enable();
+						}
+					}
+					else {
+						app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+						app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+						int newX = 80;
+						int newY = 130 - 50;
+						if (app->scene->partyList.At(1) == nullptr) {
+							app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+						}
+						else {
+							app->scene->partyList.del(app->scene->partyList.At(1));
+							app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+						}
+					}
+					
+				}
+				if (app->scene->player->entityTalking->name == std::string("Rayla NPC")) {
 					if (app->battle->isEnabled() == false) {
+						if (app->scene->player->valionDefeated == false) {
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
+							app->scene->bossList.add(EvilValion);
+							app->battle->entitiesInBattle[4] = EvilValion;
 
-						app->battle->entitiesInBattle[0] = app->scene->player;
-						BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
-						app->scene->bossList.add(EvilValion);
-						app->battle->entitiesInBattle[4] = EvilValion;
+							int alliesCount = 1;
+							int enemiesCount = 1;
 
-						int alliesCount = 1;
-						int enemiesCount = 1;
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
 
-						
-						app->battle->Enable();
+							app->battle->Enable();
+						}
+						else {
+							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+							app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+							int newX = -200;
+							int newY = 120 - 50;
+							if (app->scene->partyList.At(2) == nullptr) {
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+							else {
+								app->scene->partyList.del(app->scene->partyList.At(2));
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+						}
+					}
+				}
+
+				if (app->scene->player->entityTalking->name == std::string("Dhion NPC")) {
+					if (app->battle->isEnabled() == false) {
+						if (app->scene->player->valionDefeated == false) {
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
+							app->scene->bossList.add(EvilValion);
+							app->battle->entitiesInBattle[4] = EvilValion;
+
+							int alliesCount = 1;
+							int enemiesCount = 1;
+
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
+
+							app->battle->Enable();
+						}
+						else {
+							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+							app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+							int newX = 200;
+							int newY = 0 - 50;
+							if (app->scene->partyList.At(3) == nullptr) {
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
+							}
+							else {
+								app->scene->partyList.del(app->scene->partyList.At(3));
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+						}
 					}
 				}
 			}
