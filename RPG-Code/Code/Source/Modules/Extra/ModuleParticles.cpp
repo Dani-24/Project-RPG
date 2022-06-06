@@ -31,6 +31,51 @@ ModuleParticles::ModuleParticles(App* application, bool start_enabled) : Module(
 	FireParticle.loop = true;
 	FireParticle.speed = 0.01f;
 
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.PushBack({ 47,0, 14, 15 });
+	ChickenParticle.PushBack({ 61,0, 16, 15 });
+	ChickenParticle.PushBack({ 0,0, 15, 15 });
+	ChickenParticle.PushBack({ 15,0, 15, 15 });
+	ChickenParticle.PushBack({ 0,0, 15, 15 });
+	ChickenParticle.PushBack({ 15,0, 15, 15 });
+	ChickenParticle.PushBack({ 0,0, 15, 15 });
+	ChickenParticle.PushBack({ 61,0, 16, 15 });
+	ChickenParticle.PushBack({ 47,0, 14, 15 });
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.PushBack({ 31,0, 14, 15 });
+	ChickenParticle.loop = true;
+	ChickenParticle.speed = 0.019f;
+
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 0,57,25,22 });
+	BirdParticle.PushBack({ 27,57,25,22 });
+	BirdParticle.PushBack({ 56,57,25,22 });
+	BirdParticle.PushBack({ 27,57,25,22 });
+	BirdParticle.PushBack({ 0,57,25,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.PushBack({ 2,3,23,22 });
+	BirdParticle.loop = true;
+	BirdParticle.speed = 0.01f;
+
+	BirdFParticle.PushBack({ 0,27,27,25 });
+	BirdFParticle.PushBack({ 27,27,27,25 });
+	BirdFParticle.PushBack({ 54,27,27,25 });
+	BirdFParticle.PushBack({ 81,27,27,25 });
+	BirdFParticle.PushBack({108,27,27,25 });
+	BirdFParticle.PushBack({ 135,27,27,25 });
+	BirdFParticle.PushBack({ 162,27,27,25 });
+	BirdFParticle.PushBack({ 189,27,27,25 });
+	BirdFParticle.loop = true;
+	BirdFParticle.speed = 0.01f;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -42,7 +87,8 @@ bool ModuleParticles::Start()
 {
 	SmokeTex = app->tex->Load("Assets/particles/smoke_particles.png");
 	FireTex = app->tex->Load("Assets/particles/flames_particles.png");
-
+	ChickenTex= app->tex->Load("Assets/particles/chicken_particles.png");
+	BirdTex = app->tex->Load("Assets/particles/bird_particles.png");
 	return true;
 }
 
@@ -53,6 +99,9 @@ bool ModuleParticles::Update(float dt)
 	bool ret = true;
 	SmokeParticle.Update();
 	FireParticle.Update();
+	ChickenParticle.Update();
+	BirdParticle.Update();
+	BirdFParticle.Update();
 	return ret;
 }
 
@@ -64,6 +113,9 @@ bool ModuleParticles::PostUpdate()
 		app->render->DrawTexture(SmokeTex, 355, 1496, &SmokeParticle.GetCurrentFrame());
 		app->render->DrawTexture(SmokeTex, 862, 1496, &SmokeParticle.GetCurrentFrame());
 		app->render->DrawTexture(FireTex, 1290, 510, &FireParticle.GetCurrentFrame());
+		app->render->DrawTexture(ChickenTex, 11, 910, &ChickenParticle.GetCurrentFrame());
+		app->render->DrawTexture(BirdTex, 1460, 1560, &BirdParticle.GetCurrentFrame());
+		app->render->DrawTexture(BirdTex, 1100, 1560, &BirdFParticle.GetCurrentFrame());
 	}
 	
 			
@@ -77,6 +129,8 @@ bool ModuleParticles::CleanUp()
 	// Delete all remaining active particles on application exit 
 	app->tex->UnLoad(SmokeTex);
 	app->tex->UnLoad(FireTex);
+	app->tex->UnLoad(ChickenTex);
+	app->tex->UnLoad(BirdTex);
 	
 	return true;
 }
