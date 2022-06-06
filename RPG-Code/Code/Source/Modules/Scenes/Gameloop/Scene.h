@@ -162,6 +162,13 @@ private: // Hacer listas esta sobrevalorado supongo:
 	int debugMessagesCooldown = 120;
 	int showDebug = debugMessagesCooldown, showGod = debugMessagesCooldown,
 		dontShowDebug = 0, dontShowGod = 0;
+
+	int joinCooldown = 400;
+	int join1 = debugMessagesCooldown, join2 = debugMessagesCooldown, join3 = debugMessagesCooldown;
+
+	SDL_Texture* join1T,* join2T,* join3T;
+
+	int joinFx;
 };
 
 #endif // __SCENE_H__

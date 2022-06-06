@@ -87,9 +87,13 @@ bool Audio::CleanUp()
 }
 
 // Play a music file
-bool Audio::PlayMusic(const char* path, float fade_time)
+bool Audio::PlayMusic(const char* path, float fade_time, bool remember)
 {
 	bool ret = true;
+
+	if (remember) {
+		lastSongPlayed = path;
+	}
 
 	if (!active)
 		return false;
@@ -138,6 +142,10 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 
 	LOG("Successfully playing %s", path);
 	return ret;
+}
+
+void Audio::PlayLastSong() {
+	PlayMusic(lastSongPlayed, 5);
 }
 
 // Load WAV

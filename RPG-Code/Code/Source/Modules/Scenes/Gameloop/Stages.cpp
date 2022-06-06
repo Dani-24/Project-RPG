@@ -265,7 +265,7 @@ bool Stages::PostUpdate()
 				break;
 			case 8:
 
-				app->font->DrawTextDelayed("Choose with TAB and confirm with Space / Enter", epilogX - 90, epilogY);
+				app->font->DrawText("Choose with TAB and confirm with Space / Enter", epilogX - 90, epilogY);
 				break;
 			case 9:
 				switch (playerPtr->PlayerErection)

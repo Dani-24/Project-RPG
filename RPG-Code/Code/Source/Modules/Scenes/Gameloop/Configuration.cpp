@@ -38,7 +38,8 @@ bool Configuration::Start()
 {
 	
 	// Load music
-	//app->audio->PlayMusic("Assets/audio/music/music_settings.ogg");
+
+	app->audio->PlayMusic("Assets/audio/music/music_config.ogg", 5, false);
 
 	backFx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 	background = app->tex->Load("Assets/gui/marco_opciones.png");
@@ -257,6 +258,7 @@ bool Configuration::CleanUp()
 	//frcap60->state = GuiControlState::DISABLED;
 	back->state = GuiControlState::DISABLED;
 
+	app->audio->PlayLastSong();
 
 	return true;
 }

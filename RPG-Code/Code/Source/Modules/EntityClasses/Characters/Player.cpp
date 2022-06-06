@@ -547,7 +547,7 @@ bool Player::Update(float dt) {
 				currentAnimation = &idleAnimDown;
 				break;
 			case 3:
-				name = "Heli";
+				name = "Hellie";
 				currentAnimation = &heliIdleDown;
 				break;
 			}

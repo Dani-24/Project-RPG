@@ -379,6 +379,12 @@ bool Scene::Start()
 
 	stageSwap = allStages.start;
 
+	joinFx = app->audio->LoadFx("Assets/audio/sfx/fx_join.wav");
+
+	join1T = app->tex->Load("Assets/textures/join_party/valionJOINS.png");
+	join2T = app->tex->Load("Assets/textures/join_party/raylaJOINS.png");
+	join3T = app->tex->Load("Assets/textures/join_party/dhionJOINS.png");
+
 	return true;
 }
 
@@ -429,6 +435,8 @@ bool Scene::Update(float dt)
 		debugMODE = !debugMODE;
 
 		LOG("Turning on/off Debug Mode");
+
+		stageSwap->data = app->stages->actualStage;
 	}
 	// ================================
 	//			DEBUG KEYS 
@@ -623,6 +631,45 @@ bool Scene::PostUpdate()
 			dontShowDebug--;
 		}
 		showDebug = debugMessagesCooldown;
+	}
+
+	if (partyList.At(1) != nullptr) {
+		if (join1 == joinCooldown) {
+			app->audio->PlayFx(joinFx);
+		}
+		if (join1 > 0) {
+			join1--;
+			app->render->DrawTexture(join1T, x, y);
+		}
+	}
+	else {
+		join1 = joinCooldown;
+	}
+
+	if (partyList.At(2) != nullptr) {
+		if (join2 == joinCooldown) {
+			app->audio->PlayFx(joinFx);
+		}
+		if (join2 > 0) {
+			join2--;
+			app->render->DrawTexture(join2T, x, y);
+		}
+	}
+	else {
+		join2 = joinCooldown;
+	}
+
+	if (partyList.At(3) != nullptr) {
+		if (join3 == joinCooldown) {
+			app->audio->PlayFx(joinFx);
+		}
+		if (join3 > 0) {
+			join3--;
+			app->render->DrawTexture(join3T, x, y);
+		}
+	}
+	else {
+		join3 = joinCooldown;
 	}
 
 	return ret;
