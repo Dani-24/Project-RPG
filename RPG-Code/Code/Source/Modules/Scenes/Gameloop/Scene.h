@@ -13,6 +13,7 @@ class Cock;
 class Barkeeper;
 class NPC;
 class NormalEnemy;
+class BossEnemy;
 class Party;
 class Character;
 class Item;
@@ -78,6 +79,7 @@ public:
 	Player* player = nullptr;
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
+	List<BossEnemy*> bossList;
 	List<Character*> partyList;
 	List<Item*> itemList;
 	

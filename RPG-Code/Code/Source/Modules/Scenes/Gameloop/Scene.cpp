@@ -19,6 +19,7 @@
 #include "ModuleParticles.h"
 
 #include "NormalEnemy.h"
+#include "BossEnemy.h"
 #include "NPC.h"
 #include "EntityManager.h"
 
@@ -346,6 +347,7 @@ bool Scene::Start()
 	}
 
 	app->stages->normalEnemyListPtr = &normalEnemyList;
+	app->stages->bossListPtr = &bossList;
 
 
 	// TOWN LIMITS for camera

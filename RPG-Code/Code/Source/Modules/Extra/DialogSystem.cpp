@@ -138,7 +138,7 @@ bool DialogSystem::PostUpdate() {
 
 						app->battle->entitiesInBattle[0] = app->scene->player;
 						BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
-						app->scene->normalEnemyList.add((NormalEnemy*)EvilValion);
+						app->scene->bossList.add(EvilValion);
 						app->battle->entitiesInBattle[4] = EvilValion;
 
 						int alliesCount = 1;

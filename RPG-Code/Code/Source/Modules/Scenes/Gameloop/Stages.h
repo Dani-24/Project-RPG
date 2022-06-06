@@ -14,6 +14,7 @@ class Cock;
 
 class NPC;
 class NormalEnemy;
+class BossEnemy;
 class Character;
 
 struct Collider;
@@ -151,6 +152,7 @@ public:
 	Player* playerPtr;
 	List<NPC*>* npcListPtr;
 	List<NormalEnemy*>* normalEnemyListPtr;
+	List<BossEnemy*>* bossListPtr;
 
 	List<Character*>* partyListPtr;
 

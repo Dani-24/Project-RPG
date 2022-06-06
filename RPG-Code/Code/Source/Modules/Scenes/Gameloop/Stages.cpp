@@ -17,6 +17,7 @@
 #include "DynamicEntity.h"
 #include "NPC.h"
 #include "NormalEnemy.h"
+#include "BossEnemy.h"
 #include "Camera.h"
 #include "Pathfinder.h"
 
@@ -582,6 +583,73 @@ bool Stages::PostUpdate()
 						}
 
 
+					}
+				}
+
+				//IF THEY ARE BOSSES
+				ListItem<BossEnemy*>* BossInList;
+
+				for (BossInList = bossListPtr->start; BossInList != NULL && ret == true; BossInList = BossInList->next)
+				{
+					if (app->battle->entitiesInBattle[i] == BossInList->data) {
+						BossInList->data->currentAnimation = &BossInList->data->battleAnim;
+						if (app->battle->actualTurnEntity == BossInList->data) {
+							if (app->battle->actualTurnEntity->dynamicType == DynamicType::ENEMY) {
+								switch (app->battle->battlePhase) {
+								case BattlePhase::THINKING:
+									BossInList->data->currentAnimation = &BossInList->data->battleAnim;
+									BossInList->data->attackAnim.Reset();
+									BossInList->data->attackAnim2.Reset();
+									BossInList->data->attackAnim3.Reset();
+									BossInList->data->protectAnim.Reset();
+
+									break;
+								case BattlePhase::ATTACKING:
+									if (eAnim == 1) {
+										BossInList->data->currentAnimation = &BossInList->data->attackAnim;
+									}
+									if (eAnim == 2) {
+										BossInList->data->currentAnimation = &BossInList->data->attackAnim2;
+									}
+									if (eAnim == 3) {
+										BossInList->data->currentAnimation = &BossInList->data->attackAnim3;
+									}
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(hitfx1);
+									}
+
+									break;
+								case BattlePhase::DEFENDING:
+									BossInList->data->currentAnimation = &BossInList->data->protectAnim;
+									if (fxbool == true) {
+										fxbool = false;
+										app->audio->PlayFx(shieldfx);
+									}
+
+									break;
+								default:
+									break;
+
+								}
+							}
+
+
+						}
+
+						if (BossInList->data->isAlive == false) {
+							BossInList->data->currentAnimation = &BossInList->data->dieAnim;
+						}
+
+						BossInList->data->spriteRect = BossInList->data->currentAnimation->GetCurrentFrame();
+						switch (BossInList->data->bossType) {
+					/*	case BossType::VALION:
+							break;*/
+						default:
+							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x/ BossInList->data->zoom, BossInList->data->position.y / BossInList->data->zoom, &BossInList->data->spriteRect);
+
+							break;
+						}
 					}
 				}
 
