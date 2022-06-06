@@ -255,6 +255,139 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	hitF.loop = true;
 	hitF.speed = 0.006f;
 
+	// Helicopter Animations
+
+	Animation* susAnim = &heliWalkUpAnim;
+
+	susAnim->PushBack({ 0, 64*3, 107, 64 });
+	susAnim->PushBack({ 107, 64*3, 107, 64 });
+	susAnim->PushBack({ 107*2, 64*3, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkDownAnim;
+
+	susAnim->PushBack({ 0, 0, 107, 64 });
+	susAnim->PushBack({ 107, 0, 107, 64 });
+	susAnim->PushBack({ 107 *2, 0, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkLeftAnim;
+
+	susAnim->PushBack({ 0, 64, 107, 64 });
+	susAnim->PushBack({ 107, 64, 107, 64 });
+	susAnim->PushBack({ 107 *2, 64, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkRightAnim;
+
+	susAnim->PushBack({ 0, 64*2, 107, 64 });
+	susAnim->PushBack({ 107, 64*2, 107, 64 });
+	susAnim->PushBack({ 107 *2, 64*2, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleUp;
+
+	susAnim->PushBack({ 0, 64*3, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleDown;
+
+	susAnim->PushBack({ 0, 0, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleR;
+
+	susAnim->PushBack({ 0, 64*2, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleL;
+
+	susAnim->PushBack({ 0, 64, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliBattleIdle;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliAttack;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliProtect;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = &butMostImportantlyHeliHit;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &andThenHeliDies;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = nullptr;
+	delete susAnim;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
@@ -278,8 +411,6 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	interactionButtonJustSpace.PushBack({ 83, 41, 36, 16 });
 	interactionButtonJustSpace.loop = false;
-
-
 }
 
 // Destructor
@@ -319,6 +450,12 @@ bool Player::Start()
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
 	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");
 
+	// Helicopter
+
+	HeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/heliSprite.png");
+	BattleHeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/battle.png");
+	helicopter_character_face_gui = app->tex->Load("Assets/sprites/MainCh/helicopter/gui_face_heli.png");
+
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
 	PlayerErection = 1;
@@ -347,13 +484,12 @@ bool Player::Start()
 bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
-		LOG("position x %d y %d", position.x, position.y);
+	if (app->scene->godmode) {
+		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
+			LOG("position x %d y %d", position.x, position.y);
+		}
 	}
-	
-	
-	//if (app->scene->godmode) stats->SetStats();	
-	
+
 	// Show GUI if player isn't moving
 	if (toggleGui == true && app->stages->actualStage != StageIndex::INTRODUCTION) {
 		if (lastFramePos == position) {
@@ -369,11 +505,17 @@ bool Player::PreUpdate()
 		lastFramePos = position;
 	}
 
-	if (PlayerErection == true) {
+	switch (PlayerErection)
+	{
+	case 1:
 		spriteFace = male_character_face_gui;
-	}
-	else {
+		break;
+	case 2:
 		spriteFace = female_character_face_gui;
+		break;
+	case 3:
+		spriteFace = helicopter_character_face_gui;
+		break;
 	}
 
 	return true;
@@ -386,21 +528,31 @@ bool Player::Update(float dt) {
 	if (!pad.r3 && !pad.l3)_wait = true;
 	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
-		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) || pad.l3 && _wait && !PlayerErection && app->stages->actualStage==StageIndex::INTRODUCTION) {
-			if (PlayerErection != true) {
-				PlayerErection = true;
-				name = "Rhen";
-				app->audio->PlayFx(erectionFx);
-			}	
-			app->stages->elect = true;
-			_wait = false;
-		}
-		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) || pad.l3 && _wait && PlayerErection && app->stages->actualStage == StageIndex::INTRODUCTION) {
-			if (PlayerErection != false) {
-				PlayerErection = false;
-				name = "Briar";
-				app->audio->PlayFx(erectionFx);
+		if ((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) || pad.l3 && _wait && app->stages->actualStage==StageIndex::INTRODUCTION) {
+			if (PlayerErection < 3) {
+				PlayerErection++;
 			}
+			else {
+				PlayerErection = 1;
+			}
+
+			switch (PlayerErection)
+			{
+			case 1:
+				name = "Rhen";
+				currentAnimation = &idleAnimDown;
+				break;
+			case 2:
+				name = "Briar";
+				currentAnimation = &idleAnimDown;
+				break;
+			case 3:
+				name = "Heli";
+				currentAnimation = &heliIdleDown;
+				break;
+			}
+
+			app->audio->PlayFx(erectionFx);
 			app->stages->elect = true;
 			_wait = false;
 		}
@@ -450,7 +602,7 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT)speed = 0.28 * dt;
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT)speed = 0.28 * dt;
 	else if(app->scene->godmode)speed = 0.35 * dt;
 	else speed = 0.2 * dt;
 	
@@ -459,14 +611,21 @@ void Player::MovementPlayer(float dt) {
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
 		
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
-				if (currentAnimation != &walkAnimL) {
-					currentAnimation = &walkAnimL;
+
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimL) {
+						currentAnimation = &walkAnimL;
+
+					}
+				}
+				else {
+					currentAnimation = &heliWalkLeftAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -477,8 +636,13 @@ void Player::MovementPlayer(float dt) {
 			//MOV W
 			else {
 					position.y -= speed;
-					if (currentAnimation != &walkAnimUp) {
-						currentAnimation = &walkAnimUp;
+					if (PlayerErection != 3) {
+						if (currentAnimation != &walkAnimUp) {
+							currentAnimation = &walkAnimUp;
+						}
+					}
+					else {
+						currentAnimation = &heliWalkUpAnim;
 					}
 
 					if (walkFxCooldown < 0) {
@@ -489,12 +653,17 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 		
-		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
-				if (currentAnimation != &walkAnimR) {
-					currentAnimation = &walkAnimR;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimR) {
+						currentAnimation = &walkAnimR;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkRightAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -505,8 +674,13 @@ void Player::MovementPlayer(float dt) {
 			//MOV W
 			else {
 					position.y -= speed;
-					if (currentAnimation != &walkAnimUp) {
-						currentAnimation = &walkAnimUp;
+					if (PlayerErection != 3) {
+						if (currentAnimation != &walkAnimUp) {
+							currentAnimation = &walkAnimUp;
+						}
+					}
+					else {
+						currentAnimation = &heliWalkUpAnim;
 					}
 
 					if (walkFxCooldown < 0) {
@@ -521,8 +695,14 @@ void Player::MovementPlayer(float dt) {
 			position.y -= speed;
 			timeWalkingVer++;
 			timeWalkingHor = 0;
-			if (currentAnimation != &walkAnimUp) {
-				currentAnimation = &walkAnimUp;
+
+			if (PlayerErection != 3) {
+				if (currentAnimation != &walkAnimUp) {
+					currentAnimation = &walkAnimUp;
+				}
+			}
+			else {
+				currentAnimation = &heliWalkUpAnim;
 			}
 
 			if (walkFxCooldown < 0) {
@@ -531,16 +711,21 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
 
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
 				timeWalkingHor++;
 				timeWalkingVer++;
-				if (currentAnimation != &walkAnimL) {
-					currentAnimation = &walkAnimL;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimL) {
+						currentAnimation = &walkAnimL;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkLeftAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -551,8 +736,13 @@ void Player::MovementPlayer(float dt) {
 			//MOV S
 			else {
 				position.y += speed;
-				if (currentAnimation != &walkAnimDown) {
-					currentAnimation = &walkAnimDown;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimDown) {
+						currentAnimation = &walkAnimDown;
+					}
+				}
+				else {
+					currentAnimation = &heliIdleDown;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -561,14 +751,20 @@ void Player::MovementPlayer(float dt) {
 				}
 			}
 		}
-		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
 				timeWalkingHor++;
 				timeWalkingVer++;
-				if (currentAnimation != &walkAnimR) {
-					currentAnimation = &walkAnimR;
+
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimR) {
+						currentAnimation = &walkAnimR;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkRightAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -579,8 +775,13 @@ void Player::MovementPlayer(float dt) {
 			//MOV S
 			else {
 				position.y += speed;
-				if (currentAnimation != &walkAnimDown) {
-					currentAnimation = &walkAnimDown;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimDown) {
+						currentAnimation = &walkAnimDown;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkDownAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -594,8 +795,14 @@ void Player::MovementPlayer(float dt) {
 			position.y += speed;
 			timeWalkingVer++;
 			timeWalkingHor = 0;
-			if (currentAnimation != &walkAnimDown) {
-				currentAnimation = &walkAnimDown;
+
+			if (PlayerErection != 3) {
+				if (currentAnimation != &walkAnimDown) {
+					currentAnimation = &walkAnimDown;
+				}
+			}
+			else {
+				currentAnimation = &heliWalkDownAnim;
 			}
 
 			if (walkFxCooldown < 0) {
@@ -604,12 +811,18 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
 		timeWalkingVer = 0;
 		timeWalkingHor++;
-		if (currentAnimation != &walkAnimL) {
-			currentAnimation = &walkAnimL;
+
+		if (PlayerErection != 3) {
+			if (currentAnimation != &walkAnimL) {
+				currentAnimation = &walkAnimL;
+			}
+		}
+		else {
+			currentAnimation = &heliWalkLeftAnim;
 		}
 
 		if (walkFxCooldown < 0) {
@@ -617,12 +830,18 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
 		timeWalkingVer = 0;
 		timeWalkingHor++;
-		if (currentAnimation != &walkAnimR) {
-			currentAnimation = &walkAnimR;
+
+		if (PlayerErection != 3) {
+			if (currentAnimation != &walkAnimR) {
+				currentAnimation = &walkAnimR;
+			}
+		}
+		else {
+			currentAnimation = &heliWalkRightAnim;
 		}
 
 		if (walkFxCooldown < 0) {
@@ -643,6 +862,19 @@ void Player::MovementPlayer(float dt) {
 		else if (currentAnimation == &walkAnimDown) {
 			currentAnimation = &idleAnimDown;
 		}
+		else if (currentAnimation == &heliWalkDownAnim) {
+			currentAnimation = &heliIdleDown;
+		}
+		else if (currentAnimation == &heliWalkUpAnim) {
+			currentAnimation = &heliIdleUp;
+		}
+		else if (currentAnimation == &heliWalkRightAnim) {
+			currentAnimation = &heliIdleR;
+		}
+		else if (currentAnimation == &heliWalkLeftAnim) {
+			currentAnimation = &heliIdleL;
+		}
+
 		timeWalkingHor = 0;
 		timeWalkingVer = 0;
 	}
@@ -747,23 +979,12 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								}
 							}
 						}
-
-						
-
-
-
-
-
-
-
 						//app->battle->normalEnemyInBattle = normalEnemyInList->data;
 						//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
 						app->battle->Enable();
 					}
 				}
 			}
-			
-			
 		}
 
 		//Collision with entrance
@@ -1103,7 +1324,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								entityTalking = entityInList->data;
 								app->questManager->CheckQuest(entityInList->data->npcID);
 								autoTalk = false;
-							}else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+							}else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT || pad.a && wait == true) {
 
 								entityTalking = entityInList->data;
 								app->questManager->CheckQuest(entityInList->data->npcID);

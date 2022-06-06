@@ -207,7 +207,7 @@ bool PauseMenu::Update(float dt)
 			/*if (app->inventory->isEnabled() == false) {*/
 				pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
 				EnButt();
-				app->audio->ChangeVolume(app->audio->vol / 3);
+				//app->audio->ChangeVolume(app->audio->vol / 3);
 			//}
 		}
 		_wait = false;
@@ -272,7 +272,7 @@ bool PauseMenu::CleanUp()
 	//app->tex->UnLoad(creditsb);
 	//app->tex->UnLoad(exitb);
 
-	app->audio->ChangeVolume(app->audio->vol * 3);
+	//app->audio->ChangeVolume(app->audio->vol * 3);
 
 	return true;
 }

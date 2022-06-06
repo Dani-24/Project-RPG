@@ -98,9 +98,11 @@ bool Shop::Update(float dt) {
 		app->shop->Disable();
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {//adds money
-		app->scene->player->PlayerMoney+= 10;
-		LOG("%d", app->scene->player->PlayerMoney);
+	if (app->scene->godmode) {
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {//adds money
+			app->scene->player->PlayerMoney += 10;
+			LOG("%d", app->scene->player->PlayerMoney);
+		}
 	}
 
 	int y = -app->camera->GetPos().y / 2;

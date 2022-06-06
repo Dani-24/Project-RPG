@@ -261,34 +261,38 @@ bool Stages::PostUpdate()
 				break;
 			case 7:
 
-				app->font->DrawTextDelayed("Well, as Oak says, you are a boy or a girl?", epilogX - 70, epilogY);
+				app->font->DrawTextDelayed("Well, as Oak says, are you a boy or a girl?", epilogX - 70, epilogY);
 				break;
 			case 8:
 
-				app->font->DrawTextDelayed("Choose with 1 or 2 and confirm with Space", epilogX - 65, epilogY);
+				app->font->DrawTextDelayed("Choose with TAB and confirm with Space / Enter", epilogX - 90, epilogY);
 				break;
 			case 9:
-				if (playerPtr->PlayerErection == true) {
-					app->font->DrawTextDelayed("OH! So you're a boy", epilogX + 20, epilogY);
+				switch (playerPtr->PlayerErection)
+				{
+				case 1:
+					app->font->DrawTextDelayed("OH! So you want to be a boy-like thing", epilogX - 40, epilogY);
+					break;
+				case 2:
+					app->font->DrawTextDelayed("OH! So you're a girl-like thing", epilogX - 40, epilogY);
+					break;
+				case 3:
+					app->font->DrawTextDelayed("OH! So you're a Apache combat Helicopter", epilogX - 60, epilogY);
+					break;
 				}
-				else {
-					app->font->DrawTextDelayed("OH! So you're a girl", epilogX + 20, epilogY);
-				}
+
 				break;
 			case 10:
-				app->font->DrawTextDelayed("(You can still change your gender with 1 or 2 )", epilogX - 100, epilogY);
-				break;
-			case 11:
 				app->font->DrawTextDelayed("An amazing adventure is waiting for you", epilogX - 60, epilogY);
 				break;
-			case 12:
+			case 11:
 				app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
 				break;
 			default:
 				break;
 			}
 
-			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && _wait || pad.b && _wait) {
+			if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait || pad.b && _wait) {
 
 				if (elect) introductionFase++;
 				if (introductionFase == 8) elect = false;
@@ -423,15 +427,24 @@ bool Stages::PostUpdate()
 		//PRINT THE PLAYER 
 		if (playerPtr != nullptr) {
 			SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
-			if (playerPtr->PlayerErection == true) {
+
+			switch (playerPtr->PlayerErection)
+			{
+			case 1:
 				if (playerPtr->PlayerMTex != nullptr) {
 					app->render->DrawTexture(playerPtr->PlayerMTex, playerPtr->position.x, playerPtr->position.y, &rect);
 				}
-			}
-			if (playerPtr->PlayerErection == false) {
+				break;
+			case 2:
 				if (playerPtr->PlayerFTex != nullptr) {
 					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
 				}
+				break;
+			case 3:
+				if (playerPtr->HeliTex != nullptr) {
+					app->render->DrawTexture(playerPtr->HeliTex, playerPtr->position.x - 30, playerPtr->position.y + 8, &rect);
+				}
+				break;
 			}
 		}
 
@@ -665,8 +678,9 @@ bool Stages::PostUpdate()
 						{
 							SDL_Rect rect = playerPtr->currentAnimation->GetCurrentFrame();
 
-
-							if (playerPtr->PlayerErection == true) {
+							switch (playerPtr->PlayerErection)
+							{
+							case 1:
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
@@ -709,8 +723,8 @@ bool Stages::PostUpdate()
 
 									}
 								}
-							}
-							if (playerPtr->PlayerErection == false) {
+								break;
+							case 2:
 								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
@@ -761,8 +775,51 @@ bool Stages::PostUpdate()
 
 									}
 								}
-							}
+								break;
+							case 3:
+								playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
+								app->render->DrawTexture(playerPtr->BattleHeliTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
+								if (playerPtr->isAlive == false) {
+									playerPtr->currentAnimation = &playerPtr->andThenHeliDies;
+								}
+
+								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
+									switch (app->battle->battlePhase) {
+									case BattlePhase::THINKING:
+										playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
+
+										app->stages->playerPtr->heliAttack.Reset();
+										app->stages->playerPtr->andThenHeliDies.Reset();
+										break;
+									case BattlePhase::ATTACKING:
+										playerPtr->currentAnimation = &playerPtr->heliAttack;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(hitfx2);
+										}
+										break;
+									case BattlePhase::DEFENDING:
+										playerPtr->currentAnimation = &playerPtr->heliProtect;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(shieldfx);
+										}
+										break;
+									case BattlePhase::LOSE:
+										playerPtr->currentAnimation = &playerPtr->andThenHeliDies;
+										if (fxbool == true) {
+											fxbool = false;
+											app->audio->PlayFx(chdiefx);
+										}
+										break;
+									default:
+										break;
+
+									}
+								}
+								break;
+							}
 						}
 						else {
 

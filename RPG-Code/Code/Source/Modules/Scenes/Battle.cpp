@@ -209,14 +209,20 @@ bool Battle::Start()
 
 	//Animation
 	app->stages->playerPtr->mapAnimation = app->stages->playerPtr->currentAnimation;
-	if(app->stages->playerPtr->PlayerErection == true)
+
+	switch (app->stages->playerPtr->PlayerErection)
 	{
+	case 1:
 		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleM;
-	}
-	if (app->stages->playerPtr->PlayerErection == false)
-	{
+		break;
+	case 2:
 		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleF;
+		break;
+	case 3:
+		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->heliBattleIdle;
+		break;
 	}
+
 	//app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;
 	
 	app->stages->playerPtr->canMove = false;

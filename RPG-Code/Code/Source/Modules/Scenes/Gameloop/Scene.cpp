@@ -346,16 +346,38 @@ bool Scene::Start()
 	godmode = false;
 
 	app->guiManager->Enable();
+
 	if (playloading == true) {
 		playloading = false;
 		app->LoadGameRequest();
 	}
+
 	restart->state = GuiControlState::DISABLED;
 	backtoMenu->state = GuiControlState::DISABLED;
 
 	// UI
 
 	characterBG = app->tex->Load("Assets/gui/inventory/ui_inventory_char.png");
+
+	allStages.add(StageIndex::INTRODUCTION);
+	allStages.add(StageIndex::PROLOGUE);
+	allStages.add(StageIndex::TOWN);
+	allStages.add(StageIndex::DOJO);
+	allStages.add(StageIndex::SHOP);
+	allStages.add(StageIndex::SHOPSUB);
+	allStages.add(StageIndex::TAVERN);
+	allStages.add(StageIndex::TOWER_0);
+	allStages.add(StageIndex::TOWER_1);
+	allStages.add(StageIndex::TOWER_3);
+	allStages.add(StageIndex::TOWER_4);
+	allStages.add(StageIndex::TOWER_BOSS_1);
+	allStages.add(StageIndex::TOWER_BOSS_2);
+	allStages.add(StageIndex::TOWER_BOSS_3);
+	allStages.add(StageIndex::WIN);
+	allStages.add(StageIndex::LOSE);
+	allStages.add(StageIndex::INTRODUCTION);
+
+	stageSwap = allStages.start;
 
 	return true;
 }
@@ -379,20 +401,6 @@ bool Scene::PreUpdate()
 	// Hide UI
 	guiactivate = false;
 
-	if (app->inventory->isEnabled() == false) {
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-			app->inventory->Enable();
-		}
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-		app->stmen->Enable();
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
-	}
-
 	return ret;
 }
 
@@ -407,7 +415,6 @@ bool Scene::Update(float dt)
 	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
 
 	fpsdt = dt*3.75;
-	//GUI activation
 
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -420,6 +427,8 @@ bool Scene::Update(float dt)
 				partyList.At(i)->data->stats->LoadStats();
 			}
 
+			LOG("GOD MODE OFF");
+
 		}
 		else
 		{			
@@ -430,128 +439,98 @@ bool Scene::Update(float dt)
 			}
 			
 			godmode = true;
+			LOG("GOD MODE ON");
 			
 		}
 	}
-
-	if (app->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
-	{
-		guiactivate = true;
-	}
-
-	//LOG("INT VALUES: %d", app->map->intValues.count());
-
-	if (pause == false) {
-		// ================================
-		//       SAVE / LOAD requests
-		// ================================
-
-		/*if (app->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN) {
-			app->audio->PlayFx(loadFx);
-			app->LoadGameRequest();
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
-			app->audio->PlayFx(saveFx);
-			app->SaveGameRequest();
-		}*/
-	}
-
 	// ================================
 	//			DEBUG KEYS 
 	// ================================
+	if (godmode) 
+	{
 
-	// Change map
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWN);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::DOJO);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::SHOP);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::SHOPSUB);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TAVERN);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::WIN);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::LOSE);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER_0);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER_1);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER_2);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER_4);
-	}
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
-		app->fade->DoFadeToBlack(StageIndex::TOWER_3);
-	}
-
-	// Player movement
-	if (app->input->GetKey(SDL_SCANCODE_6) == KEY_DOWN) {
-		player->canMove ? player->canMove = false : player->canMove = true;
-	}
-
-	// Add ally to the party
-	if (app->input->GetKey(SDL_SCANCODE_7) == KEY_DOWN) {
-
-		if (partyList.At(1) == nullptr) {
-			int x = 80;
-			int y = 130 - 50;
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
-
-			/*if (godmode) {
-
-				partyList.At(1)->data->stats->SaveStats();
-				partyList.At(1)->data->stats->SetStats(9999, 9999, 9999, 9999);
-
-			}*/
-
-		}else{
-			partyList.del(partyList.At(1));
+		if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+			if (stageSwap->next != NULL) {
+				stageSwap = stageSwap->next;
+			}
+			else {
+				stageSwap = allStages.start;
+			}
+			app->stages->ChangeStage(stageSwap->data);
 		}
-		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-	}
-	if (app->input->GetKey(SDL_SCANCODE_8) == KEY_DOWN) {
 
-		if (partyList.At(2) == nullptr) {
-			int x = -200;
-			int y = 120 - 50;
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+		if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+			if (stageSwap->prev != NULL) {
+				stageSwap = stageSwap->prev;
+			}
+			else {
+				stageSwap = allStages.end;
+			}
+			app->stages->ChangeStage(stageSwap->data);
 		}
-		else {
-			partyList.del(partyList.At(2));
-		}
-		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-	}
-	if (app->input->GetKey(SDL_SCANCODE_9) == KEY_DOWN) {
 
-		if (partyList.At(3) == nullptr) {
-			int x = 200;
-			int y = 0 - 50;
-			partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+		// Inventory
+		if (app->inventory->isEnabled() == false) {
+			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+				app->inventory->Enable();
+			}
 		}
-		else {
-			partyList.del(partyList.At(3));
+		// Stats
+		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+			app->stmen->Enable();
 		}
-		//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+			app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
+		}
+
+		// Add ally to the party
+		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+
+			if (partyList.At(1) == nullptr) {
+				int x = 80;
+				int y = 130 - 50;
+				partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+
+				/*if (godmode) {
+
+					partyList.At(1)->data->stats->SaveStats();
+					partyList.At(1)->data->stats->SetStats(9999, 9999, 9999, 9999);
+
+				}*/
+
+			}
+			else {
+				partyList.del(partyList.At(1));
+			}
+			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+		}
+		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+
+			if (partyList.At(2) == nullptr) {
+				int x = -200;
+				int y = 120 - 50;
+				partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+			}
+			else {
+				partyList.del(partyList.At(2));
+			}
+			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+		}
+		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+
+			if (partyList.At(3) == nullptr) {
+				int x = 200;
+				int y = 0 - 50;
+				partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+			}
+			else {
+				partyList.del(partyList.At(3));
+			}
+			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+		}
 	}
+
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
 		backtoMenu->state = GuiControlState::NORMAL;
@@ -600,7 +579,14 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
-	
+
+	x = -app->camera->GetPos().x / 2,
+	y = -app->camera->GetPos().y / 2;
+
+	if (godmode) {
+		app->font->DrawText("Godmode is Enabled", x, y);
+	}
+
 	return ret;
 }
 

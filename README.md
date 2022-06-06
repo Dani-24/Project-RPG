@@ -30,11 +30,11 @@ Only you can discover that by exploring the tower.
 
 ## DEBUG KEYS:
 
+	TAB 		- Change Player gender
+
 	F10 		- GODMODE (Required to use other Debug Keys)
 
 		F9 		- Show/Hide Colliders & Debug info
-
-		TAB 		- Change Player gender
 
 		F1 		- Scroll Maps backward (last)
 		F2 		- Scroll Maps forward (next)
@@ -47,6 +47,8 @@ Only you can discover that by exploring the tower.
 		3 		- Add / Delete Dhion
 
 		4 (has the $ symbol) - Add +10 money
+
+		P 		- Show Player Position (Only Debug Console)
 
 ## Suspicious Team members (With a Descriptive Image):
 

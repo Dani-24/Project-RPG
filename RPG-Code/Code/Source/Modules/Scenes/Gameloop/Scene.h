@@ -82,6 +82,8 @@ public:
 	List<BossEnemy*> bossList;
 	List<Character*> partyList;
 	List<Item*> itemList;
+	List<StageIndex> allStages;
+	ListItem<StageIndex>* stageSwap;
 	
 	int backFx, loadFx, saveFx;
 	char lifeTextUI[100] = { "\0" };
