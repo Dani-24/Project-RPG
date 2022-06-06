@@ -39,7 +39,7 @@ public:
 	bool CleanUp();
 
 	//Control buttons
-	void PadBut();
+	void GampadControl();
 
 public:
 	const char* startChar;

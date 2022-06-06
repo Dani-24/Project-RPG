@@ -186,7 +186,7 @@ bool TitleScene::PreUpdate()
 			return false;
 		}
 	
-		PadBut();
+		GampadControl();
 	}
 	pause = app->fade->fading;
 	if (!pad.a && !pad.b) _wait = true;
@@ -265,7 +265,7 @@ bool TitleScene::CleanUp()
 	return true;
 }
 
-void TitleScene::PadBut()
+void TitleScene::GampadControl()
 {
 	GamePad& pad = app->input->pads[0];
 	if (!pad.a && !pad.b) _wait = true;

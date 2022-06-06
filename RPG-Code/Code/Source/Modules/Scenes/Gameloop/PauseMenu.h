@@ -36,7 +36,7 @@ public:
 	bool CleanUp();
 
 	//manage the control of ui with keyboard/gamepad
-	void KeyboardControl();
+	void GampadControl();
 
 	//Enable buttons
 	void EnButt();

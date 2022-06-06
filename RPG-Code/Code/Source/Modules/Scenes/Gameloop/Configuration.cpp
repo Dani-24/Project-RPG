@@ -78,7 +78,7 @@ bool Configuration::Start()
 bool Configuration::PreUpdate()
 {
 	bool ret = true;
-	GampadBut();
+	GampadControl();
 	/*if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) {
 		if (pause == false) {
 			pause = true;
@@ -261,7 +261,7 @@ bool Configuration::CleanUp()
 	return true;
 }
 
-void Configuration::GampadBut()
+void Configuration::GampadControl()
 {
 	GamePad& pad = app->input->pads[0];
 	if (!pad.a && !pad.b) _wait = true;

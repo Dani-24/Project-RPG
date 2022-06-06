@@ -135,7 +135,7 @@ bool StatsMenu::PostUpdate()
 
 	}
 	Statss();
-	KeyboardControl();
+	GampadControl();
 	return ret;
 }
 
@@ -341,7 +341,7 @@ void StatsMenu::Statss()
 }
 
 //called on preupdate
-void StatsMenu::KeyboardControl()
+void StatsMenu::GampadControl()
 {
 	GamePad& pad = app->input->pads[0];
 	if (!pad.a && !pad.b) _wait = true;

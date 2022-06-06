@@ -58,7 +58,7 @@ private:
 
 	int xt=460, yt=-15;
 
-	void GampadBut();
+	void GampadControl();
 
 	bool _wait, wait;
 	int ab;

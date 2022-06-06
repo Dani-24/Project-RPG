@@ -168,7 +168,7 @@ bool PauseMenu::PreUpdate()
 		load->SetPos({ xc - 100,yc - 115 });
 		exit->SetPos({ xc - 100,yc - 90 });
 
-		if(!app->conf->isEnabled()) KeyboardControl();
+		if(!app->conf->isEnabled()) GampadControl();
 
 	}
 	return ret;
@@ -278,7 +278,7 @@ bool PauseMenu::CleanUp()
 }
 
 //called on preupdate
-void PauseMenu::KeyboardControl()
+void PauseMenu::GampadControl()
 {
 	GamePad& pad = app->input->pads[0];
 	if (!pad.down && !pad.up) wait = true;

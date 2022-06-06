@@ -35,7 +35,7 @@ public:
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	//manage the control of ui with keyboard/gamepad
-	void KeyboardControl();
+	void GampadControl();
 
 private:
 
