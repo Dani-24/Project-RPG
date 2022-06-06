@@ -48,29 +48,36 @@ https://github.com/Dani-24/RPG
 ![Alt Text](https://www.meme-arsenal.com/memes/fa99667b78e49c49e085ae7120d71130.jpg)
 
 
-## Controls
+DEFAULT CONTROLS: (If "/" that means both keys do the same)
 
-- WASD - Movement
-- Left Click - Interact
-- ESC - Back
-- SPACE : Confirm/Talk
-- Left mouse button (UI) : Confirm
-- Mouse movement (UI) : Select
-- G (UI) : Show UI
-- 1 / 2 - Change Gender
+	ASDW / Arrows 	- Player / UI movement
+	Shift / CTRL 	- Run / Speed Up dialogues
 
-## Debug Keys
+	ESC 		- Close current menu
+	Enter / Space 	- Interact / UI Press Button
 
-- 7 - Lock / Unlock player movement
-- 9 - Save Data
-- 0 - Load Data
-- F1 - Town map
-- F2 - Dojo map
-- F3 - Shop map
-- F4 - Shop (lower floor) map
-- F5 - Tavern map
-- F9 - Show / Hide Colliders
-- F10 - GOD mode: Fly-around mode, infinite stats.
+* On Pause Menu you can access all stats/inventory menus
+* UI buttons are mouse reactive
+
+DEBUG KEYS:
+
+	F10 		- GODMODE (Required to use other Debug Keys)
+
+		F9 		- Show/Hide Colliders & Debug info
+
+		TAB 		- Change Player gender
+
+		F1 		- Scroll Maps backward (last)
+		F2 		- Scroll Maps forward (next)
+
+		I 		- Inventory
+		E 		- Stats
+
+		1 		- Add / Delete Valion
+		2 		- Add / Delete Rayla
+		3 		- Add / Delete Dhion
+
+		4 (has the $ symbol) - Add +10 money
 
 ## Additional Comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
