@@ -265,10 +265,12 @@ bool NPC::Awake(pugi::xml_node& config)
 	shoperChar = config.child("shoper").attribute("path").as_string();
 	emilioChar = config.child("korb").attribute("path").as_string();
 	giroideChar = config.child("g").attribute("path").as_string();
-	archerChar = config.child("archer").attribute("path").as_string();
+	/*archerChar = config.child("archer").attribute("path").as_string();
 	lancerChar = config.child("lancer").attribute("path").as_string();
-	//wizardChar = config.child("wizard").attribute("path").as_string();
+	wizardChar = config.child("wizard").attribute("path").as_string();*/
 	wizardChar = "Assets/sprites/characters/wizard/Valion.png";
+	archerChar = "Assets/sprites/characters/archer/walk/rayla.png";
+	lancerChar = "Assets/sprites/characters/lancer/walk/dhion.png";
 	return true;
 }
 
@@ -318,19 +320,6 @@ bool NPC::Start()
 
 		spriteTex = NULL;
 		break;*/
-	//case NPCType::ARCHER:
-
-	//	spriteTex = app->tex->Load(archerChar);
-	//	break;
-	//case NPCType::LANCER:
-
-	//	spriteTex = app->tex->Load(lancerChar);
-	//	break;
-	//case NPCType::WIZARD:
-
-	//	spriteTex = app->tex->Load(wizardChar);
-	//	break;
-
 	case NPCType::DEAD_TREE:
 
 		spriteTex = NULL;
@@ -353,6 +342,12 @@ bool NPC::Start()
 		break;
 	case NPCType::VALION:
 		spriteTex = app->tex->Load(wizardChar);
+		break;
+	case NPCType::RAYLA:
+		spriteTex = app->tex->Load(archerChar);
+		break;
+	case NPCType::DHION:
+		spriteTex = app->tex->Load(lancerChar);
 		break;
 	case NPCType::TRUCK_KUN:
 		spriteTex = app->tex->Load("Assets/sprites/truck_kun/camion_kun.png");

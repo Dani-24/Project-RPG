@@ -117,6 +117,8 @@ bool Scene::Start()
 	iPoint rip3Pos = { 2549 , 866 };
 
 	iPoint valionPos = { 930 , 1000 };
+	iPoint raylaPos = { 1030 , 1000 };
+	iPoint dhionPos = { 1130 , 1000 };
 
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
@@ -150,6 +152,14 @@ bool Scene::Start()
 	NPC* valion = (NPC*)app->entities->CreateEntity(NPCType::VALION, valionPos.x, valionPos.y);
 	npcList.add(valion);
 	valion->activeOnStage = StageIndex::TOWN;
+
+	/*NPC* rayla = (NPC*)app->entities->CreateEntity(NPCType::RAYLA, valionPos.x, valionPos.y);
+	npcList.add(rayla);
+	rayla->activeOnStage = StageIndex::TOWN;
+
+	NPC* dhion = (NPC*)app->entities->CreateEntity(NPCType::DHION, valionPos.x, valionPos.y);
+	npcList.add(dhion);
+	dhion->activeOnStage = StageIndex::TOWN;*/
 
 	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK_KUN, 10 * TILE_SIZE, 14 * TILE_SIZE);
 	npcList.add(camionKun);

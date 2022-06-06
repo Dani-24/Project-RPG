@@ -36,6 +36,8 @@ enum class NPCType
 	RIP_2,
 	RIP_3,
 	VALION,
+	RAYLA,
+	DHION,
 	TRUCK_KUN
 
 };
