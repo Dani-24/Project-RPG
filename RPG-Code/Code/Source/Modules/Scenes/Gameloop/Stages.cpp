@@ -814,6 +814,7 @@ bool Stages::PostUpdate()
 									}
 									break;
 								default:
+									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									break;
 
 								}

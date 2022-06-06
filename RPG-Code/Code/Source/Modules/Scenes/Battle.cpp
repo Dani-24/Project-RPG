@@ -2051,7 +2051,7 @@ void Battle::Attack(DynamicEntity *target) {
 		target->stats->defenseBuffed = false;
 		target->isAlive = false;
 
-		DynamicEntity* newTimeLine[5] = {nullptr,nullptr, nullptr, nullptr, nullptr};
+		DynamicEntity* newTimeLine[5] = { nullptr,nullptr, nullptr, nullptr, nullptr };
 
 		//Select each living entity in timeline
 		for (int i = 0; i < 5; i++) {
@@ -2078,9 +2078,9 @@ void Battle::Attack(DynamicEntity *target) {
 				turnsTimeLine[k] = nullptr;
 				emptySpots++;
 			}
-			
+
 		}
-		
+
 		/*LOG("%d aaaaaaaaaaaaaaaaaaa", awa);*/
 		//Fill the new timeline
 		for (int k = 0; k < emptySpots; k++) {
@@ -2088,66 +2088,103 @@ void Battle::Attack(DynamicEntity *target) {
 			SetTurnOrder();
 		}
 
+		if (target == entitiesInBattle[4] || target == entitiesInBattle[5] || target == entitiesInBattle[6] || target == entitiesInBattle[7]) {
 
-		if (target->name == "Bat")
-		{
-			expCount += 20;
-			goldCount += 2;
-			app->scene->player->PlayerMoney += 2;
 
-		}
-		if (target->name == "Flying eye")
-		{
-			expCount += 50;
-			goldCount += 6;
-			app->scene->player->PlayerMoney += 6;
-		}
-		if (target->name == "Skeleton")
-		{
-			expCount += 100;
-			goldCount += 10;
-			app->scene->player->PlayerMoney += 10;
-		}
-		if (!app->scene->godmode) {
-			for (int i = 0; i < app->scene->partyList.count(); i++) {
-				if (target->name == "Bat")
-				{
-					LOG("aaaaaaaaaaaaaaaaaaa");
-					app->scene->partyList.At(i)->data->stats->lvlup(20);
+			if (target->name == "Bat")
+			{
+				expCount += 20;
+				goldCount += 2;
+				app->scene->player->PlayerMoney += 2;
 
-				}
-				if (target->name == "Flying eye")
-				{
-					LOG("oooooooooooooooooooo");
-					app->scene->partyList.At(i)->data->stats->lvlup(50);
-				}
-				if (target->name == "Skeleton")
-				{
-					LOG("eeeeeeeeeeeeeeeeeeeeeee");
-					app->scene->partyList.At(i)->data->stats->lvlup(100);
+			}
+			if (target->name == "Flying eye")
+			{
+				expCount += 50;
+				goldCount += 6;
+				app->scene->player->PlayerMoney += 6;
+			}
+			if (target->name == "Skeleton")
+			{
+				expCount += 100;
+				goldCount += 10;
+				app->scene->player->PlayerMoney += 10;
+			}
+			if (target->battleName == " Valion")
+			{
+				expCount += 100;
+				goldCount += 10;
+				app->scene->player->PlayerMoney += 10;
+			}
+			if (target->battleName == " Rayla")
+			{
+				expCount += 100;
+				goldCount += 10;
+				app->scene->player->PlayerMoney += 10;
+			}
+			if (target->battleName == " Dhion")
+			{
+				expCount += 100;
+				goldCount += 10;
+				app->scene->player->PlayerMoney += 10;
+			}
+			if (!app->scene->godmode) {
+				for (int i = 0; i < app->scene->partyList.count(); i++) {
+					if (target->name == "Bat")
+					{
+						LOG("aaaaaaaaaaaaaaaaaaa");
+						app->scene->partyList.At(i)->data->stats->lvlup(20);
 
+					}
+					if (target->name == "Flying eye")
+					{
+						LOG("oooooooooooooooooooo");
+						app->scene->partyList.At(i)->data->stats->lvlup(50);
+					}
+					if (target->name == "Skeleton")
+					{
+						LOG("eeeeeeeeeeeeeeeeeeeeeee");
+						app->scene->partyList.At(i)->data->stats->lvlup(100);
+
+					}
+					if (target->battleName == " Valion")
+					{
+						app->scene->partyList.At(i)->data->stats->lvlup(100);
+					}
+					if (target->battleName == " Rayla")
+					{
+						app->scene->partyList.At(i)->data->stats->lvlup(100);
+					}
+					if (target->battleName == " Dhion")
+					{
+						app->scene->partyList.At(i)->data->stats->lvlup(100);
+					}
 				}
 			}
-		}
 
-		optionPercent = 0;
-		srand(time(NULL));
-		optionPercent = rand() % 100;
-
-		if (optionPercent <= 20) {
-			for (int i = 0; i < 4; i++) {
-				if (itemCount[i] == nullptr) {
-
-					optionPercent = 0;
+			if (target->name != "Valion" && target->name != "Rayla" && target->name != "Dhion") {
+				optionPercent = 0;
 					srand(time(NULL));
-					optionPercent = rand() % 24;
-					itemCount[i] = new Usable(UsableType(optionPercent));
+					optionPercent = rand() % 100;
 
-					break;
-				}
+					if (optionPercent <= 20) {
+						for (int i = 0; i < 4; i++) {
+							if (itemCount[i] == nullptr) {
 
+								optionPercent = 0;
+									srand(time(NULL));
+									optionPercent = rand() % 24;
+								itemCount[i] = new Usable(UsableType(optionPercent));
+
+								break;
+							}
+
+						}
+					}
 			}
 		}
+	
+		
 	}
 	skill = 0;
 }
