@@ -47,10 +47,15 @@ private:
 	// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* SmokeTex = nullptr;
 	SDL_Texture* FireTex = nullptr;
+	SDL_Texture* ChickenTex = nullptr;
+	SDL_Texture* BirdTex = nullptr;
 
 	//Template particle
 	Animation SmokeParticle,
-		FireParticle;
+		FireParticle,
+		ChickenParticle,
+		BirdParticle,
+		BirdFParticle;
 	
 };
 
