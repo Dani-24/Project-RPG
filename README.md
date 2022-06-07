@@ -32,9 +32,9 @@ Only you can discover that by exploring the tower.
 
 	TAB 		- Change Player gender
 
-	F9		- GODMODE
+	F9		- Show/Hide Colliders & Debug info
 
-	F10 		- Show/Hide Colliders & Debug info
+	F10 		- GODMODE
 
 	F11 		- Enable/Disable DEBUG KEYS
 
