@@ -47,6 +47,7 @@ public:
 	int Sspeed;
 	int Smana;
 	int SmaxMana;
+	bool firstgod;
 
 	int localTurn;
 	bool defenseBuffed;
@@ -66,6 +67,7 @@ public:
 
 		this->localTurn = 0;
 		this->defenseBuffed = false;
+		this->firstgod = false;
 	}
 	//lvl mxhealth attak defense mana speed
 	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
@@ -121,16 +123,18 @@ public:
 	}
 	void SaveStats()
 	{
-		Slevel = level;
+		
+			Slevel = level;
 
-		Shealth = health;
-		SmaxHealth = maxHealth;
-		Sattack = attack;
-		Sdefense = defense;
-		/*this->Sspeed = speed;*/
-		Smana = mana;
+			Shealth = health;
+			SmaxHealth = maxHealth;
+			Sattack = attack;
+			Sdefense = defense;
+			/*this->Sspeed = speed;*/
+			Smana = mana;
 
-		SmaxMana = maxMana;
+			SmaxMana = maxMana;
+		
 	}
 	void LoadStats()
 	{
@@ -161,7 +165,7 @@ public:
 				level++;
 				attack *= 1.2;
 				defense *= 1.2;
-				speed *= 1.2;
+				speed += speed*0.3;
 				mana *= 1.2;
 				maxMana *= 1.2;
 				nexp *= 1.2;

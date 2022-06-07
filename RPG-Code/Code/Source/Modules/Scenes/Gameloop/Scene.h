@@ -39,6 +39,9 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	//In casr of adding new char in good mode fix it
+	void FixAdd(int i, int x, int y);
+
 	// Called before all Updates
 	bool PostUpdate();
 

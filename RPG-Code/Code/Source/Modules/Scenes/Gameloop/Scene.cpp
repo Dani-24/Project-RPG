@@ -503,51 +503,54 @@ bool Scene::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 			app->stmen->Enable();
 		}
+		if (!godmode)
+		{
 
-		// Add ally to the party
-		if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
+			// Add ally to the party
+			if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 
-			if (partyList.At(1) == nullptr) {
-				int x = 80;
-				int y = 130 - 50;
-				partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+				if (partyList.At(1) == nullptr) {
+					int x = 80;
+					int y = 130 - 50;
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
 
-				/*if (godmode) {
+					/*if (godmode) {
 
-					partyList.At(1)->data->stats->SaveStats();
-					partyList.At(1)->data->stats->SetStats(9999, 9999, 9999, 9999);
+						partyList.At(1)->data->stats->SaveStats();
+						partyList.At(1)->data->stats->SetStats(9999, 9999, 9999, 9999);
 
-				}*/
+					}*/
 
+				}
+				else {
+					partyList.del(partyList.At(1));
+				}
+				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
-			else {
-				partyList.del(partyList.At(1));
-			}
-			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-		}
-		if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
+			if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 
-			if (partyList.At(2) == nullptr) {
-				int x = -200;
-				int y = 120 - 50;
-				partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+				if (partyList.At(2) == nullptr) {
+					int x = -200;
+					int y = 120 - 50;
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+				}
+				else {
+					partyList.del(partyList.At(2));
+				}
+				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
-			else {
-				partyList.del(partyList.At(2));
-			}
-			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
-		}
-		if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+			if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
 
-			if (partyList.At(3) == nullptr) {
-				int x = 200;
-				int y = 0 - 50;
-				partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+				if (partyList.At(3) == nullptr) {
+					int x = 200;
+					int y = 0 - 50;
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+				}
+				else {
+					partyList.del(partyList.At(3));
+				}
+				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
-			else {
-				partyList.del(partyList.At(3));
-			}
-			//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 		}
 	}
 
@@ -945,5 +948,61 @@ bool Scene::AddItem(UsableType type) {
 	else {
 		LOG("Inventory is full");
 		return false;
+	}
+}
+
+void Scene::FixAdd(int i, int x, int y)
+{
+	if (godmode)
+	{
+
+		if (partyList.At(i)->data != nullptr)
+		{
+			while (partyList.At(i)->data == nullptr)
+			{
+				partyList.del(partyList.At(i));
+
+				switch (i)
+				{
+				case 1:
+
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+
+					break;
+
+				case 2:
+
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+
+					break;
+
+				case 3:
+
+					partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+
+					break;
+				}
+
+				//if (partyList.At(i) != nullptr &&  /*&& partyList.At(i)->data->stats->attack!=9999*/)
+				//{
+
+
+				//}
+
+			/*for (int i = 0; i < partyList.count(); i++)
+			{*/
+			//}
+				LOG("AAAAAAAAAAAAAAAAAAAAA");
+
+			}
+		}
+		if (!partyList.At(i)->data->stats->firstgod)
+		{
+
+			partyList.At(i)->data->stats->SaveStats();
+			partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
+			partyList.At(i)->data->stats->firstgod = true;
+		}
+
 	}
 }
