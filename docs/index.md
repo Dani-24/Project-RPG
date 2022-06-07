@@ -62,5 +62,8 @@ There is a legend that says that the ones who lose against the tower becomes par
 - F9 - Show / Hide Colliders
 - F10 - GOD mode: Fly-around mode, infinite stats.
 
+## License
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/Dani-24/RPG/blob/main/LICENSE) for further details.
+
 ## Additional Comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
