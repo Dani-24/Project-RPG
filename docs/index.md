@@ -42,6 +42,7 @@ There is a legend that says that the ones who lose against the tower becomes par
 
 
 ## Controls
+
 - WASD - Movement
 - Left Click - Interact
 - ESC - Back
