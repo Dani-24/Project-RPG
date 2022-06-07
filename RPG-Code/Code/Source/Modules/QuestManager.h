@@ -47,6 +47,8 @@ public:
 	const char* activeDialog[DIALOG_LENGHT] = { "quest in process" };
 	const char* completedDialog[DIALOG_LENGHT] = { "take reward" };
 
+	bool completedAnimation = true;
+
 public:
 	Quest()
 	{

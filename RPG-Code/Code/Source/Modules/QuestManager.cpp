@@ -14,6 +14,8 @@
 #include "App.h"
 #include "Scene.h"
 
+#include "VisualEffects.h"
+
 QuestManager::QuestManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("QuestManager");
@@ -241,6 +243,13 @@ bool QuestManager::Update(float dt)
 				app->scene->player->TowerKey = true;
 			}
 		}*/
+
+		if (QuestInList->data->State == QuestState::COMPLETED) {
+			if (QuestInList->data->completedAnimation) {
+				QuestInList->data->completedAnimation = !QuestInList->data->completedAnimation;
+				app->visualEffects->DisplayEffect(Effects::QUESTCOMPLETED);
+			}
+		}
 	}
 
 	return ret;

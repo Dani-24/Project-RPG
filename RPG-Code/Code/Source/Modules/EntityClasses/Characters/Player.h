@@ -180,6 +180,8 @@ private:
 	//variable para que no pete con mando
 	bool wait;
 
+	int visualeffectCooldown = 0;
+
 public: // DIALOGS
 
 	const char* barkeeperDialog[DIALOG_LENGHT] = { 

@@ -97,6 +97,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
+    <ClCompile Include="Source\Modules\Extra\VisualEffects.cpp" />
     <ClCompile Include="Source\Modules\QuestManager.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\PauseMenu.cpp" />
     <ClCompile Include="Source\Modules\Extra\DialogSystem.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
+    <ClInclude Include="Source\Modules\Extra\VisualEffects.h" />
     <ClInclude Include="Source\Modules\QuestManager.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\PauseMenu.h" />
     <ClInclude Include="Source\Modules\Extra\DialogSystem.h" />

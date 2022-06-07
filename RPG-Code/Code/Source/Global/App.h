@@ -44,6 +44,8 @@ class DialogSystem;
 class Inventory;
 class StatsMenu;
 
+class VisualEffects;
+
 class App
 {
 public:
@@ -136,6 +138,9 @@ public:
 	DialogSystem* dialogs;
 	Inventory* inventory;
 	StatsMenu* stmen;
+
+	VisualEffects* visualEffects;
+
 private:
 
 	int argc;

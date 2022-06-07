@@ -10,8 +10,10 @@ public:
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
 	bool loop = true;
+
 	// Allows the animation to keep going back and forth
 	bool pingpong = false;
+
 	float currentFrame = 0.0f;
 
 	int totalFrames = 0;
@@ -33,7 +35,12 @@ public:
 
 	bool HasFinished()
 	{
-		return !loop && !pingpong && loopCount > 0;
+		if (currentFrame >= totalFrames - 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	void Update(float dt = 16)

@@ -14,6 +14,8 @@
 #include "Enemy.h"
 #include "BossEnemy.h"
 
+#include "VisualEffects.h"
+
 DialogSystem::DialogSystem(App* application, bool start_enabled) : Module(application, start_enabled) {
 	name.Create("dialogSystem");
 }
@@ -30,6 +32,7 @@ bool DialogSystem::Start() {
 
 	dialogueBox = app->tex->Load("Assets/gui/dialogue_box.png");
 	_waitpad = false;
+
 	return true;
 }
 
@@ -158,7 +161,13 @@ bool DialogSystem::PostUpdate() {
 								}
 							}
 
-							app->battle->Enable();
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
 						}
 					}
 					else {
@@ -195,7 +204,13 @@ bool DialogSystem::PostUpdate() {
 								}
 							}
 
-							app->battle->Enable();
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
 						}
 						else {
 							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
@@ -232,7 +247,14 @@ bool DialogSystem::PostUpdate() {
 								}
 							}
 
-							app->battle->Enable();
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+
 						}
 						else {
 							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));

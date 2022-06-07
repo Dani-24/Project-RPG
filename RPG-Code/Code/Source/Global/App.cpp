@@ -27,6 +27,7 @@
 #include "StatsMenu.h"
 #include "Shop.h"
 #include "ModuleParticles.h"
+#include "VisualEffects.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -73,6 +74,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	dialogs = new DialogSystem(this, false);
 
+	visualEffects = new VisualEffects(this);
+
 	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
 	AddModule(input);
@@ -108,6 +111,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 
 	AddModule(fade);
+
+	AddModule(visualEffects);
 
 	AddModule(camera);
 
@@ -284,7 +289,7 @@ bool App::DoUpdate()
 
 			}
 			else {
-				if (item->data == fade || item->data == entities) {
+				if (item->data == fade || item->data == entities || item->data == visualEffects) {
 					ret = item->data->Update(dt);
 				}
 			}

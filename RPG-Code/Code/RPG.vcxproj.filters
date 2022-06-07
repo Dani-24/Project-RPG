@@ -53,6 +53,7 @@
     <ClCompile Include="Source\Modules\Scenes\StatsMenu.cpp" />
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
     <ClCompile Include="Source\Tools\EasingFunctions.cpp" />
+    <ClCompile Include="Source\Modules\Extra\VisualEffects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -128,6 +129,7 @@
     <ClInclude Include="Source\Modules\Scenes\StatsMenu.h" />
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
     <ClInclude Include="Source\Tools\EasingFunctions.h" />
+    <ClInclude Include="Source\Modules\Extra\VisualEffects.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

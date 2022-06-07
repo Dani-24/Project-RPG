@@ -19,6 +19,8 @@
 
 #include <time.h>
 
+#include "VisualEffects.h";
+
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
 
@@ -477,6 +479,8 @@ bool Player::Start()
 	dhionDefeated = false;
 
 	autoTalk = false;
+
+	srand(SDL_GetTicks());
 
 	return ret;
 }
@@ -972,16 +976,25 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 									}
 
 									enemiesCount++;
-
-
-
-
 								}
 							}
 						}
 						//app->battle->normalEnemyInBattle = normalEnemyInList->data;
 						//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
-						app->battle->Enable();
+
+						if (visualeffectCooldown > 0) {
+							visualeffectCooldown--;
+						}
+						else {
+							visualeffectCooldown = 300;
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+						}
 					}
 				}
 			}
