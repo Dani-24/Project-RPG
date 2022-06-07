@@ -62,3 +62,5 @@ There is a legend that says that the ones who lose against the tower becomes par
 - F9 - Show / Hide Colliders
 - F10 - GOD mode: Fly-around mode, infinite stats.
 
+## Additional Comments
+This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
