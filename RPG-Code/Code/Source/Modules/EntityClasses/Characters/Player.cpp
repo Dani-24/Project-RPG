@@ -569,6 +569,10 @@ bool Player::Update(float dt) {
 	baseCollider->rect.x = position.x + colRightDistance;
 	baseCollider->rect.y = position.y + colDownDistance;
 
+	if (visualeffectCooldown > 0) {
+		visualeffectCooldown--;
+	}
+
 	return ret;
 }
 
@@ -983,7 +987,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 						//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
 
 						if (visualeffectCooldown > 0) {
-							visualeffectCooldown--;
+							//visualeffectCooldown--;
 						}
 						else {
 							visualeffectCooldown = 300;
