@@ -7,37 +7,39 @@
 
 - Xavier Casadó - [Akage369](https://github.com/Akage369) - Team Lead / Programmer
 
-![Alt Text](https://c.tenor.com/pHUUu29gQOQAAAAS/ibai-yo-explicando.gif)
+<img width="700" height="394" src="https://c.tenor.com/pHUUu29gQOQAAAAS/ibai-yo-explicando.gif">
 
 - Dani Toledo - [Dani24](https://github.com/Dani-24) - Vicepresidente ejecutivo en funciones / Programmer
 
-![Alt Text](https://thumbs.gfycat.com/HideousDimpledHorseshoecrab-size_restricted.gif)
+<img width="700" height="394" src="https://thumbs.gfycat.com/HideousDimpledHorseshoecrab-size_restricted.gif">
 
 - Laia Pachón - [laiapachon](https://github.com/laiapachon) - Artist
 
-![Alt Text](https://c.tenor.com/s3oRS9Uq1qMAAAAC/photoshop-pet-pet-meme.gif)
+<img width="700" height="394" src="https://c.tenor.com/s3oRS9Uq1qMAAAAC/photoshop-pet-pet-meme.gif">
 
 - David Benages - [Divangus](https://github.com/Divangus) - Designer
 
-![Alt Text](https://tuprofedgarhome.files.wordpress.com/2019/12/esquemas-de-depuradora-animada.gif)
+<img width="700" height="394" src="https://tuprofedgarhome.files.wordpress.com/2019/12/esquemas-de-depuradora-animada.gif">
 
 - Albert Martín - [T4skar](https://github.com/T4skar) - Yes
 
-![Alt Text](https://i.pinimg.com/originals/b2/87/c7/b287c72c94bc54caedbd136fa59c42fb.gif)
+<img width="700" height="394" src="https://i.pinimg.com/originals/b2/87/c7/b287c72c94bc54caedbd136fa59c42fb.gif">
 
 - Marina Albalà - [Vizalt](https://github.com/Vizalt) - Management
 
-![Alt Text](https://thumbs.gfycat.com/LateWhisperedArcticseal-max-1mb.gif)
+<img width="700" height="394" src="https://thumbs.gfycat.com/LateWhisperedArcticseal-max-1mb.gif">
 
 - Xavier Lopez - [Xavierlm11](https://github.com/Xavierlm11) - QA
 
-![Alt Text](https://www.meme-arsenal.com/memes/fa99667b78e49c49e085ae7120d71130.jpg)
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/983756410833752084/SDFfdsfsdfgasdgfafsdgadg.jpg">
 
 ## History
 
 Rhen/Briar are the main character which you can choose on the beginning of the game. They were normal people on a city in our world, but one day Truck-Kun run over him/her, and they got isekaid to de game world. This new world has been kidnapped by a villian whose purpose is to dominated that world. In the center of the biggest city there is a tower with a lot of levels, the villian is on the top of the tower, and in the levels below there are a lot of enemies, some stronger than the others, the level of strenghth of the enemies depends in the level of the tower.
 A lot of heroes of that world haf tried to defeat the villian, but they all lost against the tower. None of them came back out.
 There is a legend that says that the ones who lose against the tower becomes part of it.
+
+
 
 ## Controls
 - WASD - Movement
