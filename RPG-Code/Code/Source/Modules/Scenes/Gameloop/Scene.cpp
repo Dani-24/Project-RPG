@@ -899,18 +899,18 @@ void Scene::CharBars()
 		// Party List
 		ListItem<Character*>* ch = partyList.start;
 
-		// Debug Keys:
-		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
-			for (ch; ch != NULL; ch = ch->next) {
-				ch->data->stats->health += 1;
-			}
-		}
-		ch = partyList.start;
-		if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-			for (ch; ch != NULL; ch = ch->next) {
-				ch->data->stats->health -= 1;
-			}
-		}
+		//// Debug Keys:
+		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+		//	for (ch; ch != NULL; ch = ch->next) {
+		//		ch->data->stats->health += 1;
+		//	}
+		//}
+		//ch = partyList.start;
+		//if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
+		//	for (ch; ch != NULL; ch = ch->next) {
+		//		ch->data->stats->health -= 1;
+		//	}
+		//}
 		ch = partyList.start;
 
 		// Barras Stats Party
