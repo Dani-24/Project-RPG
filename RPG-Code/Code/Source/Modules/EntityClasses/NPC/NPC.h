@@ -38,7 +38,7 @@ enum class NPCType
 	VALION,
 	RAYLA,
 	DHION,
-	TRUCK_KUN
+	TRUCK
 
 };
 

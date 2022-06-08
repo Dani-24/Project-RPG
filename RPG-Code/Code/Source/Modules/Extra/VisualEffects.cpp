@@ -8,6 +8,8 @@
 #include "ModuleQFonts.h"
 #include "FadeToBlack.h"
 #include "Battle.h"
+#include "Scene.h"
+#include "Player.h"
 
 VisualEffects::VisualEffects(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -163,6 +165,11 @@ bool VisualEffects::CleanUp()
 }
 
 void VisualEffects::DisplayEffect(Effects effect) {
+
+	if (app->scene->player != nullptr) {
+		app->scene->player->canMove = false;
+	}
+
 	if (currentEffect == Effects::NONE) {
 		currentEffect = effect;
 

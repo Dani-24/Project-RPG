@@ -158,7 +158,7 @@ bool Scene::Start()
 	npcList.add(dhion);
 	dhion->activeOnStage = StageIndex::TOWN;
 
-	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK_KUN, 10 * TILE_SIZE, 14 * TILE_SIZE);
+	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK, 10 * TILE_SIZE, 14 * TILE_SIZE);
 	npcList.add(camionKun);
 	camionKun->activeOnStage = StageIndex::PROLOGUE;
 

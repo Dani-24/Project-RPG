@@ -256,7 +256,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15, 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
-	case NPCType::TRUCK_KUN:
+	case NPCType::TRUCK:
 		idleAnim.PushBack({ 0,0,128,64 });
 
 		idleAnim.speed = 0.004f;
@@ -266,7 +266,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 69;
 
-		baseCollider = app->collisions->AddCollider({ position.x, position.y, 128, 64 }, Collider::Type::INSTANT, this);
+		baseCollider = app->collisions->AddCollider({ position.x + 25, position.y + 4, 105 * 2, 60 * 2}, Collider::Type::INSTANT, this);
 
 		break;
 	default:
@@ -380,7 +380,7 @@ bool NPC::Start()
 	case NPCType::DHION:
 		spriteTex = app->tex->Load(lancerChar);
 		break;
-	case NPCType::TRUCK_KUN:
+	case NPCType::TRUCK:
 		spriteTex = app->tex->Load("Assets/sprites/truck_kun/camion_kun.png");
 
 		break;

@@ -166,7 +166,9 @@ bool Battle::Start()
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
-
+	case StageIndex::PROLOGUE:
+		townBackground = app->tex->Load("Assets/textures/cityBG.jpg");
+		break;
 	default:
 		break;
 	}

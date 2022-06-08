@@ -286,6 +286,9 @@ bool Stages::PostUpdate()
 				app->font->DrawTextDelayed("An amazing adventure awaits you", epilogX - 50, epilogY);
 				break;
 			case 11:
+				app->font->DrawTextDelayed("But first, remember your death", epilogX - 50, epilogY);
+				break;
+			case 12:
 				app->fade->DoFadeToBlack(StageIndex::PROLOGUE);
 				break;
 			default:
@@ -668,8 +671,6 @@ bool Stages::PostUpdate()
 
 								}
 							}
-
-
 						}
 
 						if (BossInList->data->isAlive == false) {

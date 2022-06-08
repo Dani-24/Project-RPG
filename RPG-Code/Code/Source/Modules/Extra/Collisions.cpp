@@ -156,6 +156,14 @@ void Collisions::DebugDraw()
 								app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
 						}
 					}
+
+					for (ListItem<NPC*>* InstantNPCInList = app->stages->npcListPtr->start; InstantNPCInList != NULL; InstantNPCInList = InstantNPCInList->next)
+					{
+						if (InstantNPCInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr && InstantNPCInList->data->baseCollider->type == Collider::Type::INSTANT) {
+							if (colliders[i] == InstantNPCInList->data->GetCollider())
+								app->render->DrawRectangle(colliders[i]->rect, 255, 255, 0, alpha);
+						}
+					}
 				}
 				break;
 			case Collider::Type::INTERACT: // red

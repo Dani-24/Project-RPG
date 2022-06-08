@@ -18,7 +18,7 @@
 #include "QuestManager.h"
 
 #include <time.h>
-
+#include "BossEnemy.h"
 #include "VisualEffects.h";
 
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
@@ -1000,6 +1000,37 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 							}
 						}
 					}
+				}
+			}
+		}
+
+		// Collision with instant NPCs
+		for (ListItem<NPC*>* InstantNPCInList = app->stages->npcListPtr->start; InstantNPCInList != NULL; InstantNPCInList = InstantNPCInList->next)
+		{
+			if (InstantNPCInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr && InstantNPCInList->data->baseCollider->type == Collider::Type::INSTANT) 
+			{
+				app->battle->entitiesInBattle[0] = this;
+
+				int alliesCount = 1;
+
+				for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+					if (app->stages->partyListPtr->At(i) != nullptr) {
+						app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+						alliesCount++;
+					}
+				}
+
+				BossEnemy* theAmazingTruckKun = (BossEnemy*)app->entities->CreateEntity(BossType::TRUCK);
+				app->scene->bossList.add(theAmazingTruckKun);
+				app->battle->entitiesInBattle[4] = theAmazingTruckKun;
+
+				visualeffectCooldown = 300;
+				int trans = rand() % 2;
+				if (trans == 0) {
+					app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+				}
+				else {
+					app->visualEffects->DisplayEffect(Effects::TRANSITION2);
 				}
 			}
 		}
