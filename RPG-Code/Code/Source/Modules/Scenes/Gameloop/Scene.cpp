@@ -907,16 +907,16 @@ void Scene::CharBars()
 		//}
 		//ch = partyList.start;
 		//if (app->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN) {
-		//	for (ch; ch != NULL; ch = ch->next) {
-		//		ch->data->stats->health -= 1;
-		//	}
+		//	//for (ch; ch != NULL; ch = ch->next) {
+		//		partyList.At(0)->data->stats->health -= 1;
+		//	//}
 		//}
 		ch = partyList.start;
 
 		// Barras Stats Party
 		for (ch; ch != NULL; ch = ch->next) {
 			// HP bars
-			if (ch->data->stats != nullptr && ch->data->stats->health != NULL && ch->data->stats->maxHealth != NULL && ch->data->stats->mana != NULL && ch->data->stats->maxMana != NULL) {
+			if (ch->data->stats != nullptr &&/* ch->data->stats->health != NULL &&*/ ch->data->stats->maxHealth != NULL && ch->data->stats->mana != NULL && ch->data->stats->maxMana != NULL) {
 				hpc = ((float)ch->data->stats->health / (float)ch->data->stats->maxHealth) * w;
 				SDL_Rect HPrect = { barsX + 7, barsY, hpc, h };
 
