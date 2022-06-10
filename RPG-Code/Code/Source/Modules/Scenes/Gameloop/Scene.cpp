@@ -883,6 +883,20 @@ void Scene::ShowGUI()
 
 			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 			break;
+		case StageIndex::TOWER_BOSS_1:
+			sprintf_s(currentPlace_UI, "Boss 1");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::TOWER_BOSS_2:
+			sprintf_s(currentPlace_UI, "Boss 2");
+
+			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			break; case StageIndex::TOWER_BOSS_3:
+				sprintf_s(currentPlace_UI, "Boss 3");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
 		case StageIndex::PROLOGUE:
 			sprintf_s(currentPlace_UI, "The City");
 
