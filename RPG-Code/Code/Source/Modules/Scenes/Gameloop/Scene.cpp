@@ -562,6 +562,12 @@ bool Scene::Update(float dt)
 		backtoMenu->state = GuiControlState::DISABLED;
 		restart->state = GuiControlState::NORMAL;
 	}
+	if (app->stages->actualStage != StageIndex::WIN) {
+		backtoMenu->state = GuiControlState::DISABLED;
+	}
+	if (app->stages->actualStage != StageIndex::LOSE) {
+		restart->state = GuiControlState::DISABLED;
+	}
 
 	return true;
 }
