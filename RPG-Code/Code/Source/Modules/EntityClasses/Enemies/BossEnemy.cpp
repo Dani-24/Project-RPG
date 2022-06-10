@@ -14,19 +14,19 @@ BossEnemy::BossEnemy(BossType bossType) : Enemy(EnemyType::BOSS)
 	switch (bossType) {
 	case BossType::TRUCK:
 
-		idleAnim.PushBack({ 0,0,128,64 });
+		battleAnim.PushBack({ 0,0,128,64 });
 
-		idleAnim.speed = 0.004f;
+		battleAnim.speed = 0.004f;
 
 		baseCollider = nullptr;
 
-		currentAnimation = &idleAnim;
+		currentAnimation = &battleAnim;
 
 		name = "Truck-kun";
 		battleName = "Truck-kun";
 		configName = "truck";
 
-		zoom = 2;
+		zoom = 3;
 
 
 		break;
@@ -406,7 +406,7 @@ bool BossEnemy::Start()
 
 		spriteTex = app->tex->Load("Assets/sprites/truck_kun/camion_kun.png");
 
-		stats = new Stats(1, 5, 10, 2, 2, 27);
+		stats = new Stats(1, 420, 10, 1, 666, 69);
 
 		break;
 	case BossType::VALION:
