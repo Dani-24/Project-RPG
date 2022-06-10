@@ -1007,7 +1007,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 		// Collision with instant NPCs
 		for (ListItem<NPC*>* InstantNPCInList = app->stages->npcListPtr->start; InstantNPCInList != NULL; InstantNPCInList = InstantNPCInList->next)
 		{
-			if (InstantNPCInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr && InstantNPCInList->data->baseCollider->type == Collider::Type::INSTANT) 
+			if (InstantNPCInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr && InstantNPCInList->data->baseCollider->type == Collider::Type::INSTANT && InstantNPCInList->data->npcID == 69) 
 			{
 				if (app->battle->isEnabled() == false) {
 					app->battle->entitiesInBattle[0] = this;

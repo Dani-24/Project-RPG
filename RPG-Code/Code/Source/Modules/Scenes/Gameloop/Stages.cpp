@@ -160,7 +160,7 @@ bool Stages::PreUpdate()
 
 bool Stages::Update(float dt)
 {
-	// movimiento enemigos en el mapa
+	// Movimiento enemigos en el mapa
 	if (actualStage != StageIndex::NONE) {
 		if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
 			ListItem<NormalEnemy*>* NormalEnemyInList;
@@ -194,6 +194,43 @@ bool Stages::Update(float dt)
 							iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
 							iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
 							int path = app->pathfinder->CreatePath(origin, destination);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Movimiento truck kun
+
+	// Above the player
+	if (actualStage == StageIndex::PROLOGUE) {
+
+		if (npcListPtr != nullptr) {
+			ListItem<NPC*>* npcInList;
+			npcInList = npcListPtr->start;
+			for (npcInList = npcListPtr->start; npcInList != NULL; npcInList = npcInList->next)
+			{
+				if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+					if (npcInList->data->npcID == 69) {
+
+						if (abs(playerPtr->position.x - npcInList->data->position.x) < 500) {
+
+							if (playerPtr->position.x < npcInList->data->position.x) {
+								npcInList->data->position.x-= 2;
+							}
+							else {
+								npcInList->data->position.x+= 2;
+							}
+
+							if (playerPtr->position.y < npcInList->data->position.y) {
+								npcInList->data->position.y-= 2;
+							}
+							else {
+								npcInList->data->position.y+= 2;
+							}
+
+							npcInList->data->baseCollider->SetPos(npcInList->data->position.x, npcInList->data->position.y);
 						}
 					}
 				}
@@ -682,6 +719,10 @@ bool Stages::PostUpdate()
 						case BossType::VALION:
 							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
 							break;
+						case BossType::TRUCK:
+							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x - 150, BossInList->data->position.y , &BossInList->data->spriteRect, BossInList->data->zoom, false);
+
+							break;
 						default:
 							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y - 100, &BossInList->data->spriteRect, BossInList->data->zoom, false);
 
@@ -1041,6 +1082,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 	// Door sfx
 	if (actualStage != StageIndex::NONE && actualStage != StageIndex::INTRODUCTION && newStage != StageIndex::WIN && newStage != StageIndex::LOSE && newStage != StageIndex::PROLOGUE) {
 		app->audio->PlayFx(doorFx);
+	}
+
+	if (actualStage == StageIndex::PROLOGUE) {
+		app->stages->playerPtr->canMove = true;
 	}
 
 	// Reset map.cpp

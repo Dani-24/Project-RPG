@@ -699,7 +699,7 @@ bool Battle::Update(float dt)
 				}
 				//If the enemy is NOT afraid
 				else if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
-					if (optionPercent < 0) {//70
+					if (optionPercent < 70) {//70
 						
 						DynamicEntity *targets[4];
 
@@ -891,6 +891,9 @@ bool Battle::Update(float dt)
 	if (battleStage != nullptr) {
 		switch (*battleStage) {
 		case StageIndex::NONE:
+			break;
+		case StageIndex::PROLOGUE:
+			app->render->DrawTexture(townBackground, 0, 0, 0, 1);
 			break;
 		case StageIndex::TOWN:
 			//app->render->DrawTexture(townBackground, -200, -250);
@@ -2611,7 +2614,14 @@ bool Battle::CleanUp()
 
 	/*	app->scene->Disable();
 		app->titleScene->Enable();*/
-		app->stages->ChangeStage(StageIndex::LOSE);
+		
+		if (app->stages->actualStage == StageIndex::PROLOGUE) {
+			app->stages->playerPtr->stats->health = app->stages->playerPtr->stats->maxHealth;
+			app->stages->ChangeStage(StageIndex::TOWN);
+		}
+		else {
+			app->stages->ChangeStage(StageIndex::LOSE);
+		}
 
 		break;
 
