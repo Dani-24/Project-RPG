@@ -206,6 +206,18 @@ bool PauseMenu::Update(float dt)
 		{
 			/*if (app->inventory->isEnabled() == false) {*/
 				pauseGame = true, app->scene->player->canMove = false; app->scene->player->toggleGui = false;
+				
+				xc = -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2;
+				yc = -app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2;
+
+				pos.Position.x = xc + 120;
+				pos.Position.y = yc;
+				pointA = { xc + 120, yc };
+				pointB = { xc, yc };
+
+				total_iterations = 30;
+				iterations = 0;
+				easing_active = true;
 				EnButt();
 				//app->audio->ChangeVolume(app->audio->vol / 3);
 			//}
@@ -235,25 +247,51 @@ bool PauseMenu::PostUpdate()
 	if (pauseGame && app->scene->playing) {
 		app->render->DrawRectangle({ xt + -1000 ,yt - 1000, 1000,1000  },0,0,0,120);
 
-		app->render->DrawTexture(Pausetex, xc - 120, yc - 280);
+		if (easing_active == true)
+			pos.Position.x = EaseRectangleBetweenPoints(pointA, pointB) /** 0.05*/;
 
-		party->state != GuiControlState::FOCUSED ? app->font->DrawText("Party", xc - 100,yc - 265, c) : app->font->DrawText("Party", xc - 100, yc - 265, w);
+		app->render->DrawTexture(Pausetex, pos.Position.x - 120, pos.Position.y - 280);
+		
+		if (easing_active == false) {
+			party->state != GuiControlState::FOCUSED ? app->font->DrawText("Party", xc - 100, yc - 265, c) : app->font->DrawText("Party", xc - 100, yc - 265, w);
 
-		invent->state != GuiControlState::FOCUSED ? app->font->DrawText("Inventory", xc - 100,yc - 240, c): app->font->DrawText("Inventory", xc - 100, yc - 240, w);
+			invent->state != GuiControlState::FOCUSED ? app->font->DrawText("Inventory", xc - 100, yc - 240, c) : app->font->DrawText("Inventory", xc - 100, yc - 240, w);
 
-		town->state != GuiControlState::FOCUSED ? app->font->DrawText("Town", xc - 100,yc - 215, c): app->font->DrawText("Town", xc - 100, yc - 215, w);
+			town->state != GuiControlState::FOCUSED ? app->font->DrawText("Town", xc - 100, yc - 215, c) : app->font->DrawText("Town", xc - 100, yc - 215, w);
 
-		resume->state != GuiControlState::FOCUSED ? app->font->DrawText("Resume", xc - 100, yc - 190, c): app->font->DrawText("Resume", xc - 100, yc - 190, w);
+			resume->state != GuiControlState::FOCUSED ? app->font->DrawText("Resume", xc - 100, yc - 190, c) : app->font->DrawText("Resume", xc - 100, yc - 190, w);
 
-		config->state != GuiControlState::FOCUSED ? app->font->DrawText("Config.", xc - 100,yc - 165, c): app->font->DrawText("Config.", xc - 100, yc - 165, w);
+			config->state != GuiControlState::FOCUSED ? app->font->DrawText("Config.", xc - 100, yc - 165, c) : app->font->DrawText("Config.", xc - 100, yc - 165, w);
 
-		save->state != GuiControlState::FOCUSED ? app->font->DrawText("Save", xc - 100,yc - 140, c): app->font->DrawText("Save", xc - 100, yc - 140, w);
+			save->state != GuiControlState::FOCUSED ? app->font->DrawText("Save", xc - 100, yc - 140, c) : app->font->DrawText("Save", xc - 100, yc - 140, w);
 
-		load->state != GuiControlState::FOCUSED ? app->font->DrawText("Load", xc - 100,yc - 115, c): app->font->DrawText("Load", xc - 100, yc - 115, w);
+			load->state != GuiControlState::FOCUSED ? app->font->DrawText("Load", xc - 100, yc - 115, c) : app->font->DrawText("Load", xc - 100, yc - 115, w);
 
-		exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100,yc - 90, c): app->font->DrawText("Exit", xc - 100, yc - 90, w);
+			exit->state != GuiControlState::FOCUSED ? app->font->DrawText("Exit", xc - 100, yc - 90, c) : app->font->DrawText("Exit", xc - 100, yc - 90, w);
+		}
+		
 	}
 	return ret;
+}
+
+float PauseMenu::EaseRectangleBetweenPoints(iPoint posA, iPoint posB) {
+	float value = Efunction.sineEaseIn(iterations, posA.x, posB.x - posA.x, total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (iterations < total_iterations) {
+		iterations++;
+	}
+
+	else {
+		iterations = 0;
+		easing_active = false;
+	}
+
+	return value;
 }
 
 // Called before quitting
@@ -276,6 +314,8 @@ bool PauseMenu::CleanUp()
 
 	return true;
 }
+
+
 
 //called on preupdate
 void PauseMenu::GampadControl()
