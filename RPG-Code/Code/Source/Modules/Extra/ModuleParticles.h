@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Animation.h"
 #include "App.h"
+#include "Point.h"
 
 //#define MAX_ACTIVE_PARTICLES 100
 
@@ -42,20 +43,29 @@ public:
 	// Param x, y		- Position x,y in the screen (upper left axis)
 	// Param delay		- Delay time from the moment the function is called until the particle is displayed in screen
 
-	
-private:
-	// Particles spritesheet loaded into an SDL Texture
+		// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* SmokeTex = nullptr;
 	SDL_Texture* FireTex = nullptr;
 	SDL_Texture* ChickenTex = nullptr;
 	SDL_Texture* BirdTex = nullptr;
 
+private:
+
+	/*Animation* currentBird = nullptr;*/
 	//Template particle
 	Animation SmokeParticle,
 		FireParticle,
 		ChickenParticle,
 		BirdParticle,
-		BirdFParticle;
+		BirdFParticleL,
+		BirdFParticleR;
+
+	iPoint BirdPos;
+
+	int BirdSpawn = 0;
+	int BirdWillSpawn;
+	bool BirdcanSpawn = false;
+	
 	
 };
 

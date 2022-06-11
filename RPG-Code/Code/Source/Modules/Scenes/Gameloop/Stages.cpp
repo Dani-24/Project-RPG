@@ -20,6 +20,7 @@
 #include "BossEnemy.h"
 #include "Camera.h"
 #include "Pathfinder.h"
+#include "ModuleParticles.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -1114,6 +1115,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->tex->UnLoad(TLDer.lightSprite);
 	}
 
+	if (actualStage != StageIndex::TOWN) {
+		app->particlesM->CleanUp();
+	}
+
 	switch (newStage)
 	{
 	case StageIndex::NONE:
@@ -1140,6 +1145,11 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 			app->camera->SetLimits(640, 350, 4490, 4200);
 			LOG("Loading Town map");
+
+			app->particlesM->SmokeTex = app->tex->Load("Assets/particles/smoke_particles.png");
+			app->particlesM->FireTex = app->tex->Load("Assets/particles/flames_particles.png");
+			app->particlesM->ChickenTex = app->tex->Load("Assets/particles/chicken_particles.png");
+			app->particlesM->BirdTex = app->tex->Load("Assets/particles/bird_particles.png");
 
 			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 		}
