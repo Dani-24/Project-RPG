@@ -404,10 +404,10 @@ bool Stages::PostUpdate()
 								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 								if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
 									if (npcInList->data->npcID == 69) {
-										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom, 2);
 									}
 									else {
-										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 									}
 								}
 							}
@@ -442,7 +442,7 @@ bool Stages::PostUpdate()
 						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 							}
 						}
 					}
@@ -502,10 +502,10 @@ bool Stages::PostUpdate()
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
 								if (npcInList->data->npcID == 69) {
-									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom, 2);
 								}
 								else {
-									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 								}
 							}
 						}
