@@ -493,16 +493,7 @@ bool Scene::Update(float dt)
 			app->stages->ChangeStage(stageSwap->data);
 		}
 
-		// Inventory
-		if (app->inventory->isEnabled() == false) {
-			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-				app->inventory->Enable();
-			}
-		}
-		// Stats
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-			app->stmen->Enable();
-		}
+		
 		if (!godmode)
 		{
 
@@ -552,6 +543,17 @@ bool Scene::Update(float dt)
 				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
 		}
+	}
+
+	// Inventory
+	if (app->inventory->isEnabled() == false) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			app->inventory->Enable();
+		}
+	}
+	// Stats
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		app->stmen->Enable();
 	}
 
 	if (app->stages->actualStage == StageIndex::WIN) {

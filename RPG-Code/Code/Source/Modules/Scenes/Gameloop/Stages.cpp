@@ -162,39 +162,43 @@ bool Stages::PreUpdate()
 bool Stages::Update(float dt)
 {
 	// Movimiento enemigos en el mapa
-	if (actualStage != StageIndex::NONE) {
-		if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
-			ListItem<NormalEnemy*>* NormalEnemyInList;
-			NormalEnemyInList = normalEnemyListPtr->start;
-			for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
-			{
-				if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-					// "" Chase player ""
-					if (NormalEnemyInList->data->chasePlayer) {
-						int chaseDist = 300;
 
-						if (abs(NormalEnemyInList->data->position.x - playerPtr->position.x) < chaseDist && abs(NormalEnemyInList->data->position.y - playerPtr->position.y) < chaseDist)
-						{
-							if (NormalEnemyInList->data->position.x > playerPtr->position.x) {
-								NormalEnemyInList->data->position.x -= NormalEnemyInList->data->chaseSpeed;
-							}
-							else {
-								NormalEnemyInList->data->position.x += NormalEnemyInList->data->chaseSpeed;
-							}
-							if (NormalEnemyInList->data->position.y > playerPtr->position.y + 30) {
-								NormalEnemyInList->data->position.y -= NormalEnemyInList->data->chaseSpeed;
-							}
-							else {
-								NormalEnemyInList->data->position.y += NormalEnemyInList->data->chaseSpeed;
-							}
+	if (!app->scene->godmode)
+	{
+		if (actualStage != StageIndex::NONE) {
+			if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						// "" Chase player ""
+						if (NormalEnemyInList->data->chasePlayer) {
+							int chaseDist = 300;
 
-							// Move enemy collider
-							NormalEnemyInList->data->baseCollider->SetPos(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+							if (abs(NormalEnemyInList->data->position.x - playerPtr->position.x) < chaseDist && abs(NormalEnemyInList->data->position.y - playerPtr->position.y) < chaseDist)
+							{
+								if (NormalEnemyInList->data->position.x > playerPtr->position.x) {
+									NormalEnemyInList->data->position.x -= NormalEnemyInList->data->chaseSpeed;
+								}
+								else {
+									NormalEnemyInList->data->position.x += NormalEnemyInList->data->chaseSpeed;
+								}
+								if (NormalEnemyInList->data->position.y > playerPtr->position.y + 30) {
+									NormalEnemyInList->data->position.y -= NormalEnemyInList->data->chaseSpeed;
+								}
+								else {
+									NormalEnemyInList->data->position.y += NormalEnemyInList->data->chaseSpeed;
+								}
 
-							// ""Pathfinding""
-							iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
-							iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
-							int path = app->pathfinder->CreatePath(origin, destination);
+								// Move enemy collider
+								NormalEnemyInList->data->baseCollider->SetPos(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+
+								// ""Pathfinding""
+								iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+								iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
+								int path = app->pathfinder->CreatePath(origin, destination);
+							}
 						}
 					}
 				}
