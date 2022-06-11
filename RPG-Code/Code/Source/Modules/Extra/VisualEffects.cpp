@@ -166,10 +166,6 @@ bool VisualEffects::CleanUp()
 
 void VisualEffects::DisplayEffect(Effects effect) {
 
-	if (app->scene->player != nullptr) {
-		app->scene->player->canMove = false;
-	}
-
 	if (currentEffect == Effects::NONE) {
 		currentEffect = effect;
 
@@ -185,10 +181,19 @@ void VisualEffects::DisplayEffect(Effects effect) {
 		case Effects::TRANSITION1:
 			currentAnim = &trans1Anim;
 			app->audio->PlayFx(trans1FX);
+			if (app->scene->player != nullptr) {
+				app->scene->player->canMove = false;
+			}
+
 			break;
 		case Effects::TRANSITION2:
 			currentAnim = &trans2Anim;
 			app->audio->PlayFx(trans2FX);
+
+			if (app->scene->player != nullptr) {
+				app->scene->player->canMove = false;
+			}
+
 			break;
 		}
 	}

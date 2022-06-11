@@ -1085,10 +1085,6 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->audio->PlayFx(doorFx);
 	}
 
-	if (actualStage == StageIndex::PROLOGUE) {
-		app->stages->playerPtr->canMove = true;
-	}
-
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
 		app->map->Disable();
@@ -1142,6 +1138,8 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->map->Load("initial_town_map.tmx");
 
 			playerPtr->position = playerPtr->townPos;
+			playerPtr->canMove = true;
+
 			app->camera->OnTarget();
 			app->camera->SetLimits(640, 350, 4490, 4200);
 			LOG("Loading Town map");

@@ -348,8 +348,6 @@ bool Battle::Start()
 	return true;
 }
 
-
-
 bool Battle::PreUpdate()
 {
 	bool ret = true;
@@ -2773,7 +2771,7 @@ bool Battle::CleanUp()
 		app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
 		app->camera->SetTarget(app->stages->playerPtr);
 		app->camera->OnTarget();
-		app->camera->SetLimits(640, 350, 4490, 4200);
+		//app->camera->SetLimits(640, 350, 4490, 4200);
 
 		//Take back player animation
 		app->stages->playerPtr->currentAnimation = app->stages->playerPtr->mapAnimation;
