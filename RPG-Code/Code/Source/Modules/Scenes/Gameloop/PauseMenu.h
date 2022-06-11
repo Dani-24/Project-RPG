@@ -49,7 +49,7 @@ public:
 	// dissable buttons
 	void DissButt();
 
-	float EaseRectangleBetweenPoints(iPoint posA, iPoint posB);
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
 
 public:
 
@@ -73,7 +73,6 @@ public:
 	int iterations;
 	int total_iterations;
 	bool easing_active;
-	float speedX, speedY;
 	EasingFunctions Efunction;
 
 

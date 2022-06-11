@@ -72,6 +72,22 @@ bool Inventory::Start()
 	int x = -app->camera->GetPos().x / 2,
 		y = -app->camera->GetPos().y / 2;
 
+	I_pos.Position.x = x + 120;
+	I_pos.Position.y = y;
+	I_pointA = { x + 800, y };
+	I_pointB = { x, y };
+
+	I_total_iterations = 60;
+	I_iterations = 0;
+	I_easing_active = true;
+
+	I_pointA_out = { x, y };
+	I_pointB_out = { x - 800, y };
+
+	I_total_iterations_out = 60;
+	I_iterations_out = 0;
+	I_easing_active_out = false;
+
 	int	butX = x + 270,
 		butY = y + 154,
 		charX = x + 105,
@@ -186,7 +202,9 @@ bool Inventory::Update(float dt)
 		Disable();
 	}
 
-	app->scene->guiactivate = true;
+	if (I_easing_active == false) {
+		app->scene->guiactivate = true;
+	}
 
 	// Get Mouse position for selected Slot
 
@@ -282,13 +300,20 @@ bool Inventory::PostUpdate()
 		app->scene->ShowGUI();
 	}
 
-	app->render->DrawTexture(inventoryBG, x, y);
+	if (I_easing_active == true)
+		I_pos.Position.x = EaseInBetweenPoints(I_pointA, I_pointB);
 
-	char moneyText[100];
-	sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
-	app->font->DrawText(moneyText, x + 120, y + 100);
+	if (I_easing_active_out == true)
+		I_pos.Position.x = EaseOutBetweenPoints(I_pointA_out, I_pointB_out);
 
-	if (&slots != nullptr) {
+	app->render->DrawTexture(inventoryBG, I_pos.Position.x, I_pos.Position.y);
+
+	if (I_easing_active == false && I_easing_active_out == false) {
+		char moneyText[100];
+		sprintf_s(moneyText, "%d money", app->scene->player->PlayerMoney);
+		app->font->DrawText(moneyText, x + 120, y + 100);
+
+		if (&slots != nullptr) {
 			for (ListItem<Slot*>* s = slots.start; s != NULL; s = s->next) {
 
 				// ======================
@@ -325,7 +350,7 @@ bool Inventory::PostUpdate()
 					if (s->data->isSelected && s->data->asignedItem != nullptr) {
 						app->render->DrawTexture(s->data->asignedItem->spriteTex, x + 20, y + 150, &s->data->asignedItem->spriteRect);
 						if (s->data->asignedItem->name != NULL) {
-							app->font->DrawText(s->data->asignedItem->name, x + 75, y + 155, {0,0,0});
+							app->font->DrawText(s->data->asignedItem->name, x + 75, y + 155, { 0,0,0 });
 							app->font->DrawText(s->data->asignedItem->effect, x + 30, y + 200);
 							app->font->DrawText(s->data->asignedItem->description, x + 15, y + 250);
 						}
@@ -335,10 +360,50 @@ bool Inventory::PostUpdate()
 			}
 
 		}
-	if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
-
-
+		if (statsButton->state == GuiControlState::DISABLED)statsButton->state = GuiControlState::NORMAL;
+	}
 	return ret;
+}
+
+float Inventory::EaseInBetweenPoints(iPoint posA, iPoint posB) {
+	float value = I_Efunction.sineEaseIn(I_iterations, posA.x, posB.x - posA.x, I_total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (I_iterations < I_total_iterations) {
+		I_iterations++;
+	}
+
+	else {
+		I_iterations = 0;
+		I_easing_active = false;
+	}
+
+	return value;
+}
+
+float Inventory::EaseOutBetweenPoints(iPoint posA, iPoint posB) {
+	float value = I_Efunction.sineEaseOut(I_iterations_out, posA.x, posB.x - posA.x, I_total_iterations_out);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (I_iterations_out < I_total_iterations_out) {
+		I_iterations_out++;
+	}
+
+	else {
+		I_iterations_out = 0;
+		app->stmen->Enable();
+		Disable();
+	}
+
+	return value;
 }
 
 bool Inventory::CleanUp()
@@ -394,9 +459,8 @@ bool Inventory::OnGuiMouseClickEvent(GuiControl* control)
 		{
 			LOG("Stats button");
 			statsButton->state = GuiControlState::DISABLED;
-			app->stmen->Enable();
-			Disable();
-			
+			I_easing_active_out = true;
+						
 			app->audio->PlayFx(buttonSfx);
 		}
 

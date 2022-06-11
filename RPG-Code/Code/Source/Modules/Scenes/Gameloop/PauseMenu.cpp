@@ -248,7 +248,7 @@ bool PauseMenu::PostUpdate()
 		app->render->DrawRectangle({ xt + -1000 ,yt - 1000, 1000,1000  },0,0,0,120);
 
 		if (easing_active == true)
-			pos.Position.x = EaseRectangleBetweenPoints(pointA, pointB) /** 0.05*/;
+			pos.Position.x = EaseInBetweenPoints(pointA, pointB);
 
 		app->render->DrawTexture(Pausetex, pos.Position.x - 120, pos.Position.y - 280);
 		
@@ -274,7 +274,7 @@ bool PauseMenu::PostUpdate()
 	return ret;
 }
 
-float PauseMenu::EaseRectangleBetweenPoints(iPoint posA, iPoint posB) {
+float PauseMenu::EaseInBetweenPoints(iPoint posA, iPoint posB) {
 	float value = Efunction.sineEaseIn(iterations, posA.x, posB.x - posA.x, total_iterations);
 
 
