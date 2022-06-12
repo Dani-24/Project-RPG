@@ -60,7 +60,7 @@ public:
 		idleAnimR,
 		idleAnimL,
 		idleAnimUp,
-		idleAnimDown, 
+		idleAnimDown,
 		idleBattleM,
 		attackM,
 		protectM,
@@ -72,7 +72,9 @@ public:
 		attackChainF,
 		protectF,
 		hitF,
-		dieF;
+		dieF,
+		runM,
+		runF;
 
 	Animation
 		heliWalkUpAnim,

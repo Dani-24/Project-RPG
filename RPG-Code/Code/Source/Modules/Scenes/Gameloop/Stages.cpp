@@ -600,8 +600,29 @@ bool Stages::PostUpdate()
 									NormalEnemyInList->data->attackAnim2.Reset();
 									NormalEnemyInList->data->attackAnim3.Reset();
 									NormalEnemyInList->data->protectAnim.Reset();
-									NormalEnemyInList->data->hitAnim.Reset();
+									NormalEnemyInList->data->walkAnim.Reset();
 
+									for (int i = 0; i < 8; i++) {
+										if (app->battle->entitiesInBattle[i] != nullptr) {
+											if (app->battle->entitiesInBattle[i]->isAlive == true)
+												if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+													app->battle->entitiesInBattle[i]->hitAnim.Reset();
+												}
+										}
+									}
+
+									if (playerPtr->isAlive == true) {
+										if (playerPtr->PlayerErection == 1) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitM.Reset();
+											}
+										}
+										else if (playerPtr->PlayerErection == 2) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitF.Reset();
+											}
+										}
+									}
 									break;
 								case BattlePhase::ATTACKING:
 									if (eAnim == 1) {
@@ -631,6 +652,14 @@ bool Stages::PostUpdate()
 									if (NormalEnemyInList->data->takesDamage == true) {
 										NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->hitAnim;
 									}
+									break;
+								case BattlePhase::ESCAPING:
+
+									if (fxbool == true) {
+										fxbool = false;
+
+									}
+									NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->walkAnim;
 									break;
 								default:
 									break;
@@ -748,9 +777,29 @@ bool Stages::PostUpdate()
 									BossInList->data->attackAnim2.Reset();
 									BossInList->data->attackAnim3.Reset();
 									BossInList->data->protectAnim.Reset();
-									BossInList->data->hitAnim.Reset();
+									BossInList->data->walkAnim.Reset();
 
+									for (int i = 0; i < 8; i++) {
+										if (app->battle->entitiesInBattle[i] != nullptr) {
+											if (app->battle->entitiesInBattle[i]->isAlive == true)
+												if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+													app->battle->entitiesInBattle[i]->hitAnim.Reset();
+												}
+										}
+									}
 
+									if (playerPtr->isAlive == true) {
+										if (playerPtr->PlayerErection == 1) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitM.Reset();
+											}
+										}
+										else if (playerPtr->PlayerErection == 2) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitF.Reset();
+											}
+										}
+									}
 									break;
 								case BattlePhase::ATTACKING:
 									if (eAnim == 1) {
@@ -781,6 +830,15 @@ bool Stages::PostUpdate()
 										BossInList->data->currentAnimation = &BossInList->data->hitAnim;
 									}
 									break;
+								case BattlePhase::ESCAPING:
+
+									if (fxbool == true) {
+										fxbool = false;
+
+									}
+									BossInList->data->currentAnimation = &BossInList->data->walkAnim;
+									break;
+
 								default:
 									break;
 
@@ -874,7 +932,7 @@ bool Stages::PostUpdate()
 
 								if (app->battle->battlePhase == BattlePhase::OUTCOME) {
 									if (playerPtr->takesDamage == true) {
-										playerPtr->currentAnimation = &playerPtr->hitAnim;
+										playerPtr->currentAnimation = &playerPtr->hitM;
 									}
 								}
 
@@ -886,9 +944,32 @@ bool Stages::PostUpdate()
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleM;
-										app->stages->playerPtr->attackM.Reset();
-										app->stages->playerPtr->dieM.Reset();
-										app->stages->playerPtr->hitAnim.Reset();
+										playerPtr->attackM.Reset();
+										playerPtr->dieM.Reset();
+										
+										app->stages->playerPtr->runM.Reset();
+
+										for (int i = 0; i < 8; i++) {
+											if (app->battle->entitiesInBattle[i] != nullptr) {
+												if (app->battle->entitiesInBattle[i]->isAlive == true)
+													if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+														app->battle->entitiesInBattle[i]->hitAnim.Reset();
+													}
+											}
+										}
+
+										if (playerPtr->isAlive == true) {
+											if (playerPtr->PlayerErection == 1) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitM.Reset();
+												}
+											}
+											else if (playerPtr->PlayerErection == 2) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitF.Reset();
+												}
+											}
+										}
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
@@ -912,6 +993,15 @@ bool Stages::PostUpdate()
 											app->audio->PlayFx(chdiefx);
 										}
 										break;
+									case BattlePhase::ESCAPING:
+
+										if (fxbool == true) {
+											fxbool = false;
+
+										}
+										playerPtr->currentAnimation = &playerPtr->runM;
+										break;
+
 									default:
 										break;
 
@@ -924,7 +1014,7 @@ bool Stages::PostUpdate()
 
 								if (app->battle->battlePhase == BattlePhase::OUTCOME) {
 									if (playerPtr->takesDamage == true) {
-										playerPtr->currentAnimation = &playerPtr->hitAnim;
+										playerPtr->currentAnimation = &playerPtr->hitM;
 									}
 								}
 
@@ -936,11 +1026,34 @@ bool Stages::PostUpdate()
 									switch (app->battle->battlePhase) {
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->idleBattleF;
-										app->stages->playerPtr->attackF.Reset();
-										app->stages->playerPtr->attackF2.Reset();
-										app->stages->playerPtr->attackChainF.Reset();
-										app->stages->playerPtr->dieF.Reset();
-										app->stages->playerPtr->hitAnim.Reset();
+										playerPtr->attackF.Reset();
+										playerPtr->attackF2.Reset();
+										playerPtr->attackChainF.Reset();
+										playerPtr->dieF.Reset();
+										playerPtr->hitF.Reset();
+										playerPtr->runF.Reset();
+
+										for (int i = 0; i < 8; i++) {
+											if (app->battle->entitiesInBattle[i] != nullptr) {
+												if (app->battle->entitiesInBattle[i]->isAlive == true)
+													if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+														app->battle->entitiesInBattle[i]->hitAnim.Reset();
+													}
+											}
+										}
+
+										if (playerPtr->isAlive == true) {
+											if (playerPtr->PlayerErection == 1) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitM.Reset();
+												}
+											}
+											else if (playerPtr->PlayerErection == 2) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitF.Reset();
+												}
+											}
+										}
 										break;
 									case BattlePhase::ATTACKING:
 										if (pAnim == 1) {
@@ -971,6 +1084,15 @@ bool Stages::PostUpdate()
 											app->audio->PlayFx(chdiefx);
 										}
 										break;
+									case BattlePhase::ESCAPING:
+
+										if (fxbool == true) {
+											fxbool = false;
+
+										}
+										playerPtr->currentAnimation = &playerPtr->runF;
+										break;
+
 									
 									default:
 										break;
@@ -992,8 +1114,31 @@ bool Stages::PostUpdate()
 									case BattlePhase::THINKING:
 										playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
 
-										app->stages->playerPtr->heliAttack.Reset();
-										app->stages->playerPtr->andThenHeliDies.Reset();
+										playerPtr->heliAttack.Reset();
+										playerPtr->andThenHeliDies.Reset();
+
+										for (int i = 0; i < 8; i++) {
+											if (app->battle->entitiesInBattle[i] != nullptr) {
+												if (app->battle->entitiesInBattle[i]->isAlive == true)
+													if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+														app->battle->entitiesInBattle[i]->hitAnim.Reset();
+													}
+											}
+										}
+
+										if (playerPtr->isAlive == true) {
+											if (playerPtr->PlayerErection == 1) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitM.Reset();
+												}
+											}
+											else if (playerPtr->PlayerErection == 2) {
+												if (playerPtr->takesDamage == false) {
+													playerPtr->hitF.Reset();
+												}
+											}
+										}
+										
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->heliAttack;
@@ -1016,6 +1161,7 @@ bool Stages::PostUpdate()
 											app->audio->PlayFx(chdiefx);
 										}
 										break;
+									
 									default:
 										break;
 
@@ -1033,15 +1179,11 @@ bool Stages::PostUpdate()
 
 							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect, CharacterInList->data->zoom, false);
 
-							if (app->battle->battlePhase == BattlePhase::OUTCOME) {
-								if (CharacterInList->data->takesDamage == true) {
-									CharacterInList->data->currentAnimation = &CharacterInList->data->hitAnim;
-								}
-							}
-
+						
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
 							}
+
 
 							if (app->battle->actualTurnEntity == CharacterInList->data) {
 								switch (app->battle->battlePhase) {
@@ -1050,7 +1192,28 @@ bool Stages::PostUpdate()
 									CharacterInList->data->attackAnim1.Reset();
 									CharacterInList->data->attackAnim2.Reset();
 									CharacterInList->data->dieAnim.Reset();
-									CharacterInList->data->hitAnim.Reset();
+
+									for (int i = 0; i < 8; i++) {
+										if (app->battle->entitiesInBattle[i] != nullptr) {
+											if (app->battle->entitiesInBattle[i]->isAlive == true)
+												if (app->battle->entitiesInBattle[i]->takesDamage == false) {
+													app->battle->entitiesInBattle[i]->hitAnim.Reset();
+												}
+										}
+									}
+
+									if (playerPtr->isAlive == true) {
+										if (playerPtr->PlayerErection == 1) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitM.Reset();
+											}
+										}
+										else if (playerPtr->PlayerErection == 2) {
+											if (playerPtr->takesDamage == false) {
+												playerPtr->hitF.Reset();
+											}
+										}
+									}
 									break;
 								case BattlePhase::ATTACKING:
 									if (vAnim == 1) {
@@ -1080,22 +1243,39 @@ bool Stages::PostUpdate()
 										app->audio->PlayFx(chdiefx);
 									}
 									break;
-								
+								case BattlePhase::ESCAPING:
 									
-								
+									if (fxbool == true) {
+										fxbool = false;
+										
+									}
+									CharacterInList->data->currentAnimation = &CharacterInList->data->runAnim;
+									break;
+									
 								default:
-									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
+									//CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									break;
 
 								}
 							}
-							else {
+							else if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+								if (CharacterInList->data->takesDamage == true) {
+									CharacterInList->data->currentAnimation = &CharacterInList->data->hitAnim;
+								}
+							}
+							else{
 								CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 								CharacterInList->data->attackAnim1.Reset();
 								CharacterInList->data->attackAnim2.Reset();
 								CharacterInList->data->dieAnim.Reset();
 								CharacterInList->data->hitAnim.Reset();
+								CharacterInList->data->runAnim.Reset();
 							}
+
+							if (CharacterInList->data->isAlive == false) {
+								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
+							}
+
 						}
 
 						//SHIELDS IN ALLIES

@@ -77,10 +77,10 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		protectedAnim.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		//HIT ANIM
-		hitAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 0 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 1 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 2 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 3 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		hitAnim.loop = false;
 		hitAnim.speed = 0.006f;
@@ -121,6 +121,7 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		runAnim.PushBack({ 6 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		runAnim.PushBack({ 7 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.loop = true;
 		runAnim.speed = 0.006f;
 
 		name = "Valion";
@@ -228,15 +229,10 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		fallAnim.speed = 0.006f;
 
 		//RUN
-		runAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 4 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 5 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 6 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 7 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 0 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 1 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.loop = true;
 		runAnim.speed = 0.006f;
 
 		name = "Rayla";
@@ -301,10 +297,9 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		protectedAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		//HIT ANIM
-		hitAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		hitAnim.loop = false;
 		hitAnim.speed = 0.006f;
@@ -337,15 +332,10 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		fallAnim.speed = 0.006f;
 
 		//RUN
-		runAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 4 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 5 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 6 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 7 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.loop = true;
 		runAnim.speed = 0.006f;
 
 		name = "Dhion";
