@@ -678,17 +678,36 @@ bool Stages::PostUpdate()
 							
 							switch (NormalEnemyInList->data->normalEnemyType) {
 							case NormalEnemyType::FLYING_EYE:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x- 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false);
+								if (NormalEnemyInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false);
+								}
 								break;
 							case NormalEnemyType::BAT:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false);
+								if (NormalEnemyInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false);
+								}
 								break;
 							case NormalEnemyType::SKELETON:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x-20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false);
+								if (NormalEnemyInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false);
+								}
 								break;
 							default:
-								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 90, 0, 2, false);
-
+								if (NormalEnemyInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 90, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 90, 0, 2, false);
+								}
 								break;
 							}
 
@@ -757,15 +776,28 @@ bool Stages::PostUpdate()
 						BossInList->data->spriteRect = BossInList->data->currentAnimation->GetCurrentFrame();
 						switch (BossInList->data->bossType) {
 						case BossType::VALION:
-							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
+							if (BossInList->data->isSelected == true) {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false, { 255, 150, 0 });
+							}
+							else {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
+							}
 							break;
 						case BossType::TRUCK:
-							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x - 150, BossInList->data->position.y , &BossInList->data->spriteRect, BossInList->data->zoom, false);
-
+							if (BossInList->data->isSelected == true) {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x - 150, BossInList->data->position.y , &BossInList->data->spriteRect, BossInList->data->zoom, false, { 255, 150, 0 });
+							}
+							else {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x - 150, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
+							}
 							break;
 						default:
-							app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y - 100, &BossInList->data->spriteRect, BossInList->data->zoom, false);
-
+							if (BossInList->data->isSelected == true) {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y - 100, &BossInList->data->spriteRect, BossInList->data->zoom, false, { 255, 150, 0 });
+							}
+							else {
+								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x, BossInList->data->position.y - 100, &BossInList->data->spriteRect, BossInList->data->zoom, false);
+							}
 							break;
 						}
 					}
