@@ -20,6 +20,7 @@
 #include "BossEnemy.h"
 #include "Camera.h"
 #include "Pathfinder.h"
+#include "ModuleParticles.h"
 
 Stages::Stages(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -161,39 +162,43 @@ bool Stages::PreUpdate()
 bool Stages::Update(float dt)
 {
 	// Movimiento enemigos en el mapa
-	if (actualStage != StageIndex::NONE) {
-		if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
-			ListItem<NormalEnemy*>* NormalEnemyInList;
-			NormalEnemyInList = normalEnemyListPtr->start;
-			for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
-			{
-				if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
-					// "" Chase player ""
-					if (NormalEnemyInList->data->chasePlayer) {
-						int chaseDist = 300;
 
-						if (abs(NormalEnemyInList->data->position.x - playerPtr->position.x) < chaseDist && abs(NormalEnemyInList->data->position.y - playerPtr->position.y) < chaseDist)
-						{
-							if (NormalEnemyInList->data->position.x > playerPtr->position.x) {
-								NormalEnemyInList->data->position.x -= NormalEnemyInList->data->chaseSpeed;
-							}
-							else {
-								NormalEnemyInList->data->position.x += NormalEnemyInList->data->chaseSpeed;
-							}
-							if (NormalEnemyInList->data->position.y > playerPtr->position.y + 30) {
-								NormalEnemyInList->data->position.y -= NormalEnemyInList->data->chaseSpeed;
-							}
-							else {
-								NormalEnemyInList->data->position.y += NormalEnemyInList->data->chaseSpeed;
-							}
+	if (!app->scene->godmode)
+	{
+		if (actualStage != StageIndex::NONE) {
+			if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = normalEnemyListPtr->start;
+				for (NormalEnemyInList = normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
+						// "" Chase player ""
+						if (NormalEnemyInList->data->chasePlayer) {
+							int chaseDist = 300;
 
-							// Move enemy collider
-							NormalEnemyInList->data->baseCollider->SetPos(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+							if (abs(NormalEnemyInList->data->position.x - playerPtr->position.x) < chaseDist && abs(NormalEnemyInList->data->position.y - playerPtr->position.y) < chaseDist)
+							{
+								if (NormalEnemyInList->data->position.x > playerPtr->position.x) {
+									NormalEnemyInList->data->position.x -= NormalEnemyInList->data->chaseSpeed;
+								}
+								else {
+									NormalEnemyInList->data->position.x += NormalEnemyInList->data->chaseSpeed;
+								}
+								if (NormalEnemyInList->data->position.y > playerPtr->position.y + 30) {
+									NormalEnemyInList->data->position.y -= NormalEnemyInList->data->chaseSpeed;
+								}
+								else {
+									NormalEnemyInList->data->position.y += NormalEnemyInList->data->chaseSpeed;
+								}
 
-							// ""Pathfinding""
-							iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
-							iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
-							int path = app->pathfinder->CreatePath(origin, destination);
+								// Move enemy collider
+								NormalEnemyInList->data->baseCollider->SetPos(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+
+								// ""Pathfinding""
+								iPoint origin = app->map->WorldToMap(NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y);
+								iPoint destination = app->map->WorldToMap(playerPtr->position.x, playerPtr->position.y);
+								int path = app->pathfinder->CreatePath(origin, destination);
+							}
 						}
 					}
 				}
@@ -246,26 +251,42 @@ bool Stages::PostUpdate()
 {
 	bool ret = true;
 	GamePad& pad = app->input->pads[0];
-
+	int xm = -app->camera->GetPos().x / 2,
+		ym = -app->camera->GetPos().y / 2;
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
 
 		break;
 	case StageIndex::TOWN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::DOJO:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::SHOP:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::SHOPSUB:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::TAVERN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::INTRODUCTION:
 
@@ -403,10 +424,10 @@ bool Stages::PostUpdate()
 								npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 								if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
 									if (npcInList->data->npcID == 69) {
-										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom, 2);
 									}
 									else {
-										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+										app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 									}
 								}
 							}
@@ -441,7 +462,7 @@ bool Stages::PostUpdate()
 						if (npcInList->data->activeOnStage == app->stages->actualStage && playerPtr != nullptr) {
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
-								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+								app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 							}
 						}
 					}
@@ -501,10 +522,10 @@ bool Stages::PostUpdate()
 							npcInList->data->spriteRect = npcInList->data->currentAnimation->GetCurrentFrame();
 							if (npcInList->data->spriteTex != nullptr) { // CHECK if there is some sprite
 								if (npcInList->data->npcID == 69) {
-									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, 2);
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom, 2);
 								}
 								else {
-									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect);
+									app->render->DrawTexture(npcInList->data->spriteTex, npcInList->data->position.x, npcInList->data->position.y, &npcInList->data->spriteRect, npcInList->data->zoom);
 								}
 							}
 						}
@@ -619,17 +640,36 @@ bool Stages::PostUpdate()
 						NormalEnemyInList->data->spriteRect = NormalEnemyInList->data->currentAnimation->GetCurrentFrame();
 						switch (NormalEnemyInList->data->normalEnemyType) {
 						case NormalEnemyType::FLYING_EYE:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
+							if (NormalEnemyInList->data->isSelected == true) {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false, { 255,150,0});
+							}
+							else {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
+							}
 							break;
 						case NormalEnemyType::BAT:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y-30, &NormalEnemyInList->data->spriteRect, 3, false);
+							if (NormalEnemyInList->data->isSelected == true) {
+							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y-30, &NormalEnemyInList->data->spriteRect, 3, false, { 255,150,0 });
+							}
+							else {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y - 30, &NormalEnemyInList->data->spriteRect, 3, false);
+							}
 							break;
 						case NormalEnemyType::SKELETON:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
+							if (NormalEnemyInList->data->isSelected == true) {
+							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false, { 255,150,0 });
+							}
+							else {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 2, false);
+							}
 							break;
 						default:
-							app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
-
+							if (NormalEnemyInList->data->isSelected == true) {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect, 1,true,{ 255,150,0 });
+							}
+							else {
+								app->render->DrawTexture(NormalEnemyInList->data->spriteTex, NormalEnemyInList->data->position.x, NormalEnemyInList->data->position.y, &NormalEnemyInList->data->spriteRect);
+							}
 							break;
 						}
 
@@ -1084,10 +1124,6 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->audio->PlayFx(doorFx);
 	}
 
-	if (actualStage == StageIndex::PROLOGUE) {
-		app->stages->playerPtr->canMove = true;
-	}
-
 	// Reset map.cpp
 	if (app->map->isEnabled() == true) {
 		app->map->Disable();
@@ -1114,6 +1150,10 @@ void Stages::ChangeStage(StageIndex newStage) {
 		app->tex->UnLoad(TLDer.lightSprite);
 	}
 
+	if (actualStage != StageIndex::TOWN) {
+		app->particlesM->CleanUp();
+	}
+
 	switch (newStage)
 	{
 	case StageIndex::NONE:
@@ -1137,9 +1177,16 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->map->Load("initial_town_map.tmx");
 
 			playerPtr->position = playerPtr->townPos;
+			playerPtr->canMove = true;
+
 			app->camera->OnTarget();
 			app->camera->SetLimits(640, 350, 4490, 4200);
 			LOG("Loading Town map");
+
+			app->particlesM->SmokeTex = app->tex->Load("Assets/particles/smoke_particles.png");
+			app->particlesM->FireTex = app->tex->Load("Assets/particles/flames_particles.png");
+			app->particlesM->ChickenTex = app->tex->Load("Assets/particles/chicken_particles.png");
+			app->particlesM->BirdTex = app->tex->Load("Assets/particles/bird_particles.png");
 
 			app->audio->PlayMusic("Assets/audio/music/music_town.ogg");
 		}

@@ -69,11 +69,13 @@ bool Scene::Start()
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
-
+	
 	// Load textures
 	backFx = app->audio->LoadFx(CharFxBack.GetString());
 	loadFx = app->audio->LoadFx(CharFxLoad.GetString());
 	saveFx = app->audio->LoadFx(CharFxSave.GetString());
+	
+	mini_map = app->tex->Load("Assets/textures/mini_map.png");
 
 	//buttons
 	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
@@ -113,9 +115,9 @@ bool Scene::Start()
 	iPoint rip2Pos = { 2969 , 1970 };
 	iPoint rip3Pos = { 2549 , 866 };
 
-	iPoint valionPos = { 930 , 1000 };
-	iPoint raylaPos = { 1030 , 1000 };
-	iPoint dhionPos = { 1130 , 1000 };
+	iPoint valionPos = { 400, 400 };
+	iPoint raylaPos = { 400, 400 };
+	iPoint dhionPos = { 400, 400 };
 
 
 	NPC* cock = (NPC*)app->entities->CreateEntity(NPCType::COCK, cockPos.x, cockPos.y);
@@ -148,15 +150,15 @@ bool Scene::Start()
 
 	NPC* valion = (NPC*)app->entities->CreateEntity(NPCType::VALION, valionPos.x, valionPos.y);
 	npcList.add(valion);
-	valion->activeOnStage = StageIndex::TOWN;
+	valion->activeOnStage = StageIndex::TOWER_BOSS_1;
 
 	NPC* rayla = (NPC*)app->entities->CreateEntity(NPCType::RAYLA, raylaPos.x, raylaPos.y);
 	npcList.add(rayla);
-	rayla->activeOnStage = StageIndex::TOWN;
+	rayla->activeOnStage = StageIndex::TOWER_BOSS_2;
 
 	NPC* dhion = (NPC*)app->entities->CreateEntity(NPCType::DHION, dhionPos.x, dhionPos.y);
 	npcList.add(dhion);
-	dhion->activeOnStage = StageIndex::TOWN;
+	dhion->activeOnStage = StageIndex::TOWER_BOSS_3;
 
 	NPC* camionKun = (NPC*)app->entities->CreateEntity(NPCType::TRUCK, 90 * TILE_SIZE, 16 * TILE_SIZE);
 	npcList.add(camionKun);
@@ -420,7 +422,7 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-
+	
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -461,6 +463,7 @@ bool Scene::Update(float dt)
 			for (int i = 0; i < partyList.count(); i++)
 			{
 				partyList.At(i)->data->stats->SaveStats();
+				partyList.At(i)->data->stats->level = 10;
 				partyList.At(i)->data->stats->SetStats(9999, 9999, 9999, 9999);
 			}
 
@@ -493,16 +496,7 @@ bool Scene::Update(float dt)
 			app->stages->ChangeStage(stageSwap->data);
 		}
 
-		// Inventory
-		if (app->inventory->isEnabled() == false) {
-			if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
-				app->inventory->Enable();
-			}
-		}
-		// Stats
-		if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-			app->stmen->Enable();
-		}
+		
 		if (!godmode)
 		{
 
@@ -551,8 +545,27 @@ bool Scene::Update(float dt)
 				}
 				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
+			if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+				ListItem<Character*>* ch = partyList.start;
+				for (ch; ch != NULL; ch = ch->next) 
+				{
+					ch->data->stats->lvlup(100) ;
+				}
+			}
 		}
 	}
+
+	// Inventory
+	if (app->inventory->isEnabled() == false) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+			app->inventory->Enable();
+		}
+	}
+	// Stats
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		app->stmen->Enable();
+	}
+
 
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
@@ -578,6 +591,7 @@ bool Scene::PostUpdate()
 	bool ret = true;
 	int w = 45, h = 5, wpm=25;
 
+	
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
@@ -608,7 +622,7 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
-
+	
 	x = -app->camera->GetPos().x / 2,
 	y = -app->camera->GetPos().y / 2;
 
@@ -950,7 +964,7 @@ void Scene::CharBars()
 				app->render->DrawRectangle(PMrect, 0, 78, 255);
 
 				// Life text
-				sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
+				sprintf_s(lifeTextUI, 50, "hp:%2d", (int)ch->data->stats->health);
 				app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
 				barsX += 130;
 			}

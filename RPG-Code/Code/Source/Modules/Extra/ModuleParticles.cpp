@@ -8,6 +8,7 @@
 #include "Textures.h"
 #include "Player.h"
 #include "Stages.h"
+#include <time.h>
 
 #include "SDL/include/SDL_timer.h"
 
@@ -66,16 +67,27 @@ ModuleParticles::ModuleParticles(App* application, bool start_enabled) : Module(
 	BirdParticle.loop = true;
 	BirdParticle.speed = 0.01f;
 
-	BirdFParticle.PushBack({ 0,27,27,25 });
-	BirdFParticle.PushBack({ 27,27,27,25 });
-	BirdFParticle.PushBack({ 54,27,27,25 });
-	BirdFParticle.PushBack({ 81,27,27,25 });
-	BirdFParticle.PushBack({108,27,27,25 });
-	BirdFParticle.PushBack({ 135,27,27,25 });
-	BirdFParticle.PushBack({ 162,27,27,25 });
-	BirdFParticle.PushBack({ 189,27,27,25 });
-	BirdFParticle.loop = true;
-	BirdFParticle.speed = 0.01f;
+	BirdFParticleL.PushBack({ 0,27,27,25 });
+	BirdFParticleL.PushBack({ 27,27,27,25 });
+	BirdFParticleL.PushBack({ 54,27,27,25 });
+	BirdFParticleL.PushBack({ 81,27,27,25 });
+	BirdFParticleL.PushBack({108,27,27,25 });
+	BirdFParticleL.PushBack({ 135,27,28,25 });
+	BirdFParticleL.PushBack({ 163,27,27,25 });
+	BirdFParticleL.PushBack({ 190,27,27,25 });
+	BirdFParticleL.loop = true;
+	BirdFParticleL.speed = 0.018f;
+
+	BirdFParticleR.PushBack({ 190,115,27,25 });
+	BirdFParticleR.PushBack({ 163,115,27,25 });
+	BirdFParticleR.PushBack({ 136,115,28,25 });
+	BirdFParticleR.PushBack({ 109,115,27,25 });
+	BirdFParticleR.PushBack({ 82,115,27,25 });
+	BirdFParticleR.PushBack({ 54,115,28,25 });
+	BirdFParticleR.PushBack({ 27,115,27,25 });
+	BirdFParticleR.PushBack({ 0,115,27,25 });
+	BirdFParticleR.loop = true;
+	BirdFParticleR.speed = 0.018f;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -89,24 +101,51 @@ bool ModuleParticles::Start()
 	FireTex = app->tex->Load("Assets/particles/flames_particles.png");
 	ChickenTex= app->tex->Load("Assets/particles/chicken_particles.png");
 	BirdTex = app->tex->Load("Assets/particles/bird_particles.png");
+
+	BirdPos.x = 2660;
+	BirdPos.y = 0;
+
 	return true;
 }
-
-
 
 bool ModuleParticles::Update(float dt)
 {
 	bool ret = true;
-	SmokeParticle.Update();
-	FireParticle.Update();
-	ChickenParticle.Update();
-	BirdParticle.Update();
-	BirdFParticle.Update();
+	srand(time(NULL));
+
+
+	if (app->stages->actualStage == StageIndex::TOWN) {
+		SmokeParticle.Update();
+		FireParticle.Update();
+		ChickenParticle.Update();
+		BirdParticle.Update();
+		BirdFParticleL.Update();
+		BirdFParticleR.Update();
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN) {
+			BirdWillSpawn = 1;
+		}
+
+		if (BirdcanSpawn == false) {
+			BirdWillSpawn = rand() % 15;
+		}		
+
+		srand(time(NULL));
+
+		if (BirdWillSpawn > 0 && BirdWillSpawn < 10 && BirdcanSpawn==false) {
+			BirdcanSpawn = true;
+			BirdSpawn = rand() % 1440;			
+			BirdPos.y = BirdSpawn;
+		}
+
+	/*	LOG("Puede Spawnear : %d", BirdWillSpawn);*/
+	}
+	
 	return ret;
 }
 
 bool ModuleParticles::PostUpdate()
 {
+	//SDL_Rect rectbird = currentBird->GetCurrentFrame();
 	if (app->stages->actualStage == StageIndex::TOWN) {
 		//Iterating all particle array and drawing any active particles
 		app->render->DrawTexture(SmokeTex, 388, 1010, &SmokeParticle.GetCurrentFrame());
@@ -115,9 +154,30 @@ bool ModuleParticles::PostUpdate()
 		app->render->DrawTexture(FireTex, 1290, 510, &FireParticle.GetCurrentFrame());
 		app->render->DrawTexture(ChickenTex, 11, 910, &ChickenParticle.GetCurrentFrame());
 		app->render->DrawTexture(BirdTex, 1460, 1560, &BirdParticle.GetCurrentFrame());
-		app->render->DrawTexture(BirdTex, 1100, 1560, &BirdFParticle.GetCurrentFrame());
+		if (BirdcanSpawn == true) {
+			BirdPos.x -= 4;
+			app->render->DrawTexture(BirdTex, BirdPos.x+100, BirdPos.y-1000, &BirdFParticleL.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, BirdPos.x+50, BirdPos.y-500, &BirdFParticleL.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, BirdPos.x, BirdPos.y, &BirdFParticleL.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, BirdPos.x+50, BirdPos.y +500, &BirdFParticleL.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, BirdPos.x+100, BirdPos.y + 1000, &BirdFParticleL.GetCurrentFrame());
+
+			app->render->DrawTexture(BirdTex, -BirdPos.x - 100 + 2560, BirdPos.y - 1200, &BirdFParticleR.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, -BirdPos.x - 50 + 2560, BirdPos.y - 700, &BirdFParticleR.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, -BirdPos.x+2560, BirdPos.y-200, &BirdFParticleR.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, -BirdPos.x - 50 + 2560, BirdPos.y + 700, &BirdFParticleR.GetCurrentFrame());
+			app->render->DrawTexture(BirdTex, -BirdPos.x - 100 + 2560, BirdPos.y + 1200, &BirdFParticleR.GetCurrentFrame());
+
+			/*LOG("POSICION X: %d", BirdPos.x);
+			LOG("ALTURA : %d", BirdPos.y);*/
+			if (BirdPos.x <= -50) {
+				BirdcanSpawn = false;
+				BirdPos.x = 2560;
+			}			
+		}
 	}
-	
+
+	//1100, 1560
 			
 	return true;
 }
@@ -134,34 +194,3 @@ bool ModuleParticles::CleanUp()
 	
 	return true;
 }
-
-//void ModuleParticles::AddParticle(const Animation& particle, int x, int y, int type/*, Collider::Type colliderType*/, uint delay)
-//{
-//	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-//	{
-//		//Finding an empty slot for a new particle
-//		if (particles[i] == nullptr)
-//		{
-//			Animation* p = new Animation(particle);
-//
-//			p->type = type;
-//			p->frameCount = -(int)delay;			// We start the frameCount as the negative delay
-//			p->position.x = x;						// so when frameCount reaches 0 the particle will be activated
-//			p->position.y = y;
-//
-//			//Adding the particle's collider
-//
-//			//if (colliderType != Collider::Type::NONE && p->type == 1)
-//			//	p->collider = app->coll->AddCollider({ 0, 0, 18, 10 }, colliderType, this);
-//			///*if (colliderType == Collider::Type::PLAYERATTACK && p->type == 1)
-//			//	p->collider = app->coll->AddCollider({app->player->position.x,app->player->position.y, 8,8 }, colliderType, this);*/
-//
-//			//else {
-//			//	p->collider = app->coll->AddCollider(p->anim.GetCurrentFrame(), colliderType, this);
-//			//}
-//
-//			particles[i] = p;
-//			break;
-//		}
-//	}
-//}

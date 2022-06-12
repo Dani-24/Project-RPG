@@ -27,6 +27,13 @@ enum class PartyType;
 #define LIFE_DISTANCE 25
 
 #define BACK_HEIGH 100
+#define INFO_SPACE_X 20
+#define INFO_SPACE_Y 200
+
+#define TEXT_INFO_X 150
+#define TEXT_INFO_Y 110
+#define SEPARATION 10
+#define BIG_SEPARATION 17
 
 enum class BattlePhase {
 
@@ -38,6 +45,8 @@ enum class BattlePhase {
 	DEFENDING,
 	USING_ITEM,
 	ESCAPING,
+
+	SPECIAL,
 
 	OUTCOME,
 
@@ -316,9 +325,12 @@ public:
 	Usable* itemCount[4];
 
 	int skill;
+	int selectCount;
+	int selectTime;
 
+	int selectedTime;
 
-
+	float localdt;
 };
 
 #endif // __BATTLE_H__

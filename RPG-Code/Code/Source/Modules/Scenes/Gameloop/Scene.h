@@ -92,7 +92,9 @@ public:
 	char lifeTextUI[100] = { "\0" };
 	char currentPlace_UI[100] = { "\0" };
 
+	SDL_Texture* mini_map;
 	SDL_Texture* characterBG;
+
 
 	bool playloading = false;
 
