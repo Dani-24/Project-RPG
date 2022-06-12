@@ -160,7 +160,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 5 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 4 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.01f;
 
 		dieAnim.PushBack({ 7 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -271,7 +271,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.02f;
 
 		dieAnim.PushBack({ 4 * BATTLE_SIZE , 5 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -398,7 +398,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 5 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 4 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.01f;
 
 		dieAnim.PushBack({ 7 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });

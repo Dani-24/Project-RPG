@@ -371,9 +371,6 @@ bool Battle::PreUpdate()
 {
 	bool ret = true;
 
-	//CheckWinLose();
-	
-
 	return ret;
 }
 
@@ -544,8 +541,8 @@ bool Battle::Update(float dt)
 						if (actualTurnEntity->stats->isStunned == true) {
 							actualTurnEntity->stats->isStunned = false;
 						}
-						if (actualTurnEntity->takesDamage == true) {
-							actualTurnEntity->takesDamage = false;
+						if (targetEntity->takesDamage == true) {
+							targetEntity->takesDamage = false;
 						}
 
 						SetTurnOrder();
@@ -861,8 +858,8 @@ bool Battle::Update(float dt)
 							actualTurnEntity->stats->isStunned = false;
 						}
 
-						if (actualTurnEntity->takesDamage == true) {
-							actualTurnEntity->takesDamage = false;
+						if (targetEntity->takesDamage == true) {
+							targetEntity->takesDamage = false;
 						}
 
 						SetTurnOrder();

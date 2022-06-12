@@ -638,6 +638,12 @@ bool Stages::PostUpdate()
 							}
 						}
 
+						if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+							if (NormalEnemyInList->data->takesDamage == true) {
+								NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->hitAnim;
+							}
+						}
+
 						if (NormalEnemyInList->data->isAlive == false) {
 							NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->dieAnim;
 						}
@@ -779,6 +785,12 @@ bool Stages::PostUpdate()
 							}
 						}
 
+						if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+							if (BossInList->data->takesDamage == true) {
+								BossInList->data->currentAnimation = &BossInList->data->hitAnim;
+							}
+						}
+
 						if (BossInList->data->isAlive == false) {
 							BossInList->data->currentAnimation = &BossInList->data->dieAnim;
 						}
@@ -857,6 +869,12 @@ bool Stages::PostUpdate()
 								playerPtr->currentAnimation = &playerPtr->idleBattleM;
 								app->render->DrawTexture(playerPtr->BattleMTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
 
+								if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+									if (playerPtr->takesDamage == true) {
+										playerPtr->currentAnimation = &playerPtr->hitAnim;
+									}
+								}
+
 								if (playerPtr->isAlive == false) {
 									playerPtr->currentAnimation = &playerPtr->dieM;
 								}
@@ -882,18 +900,12 @@ bool Stages::PostUpdate()
 											fxbool = false;
 											app->audio->PlayFx(shieldfx);
 										}
-
 										break;
 									case BattlePhase::LOSE:
 
 										if (fxbool == true) {
 											fxbool = false;
 											app->audio->PlayFx(chdiefx);
-										}
-										break;
-									case BattlePhase::OUTCOME:
-										if (playerPtr->takesDamage == true) {
-											playerPtr->currentAnimation = &playerPtr->hitAnim;
 										}
 										break;
 									default:
@@ -905,6 +917,12 @@ bool Stages::PostUpdate()
 							case 2:
 								playerPtr->currentAnimation = &playerPtr->idleBattleF;
 								app->render->DrawTexture(playerPtr->BattleFTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
+
+								if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+									if (playerPtr->takesDamage == true) {
+										playerPtr->currentAnimation = &playerPtr->hitAnim;
+									}
+								}
 
 								if (playerPtr->isAlive == false) {
 									playerPtr->currentAnimation = &playerPtr->dieF;
@@ -948,16 +966,13 @@ bool Stages::PostUpdate()
 											app->audio->PlayFx(chdiefx);
 										}
 										break;
-									case BattlePhase::OUTCOME:
-										if (playerPtr->takesDamage == true) {
-											playerPtr->currentAnimation = &playerPtr->hitAnim;
-										}
-										break;
+									
 									default:
 										break;
 
 									}
 								}
+
 								break;
 							case 3:
 								playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
@@ -1001,6 +1016,7 @@ bool Stages::PostUpdate()
 
 									}
 								}
+								
 								break;
 							}
 						}
@@ -1012,6 +1028,11 @@ bool Stages::PostUpdate()
 
 							app->render->DrawTexture(CharacterInList->data->spriteTex, CharacterInList->data->position.x, CharacterInList->data->position.y, &CharacterInList->data->spriteRect, CharacterInList->data->zoom, false);
 
+							if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+								if (CharacterInList->data->takesDamage == true) {
+									CharacterInList->data->currentAnimation = &CharacterInList->data->hitAnim;
+								}
+							}
 
 							if (CharacterInList->data->isAlive == false) {
 								CharacterInList->data->currentAnimation = &CharacterInList->data->deathAnim;
@@ -1053,11 +1074,9 @@ bool Stages::PostUpdate()
 										app->audio->PlayFx(chdiefx);
 									}
 									break;
-								case BattlePhase::OUTCOME:
-									if (CharacterInList->data->takesDamage == true) {
-										CharacterInList->data->currentAnimation = &CharacterInList->data->hitAnim;
-									}
-									break;
+								
+									
+								
 								default:
 									CharacterInList->data->currentAnimation = &CharacterInList->data->idleBattle;
 									break;
