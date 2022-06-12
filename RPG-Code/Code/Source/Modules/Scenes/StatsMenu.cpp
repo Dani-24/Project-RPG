@@ -237,53 +237,53 @@ void StatsMenu::Statss()
 	ListItem<Character*>* ch = app->scene->partyList.At(by);
 
 	app->font->DrawText(app->scene->partyList.At(by)->data->name, x + 340, y + 89);
-	if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")app->font->DrawText("Paladin", x + 490, y + 89);
+	if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Hellie")app->font->DrawText("Paladin", x + 490, y + 89);
 	else if (ch->data->name == "Valion")app->font->DrawText("Mage", x + 490, y + 89);
 	else if (ch->data->name == "Rayla")app->font->DrawText("Archer", x + 490, y + 89);
 	else if (ch->data->name == "Dhion")app->font->DrawText("Lancer", x + 490, y + 89);
 
-
+	int py = 10;
 	/////////////HABILITIES
 	if (ch->data->stats->level >= 1)
 	{
-
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Hellie")
 		{
-			app->font->DrawText("Atack", x + 458, y + 137);
+			app->font->DrawText("Atack", x + 461, y + 140 );
 		}
 		else if (ch->data->name == "Valion")
 		{
-			app->font->DrawText("Atack", x + 458, y + 137);
+			app->font->DrawText("Atack", x + 461, y + 140 );
 		}
 		else if (ch->data->name == "Rayla")
 		{
-			app->font->DrawText("Atack", x + 458, y + 137);
+			app->font->DrawText("Atack", x + 461, y + 140  );
 		}
 		else if (ch->data->name == "Dhion")
 		{
-			app->font->DrawText("Atack", x + 458, y + 137);
+			app->font->DrawText("Atack", x + 461, y + 140 );
 		}
 	}
 	if (ch->data->stats->level >= 3)
 	{
 
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Hellie")
 		{
-			app->font->DrawText("Shield", x + 458, y + 157);
+			app->font->DrawText("Shield", x + 461, y + 165);
 		}
 		else if (ch->data->name == "Valion")
 		{
-			app->font->DrawText("Stoned", x + 458, y + 157);
+			app->font->DrawText("Stoned", x + 461, y + 165 );
 
 		}
 		else if (ch->data->name == "Rayla")
 		{
-			app->font->DrawText("Log", x + 458, y + 157);
+			app->font->DrawText("Log", x + 461, y + 165 );
 
 		}
 		else if (ch->data->name == "Dhion")
 		{
-			app->font->DrawText("Judge", x + 458, y + 157);
+			app->font->DrawText("Judge", x + 461, y + 165);
 
 		}
 	}
@@ -292,19 +292,19 @@ void StatsMenu::Statss()
 
 		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
 		{
-			app->font->DrawText("Sword", x + 458, y + 177);
+			app->font->DrawText("Sword", x + 461, y + 190 );
 		}
 		else if (ch->data->name == "Valion")
 		{
-			app->font->DrawText("Stoned", x + 458, y + 177);
+			app->font->DrawText("Stoned", x + 461, y + 190);
 		}
 		else if (ch->data->name == "Rayla")
 		{
-			app->font->DrawText("Acid", x + 458, y + 177);
+			app->font->DrawText("Acid", x + 461, y + 190);
 		}
 		else if (ch->data->name == "Dhion")
 		{
-			app->font->DrawText("Electro", x + 458, y + 177);
+			app->font->DrawText("Electro", x + 461, y + 190);
 		}
 	}
 	if (ch->data->stats->level >= 10)
@@ -312,19 +312,19 @@ void StatsMenu::Statss()
 
 		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
 		{
-			app->font->DrawText("Aqua", x + 458, y + 197);
+			app->font->DrawText("Aqua", x + 461, y + 215);
 		}
 		else if (ch->data->name == "Valion")
 		{
-
+			app->font->DrawText("Deer", x + 461, y + 215);
 		}
 		else if (ch->data->name == "Rayla")
 		{
-
+			app->font->DrawText("Sacred", x + 461, y + 215);
 		}
 		else if (ch->data->name == "Dhion")
 		{
-
+			app->font->DrawText("Explosion", x + 461, y + 215);
 		}
 	}
 	

@@ -546,6 +546,13 @@ bool Scene::Update(float dt)
 				}
 				//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
 			}
+			if (app->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) {
+				ListItem<Character*>* ch = partyList.start;
+				for (ch; ch != NULL; ch = ch->next) 
+				{
+					ch->data->stats->lvlup(100) ;
+				}
+			}
 		}
 	}
 
@@ -563,6 +570,7 @@ bool Scene::Update(float dt)
 		
 		app->render->DrawTexture(mini_map, xm+50, ym+50);
 	}
+
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
 		backtoMenu->state = GuiControlState::NORMAL;
