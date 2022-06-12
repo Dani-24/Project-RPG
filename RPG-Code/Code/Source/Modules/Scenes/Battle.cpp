@@ -63,7 +63,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	//Higher it is -> Less shake in screen - 500 its ok
 	shakeForce = 500;
 
-	defenseBuff = 0;
+	defenseBuff = 5;
 
 	selectTime = 300;
 	selectedTime = 80;
@@ -792,7 +792,7 @@ bool Battle::Update(float dt)
 					}
 					//If the enemy is NOT afraid
 					else if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
-						if (optionPercent <101) {//70
+						if (optionPercent <70) {//70
 
 							DynamicEntity* targets[4];
 
@@ -812,7 +812,7 @@ bool Battle::Update(float dt)
 								targetNum = (rand() % 4);
 							}*/
 
-							targetEntity = targets[2];
+							targetEntity = targets[targetNum];
 
 							ChangePhase(BattlePhase::ATTACKING);
 						}
