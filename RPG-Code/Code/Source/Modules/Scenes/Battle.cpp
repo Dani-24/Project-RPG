@@ -1865,24 +1865,24 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[i] != nullptr) {
 			if (entitiesInBattle[i] != nullptr) {
 				if (entitiesInBattle[i]->stats->health == 0) {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3-i)) * app->win->GetScale(), { 255,30,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
 
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 				}
 				else {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 100,255,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 					
 				}
@@ -1896,24 +1896,24 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[i] != nullptr) {
 			if (entitiesInBattle[i] != nullptr) {
 				if (entitiesInBattle[i]->stats->health == 0) {
-					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,30,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
 
-					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 				}
 				else {
-					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(lifeChar, 50, "%s's Magic points: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 100,255,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->mana);
+					sprintf_s(nameChar, 50, "%s's Magic points:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->mana);
 					app->font->DrawText(nameChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 20 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
@@ -1927,24 +1927,24 @@ bool Battle::PostUpdate()
 		if (entitiesInBattle[i] != nullptr) {
 			if (entitiesInBattle[i] != nullptr) {
 				if (entitiesInBattle[i]->stats->health == 0) {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i-4))) * app->win->GetScale(), { 255,30,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
 
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 180,0,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4)))* app->win->GetScale(), { 255,255,255 }, false, 1);
 				}
 				else {
 					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 100,255,0 }, false, 1);
-					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 255,255,255 }, false, 1);
 
 				}

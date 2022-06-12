@@ -330,65 +330,65 @@ void StatsMenu::Statss()
 	
 
 	////////////LVL
-	std::string lvl = std::to_string(ch->data->stats->level);
+	std::string lvl = std::to_string((int)ch->data->stats->level);
 	char const* _lvlc = lvl.c_str();
 
 	app->font->DrawText(_lvlc, x + 360, y + 112 + 8);
 
     /////////EXPPPPPPPP
 
-	std::string EX = std::to_string(ch->data->stats->exp);
+	std::string EX = std::to_string((int)ch->data->stats->exp);
 	char const* _EXc = EX.c_str();
 
 	app->font->DrawText(_EXc, x + 360 , y + 135 + 8 ,Yw);
 	app->font->DrawText("/", x + 402, y + 135 + 8);
 
 
-	std::string EXm = std::to_string(ch->data->stats->nexp);
+	std::string EXm = std::to_string((int)ch->data->stats->nexp);
 	char const* EXc = EXm.c_str();
 
 	app->font->DrawText(EXc, x + 410, y + 135 + 8, Yw);
 
 	///////////hppppppp
-	std::string hp = std::to_string(ch->data->stats->health);
+	std::string hp = std::to_string((int)ch->data->stats->health);
 	char const* _hpc = hp.c_str();
 
 	app->font->DrawText(_hpc, x + 360, y + 175 + 4,Gr);
 	app->font->DrawText("/", x + 402, y + 175 + 4);
 
 
-	std::string hpm = std::to_string(ch->data->stats->maxHealth);
+	std::string hpm = std::to_string((int)ch->data->stats->maxHealth);
 	char const* hpmc = hpm.c_str();
 
 	app->font->DrawText(hpmc, x + 410, y + 175 + 4, Gr);
 
 	///////PMMMM
-	std::string pm = std::to_string(ch->data->stats->mana);
+	std::string pm = std::to_string((int)ch->data->stats->mana);
 	char const* _pmc = pm.c_str();
 
 	app->font->DrawText(_pmc, x + 360, y + 215 + 4, Bl);
 	app->font->DrawText("/", x + 402, y + 215 + 4);
 
 
-	std::string pmm = std::to_string(ch->data->stats->maxMana);
+	std::string pmm = std::to_string((int)ch->data->stats->maxMana);
 	char const* pmmc = pmm.c_str();
 
 	app->font->DrawText(pmmc, x + 410, y + 215 + 4, Bl);
 
 	////////////ATKKKKKK
-	std::string ATK = std::to_string(ch->data->stats->attack);
+	std::string ATK = std::to_string((int)ch->data->stats->attack);
 	char const* _ATK = ATK.c_str();
 
 	app->font->DrawText(_ATK, x + 360, y + 250 );
 
 	////////////defeseewe
-	std::string DF = std::to_string(ch->data->stats->defense);
+	std::string DF = std::to_string((int)ch->data->stats->defense);
 	char const* _DF = DF.c_str();
 
 	app->font->DrawText(_DF, x + 360, y + 273 );
 
 	////////////spedddd
-	std::string SP = std::to_string(ch->data->stats->speed);
+	std::string SP = std::to_string((int)ch->data->stats->speed);
 	char const* _SP = SP.c_str();
 
 	app->font->DrawText(_SP, x + 360, y + 295 );

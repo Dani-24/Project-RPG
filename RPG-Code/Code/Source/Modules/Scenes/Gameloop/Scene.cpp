@@ -591,8 +591,7 @@ bool Scene::PostUpdate()
 	bool ret = true;
 	int w = 45, h = 5, wpm=25;
 
-	int xm = -app->camera->GetPos().x / 2,
-		ym = -app->camera->GetPos().y / 2;
+	
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
@@ -623,10 +622,7 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
-
-		app->render->DrawTexture(mini_map, xm + 150, ym + 50);
-	}
+	
 	x = -app->camera->GetPos().x / 2,
 	y = -app->camera->GetPos().y / 2;
 
@@ -968,7 +964,7 @@ void Scene::CharBars()
 				app->render->DrawRectangle(PMrect, 0, 78, 255);
 
 				// Life text
-				sprintf_s(lifeTextUI, 50, "hp:%2d", ch->data->stats->health);
+				sprintf_s(lifeTextUI, 50, "hp:%2d", (int)ch->data->stats->health);
 				app->font->DrawText(lifeTextUI, barsX, barsY + h + 9, { 0,255,30 });
 				barsX += 130;
 			}

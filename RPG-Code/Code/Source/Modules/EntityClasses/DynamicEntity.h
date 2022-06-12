@@ -25,28 +25,28 @@ enum class DynamicType
 class Stats
 {
 public:
-	int health;
-	int maxHealth;
+	double health;
+	double maxHealth;
 	
 
 	int level;
-	int attack;
-	int defense;
-	int speed;
-	int mana;
-	int maxMana;
+	double attack;
+	double defense;
+	double speed;
+	double mana;
+	double maxMana;
 	int exp;
 	int nexp;
 
-	int Shealth;
-	int SmaxHealth;
+	double Shealth;
+	double SmaxHealth;
 	
 	int Slevel;
-	int Sattack;
-	int Sdefense;
-	int Sspeed;
-	int Smana;
-	int SmaxMana;
+	double Sattack;
+	double Sdefense;
+	double Sspeed;
+	double Smana;
+	double SmaxMana;
 	bool firstgod;
 
 	int localTurn;
@@ -76,7 +76,7 @@ public:
 		this->isStunned = false;
 	}
 	//lvl mxhealth attak defense mana speed
-	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
+	Stats(int level, double maxHealth, double attack, double defense, double mana, double speed) {
 		this->level = 1;
 
 		this->maxHealth = maxHealth;
@@ -104,7 +104,7 @@ public:
 			for (int i = 0; i < level - 1; i++)
 			{
 
-				lvl *= 1.2;
+				lvl *= 1.1;
 				lvlup(lvl);
 			}
 
@@ -116,7 +116,7 @@ public:
 		float a = ((float)localTurn / (float)speed) * 100.0f;
 		return a;
 	}
-	void SetStats(int Health, int attack, int defense, int mana/*, int speed*/)
+	void SetStats(double Health, double attack, double defense, double mana/*, int speed*/)
 	{
 
 		this->health = Health;
@@ -172,14 +172,14 @@ public:
 				exp = a;
 				LOG("LEVEL UP! jovani de puerto rico");
 				level++;
-				attack *= 1.2;
-				defense *= 1.2;
-				speed += speed*0.3;
-				mana *= 1.2;
-				maxMana *= 1.2;
-				nexp *= 1.2;
-				maxHealth *= 1.2;
-				health *= 1.2;
+				attack += attack*0.08;
+				defense +=defense * 0.08;
+				speed += speed*0.08;
+				mana += mana * 0.08;
+				maxMana += maxMana * 0.08;
+				nexp *= 1.1;
+				maxHealth += maxHealth * 0.08;
+				health +=health * 0.08;
 			}
 		}
 	}
