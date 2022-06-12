@@ -308,6 +308,6 @@ public: // DIALOGS
 	bool autoTalk;
 
 	void Interact(NPCType, const char* [DIALOG_LENGHT]);
-
+	bool battleSet;
 };
 #endif !__PLAYER_H__

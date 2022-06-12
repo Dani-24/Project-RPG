@@ -761,7 +761,7 @@ bool Battle::Update(float dt)
 					srand(time(NULL));
 					optionPercent = (rand() % (100 - 0)) + 0;
 					//If the enemy is a BOSS, can't be afraid
-					if (actualTurnEntity->name == "Valion" || actualTurnEntity->name == "Rayla" || actualTurnEntity->name == "Dhion") {
+					if (actualTurnEntity->name == "Valion" || actualTurnEntity->name == "Rayla" || actualTurnEntity->name == "Dhion" || actualTurnEntity->name == "Truck-kun") {
 						if (optionPercent < 70) {//70
 
 							DynamicEntity* targets[4];
@@ -1525,6 +1525,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else if (actualTurnEntity->dynamicType == DynamicType::CHARACTER) {
 				sprintf_s(battleInfoChar, 50, "It's %s's turn", actualTurnEntity->name);
@@ -1542,6 +1547,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				app->font->DrawText("Select an attack", 10, 25);
@@ -1685,6 +1695,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				app->font->DrawText("Select a target", 10, 25);
@@ -1834,6 +1849,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				if (actualTurnEntity->stats->isStunned == true) {
@@ -1842,13 +1862,13 @@ bool Battle::PostUpdate()
 				}
 				else {
 					if (damageTaken == 1) {
-						sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
+						sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name);
 						app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
 						sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name);
 						app->font->DrawTextDelayed(damageChar, 10, 25);
 					}
 					else {
-						sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
+						sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, (int)damageTaken);
 						app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
 						sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name);
 						app->font->DrawTextDelayed(damageChar, 10, 25);
@@ -1861,6 +1881,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				sprintf_s(nameChar, 100, "%s is attacking %s!", actualTurnEntity->name, targetEntity->name);
@@ -1886,12 +1911,12 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				if (app->scene->itemList.count() == 0) {
+				/*if (app->scene->itemList.count() == 0) {
 					app->font->DrawTextDelayed("You have no items left!", 10, 25);
 				}
-				else {
+				else {*/
 					app->inventory->Enable();
-				}
+				//}
 			}
 			break;
 
@@ -1922,6 +1947,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				app->font->DrawTextDelayed("Victory! All the enemies have been defeated", 10, 25, { 255,200,0 });
@@ -1932,6 +1962,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				sprintf_s(rewardChar, 150, "All the team members receive %i EXP and %i gold!", expCount, goldCount);
@@ -1943,6 +1978,11 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
+				}
 			}
 			else {
 				if (itemCount[0] != nullptr) {
@@ -1957,6 +1997,9 @@ bool Battle::PostUpdate()
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
 				hasChangedPhase = false;
+				for (int i = 4; i < 8; i++) {
+					entitiesInBattle[i]->isSelected = false;
+				}
 			}
 			else {
 				app->font->DrawTextDelayed("Game over! Press SPACE", 10, 25, { 255,30,10 });
@@ -2046,7 +2089,7 @@ bool Battle::PostUpdate()
 					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4)))* app->win->GetScale(), { 255,255,255 }, false, 1);
 				}
 				else {
-					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, entitiesInBattle[i]->stats->health);
+					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 100,255,0 }, false, 1);
 					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(nameChar, (app->win->GetWidth() / 2 - LIFE_DISTANCE_HOR)* app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - 15 * (3 - (i - 4))) * app->win->GetScale(), { 255,255,255 }, false, 1);
@@ -2594,9 +2637,9 @@ void Battle::Attack(DynamicEntity *target) {
 
 
 
-	if (target->stats->defense * actualTurnEntity->stats->defMulti < actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti) {
-		damageTaken = actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti - target->stats->defense * actualTurnEntity->stats->defMulti;
-		target->stats->health = target->stats->health + target->stats->defense * actualTurnEntity->stats->defMulti - actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti;
+	if ((int)target->stats->defense * actualTurnEntity->stats->defMulti < (int)actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti) {
+		damageTaken = (int)actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti - (int)target->stats->defense * actualTurnEntity->stats->defMulti;
+		target->stats->health = (int)target->stats->health + (int)target->stats->defense * actualTurnEntity->stats->defMulti - (int)actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti;
 		hasToShake = true;
 		app->audio->PlayFx(explosionfx);
 		shakePos = 0;
@@ -2723,7 +2766,7 @@ void Battle::Attack(DynamicEntity *target) {
 				}
 			}
 
-			if (target->name != "Valion" && target->name != "Rayla" && target->name != "Dhion") {
+			if (target->name != "Valion" && target->name != "Rayla" && target->name != "Dhion" && target->name != "Truck-kun") {
 				optionPercent = 0;
 					srand(time(NULL));
 					optionPercent = rand() % 100;
@@ -2820,6 +2863,10 @@ bool Battle::Escape() {
 		ret = false;
 	}
 	
+	if (entitiesInBattle[4]->name == "Truck-kun") {
+		ret = false;
+	}
+
 	return ret;
 }
 
@@ -3347,6 +3394,8 @@ bool Battle::CleanUp()
 
 		break;
 	}
+
+	app->scene->player->battleSet = false;
 
 	//app->entities->DestroyEntity(entitiesInBattle[app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[4])]);
 

@@ -600,6 +600,7 @@ bool Stages::PostUpdate()
 									NormalEnemyInList->data->attackAnim2.Reset();
 									NormalEnemyInList->data->attackAnim3.Reset();
 									NormalEnemyInList->data->protectAnim.Reset();
+									NormalEnemyInList->data->hitAnim.Reset();
 
 									break;
 								case BattlePhase::ATTACKING:
@@ -747,6 +748,8 @@ bool Stages::PostUpdate()
 									BossInList->data->attackAnim2.Reset();
 									BossInList->data->attackAnim3.Reset();
 									BossInList->data->protectAnim.Reset();
+									BossInList->data->hitAnim.Reset();
+
 
 									break;
 								case BattlePhase::ATTACKING:
@@ -885,6 +888,7 @@ bool Stages::PostUpdate()
 										playerPtr->currentAnimation = &playerPtr->idleBattleM;
 										app->stages->playerPtr->attackM.Reset();
 										app->stages->playerPtr->dieM.Reset();
+										app->stages->playerPtr->hitAnim.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										playerPtr->currentAnimation = &playerPtr->attackM;
@@ -936,6 +940,7 @@ bool Stages::PostUpdate()
 										app->stages->playerPtr->attackF2.Reset();
 										app->stages->playerPtr->attackChainF.Reset();
 										app->stages->playerPtr->dieF.Reset();
+										app->stages->playerPtr->hitAnim.Reset();
 										break;
 									case BattlePhase::ATTACKING:
 										if (pAnim == 1) {
@@ -1045,6 +1050,7 @@ bool Stages::PostUpdate()
 									CharacterInList->data->attackAnim1.Reset();
 									CharacterInList->data->attackAnim2.Reset();
 									CharacterInList->data->dieAnim.Reset();
+									CharacterInList->data->hitAnim.Reset();
 									break;
 								case BattlePhase::ATTACKING:
 									if (vAnim == 1) {
@@ -1088,6 +1094,7 @@ bool Stages::PostUpdate()
 								CharacterInList->data->attackAnim1.Reset();
 								CharacterInList->data->attackAnim2.Reset();
 								CharacterInList->data->dieAnim.Reset();
+								CharacterInList->data->hitAnim.Reset();
 							}
 						}
 

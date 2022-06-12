@@ -52,7 +52,7 @@ BossEnemy::BossEnemy(BossType bossType) : Enemy(EnemyType::BOSS)
 		currentAnimation = &battleAnim;
 
 		name = "Truck-kun";
-		battleName = "Truck-kun";
+		battleName = " Truck";
 		configName = "truck";
 
 		zoom = 3;
