@@ -566,10 +566,6 @@ bool Scene::Update(float dt)
 		app->stmen->Enable();
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
-		
-		app->render->DrawTexture(mini_map, xm+50, ym+50);
-	}
 
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
