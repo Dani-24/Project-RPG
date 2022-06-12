@@ -51,6 +51,9 @@ public:
 
 	int localTurn;
 	bool defenseBuffed;
+	int attackMulti;
+	int defMulti;
+	bool isStunned;
 
 	Stats() {
 		this->level = 0;
@@ -68,6 +71,9 @@ public:
 		this->localTurn = 0;
 		this->defenseBuffed = false;
 		this->firstgod = false;
+		this->attackMulti = 1;
+		this->defMulti = 1;
+		this->isStunned = false;
 	}
 	//lvl mxhealth attak defense mana speed
 	Stats(int level, int maxHealth, int attack, int defense, int mana, int speed) {
@@ -89,6 +95,9 @@ public:
 		this->nexp = 100;
 		this->localTurn = 0;
 		this->defenseBuffed = false;
+		this->attackMulti = 1;
+		this->defMulti = 1;
+		this->isStunned = false;
 
 		if (level > 1) {
 			int lvl = this->nexp;

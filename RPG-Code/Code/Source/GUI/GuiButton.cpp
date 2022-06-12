@@ -108,7 +108,7 @@ bool GuiButton::Draw(Render* render)
 			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
 
 			// Selector
-			render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
+			//render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
 
 			break;
 		case GuiControlState::PRESSED:

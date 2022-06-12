@@ -131,6 +131,18 @@ bool Battle::Start()
 				entitiesInBattle[i]->stats->defense -= defenseBuff;
 				entitiesInBattle[i]->stats->defenseBuffed = false;
 			}
+
+			if (entitiesInBattle[i]->stats->attackMulti !=1){
+				entitiesInBattle[i]->stats->attackMulti =1;
+			}
+
+			if (entitiesInBattle[i]->stats->defMulti != 1) {
+				entitiesInBattle[i]->stats->defMulti = 1;
+			}
+
+			if (entitiesInBattle[i]->stats->isStunned == true) {
+				entitiesInBattle[i]->stats->defMulti = false;
+			}
 			
 		}
 	}
@@ -182,6 +194,8 @@ bool Battle::Start()
 		townBackground = app->tex->Load("Assets/textures/cityBG.jpg");
 		break;
 	default:
+		townBackground = app->tex->Load("Assets/textures/forest_big.png");
+		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
 	}
 
@@ -407,6 +421,12 @@ bool Battle::Update(float dt)
 					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
 				}
+				if (actualTurnEntity->stats->attackMulti != 1) {
+					actualTurnEntity->stats->attackMulti = 1;
+				}
+				if (actualTurnEntity->stats->defMulti != 1) {
+					actualTurnEntity->stats->defMulti = 1;
+				}
 				attackButton->state = GuiControlState::NORMAL;
 				defenseButton->state = GuiControlState::NORMAL;
 				itemButton->state = GuiControlState::NORMAL;
@@ -516,6 +536,10 @@ bool Battle::Update(float dt)
 
 					}
 					else {
+						if (actualTurnEntity->stats->isStunned == true) {
+							actualTurnEntity->stats->isStunned = false;
+						}
+
 						SetTurnOrder();
 						battleTurn++;
 						ChangePhase(BattlePhase::THINKING);
@@ -593,6 +617,53 @@ bool Battle::Update(float dt)
 				}
 				break;
 
+			case BattlePhase::SPECIAL:
+				switch (skill) {
+					//Special Attacks
+				case 110:
+					if (cont < attackTime) {
+					
+					break;
+				case 111:
+					
+					break;
+				case 112:
+					
+					break;
+				case 120:
+					
+					break;
+				case 121:
+					
+					break;
+				case 122:
+					
+					break;
+
+				case 130:
+					
+					break;
+				case 131:
+					
+					break;
+				case 132:
+					
+					break;
+				case 140:
+					
+					break;
+				case 141:
+					
+					break;
+				case 142:
+					
+					break;
+
+						default:
+					break;
+					}
+				
+				}
 			case BattlePhase::WIN:
 				if (cont < winTime) {
 					cont += dt;
@@ -674,86 +745,94 @@ bool Battle::Update(float dt)
 					actualTurnEntity->stats->defense -= defenseBuff;
 					actualTurnEntity->stats->defenseBuffed = false;
 				}
-				optionPercent = 0;
-				srand(time(NULL));
-				optionPercent = (rand() % (100 - 0)) + 0;
-				//If the enemy is a BOSS, can't be afraid
-				if (actualTurnEntity->name == "Valion" || actualTurnEntity->name == "Rayla" || actualTurnEntity->name == "Dhion") {
-					if (optionPercent < 70) {//70
 
-						DynamicEntity* targets[4];
-
-						int n = 0;
-						for (int i = 0; i < 4; i++) {
-							if (entitiesInBattle[i] != nullptr) {
-								if (entitiesInBattle[i]->isAlive == true) {
-									targets[n] = entitiesInBattle[i];
-									n++;
-								}
-							}
-						}
-
-						int targetNum = (rand() % n);
-
-						/*while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 4);
-						}*/
-
-						targetEntity = targets[targetNum];
-
-						ChangePhase(BattlePhase::ATTACKING);
-					}
-					else {
-						ChangePhase(BattlePhase::DEFENDING);
-					}
+				if (actualTurnEntity->stats->isStunned == true) {
+					ChangePhase(BattlePhase::OUTCOME);
 				}
-				//If the enemy is NOT afraid
-				else if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
-					if (optionPercent < 70) {//70
-						
-						DynamicEntity *targets[4];
-
-						int n = 0;
-						for (int i = 0; i < 4; i++) {
-							if (entitiesInBattle[i] != nullptr) {
-								if (entitiesInBattle[i]->isAlive == true) {
-									targets[n] = entitiesInBattle[i];
-									n++;
-								}
-							}
-						}
-						
-						int targetNum = (rand() % n);
-						
-						/*while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 4);
-						}*/
-
-						targetEntity = targets[targetNum];
-
-						ChangePhase(BattlePhase::ATTACKING);
-					}
-					else {
-						ChangePhase(BattlePhase::DEFENDING);
-					}
-
-				}
-				//If the enemy IS afraid
 				else {
-					if (optionPercent < 60) {//60
-						
-						int targetNum = (rand() % 2);
-						while (entitiesInBattle[targetNum]->isAlive == false) {
-							targetNum = (rand() % 2);
+
+
+					optionPercent = 0;
+					srand(time(NULL));
+					optionPercent = (rand() % (100 - 0)) + 0;
+					//If the enemy is a BOSS, can't be afraid
+					if (actualTurnEntity->name == "Valion" || actualTurnEntity->name == "Rayla" || actualTurnEntity->name == "Dhion") {
+						if (optionPercent < 70) {//70
+
+							DynamicEntity* targets[4];
+
+							int n = 0;
+							for (int i = 0; i < 4; i++) {
+								if (entitiesInBattle[i] != nullptr) {
+									if (entitiesInBattle[i]->isAlive == true) {
+										targets[n] = entitiesInBattle[i];
+										n++;
+									}
+								}
+							}
+
+							int targetNum = (rand() % n);
+
+							/*while (entitiesInBattle[targetNum]->isAlive == false) {
+								targetNum = (rand() % 4);
+							}*/
+
+							targetEntity = targets[targetNum];
+
+							ChangePhase(BattlePhase::ATTACKING);
 						}
-						targetEntity = entitiesInBattle[targetNum];
-						ChangePhase(BattlePhase::ATTACKING);
+						else {
+							ChangePhase(BattlePhase::DEFENDING);
+						}
 					}
-					else if(optionPercent < 85) {//85
-						ChangePhase(BattlePhase::DEFENDING);
+					//If the enemy is NOT afraid
+					else if (actualTurnEntity->stats->health >= actualTurnEntity->stats->maxHealth / 2) {
+						if (optionPercent < 70) {//70
+
+							DynamicEntity* targets[4];
+
+							int n = 0;
+							for (int i = 0; i < 4; i++) {
+								if (entitiesInBattle[i] != nullptr) {
+									if (entitiesInBattle[i]->isAlive == true) {
+										targets[n] = entitiesInBattle[i];
+										n++;
+									}
+								}
+							}
+
+							int targetNum = (rand() % n);
+
+							/*while (entitiesInBattle[targetNum]->isAlive == false) {
+								targetNum = (rand() % 4);
+							}*/
+
+							targetEntity = targets[targetNum];
+
+							ChangePhase(BattlePhase::ATTACKING);
+						}
+						else {
+							ChangePhase(BattlePhase::DEFENDING);
+						}
+
 					}
+					//If the enemy IS afraid
 					else {
-						ChangePhase(BattlePhase::ESCAPING);
+						if (optionPercent < 60) {//60
+
+							int targetNum = (rand() % 2);
+							while (entitiesInBattle[targetNum]->isAlive == false) {
+								targetNum = (rand() % 2);
+							}
+							targetEntity = entitiesInBattle[targetNum];
+							ChangePhase(BattlePhase::ATTACKING);
+						}
+						else if (optionPercent < 85) {//85
+							ChangePhase(BattlePhase::DEFENDING);
+						}
+						else {
+							ChangePhase(BattlePhase::ESCAPING);
+						}
 					}
 				}
 				
@@ -1431,66 +1510,129 @@ bool Battle::PostUpdate()
 
 				backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_backTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
 				normalAttackButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+				if (normalAttackButton->state == GuiControlState::FOCUSED) {
+					//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X * 2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+					app->font->DrawText("A normal attack", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+				}
 				for (int i = 0; i < 8; i++) {
 					if (entitiesInBattle[i] == actualTurnEntity) {
 						switch (i) {
 						case 0:
 							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
 								playerSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Sacred Shield", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Protects the user from all damage until his next turn", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION*2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
 								playerSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton2->state == GuiControlState::FOCUSED) {
+								//	app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X * 2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Holy Greatsword", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 4", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
 								playerSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton3->state == GuiControlState::FOCUSED) {
+								//	app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X * 2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Aquatic Thrust", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							break;
 						case 1:
 							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
 								valionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Pedrada", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
 								valionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Cataclysm", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 4", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
 								valionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Wood Deer", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							
 							break;
 						case 2:
 							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
 								raylaSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Log arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
 								raylaSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Acid Arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 4", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
 								raylaSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Sacred arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							
 							break;
 						case 3:
 							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
 								dhionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Electrifying Spears Rain", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 2", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
 								dhionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Electric Hawk", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 4", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
 								dhionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-
+								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
+									app->font->DrawText("Triple Explosive Spear", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
+									app->font->DrawText("Magic Points: 6", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+								}
 							}
 						
 							break;
@@ -1590,17 +1732,23 @@ bool Battle::PostUpdate()
 				hasChangedPhase = false;
 			}
 			else {
-				if (damageTaken == 1) {
-					sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
-					sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name, damageTaken);
+				if (actualTurnEntity->stats->isStunned == true) {
+					sprintf_s(damageChar, 100, "%s is stunned and can't move!", targetEntity->name);
 					app->font->DrawTextDelayed(damageChar, 10, 25);
 				}
 				else {
-					sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
-					sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name, damageTaken);
-					app->font->DrawTextDelayed(damageChar, 10, 25);
+					if (damageTaken == 1) {
+						sprintf_s(nameChar, 100, "%s takes  1 ", targetEntity->name, damageTaken);
+						app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
+						sprintf_s(damageChar, 100, "%s takes    point of damage!", targetEntity->name);
+						app->font->DrawTextDelayed(damageChar, 10, 25);
+					}
+					else {
+						sprintf_s(nameChar, 100, "%s takes %i", targetEntity->name, damageTaken);
+						app->font->DrawTextDelayed(nameChar, 10, 25, { 255,100,0 });
+						sprintf_s(damageChar, 100, "%s takes     points of damage!", targetEntity->name);
+						app->font->DrawTextDelayed(damageChar, 10, 25);
+					}
 				}
 				
 			}
@@ -1878,15 +2026,15 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 					//Special Attacks
 				case 110:
-					skill = 1;
+					skill = control->id;
 					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
+					ChangePhase(BattlePhase::DEFENDING);
 					app->stages->fxbool = true;
 					canSelect = false;
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 111:
-					skill = 2;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1894,7 +2042,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 112:
-					skill = 3;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1903,7 +2051,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					break;
 
 				case 120:
-					skill = 1;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1911,7 +2059,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 121:
-					skill = 2;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1919,16 +2067,16 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 122:
-					skill = 3;
+					skill = control->id;
 					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
+					ChangePhase(BattlePhase::DEFENDING);
 					app->stages->fxbool = true;
 					canSelect = false;
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 
 				case 130:
-					skill = 1;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1936,7 +2084,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 131:
-					skill = 2;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1944,7 +2092,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 132:
-					skill = 3;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1953,7 +2101,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					break;
 
 				case 140:
-					skill = 1;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1961,7 +2109,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 141:
-					skill = 2;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -1969,7 +2117,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 					app->audio->PlayFx(app->conf->btnSelection);
 					break;
 				case 142:
-					skill = 3;
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -2189,7 +2337,7 @@ void Battle::SetTurnOrder()
 void Battle::Attack(DynamicEntity *target) {
 
 	damageTaken = 0;
-	switch (skill) {
+	/*switch (skill) {
 	case 0:
 		actualTurnEntity->stats->attack += 0;
 		break;
@@ -2208,11 +2356,61 @@ void Battle::Attack(DynamicEntity *target) {
 	default:
 		actualTurnEntity->stats->attack += 0;
 		break;
+	}*/
+	switch (skill) {
+		//Special Attacks
+	case 110:
+		actualTurnEntity->stats->attackMulti = 1;
+		break;
+	case 111:
+		actualTurnEntity->stats->attackMulti = 2;
+		break;
+	case 112:
+		actualTurnEntity->stats->attackMulti = 3;
+		break;
+
+	case 120:
+		actualTurnEntity->stats->attackMulti = 2;
+		break;
+	case 121:
+		actualTurnEntity->stats->attackMulti = 3;
+		break;
+	case 122:
+		actualTurnEntity->stats->attackMulti = 1;
+		break;
+
+	case 130:
+		actualTurnEntity->stats->attackMulti = 2;
+		break;
+	case 131:
+		actualTurnEntity->stats->attackMulti = 1;
+		target->stats->isStunned = true;
+		break;
+	case 132:
+		actualTurnEntity->stats->attackMulti = 3;
+		break;
+
+	case 140:
+		actualTurnEntity->stats->attackMulti = 3;
+		break;
+	case 141:
+		actualTurnEntity->stats->attackMulti = 1;
+		target->stats->isStunned = true;
+		break;
+	case 142:
+		actualTurnEntity->stats->attackMulti = 2;
+		break;
+
+	default:
+		actualTurnEntity->stats->attackMulti = 1;
+		break;
 	}
 
-	if (target->stats->defense  < actualTurnEntity->stats->attack) {
-		damageTaken = actualTurnEntity->stats->attack - target->stats->defense;
-		target->stats->health = target->stats->health + target->stats->defense - actualTurnEntity->stats->attack;
+
+
+	if (target->stats->defense * actualTurnEntity->stats->defMulti < actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti) {
+		damageTaken = actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti - target->stats->defense * actualTurnEntity->stats->defMulti;
+		target->stats->health = target->stats->health + target->stats->defense * actualTurnEntity->stats->defMulti - actualTurnEntity->stats->attack * actualTurnEntity->stats->attackMulti;
 		hasToShake = true;
 		app->audio->PlayFx(explosionfx);
 		shakePos = 0;
@@ -2222,6 +2420,9 @@ void Battle::Attack(DynamicEntity *target) {
 		target->stats->health = 0;
 		target->stats->defense -= defenseBuff;
 		target->stats->defenseBuffed = false;
+		target->stats->attackMulti = 1;
+		target->stats->defMulti = 1;
+		target->stats->isStunned = false;
 		target->isAlive = false;
 
 		DynamicEntity* newTimeLine[5] = { nullptr,nullptr, nullptr, nullptr, nullptr };
@@ -2363,7 +2564,54 @@ void Battle::Attack(DynamicEntity *target) {
 }
 
 void Battle::Defense() {
-	actualTurnEntity->stats->defense += defenseBuff;
+	switch (skill) {
+		//Special Attacks
+	case 110:
+		actualTurnEntity->stats->defMulti = 2;
+		break;
+	case 111:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 112:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+
+	case 120:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 121:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 122:
+		actualTurnEntity->stats->defMulti = 2;
+		break;
+
+	case 130:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 131:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 132:
+		actualTurnEntity->stats->defMulti = 2;
+		break;
+
+	case 140:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 141:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	case 142:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+
+	default:
+		actualTurnEntity->stats->defMulti = 1;
+		break;
+	}
+
+	actualTurnEntity->stats->defense += defenseBuff * actualTurnEntity->stats->defMulti;
 	actualTurnEntity->stats->defenseBuffed = true;
 }
 
@@ -2587,7 +2835,27 @@ bool Battle::CleanUp()
 	shield = nullptr;
 	delete shield;
 
-	
+	for (int i = 0; i < 8; i++) {
+		if (entitiesInBattle[i] != nullptr) {
+
+			if (entitiesInBattle[i]->stats->defenseBuffed == true) {
+				entitiesInBattle[i]->stats->defense -= defenseBuff;
+				entitiesInBattle[i]->stats->defenseBuffed = false;
+			}
+
+			if (entitiesInBattle[i]->stats->attackMulti != 1) {
+				entitiesInBattle[i]->stats->attackMulti = 1;
+			}
+
+			if (entitiesInBattle[i]->stats->defMulti != 1) {
+				entitiesInBattle[i]->stats->defMulti = 1;
+			}
+
+			if (entitiesInBattle[i]->stats->isStunned == true) {
+				entitiesInBattle[i]->stats->defMulti = false;
+			}
+		}
+	}
 
 	switch(battlePhase) {
 	case BattlePhase::REWARD:
