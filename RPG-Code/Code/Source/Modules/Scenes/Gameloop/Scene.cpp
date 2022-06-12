@@ -422,8 +422,7 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	int xm = -app->camera->GetPos().x / 2,
-		ym = -app->camera->GetPos().y / 2;
+	
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -566,6 +565,7 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		app->stmen->Enable();
 	}
+
 	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 		
 		app->render->DrawTexture(mini_map, xm+50, ym+50);
@@ -595,6 +595,8 @@ bool Scene::PostUpdate()
 	bool ret = true;
 	int w = 45, h = 5, wpm=25;
 
+	int xm = -app->camera->GetPos().x / 2,
+		ym = -app->camera->GetPos().y / 2;
 
 	std::string fps = std::to_string(fpsdt);
 	char const* fpsChar = fps.c_str();
@@ -625,7 +627,10 @@ bool Scene::PostUpdate()
 		restart->state != GuiControlState::PRESSED ? app->render->DrawTexture(restartTex, 280, 280) : app->render->DrawTexture(press_restartTex, 280, 280);
 
 	}
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+		app->render->DrawTexture(mini_map, xm + 150, ym + 50);
+	}
 	x = -app->camera->GetPos().x / 2,
 	y = -app->camera->GetPos().y / 2;
 
