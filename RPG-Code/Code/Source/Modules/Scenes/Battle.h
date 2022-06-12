@@ -331,6 +331,7 @@ public:
 	int selectedTime;
 
 	float localdt;
+
 };
 
 #endif // __BATTLE_H__

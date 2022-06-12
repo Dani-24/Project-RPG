@@ -228,6 +228,7 @@ public:
 
 	int zoom;
 	bool isSelected;
+	bool takesDamage;
 };
 
 #endif // !__DYNAMIC_ENTITY_H__

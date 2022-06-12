@@ -626,6 +626,11 @@ bool Stages::PostUpdate()
 									}
 
 									break;
+								case BattlePhase::OUTCOME:
+									if (NormalEnemyInList->data->takesDamage == true) {
+										NormalEnemyInList->data->currentAnimation = &NormalEnemyInList->data->hitAnim;
+									}
+									break;
 								default:
 									break;
 
@@ -762,6 +767,11 @@ bool Stages::PostUpdate()
 									}
 
 									break;
+								case BattlePhase::OUTCOME:
+									if (BossInList->data->takesDamage == true) {
+										BossInList->data->currentAnimation = &BossInList->data->hitAnim;
+									}
+									break;
 								default:
 									break;
 
@@ -881,6 +891,11 @@ bool Stages::PostUpdate()
 											app->audio->PlayFx(chdiefx);
 										}
 										break;
+									case BattlePhase::OUTCOME:
+										if (playerPtr->takesDamage == true) {
+											playerPtr->currentAnimation = &playerPtr->hitAnim;
+										}
+										break;
 									default:
 										break;
 
@@ -931,6 +946,11 @@ bool Stages::PostUpdate()
 										if (fxbool == true) {
 											fxbool = false;
 											app->audio->PlayFx(chdiefx);
+										}
+										break;
+									case BattlePhase::OUTCOME:
+										if (playerPtr->takesDamage == true) {
+											playerPtr->currentAnimation = &playerPtr->hitAnim;
 										}
 										break;
 									default:
@@ -1031,6 +1051,11 @@ bool Stages::PostUpdate()
 									if (fxbool == true) {
 										fxbool = false;
 										app->audio->PlayFx(chdiefx);
+									}
+									break;
+								case BattlePhase::OUTCOME:
+									if (CharacterInList->data->takesDamage == true) {
+										CharacterInList->data->currentAnimation = &CharacterInList->data->hitAnim;
 									}
 									break;
 								default:

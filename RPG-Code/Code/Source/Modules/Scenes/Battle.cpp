@@ -544,6 +544,9 @@ bool Battle::Update(float dt)
 						if (actualTurnEntity->stats->isStunned == true) {
 							actualTurnEntity->stats->isStunned = false;
 						}
+						if (actualTurnEntity->takesDamage == true) {
+							actualTurnEntity->takesDamage = false;
+						}
 
 						SetTurnOrder();
 						battleTurn++;
@@ -854,6 +857,14 @@ bool Battle::Update(float dt)
 
 					}
 					else {
+						if (actualTurnEntity->stats->isStunned == true) {
+							actualTurnEntity->stats->isStunned = false;
+						}
+
+						if (actualTurnEntity->takesDamage == true) {
+							actualTurnEntity->takesDamage = false;
+						}
+
 						SetTurnOrder();
 						battleTurn++;
 						ChangePhase(BattlePhase::THINKING);
@@ -2592,6 +2603,7 @@ void Battle::Attack(DynamicEntity *target) {
 		hasToShake = true;
 		app->audio->PlayFx(explosionfx);
 		shakePos = 0;
+		target->takesDamage = true;
 	}
 	
 	if (target->stats->health <= 0) {
@@ -3229,6 +3241,7 @@ bool Battle::CleanUp()
 		
 		if (app->stages->actualStage == StageIndex::PROLOGUE) {
 			app->stages->playerPtr->stats->health = app->stages->playerPtr->stats->maxHealth;
+			app->stages->playerPtr->isAlive = true;
 			app->stages->ChangeStage(StageIndex::TOWN);
 		}
 		else {
