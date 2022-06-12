@@ -251,26 +251,42 @@ bool Stages::PostUpdate()
 {
 	bool ret = true;
 	GamePad& pad = app->input->pads[0];
-
+	int xm = -app->camera->GetPos().x / 2,
+		ym = -app->camera->GetPos().y / 2;
 	switch (actualStage)
 	{
 	case StageIndex::NONE:
 
 		break;
 	case StageIndex::TOWN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::DOJO:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::SHOP:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::SHOPSUB:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::TAVERN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
 		break;
 	case StageIndex::INTRODUCTION:
 
