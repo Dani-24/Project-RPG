@@ -227,7 +227,7 @@ public:
 	Animation* mapAnimation;
 
 	int zoom;
-
+	bool isSelected;
 };
 
 #endif // !__DYNAMIC_ENTITY_H__

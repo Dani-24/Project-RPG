@@ -325,8 +325,12 @@ public:
 	Usable* itemCount[4];
 
 	int skill;
+	int selectCount;
+	int selectTime;
 
+	int selectedTime;
 
+	float localdt;
 };
 
 #endif // __BATTLE_H__

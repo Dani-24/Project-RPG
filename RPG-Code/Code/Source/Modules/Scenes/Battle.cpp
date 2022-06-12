@@ -65,6 +65,9 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 
 	defenseBuff = 5;
 
+	selectTime = 300;
+	selectedTime = 80;
+
 	//Dojoanim
 	int w = 640, h = 489;
 	for (int i = 0; i < 6; i++) {
@@ -114,6 +117,8 @@ bool Battle::Start()
 	expCount = 0;
 	goldCount = 0;
 	skill = 0;
+	selectCount = 0;
+	localdt = 0;
 
 	LOG("Loading Battle");
 	
@@ -374,7 +379,7 @@ bool Battle::PreUpdate()
 
 bool Battle::Update(float dt)
 {	
-
+	localdt = dt;
 	if (battlePause == false) {
 
 		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
@@ -443,48 +448,48 @@ bool Battle::Update(float dt)
 
 						switch (i) {
 						case 0:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								playerSpecialButton1->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								playerSpecialButton2->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								playerSpecialButton3->state = GuiControlState::NORMAL;
 							}
 							break;
 						case 1:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								valionSpecialButton1->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								valionSpecialButton2->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								valionSpecialButton3->state = GuiControlState::NORMAL;
 							}
 
 							break;
 						case 2:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3 ) {
 								raylaSpecialButton1->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								raylaSpecialButton2->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								raylaSpecialButton3->state = GuiControlState::NORMAL;
 							}
 
 							break;
 						case 3:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								dhionSpecialButton1->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6 ) {
 								dhionSpecialButton2->state = GuiControlState::NORMAL;
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								dhionSpecialButton3->state = GuiControlState::NORMAL;
 							}
 							break;
@@ -968,6 +973,31 @@ bool Battle::Update(float dt)
 		if (app->stages->actualStage!=StageIndex::NONE) {
 			app->stages->playerPtr->currentAnimation->Update(dt);
 		}
+
+		/*if (entitiesInBattle[4] != nullptr) {
+			if (entitiesInBattle[4]->isAlive == true) {
+				if (enemyButton1->state == GuiControlState::FOCUSED) {
+					if (entitiesInBattle[4]->isSelected == true) {
+						if (selectCount < selectedTime) {
+							selectCount += dt;
+						}
+						else {
+							selectCount = 0;
+							entitiesInBattle[4]->isSelected = false;
+						}
+					}
+					else {
+						if (selectCount < selectTime) {
+							selectCount += dt;
+						}
+						else {
+							selectCount = 0;
+							entitiesInBattle[4]->isSelected = true;
+						}
+					}
+				}
+			}
+		}*/
 		
 	}
 
@@ -1518,120 +1548,120 @@ bool Battle::PostUpdate()
 					if (entitiesInBattle[i] == actualTurnEntity) {
 						switch (i) {
 						case 0:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								playerSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
 								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Sacred Shield", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Protects the user from all damage until his next turn", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION*2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Protects the user with twice the efficiency of a normal defense.", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION*2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6 ) {
 								playerSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
 								if (playerSpecialButton2->state == GuiControlState::FOCUSED) {
 								//	app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X * 2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Holy Greatsword", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 4", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does twice the damage of a normal attack", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								playerSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
 								if (playerSpecialButton3->state == GuiControlState::FOCUSED) {
 								//	app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X * 2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Aquatic Thrust", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does 3 times the damage of a normal attack", TEXT_INFO_X * app->win->GetScale(),( app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
 							break;
 						case 1:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								valionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (valionSpecialButton1->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Pedrada", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does twice the damage of a normal attack", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								valionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (valionSpecialButton2->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Cataclysm", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 4", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does 3 times the damage of a normal attack", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								valionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (valionSpecialButton3->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Wood Deer", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Protects the user with twice the efficiency of a normal defense.", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
 							
 							break;
 						case 2:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								raylaSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (raylaSpecialButton1->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Log arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 2", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does twice the damage of a normal attack", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								raylaSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (raylaSpecialButton2->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Acid Arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 4", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Attacks and stuns the enemy for 1 turn", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								raylaSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (raylaSpecialButton3->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Sacred arrow", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 6", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does 3 times the damage of a normal arrow", TEXT_INFO_X * app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
 							
 							break;
 						case 3:
-							if (entitiesInBattle[i]->stats->level >= 3 && entitiesInBattle[i]->stats->mana >= 2) {
+							if (entitiesInBattle[i]->stats->level >= 3) {
 								dhionSpecialButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (dhionSpecialButton1->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Electrifying Spears Rain", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 2", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does twice the damage of a normal attack", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 6 && entitiesInBattle[i]->stats->mana >= 4) {
+							if (entitiesInBattle[i]->stats->level >= 6) {
 								dhionSpecialButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (dhionSpecialButton2->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Electric Hawk", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 4", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Attacks and stuns the enemy for 1 turn", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
-							if (entitiesInBattle[i]->stats->level >= 10 && entitiesInBattle[i]->stats->mana >= 6) {
+							if (entitiesInBattle[i]->stats->level >= 10) {
 								dhionSpecialButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-								if (playerSpecialButton1->state == GuiControlState::FOCUSED) {
+								if (dhionSpecialButton3->state == GuiControlState::FOCUSED) {
 									//app->render->DrawRectangle({ app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE - INFO_SPACE_X , app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE - INFO_SPACE_Y , app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 - 20 + INFO_SPACE_X*2, INFO_SPACE_Y - 10 }, 0, 0, 0, 200);
 									app->font->DrawText("Triple Explosive Spear", TEXT_INFO_X, app->win->GetHeight() / 2 - TEXT_INFO_Y);
 									app->font->DrawText("Magic Points: 6", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
-									app->font->DrawText("Does something", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
+									app->font->DrawText("Does 3 times the damage of a normal attack", TEXT_INFO_X* app->win->GetScale(), (app->win->GetHeight() / 2 - TEXT_INFO_Y + SEPARATION * 2 + BIG_SEPARATION)* app->win->GetScale(), { 255,255,255 }, false, 1);
 								}
 							}
 						
@@ -1659,67 +1689,133 @@ bool Battle::PostUpdate()
 
 						//app->guiManager->ChangeButtonText(150, entitiesInBattle[4]->name);
 						enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-					/*	if (entitiesInBattle[4]->name == "Bat")
-						{
-							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_batButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
+						if (entitiesInBattle[4] != nullptr) {
+							if (entitiesInBattle[4]->isAlive == true) {
+								if (enemyButton1->state == GuiControlState::FOCUSED) {
+									if (entitiesInBattle[4]->isSelected == true) {
+										if (selectCount < selectedTime) {
+											selectCount += localdt;
+										}
+										else {
+											selectCount = 0;
+											entitiesInBattle[4]->isSelected = false;
+										}
+									}
+									else {
+										if (selectCount < selectTime) {
+											selectCount += localdt;
+										}
+										else {
+											selectCount = 0;
+											entitiesInBattle[4]->isSelected = true;
+										}
+									}
+								}
+								else {
+									entitiesInBattle[4]->isSelected = false;
+								}
+							}
 						}
-						else if (entitiesInBattle[4]->name == "Flying eye")
-						{
-							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}
-						else if (entitiesInBattle[4]->name == "Skeleton")
-						{
-							enemyButton1->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}*/
 						
 					}
 				}
 				if (entitiesInBattle[5] != nullptr) {
 					if (entitiesInBattle[5]->isAlive == true) {
-						/*if (entitiesInBattle[5]->name == "Bat")
-						{*/
+						
 							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						/*}
-						else if (entitiesInBattle[5]->name == "Flying eye")
-						{
-							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}
-						else if (entitiesInBattle[5]->name == "Skeleton")
-						{
-							enemyButton2->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}*/
+							if (entitiesInBattle[5] != nullptr) {
+								if (entitiesInBattle[5]->isAlive == true) {
+									if (enemyButton2->state == GuiControlState::FOCUSED) {
+										if (entitiesInBattle[5]->isSelected == true) {
+											if (selectCount < selectedTime) {
+												selectCount += localdt;
+											}
+											else {
+												selectCount = 0;
+												entitiesInBattle[5]->isSelected = false;
+											}
+										}
+										else {
+											if (selectCount < selectTime) {
+												selectCount += localdt;
+											}
+											else {
+												selectCount = 0;
+												entitiesInBattle[5]->isSelected = true;
+											}
+										}
+									}
+									else {
+										entitiesInBattle[5]->isSelected = false;
+									}
+								}
+							}
 					}
 				}
 				if (entitiesInBattle[6] != nullptr) {
 					if (entitiesInBattle[6]->isAlive == true) {
-						/*if (entitiesInBattle[6]->name == "Bat")
-						{*/
+						
 								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						/*}
-						else if (entitiesInBattle[6]->name == "Flying eye")
-						{
-								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}
-						else if (entitiesInBattle[6]->name == "Skeleton")
-						{
-								enemyButton3->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}*/
+								if (entitiesInBattle[6] != nullptr) {
+									if (entitiesInBattle[6]->isAlive == true) {
+										if (enemyButton3->state == GuiControlState::FOCUSED) {
+											if (entitiesInBattle[6]->isSelected == true) {
+												if (selectCount < selectedTime) {
+													selectCount += localdt;
+												}
+												else {
+													selectCount = 0;
+													entitiesInBattle[6]->isSelected = false;
+												}
+											}
+											else {
+												if (selectCount < selectTime) {
+													selectCount += localdt;
+												}
+												else {
+													selectCount = 0;
+													entitiesInBattle[6]->isSelected = true;
+												}
+											}
+										}
+										else {
+											entitiesInBattle[6]->isSelected = false;
+										}
+									}
+								}
 					}
 				}
 				if (entitiesInBattle[7] != nullptr) {
 					if (entitiesInBattle[7]->isAlive == true) {
-					/*	if (entitiesInBattle[7]->name == "Bat")
-						{*/
+					
 								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_attackTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						/*}
-						else if (entitiesInBattle[7]->name == "Flying eye")
-						{
-								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_flyingEyeButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}
-						else if (entitiesInBattle[7]->name == "Skeleton")
-						{
-								enemyButton4->state != GuiControlState::PRESSED ? app->render->DrawTexture(skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE) : app->render->DrawTexture(press_skeletonButtonTex, app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE);
-						}*/
+								if (entitiesInBattle[7] != nullptr) {
+									if (entitiesInBattle[7]->isAlive == true) {
+										if (enemyButton4->state == GuiControlState::FOCUSED) {
+											if (entitiesInBattle[7]->isSelected == true) {
+												if (selectCount < selectedTime) {
+													selectCount += localdt;
+												}
+												else {
+													selectCount = 0;
+													entitiesInBattle[7]->isSelected = false;
+												}
+											}
+											else {
+												if (selectCount < selectTime) {
+													selectCount += localdt;
+												}
+												else {
+													selectCount = 0;
+													entitiesInBattle[7]->isSelected = true;
+												}
+											}
+										}
+										else {
+											entitiesInBattle[7]->isSelected = false;
+										}
+									}
+								}
 					}
 				}
 					
@@ -1982,6 +2078,49 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 						app->stages->fxbool = true;
 						canSelect = false;
 						app->audio->PlayFx(app->conf->btnSelection);
+						switch (skill) {
+						case 105:
+							break;
+							//Special Attacks
+						case 110:
+							actualTurnEntity->stats->mana += 2;
+							break;
+						case 111:
+							actualTurnEntity->stats->mana += 4;
+							break;
+						case 112:
+							actualTurnEntity->stats->mana += 6;
+							break;
+						case 120:
+							actualTurnEntity->stats->mana += 2;
+							break;
+						case 121:
+							actualTurnEntity->stats->mana += 4;
+							break;
+						case 122:
+							actualTurnEntity->stats->mana += 6;
+							break;
+						case 130:
+							actualTurnEntity->stats->mana += 2;
+							break;
+						case 131:
+							actualTurnEntity->stats->mana += 4;
+							break;
+						case 132:
+							actualTurnEntity->stats->mana += 6;
+							break;
+						case 140:
+							actualTurnEntity->stats->mana += 2;
+							break;
+						case 141:
+							actualTurnEntity->stats->mana += 4;
+							break;
+						case 142:
+							actualTurnEntity->stats->mana += 6;
+							break;
+						default:
+							break;
+						}
 						break;
 					}
 					break;
@@ -2017,6 +2156,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 					//Normal Attack
 				case 105:
+					skill = control->id;
 					targetEntity = nullptr;
 					ChangePhase(BattlePhase::SELECTING);
 					app->stages->fxbool = true;
@@ -2026,103 +2166,141 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
 					//Special Attacks
 				case 110:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::DEFENDING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 2) {
+						actualTurnEntity->stats->mana -= 2;
+
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::DEFENDING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
+					
 					break;
 				case 111:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 4) {
+						actualTurnEntity->stats->mana -= 4;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 112:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 6) {
+						actualTurnEntity->stats->mana -= 6;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 
 				case 120:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 2) {
+						actualTurnEntity->stats->mana -= 2;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 121:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 4) {
+						actualTurnEntity->stats->mana -= 4;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 122:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::DEFENDING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 6) {
+						actualTurnEntity->stats->mana -= 6;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::DEFENDING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 
 				case 130:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 2) {
+						actualTurnEntity->stats->mana -= 2;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 131:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 4) {
+						actualTurnEntity->stats->mana -= 4;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 132:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 6) {
+						actualTurnEntity->stats->mana -= 6;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 
 				case 140:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 2) {
+						actualTurnEntity->stats->mana -= 2;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 141:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 4) {
+						actualTurnEntity->stats->mana -= 4;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 				case 142:
-					skill = control->id;
-					targetEntity = nullptr;
-					ChangePhase(BattlePhase::SELECTING);
-					app->stages->fxbool = true;
-					canSelect = false;
-					app->audio->PlayFx(app->conf->btnSelection);
+					if (actualTurnEntity->stats->mana >= 6) {
+						actualTurnEntity->stats->mana -= 6;
+						skill = control->id;
+						targetEntity = nullptr;
+						ChangePhase(BattlePhase::SELECTING);
+						app->stages->fxbool = true;
+						canSelect = false;
+						app->audio->PlayFx(app->conf->btnSelection);
+					}
 					break;
 
 					//Selecting
@@ -2391,14 +2569,14 @@ void Battle::Attack(DynamicEntity *target) {
 		break;
 
 	case 140:
-		actualTurnEntity->stats->attackMulti = 3;
+		actualTurnEntity->stats->attackMulti = 2;
 		break;
 	case 141:
 		actualTurnEntity->stats->attackMulti = 1;
 		target->stats->isStunned = true;
 		break;
 	case 142:
-		actualTurnEntity->stats->attackMulti = 2;
+		actualTurnEntity->stats->attackMulti = 3;
 		break;
 
 	default:
