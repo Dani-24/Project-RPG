@@ -45,7 +45,7 @@ VisualEffects::VisualEffects(App* application, bool start_enabled) : Module(appl
 
 	currentAnim = &trans1Anim;
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 11; i++) {
 		for (int j = 0; j < 6; j++) {
 			currentAnim->PushBack({ j * ScreenX, i * ScreenY, ScreenX, ScreenY });
 		}
@@ -56,7 +56,7 @@ VisualEffects::VisualEffects(App* application, bool start_enabled) : Module(appl
 
 	currentAnim = &trans2Anim;
 
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 5; j++) {
 			currentAnim->PushBack({ j * ScreenX, i * ScreenY, ScreenX, ScreenY });
 		}
