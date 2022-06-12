@@ -69,11 +69,13 @@ bool Scene::Start()
 	// Enables & idk
 	app->map->Enable();
 	app->dialogs->Enable();
-
+	
 	// Load textures
 	backFx = app->audio->LoadFx(CharFxBack.GetString());
 	loadFx = app->audio->LoadFx(CharFxLoad.GetString());
 	saveFx = app->audio->LoadFx(CharFxSave.GetString());
+	
+	mini_map = app->tex->Load("Assets/textures/mini_map.png");
 
 	//buttons
 	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
@@ -420,7 +422,8 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-
+	int xm = -app->camera->GetPos().x / 2,
+		ym = -app->camera->GetPos().y / 2;
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -555,7 +558,10 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
 		app->stmen->Enable();
 	}
-
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+		
+		app->render->DrawTexture(mini_map, xm+50, ym+50);
+	}
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
 		backtoMenu->state = GuiControlState::NORMAL;

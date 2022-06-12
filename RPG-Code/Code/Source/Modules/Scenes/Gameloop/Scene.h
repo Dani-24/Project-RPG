@@ -93,6 +93,7 @@ public:
 	char currentPlace_UI[100] = { "\0" };
 
 	SDL_Texture* characterBG;
+	SDL_Texture* mini_map;
 
 	bool playloading = false;
 
