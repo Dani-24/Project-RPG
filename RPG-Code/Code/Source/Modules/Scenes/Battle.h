@@ -332,6 +332,38 @@ public:
 
 	float localdt;
 
+	//SKILLS
+		
+	SDL_Texture* FlechaS_EspadaS_EscudoS = nullptr;
+	SDL_Texture* FlechaAcido = nullptr;
+	SDL_Texture* Cataclismo = nullptr;
+	SDL_Texture* FlechaT_Ciervo = nullptr;
+	SDL_Texture* TripleL_Juicio = nullptr;
+	SDL_Texture* Pedrada = nullptr;
+	SDL_Texture* HalconElectro = nullptr;
+	SDL_Texture* AquaE = nullptr;
+
+
+	Animation 
+		
+		EscudoS_a, 
+		EspadaS_a,
+		AquaE_a,
+
+		Pedrada_a,
+		Cataclismo_a,
+		Ciervo_a,
+
+		FlechaT_a,
+		FlechaAcido_a,
+		FlechaS_a,
+
+		Juicio_a,
+		HalconElectro_a,
+		TripleL_a;
+
+	bool castSkill;
+
 };
 
 #endif // __BATTLE_H__

@@ -27,6 +27,89 @@
 
 Battle::Battle(App* application, bool start_enabled) : Module(application, start_enabled)
 {
+
+	//SKILLS
+	//______________________________
+	EscudoS_a.PushBack({ 563,771,60,85});
+	EscudoS_a.PushBack({ 733,771,60,85 });
+	EscudoS_a.PushBack({ 903,771,60,85 });
+
+	EscudoS_a.PushBack({ 1073,771,60,85 });
+	EscudoS_a.PushBack({ 1243,771,60,85 });
+	EscudoS_a.PushBack({ 1413,771,60,85 });
+
+	EscudoS_a.PushBack({ 1583,771,60,85 });
+	EscudoS_a.PushBack({ 54,913,60,85 });
+	EscudoS_a.PushBack({ 223,913,60,85 });
+
+	EscudoS_a.loop = false;
+	EscudoS_a.speed = 0.006f;
+	//_____________________________
+	EspadaS_a.PushBack({ 563,422,60,142 });
+	EspadaS_a.PushBack({ 733,422,60,142 });
+	EspadaS_a.PushBack({ 903,422,60,142 });
+	EspadaS_a.PushBack({ 1073,422,60,142 });
+	EspadaS_a.PushBack({ 1243,422,60,142 });
+	EspadaS_a.PushBack({ 1413,422,60,142 });
+
+	EspadaS_a.PushBack({ 1583,422,60,142 });
+	EspadaS_a.PushBack({ 54,565,60,142 });
+	EspadaS_a.PushBack({ 223,565,60,142 });
+	EspadaS_a.PushBack({ 393,565,60,142 });
+	EspadaS_a.PushBack({ 563,565,60,142 });
+	EspadaS_a.PushBack({ 733,565,60,142 });
+
+	EspadaS_a.PushBack({ 903,565,60,142 });
+	EspadaS_a.PushBack({ 1073,565,60,142 });
+	EspadaS_a.PushBack({ 1243,565,60,142 });
+	EspadaS_a.PushBack({ 1413,565,60,142 }); 
+	EspadaS_a.PushBack({ 1583,708,60,142 });
+	EspadaS_a.PushBack({ 54,708,60,142 });
+	EspadaS_a.PushBack({ 223,708,60,142 });
+
+	EspadaS_a.loop = false;
+	EspadaS_a.speed = 0.006f;
+	//_____________________________
+	AquaE_a.PushBack({ 64 * 0,80 * 0,64,80 });
+	AquaE_a.PushBack({ 64 * 1,80 * 0,64,80 });
+	AquaE_a.PushBack({ 64 * 2,80 * 0,64,80 });
+	AquaE_a.PushBack({ 64 * 3,80 * 0,64,80 });
+	AquaE_a.PushBack({ 64 * 4,80 * 0,64,80 });
+
+	AquaE_a.PushBack({ 64 * 0,80 * 1,64,80 });
+	AquaE_a.PushBack({ 64 * 1,80 * 1,64,80 });
+	AquaE_a.PushBack({ 64 * 2,80 * 1,64,80 });
+	AquaE_a.PushBack({ 64 * 3,80 * 1,64,80 });
+	AquaE_a.PushBack({ 64 * 4,80 * 1,64,80 });
+
+	AquaE_a.PushBack({ 64 * 0,80 * 2,64,80 });
+	AquaE_a.PushBack({ 64 * 1,80 * 2,64,80 });
+	AquaE_a.PushBack({ 64 * 2,80 * 2,64,80 });
+	AquaE_a.PushBack({ 64 * 3,80 * 2,64,80 });
+	AquaE_a.PushBack({ 64 * 4,80 * 2,64,80 });
+
+	AquaE_a.loop = false;
+	AquaE_a.speed = 0.006f;
+	//_____________
+	//_____________
+	Pedrada_a.PushBack({ 48 * 0,48 * 0,48,48 });
+	Pedrada_a.PushBack({ 48 * 1,48 * 0,48,48 });
+	Pedrada_a.PushBack({ 48 * 2,48 * 0,48,48 });
+	Pedrada_a.PushBack({ 48 * 3,48 * 0,48,48 });
+	Pedrada_a.PushBack({ 48 * 4,48 * 0,48,48 });
+	Pedrada_a.PushBack({ 48 * 5,48 * 0,48,48 });
+
+	Pedrada_a.PushBack({ 48 * 0,48 * 1,48,48 });
+	Pedrada_a.PushBack({ 48 * 1,48 * 1,48,48 });
+	Pedrada_a.PushBack({ 48 * 2,48 * 1,48,48 });
+	Pedrada_a.PushBack({ 48 * 3,48 * 1,48,48 });
+	Pedrada_a.PushBack({ 48 * 4,48 * 1,48,48 });
+	Pedrada_a.PushBack({ 48 * 5,48 * 1,48,48 });
+
+	Pedrada_a.loop = false;
+	Pedrada_a.speed = 0.006f;
+	//_____________________________
+	
 	name.Create("battle");
 
 	battlePause = false;
@@ -119,6 +202,7 @@ bool Battle::Start()
 	skill = 0;
 	selectCount = 0;
 	localdt = 0;
+	castSkill = false;
 
 	LOG("Loading Battle");
 	
@@ -231,6 +315,17 @@ bool Battle::Start()
 
 	//Load Sfx
 	explosionfx = app->audio->LoadFx("Assets/audio/sfx/fx_attack_explosion.wav");
+
+	//Load Skills
+	FlechaS_EspadaS_EscudoS = app->tex->Load("Assets/sprites/ataques/flecha_sagrada_espada_sagrada_escudo_sagrado.png");
+	FlechaAcido = app->tex->Load("Assets/sprites/ataques/flecha_acido.png");
+	Cataclismo = app->tex->Load("Assets/sprites/ataques/cataclismo.png");
+	FlechaT_Ciervo = app->tex->Load("Assets/sprites/ataques/flecha_tronco_ciervo_de_madera.png");
+	TripleL_Juicio = app->tex->Load("Assets/sprites/ataques/triple_lanza_explosiva_el_juicio_del_cielo.png");
+	Pedrada = app->tex->Load("Assets/sprites/ataques/pedrada.png");
+	HalconElectro = app->tex->Load("Assets/sprites/ataques/halcon_electro.png");
+	AquaE = app->tex->Load("Assets/sprites/ataques/estocada_acuatica.png");
+
 
 	app->map->RemoveCol();
 	app->stages->onBattle = true;
@@ -381,7 +476,67 @@ bool Battle::Update(float dt)
 
 		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
 			dojoAnim.Update(dt);
+			//EscudoS_a.Update(dt);
+			//EspadaS_a.Update(dt);
+			//AquaE_a.Update(dt);
+
+			//Pedrada_a.Update(dt);
+			//Cataclismo_a.Update(dt);
+			//Ciervo_a.Update(dt);
+
+			//FlechaT_a.Update(dt);
+			//FlechaAcido_a.Update(dt);
+			//FlechaS_a.Update(dt);
+
+			//Juicio_a.Update(dt);
+			//HalconElectro_a.Update(dt);
+			//TripleL_a.Update(dt);
 		//}
+			switch (skill) {
+			case 110:
+				EscudoS_a.Update(dt);		
+				break;
+			case 111:
+				EspadaS_a.Update(dt);
+				break;
+			case 112:
+				AquaE_a.Update(dt);
+				break;
+
+			case 120:
+				Pedrada_a.Update(dt);
+				break;
+			case 121:
+				Cataclismo_a.Update(dt);
+				break;
+			case 122:
+				Ciervo_a.Update(dt);
+				break;
+
+			case 130:
+				FlechaT_a.Update(dt);
+				break;
+			case 131:
+				FlechaAcido_a.Update(dt);
+				break;
+			case 132:
+				FlechaS_a.Update(dt);
+				break;
+
+			case 140:
+				Juicio_a.Update(dt);
+				break;
+			case 141:
+				HalconElectro_a.Update(dt);
+				break;
+			case 142:
+				TripleL_a.Update(dt);
+				break;
+
+			default:
+
+				break;
+			}
 
 			backButton->state = GuiControlState::DISABLED;
 
@@ -626,7 +781,6 @@ bool Battle::Update(float dt)
 				switch (skill) {
 					//Special Attacks
 				case 110:
-					if (cont < attackTime) {
 					
 					break;
 				case 111:
@@ -663,10 +817,8 @@ bool Battle::Update(float dt)
 				case 142:
 					
 					break;
-
-						default:
+				default:
 					break;
-					}
 				
 				}
 			case BattlePhase::WIN:

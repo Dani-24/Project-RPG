@@ -1333,6 +1333,69 @@ bool Stages::PostUpdate()
 			}
 		}
 
+		//if (app->battle->battlePhase == BattlePhase::OUTCOME) {
+		//}
+
+		switch (app->battle->skill) {
+		case 110:
+			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS,  app->win->GetWidth() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().w / 2, app->win->GetHeight() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().h/2, &app->battle->EscudoS_a.GetCurrentFrame(),3,false);
+			break;
+		case 111:
+			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 100, 100, &app->battle->EspadaS_a.GetCurrentFrame(), 3, false);
+			break;
+		case 112:
+			app->render->DrawTexture(app->battle->AquaE, 100, 100, &app->battle->AquaE_a.GetCurrentFrame(), 3, false);
+			break;
+
+		case 120:
+			app->render->DrawTexture(app->battle->Pedrada, 100, 100, &app->battle->Pedrada_a.GetCurrentFrame(), 3, false);
+			break;
+		case 121:
+			app->render->DrawTexture(app->battle->Cataclismo, 100, 100, &app->battle->Cataclismo_a.GetCurrentFrame(), 3, false);
+			break;
+		case 122:
+			app->render->DrawTexture(app->battle->FlechaT_Ciervo, 100, 100, &app->battle->Ciervo_a.GetCurrentFrame(), 3, false);
+			break;
+
+		case 130:
+			app->render->DrawTexture(app->battle->FlechaT_Ciervo, 100, 100, &app->battle->FlechaT_a.GetCurrentFrame(), 3, false);
+			break;
+		case 131:
+			app->render->DrawTexture(app->battle->FlechaAcido, 100, 100, &app->battle->FlechaAcido_a.GetCurrentFrame(), 3, false);
+			break;
+		case 132:
+			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 100, 100, &app->battle->FlechaS_a.GetCurrentFrame(), 3, false);
+			break;
+
+		case 140:
+			app->render->DrawTexture(app->battle->TripleL_Juicio, 100, 100, &app->battle->Juicio_a.GetCurrentFrame(), 3, false);
+			break;
+		case 141:
+			app->render->DrawTexture(app->battle->HalconElectro, 100, 100, &app->battle->HalconElectro_a.GetCurrentFrame(), 3, false);
+			break;
+		case 142:
+			app->render->DrawTexture(app->battle->TripleL_Juicio, 100, 100, &app->battle->TripleL_a.GetCurrentFrame(), 3, false);
+			break;
+
+		default:
+				app->battle->EscudoS_a.Reset();
+				app->battle->EspadaS_a.Reset();
+				app->battle->AquaE_a.Reset();
+
+				app->battle->Pedrada_a.Reset();
+				app->battle->Cataclismo_a.Reset();
+				app->battle->Ciervo_a.Reset();
+
+				app->battle->FlechaT_a.Reset();
+				app->battle->FlechaAcido_a.Reset();
+				app->battle->FlechaS_a.Reset();
+
+				app->battle->Juicio_a.Reset();
+				app->battle->HalconElectro_a.Reset();
+				app->battle->TripleL_a.Reset();
+			break;
+		}
+
 
 		//switch (app->battle->CurrentEnemyType) {
 		//case EnemyInBattleType::NORMAL:
