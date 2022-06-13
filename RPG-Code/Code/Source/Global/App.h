@@ -35,6 +35,7 @@ class Camera;
 class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
+class ModuleAssetsManager;
 
 class Stages;
 class Battle;
@@ -130,6 +131,7 @@ public:
 	Shop* shop;
 	ModuleParticles* particlesM;
 
+	ModuleAssetsManager assman;
 	ModuleQFonts* font;
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;
