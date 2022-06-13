@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Render.h"
 #include "Textures.h"
+#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -61,10 +62,13 @@ bool Textures::CleanUp()
 }
 
 // Load new texture from file path
-SDL_Texture* const Textures::Load(const char* path)
+SDL_Texture* const Textures::Load(const char* path, int rar)
 {
 	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load(path);
+	SDL_Surface* surface ;
+
+	if(rar==0)SDL_Surface* surface = IMG_Load(path);
+	else if(rar == 1)surface = IMG_Load_RW(app->assman->Load(path), 1);
 
 	if(surface == NULL)
 	{

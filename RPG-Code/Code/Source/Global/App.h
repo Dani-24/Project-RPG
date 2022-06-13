@@ -131,7 +131,7 @@ public:
 	Shop* shop;
 	ModuleParticles* particlesM;
 
-	ModuleAssetsManager assman;
+	ModuleAssetsManager* assman;
 	ModuleQFonts* font;
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;
