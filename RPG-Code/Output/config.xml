@@ -5,6 +5,10 @@
         <organization>Suspicious Team</organization>
     </app>
 
+	<file_system>
+		<path>data.zip</path>
+	</file_system>
+
     <renderer>
         <vsync value="true"/>
 		

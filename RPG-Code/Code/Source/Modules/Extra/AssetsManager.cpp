@@ -31,7 +31,7 @@ ModuleAssetsManager::~ModuleAssetsManager()
 bool ModuleAssetsManager::Awake(pugi::xml_node& config)
 {
 	/*TODO 2: add the search path*/
-	//PHYSFS_addToSearchPath("Assets.zip", 1);
+	PHYSFS_addToSearchPath("Assets.zip", 1);
 
 	return true;
 }
