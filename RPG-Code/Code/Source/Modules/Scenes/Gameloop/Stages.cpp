@@ -258,7 +258,7 @@ bool Stages::PostUpdate()
 	case StageIndex::NONE:
 
 		break;
-	case StageIndex::TOWN:
+	/*case StageIndex::TOWN:
 		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
@@ -287,7 +287,7 @@ bool Stages::PostUpdate()
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}
-		break;
+		break;*/
 	case StageIndex::INTRODUCTION:
 
 		if (app->fade->fading == false) {
@@ -1434,7 +1434,42 @@ bool Stages::PostUpdate()
 			}
 		}
 	}
+	switch (actualStage)
+	{
+	case StageIndex::NONE:
 
+		break;
+	case StageIndex::TOWN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
+		break;
+	case StageIndex::DOJO:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
+		break;
+	case StageIndex::SHOP:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
+		break;
+	case StageIndex::SHOPSUB:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
+		break;
+	case StageIndex::TAVERN:
+		if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) {
+
+			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
+		}
+		break;
+	}
 	return ret;
 }
 
