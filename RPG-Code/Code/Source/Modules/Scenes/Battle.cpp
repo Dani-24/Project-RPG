@@ -2150,7 +2150,9 @@ bool Battle::PostUpdate()
 				app->font->CleanFonts();
 				hasChangedPhase = false;
 				for (int i = 4; i < 8; i++) {
-					entitiesInBattle[i]->isSelected = false;
+					if (entitiesInBattle[i] != nullptr) {
+						entitiesInBattle[i]->isSelected = false;
+					}
 				}
 			}
 			else {
