@@ -43,7 +43,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	EscudoS_a.PushBack({ 223,913,60,85 });
 
 	EscudoS_a.loop = false;
-	EscudoS_a.speed = 0.006f;
+	EscudoS_a.speed = 0.015f;
 	//_____________________________
 	EspadaS_a.PushBack({ 563,422,60,142 });
 	EspadaS_a.PushBack({ 733,422,60,142 });
@@ -51,24 +51,24 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	EspadaS_a.PushBack({ 1073,422,60,142 });
 	EspadaS_a.PushBack({ 1243,422,60,142 });
 	EspadaS_a.PushBack({ 1413,422,60,142 });
-
 	EspadaS_a.PushBack({ 1583,422,60,142 });
+
 	EspadaS_a.PushBack({ 54,565,60,142 });
 	EspadaS_a.PushBack({ 223,565,60,142 });
 	EspadaS_a.PushBack({ 393,565,60,142 });
 	EspadaS_a.PushBack({ 563,565,60,142 });
 	EspadaS_a.PushBack({ 733,565,60,142 });
-
 	EspadaS_a.PushBack({ 903,565,60,142 });
 	EspadaS_a.PushBack({ 1073,565,60,142 });
 	EspadaS_a.PushBack({ 1243,565,60,142 });
 	EspadaS_a.PushBack({ 1413,565,60,142 }); 
-	EspadaS_a.PushBack({ 1583,708,60,142 });
+	EspadaS_a.PushBack({ 1583,565,60,142 });
+
 	EspadaS_a.PushBack({ 54,708,60,142 });
 	EspadaS_a.PushBack({ 223,708,60,142 });
 
 	EspadaS_a.loop = false;
-	EspadaS_a.speed = 0.006f;
+	EspadaS_a.speed = 0.015f;
 	//_____________________________
 	AquaE_a.PushBack({ 64 * 0,80 * 0,64,80 });
 	AquaE_a.PushBack({ 64 * 1,80 * 0,64,80 });
@@ -89,7 +89,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	AquaE_a.PushBack({ 64 * 4,80 * 2,64,80 });
 
 	AquaE_a.loop = false;
-	AquaE_a.speed = 0.006f;
+	AquaE_a.speed = 0.015f;
 	//_____________
 	//_____________
 	Pedrada_a.PushBack({ 48 * 0,48 * 0,48,48 });
@@ -107,8 +107,93 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	Pedrada_a.PushBack({ 48 * 5,48 * 1,48,48 });
 
 	Pedrada_a.loop = false;
-	Pedrada_a.speed = 0.006f;
+	Pedrada_a.speed = 0.015f;
 	//_____________________________
+	Cataclismo_a.PushBack({ 250 * 0,250 * 0,250,250 });
+	Cataclismo_a.PushBack({ 250 * 1,250 * 0,250,250 });
+	Cataclismo_a.PushBack({ 250 * 2,250 * 0,250,250 });
+	Cataclismo_a.PushBack({ 250 * 3,250 * 0,250,250 });
+	Cataclismo_a.PushBack({ 250 * 4,250 * 0,250,250 });
+	Cataclismo_a.PushBack({ 250 * 5,250 * 0,250,250 });
+
+	Cataclismo_a.PushBack({ 250 * 0,250 * 1,250,250 });
+	Cataclismo_a.PushBack({ 250 * 1,250 * 1,250,250 });
+	Cataclismo_a.PushBack({ 250 * 2,250 * 1,250,250 });
+	Cataclismo_a.PushBack({ 250 * 3,250 * 1,250,250 });
+	Cataclismo_a.PushBack({ 250 * 4,250 * 1,250,250 });
+	Cataclismo_a.PushBack({ 250 * 5,250 * 1,250,250 });
+
+	Cataclismo_a.PushBack({ 250 * 0,250 * 2,250,250 });
+	Cataclismo_a.PushBack({ 250 * 1,250 * 2,250,250 });
+	Cataclismo_a.PushBack({ 250 * 2,250 * 2,250,250 });
+	Cataclismo_a.PushBack({ 250 * 3,250 * 2,250,250 });
+	Cataclismo_a.PushBack({ 250 * 4,250 * 2,250,250 });
+	Cataclismo_a.PushBack({ 250 * 5,250 * 2,250,250 });
+
+	Cataclismo_a.PushBack({ 250 * 0,250 * 3,250,250 });
+	Cataclismo_a.PushBack({ 250 * 1,250 * 3,250,250 });
+
+	Cataclismo_a.loop = false;
+	Cataclismo_a.speed = 0.015f;
+	//_____________________________
+	Ciervo_a.PushBack({ 45,1141,108,108 });//vacio
+	Ciervo_a.PushBack({ 178,1141,108,108 });
+	Ciervo_a.PushBack({ 332,1141,108,108 });
+	Ciervo_a.PushBack({ 492,1141,108,108 });
+	Ciervo_a.PushBack({ 648,1141,108,108 });
+	Ciervo_a.PushBack({ 802,1141,108,108 });
+	Ciervo_a.PushBack({ 956,1141,108,108 });
+	Ciervo_a.PushBack({ 1111,1141,108,108 });
+	Ciervo_a.PushBack({ 1269,1141,108,108 });
+	Ciervo_a.PushBack({ 1425,1141,108,108 });
+
+	Ciervo_a.PushBack({ 21,1245,60,142 });
+	Ciervo_a.PushBack({ 177,1245,60,142 });
+
+	Ciervo_a.loop = false;
+	Ciervo_a .speed = 0.015f;
+	//_____________
+	//_____________
+	FlechaT_a.PushBack({ 48 * 0,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 48 * 1,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 48 * 2,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 48 * 3,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 48 * 4,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 48 * 5,48 * 0,48,48 });
+
+	FlechaT_a.PushBack({ 48 * 0,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 48 * 1,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 48 * 2,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 48 * 3,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 48 * 4,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 48 * 5,48 * 1,48,48 });
+
+	FlechaT_a.loop = false;
+	FlechaT_a.speed = 0.015f;
+	//_____________________________
+	FlechaAcido_a.PushBack({ 250 * 0,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 250 * 1,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 250 * 2,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 250 * 3,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 250 * 4,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 250 * 5,250 * 0,250,250 });
+
+	FlechaAcido_a.loop = false;
+	FlechaAcido_a.speed = 0.015f;
+	//_____________________________
+	FlechaS_a.PushBack({ 45,1141,108,108 });//vacio
+	FlechaS_a.PushBack({ 178,1141,108,108 });
+	FlechaS_a.PushBack({ 332,1141,108,108 });
+	FlechaS_a.PushBack({ 492,1141,108,108 });
+	FlechaS_a.PushBack({ 648,1141,108,108 });
+
+	FlechaS_a.PushBack({ 21,1245,60,142 });
+	FlechaS_a.PushBack({ 177,708,60,142 });
+
+	FlechaS_a.loop = false;
+	FlechaS_a.speed = 0.015f;
+	//_____________
+	//_____________
 	
 	name.Create("battle");
 
@@ -319,7 +404,7 @@ bool Battle::Start()
 	//Load Skills
 	FlechaS_EspadaS_EscudoS = app->tex->Load("Assets/sprites/ataques/flecha_sagrada_espada_sagrada_escudo_sagrado.png");
 	FlechaAcido = app->tex->Load("Assets/sprites/ataques/flecha_acido.png");
-	Cataclismo = app->tex->Load("Assets/sprites/ataques/cataclismo.png");
+	Cataclismo = app->tex->Load("Assets/sprites/ataques/cataclismo-only.png");
 	FlechaT_Ciervo = app->tex->Load("Assets/sprites/ataques/flecha_tronco_ciervo_de_madera.png");
 	TripleL_Juicio = app->tex->Load("Assets/sprites/ataques/triple_lanza_explosiva_el_juicio_del_cielo.png");
 	Pedrada = app->tex->Load("Assets/sprites/ataques/pedrada.png");
