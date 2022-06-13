@@ -68,6 +68,21 @@ bool Configuration::Start()
 	conb.add(Vsync);
 	conb.add(back);
 
+	C_pos.Position.x = x ;
+	C_pos.Position.y = y - 500;
+	C_pointA = { x, y - 500 };
+	C_pointB = { x, y };
+
+	C_total_iterations = 60;
+	C_iterations = 0;
+	C_easing_active = true;
+
+	C_pointA_out = { x, y };
+	C_pointB_out = { x , y - 500 };
+
+	C_total_iterations_out = 60;
+	C_iterations_out = 0;
+	C_easing_active_out = false;
 
 	pause = false;
 	
@@ -120,29 +135,84 @@ bool Configuration::PostUpdate()
 	int x = -app->camera->GetPos().x / 2,
 		y = -app->camera->GetPos().y / 2;
 
-	app->render->DrawTexture(background, x + (app->win->GetWidth() / 2) - 475, y + (app->win->GetWidth() / 50) + 40);
+	if (C_easing_active == true)
+		C_pos.Position.y = EaseInBetweenPoints(C_pointA, C_pointB);
 
-	app->font->DrawText("Music", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 50 -yt, c);
-	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 50 - yt, c);
-	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 50 - yt, c);
-	app->font->DrawText(volchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 50 - yt, c);
-	app->font->DrawText("SFX", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 90 - yt, c);
-	app->font->DrawText("+", x + (app->win->GetWidth() / 2) - 300, y + (app->win->GetWidth() / 50) + 90 - yt, c);
-	app->font->DrawText("-", x + (app->win->GetWidth() / 2) - 350, y + (app->win->GetWidth() / 50) + 90 - yt, c);
-	app->font->DrawText(FXchar, x + (app->win->GetWidth() / 2) - 265, y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	if (C_easing_active_out == true)
+		C_pos.Position.y = EaseOutBetweenPoints(C_pointA_out, C_pointB_out);
 
-	app->font->DrawText("FullScreen", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 130 - yt, c);
-	if (app->win->fullscreen == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 130 - yt, c);
+	app->render->DrawTexture(background, C_pos.Position.x + (app->win->GetWidth() / 2) - 475, C_pos.Position.y + (app->win->GetWidth() / 50) + 40);
 
-	app->font->DrawText("VSync", x + (app->win->GetWidth() / 2) - xt, y + (app->win->GetWidth() / 50) + 170 - yt, c);
-	if (app->render->Vsync == true) app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 170 - yt, c);
+	app->font->DrawText("Music", C_pos.Position.x + (app->win->GetWidth() / 2) - xt, C_pos.Position.y + (app->win->GetWidth() / 50) + 50 -yt, c);
+	app->font->DrawText("+", C_pos.Position.x + (app->win->GetWidth() / 2) - 300, C_pos.Position.y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText("-", C_pos.Position.x + (app->win->GetWidth() / 2) - 350, C_pos.Position.y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText(volchar, C_pos.Position.x + (app->win->GetWidth() / 2) - 265, C_pos.Position.y + (app->win->GetWidth() / 50) + 50 - yt, c);
+	app->font->DrawText("SFX", C_pos.Position.x + (app->win->GetWidth() / 2) - xt, C_pos.Position.y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText("+", C_pos.Position.x + (app->win->GetWidth() / 2) - 300, C_pos.Position.y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText("-", C_pos.Position.x + (app->win->GetWidth() / 2) - 350, C_pos.Position.y + (app->win->GetWidth() / 50) + 90 - yt, c);
+	app->font->DrawText(FXchar, C_pos.Position.x + (app->win->GetWidth() / 2) - 265, C_pos.Position.y + (app->win->GetWidth() / 50) + 90 - yt, c);
+
+	app->font->DrawText("FullScreen", C_pos.Position.x + (app->win->GetWidth() / 2) - xt, C_pos.Position.y + (app->win->GetWidth() / 50) + 130 - yt, c);
+	if (app->win->fullscreen == true) app->font->DrawText("X", C_pos.Position.x + (app->win->GetWidth() / 2) - 325, y + (app->win->GetWidth() / 50) + 130 - yt, c);
+
+	app->font->DrawText("VSync", C_pos.Position.x + (app->win->GetWidth() / 2) - xt, C_pos.Position.y + (app->win->GetWidth() / 50) + 170 - yt, c);
+	if (app->render->Vsync == true) app->font->DrawText("X", C_pos.Position.x + (app->win->GetWidth() / 2) - 325, C_pos.Position.y + (app->win->GetWidth() / 50) + 170 - yt, c);
 
 
-	app->font->DrawText("X", x + (app->win->GetWidth() / 2) - 170, y + (app->win->GetWidth() / 50) + 47, c);
+	app->font->DrawText("X", C_pos.Position.x + (app->win->GetWidth() / 2) - 170, C_pos.Position.y + (app->win->GetWidth() / 50) + 47, c);
 
 	return ret;
 }
 
+float Configuration::EaseInBetweenPoints(iPoint posA, iPoint posB) {
+	float value = C_Efunction.sineEaseIn(C_iterations, posA.y, posB.y - posA.y, C_total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (C_iterations < C_total_iterations) {
+		C_iterations++;
+	}
+
+	else {
+		C_iterations = 0;
+		C_easing_active = false;
+	}
+
+	return value;
+}
+
+float Configuration::EaseOutBetweenPoints(iPoint posA, iPoint posB) {
+	float value = C_Efunction.sineEaseOut(C_iterations_out, posA.y, posB.y - posA.y, C_total_iterations_out);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (C_iterations_out < C_total_iterations_out) {
+		C_iterations_out++;
+	}
+
+	else {
+		C_iterations_out = 0;
+		if (!app->scene->playing) {
+			if (pause == false) {
+				pause = true;
+			}
+			Disable();
+		}
+		else
+		{
+			app->pauseM->EnButt();
+			Disable();
+		}
+	}
+
+	return value;
+}
 
 bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 {
@@ -213,18 +283,10 @@ bool Configuration::OnGuiMouseClickEvent(GuiControl* control)
 		if (control->id == 14)
 		{
 			LOG("BACK");
-			if (!app->scene->playing) {
-				if (pause == false) {
-					pause = true;
-					app->audio->PlayFx(backFx);
-				}
-				Disable();
-			}
-			else
-			{
-				app->pauseM->EnButt();
-				Disable();
-			}
+			back->state = GuiControlState::DISABLED;
+			C_easing_active_out = true;
+			app->audio->PlayFx(backFx);
+			
 		}
 	}
 	//Other cases here
