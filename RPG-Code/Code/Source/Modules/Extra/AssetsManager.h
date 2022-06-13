@@ -8,6 +8,8 @@
 
 //#pragma comment( lib, "PhysFS/libx86/physfs.lib" )
 
+//#pragma comment( lib, "PhysFS/libx86/physfs.lib" )
+
 class ModuleAssetsManager : public Module
 {
 public:
