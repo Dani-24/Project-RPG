@@ -96,8 +96,6 @@
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
-    <ClCompile Include="Source\Modules\Extra\AssetsManager.cpp" />
-    <ClCompile Include="Source\Modules\Extra\j1FileSystem.cpp" />
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
     <ClCompile Include="Source\Modules\Extra\VisualEffects.cpp" />
     <ClCompile Include="Source\Modules\QuestManager.cpp" />
@@ -143,8 +141,6 @@
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
-    <ClInclude Include="Source\Modules\Extra\AssetsManager.h" />
-    <ClInclude Include="Source\Modules\Extra\j1FileSystem.h" />
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
     <ClInclude Include="Source\Modules\Extra\VisualEffects.h" />
     <ClInclude Include="Source\Modules\QuestManager.h" />

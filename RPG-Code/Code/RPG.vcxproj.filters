@@ -54,8 +54,6 @@
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
     <ClCompile Include="Source\Tools\EasingFunctions.cpp" />
     <ClCompile Include="Source\Modules\Extra\VisualEffects.cpp" />
-    <ClCompile Include="Source\Modules\Extra\AssetsManager.cpp" />
-    <ClCompile Include="Source\Modules\Extra\j1FileSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp">
@@ -132,8 +130,6 @@
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
     <ClInclude Include="Source\Tools\EasingFunctions.h" />
     <ClInclude Include="Source\Modules\Extra\VisualEffects.h" />
-    <ClInclude Include="Source\Modules\Extra\AssetsManager.h" />
-    <ClInclude Include="Source\Modules\Extra\j1FileSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

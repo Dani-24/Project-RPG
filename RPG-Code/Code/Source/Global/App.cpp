@@ -28,7 +28,6 @@
 #include "Shop.h"
 #include "ModuleParticles.h"
 #include "VisualEffects.h"
-#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -56,7 +55,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	entities = new EntityManager(this);
 	questManager = new QuestManager(this);
-	assman = new ModuleAssetsManager(this,true);
 
 	camera = new Camera(this);
 
@@ -104,7 +102,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(stmen);
 	AddModule(shop);
 
-	AddModule(assman);
+
 	AddModule(guiManager);
 	AddModule(font);
 	AddModule(dialogs);
