@@ -162,10 +162,37 @@ unsigned int Audio::LoadFx(const char* path, int rar)
 
 	Mix_Chunk* chunk;
 
-	if(rar==0) chunk = Mix_LoadWAV(path);
-	else if(rar==1) chunk = Mix_LoadWAV_RW(app->assman->Load(path), 1);
+	if (rar == 0)
+	{
+		chunk = Mix_LoadWAV(path);
 
-	if (chunk == NULL)
+		if (chunk == NULL)
+		{
+			LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
+		}
+		else
+		{
+			fx.add(chunk);
+			ret = fx.count();
+		}
+	}
+	else if (rar == 1)
+	{
+		chunk = Mix_LoadWAV_RW(app->assman->Load(path), 1);
+
+		if (chunk == NULL)
+		{
+			LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
+		}
+		else
+		{
+			fx.add(chunk);
+			ret = fx.count();
+		}
+	}
+
+
+	/*if (chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
@@ -173,7 +200,7 @@ unsigned int Audio::LoadFx(const char* path, int rar)
 	{
 		fx.add(chunk);
 		ret = fx.count();
-	}
+	}*/
 
 	return ret;
 }

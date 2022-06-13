@@ -67,10 +67,35 @@ SDL_Texture* const Textures::Load(const char* path, int rar)
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface ;
 
-	if(rar==0)SDL_Surface* surface = IMG_Load(path);
-	else if(rar == 1)surface = IMG_Load_RW(app->assman->Load(path), 1);
+	if (rar == 0)
+	{
+		SDL_Surface* surface = IMG_Load(path);
+		if (surface == NULL)
+		{
+			LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
+		}
+		else
+		{
+			texture = LoadSurface(surface);
+			SDL_FreeSurface(surface);
+		}
+	}
+	else if (rar == 1)
+	{
+		surface = IMG_Load_RW(app->assman->Load(path), 1);
+		if (surface == NULL)
+		{
+			LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
+		}
+		else
+		{
+			texture = LoadSurface(surface);
+			SDL_FreeSurface(surface);
+		}
+	}
 
-	if(surface == NULL)
+
+	/*if(surface == NULL)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -78,7 +103,7 @@ SDL_Texture* const Textures::Load(const char* path, int rar)
 	{
 		texture = LoadSurface(surface);
 		SDL_FreeSurface(surface);
-	}
+	}*/
 
 	return texture;
 }
