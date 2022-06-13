@@ -79,6 +79,22 @@ bool StatsMenu::Start()
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
 	backSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_back.wav");
 
+	S_pos.Position.x = x + 120;
+	S_pos.Position.y = y;
+	S_pointA = { x + 800, y };
+	S_pointB = { x, y };
+
+	S_total_iterations = 60;
+	S_iterations = 0;
+	S_easing_active = true;
+
+	S_pointA_out = { x, y };
+	S_pointB_out = { x - 800, y };
+
+	S_total_iterations_out = 60;
+	S_iterations_out = 0;
+	S_easing_active_out = false;
+
 	app->scene->showLocation = false;
 	
 	chselect = 0;
@@ -121,22 +137,72 @@ bool StatsMenu::PostUpdate()
 	if(invent->state == GuiControlState::DISABLED)invent->state = GuiControlState::NORMAL;
 	// Draw UI
 
-	app->render->DrawTexture(gui, x, y+10);
+	if (S_easing_active == true)
+		S_pos.Position.x = EaseInBetweenPoints(S_pointA, S_pointB);
 
-	backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y ) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y );
-	invent->state != GuiControlState::PRESSED ? app->render->DrawTexture(invTex, invent->bounds.x, invent->bounds.y) : app->render->DrawTexture(presinvTex, invent->bounds.x, invent->bounds.y );
-	
-	for (int i = 0; i < app->scene->partyList.count(); i++)
-	{
-		////FACEES
-		app->render->DrawTexture(app->scene->partyList.At(i)->data->spriteFace, x + 33, y + 94 + i * 50);
-		app->font->DrawText(app->scene->partyList.At(i)->data->name, x + 85, y + 103 + i * 50);
+	if (S_easing_active_out == true)
+		S_pos.Position.x = EaseOutBetweenPoints(S_pointA_out, S_pointB_out);
+
+	app->render->DrawTexture(gui, S_pos.Position.x, S_pos.Position.y+10);
+
+	if (S_easing_active == false && S_easing_active_out == false) {
+		backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
+		invent->state != GuiControlState::PRESSED ? app->render->DrawTexture(invTex, invent->bounds.x, invent->bounds.y) : app->render->DrawTexture(presinvTex, invent->bounds.x, invent->bounds.y);
+
+		for (int i = 0; i < app->scene->partyList.count(); i++)
+		{
+			////FACEES
+			app->render->DrawTexture(app->scene->partyList.At(i)->data->spriteFace, x + 33, y + 94 + i * 50);
+			app->font->DrawText(app->scene->partyList.At(i)->data->name, x + 85, y + 103 + i * 50);
 
 
+		}
+		Statss();
+		GampadControl();
 	}
-	Statss();
-	GampadControl();
+	
 	return ret;
+}
+
+float StatsMenu::EaseInBetweenPoints(iPoint posA, iPoint posB) {
+	float value = S_Efunction.sineEaseIn(S_iterations, posA.x, posB.x - posA.x, S_total_iterations);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (S_iterations < S_total_iterations) {
+		S_iterations++;
+	}
+
+	else {
+		S_iterations = 0;
+		S_easing_active = false;
+	}
+
+	return value;
+}
+
+float StatsMenu::EaseOutBetweenPoints(iPoint posA, iPoint posB) {
+	float value = S_Efunction.sineEaseOut(S_iterations_out, posA.x, posB.x - posA.x, S_total_iterations_out);
+
+
+	//speedY = function.linearEaseNull(iterations, 472, 572, 300);
+
+	//App->render->camera.y += speedY;
+
+	if (S_iterations_out < S_total_iterations_out) {
+		S_iterations_out++;
+	}
+
+	else {
+		S_iterations_out = 0;
+		app->inventory->Enable();
+		Disable();
+	}
+
+	return value;
 }
 
 bool StatsMenu::CleanUp()
@@ -184,9 +250,8 @@ bool StatsMenu::OnGuiMouseClickEvent(GuiControl* control)
 			if (control->id == 401)
 			{
 				LOG("Click on Back");
+				S_easing_active_out = true;
 				
-				app->inventory->Enable();
-				Disable();
 				
 			}
 			if (control->id == 402)

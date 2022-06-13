@@ -4,11 +4,16 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "Animation.h"
+#include "EasingFunctions.h"
 
 #include "Defs.h"
 #include "Log.h"
 
 struct SDL_Texture;
+struct S_Pos
+{
+	iPoint Position;
+};
 
 class Character;
 
@@ -32,6 +37,10 @@ public:
 
 	bool CleanUp();
 
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
+
+	float EaseOutBetweenPoints(iPoint posA, iPoint posB);
+
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	//manage the control of ui with keyboard/gamepad
@@ -50,6 +59,27 @@ private:
 
 	// Lists
 	List<Character*>* charactersOnUI;
+
+	// anim
+
+	S_Pos S_pos;
+
+	iPoint S_pointA;
+	iPoint S_pointB;
+
+	int S_iterations;
+	int S_total_iterations;
+	bool S_easing_active;
+	EasingFunctions S_Efunction;
+
+	S_Pos S_pos_out;
+
+	iPoint S_pointA_out;
+	iPoint S_pointB_out;
+
+	int S_iterations_out;
+	int S_total_iterations_out;
+	bool S_easing_active_out;
 	
 	//  GUI_buttons
 	GuiButton*  backButton, *invent, *ch1,*ch2,*ch3,*ch4;
