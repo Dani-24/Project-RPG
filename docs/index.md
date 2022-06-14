@@ -3,6 +3,11 @@
 ## Description
 "So I Got Isekai'd By Truck-kun In A Fantasy World To Defeat Him At The Tower" is an RPG created by Suspicious Team for de subject Project 2 in the UPC CITM University in Terrassa.
 
+## Trailer
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=ur1OC74HOjg&ab_channel=Laia" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 ### Who we are?
 
 - Xavier Casadó - [Akage369](https://github.com/Akage369) - Team Lead / Programmer
