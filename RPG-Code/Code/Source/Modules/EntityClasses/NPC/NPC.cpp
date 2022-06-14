@@ -242,9 +242,9 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		break;
 	case NPCType::DHION:
-		idleAnim.PushBack({ 4,10,14,22 });
-		idleAnim.PushBack({ 28,10,14,22 });
-		idleAnim.PushBack({ 51,10,14,22 });
+		idleAnim.PushBack({ 4,10,16,22 });
+		idleAnim.PushBack({ 28,10,16,22 });
+		idleAnim.PushBack({ 51,10,16,22 });
 
 		idleAnim.speed = 0.004f;
 		zoom = 2;
