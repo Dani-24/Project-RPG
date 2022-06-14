@@ -6,6 +6,10 @@
 
 https://github.com/Dani-24/RPG
 
+## Youtube Trailer:
+
+https://www.youtube.com/watch?v=ur1OC74HOjg&ab_channel=Laia
+
 ## Description
 
 This is a nice RPG game :D
