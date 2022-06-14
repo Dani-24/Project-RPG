@@ -130,6 +130,8 @@ public:
 	Shop* shop;
 	ModuleParticles* particlesM;
 
+	ModuleAssetsManager* assman;
+
 	ModuleQFonts* font;
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;

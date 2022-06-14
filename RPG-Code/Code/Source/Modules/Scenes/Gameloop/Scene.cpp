@@ -22,6 +22,7 @@
 #include "BossEnemy.h"
 #include "NPC.h"
 #include "EntityManager.h"
+#include "AssetsManager.h"
 
 #include "Party.h"
 #include "Inventory.h"
@@ -47,6 +48,17 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	//char* buffer;
+	//pugi::xml_document dataFile;
+
+	//int bytesFile = app->assman->LoadData("data.xml", &buffer);
+
+	//// Loading from memory with PUGI: https://pugixml.org/docs/manual.html#loading.memory
+	//pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	//RELEASE_ARRAY(buffer);
+
+
 	CharRest = config.child("rest").attribute("path").as_string();
 	_CharRest = config.child("prest").attribute("path").as_string();
 	CharBackTex = config.child("back").attribute("path").as_string();
@@ -56,6 +68,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	CharFxLoad = config.child("lFx").attribute("path").as_string();
 	CharFxSave = config.child("sFx").attribute("path").as_string();
 
+
+
 	return ret;
 }
 
@@ -63,6 +77,7 @@ bool Scene::Start()
 {
 	LOG("Starting Scene");
 	
+
 	// Apple just for inventory testing
 	AddItem(UsableType::APPLE);
 
@@ -71,20 +86,23 @@ bool Scene::Start()
 	app->dialogs->Enable();
 	
 	// Load textures
-	backFx = app->audio->LoadFx(CharFxBack.GetString());
-	loadFx = app->audio->LoadFx(CharFxLoad.GetString());
-	saveFx = app->audio->LoadFx(CharFxSave.GetString());
+	backFx = app->audio->LoadFx(CharFxBack.GetString(), 1);
+	loadFx = app->audio->LoadFx(CharFxLoad.GetString(), 1);
+	saveFx = app->audio->LoadFx(CharFxSave.GetString(), 1);
+
+	
 	
 	mini_map = app->tex->Load("Assets/textures/mini_map.png");
 
 	//buttons
 	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
 	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
-	restartTex = app->tex->Load(CharRest.GetString());
-	press_restartTex = app->tex->Load(_CharRest.GetString());
-	backtoMenuTex = app->tex->Load(CharBackTex.GetString());
-	press_backtoMenuTex = app->tex->Load(_CharBackTex.GetString());
-	locationUI = app->tex->Load(CharLoc.GetString());
+	
+	restartTex = app->tex->Load(CharRest.GetString(), 1);
+	press_restartTex = app->tex->Load(_CharRest.GetString(), 1);
+	backtoMenuTex = app->tex->Load(CharBackTex.GetString(), 1);
+	press_backtoMenuTex = app->tex->Load(_CharBackTex.GetString(), 1);
+	locationUI = app->tex->Load(CharLoc.GetString(), 1);
 
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);

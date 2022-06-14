@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -45,8 +45,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source\External\SDL_ttf\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(ProjectDir)Source\External\SDL_ttf\libx86;</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Source\External\SDL_ttf\include;$(ProjectDir)Source\External\PhysFS\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(ProjectDir)Source\External\SDL_ttf\libx86;$(ProjectDir)Source\External\PhysFS\libx86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
@@ -68,8 +68,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib; SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)Source\External\SDL\libx86;$(ProjectDir)Source\External\SDL_image\libx86;$(ProjectDir)Source\External\SDL_mixer\libx86;$(ProjectDir)Source\External\SDL_ttf\libx86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_ttf.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Source\External\SDL\libx86;$(ProjectDir)Source\External\SDL_image\libx86;$(ProjectDir)Source\External\SDL_mixer\libx86;$(ProjectDir)Source\External\SDL_ttf\libx86;$(ProjectDir)Source\External\PhysFS\libx86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,6 +96,7 @@
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
+    <ClCompile Include="Source\Modules\Extra\AssetsManager.cpp" />
     <ClCompile Include="Source\Modules\Extra\ModuleParticles.cpp" />
     <ClCompile Include="Source\Modules\Extra\VisualEffects.cpp" />
     <ClCompile Include="Source\Modules\QuestManager.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />
+    <ClInclude Include="Source\Modules\Extra\AssetsManager.h" />
     <ClInclude Include="Source\Modules\Extra\ModuleParticles.h" />
     <ClInclude Include="Source\Modules\Extra\VisualEffects.h" />
     <ClInclude Include="Source\Modules\QuestManager.h" />
