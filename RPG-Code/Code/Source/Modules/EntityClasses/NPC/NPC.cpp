@@ -267,7 +267,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		npcID = 69;
 
 		baseCollider = app->collisions->AddCollider({ position.x + 25, position.y + 4, 105 * 2, 60 * 2}, Collider::Type::INSTANT, this);
-		zoom = 1;
+		zoom = 2;
 		break;
 	default:
 		break;

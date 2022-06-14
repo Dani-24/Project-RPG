@@ -873,6 +873,11 @@ bool Stages::PostUpdate()
 							else {
 								app->render->DrawTexture(BossInList->data->spriteTex, BossInList->data->position.x - 150, BossInList->data->position.y, &BossInList->data->spriteRect, BossInList->data->zoom, false);
 							}
+
+							if (BossInList->data->stats->defenseBuffed) {
+								app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 500, app->battle->entitiesInBattle[i]->position.y + 20);
+							}
+
 							break;
 						default:
 							if (BossInList->data->isSelected == true) {

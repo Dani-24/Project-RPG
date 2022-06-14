@@ -27,12 +27,16 @@ BossEnemy::BossEnemy(BossType bossType) : Enemy(EnemyType::BOSS)
 		for (int times = 0; times < 11; times++) {
 			attackAnim.PushBack({ times * truckXSize, 1 * truckYSize, truckXSize, truckYSize });
 			attackAnim2.PushBack({ times * truckXSize, 1 * truckYSize, truckXSize, truckYSize });
+			attackAnim3.PushBack({ times * truckXSize, 1 * truckYSize, truckXSize, truckYSize });
 		}
 		attackAnim.speed = 0.01f;
 		attackAnim.loop = false;
 
 		attackAnim2.speed = 0.01f;
 		attackAnim2.loop = false;
+
+		attackAnim3.speed = 0.01f;
+		attackAnim3.loop = false;
 
 		for (int times = 0; times < 11; times++) {
 			protectAnim.PushBack({ times * truckXSize, 2 * truckYSize, truckXSize, truckYSize });
@@ -47,6 +51,9 @@ BossEnemy::BossEnemy(BossType bossType) : Enemy(EnemyType::BOSS)
 
 		dieAnim.speed = 0.01f;
 		dieAnim.loop = false;
+
+		hitAnim = battleAnim;
+		walkAnim = battleAnim;
 
 		baseCollider = nullptr;
 		currentAnimation = &battleAnim;
