@@ -16,7 +16,7 @@
 ***
 
 
-### Who we are?
+### Who are we?
 
 - Xavier Casadó - [Akage369](https://github.com/Akage369) - Team Lead / Programmer
 
