@@ -272,39 +272,39 @@ public: // DIALOGS
 
 	//VALION
 	const char* ValionDialog[DIALOG_LENGHT] = {
-	"I like chocolate",
-	"Let's battle!",
-	"Tiri tiri tiri"
+	"Vaya vaya empezaba a estar aburridoe",
+	"hacia mucho q nadie venia por aquí",
+	"empezaba a estar aburrido"
 	};
 
 	const char* ValionDialog2[DIALOG_LENGHT] = {
 	"You defeated me!",
-	"Now I'm your bitch"
+	"Now I'm your bro"
 	};
 
 	//RAYLA
 	const char* RaylaDialog[DIALOG_LENGHT] = {
-	"I-It's not like I want to battle with you",
-	"or anything...",
-	"Kyaaaah!"
+	"Te crees muy fuerte?",
+	"Habrás vencido a Valion",
+	"cosa q nadie habia conseguido desde hace mucho",
+	"pero no vas a pasar de esta sala"
 	};
 
 	const char* RaylaDialog2[DIALOG_LENGHT] = {
 	"You defeated me!",
-	"Now I'm your bitch"
+	"Now I'm your bro"
 	};
 
 	//DHION
 	const char* DhionDialog[DIALOG_LENGHT] = {
-	"Never gonna give you up",
-	"Never gonna let you down",
-	"Never gonna tell a lie",
-	"but hurt you"
+	"Veo tu fuerza",
+	"pero no es nada comparada con la mia",
+	"no podrás ganar"
 	};
 
 	const char* DhionDialog2[DIALOG_LENGHT] = {
 	"You defeated me!",
-	"Now I'm your bitch"
+	"Now I'm your bro"
 	};
 
 	bool autoTalk;
