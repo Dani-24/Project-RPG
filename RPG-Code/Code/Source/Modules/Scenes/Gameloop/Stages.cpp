@@ -1773,7 +1773,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->map->Load("prologue.tmx");
 
 			// Recolocar al player
-			playerPtr->position ={ 10 * TILE_SIZE, 10 * TILE_SIZE };
+			playerPtr->position ={ 10 * TILE_SIZE, 15 * TILE_SIZE };
 
 			// Camera
 			app->camera->OnTarget();
