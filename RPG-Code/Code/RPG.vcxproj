@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GUI\GuiSliders.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Characters\Party.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Equipment.cpp" />
     <ClCompile Include="Source\Modules\EntityClasses\Items\Usable.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Source\Timers\Timer.cpp" />
     <ClCompile Include="Source\Modules\Core\Window.cpp" />
     <ClCompile Include="Source\Modules\Scenes\StatsMenu.cpp" />
+    <ClInclude Include="Source\GUI\GuiSliders.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Characters\Party.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Equipment.h" />
     <ClInclude Include="Source\Modules\EntityClasses\Items\Usable.h" />

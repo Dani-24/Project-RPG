@@ -272,9 +272,9 @@ public: // DIALOGS
 
 	//VALION
 	const char* ValionDialog[DIALOG_LENGHT] = {
-	"Vaya vaya empezaba a estar aburridoe",
-	"hacia mucho q nadie venia por aquí",
-	"empezaba a estar aburrido"
+	"Wow, I was starting to get bored",
+	"it's been a long time since anyone came here"
+	"i was starting to get bored"
 	};
 
 	const char* ValionDialog2[DIALOG_LENGHT] = {
@@ -284,10 +284,10 @@ public: // DIALOGS
 
 	//RAYLA
 	const char* RaylaDialog[DIALOG_LENGHT] = {
-	"Te crees muy fuerte?",
-	"Habrás vencido a Valion",
-	"cosa q nadie habia conseguido desde hace mucho",
-	"pero no vas a pasar de esta sala"
+	"Do you think you are very strong?",
+	"You will have defeated Valion",
+	"something that no one had achieved for a long time",
+	"but you will not go beyond this room"
 	};
 
 	const char* RaylaDialog2[DIALOG_LENGHT] = {
@@ -297,9 +297,9 @@ public: // DIALOGS
 
 	//DHION
 	const char* DhionDialog[DIALOG_LENGHT] = {
-	"Veo tu fuerza",
-	"pero no es nada comparada con la mia",
-	"no podrás ganar"
+	"I see your strength",
+	"but it's nothing compared to mine",
+	"you can't win"
 	};
 
 	const char* DhionDialog2[DIALOG_LENGHT] = {
