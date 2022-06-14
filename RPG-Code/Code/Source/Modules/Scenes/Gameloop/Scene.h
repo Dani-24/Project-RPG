@@ -6,7 +6,12 @@
 #include "Animation.h"
 #include "Usable.h"
 #include "Item.h"
+#include "EasingFunctions.h"
 
+struct G_Pos
+{
+	iPoint G_Position;
+};
 struct SDL_Texture;
 class Player;
 class Cock;
@@ -50,6 +55,8 @@ public:
 
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
+
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
 
 public:
 	//Draws character bars on gui
@@ -174,6 +181,16 @@ private: // Hacer listas esta sobrevalorado supongo:
 	SDL_Texture* join1T,* join2T,* join3T;
 
 	int joinFx;
+
+	G_Pos G_pos;
+
+	iPoint G_pointA;
+	iPoint G_pointB;
+
+	int G_iterations;
+	int G_total_iterations;
+	bool G_easing_active;
+	EasingFunctions G_Efunction;
 };
 
 #endif // __SCENE_H__

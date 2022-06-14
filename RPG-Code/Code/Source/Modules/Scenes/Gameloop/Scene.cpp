@@ -405,6 +405,11 @@ bool Scene::Start()
 	join2T = app->tex->Load("Assets/textures/join_party/raylaJOINS.png");
 	join3T = app->tex->Load("Assets/textures/join_party/dhionJOINS.png");
 
+	G_total_iterations = 30;
+	G_iterations = 0;
+	G_easing_active = true;
+
+
 	return true;
 }
 
@@ -447,6 +452,15 @@ bool Scene::Update(float dt)
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
 	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
+
+	int xa = -app->camera->GetPos().x / 2;
+	int ya = -app->camera->GetPos().y / 2;
+
+	G_pos.G_Position.x = xa ;
+	G_pos.G_Position.y = ya - 115;
+	G_pointA = { xa , ya -115};
+	G_pointB = { xa  , ya };
+
 
 	fpsdt = dt*3.75;
 
@@ -623,6 +637,10 @@ bool Scene::PostUpdate()
 		// Checkear miembros de la party y imprimir sus carteles
 
 		if (app->battle->isEnabled() == false) {
+			if (G_easing_active == true) 
+			{
+				G_pos.G_Position.y = EaseInBetweenPoints(G_pointA, G_pointB);
+			}
 			ShowGUI();
 		}
 	}
@@ -846,14 +864,25 @@ void Scene::ShowGUI()
 
 	ListItem<Character*>* ch = partyList.start;
 
-	for (ch; ch != NULL; ch = ch->next)
+	for (ch; ch != NULL; ch = ch->next)	
 	{
-		app->render->DrawTexture(characterBG, charX, charY);
+		
+		/*app->render->DrawTexture(characterBG, charX, charY);*/
+		app->render->DrawTexture(characterBG, G_pos.G_Position.x +110, G_pos.G_Position.y+5);
+		
 
-		app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+		/*app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);*/
+		app->render->DrawTexture(ch->data->spriteFace, G_pos.G_Position.x + 125, G_pos.G_Position.y + 25);
 
-		app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+		app->font->DrawText(ch->data->name, G_pos.G_Position.x + 135, G_pos.G_Position.y - 3);
+
+		if (G_easing_active == false) {
+			app->render->DrawTexture(characterBG, charX, charY);
+			app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+			app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+		}
 		charX += 130;
+	/*	G_pos.G_Position.x += 130;*/
 	}
 
 	CharBars();
@@ -1057,4 +1086,19 @@ void Scene::FixAdd(int i, int x, int y)
 		}
 
 	}
+}
+
+float Scene::EaseInBetweenPoints(iPoint posA, iPoint posB) {
+	float value = G_Efunction.sineEaseIn(G_iterations, posA.y, posB.y - posA.y, G_total_iterations);
+
+	if (G_iterations < G_total_iterations) {
+		G_iterations++;
+	}
+
+	else {
+		G_iterations = 0;
+		G_easing_active = false;
+	}
+
+	return value;
 }
