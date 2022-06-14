@@ -153,6 +153,7 @@ bool ModuleParticles::PostUpdate()
 		app->render->DrawTexture(ChickenTex, 11, 910, &ChickenParticle.GetCurrentFrame());
 		app->render->DrawTexture(BirdTex, 1460, 1560, &BirdParticle.GetCurrentFrame());
 		app->render->DrawTexture(BirdTex, 620, 1300, &BirdParticle.GetCurrentFrame());
+		app->render->DrawTexture(BirdTex, 220, 1070, &BirdParticle.GetCurrentFrame());
 		if (BirdcanSpawn == true) {
 			BirdPos.x -= 4;
 			app->render->DrawTexture(BirdTex, BirdPos.x + 50, BirdPos.y - 1500, &BirdFParticleL.GetCurrentFrame());

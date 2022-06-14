@@ -880,13 +880,12 @@ void Scene::ShowGUI()
 			app->render->DrawTexture(characterBG, charX, charY);
 			app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
 			app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+			CharBars();
 		}
 		charX += 130;
 	/*	G_pos.G_Position.x += 130;*/
 	}
-
-	CharBars();
-
+	
 	// Current Stage on UI
 	if (showLocation == true) {
 		app->render->DrawTexture(locationUI, x + 10, y + 25);
