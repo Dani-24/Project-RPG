@@ -39,7 +39,11 @@ Rhen/Briar are the main character which you can choose on the beginning of the g
 A lot of heroes of that world haf tried to defeat the villian, but they all lost against the tower. None of them came back out.
 There is a legend that says that the ones who lose against the tower becomes part of it.
 
-
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/986058692094984242/screenshot1.png">
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/986058704518537297/screenshot2.png">
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/986058716791066684/screenshot4.png">
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/986058725594894406/screenshot5.png">
+<img width="700" height="394" src="https://cdn.discordapp.com/attachments/818140279147724820/986058736550436955/screenshot6.png">
 
 ## Controls
 
