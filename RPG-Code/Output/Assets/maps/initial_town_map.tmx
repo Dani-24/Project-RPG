@@ -7651,7 +7651,8 @@
  </layer>
  <layer id="9" name="(No borders) Water" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="23"/>
   </properties>
   <data>
@@ -11259,7 +11260,8 @@
  </layer>
  <layer id="28" name="(No borders) Water Top" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="22"/>
   </properties>
   <data>
@@ -14867,7 +14869,8 @@
  </layer>
  <layer id="30" name="(No borders) Water Left" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="20"/>
   </properties>
   <data>
@@ -18475,7 +18478,8 @@
  </layer>
  <layer id="29" name="(No borders) Water Top Left" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="19"/>
   </properties>
   <data>
@@ -22083,7 +22087,8 @@
  </layer>
  <layer id="42" name="Water inter Down R" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="31"/>
   </properties>
   <data>
@@ -25691,7 +25696,8 @@
  </layer>
  <layer id="43" name="Water inter Top R" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="30"/>
   </properties>
   <data>
@@ -29299,7 +29305,8 @@
  </layer>
  <layer id="41" name="Water inter Down L" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="29"/>
   </properties>
   <data>
@@ -32907,7 +32914,8 @@
  </layer>
  <layer id="40" name="Water inter Top L" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="28"/>
   </properties>
   <data>
@@ -36515,7 +36523,8 @@
  </layer>
  <layer id="39" name="Water Down Right (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="18"/>
   </properties>
   <data>
@@ -40123,7 +40132,8 @@
  </layer>
  <layer id="38" name="Water Right (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="17"/>
   </properties>
   <data>
@@ -43731,7 +43741,8 @@
  </layer>
  <layer id="37" name="Water Top Right (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="16"/>
   </properties>
   <data>
@@ -47339,7 +47350,8 @@
  </layer>
  <layer id="36" name="Water Down (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="15"/>
   </properties>
   <data>
@@ -50947,7 +50959,8 @@
  </layer>
  <layer id="31" name="Water (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="14"/>
   </properties>
   <data>
@@ -54555,7 +54568,8 @@
  </layer>
  <layer id="35" name="Water Top (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="13"/>
   </properties>
   <data>
@@ -58163,7 +58177,8 @@
  </layer>
  <layer id="34" name="Water Down Left (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="12"/>
   </properties>
   <data>
@@ -61771,7 +61786,8 @@
  </layer>
  <layer id="33" name="Water Left (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="11"/>
   </properties>
   <data>
@@ -65379,7 +65395,8 @@
  </layer>
  <layer id="32" name="Water Top Left (With borders)" width="60" height="60">
   <properties>
-   <property name="hasWater" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="water" type="int" value="10"/>
   </properties>
   <data>
@@ -68987,7 +69004,8 @@
  </layer>
  <layer id="19" name="Tavern - Under Walls" width="60" height="60">
   <properties>
-   <property name="Draw" type="int" value="1"/>
+   <property name="Draw" value="1"/>
+   <property name="hasWater" type="int" value="0"/>
   </properties>
   <data>
    <tile/>
@@ -72594,6 +72612,8 @@
  </layer>
  <layer id="49" name="waterfall right down" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="18"/>
   </properties>
@@ -76202,6 +76222,8 @@
  </layer>
  <layer id="48" name="waterfall right" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="17"/>
   </properties>
@@ -79810,6 +79832,8 @@
  </layer>
  <layer id="47" name="waterfall right top" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="16"/>
   </properties>
@@ -83418,6 +83442,8 @@
  </layer>
  <layer id="51" name="waterfall down" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="15"/>
   </properties>
@@ -87026,6 +87052,8 @@
  </layer>
  <layer id="52" name="waterfall mid" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="14"/>
   </properties>
@@ -90634,6 +90662,8 @@
  </layer>
  <layer id="50" name="waterfall top" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="13"/>
   </properties>
@@ -94242,6 +94272,8 @@
  </layer>
  <layer id="45" name="waterfall left down" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="12"/>
   </properties>
@@ -97850,6 +97882,8 @@
  </layer>
  <layer id="46" name="watefall left" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
+   <property name="hasWater" type="int" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="11"/>
   </properties>
@@ -101458,6 +101492,7 @@
  </layer>
  <layer id="44" name="waterfall left top" width="60" height="60">
   <properties>
+   <property name="Draw" value="0"/>
    <property name="hasWaterfall" type="int" value="1"/>
    <property name="waterfallType" type="int" value="10"/>
   </properties>
