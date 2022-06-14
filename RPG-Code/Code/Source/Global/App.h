@@ -35,6 +35,7 @@ class Camera;
 class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
+class ModuleAssetsManager;
 
 class Stages;
 class Battle;

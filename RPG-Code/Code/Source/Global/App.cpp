@@ -29,6 +29,7 @@
 #include "Shop.h"
 #include "ModuleParticles.h"
 #include "VisualEffects.h"
+#include 
 
 #include "Defs.h"
 #include "Log.h"
@@ -68,6 +69,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	conf = new Configuration(this, false);
 	shop = new Shop(this, false);
 	particlesM = new ModuleParticles(this);
+
+	assman = new ModuleAssetsManager(this, true);
 
 	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this);
