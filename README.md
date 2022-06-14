@@ -74,8 +74,6 @@ If debug keys is active:
 - 1/2/3 - Adds comrades in your party
 - Z -  Adds 100 Exp
 - 7 - Lock / Unlock player movement
-- 9 - Save Data
-- 0 - Load Data
 
 ## Additional Comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
