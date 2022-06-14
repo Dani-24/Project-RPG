@@ -134,7 +134,7 @@ bool Stages::PreUpdate()
 	case StageIndex::TOWER_2:
 		intStage = 12;
 		break;
-	case StageIndex::TOWER_4:
+	case StageIndex::TOWER_FINAL_BOSS:
 		intStage = 13;
 		break;
 	case StageIndex::TOWER_3:
@@ -388,7 +388,7 @@ bool Stages::PostUpdate()
 		break;
 	case StageIndex::TOWER_2:
 		break;
-	case StageIndex::TOWER_4:
+	case StageIndex::TOWER_FINAL_BOSS:
 		break;
 	case StageIndex::TOWER_3:
 		break;
@@ -1640,14 +1640,14 @@ void Stages::ChangeStage(StageIndex newStage) {
 
 		LOG("Win Screen");
 
-		app->audio->PlayMusic("Assets/audio/music/music_happy.ogg");
+		app->audio->PlayMusic("Assets/audio/music/music_tutorial.ogg");
 
 		break;
 	case StageIndex::LOSE:
 
 		LOG("Lose Screen");
 		app->audio->PlayFx(loseFx);
-		app->audio->PlayMusic("Assets/audio/music/music_lose.ogg");
+		app->audio->PlayMusic("Assets/audio/music/music_die.ogg");
 
 		break;
 	case StageIndex::TOWER_0:
@@ -1697,7 +1697,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 		}
 
 		break;
-	case StageIndex::TOWER_4:
+	case StageIndex::TOWER_FINAL_BOSS:
 
 		// Load Map
 		if (app->map->isEnabled() == true) {
@@ -1707,7 +1707,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 			app->camera->FreeLimits();
 			LOG("Loading Floor 3 map");
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_battle_boss.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1736,7 +1736,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 			app->camera->FreeLimits();
 			LOG("Loading Boss Floor 1 map");
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1751,7 +1751,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 			app->camera->FreeLimits();
 			LOG("Loading Boss Floor 2 map");
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 
@@ -1765,7 +1765,7 @@ void Stages::ChangeStage(StageIndex newStage) {
 			app->camera->OnTarget();
 			app->camera->FreeLimits();
 			LOG("Loading Boss Floor 3 map");
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 			//app->audio->PlayMusic("Assets/audio/music/");
 		}
 

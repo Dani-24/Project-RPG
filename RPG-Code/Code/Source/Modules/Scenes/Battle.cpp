@@ -348,7 +348,7 @@ bool Battle::Start()
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
-	case StageIndex::TOWER_4:
+	case StageIndex::TOWER_FINAL_BOSS:
 		townBackground = app->tex->Load("Assets/textures/forest_big.png");
 		dojoBackground = app->tex->Load("Assets/textures/dojo3.png");
 		break;
@@ -1501,7 +1501,7 @@ bool Battle::Update(float dt)
 			}
 
 			break;
-		case StageIndex::TOWER_4:
+		case StageIndex::TOWER_FINAL_BOSS:
 			//app->render->DrawTexture(townBackground, -200, -250);
 			if (hasToShake == false) {
 				app->render->DrawTexture(dojoBackground, 0, 0, &dojoAnim.GetCurrentFrame());
@@ -3399,17 +3399,17 @@ bool Battle::CleanUp()
 		case StageIndex::TOWER_3:
 			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
 			break;
-		case StageIndex::TOWER_4:
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+		case StageIndex::TOWER_FINAL_BOSS:
+			app->stages->ChangeStage(StageIndex::WIN);
 			break;
 		case StageIndex::TOWER_BOSS_1:
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 			break;
 		case StageIndex::TOWER_BOSS_2:
-			app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+			app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 			break; 
 		case StageIndex::TOWER_BOSS_3:
-				app->audio->PlayMusic("Assets/audio/music/music_floors_top.ogg");
+				app->audio->PlayMusic("Assets/audio/music/music_floors_mid.ogg");
 				break;
 		}
 
