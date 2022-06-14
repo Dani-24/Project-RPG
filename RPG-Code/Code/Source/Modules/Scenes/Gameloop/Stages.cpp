@@ -1346,20 +1346,20 @@ bool Stages::PostUpdate()
 			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS,  app->win->GetWidth() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().w / 2, app->win->GetHeight() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().h/2, &app->battle->EscudoS_a.GetCurrentFrame(),4,false);
 			break;
 		case 111:
-			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 200, 100, &app->battle->EspadaS_a.GetCurrentFrame(), 4, false);
+			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 950, 50, &app->battle->EspadaS_a.GetCurrentFrame(), 3, false);
 			break;
 		case 112:
-			app->render->DrawTexture(app->battle->AquaE, 100, 100, &app->battle->AquaE_a.GetCurrentFrame(), 4, false);
+			app->render->DrawTexture(app->battle->AquaE, 950, 130, &app->battle->AquaE_a.GetCurrentFrame(), 4, false);
 			break;
 
 		case 120:
-			app->render->DrawTexture(app->battle->Pedrada, 200, 100, &app->battle->Pedrada_a.GetCurrentFrame(), 6, false);
+			app->render->DrawTexture(app->battle->Pedrada, 950, 200, &app->battle->Pedrada_a.GetCurrentFrame(), 6, false);
 			break;
 		case 121:
-			app->render->DrawTexture(app->battle->Cataclismo, 200, 50, &app->battle->Cataclismo_a.GetCurrentFrame(), 3, false);
+			app->render->DrawTexture(app->battle->Cataclismo, 550, -250, &app->battle->Cataclismo_a.GetCurrentFrame(), 4, false);
 			break;
 		case 122:
-			app->render->DrawTexture(app->battle->Ciervo, 130, 80, &app->battle->Ciervo_a.GetCurrentFrame(),3, false);
+			app->render->DrawTexture(app->battle->Ciervo, 500, 100, &app->battle->Ciervo_a.GetCurrentFrame(),3, false);
 			break;
 
 		case 130:
@@ -1376,7 +1376,7 @@ bool Stages::PostUpdate()
 			break;
 
 		case 140:
-			app->render->DrawTexture(app->battle->Juicio, 100, 100, &app->battle->Juicio_a.GetCurrentFrame(), 1, false);
+			app->render->DrawTexture(app->battle->Juicio, 700, 0, &app->battle->Juicio_a.GetCurrentFrame(), 2, false);
 			break;
 		case 141:
 			app->render->DrawTexture(app->battle->HalconElectro, 100, 100, &app->battle->HalconElectro_a.GetCurrentFrame(), 1, false);
