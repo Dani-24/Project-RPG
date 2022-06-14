@@ -54,8 +54,13 @@ bool QuestManager::Start()
 	"Take a beer camarada"
 	};
 
+	const char* descriptionQ1[DIALOG_LENGHT] = {
+	"Go through all the tower", 
+	"to defeat Camion-kun"
+	};
 
-	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Complete the Tower", "Quest 1", "go through all the tower to defeat Camion-kun", 30, 30, 0, 0, 0, false, availableQ32, activeQ3, completeQ3, true, true);
+
+	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Complete the Tower", "Quest 1", descriptionQ1, 30, 30, 0, 0, 0, false, availableQ32, activeQ3, completeQ3, true, true);
 
 	//Quest* quest3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 5, 0, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
 
@@ -73,7 +78,7 @@ bool QuestManager::Start()
 	"please, talk with the barkeeper" };
 	const char* completed[DIALOG_LENGHT] = {
 	"Hello"};
-	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Quest 2", "Investiga el pueblo", 20, 20, 3, 1, 1, false,available,active,completed, true, false);
+	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Quest 2", descriptionQ1/*"Investiga el pueblo"*/, 20, 20, 3, 1, 1, false,available,active,completed, true, false);
 	questList.add(quest1_1);
 
 	const char* completed3[DIALOG_LENGHT] = {
@@ -98,7 +103,7 @@ bool QuestManager::Start()
 	"Become stronger, you don't have any chances now",
 	"poyo" };
 
-	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Quest 2", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, false, completed3, active2, completed2, true, true);
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Quest 2", descriptionQ1/*"Busca a Emilio en la torre"*/, 20, 20, 5, 1, 2, false, completed3, active2, completed2, true, true);
 	questList.add(quest1_2);
 
 	const char* availableQ2[DIALOG_LENGHT] = {
@@ -126,7 +131,7 @@ bool QuestManager::Start()
 	"I can see in your face you're now more stronger",
 	"Go talk to Emilio and tell him that you trained here."
 	};
-	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Quest 3", "Maybe you can train in the Dojo", 40, 40, 3, 1, 3, false, availableQ2, activeQ2, completeQ2, true, false);
+	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Quest 3", descriptionQ1/*"Maybe you can train in the Dojo"*/, 40, 40, 3, 1, 3, false, availableQ2, activeQ2, completeQ2, true, false);
 	questList.add(quest2_1);
 
 	const char* availableQ2_2[DIALOG_LENGHT] = {
@@ -147,10 +152,10 @@ bool QuestManager::Start()
 	"But please, don't die.",
 	"poyo"
 	};
-	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Quest 3", "Maybe you can train in the Dojo", 40, 40, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2, true, true);
+	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Quest 3", descriptionQ1/*"Maybe you can train in the Dojo"*/, 40, 40, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2, true, true);
 	questList.add(quest2_2);
 
-	Quest* questFloor1 = new Quest(QuestType::KILL, QuestState::ACTIVE, 6, 0, "Lvl1", "lvl1", "mata a todos los enemigos", 0, 0, 8, 0, 0, false, available, active, completed, false, false);
+	Quest* questFloor1 = new Quest(QuestType::KILL, QuestState::ACTIVE, 6, 0, "Lvl1", "lvl1", descriptionQ1/*"mata a todos los enemigos"*/, 0, 0, 8, 0, 0, false, available, active, completed, false, false);
 	questList.add(questFloor1);
 
 
@@ -169,19 +174,19 @@ bool QuestManager::Start()
 	"You visit my dead friend, you can pass."
 	};
 		
-	Quest* questFloor2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 7, 9, "Lvl2", "lvl2", "??", 0, 0, 10, 0, 0, false, availablefloor2, activefloor2, completedFloor2, false, false);
+	Quest* questFloor2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 7, 9, "Lvl2", "lvl2", descriptionQ1/*"??"*/, 0, 0, 10, 0, 0, false, availablefloor2, activefloor2, completedFloor2, false, false);
 	questList.add(questFloor2);
 
 	const char* completedFloor3[DIALOG_LENGHT] = {
 	"There is a key fragment on the tombstone"
 	};
-	Quest* questFloor3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 8, 0, "Lvl2", "lvl2", "??", 0, 0, 11, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
+	Quest* questFloor3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 8, 0, "Lvl2", "lvl2", descriptionQ1/*"??"*/, 0, 0, 11, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_1);
 
-	Quest* questFloor3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 9, 0, "Lvl2", "lvl2", "??", 0, 0, 12, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
+	Quest* questFloor3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 9, 0, "Lvl2", "lvl2", descriptionQ1/*"??"*/, 0, 0, 12, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_2);
 
-	Quest* questFloor3_3 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 10, 0, "Lvl2", "lvl2", "??", 0, 0, 13, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
+	Quest* questFloor3_3 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 10, 0, "Lvl2", "lvl2", descriptionQ1/*"??"*/, 0, 0, 13, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_3);
 
 

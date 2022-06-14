@@ -26,7 +26,7 @@ QuestMenu::~QuestMenu()
 
 bool QuestMenu::Awake(pugi::xml_node& config)
 {
-	LOG("Awakening STATS MENU");
+	LOG("Awakening QUESTS MENU");
 	bool ret = true;
 
 	return ret;
@@ -34,7 +34,7 @@ bool QuestMenu::Awake(pugi::xml_node& config)
 
 bool QuestMenu::Start()
 {
-	LOG("Starting STATS MENU");
+	LOG("Starting QUESTS MENU");
 
 	int x = -app->camera->GetPos().x / 2;
 	int y = -app->camera->GetPos().y / 2;
@@ -158,14 +158,18 @@ bool QuestMenu::PostUpdate()
 				}
 				
 			}
-			if (app->questManager->questToPrintList.At(i)->data->toPrintC == true) {
-				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::FINISHED) {
+			
+			if (app->questManager->questToPrintList.At(i)->data->State == QuestState::FINISHED) {
+				if (app->questManager->questToPrintList.At(i)->data->toPrintC == true) {
 					app->font->DrawText("X", x + 33, y + 94 + i * 50);
 					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
 				}
+				else {
+					app->questManager->questToPrintList.del(app->questManager->questToPrintList.At(i));
+				}
 			}
 		}
-		//Statss();
+		Quests();
 		GampadControl();
 	}
 	
@@ -213,9 +217,38 @@ float QuestMenu::EaseOutBetweenPoints(iPoint posA, iPoint posB) {
 	return value;
 }
 
+void QuestMenu::Quests()
+{
+	int q = qselect;
+	int x = -app->camera->GetPos().x / 2,
+		y = -app->camera->GetPos().y / 2;
+	SDL_Color Gr = { 0,255,30 }, Bl = { 0, 198, 255 }, Yw = { 255, 244, 153 };
+	ListItem<Quest*>* ch = app->questManager->questToPrintList.At(q);
+
+	app->font->DrawText(app->questManager->questToPrintList.At(q)->data->questName, x + 290, y + 87);
+	//app->font->DrawText(app->questManager->questToPrintList.At(q)->data->questDescription, x + 290, y + 97);
+
+	//Gold
+	std::string GOLD = std::to_string(app->questManager->questToPrintList.At(q)->data->QuestGold);
+	char const* _GOLD = GOLD.c_str();
+	app->font->DrawText(_GOLD, x + 475, y + 255, Yw);
+	app->font->DrawText("GOLD", x + 525, y + 255, Yw);
+
+	//Exp
+	std::string EXP = std::to_string(app->questManager->questToPrintList.At(q)->data->QuestGold);
+	char const* _EXP = EXP.c_str();
+	app->font->DrawText(_EXP, x + 475, y + 285, Bl);
+	app->font->DrawText("EXP", x + 525, y + 285, Bl);
+
+	if (app->questManager->questToPrintList.At(q)->data->State == QuestState::FINISHED) 
+	{
+		app->font->DrawText("COMPLETED", x + 290, y + 285, Gr);
+	}
+}
+
 bool QuestMenu::CleanUp()
 {
-	LOG("Closing STATS MENU");
+	LOG("Closing QUESTS MENU");
 
 	//// Allow player to move
 	app->scene->player->canMove = true;

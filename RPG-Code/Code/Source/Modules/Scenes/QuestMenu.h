@@ -42,6 +42,8 @@ public:
 
 	float EaseOutBetweenPoints(iPoint posA, iPoint posB);
 
+	void Quests();
+
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	//manage the control of ui with keyboard/gamepad
