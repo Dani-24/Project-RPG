@@ -1,6 +1,7 @@
 #include "StatsMenu.h"
 #include "App.h"
 #include "Inventory.h"
+#include "QuestMenu.h"
 
 #include "Input.h"
 #include "Textures.h"
@@ -43,8 +44,8 @@ bool StatsMenu::Start()
 
 	// Buttons
 	backButton = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 400, "Back", { x + 20, y + 10, 74, 32 }, this);
-	invent = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 401, "invent", { x + 20, y + 45, 74, 32 }, this);
-	invent->state = GuiControlState::DISABLED;
+	quests = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 401, "quests", { x + 20, y + 45, 74, 32 }, this);
+	quests->state = GuiControlState::DISABLED;
 
 
 	ch1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 402, "ch1", { x + 29, y + 93, 196, 45 }, this);
@@ -72,8 +73,8 @@ bool StatsMenu::Start()
 
 	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png");
 
-	invTex = app->tex->Load("Assets/gui/buttons/invent.png");
-	presinvTex = app->tex->Load("Assets/gui/buttons/pressed_invent.png");
+	questsTex = app->tex->Load("Assets/gui/buttons/quest.png");
+	presQuestsTex = app->tex->Load("Assets/gui/buttons/pressed_quest.png");
 
 	// SFX
 	buttonSfx = app->audio->LoadFx("Assets/audio/sfx/fx_select_confirm.wav");
@@ -134,7 +135,7 @@ bool StatsMenu::PostUpdate()
 	int x = -app->camera->GetPos().x / 2;
 	int y = -app->camera->GetPos().y / 2;
 	
-	if(invent->state == GuiControlState::DISABLED)invent->state = GuiControlState::NORMAL;
+	if(quests->state == GuiControlState::DISABLED)quests->state = GuiControlState::NORMAL;
 	// Draw UI
 
 	if (S_easing_active == true)
@@ -147,7 +148,7 @@ bool StatsMenu::PostUpdate()
 
 	if (S_easing_active == false && S_easing_active_out == false) {
 		backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonTexture, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedTexture, backButton->bounds.x, backButton->bounds.y);
-		invent->state != GuiControlState::PRESSED ? app->render->DrawTexture(invTex, invent->bounds.x, invent->bounds.y) : app->render->DrawTexture(presinvTex, invent->bounds.x, invent->bounds.y);
+		quests->state != GuiControlState::PRESSED ? app->render->DrawTexture(questsTex, quests->bounds.x, quests->bounds.y) : app->render->DrawTexture(presQuestsTex, quests->bounds.x, quests->bounds.y);
 
 		for (int i = 0; i < app->scene->partyList.count(); i++)
 		{
@@ -198,7 +199,7 @@ float StatsMenu::EaseOutBetweenPoints(iPoint posA, iPoint posB) {
 
 	else {
 		S_iterations_out = 0;
-		app->inventory->Enable();
+		app->questMenu->Enable();
 		Disable();
 	}
 
@@ -213,7 +214,7 @@ bool StatsMenu::CleanUp()
 	app->scene->player->canMove = true;
 	
 	backButton->state = GuiControlState::DISABLED;
-	invent->state = GuiControlState::DISABLED;
+	quests->state = GuiControlState::DISABLED;
 
 	ch1->state = GuiControlState::DISABLED;
 	if (app->scene->partyList.count() > 1 && ch2->state == GuiControlState::NORMAL)ch2->state = GuiControlState::DISABLED;
@@ -227,8 +228,8 @@ bool StatsMenu::CleanUp()
 	app->tex->UnLoad(backButtonTexture);
 	app->tex->UnLoad(backButtonPressedTexture);
 
-	app->tex->UnLoad(invTex);
-	app->tex->UnLoad(presinvTex);
+	app->tex->UnLoad(questsTex);
+	app->tex->UnLoad(presQuestsTex);
 	
 	return true;
 }
@@ -513,7 +514,7 @@ void StatsMenu::GampadControl()
 	switch (app->scene->partyList.count())
 	{
 	case 1:
-		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		if (backButton->state == GuiControlState::NORMAL && quests->state == GuiControlState::NORMAL &&
 			ch1->state == GuiControlState::NORMAL)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
@@ -526,7 +527,7 @@ void StatsMenu::GampadControl()
 		}
 		break;
 	case 2:
-		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		if (backButton->state == GuiControlState::NORMAL && quests->state == GuiControlState::NORMAL &&
 			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
@@ -539,7 +540,7 @@ void StatsMenu::GampadControl()
 		}
 		break;
 	case 3:
-		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		if (backButton->state == GuiControlState::NORMAL && quests->state == GuiControlState::NORMAL &&
 			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL && ch3->state == GuiControlState::NORMAL)
 		{
 			if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
@@ -552,7 +553,7 @@ void StatsMenu::GampadControl()
 		}
 		break;
 	case 4:
-		if (backButton->state == GuiControlState::NORMAL && invent->state == GuiControlState::NORMAL &&
+		if (backButton->state == GuiControlState::NORMAL && quests->state == GuiControlState::NORMAL &&
 			ch1->state == GuiControlState::NORMAL && ch2->state == GuiControlState::NORMAL && ch3->state == GuiControlState::NORMAL&&
 			ch4->state == GuiControlState::NORMAL)
 		{
@@ -585,28 +586,28 @@ void StatsMenu::GampadControl()
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
-			invent->state = GuiControlState::FOCUSED;
+			quests->state = GuiControlState::FOCUSED;
 			ch1->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 	}
-	else if (invent->state == GuiControlState::FOCUSED) {
+	else if (quests->state == GuiControlState::FOCUSED) {
 
 		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
 		{
-			invent->state = GuiControlState::PRESSED;
-			invent->NotifyObserver();
+			quests->state = GuiControlState::PRESSED;
+			quests->NotifyObserver();
 		}
 		if (!pad.down && !pad.up) wait = true;
 		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
 			ch1->state = GuiControlState::FOCUSED;
-			invent->state = GuiControlState::NORMAL;
+			quests->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.up && wait == true) {
 			backButton->state = GuiControlState::FOCUSED;
-			invent->state = GuiControlState::NORMAL;
+			quests->state = GuiControlState::NORMAL;
 			wait = false;
 		}
 
@@ -623,7 +624,7 @@ void StatsMenu::GampadControl()
 		if (!pad.down && !pad.up) wait = true;
 
 		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.down && wait == true) {
-			invent->state = GuiControlState::FOCUSED;
+			quests->state = GuiControlState::FOCUSED;
 			backButton->state = GuiControlState::NORMAL;
 			wait = false;
 		}

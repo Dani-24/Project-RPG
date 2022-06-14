@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "PauseMenu.h"
 #include "StatsMenu.h"
+#include "QuestMenu.h"
 
 #include "Battle.h"
 #include "Stages.h"
@@ -22,6 +23,7 @@
 #include "BossEnemy.h"
 #include "NPC.h"
 #include "EntityManager.h"
+#include "AssetsManager.h"
 
 #include "Party.h"
 #include "Inventory.h"
@@ -47,6 +49,17 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	//char* buffer;
+	//pugi::xml_document dataFile;
+
+	//int bytesFile = app->assman->LoadData("data.xml", &buffer);
+
+	//// Loading from memory with PUGI: https://pugixml.org/docs/manual.html#loading.memory
+	//pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+
+	//RELEASE_ARRAY(buffer);
+
+
 	CharRest = config.child("rest").attribute("path").as_string();
 	_CharRest = config.child("prest").attribute("path").as_string();
 	CharBackTex = config.child("back").attribute("path").as_string();
@@ -56,6 +69,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	CharFxLoad = config.child("lFx").attribute("path").as_string();
 	CharFxSave = config.child("sFx").attribute("path").as_string();
 
+
+
 	return ret;
 }
 
@@ -63,6 +78,7 @@ bool Scene::Start()
 {
 	LOG("Starting Scene");
 	
+
 	// Apple just for inventory testing
 	AddItem(UsableType::APPLE);
 
@@ -71,20 +87,23 @@ bool Scene::Start()
 	app->dialogs->Enable();
 	
 	// Load textures
-	backFx = app->audio->LoadFx(CharFxBack.GetString());
-	loadFx = app->audio->LoadFx(CharFxLoad.GetString());
-	saveFx = app->audio->LoadFx(CharFxSave.GetString());
+	backFx = app->audio->LoadFx(CharFxBack.GetString(), 1);
+	loadFx = app->audio->LoadFx(CharFxLoad.GetString(), 1);
+	saveFx = app->audio->LoadFx(CharFxSave.GetString(), 1);
+
+	
 	
 	mini_map = app->tex->Load("Assets/textures/mini_map.png");
 
 	//buttons
 	restart = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 40, "Restart", { 280, 280 , 74, 32 }, this);
 	backtoMenu = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 41, "BackToMenu", { 240, 280 , 150, 32 }, this);
-	restartTex = app->tex->Load(CharRest.GetString());
-	press_restartTex = app->tex->Load(_CharRest.GetString());
-	backtoMenuTex = app->tex->Load(CharBackTex.GetString());
-	press_backtoMenuTex = app->tex->Load(_CharBackTex.GetString());
-	locationUI = app->tex->Load(CharLoc.GetString());
+	
+	restartTex = app->tex->Load(CharRest.GetString(), 1);
+	press_restartTex = app->tex->Load(_CharRest.GetString(), 1);
+	backtoMenuTex = app->tex->Load(CharBackTex.GetString(), 1);
+	press_backtoMenuTex = app->tex->Load(_CharBackTex.GetString(), 1);
+	locationUI = app->tex->Load(CharLoc.GetString(), 1);
 
 	// Player Entity
 	player = (Player*)app->entities->CreateEntity(CharacterType::PLAYER, 950, 1730);
@@ -387,6 +406,14 @@ bool Scene::Start()
 	join2T = app->tex->Load("Assets/textures/join_party/raylaJOINS.png");
 	join3T = app->tex->Load("Assets/textures/join_party/dhionJOINS.png");
 
+	G_total_iterations = 60;
+	G_iterations = 0;
+
+	G_total_iterations2 = 60;
+	G_iterations2 = 0;
+	G_easing_active = true;
+
+
 	return true;
 }
 
@@ -429,6 +456,20 @@ bool Scene::Update(float dt)
 	yt = -app->camera->GetPos().y / 2 + app->win->GetHeight() / 2;
 
 	if (app->stmen->isEnabled() || app->inventory->isEnabled())app->scene->player->canMove = false;
+
+	int xa = -app->camera->GetPos().x / 2;
+	int ya = -app->camera->GetPos().y / 2;
+
+	G_pos.G_Position.x = xa ;
+	G_pos.G_Position.y = ya - 115;
+	G_pointA = { xa , ya -115};
+	G_pointB = { xa  , ya };
+
+	G_pos2.G_Position.x = xa - 115;
+	G_pos2.G_Position.y = ya ;
+	G_pointA2 = { xa - 115  , ya };
+	G_pointB2 = { xa  , ya };
+
 
 	fpsdt = dt*3.75;
 
@@ -566,6 +607,12 @@ bool Scene::Update(float dt)
 		app->stmen->Enable();
 	}
 
+	// quests
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		app->questMenu->Enable();
+	}
+
+
 
 	if (app->stages->actualStage == StageIndex::WIN) {
 		restart->state = GuiControlState::DISABLED;
@@ -605,8 +652,16 @@ bool Scene::PostUpdate()
 		// Checkear miembros de la party y imprimir sus carteles
 
 		if (app->battle->isEnabled() == false) {
+			if (G_easing_active == true) 
+			{
+				G_pos.G_Position.y = EaseInBetweenPoints(G_pointA, G_pointB);
+				G_pos2.G_Position.y = EaseInBetweenPoints(G_pointA2, G_pointB2);
+			}
 			ShowGUI();
 		}
+	}
+	if (guiactivate == false) {
+		G_easing_active = true;
 	}
 	if (app->collisions->debug)
 	{
@@ -828,21 +883,9 @@ void Scene::ShowGUI()
 
 	ListItem<Character*>* ch = partyList.start;
 
-	for (ch; ch != NULL; ch = ch->next)
-	{
-		app->render->DrawTexture(characterBG, charX, charY);
-
-		app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
-
-		app->font->DrawText(ch->data->name, charX + 25, charY - 2);
-		charX += 130;
-	}
-
-	CharBars();
-
 	// Current Stage on UI
 	if (showLocation == true) {
-		app->render->DrawTexture(locationUI, x + 10, y + 25);
+		app->render->DrawTexture(locationUI, G_pos.G_Position.x + 10, G_pos.G_Position.y + 25);
 
 		switch (app->stages->actualStage) {
 		case StageIndex::NONE:
@@ -850,74 +893,182 @@ void Scene::ShowGUI()
 		case StageIndex::TOWN:
 			sprintf_s(currentPlace_UI, "Town");
 
-			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 25, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::DOJO:
 			sprintf_s(currentPlace_UI, "Dojo");
 
-			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 30, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::SHOP:
 			sprintf_s(currentPlace_UI, "Shop");
 
-			app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 30, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::SHOPSUB:
 			sprintf_s(currentPlace_UI, "Shop -1");
 
-			app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 25, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TAVERN:
 			sprintf_s(currentPlace_UI, "Tavern");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_0:
 			sprintf_s(currentPlace_UI, "Tower");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_1:
 			sprintf_s(currentPlace_UI, "Floor 1");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_2:
 			sprintf_s(currentPlace_UI, "Floor 2");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_4:
 			sprintf_s(currentPlace_UI, "Floor 4");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_3:
 			sprintf_s(currentPlace_UI, "Floor 3");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_BOSS_1:
 			sprintf_s(currentPlace_UI, "Boss 1");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
 		case StageIndex::TOWER_BOSS_2:
 			sprintf_s(currentPlace_UI, "Boss 2");
 
-			app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
+		break; case StageIndex::TOWER_BOSS_3:
+			sprintf_s(currentPlace_UI, "Boss 3");
+
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
+			break;
+		case StageIndex::PROLOGUE:
+			sprintf_s(currentPlace_UI, "The City");
+
+			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 15, G_pos.G_Position.y + 30, { 0, 0, 0 });
+			break;
+		}
+	}
+
+	if (G_easing_active == false) {
+		// Current Stage on UI
+		if (showLocation == true) {
+			app->render->DrawTexture(locationUI, x + 10, y + 25);
+
+			switch (app->stages->actualStage) {
+			case StageIndex::NONE:
+				break;
+			case StageIndex::TOWN:
+				sprintf_s(currentPlace_UI, "Town");
+
+				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::DOJO:
+				sprintf_s(currentPlace_UI, "Dojo");
+
+				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::SHOP:
+				sprintf_s(currentPlace_UI, "Shop");
+
+				app->font->DrawText(currentPlace_UI, x + 30, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::SHOPSUB:
+				sprintf_s(currentPlace_UI, "Shop -1");
+
+				app->font->DrawText(currentPlace_UI, x + 25, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TAVERN:
+				sprintf_s(currentPlace_UI, "Tavern");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_0:
+				sprintf_s(currentPlace_UI, "Tower");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_1:
+				sprintf_s(currentPlace_UI, "Floor 1");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_2:
+				sprintf_s(currentPlace_UI, "Floor 2");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_4:
+				sprintf_s(currentPlace_UI, "Floor 4");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_3:
+				sprintf_s(currentPlace_UI, "Floor 3");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_BOSS_1:
+				sprintf_s(currentPlace_UI, "Boss 1");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				break;
+			case StageIndex::TOWER_BOSS_2:
+				sprintf_s(currentPlace_UI, "Boss 2");
+
+				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 			break; case StageIndex::TOWER_BOSS_3:
 				sprintf_s(currentPlace_UI, "Boss 3");
 
 				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 				break;
-		case StageIndex::PROLOGUE:
-			sprintf_s(currentPlace_UI, "The City");
+			case StageIndex::PROLOGUE:
+				sprintf_s(currentPlace_UI, "The City");
 
-			app->font->DrawText(currentPlace_UI, x + 15, y + 30, { 0, 0, 0 });
-			break;
+				app->font->DrawText(currentPlace_UI, x + 15, y + 30, { 0, 0, 0 });
+				break;
+			}
 		}
 	}
+
+	for (ch; ch != NULL; ch = ch->next)	
+	{
+		
+		/*app->render->DrawTexture(characterBG, charX, charY);*/
+		app->render->DrawTexture(characterBG, G_pos.G_Position.x +110, G_pos.G_Position.y+5);
+		
+
+		/*app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);*/
+		app->render->DrawTexture(ch->data->spriteFace, G_pos.G_Position.x + 125, G_pos.G_Position.y + 25);
+
+		app->font->DrawText(ch->data->name, G_pos.G_Position.x + 135, G_pos.G_Position.y - 3);
+
+
+		if (G_easing_active == false) {
+			app->render->DrawTexture(characterBG, charX, charY);
+			app->render->DrawTexture(ch->data->spriteFace, charX + 15, charY + 20);
+			app->font->DrawText(ch->data->name, charX + 25, charY - 2);
+			CharBars();
+		}
+
+		charX += 130;
+		G_pos.G_Position.x += 130;
+		/*	G_pos.G_Position.x += 130;*/
+	}
+	
+	
 }
 void Scene::CharBars()
 {
@@ -1039,4 +1190,34 @@ void Scene::FixAdd(int i, int x, int y)
 		}
 
 	}
+}
+
+float Scene::EaseInBetweenPoints(iPoint posA, iPoint posB) {
+	float value = G_Efunction.sineEaseIn(G_iterations, posA.y, posB.y - posA.y, G_total_iterations);
+
+	if (G_iterations < G_total_iterations) {
+		G_iterations++;
+	}
+
+	else {
+		G_iterations = 0;
+		G_easing_active = false;
+	}
+
+	return value;
+}
+
+float Scene::EaseInBetweenPointsX(iPoint posA, iPoint posB) {
+	float value = G_Efunction.sineEaseIn(G_iterations2, posA.x, posB.x - posA.x, G_total_iterations2);
+
+	if (G_iterations2 < G_total_iterations2) {
+		G_iterations2++;
+	}
+
+	else {
+		G_iterations2 = 0;
+		G_easing_active = false;
+	}
+
+	return value;
 }

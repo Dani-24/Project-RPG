@@ -1,0 +1,139 @@
+<!-- Config file for the game -->
+<data>
+    <app>
+        <title>Isekai'd by Truck-kun to defeat him v0.8 (Alpha)</title>
+        <organization>Suspicious Team</organization>
+    </app>
+
+    <renderer>
+        <vsync value="true"/>
+		
+    </renderer>
+
+	<audio>
+		<music value="20"/>
+		<sfx value="20"/>
+		
+	</audio>
+	
+	<camera>
+		
+	</camera>
+	
+    <window>
+        <resolution width="1280" height="720" scale="2"/>
+        <fullscreen value="false"/>
+        <borderless value="false"/>
+        <resizable value="false"/>
+        <fullscreen_window value="false"/>
+    </window>
+
+    <map>
+        <folder>Assets/maps/</folder>
+    </map>
+
+   <player>
+		<male path="Assets/sprites/MainCh/MainChM/Walk/MainChM.png"/>
+		<female path="Assets/sprites/MainCh/MainChF/Walk/MainChF.png"/>
+		<election path="Assets/audio/sfx/fx_character_yes.wav"/>
+		<walkFx path="Assets/audio/sfx/fx_walk.wav"/>
+		<interactionButton path="Assets/gui/controllers/ui_mixed.png"/>
+	   <exampleNumber num="6"/>
+	</player>
+	
+	<titleScene>
+		<startb path="Assets/gui/button_start.png"/>
+		<continueb path="Assets/gui/button_continue.png"/>
+		<optionsb path="Assets/gui/button_options.png"/>
+		<creditsb path="Assets/gui/button_credits.png"/>
+		<exitb path="Assets/gui/button_exit.png"/>
+		<title path="Assets/textures/title_screen_bg.png"/>
+		<mustitle path="Assets/audio/music/music_title.ogg"/>
+		<sfsxconfirm path="Assets/audio/sfx/fx_select_confirm.wav"/>
+		<sfxtitle path="Assets/audio/sfx/fx_title.wav"/>
+	</titleScene>
+	
+	<conf>
+		<musset path="Assets/audio/music/music_settings.ogg"/>
+		<sfxback path="Assets/audio/sfx/fx_select_back.wav"/>
+		<backgr path="Assets/gui/marco_opciones.png"/>
+	</conf>
+	
+	<scene>
+		<spionage path="Assets/audio/music/music_credits.ogg" />
+
+		<rest path="Assets/gui/buttons/button_restart.png"/>
+		<prest path="Assets/gui/buttons/pressed_button_restart.png"/>
+		<back path="Assets/gui/buttons/button_back_to_menu.png"/>
+		<pback path="Assets/gui/buttons/pressed_button_back_to_menu.png"/>
+		<loc path="Assets/gui/inventory/ui_localizacion.png"/>
+		<bFx path="Assets/audio/sfx/fx_select_back.wav"/>
+		<lFx path="Assets/audio/sfx/fx_load.wav"/>
+		<sFx path="Assets/audio/sfx/fx_save.wav"/>
+	</scene>
+
+	<cock>
+		<chicken path="Assets/sprites/npc/tavern/chicken.png"/>
+	</cock>
+	
+	<barkeeper>
+		<tavern path="Assets/sprites/npc/tavern/npc_tavern.png"/>
+	</barkeeper>
+	
+	<trainer>
+		<trainer path="Assets/sprites/npc/training/npc_training.png"/>
+	</trainer>
+	
+	<merchant>
+		<shoper path="Assets/sprites/npc/shop/npc_shop.png"/>
+	</merchant>
+	
+	<emilio>
+		<korb path="Assets/sprites/npc/tower/npc_emilio.png"/>
+	</emilio>
+
+	<giroide>
+		<g path="Assets/sprites/npc/extra/npc_giroide.png"/>
+	</giroide>
+	<archer>
+		<archer path="Assets/sprites/characters/archer/walk/rayla.png"/>
+	</archer>
+	<lancer>
+		<glancer path="Assets/sprites/characters/lancer/walk/dhion.png"/>
+	</lancer>
+	<wizard>
+		<wizard path="Assets/sprites/characters/wizard/Valion.png"/>
+	</wizard>
+
+	<pathfinder>
+		<pathtex path="Assets/textures/path.png"/>
+		<pathorigin path="Assets/textures/pathOrigin.png"/>
+	</pathfinder>
+	
+	<logoScene>
+		<logo path="Assets/textures/logo.png"/>	
+		<logofx path="Assets/audio/sfx/fx_logo.wav"/>	
+	</logoScene>
+
+	<stages>
+		<losescreen path="Assets/textures/lose_screen.png"/>
+		<winscreen path="Assets/textures/win_screen.png"/>
+		<losetext path="Assets/textures/lose_message.png"/>
+		<wintext path="Assets/textures/win_message.png"/>
+		<hit1fx path="Assets/audio/sfx/fx_attack_hit.wav"/>
+		<hit2fx path="Assets/audio/sfx/fx_attack_hit_2.wav"/>
+		<hit3fx path="Assets/audio/sfx/fx_attack_hit_3.wav"/>
+		<shieldfx path="Assets/audio/sfx/fx_shield.wav"/>
+		<chdiefx path="Assets/audio/sfx/fx_character_die.wav"/>
+		<doorfx path="Assets/audio/sfx/fx_open_door.wav"/>
+		<losefx path="Assets/audio/sfx/fx_lose.wav"/>
+		
+	</stages>
+	
+	<shop>
+		<uishop path="Assets/gui/inventory/ui_shop.png"/>
+		<itm2 path="Assets/items/items2.png"/>
+		
+	</shop>
+	
+</data>

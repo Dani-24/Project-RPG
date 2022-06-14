@@ -38,6 +38,9 @@ public:
 	bool QuestLastChain;
 	int QuestChainId; //chain id
 	int QuestInChainId; //in chain number
+	bool toPrint;
+	bool toPrintC;
+	bool printed;
 
 	int objectiveNum;
 
@@ -64,6 +67,9 @@ public:
 		QuestLastChain = false;
 		QuestChainId = 0;
 		QuestInChainId = 0;
+		toPrint = false;
+		toPrintC = false;
+		printed = false;
 
 		objectiveNum = 0;
 
@@ -72,7 +78,7 @@ public:
 	}
 
 	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
-		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT])
+		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT], bool print, bool printC)
 	{
 		questType = qtype;
 		State = qState;
@@ -88,6 +94,8 @@ public:
 			QuestChain = true;
 		}
 		QuestLastChain = LastInChain;
+		toPrint = print;
+		toPrintC = printC;
 
 
 		switch (qtype) {
@@ -148,7 +156,7 @@ public:
 
 public:
 
-	List<Quest*> questList;
+	List<Quest*> questList, questToPrintList;
 	bool q2 = false;
 };
 

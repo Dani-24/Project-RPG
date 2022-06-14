@@ -35,6 +35,7 @@ class Camera;
 class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
+class ModuleAssetsManager;
 
 class Stages;
 class Battle;
@@ -43,6 +44,7 @@ class Collisions;
 class DialogSystem;
 class Inventory;
 class StatsMenu;
+class QuestMenu;
 
 class VisualEffects;
 
@@ -130,6 +132,8 @@ public:
 	Shop* shop;
 	ModuleParticles* particlesM;
 
+	ModuleAssetsManager* assman;
+
 	ModuleQFonts* font;
 	FadeToBlack* fade;
 	Pathfinder* pathfinder;
@@ -138,6 +142,7 @@ public:
 	DialogSystem* dialogs;
 	Inventory* inventory;
 	StatsMenu* stmen;
+	QuestMenu* questMenu;
 
 	VisualEffects* visualEffects;
 
