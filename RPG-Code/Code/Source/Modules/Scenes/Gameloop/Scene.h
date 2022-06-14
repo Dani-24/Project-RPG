@@ -58,6 +58,8 @@ public:
 
 	float EaseInBetweenPoints(iPoint posA, iPoint posB);
 
+	float EaseInBetweenPointsX(iPoint posA, iPoint posB);
+
 public:
 	//Draws character bars on gui
 	void ShowGUI();
@@ -191,6 +193,14 @@ private: // Hacer listas esta sobrevalorado supongo:
 	int G_total_iterations;
 	bool G_easing_active;
 	EasingFunctions G_Efunction;
+
+	G_Pos G_pos2;
+
+	iPoint G_pointA2;
+	iPoint G_pointB2;
+
+	int G_iterations2;
+	int G_total_iterations2;
 };
 
 #endif // __SCENE_H__

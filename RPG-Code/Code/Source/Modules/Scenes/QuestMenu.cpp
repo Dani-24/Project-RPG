@@ -150,12 +150,15 @@ bool QuestMenu::PostUpdate()
 		backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonText, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedText, backButton->bounds.x, backButton->bounds.y);
 		invent->state != GuiControlState::PRESSED ? app->render->DrawTexture(invText, invent->bounds.x, invent->bounds.y) : app->render->DrawTexture(presinvText, invent->bounds.x, invent->bounds.y);
 
-		ListItem<Quest*>* QuestInList;
-		for (QuestInList = app->questManager->questList.start; QuestInList != NULL; QuestInList = QuestInList->next) 
-		{
-			if (QuestInList->data->QuestId == 1) {
-				if (QuestInList->data->State == QuestState::ACTIVE) {
-					app->font->DrawText(QuestInList->data->questName, x + 85, y + 103 + 1 * 50);
+		for (int i = 0; i < app->questManager->questToPrintList.count(); i++) {
+			
+			if (app->questManager->questToPrintList.At(i)->data->toPrint == true) {
+				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::ACTIVE) {
+					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questName, x + 85, y + 103 + i * 50);
+				}
+				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::FINISHED) {
+					app->font->DrawText("X", x + 33, y + 94 + i * 50);
+					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questName, x + 85, y + 103 + i * 50);
 				}
 			}
 		}
