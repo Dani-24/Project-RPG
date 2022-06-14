@@ -43,6 +43,7 @@ class Collisions;
 class DialogSystem;
 class Inventory;
 class StatsMenu;
+class QuestMenu;
 
 class VisualEffects;
 
@@ -138,6 +139,7 @@ public:
 	DialogSystem* dialogs;
 	Inventory* inventory;
 	StatsMenu* stmen;
+	QuestMenu* questMenu;
 
 	VisualEffects* visualEffects;
 

@@ -55,7 +55,7 @@ private:
 	float expc;
 	SDL_Texture* backButtonTexture,
 		* backButtonPressedTexture,
-		* gui, *invTex,*presinvTex;
+		* gui, *questsTex,*presQuestsTex;
 
 	// Lists
 	List<Character*>* charactersOnUI;
@@ -82,7 +82,7 @@ private:
 	bool S_easing_active_out;
 	
 	//  GUI_buttons
-	GuiButton*  backButton, *invent, *ch1,*ch2,*ch3,*ch4;
+	GuiButton*  backButton, *quests, *ch1,*ch2,*ch3,*ch4;
 
 	int chselect;
 

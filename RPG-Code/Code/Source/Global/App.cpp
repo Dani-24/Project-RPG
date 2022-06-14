@@ -25,6 +25,7 @@
 #include "DialogSystem.h"
 #include "Inventory.h"
 #include "StatsMenu.h"
+#include "QuestMenu.h"
 #include "Shop.h"
 #include "ModuleParticles.h"
 #include "VisualEffects.h"
@@ -61,6 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(this, false);
 	inventory = new Inventory(this, false);
 	stmen = new StatsMenu(this, false);
+	questMenu = new QuestMenu(this, false);
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
@@ -100,6 +102,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	
 	AddModule(inventory);
 	AddModule(stmen);
+	AddModule(questMenu);
 	AddModule(shop);
 
 
