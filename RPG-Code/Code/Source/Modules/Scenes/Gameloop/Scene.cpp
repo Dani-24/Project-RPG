@@ -183,6 +183,10 @@ bool Scene::Start()
 	npcList.add(camionKun);
 	camionKun->activeOnStage = StageIndex::PROLOGUE;
 
+	NPC* camionKunVERDADERO_ESTESI_AHORA_BATALLA_finale_ultimateTeam = (NPC*)app->entities->CreateEntity(NPCType::TRUCK, 300, 350);
+	npcList.add(camionKunVERDADERO_ESTESI_AHORA_BATALLA_finale_ultimateTeam);
+	camionKunVERDADERO_ESTESI_AHORA_BATALLA_finale_ultimateTeam->activeOnStage = StageIndex::TOWER_FINAL_BOSS;
+
 	/*NPC* cartelSudTown = (NPC*)app->entities->CreateEntity(NPCType::BIGTREE, bigtreePos.x, bigtreePos.y);
 	npcList.add(cartelSudTown);
 	cartelSudTown->activeOnStage = StageIndex::TOWER_4;*/
@@ -390,10 +394,10 @@ bool Scene::Start()
 	allStages.add(StageIndex::TOWER_0);
 	allStages.add(StageIndex::TOWER_1);
 	allStages.add(StageIndex::TOWER_3);
-	allStages.add(StageIndex::TOWER_4);
 	allStages.add(StageIndex::TOWER_BOSS_1);
 	allStages.add(StageIndex::TOWER_BOSS_2);
 	allStages.add(StageIndex::TOWER_BOSS_3);
+	allStages.add(StageIndex::TOWER_FINAL_BOSS);
 	allStages.add(StageIndex::WIN);
 	allStages.add(StageIndex::LOSE);
 	allStages.add(StageIndex::INTRODUCTION);
@@ -930,7 +934,7 @@ void Scene::ShowGUI()
 
 			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
 			break;
-		case StageIndex::TOWER_4:
+		case StageIndex::TOWER_FINAL_BOSS:
 			sprintf_s(currentPlace_UI, "Floor 4");
 
 			app->font->DrawText(currentPlace_UI, G_pos.G_Position.x + 20, G_pos.G_Position.y + 30, { 0, 0, 0 });
@@ -1010,10 +1014,10 @@ void Scene::ShowGUI()
 
 				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
 				break;
-			case StageIndex::TOWER_4:
-				sprintf_s(currentPlace_UI, "Floor 4");
+			case StageIndex::TOWER_FINAL_BOSS:
+				sprintf_s(currentPlace_UI, "F. Truck");
 
-				app->font->DrawText(currentPlace_UI, x + 20, y + 30, { 0, 0, 0 });
+				app->font->DrawText(currentPlace_UI, x + 15, y + 30, { 0, 0, 0 });
 				break;
 			case StageIndex::TOWER_3:
 				sprintf_s(currentPlace_UI, "Floor 3");
