@@ -161,7 +161,7 @@ bool QuestMenu::PostUpdate()
 			
 			if (app->questManager->questToPrintList.At(i)->data->State == QuestState::FINISHED) {
 				if (app->questManager->questToPrintList.At(i)->data->toPrintC == true) {
-					app->font->DrawText("X", x + 33, y + 94 + i * 50);
+					app->font->DrawText("X", x + 35, y + 100 + i * 50);
 					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
 				}
 				else {
@@ -228,6 +228,36 @@ void QuestMenu::Quests()
 	app->font->DrawText(app->questManager->questToPrintList.At(q)->data->questName, x + 290, y + 87);
 	//app->font->DrawText(app->questManager->questToPrintList.At(q)->data->questDescription, x + 290, y + 97);
 
+	switch (app->questManager->questToPrintList.At(q)->data->QuestId) {
+	case 0:
+		app->font->DrawText("Camion-kun has brought you", x + 290, y + 117);
+		app->font->DrawText("to this strange world.", x + 290, y + 140);
+		app->font->DrawText("Beat him to find the way", x + 290, y + 163);
+		app->font->DrawText("and return your home.", x + 290, y + 186);
+		break;
+	case 1:
+		app->font->DrawText("Go talk with the barkeeper", x + 290, y + 117);
+		app->font->DrawText("to find some information", x + 290, y + 140);
+		app->font->DrawText("of Camion-kun and the tower.", x + 290, y + 163);
+		break;
+	case 2:
+		app->font->DrawText("Go find Emilio to enter", x + 290, y + 117);
+		app->font->DrawText("the Tower.", x + 290, y + 140);
+		break;
+	case 3:
+		app->font->DrawText("Beat the 3 enemies of", x + 290, y + 117);
+		app->font->DrawText("the dojo and become more", x + 290, y + 140);
+		app->font->DrawText("stronger.", x + 290, y + 163);
+	case 4:
+		app->font->DrawText("Go tell master Luca", x + 290, y + 117);
+		app->font->DrawText("you have defeat all the ", x + 290, y + 140);
+		app->font->DrawText("enemies of the dojo.", x + 290, y + 163);
+		break;
+	default:
+		break;
+
+	}
+
 	//Gold
 	std::string GOLD = std::to_string(app->questManager->questToPrintList.At(q)->data->QuestGold);
 	char const* _GOLD = GOLD.c_str();
@@ -257,13 +287,25 @@ bool QuestMenu::CleanUp()
 	invent->state = GuiControlState::DISABLED;
 
 	q1->state = GuiControlState::DISABLED;
-	if (questToPrint > 1 && q2->state == GuiControlState::NORMAL)q2->state = GuiControlState::DISABLED;
-	if (questToPrint > 2 && q3->state == GuiControlState::NORMAL)q3->state = GuiControlState::DISABLED;
-	if (questToPrint > 3 && q4->state == GuiControlState::NORMAL)q4->state = GuiControlState::DISABLED;
+	q2->state = GuiControlState::DISABLED;
+	q3->state = GuiControlState::DISABLED;
+	q4->state = GuiControlState::DISABLED;
 
 	////statsButton->state = GuiControlState::DISABLED;
 
 	app->scene->showLocation = true;
+
+	q1 = nullptr;
+	delete q1;
+
+	q2 = nullptr;
+	delete q2;
+
+	q3 = nullptr;
+	delete q3;
+
+	q4 = nullptr;
+	delete q4;
 
 	app->tex->UnLoad(backButtonText);
 	app->tex->UnLoad(backButtonPressedText);

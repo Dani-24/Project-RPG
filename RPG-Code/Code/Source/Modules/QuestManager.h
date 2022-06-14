@@ -30,7 +30,7 @@ public:
 	QuestState State;
 	const char* questName; //Name of the quest
 	const char* questNumber; //Name of the quest
-	const char* questDescription[DIALOG_LENGHT] = { "Do something" };; //A text to descrive the quest
+	const char* questDescription;; //A text to descrive the quest
 	int QuestId; //Number of the quest
 	int NPCId; //Npc that give you the quest
 	int QuestGold; //Gold reward
@@ -59,6 +59,7 @@ public:
 		questType = QuestType::INTERACT;
 		State = QuestState::AVAILABLE;
 		questName = "Default Name";
+		questDescription = "Haz algo";
 		questNumber = "Quest 0";
 		QuestId = 0;
 		NPCId = 0;
@@ -78,13 +79,14 @@ public:
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* number, const char* description[DIALOG_LENGHT], int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* number, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
 		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT], bool print, bool printC)
 	{
 		questType = qtype;
 		State = qState;
 		questName = name;
 		questNumber = number;
+		questDescription = description;
 		QuestId = ID;
 		NPCId = NPCid;
 		QuestGold = Gold;
@@ -113,9 +115,6 @@ public:
 		}
 
 		for (int i = 0; i < DIALOG_LENGHT; i++) {
-			if (available[i] != NULL) {
-				questDescription[i] = available[i];
-			}
 			if (available[i] != NULL) {
 				availableDialog[i] = available[i];
 			}
