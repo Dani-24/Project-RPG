@@ -94,10 +94,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	
 	AddModule(battle);
 	AddModule(stages);
+	AddModule(particlesM);
 	AddModule(scene);
 	
 	AddModule(map);
-	AddModule(particlesM);
 
 	AddModule(entities);	
 	AddModule(pauseM);

@@ -20,10 +20,10 @@ ModuleParticles::ModuleParticles(App* application, bool start_enabled) : Module(
 	SmokeParticle.PushBack({ 29, 0, 24, 53 });
 	SmokeParticle.PushBack({ 56,0, 22, 53 });
 	SmokeParticle.PushBack({ 83,0, 23, 43 });
-	//SmokeParticle.PushBack({ 58,0, 20, 53 });
-	//SmokeParticle.PushBack({ 31, 0, 22, 53 });
+	SmokeParticle.PushBack({ 56,0, 22, 53 });
+	SmokeParticle.PushBack({ 29, 0, 24, 53 });
 	SmokeParticle.loop = true;
-	SmokeParticle.speed = 0.008f;
+	SmokeParticle.speed = 0.01f;
 
 	FireParticle.PushBack({ 2,48, 12,18 });
 	FireParticle.PushBack({ 18, 48, 12, 19 });
@@ -136,8 +136,6 @@ bool ModuleParticles::Update(float dt)
 			BirdSpawn = rand() % 1440;			
 			BirdPos.y = BirdSpawn;
 		}
-
-	/*	LOG("Puede Spawnear : %d", BirdWillSpawn);*/
 	}
 	
 	return ret;
@@ -145,23 +143,26 @@ bool ModuleParticles::Update(float dt)
 
 bool ModuleParticles::PostUpdate()
 {
-	//SDL_Rect rectbird = currentBird->GetCurrentFrame();
 	if (app->stages->actualStage == StageIndex::TOWN) {
 		//Iterating all particle array and drawing any active particles
 		app->render->DrawTexture(SmokeTex, 388, 1010, &SmokeParticle.GetCurrentFrame());
 		app->render->DrawTexture(SmokeTex, 355, 1496, &SmokeParticle.GetCurrentFrame());
 		app->render->DrawTexture(SmokeTex, 862, 1496, &SmokeParticle.GetCurrentFrame());
+		app->render->DrawTexture(SmokeTex, 805, 1020, &SmokeParticle.GetCurrentFrame());
 		app->render->DrawTexture(FireTex, 1290, 510, &FireParticle.GetCurrentFrame());
 		app->render->DrawTexture(ChickenTex, 11, 910, &ChickenParticle.GetCurrentFrame());
 		app->render->DrawTexture(BirdTex, 1460, 1560, &BirdParticle.GetCurrentFrame());
+		app->render->DrawTexture(BirdTex, 620, 1300, &BirdParticle.GetCurrentFrame());
 		if (BirdcanSpawn == true) {
 			BirdPos.x -= 4;
+			app->render->DrawTexture(BirdTex, BirdPos.x + 50, BirdPos.y - 1500, &BirdFParticleL.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, BirdPos.x+100, BirdPos.y-1000, &BirdFParticleL.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, BirdPos.x+50, BirdPos.y-500, &BirdFParticleL.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, BirdPos.x, BirdPos.y, &BirdFParticleL.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, BirdPos.x+50, BirdPos.y +500, &BirdFParticleL.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, BirdPos.x+100, BirdPos.y + 1000, &BirdFParticleL.GetCurrentFrame());
 
+			app->render->DrawTexture(BirdTex, -BirdPos.x - 50 + 2560, BirdPos.y - 1700, &BirdFParticleR.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, -BirdPos.x - 100 + 2560, BirdPos.y - 1200, &BirdFParticleR.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, -BirdPos.x - 50 + 2560, BirdPos.y - 700, &BirdFParticleR.GetCurrentFrame());
 			app->render->DrawTexture(BirdTex, -BirdPos.x+2560, BirdPos.y-200, &BirdFParticleR.GetCurrentFrame());
@@ -176,8 +177,6 @@ bool ModuleParticles::PostUpdate()
 			}			
 		}
 	}
-
-	//1100, 1560
 			
 	return true;
 }
