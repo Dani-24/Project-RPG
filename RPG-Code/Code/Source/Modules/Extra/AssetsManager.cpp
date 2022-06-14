@@ -13,7 +13,6 @@ ModuleAssetsManager::ModuleAssetsManager(App* application, bool start_enabled) :
 	//https://icculus.org/physfs/
 	//https://icculus.org/physfs/docs/html/physfs_8h.html
 
-	/*TODO 1: initialize physFS*/
 	PHYSFS_init(nullptr);
 
 	//After initializing physFS, you can uncomment this function (only required in Debug)
@@ -24,13 +23,13 @@ ModuleAssetsManager::ModuleAssetsManager(App* application, bool start_enabled) :
 
 ModuleAssetsManager::~ModuleAssetsManager()
 {
-	/*TODO 1: close any file open for physFS*/
+	/*close any file open for physFS*/
 	PHYSFS_deinit();
 }
 
 bool ModuleAssetsManager::Awake(pugi::xml_node& config)
 {
-	/*TODO 2: add the search path*/
+	/*add the search path*/
 	PHYSFS_addToSearchPath("Assets.zip", 1);
 
 	return true;
@@ -65,7 +64,7 @@ uint ModuleAssetsManager::LoadData(const char* path, char** buffer) const
 {
 	uint ret = 0;
 	
-	/*TODO 3: Open and read the file*/
+	/* Open and read the file*/
 	PHYSFS_file* data_file = PHYSFS_openRead(path);
 
 	if (data_file != nullptr)//look if the file is not null

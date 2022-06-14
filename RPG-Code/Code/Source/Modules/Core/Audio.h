@@ -20,18 +20,16 @@ public:
 	bool CleanUp();
 
 	// Play a music file
-	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME, bool remember = true, int rar=0);
+	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME, bool remember = true, int rar=1);
 
-	// Play a music file FROM RAR
-	bool _PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME, bool remember = true);
+	
 
 	void PlayLastSong();
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path, int rar=0);
 
-	// Load a WAV in memory FROM RAR
-	unsigned int _LoadFx(const char* path);
+	
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);

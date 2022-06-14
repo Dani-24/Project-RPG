@@ -48,25 +48,25 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-	char* buffer;
-	pugi::xml_document dataFile;
+	//char* buffer;
+	//pugi::xml_document dataFile;
 
-	int bytesFile = app->assman->LoadData("data.xml", &buffer);
+	//int bytesFile = app->assman->LoadData("data.xml", &buffer);
 
-	// Loading from memory with PUGI: https://pugixml.org/docs/manual.html#loading.memory
-	pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
+	//// Loading from memory with PUGI: https://pugixml.org/docs/manual.html#loading.memory
+	//pugi::xml_parse_result result = dataFile.load_buffer(buffer, bytesFile);
 
-	RELEASE_ARRAY(buffer);
+	//RELEASE_ARRAY(buffer);
 
 
-	CharRest = dataFile.child("rest").attribute("path").as_string();
-	_CharRest = dataFile.child("prest").attribute("path").as_string();
-	CharBackTex = dataFile.child("back").attribute("path").as_string();
-	_CharBackTex = dataFile.child("pback").attribute("path").as_string();
-	CharLoc = dataFile.child("loc").attribute("path").as_string();
-	CharFxBack = dataFile.child("bFx").attribute("path").as_string();
-	CharFxLoad = dataFile.child("lFx").attribute("path").as_string();
-	CharFxSave = dataFile.child("sFx").attribute("path").as_string();
+	CharRest = config.child("rest").attribute("path").as_string();
+	_CharRest = config.child("prest").attribute("path").as_string();
+	CharBackTex = config.child("back").attribute("path").as_string();
+	_CharBackTex = config.child("pback").attribute("path").as_string();
+	CharLoc = config.child("loc").attribute("path").as_string();
+	CharFxBack = config.child("bFx").attribute("path").as_string();
+	CharFxLoad = config.child("lFx").attribute("path").as_string();
+	CharFxSave = config.child("sFx").attribute("path").as_string();
 
 
 
@@ -77,9 +77,6 @@ bool Scene::Start()
 {
 	LOG("Starting Scene");
 	
-	
-
-
 
 	// Apple just for inventory testing
 	AddItem(UsableType::APPLE);
