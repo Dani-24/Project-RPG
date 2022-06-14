@@ -57,20 +57,25 @@ https://github.com/Dani-24/RPG
 - Left mouse button (UI) : Confirm
 - Mouse movement (UI) : Select
 - G (UI) : Show UI
-- 1 / 2 - Change Gender
+- Tab - Change Gender
 
 ## Debug Keys
+- M - Open Map
+- I - Open Inventory
+- E - Open Stats
+- Q - Open Quest Menu
+- F9 - Show / Hide Colliders
+- F10 - GOD mode: Fly-around mode, infinite stats.
+- F11 - Active Debug Keys
 
+If debug keys is active:
+
+- F1/F2 - Change Scene
+- 1/2/3 - Adds comrades in your party
+- Z -  Adds 100 Exp
 - 7 - Lock / Unlock player movement
 - 9 - Save Data
 - 0 - Load Data
-- F1 - Town map
-- F2 - Dojo map
-- F3 - Shop map
-- F4 - Shop (lower floor) map
-- F5 - Tavern map
-- F9 - Show / Hide Colliders
-- F10 - GOD mode: Fly-around mode, infinite stats.
 
 ## Additional Comments
 This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
