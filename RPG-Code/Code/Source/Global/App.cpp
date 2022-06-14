@@ -29,7 +29,7 @@
 #include "Shop.h"
 #include "ModuleParticles.h"
 #include "VisualEffects.h"
-#include 
+#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -107,6 +107,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(stmen);
 	AddModule(questMenu);
 	AddModule(shop);
+	AddModule(assman);
 
 
 	AddModule(guiManager);
