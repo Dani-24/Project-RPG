@@ -53,18 +53,18 @@ bool QuestMenu::Start()
 	q3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 504, "q3", { x + 29, y + 193, 196, 45 }, this);
 	q4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 505, "q4", { x + 29, y + 243, 196, 45 }, this);
 	
-	q1->state = GuiControlState::DISABLED;
+	//q1->state = GuiControlState::DISABLED;
 	q2->state = GuiControlState::DISABLED;
 	q3->state = GuiControlState::DISABLED;
 	q4->state = GuiControlState::DISABLED;
 
-	if (questToPrint > 1) {
+	if (app->questManager->questToPrintList.count() > 1) {
 		q2->state = GuiControlState::NORMAL;
 	}
-	if (questToPrint > 2) {
+	if (app->questManager->questToPrintList.count() > 2) {
 		q3->state = GuiControlState::NORMAL;
 	}
-	if (questToPrint > 3) {
+	if (app->questManager->questToPrintList.count() > 3) {
 		q4->state = GuiControlState::NORMAL;
 	}
 
@@ -149,16 +149,19 @@ bool QuestMenu::PostUpdate()
 	if (Q_easing_active == false && Q_easing_active_out == false) {
 		backButton->state != GuiControlState::PRESSED ? app->render->DrawTexture(backButtonText, backButton->bounds.x, backButton->bounds.y) : app->render->DrawTexture(backButtonPressedText, backButton->bounds.x, backButton->bounds.y);
 		invent->state != GuiControlState::PRESSED ? app->render->DrawTexture(invText, invent->bounds.x, invent->bounds.y) : app->render->DrawTexture(presinvText, invent->bounds.x, invent->bounds.y);
-
+		SDL_Color color = { 255, 255, 255 };
 		for (int i = 0; i < app->questManager->questToPrintList.count(); i++) {
 			
 			if (app->questManager->questToPrintList.At(i)->data->toPrint == true) {
 				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::ACTIVE) {
-					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questName, x + 85, y + 103 + i * 50);
+					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
 				}
+				
+			}
+			if (app->questManager->questToPrintList.At(i)->data->toPrintC == true) {
 				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::FINISHED) {
 					app->font->DrawText("X", x + 33, y + 94 + i * 50);
-					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questName, x + 85, y + 103 + i * 50);
+					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
 				}
 			}
 		}
