@@ -1062,9 +1062,19 @@ bool Battle::Update(float dt)
 					else {
 						if (optionPercent < 60) {//60
 
-							int targetNum = (rand() % 2);
+							int n = 0;
+							for (int i = 0; i < 4; i++) {
+								if (entitiesInBattle[i] != nullptr) {
+									if (entitiesInBattle[i]->isAlive == true) {
+										n++;
+									}
+								}
+							}
+
+							int targetNum = (rand() % n);
+
 							while (entitiesInBattle[targetNum]->isAlive == false) {
-								targetNum = (rand() % 2);
+								targetNum = (rand() % n);
 							}
 							targetEntity = entitiesInBattle[targetNum];
 							ChangePhase(BattlePhase::ATTACKING);
