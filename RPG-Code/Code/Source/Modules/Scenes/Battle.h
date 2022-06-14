@@ -335,10 +335,13 @@ public:
 	//SKILLS
 		
 	SDL_Texture* FlechaS_EspadaS_EscudoS = nullptr;
+	SDL_Texture* FlechaS = nullptr;
 	SDL_Texture* FlechaAcido = nullptr;
 	SDL_Texture* Cataclismo = nullptr;
-	SDL_Texture* FlechaT_Ciervo = nullptr;
-	SDL_Texture* TripleL_Juicio = nullptr;
+	SDL_Texture* Ciervo = nullptr;
+	SDL_Texture* FlechaT = nullptr;
+	SDL_Texture* TripleL = nullptr;
+	SDL_Texture* Juicio = nullptr;
 	SDL_Texture* Pedrada = nullptr;
 	SDL_Texture* HalconElectro = nullptr;
 	SDL_Texture* AquaE = nullptr;

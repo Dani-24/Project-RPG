@@ -202,6 +202,8 @@ private:
 	int randomCarCount;
 
 	int fxCar1, fxCar2, fxCar3, fxCar4;
+
+	int timeSkill;
 };
 
 #endif // __STAGES_H__

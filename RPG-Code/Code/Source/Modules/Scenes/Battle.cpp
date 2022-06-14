@@ -42,6 +42,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	EscudoS_a.PushBack({ 54,913,60,85 });
 	EscudoS_a.PushBack({ 223,913,60,85 });
 
+	EscudoS_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	EscudoS_a.loop = false;
 	EscudoS_a.speed = 0.015f;
 	//_____________________________
@@ -67,6 +68,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	EspadaS_a.PushBack({ 54,708,60,142 });
 	EspadaS_a.PushBack({ 223,708,60,142 });
 
+	EspadaS_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	EspadaS_a.loop = false;
 	EspadaS_a.speed = 0.015f;
 	//_____________________________
@@ -88,6 +90,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	AquaE_a.PushBack({ 64 * 3,80 * 2,64,80 });
 	AquaE_a.PushBack({ 64 * 4,80 * 2,64,80 });
 
+	AquaE_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	AquaE_a.loop = false;
 	AquaE_a.speed = 0.015f;
 	//_____________
@@ -106,6 +109,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	Pedrada_a.PushBack({ 48 * 4,48 * 1,48,48 });
 	Pedrada_a.PushBack({ 48 * 5,48 * 1,48,48 });
 
+	Pedrada_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	Pedrada_a.loop = false;
 	Pedrada_a.speed = 0.015f;
 	//_____________________________
@@ -133,6 +137,7 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	Cataclismo_a.PushBack({ 250 * 0,250 * 3,250,250 });
 	Cataclismo_a.PushBack({ 250 * 1,250 * 3,250,250 });
 
+	Cataclismo_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	Cataclismo_a.loop = false;
 	Cataclismo_a.speed = 0.015f;
 	//_____________________________
@@ -150,51 +155,119 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	Ciervo_a.PushBack({ 21,1245,60,142 });
 	Ciervo_a.PushBack({ 177,1245,60,142 });
 
+	Ciervo_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	Ciervo_a.loop = false;
 	Ciervo_a .speed = 0.015f;
 	//_____________
 	//_____________
-	FlechaT_a.PushBack({ 48 * 0,48 * 0,48,48 });
-	FlechaT_a.PushBack({ 48 * 1,48 * 0,48,48 });
-	FlechaT_a.PushBack({ 48 * 2,48 * 0,48,48 });
-	FlechaT_a.PushBack({ 48 * 3,48 * 0,48,48 });
-	FlechaT_a.PushBack({ 48 * 4,48 * 0,48,48 });
-	FlechaT_a.PushBack({ 48 * 5,48 * 0,48,48 });
+	FlechaT_a.PushBack({ 180 * 0,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 1,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 2,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 3,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 4,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 5,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 6,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 7,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 8,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 9,180 * 0,180,180 });
 
-	FlechaT_a.PushBack({ 48 * 0,48 * 1,48,48 });
-	FlechaT_a.PushBack({ 48 * 1,48 * 1,48,48 });
-	FlechaT_a.PushBack({ 48 * 2,48 * 1,48,48 });
-	FlechaT_a.PushBack({ 48 * 3,48 * 1,48,48 });
-	FlechaT_a.PushBack({ 48 * 4,48 * 1,48,48 });
-	FlechaT_a.PushBack({ 48 * 5,48 * 1,48,48 });
+	FlechaT_a.PushBack({ 180 * 10,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 11,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 12,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 13,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 14,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 15,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 16,180 * 0,180,180 });
+	FlechaT_a.PushBack({ 180 * 17,180 * 0,180,180 });
 
+	FlechaT_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	FlechaT_a.loop = false;
-	FlechaT_a.speed = 0.015f;
+	FlechaT_a.speed = 0.02f;
 	//_____________________________
-	FlechaAcido_a.PushBack({ 250 * 0,250 * 0,250,250 });
-	FlechaAcido_a.PushBack({ 250 * 1,250 * 0,250,250 });
-	FlechaAcido_a.PushBack({ 250 * 2,250 * 0,250,250 });
-	FlechaAcido_a.PushBack({ 250 * 3,250 * 0,250,250 });
-	FlechaAcido_a.PushBack({ 250 * 4,250 * 0,250,250 });
-	FlechaAcido_a.PushBack({ 250 * 5,250 * 0,250,250 });
+	FlechaAcido_a.PushBack({ 180 * 0,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 1,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 2,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 3,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 4,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 5,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 6,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 7,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 8,180 * 0,180,180 });
+	FlechaAcido_a.PushBack({ 180 * 9,180 * 0,180,180 });
 
+	FlechaAcido_a.PushBack({ 180 * 10,180 * 1,180,180 });
+
+	FlechaAcido_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	FlechaAcido_a.loop = false;
 	FlechaAcido_a.speed = 0.015f;
 	//_____________________________
-	FlechaS_a.PushBack({ 45,1141,108,108 });//vacio
-	FlechaS_a.PushBack({ 178,1141,108,108 });
-	FlechaS_a.PushBack({ 332,1141,108,108 });
-	FlechaS_a.PushBack({ 492,1141,108,108 });
-	FlechaS_a.PushBack({ 648,1141,108,108 });
+	FlechaS_a.PushBack({ 180 * 0,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 1,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 2,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 3,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 4,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 5,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 6,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 7,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 8,180 * 0,180,180 });
+	FlechaS_a.PushBack({ 180 * 9,180 * 0,180,180 });
 
-	FlechaS_a.PushBack({ 21,1245,60,142 });
-	FlechaS_a.PushBack({ 177,708,60,142 });
-
+	FlechaS_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	FlechaS_a.loop = false;
 	FlechaS_a.speed = 0.015f;
 	//_____________
 	//_____________
-	
+	Juicio_a.PushBack({ 300 * 0,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 1,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 2,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 3,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 4,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 5,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 6,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 7,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 8,180 * 0,300,300 });
+	Juicio_a.PushBack({ 300 * 9,180 * 0,300,300 });
+
+	Juicio_a.PushBack({ 300 * 100,300 * 100,300,300 });
+	Juicio_a.loop = false;
+	Juicio_a.speed = 0.015f;
+	//_____________________________
+	HalconElectro_a.PushBack({ 180 * 0,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 1,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 2,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 3,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 4,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 5,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 6,180 * 1,180,180 });
+	HalconElectro_a.PushBack({ 180 * 7,180 * 1,180,180 });
+	HalconElectro_a.PushBack({ 180 * 8,180 * 1,180,180 });
+	HalconElectro_a.PushBack({ 180 * 9,180 * 1,180,180 });
+
+	HalconElectro_a.PushBack({ 180 * 11,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 12,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 13,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 14,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 15,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 16,180 * 0,180,180 });
+
+	HalconElectro_a.PushBack({ 180 * 100,180 * 100,180,180 });
+	HalconElectro_a.loop = false;
+	HalconElectro_a.speed = 0.015f;
+	//_____________________________
+	TripleL_a.PushBack({ 180 * 0,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 1,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 2,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 3,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 4,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 5,180 * 0,180,180 });
+	TripleL_a.PushBack({ 180 * 6,180 * 0,180,180 });
+
+
+	TripleL_a.PushBack({ 180 * 100,180 * 100,180,180 });
+	TripleL_a.loop = false;
+	TripleL_a.speed = 0.015f;
+	//_____________
+	//_____________
 	name.Create("battle");
 
 	battlePause = false;
@@ -403,10 +476,13 @@ bool Battle::Start()
 
 	//Load Skills
 	FlechaS_EspadaS_EscudoS = app->tex->Load("Assets/sprites/ataques/flecha_sagrada_espada_sagrada_escudo_sagrado.png");
+	FlechaS = app->tex->Load("Assets/sprites/ataques/flecha_sagrada.png");
 	FlechaAcido = app->tex->Load("Assets/sprites/ataques/flecha_acido.png");
 	Cataclismo = app->tex->Load("Assets/sprites/ataques/cataclismo-only.png");
-	FlechaT_Ciervo = app->tex->Load("Assets/sprites/ataques/flecha_tronco_ciervo_de_madera.png");
-	TripleL_Juicio = app->tex->Load("Assets/sprites/ataques/triple_lanza_explosiva_el_juicio_del_cielo.png");
+	Ciervo = app->tex->Load("Assets/sprites/ataques/flecha_tronco_ciervo_de_madera.png");
+	FlechaT = app->tex->Load("Assets/sprites/ataques/flecha_tronco.png");
+	TripleL = app->tex->Load("Assets/sprites/ataques/triple_lanza_explosiva.png");
+	Juicio = app->tex->Load("Assets/sprites/ataques/el_juicio_del_cielo.png");
 	Pedrada = app->tex->Load("Assets/sprites/ataques/pedrada.png");
 	HalconElectro = app->tex->Load("Assets/sprites/ataques/halcon_electro.png");
 	AquaE = app->tex->Load("Assets/sprites/ataques/estocada_acuatica.png");
@@ -2104,7 +2180,7 @@ bool Battle::PostUpdate()
 			}
 			else {
 				if (actualTurnEntity->stats->isStunned == true) {
-					sprintf_s(damageChar, 100, "%s is stunned and can't move!", targetEntity->name);
+					sprintf_s(damageChar, 100, "%s is stunned and can't move!", actualTurnEntity->name);
 					app->font->DrawTextDelayed(damageChar, 10, 25);
 				}
 				else {
