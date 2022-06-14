@@ -14,6 +14,13 @@ GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text, bool autoDraw
 	this->bounds = bounds;
 	this->text = text;
 	this->autoDraw = autoDraw;
+	this->maxValue = 100;
+	this->minValue = 0;
+
+	innerRect = bounds;
+	innerRect.h = 20;
+	innerRect.w = 20;
+	innerRect.y += bounds.h / 4;
 
 	canClick = true;
 	drawBasic = false;
@@ -21,8 +28,8 @@ GuiSlider::GuiSlider(uint32 id, SDL_Rect bounds, const char* text, bool autoDraw
 
 	if (autoDraw)
 	{
-		sliderTexture = app->tex->Load("Assets/gui/button_default.png");
-		sliderIddle.PushBack({ 0, 0, 74, 28 });
+		sliderTexture = app->tex->Load("Assets/gui/pause_menu2.png");
+		sliderIddle.PushBack({ 10, 10, 30, 20 });
 		sliderPressed.PushBack({ 74, 0, 74, 28 });
 
 		sliderAnim = &sliderIddle;
@@ -56,6 +63,7 @@ bool GuiSlider::Update(float dt)
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
+				bounds.w = mouseX - bounds.x;
 			}
 
 			// If mouse button pressed -> Generate event!
@@ -68,6 +76,7 @@ bool GuiSlider::Update(float dt)
 			if (!app->guiManager->keyb) state = GuiControlState::NORMAL;
 	}
 
+	
 
 	return false;
 }
@@ -91,6 +100,7 @@ bool GuiSlider::Draw(Render* render)
 			innerRect.y = sliderRect.y + sliderRect.h / 4;
 			innerRect.h = sliderRect.h + sliderRect.h / 2;
 			innerRect.w = innerRect.h;
+			//bounds.w = mouseX - bounds.x;
 			break;
 		case GuiControlState::SELECTED:render->DrawRectangle(bounds, 0, 255, 255, 0);
 			break;
@@ -99,8 +109,6 @@ bool GuiSlider::Draw(Render* render)
 		}
 	}
 
-	else
-	{
 		switch (state)
 		{
 		case GuiControlState::DISABLED: render->DrawRectangle(bounds, 0, 0, 0, 255);
@@ -116,13 +124,14 @@ bool GuiSlider::Draw(Render* render)
 			innerRect.y = sliderRect.y + sliderRect.h / 4;
 			innerRect.h = sliderRect.h + sliderRect.h / 2;
 			innerRect.w = innerRect.h;
+			//bounds.w = mouseX - bounds.x;
 			break;
 		case GuiControlState::SELECTED:render->DrawRectangle(bounds, 0, 255, 255, 0);
 			break;
 		default:
 			break;
 		}
-	}
+	
 
 	if (state == GuiControlState::PRESSED)
 	{

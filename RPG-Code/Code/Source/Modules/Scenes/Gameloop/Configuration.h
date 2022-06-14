@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "GuiButton.h"
+#include "GuiSliders.h"
 #include "EasingFunctions.h"
 
 #include "App.h"
@@ -61,6 +62,7 @@ private:
 	//GuiButton* frcap30;//change frcap to 30fps
 	//GuiButton* frcap60;//change frcap to 60fps
 	GuiButton* back;//back to the last screen
+	
 	
 	List<GuiButton*> conb;
 
