@@ -26,6 +26,7 @@ class Configuration;
 class Map;
 class GuiManager;
 class EntityManager;
+class QuestManager;
 class EnemyMovement;
 class PauseMenu;
 class Shop;
@@ -140,6 +141,7 @@ public:
 	DialogSystem* dialogs;
 	Inventory* inventory;
 	StatsMenu* stmen;
+	QuestMenu* questMenu;
 
 	VisualEffects* visualEffects;
 
