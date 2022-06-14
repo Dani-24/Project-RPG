@@ -60,6 +60,10 @@ public:
 
 	float EaseInBetweenPointsX(iPoint posA, iPoint posB);
 
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&)const;
+
 public:
 	//Draws character bars on gui
 	void ShowGUI();
@@ -119,6 +123,10 @@ public:
 
 	SDL_Texture* locationUI;
 	bool showLocation = true;
+
+	bool ch1 = false;
+	bool ch2 = false;
+	bool ch3 = false;
 
 private: // Hacer listas esta sobrevalorado supongo:
 
@@ -201,6 +209,8 @@ private: // Hacer listas esta sobrevalorado supongo:
 
 	int G_iterations2;
 	int G_total_iterations2;
+
+
 };
 
 #endif // __SCENE_H__

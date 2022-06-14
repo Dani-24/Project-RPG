@@ -179,6 +179,35 @@ bool EntityManager::SaveState(pugi::xml_node& data) const
 
 	//Saved.attribute("saved").set_value(saved);
 
+	pugi::xml_node saves = data.append_child("Saves");
+
+	saves.append_attribute("save1") = app->scene->ch1;
+	saves.append_attribute("save2") = app->scene->ch2;
+	saves.append_attribute("save3") = app->scene->ch3;
+
+	if (app->scene->partyList.count() > 1) {
+		pugi::xml_node party = data.append_child("Valion");
+		party.append_attribute("level") = app->scene->partyList.At(1)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(1)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(1)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(1)->data->position.y;
+	}
+	if (app->scene->partyList.count() > 2) {
+		pugi::xml_node party = data.append_child("Rayla");
+		party.append_attribute("level") = app->scene->partyList.At(2)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(2)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(2)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(2)->data->position.y;
+	}
+	if (app->scene->partyList.count() > 3) {
+		pugi::xml_node party = data.append_child("Dhion");
+		party.append_attribute("level") = app->scene->partyList.At(3)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(3)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(3)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(3)->data->position.y;
+	}
+
+
 	return false;
 }
 
@@ -243,7 +272,32 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 	/*app->scene->partyList.At(0)->data->stats->maxHealth = data.child("stats").attribute("PlayerHp").as_int();
 	app->scene->partyList.At(1)->data->stats->maxHealth = data.child("stats").attribute("ValionHp").as_int();*/
-	
+	//app->scene->ch1 = data.child("Saves").attribute("save1").as_bool();
+	//app->scene->ch2 = data.child("Saves").attribute("save2").as_bool();
+	//app->scene->ch3 = data.child("Saves").attribute("save3").as_bool();
+
+	//pugi::xml_node Rayla = data.child("Rayla");
+	//pugi::xml_node Dhion = data.child("Dhion");
+	//pugi::xml_node Valion = data.child("Valion");
+
+	//if (app->scene->ch1 == true) {
+
+	//	int x, y, level;
+	//	double life;
+	//		const char* name;
+	//		x = Valion.attribute("x").as_int();
+	//		y = Valion.attribute("y").as_int();
+	//	//	level = Valion.attribute("level").as_int();
+	//	///*	life = Valion.attribute("life").as_int();*/
+	//		name = Valion.attribute("name").as_string();
+	//		app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+	//	//partyList.At(1)->data->stats->health= Valion.attribute("life").as_int();;
+	//	//partyList.At(1)->data->stats->level = level;
+	//}
+	////if (app->scene->partyList.count() > 1) {
+	////	//app->scene->partyList.At(1)->data->stats->health= Valion.attribute("life").as_double();
+	////	app->scene->partyList.At(1)->data->stats->level = Valion.attribute("level").as_int();
+	////}
 
 	return false;
 }

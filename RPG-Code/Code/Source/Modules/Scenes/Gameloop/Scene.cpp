@@ -633,6 +633,29 @@ bool Scene::Update(float dt)
 		restart->state = GuiControlState::DISABLED;
 	}
 
+	if (partyList.count() > 1) {
+		ch1 = true;
+	}
+	else {
+		ch1 = false;
+	}
+
+	if (partyList.count() > 2) {
+		ch2 = true;
+	}
+	else {
+		ch2 = false;
+	}
+
+
+	if (partyList.count() > 3) {
+		ch3 = true;
+	}
+	else {
+		ch3 = false;
+	}
+
+
 	return true;
 }
 
@@ -1224,4 +1247,165 @@ float Scene::EaseInBetweenPointsX(iPoint posA, iPoint posB) {
 	}
 
 	return value;
+}
+
+bool Scene::LoadState(pugi::xml_node& data)
+{
+	//
+	//// Add ally to the party
+	//if (ch1 == true) {
+
+	//	if (partyList.At(1) == nullptr) {
+	//		int x = 80;
+	//		int y = 130 - 50;
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+
+	//	}
+	//	else {
+	//		partyList.del(partyList.At(1));
+	//	}
+	//	//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	//}
+	//if (ch2 == true) {
+
+	//	if (partyList.At(2) == nullptr) {
+	//		int x = -200;
+	//		int y = 120 - 50;
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+	//	}
+	//	else {
+	//		partyList.del(partyList.At(2));
+	//	}
+	//	//partyList.At(1) == nullptr ? partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, 20, 50)) : partyList.del(partyList.At(1));
+	//}
+	//if (ch3 == true) {
+
+	//	if (partyList.At(3) == nullptr) {
+	//		int x = 200;
+	//		int y = 0 - 50;
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+	//	}
+	//	else {
+	//		partyList.del(partyList.At(3));
+	//	}
+	//}
+
+	//pugi::xml_node party = data.child("party");
+	//for (party; party.next_sibling("party"); party = party.next_sibling("party")) {
+	//	int x, y, level, life;
+	//	const char* name;
+	//	x = party.attribute("x").as_int();
+	//	y = party.attribute("y").as_int();
+	//	level = party.attribute("level").as_int();
+	//	life = party.attribute("life").as_int();
+	//	name = party.attribute("name").as_string();
+
+	//	if (name == "Valion") {
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+	//		partyList.At(1)->data->stats->health=life;
+	//		partyList.At(1)->data->stats->level = level;
+	//	}
+	//	if (name == "Rayla") {
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, x, y));
+	//		partyList.At(2)->data->stats->health = life;
+	//		partyList.At(2)->data->stats->level = level;
+	//	}
+	//	if (name == "Dhion") {
+	//		partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, x, y));
+	//		partyList.At(3)->data->stats->health = life;
+	//		partyList.At(3)->data->stats->level = level;
+	//	}
+	//}
+
+
+	//ch1 = data.child("Saves").attribute("save1").as_bool();
+	//ch2 = data.child("Saves").attribute("save2").as_bool();
+	//ch3 = data.child("Saves").attribute("save3").as_bool();
+
+	//pugi::xml_node Rayla = data.child("Rayla");
+	//pugi::xml_node Dhion = data.child("Dhion");
+	//pugi::xml_node Valion = data.child("Valion");
+
+	//if (ch1 == true) {
+
+	//	int x, y, level, life;
+	//		const char* name;
+	//		x = Valion.attribute("x").as_int();
+	//		y = Valion.attribute("y").as_int();
+	//	//	level = Valion.attribute("level").as_int();
+	//	///*	life = Valion.attribute("life").as_int();*/
+	//		name = Valion.attribute("name").as_string();
+	//	partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+	//	//partyList.At(1)->data->stats->health= Valion.attribute("life").as_int();;
+	//	//partyList.At(1)->data->stats->level = level;
+	//}
+	//if (partyList.count() > 1) {
+	//	partyList.At(1)->data->stats->health= Valion.attribute("life").as_int();
+	//	partyList.At(1)->data->stats->level = Valion.attribute("level").as_int();
+	//}
+
+		/*if (ch1 == true)	app->scene->partyList.At(1)->data->stats->level = data.child("party").attribute("1").as_int();
+
+
+		if (ch2 == true)app->scene->partyList.At(2)->data->stats->level = data.child("party").attribute("2").as_int();
+
+
+		if (ch3 == true)	app->scene->partyList.At(3)->data->stats->level = data.child("party").attribute("3").as_int();*/
+
+	return true;
+}
+
+// Save Game State
+bool Scene::SaveState(pugi::xml_node& data) const
+{
+	
+
+	/*ListItem<Character*>* savechList=partyList.start;*/
+
+	/*for (savechList =partyList->start; savechList != NULL ; savechList = savechList->next)*/
+
+	//while (savechList != NULL) {
+	//	pugi::xml_node party = data.append_child("party");
+	//	party.append_attribute("level") = savechList->data->stats->level;
+	//	party.append_attribute("life") = savechList->data->stats->health;
+	//	party.append_attribute("life") = savechList->data->name;
+	//	party.append_attribute("x") = savechList->data->position.x;
+	//	party.append_attribute("y") = savechList->data->position.y;
+	//	savechList = savechList->next;
+	//
+	//}
+	/*pugi::xml_node saves = data.append_child("Saves");
+
+	saves.append_attribute("save1") = ch1;
+	saves.append_attribute("save2") = ch2;
+	saves.append_attribute("save3") = ch3;
+
+	if (partyList.count() > 1) {
+		pugi::xml_node party = data.append_child("Valion");
+		party.append_attribute("level") = partyList.At(1)->data->stats->level;
+		party.append_attribute("life") = partyList.At(1)->data->stats->health;
+		party.append_attribute("x") = partyList.At(1)->data->position.x;
+		party.append_attribute("y") = partyList.At(1)->data->position.y;
+	}
+	if (partyList.count() > 2) {
+		pugi::xml_node party = data.append_child("Rayla");
+		party.append_attribute("level") = partyList.At(2)->data->stats->level;
+		party.append_attribute("life") = partyList.At(2)->data->stats->health;
+		party.append_attribute("x") = partyList.At(2)->data->position.x;
+		party.append_attribute("y") = partyList.At(2)->data->position.y;
+	}
+	if (partyList.count() > 3) {
+		pugi::xml_node party = data.append_child("Dhion");
+		party.append_attribute("level") = partyList.At(3)->data->stats->level;
+		party.append_attribute("life") = partyList.At(3)->data->stats->health;
+		party.append_attribute("x") = partyList.At(3)->data->position.x;
+		party.append_attribute("y") = partyList.At(3)->data->position.y;
+	}*/
+
+
+	//party.append_attribute("save1") = ch1;
+	//party.append_attribute("save2") = ch2;
+	//party.append_attribute("save3") = ch3;
+
+	return true;
 }
