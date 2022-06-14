@@ -81,6 +81,8 @@ public:
 	// Called before all Updates
 	bool PreUpdate();
 
+	void skillsup();
+
 	// Called each loop iteration
 	bool Update(float dt);
 
@@ -112,8 +114,37 @@ public:
 
 	void ChangePhase(BattlePhase state);
 
-private:
+	//manage the control of ui with keyboard/gamepad
+	void GampadControl();
 
+private:
+	List<GuiButton*> think;
+	ListItem<GuiButton*>* t ;
+
+
+	List<GuiButton*> selCH;
+	ListItem<GuiButton*>* CH;
+
+	List<GuiButton*> selVL;
+	ListItem<GuiButton*>* VL;
+
+	List<GuiButton*> selRAY;
+	ListItem<GuiButton*>* RAY;
+
+	List<GuiButton*> selDH;
+	ListItem<GuiButton*>* DH;
+
+
+	List<GuiButton*> choos;
+
+
+	bool _wait, wait;
+
+	bool gamepad1 = false, gamepad2 = false, gamepad3 = false;
+
+	int uplimSL , dowlimSL = 0;
+
+	int TK, SL, CA;
 	SDL_Texture* playerBattleSprite;
 	Animation playerBattleAnimation;
 
