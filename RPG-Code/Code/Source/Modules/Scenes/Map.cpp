@@ -620,61 +620,73 @@ void Map::LoadAnimatedTiles() {
 
 void Map::UpdateAnimatedTiles() // Optimizar el código está sobrevalorado
 {
-	// Water
-	rockDarkWtopL.Update();
-	rockDarkWleft.Update();
-	rockDarkWdownL.Update();
-	rockDarkWtop.Update();
-	rockDarkWmid.Update();
-	rockDarkWdown.Update();
-	rockDarkWtopR.Update();
-	rockDarkWright.Update();
-	rockDarkWdownR.Update();
+	switch (app->stages->actualStage)
+	{
+	case StageIndex::TOWN:
+		rockCleanWtopL.Update();
+		rockCleanWleft.Update();
+		rockCleanWdownL.Update();
+		rockCleanWtop.Update();
+		rockCleanWmid.Update();
+		rockCleanWdown.Update();
+		rockCleanWtopR.Update();
+		rockCleanWright.Update();
+		rockCleanWdownR.Update();
 
-	rockCleanWtopL.Update();
-	rockCleanWleft.Update();
-	rockCleanWdownL.Update();
-	rockCleanWtop.Update();
-	rockCleanWmid.Update();
-	rockCleanWdown.Update();
-	rockCleanWtopR.Update();
-	rockCleanWright.Update();
-	rockCleanWdownR.Update();
+		cleanWtopL.Update();
+		cleanWleft.Update();
+		cleanWdownL.Update();
+		cleanWtop.Update();
+		cleanWmid.Update();
+		cleanWdown.Update();
+		cleanWtopR.Update();
+		cleanWright.Update();
+		cleanWdownR.Update();
 
-	rockInterTopL.Update();
-	rockInterTopR.Update();
-	rockInterDownL.Update();
-	rockInterDownR.Update();
+		cascTopL.Update();
+		cascLeft.Update();
+		cascDownL.Update();
+		cascTop.Update();
+		cascMid.Update();
+		cascDown.Update();
+		cascTopR.Update();
+		cascRight.Update();
+		cascDownR.Update();
+		break;
+	case StageIndex::TAVERN:
+		// Water
+		rockDarkWtopL.Update();
+		rockDarkWleft.Update();
+		rockDarkWdownL.Update();
+		rockDarkWtop.Update();
+		rockDarkWmid.Update();
+		rockDarkWdown.Update();
+		rockDarkWtopR.Update();
+		rockDarkWright.Update();
+		rockDarkWdownR.Update();
 
-	cleanWtopL.Update();
-	cleanWleft.Update();
-	cleanWdownL.Update();
-	cleanWtop.Update();
-	cleanWmid.Update();
-	cleanWdown.Update();
-	cleanWtopR.Update();
-	cleanWright.Update();
-	cleanWdownR.Update();
 
-	// Waterfalls
-	cascOTopL.Update(); 
-	cascOLeft.Update(); 
-	cascODownL.Update(); 
-	cascOTop.Update(); 
-	cascOMid.Update(); 
-	cascODown.Update(); 
-	cascOTopR.Update(); 
-	cascORight.Update(); 
-	cascODownR.Update();
-	cascTopL.Update(); 
-	cascLeft.Update(); 
-	cascDownL.Update(); 
-	cascTop.Update(); 
-	cascMid.Update();
-	cascDown.Update(); 
-	cascTopR.Update(); 
-	cascRight.Update(); 
-	cascDownR.Update();
+		rockInterTopL.Update();
+		rockInterTopR.Update();
+		rockInterDownL.Update();
+		rockInterDownR.Update();
+
+		// Waterfalls
+		cascOTopL.Update();
+		cascOLeft.Update();
+		cascODownL.Update();
+		cascOTop.Update();
+		cascOMid.Update();
+		cascODown.Update();
+		cascOTopR.Update();
+		cascORight.Update();
+		cascODownR.Update();
+
+		break;
+	default:
+		break;
+	}
+
 }
 
 // Destructor
