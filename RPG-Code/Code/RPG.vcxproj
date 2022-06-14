@@ -131,7 +131,6 @@
     <ClCompile Include="Source\Modules\EntityClasses\StaticEntity.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Title.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Stages.cpp" />
-    <ClCompile Include="Source\Modules\Scenes\QuestMenu.cpp" />
     <ClCompile Include="Source\Timers\PerfTimer.cpp" />
     <ClCompile Include="Source\Modules\Scenes\Gameloop\Scene.cpp" />
     <ClCompile Include="Source\Modules\Core\Render.cpp" />
@@ -175,7 +174,6 @@
     <ClInclude Include="Source\Modules\EntityClasses\StaticEntity.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Title.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Stages.h" />
-    <ClInclude Include="Source\Modules\Scenes\QuestMenu.h" />
     <ClInclude Include="Source\Timers\PerfTimer.h" />
     <ClInclude Include="Source\Modules\Scenes\Gameloop\Scene.h" />
     <ClInclude Include="Source\Modules\Core\Audio.h" />
