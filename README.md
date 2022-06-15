@@ -59,16 +59,16 @@ Only you can discover that by exploring the tower.
 ## Gamepad controls (X-BOX gamepad):
 
 	L joystick/ Cross Buttons : Player movement, move through menus
-	R2: run
-	L3: Change player sprite
-	B: Back / Pause
+	R2 : run
+	L3 : Change player sprite
+	B : Back / Pause
 	A : Confirm / TalkingERRE
-	Y: Stats Menu
-	X: Inventory
-	Q: Quest Menu
-	R1:Shows map of the Town
-	L1: Quest menu
-	Start: Pause Menu
+	Y : Stats Menu
+	X : Inventory
+	Q : Quest Menu
+	R1 : Shows map of the Town
+	L1 : Quest menu
+	Start : Pause Menu
 
 ## Suspicious Team members (With a Descriptive Image):
 
