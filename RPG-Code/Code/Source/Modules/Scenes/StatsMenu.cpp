@@ -71,7 +71,7 @@ bool StatsMenu::Start()
 	backButtonTexture = app->tex->Load("Assets/gui/buttons/back_text.png");
 	backButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_back_text.png");
 
-	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png");
+	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png",0);
 
 	questsTex = app->tex->Load("Assets/gui/buttons/quest.png");
 	presQuestsTex = app->tex->Load("Assets/gui/buttons/pressed_quest.png");
