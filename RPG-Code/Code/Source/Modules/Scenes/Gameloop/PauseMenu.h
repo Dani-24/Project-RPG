@@ -4,7 +4,12 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "GuiManager.h"
+#include "EasingFunctions.h"
 struct SDL_Texture;
+struct Pos
+{
+	iPoint Position;
+};
 
 class PauseMenu : public Module
 {
@@ -36,13 +41,15 @@ public:
 	bool CleanUp();
 
 	//manage the control of ui with keyboard/gamepad
-	void KeyboardControl();
+	void GampadControl();
 
 	//Enable buttons
 	void EnButt();
 
 	// dissable buttons
 	void DissButt();
+
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
 
 public:
 
@@ -57,6 +64,16 @@ public:
 	bool exitg;
 
 	SDL_Texture* Pausetex;
+
+	Pos pos;
+
+	iPoint pointA;
+	iPoint pointB;
+
+	int iterations;
+	int total_iterations;
+	bool easing_active;
+	EasingFunctions Efunction;
 
 
 	// Buttons

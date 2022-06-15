@@ -8,7 +8,7 @@
 #include "GuiManager.h"
 #include "Camera.h"
 #include "ModuleQFonts.h"
-
+#include "Battle.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool autoDraw) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -63,11 +63,25 @@ bool GuiButton::Update(float dt)
 			{
 				NotifyObserver();
 			}
+			if(app->battle->isEnabled())app->battle->gamepad3 = false, app->battle->gamepad2=false, app->battle->gamepad1=false;
 		}
 		else 
 			if(!app->guiManager->keyb) state = GuiControlState::NORMAL;
 	}
+
 	
+
+	if (cont % 3 == 0) {
+
+		if (xp)xd++;
+		else if (!xp)xd--;
+	}
+	if (xd <= 0)xp = true;
+	else if (xd >= 3)xp = false;
+	
+	cont ++;
+	if (cont >500)cont = 0;
+
 	return false;
 }
 
@@ -95,7 +109,7 @@ bool GuiButton::Draw(Render* render)
 			render->DrawTexture(buttonTexture, bounds.x, bounds.y, &buttonAnim->GetCurrentFrame());
 
 			// Selector
-			render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
+			//render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h / 2 - 6);
 
 			break;
 		case GuiControlState::PRESSED:
@@ -152,7 +166,9 @@ bool GuiButton::Draw(Render* render)
 			if (app->collisions->debug)render->DrawRectangle(bounds, 255, 255, 255, 100);
 
 			//render->DrawRectangle({bounds.x-100,bounds.y,bounds.w,bounds.h}, 255, 255, 255, 100);
-			render->DrawTexture(app->guiManager->selector, bounds.x - 15, bounds.y + bounds.h/2-6 );
+			render->DrawTexture(app->guiManager->selector, bounds.x - 15 - xd, bounds.y + bounds.h/2-6 );
+			
+	//		LOG("%f", xd);
 
 		} break;
 
@@ -168,6 +184,7 @@ bool GuiButton::Draw(Render* render)
 		default:
 			break;
 		}
+		
 	
 	return false;
 }

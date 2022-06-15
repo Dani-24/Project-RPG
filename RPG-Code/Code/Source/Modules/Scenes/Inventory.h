@@ -11,11 +11,16 @@
 #include "Item.h"
 #include "Equipment.h"
 #include "Usable.h"
+#include "EasingFunctions.h"
 
 #include "List.h"
 #include "Point.h"
 
 struct SDL_Texture;
+struct I_Pos
+{
+	iPoint Position;
+};
 
 class Character;
 class Item;
@@ -83,6 +88,10 @@ public:
 
 	bool CleanUp();
 
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
+
+	float EaseOutBetweenPoints(iPoint posA, iPoint posB);
+
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
 	void AddStats(Character* character, Usable* item);
@@ -110,6 +119,27 @@ private:
 	// List Slots
 
 	List<Slot*> slots;
+
+	// anim
+
+	I_Pos I_pos;
+
+	iPoint I_pointA;
+	iPoint I_pointB;
+
+	int I_iterations;
+	int I_total_iterations;
+	bool I_easing_active;
+	EasingFunctions I_Efunction;
+
+	I_Pos I_pos_out;
+
+	iPoint I_pointA_out;
+	iPoint I_pointB_out;
+
+	int I_iterations_out;
+	int I_total_iterations_out;
+	bool I_easing_active_out;
 
 	// Assets GUI_buttons
 	GuiButton	* backButton,

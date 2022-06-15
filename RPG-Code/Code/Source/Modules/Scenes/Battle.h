@@ -5,6 +5,7 @@
 #include "GuiButton.h"
 #include "Animation.h"
 #include "Stages.h"
+#include "Party.h"
 
 struct SDL_Texture;
 class Player;
@@ -13,6 +14,7 @@ class Items;
 class Usable;
 
 enum class StageIndex;
+enum class PartyType;
 
 #define BUTTONS_SPACE_HOR 10
 #define BUTTONS_BOTTOM_SPACE 50
@@ -25,6 +27,13 @@ enum class StageIndex;
 #define LIFE_DISTANCE 25
 
 #define BACK_HEIGH 100
+#define INFO_SPACE_X 20
+#define INFO_SPACE_Y 200
+
+#define TEXT_INFO_X 150
+#define TEXT_INFO_Y 110
+#define SEPARATION 10
+#define BIG_SEPARATION 17
 
 enum class BattlePhase {
 
@@ -36,6 +45,8 @@ enum class BattlePhase {
 	DEFENDING,
 	USING_ITEM,
 	ESCAPING,
+
+	SPECIAL,
 
 	OUTCOME,
 
@@ -70,6 +81,8 @@ public:
 	// Called before all Updates
 	bool PreUpdate();
 
+	void skillsup();
+
 	// Called each loop iteration
 	bool Update(float dt);
 
@@ -101,8 +114,42 @@ public:
 
 	void ChangePhase(BattlePhase state);
 
-private:
+	//manage the control of ui with keyboard/gamepad
+	void GampadControl();
 
+private:
+	List<GuiButton*> think;
+	ListItem<GuiButton*>* t ;
+
+
+	List<GuiButton*> selCH;
+	List<GuiButton*>* CH;
+
+	List<GuiButton*> selVL;
+	ListItem<GuiButton*>* VL;
+
+	List<GuiButton*> selRAY;
+	ListItem<GuiButton*>* RAY;
+
+	List<GuiButton*> selDH;
+	ListItem<GuiButton*>* DH;
+
+
+	List<GuiButton*> choos;
+
+
+	bool _wait, wait;
+
+	
+
+	int uplimSL , dowlimSL = 0;
+
+	bool p3, p6, p10,
+		v3, v6, v10,
+		v;
+
+
+	int TK, SL, CA;
 	SDL_Texture* playerBattleSprite;
 	Animation playerBattleAnimation;
 
@@ -110,7 +157,7 @@ private:
 	Animation dojoAnim;
 
 public:
-
+	bool gamepad1 = false, gamepad2 = false, gamepad3 = false;
 	BattlePhase battlePhase;
 
 	StageIndex  * battleStage;
@@ -255,6 +302,11 @@ public:
 	char playerLifeChar[50] = { "\0" };
 	char enemyLifeChar[50] = { "\0" };
 
+	char enemyName1[50] = { "\0" };
+	char enemyName2[50] = { "\0" };
+	char enemyName3[50] = { "\0" };
+	char enemyName4[50] = { "\0" };
+
 	bool someoneAttacking;
 	bool someoneDefending;
 	bool itsPlayerTurn;
@@ -309,8 +361,47 @@ public:
 	Usable* itemCount[4];
 
 	int skill;
+	int selectCount;
+	int selectTime;
+
+	int selectedTime;
+
+	float localdt;
+
+	//SKILLS
+		
+	SDL_Texture* FlechaS_EspadaS_EscudoS = nullptr;
+	SDL_Texture* FlechaS = nullptr;
+	SDL_Texture* FlechaAcido = nullptr;
+	SDL_Texture* Cataclismo = nullptr;
+	SDL_Texture* Ciervo = nullptr;
+	SDL_Texture* FlechaT = nullptr;
+	SDL_Texture* TripleL = nullptr;
+	SDL_Texture* Juicio = nullptr;
+	SDL_Texture* Pedrada = nullptr;
+	SDL_Texture* HalconElectro = nullptr;
+	SDL_Texture* AquaE = nullptr;
 
 
+	Animation 
+		
+		EscudoS_a, 
+		EspadaS_a,
+		AquaE_a,
+
+		Pedrada_a,
+		Cataclismo_a,
+		Ciervo_a,
+
+		FlechaT_a,
+		FlechaAcido_a,
+		FlechaS_a,
+
+		Juicio_a,
+		HalconElectro_a,
+		TripleL_a;
+
+	bool castSkill;
 
 };
 

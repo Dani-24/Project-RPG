@@ -25,7 +25,11 @@
 #include "DialogSystem.h"
 #include "Inventory.h"
 #include "StatsMenu.h"
+#include "QuestMenu.h"
 #include "Shop.h"
+#include "ModuleParticles.h"
+#include "VisualEffects.h"
+#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -59,10 +63,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	map = new Map(this, false);
 	inventory = new Inventory(this, false);
 	stmen = new StatsMenu(this, false);
+	questMenu = new QuestMenu(this, false);
 	pauseM = new PauseMenu(this);
 	guiManager = new GuiManager(this);
 	conf = new Configuration(this, false);
 	shop = new Shop(this, false);
+	particlesM = new ModuleParticles(this);
+
+	assman = new ModuleAssetsManager(this, true);
 
 	font = new ModuleQFonts(this);
 	pathfinder = new Pathfinder(this);
@@ -70,6 +78,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	collisions = new Collisions(this);
 
 	dialogs = new DialogSystem(this, false);
+
+	visualEffects = new VisualEffects(this);
 
 	// Orden de ejecución de los modulos, player y enemigos después de las escenas
 	AddModule(win);
@@ -84,19 +94,21 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	
 	AddModule(battle);
 	AddModule(stages);
+	AddModule(particlesM);
 	AddModule(scene);
 	
 	AddModule(map);
 
-	AddModule(entities);
-
+	AddModule(entities);	
 	AddModule(pauseM);
 	AddModule(conf);
 	
-	
 	AddModule(inventory);
 	AddModule(stmen);
+	AddModule(questMenu);
 	AddModule(shop);
+	AddModule(assman);
+
 
 	AddModule(guiManager);
 	AddModule(font);
@@ -106,6 +118,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collisions);
 
 	AddModule(fade);
+
+	AddModule(visualEffects);
 
 	AddModule(camera);
 
@@ -282,7 +296,7 @@ bool App::DoUpdate()
 
 			}
 			else {
-				if (item->data == fade || item->data == entities) {
+				if (item->data == fade || item->data == entities || item->data == visualEffects) {
 					ret = item->data->Update(dt);
 				}
 			}

@@ -7,6 +7,10 @@
 DynamicEntity::DynamicEntity(DynamicType dynamicType) : Entity(EntityType::DYNAMIC)
 {
 	this->dynamicType = dynamicType;
+	isAlive = true;
+	zoom = 1;
+	isSelected = false;
+	takesDamage = false;
 }
 
 DynamicEntity::~DynamicEntity()

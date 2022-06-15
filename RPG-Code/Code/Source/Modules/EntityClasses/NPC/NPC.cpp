@@ -13,6 +13,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 	position = { x,y };
 	this->NpcType = NPCType;
 	isInteraction = false;
+	name = nullptr;
 	switch (NPCType) {
 	case NPCType::COCK:
 
@@ -26,7 +27,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		configName = "cock";
 		npcID = 1;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15 , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -39,7 +40,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "barkeeper";
 
 		npcID = 3;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y , 60,  100 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -52,7 +53,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "merchant";
 
 		npcID = 2;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 5 , 60,  80 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -65,7 +66,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "trainer";
 
 		npcID = 4;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 5 , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -79,7 +80,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "emilio";
 
 		npcID = 5;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y , 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -90,7 +91,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "giroide";
 
 		npcID = 6;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -99,7 +100,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "fuente";
 		
 		npcID = 7;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x, position.y, 160,  160 }, Collider::Type::INTERACT, this);
 
 		break;
@@ -107,7 +108,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "cartel";
 
 		npcID = 8;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
@@ -118,7 +119,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "dead_tree";
 
 		npcID = 9;
-
+		zoom = 1;
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
@@ -130,7 +131,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "tree";
 
 		npcID = 10;
-
+		zoom = 1;
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
@@ -143,7 +144,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 11;
 
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
@@ -152,7 +153,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 		configName = "rip2";
 
 		npcID = 12;
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
@@ -161,7 +162,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		npcID = 13;
 
-
+		zoom = 1;
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;
 		break;
@@ -210,7 +211,64 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y, 60,  60 }, Collider::Type::INTERACT, this);
 		isInteraction = true;*/
+	case NPCType::VALION:
+		idleAnim.PushBack({ 4,10,14,22 });
+		idleAnim.PushBack({ 28,10,14,22 });
+		idleAnim.PushBack({ 51,10,14,22 });
+		
+		idleAnim.speed = 0.004f;
 
+		name = "Valion NPC";
+		configName = "valion_npc";
+
+		npcID = 14;
+		zoom = 2;
+		baseCollider = app->collisions->AddCollider({ position.x -15, position.y -15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::RAYLA:
+		idleAnim.PushBack({ 4,10,14,22 });
+		idleAnim.PushBack({ 28,10,14,22 });
+		idleAnim.PushBack({ 51,10,14,22 });
+
+		idleAnim.speed = 0.004f;
+		zoom = 2;
+		name = "Rayla NPC";
+		configName = "rayla_npc";
+
+		npcID = 15;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::DHION:
+		idleAnim.PushBack({ 4,10,16,22 });
+		idleAnim.PushBack({ 28,10,16,22 });
+		idleAnim.PushBack({ 51,10,16,22 });
+
+		idleAnim.speed = 0.004f;
+		zoom = 2;
+		name = "Dhion NPC";
+		configName = "dhion_npc";
+
+		npcID = 16;
+
+		baseCollider = app->collisions->AddCollider({ position.x - 15, position.y - 15, 60,  60 }, Collider::Type::INTERACT, this);
+
+		break;
+	case NPCType::TRUCK:
+		idleAnim.PushBack({ 0,0,128,64 });
+
+		idleAnim.speed = 0.004f;
+
+		name = "Truck-Kun";
+		configName = "truck_npc";
+
+		npcID = 69;
+
+		baseCollider = app->collisions->AddCollider({ position.x + 25, position.y + 4, 105 * 2, 60 * 2}, Collider::Type::INSTANT, this);
+		zoom = 2;
+		break;
 	default:
 		break;
 	}
@@ -221,7 +279,7 @@ NPC::NPC(NPCType NPCType, int x, int y) : DynamicEntity(DynamicType::NPC)
 
 	npcId = app->scene->npcList.count();
 
-	zoom = 1;
+	
 
 }
 
@@ -241,6 +299,9 @@ bool NPC::Awake(pugi::xml_node& config)
 	/*archerChar = config.child("archer").attribute("path").as_string();
 	lancerChar = config.child("lancer").attribute("path").as_string();
 	wizardChar = config.child("wizard").attribute("path").as_string();*/
+	wizardChar = "Assets/sprites/characters/wizard/Valion.png";
+	archerChar = "Assets/sprites/characters/archer/walk/rayla.png";
+	lancerChar = "Assets/sprites/characters/lancer/walk/dhion.png";
 	return true;
 }
 
@@ -290,19 +351,6 @@ bool NPC::Start()
 
 		spriteTex = NULL;
 		break;*/
-	//case NPCType::ARCHER:
-
-	//	spriteTex = app->tex->Load(archerChar);
-	//	break;
-	//case NPCType::LANCER:
-
-	//	spriteTex = app->tex->Load(lancerChar);
-	//	break;
-	//case NPCType::WIZARD:
-
-	//	spriteTex = app->tex->Load(wizardChar);
-	//	break;
-
 	case NPCType::DEAD_TREE:
 
 		spriteTex = NULL;
@@ -323,7 +371,19 @@ bool NPC::Start()
 
 		spriteTex = NULL;
 		break;
+	case NPCType::VALION:
+		spriteTex = app->tex->Load(wizardChar);
+		break;
+	case NPCType::RAYLA:
+		spriteTex = app->tex->Load(archerChar);
+		break;
+	case NPCType::DHION:
+		spriteTex = app->tex->Load(lancerChar);
+		break;
+	case NPCType::TRUCK:
+		spriteTex = app->tex->Load("Assets/sprites/truck_kun/camion_kun.png");
 
+		break;
 	default:
 		break;
 	}

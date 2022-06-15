@@ -5,6 +5,8 @@
         <organization>Suspicious Team</organization>
     </app>
 
+
+
     <renderer>
         <vsync value="true"/>
 		
@@ -61,6 +63,15 @@
 	
 	<scene>
 		<spionage path="Assets/audio/music/music_credits.ogg" />
+
+		<rest path="Assets/gui/buttons/button_restart.png"/>
+		<prest path="Assets/gui/buttons/pressed_button_restart.png"/>
+		<back path="Assets/gui/buttons/button_back_to_menu.png"/>
+		<pback path="Assets/gui/buttons/pressed_button_back_to_menu.png"/>
+		<loc path="Assets/gui/inventory/ui_localizacion.png"/>
+		<bFx path="Assets/audio/sfx/fx_select_back.wav"/>
+		<lFx path="Assets/audio/sfx/fx_load.wav"/>
+		<sFx path="Assets/audio/sfx/fx_save.wav"/>
 	</scene>
 
 	<cock>
@@ -120,5 +131,11 @@
 		<losefx path="Assets/audio/sfx/fx_lose.wav"/>
 		
 	</stages>
+	
+	<shop>
+		<uishop path="Assets/gui/inventory/ui_shop.png"/>
+		<itm2 path="Assets/items/items2.png"/>
+		
+	</shop>
 	
 </config>

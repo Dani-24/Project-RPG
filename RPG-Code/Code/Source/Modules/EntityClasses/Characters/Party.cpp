@@ -77,10 +77,10 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		protectedAnim.PushBack({ 0 * BATTLE_SIZE , 2 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		//HIT ANIM
-		hitAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 0 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 1 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 2 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 3 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		hitAnim.loop = false;
 		hitAnim.speed = 0.006f;
@@ -121,6 +121,7 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		runAnim.PushBack({ 6 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		runAnim.PushBack({ 7 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.loop = true;
 		runAnim.speed = 0.006f;
 
 		name = "Valion";
@@ -228,15 +229,10 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		fallAnim.speed = 0.006f;
 
 		//RUN
-		runAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 4 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 5 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 6 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 7 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 0 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 1 * BATTLE_SIZE , 3 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
+		runAnim.loop = true;
 		runAnim.speed = 0.006f;
 
 		name = "Rayla";
@@ -301,10 +297,9 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		protectedAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		//HIT ANIM
-		hitAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		hitAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		hitAnim.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		hitAnim.loop = false;
 		hitAnim.speed = 0.006f;
@@ -337,14 +332,11 @@ Party::Party(PartyType partyType, int x, int y) : Character(CharacterType::PARTY
 		fallAnim.speed = 0.006f;
 
 		//RUN
-		runAnim.PushBack({ 0 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 1 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 2 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 3 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 4 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 5 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 6 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		runAnim.PushBack({ 7 * BATTLE_SIZE , 100 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+		runAnim.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+
+		runAnim.loop = true;
+		runAnim.speed = 0.006f;
 
 		name = "Dhion";
 		configName = "dhion";
@@ -394,22 +386,37 @@ bool Party::Start()
 	case PartyType::VALION:
 
 		//stats = new Stats(1, 15, 10, 3, 10, 32);
-		stats = new Stats(1, 15, 12, 10, 15, 16);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 12, 10, 15, 16);
+		}
+		else {
+			stats = new Stats(1, 15, 12, 10, 15, 16);
+		}
+		
 		spriteTex = app->tex->Load(ValionChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/wizard_gui.png");
 		break;
 
 	case PartyType::RAYLA:
-
-		stats = new Stats(1, 15, 10, 8, 12, 28);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 10, 8, 12, 28);
+		}
+		else {
+			stats = new Stats(1, 15, 10, 8, 12, 28);
+		}
 		spriteTex = app->tex->Load(RaylaChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/archer_gui.png");
 		break;
 	case PartyType::DHION:
 
-		stats = new Stats(1, 24, 7, 12, 7, 22);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 24, 7, 12, 7, 22);
+		}
+		else {
+			stats = new Stats(1, 24, 7, 12, 7, 22);
+		}
 		spriteTex = app->tex->Load(DhionChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/lancer_gui.png");

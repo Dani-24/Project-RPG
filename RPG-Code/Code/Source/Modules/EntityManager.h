@@ -13,6 +13,7 @@ enum class DynamicType;
 enum class CharacterType;
 enum class NPCType;
 enum class NormalEnemyType;
+enum class BossType;
 enum class PartyType;
 enum class EquipmentType;
 enum class WeaponType;
@@ -44,6 +45,7 @@ public:
 	Entity* CreateEntity(PartyType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NPCType type, int x = 0, int y = 0);
 	Entity* CreateEntity(NormalEnemyType type, int x = 0, int y = 0);
+	Entity* CreateEntity(BossType type);
 	Entity* CreateEntity(UsableType type);
 	Entity* CreateEntity(EquipmentType type, const char* name);
 	Entity* CreateEntity(WeaponType type, const char* name);

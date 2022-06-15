@@ -4,8 +4,12 @@
 #include "Module.h"
 #include "GuiButton.h"
 #include "Animation.h"
+#include "EasingFunctions.h"
 
-
+struct T_Pos
+{
+	iPoint Position;
+};
 struct SDL_Texture;
 
 class TitleScene : public Module
@@ -38,6 +42,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//Control buttons
+	void GampadControl();
+
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
+
 public:
 	const char* startChar;
 	const char* contChar;
@@ -48,6 +57,9 @@ public:
 	const char* mustitlChar;
 	const char* fxselChar;
 	const char* fxtitleChar;
+
+	//variable para que no pete con mando
+	bool wait, _wait;
 
 private:
 
@@ -87,8 +99,15 @@ private:
 	SDL_Texture* press_creditsb;
 	SDL_Texture* press_exitb;
 
-	//variable para que no pete con mando
-	bool wait, _wait;
+	T_Pos T_pos;
+
+	iPoint T_pointA;
+	iPoint T_pointB;
+
+	int T_iterations;
+	int T_total_iterations;
+	bool T_easing_active;
+	EasingFunctions T_Efunction;
 
 	float a=200;
 };

@@ -1,6 +1,7 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 
+#define RENDER_DISTANCE 32 * 5
 #define MAX_WALLS 4000
 #define MAX_ENTRIES 100
 
@@ -8,6 +9,7 @@
 #include "List.h"
 #include "Point.h"
 #include "Collisions.h"
+#include "Animation.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -146,7 +148,7 @@ public:
     // Called before quitting
     bool CleanUp();
 
-    // Load new map
+    // Load new map // Animated water can be "dark" or "clean"
     bool Load(const char* path);
 
 	//Translates x,y coordinates from map positions to world positions
@@ -184,7 +186,6 @@ public:
 	//List<Entries*>mapEntries;
 	//TileSet* mapTiles[3600];
 
-	
 	List<const char*>charValues;
 
 	Entity* wallsEntity;
@@ -194,7 +195,17 @@ private:
     SString folder;
     bool mapLoaded;
 	
+	// Animated water
+	SDL_Texture* water, * waterfall;
+	Animation	rockDarkWtopL, rockDarkWleft, rockDarkWdownL, rockDarkWtop, rockDarkWmid, rockDarkWdown, rockDarkWtopR, rockDarkWright, rockDarkWdownR,
+				rockCleanWtopL, rockCleanWleft, rockCleanWdownL, rockCleanWtop, rockCleanWmid, rockCleanWdown, rockCleanWtopR, rockCleanWright, rockCleanWdownR,
+				rockInterTopL, rockInterTopR, rockInterDownL, rockInterDownR,
+				cleanWtopL, cleanWleft, cleanWdownL, cleanWtop, cleanWmid, cleanWdown, cleanWtopR, cleanWright, cleanWdownR,
+				cascOTopL, cascOLeft, cascODownL, cascOTop, cascOMid, cascODown, cascOTopR, cascORight, cascODownR,
+				cascTopL, cascLeft, cascDownL, cascTop, cascMid, cascDown, cascTopR, cascRight, cascDownR;
 
+	void LoadAnimatedTiles();
+	void UpdateAnimatedTiles();
 };
 
 #endif // __MAP_H__

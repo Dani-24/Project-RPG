@@ -40,6 +40,10 @@ public:
 
 	void showPrice(int item, int x, int y);
 private:
+
+	SString uiChar,
+			itmChar;
+
 	SDL_Texture* ShopTex;
 
 	SDL_Texture* ItemTex;

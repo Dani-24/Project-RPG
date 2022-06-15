@@ -32,7 +32,9 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	case GuiControlType::BUTTON:
 		control = new GuiButton(id, bounds, text, autoDraw);
 		break;
-	
+	case GuiControlType::SLIDER:
+		control = new GuiButton(id, bounds, text, autoDraw);
+		break;
 	// More Gui Controls can go here
 
 	default:

@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Audio.h"
+#include "AssetsManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -87,9 +88,14 @@ bool Audio::CleanUp()
 }
 
 // Play a music file
-bool Audio::PlayMusic(const char* path, float fade_time)
+bool Audio::PlayMusic(const char* path, float fade_time, bool remember, int rar)
 {
 	bool ret = true;
+	
+
+	if (remember) {
+		lastSongPlayed = path;
+	}
 
 	if (!active)
 		return false;
@@ -109,7 +115,8 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	if(rar==0)music = Mix_LoadMUS(path);
+	else if(rar==1) music = Mix_LoadMUS_RW(app->assman->Load(path), 1);
 
 	if (music == NULL)
 	{
@@ -140,17 +147,52 @@ bool Audio::PlayMusic(const char* path, float fade_time)
 	return ret;
 }
 
+void Audio::PlayLastSong() {
+	PlayMusic(lastSongPlayed, 5);
+}
+
 // Load WAV
-unsigned int Audio::LoadFx(const char* path)
+unsigned int Audio::LoadFx(const char* path, int rar)
 {
 	unsigned int ret = 0;
+	
 
 	if (!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	Mix_Chunk* chunk;
 
-	if (chunk == NULL)
+	if (rar == 0)
+	{
+		chunk = Mix_LoadWAV(path);
+
+		if (chunk == NULL)
+		{
+			LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
+		}
+		else
+		{
+			fx.add(chunk);
+			ret = fx.count();
+		}
+	}
+	else if (rar == 1)
+	{
+		chunk = Mix_LoadWAV_RW(app->assman->Load(path), 1);
+
+		if (chunk == NULL)
+		{
+			LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
+		}
+		else
+		{
+			fx.add(chunk);
+			ret = fx.count();
+		}
+	}
+
+
+	/*if (chunk == NULL)
 	{
 		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
@@ -158,7 +200,7 @@ unsigned int Audio::LoadFx(const char* path)
 	{
 		fx.add(chunk);
 		ret = fx.count();
-	}
+	}*/
 
 	return ret;
 }
@@ -178,6 +220,7 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
 
 // Change Music volume
 void Audio::ChangeVolume(int volume) {

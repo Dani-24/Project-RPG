@@ -9,6 +9,7 @@
 
 #include "NPC.h"
 #include "NormalEnemy.h"
+#include "BossEnemy.h"
 #include "Camera.h"
 
 #include "Item.h"
@@ -178,6 +179,35 @@ bool EntityManager::SaveState(pugi::xml_node& data) const
 
 	//Saved.attribute("saved").set_value(saved);
 
+	pugi::xml_node saves = data.append_child("Saves");
+
+	saves.append_attribute("save1") = app->scene->ch1;
+	saves.append_attribute("save2") = app->scene->ch2;
+	saves.append_attribute("save3") = app->scene->ch3;
+
+	if (app->scene->partyList.count() > 1) {
+		pugi::xml_node party = data.append_child("Valion");
+		party.append_attribute("level") = app->scene->partyList.At(1)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(1)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(1)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(1)->data->position.y;
+	}
+	if (app->scene->partyList.count() > 2) {
+		pugi::xml_node party = data.append_child("Rayla");
+		party.append_attribute("level") = app->scene->partyList.At(2)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(2)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(2)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(2)->data->position.y;
+	}
+	if (app->scene->partyList.count() > 3) {
+		pugi::xml_node party = data.append_child("Dhion");
+		party.append_attribute("level") = app->scene->partyList.At(3)->data->stats->level;
+		party.append_attribute("life") = app->scene->partyList.At(3)->data->stats->health;
+		party.append_attribute("x") = app->scene->partyList.At(3)->data->position.x;
+		party.append_attribute("y") = app->scene->partyList.At(3)->data->position.y;
+	}
+
+
 	return false;
 }
 
@@ -221,11 +251,20 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	if (app->stages->intStage == 12 && app->stages->actualStage != StageIndex::TOWER_2) {
 		app->stages->ChangeStage(StageIndex::TOWER_2);
 	}
-	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER_4) {
-		app->stages->ChangeStage(StageIndex::TOWER_4);
+	if (app->stages->intStage == 13 && app->stages->actualStage != StageIndex::TOWER_FINAL_BOSS) {
+		app->stages->ChangeStage(StageIndex::TOWER_FINAL_BOSS);
 	}
 	if (app->stages->intStage == 14 && app->stages->actualStage != StageIndex::TOWER_3) {
 		app->stages->ChangeStage(StageIndex::TOWER_3);
+	}
+	if (app->stages->intStage == 15 && app->stages->actualStage != StageIndex::TOWER_BOSS_1) {
+		app->stages->ChangeStage(StageIndex::TOWER_BOSS_1);
+	}
+	if (app->stages->intStage == 16 && app->stages->actualStage != StageIndex::TOWER_BOSS_2) {
+		app->stages->ChangeStage(StageIndex::TOWER_BOSS_2);
+	}
+	if (app->stages->intStage == 17 && app->stages->actualStage != StageIndex::TOWER_BOSS_3) {
+		app->stages->ChangeStage(StageIndex::TOWER_BOSS_3);
 	}
 
 	app->scene->partyList.At(0)->data->position.x = data.child("playerpos").attribute("x").as_int();
@@ -233,7 +272,32 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 	/*app->scene->partyList.At(0)->data->stats->maxHealth = data.child("stats").attribute("PlayerHp").as_int();
 	app->scene->partyList.At(1)->data->stats->maxHealth = data.child("stats").attribute("ValionHp").as_int();*/
-	
+	//app->scene->ch1 = data.child("Saves").attribute("save1").as_bool();
+	//app->scene->ch2 = data.child("Saves").attribute("save2").as_bool();
+	//app->scene->ch3 = data.child("Saves").attribute("save3").as_bool();
+
+	//pugi::xml_node Rayla = data.child("Rayla");
+	//pugi::xml_node Dhion = data.child("Dhion");
+	//pugi::xml_node Valion = data.child("Valion");
+
+	//if (app->scene->ch1 == true) {
+
+	//	int x, y, level;
+	//	double life;
+	//		const char* name;
+	//		x = Valion.attribute("x").as_int();
+	//		y = Valion.attribute("y").as_int();
+	//	//	level = Valion.attribute("level").as_int();
+	//	///*	life = Valion.attribute("life").as_int();*/
+	//		name = Valion.attribute("name").as_string();
+	//		app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, x, y));
+	//	//partyList.At(1)->data->stats->health= Valion.attribute("life").as_int();;
+	//	//partyList.At(1)->data->stats->level = level;
+	//}
+	////if (app->scene->partyList.count() > 1) {
+	////	//app->scene->partyList.At(1)->data->stats->health= Valion.attribute("life").as_double();
+	////	app->scene->partyList.At(1)->data->stats->level = Valion.attribute("level").as_int();
+	////}
 
 	return false;
 }
@@ -360,69 +424,11 @@ Entity* EntityManager::CreateEntity(NPCType type, int x, int y)
 {
 	Entity* ret = nullptr;
 
-	switch (type)
-	{
-	case NPCType::COCK:
+	ret = new NPC(type, x, y);
 
-		ret = new NPC(NPCType::COCK, x, y);
-		break;
-
-	case NPCType::BARKEEPER:
-
-		ret = new NPC(NPCType::BARKEEPER, x, y);
-		break;
-
-	case NPCType::MERCHANT:
-
-		ret = new NPC(NPCType::MERCHANT, x, y);
-		break;
-	
-	case NPCType::TRAINER:
-
-		ret = new NPC(NPCType::TRAINER, x, y);
-		break;
-	case NPCType::EMILIO:
-
-		ret = new NPC(NPCType::EMILIO, x, y);
-		break;
-	case NPCType::FUENTE:
-
-		ret = new NPC(NPCType::FUENTE, x, y);
-		break;
-	case NPCType::CARTELSUDTOWN:
-
-		ret = new NPC(NPCType::CARTELSUDTOWN, x, y);
-		break;
-	case NPCType::DEAD_TREE:
-
-		ret = new NPC(NPCType::DEAD_TREE, x, y);
-		break;
-	case NPCType::TREE:
-
-		ret = new NPC(NPCType::TREE, x, y);
-		break;
-	case NPCType::RIP:
-
-		ret = new NPC(NPCType::RIP, x, y);
-		break;
-	case NPCType::RIP_2:
-
-		ret = new NPC(NPCType::RIP_2, x, y);
-		break;
-	case NPCType::RIP_3:
-
-		ret = new NPC(NPCType::RIP_3, x, y);
-		break;
-	default:
-
-		LOG("ERROR: Entity Type not set when creating");
-		break;
-	}
 
 	if (ret != nullptr) {
 		entityList.add(ret);
-		//ret->position.x = x;
-		//ret->position.y = y;
 	}
 
 	return ret;
@@ -458,6 +464,19 @@ Entity* EntityManager::CreateEntity(NormalEnemyType type, int x, int y)
 		entityList.add(ret);
 		//ret->position.x = x;
 		//ret->position.y = y;
+	}
+
+	return ret;
+}
+
+Entity* EntityManager::CreateEntity(BossType type)
+{
+	Entity* ret = nullptr;
+
+	ret = new BossEnemy(type);
+
+	if (ret != nullptr) {
+		entityList.add(ret);
 	}
 
 	return ret;

@@ -2,6 +2,14 @@
 
 <img width="500" height="300" src="https://i.ytimg.com/vi/ghmDKAFPX0g/mqdefault.jpg">
 
+## Github Project:
+
+https://github.com/Dani-24/RPG
+
+## Youtube Trailer:
+
+https://www.youtube.com/watch?v=ur1OC74HOjg&ab_channel=Laia
+
 ## Description
 
 This is a nice RPG game :D
@@ -13,9 +21,54 @@ Why this place exists?? Who is in the tower?? Why all the inhabitant have lived 
 
 Only you can discover that by exploring the tower.
 
-## Github Project:
+## DEFAULT CONTROLS: (If "/" that means both keys do the same)
 
-https://github.com/Dani-24/RPG
+	ASDW / Arrows 	- Player / UI movement
+	Shift / CTRL 	- Run / Speed Up dialogues
+
+	ESC 		- Close current menu
+	Enter / Space 	- Interact / UI Press Button
+
+* On Pause Menu you can access all stats/inventory menus
+* UI buttons are mouse reactive
+
+## DEBUG KEYS:
+
+	TAB 		- Change Player gender
+
+	F9		- Show/Hide Colliders & Debug info
+
+	F10 		- GODMODE
+
+	F11 		- Enable/Disable DEBUG KEYS
+
+		F1 		- Scroll Maps backward (last)
+		F2 		- Scroll Maps forward (next)
+
+		I 		- Inventory
+		E 		- Stats
+
+		1 		- Add / Delete Valion
+		2 		- Add / Delete Rayla
+		3 		- Add / Delete Dhion
+
+		4 (has the $ symbol) - Add +10 money
+
+		P 		- Show Player Position (Only Debug Console)
+
+## Gamepad controls (X-BOX gamepad):
+
+	L joystick/ Cross Buttons : Player movement, move through menus
+	R2 : run
+	L3 : Change player sprite
+	B : Back / Pause
+	A : Confirm / TalkingERRE
+	Y : Stats Menu
+	X : Inventory
+	Q : Quest Menu
+	R1 : Shows map of the Town
+	L1 : Quest menu
+	Start : Pause Menu
 
 ## Suspicious Team members (With a Descriptive Image):
 
@@ -47,36 +100,8 @@ https://github.com/Dani-24/RPG
 
 ![Alt Text](https://www.meme-arsenal.com/memes/fa99667b78e49c49e085ae7120d71130.jpg)
 
-
-## Controls
-
-- WASD - Movement
-- Left Click - Interact
-- ESC - Back
-- SPACE : Confirm/Talk
-- Left mouse button (UI) : Confirm
-- Mouse movement (UI) : Select
-- G (UI) : Show UI
-- Tab - Change Gender
-
-## Debug Keys
-- M - Open Map
-- I - Open Inventory
-- E - Open Stats
-- Q - Open Quest Menu
-- F9 - Show / Hide Colliders
-- F10 - GOD mode: Fly-around mode, infinite stats.
-- F11 - Active Debug Keys
-
-If debug keys is active:
-
-- F1/F2 - Change Scene
-- 1/2/3 - Adds comrades in your party
-- Z -  Adds 100 Exp
-- 7 - Lock / Unlock player movement
-
 ## Additional Comments
-This game has been done thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
+This game has been done with hate and adwnkadjia thanks to [SDL](https://www.libsdl.org/index.php) and [Tiled](https://www.mapeditor.org)
   
 ## License
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](https://github.com/Dani-24/RPG/blob/main/LICENSE) for further details.

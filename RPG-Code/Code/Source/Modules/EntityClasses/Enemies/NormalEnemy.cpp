@@ -6,6 +6,7 @@
 #include "NormalEnemy.h"
 #include "Scene.h"
 #include "PauseMenu.h"
+#include "Stages.h"
 
 NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(EnemyType::NORMAL)
 {
@@ -160,7 +161,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 5 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 4 * BATTLE_SIZE , 10 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.01f;
 
 		dieAnim.PushBack({ 7 * BATTLE_SIZE , 11 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -177,6 +178,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Flying eye";
+		battleName = " Fl. Eye";
 		configName = "flying_eye";
 
 		break;
@@ -270,7 +272,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 1 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 0 * BATTLE_SIZE , 4 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.02f;
 
 		dieAnim.PushBack({ 4 * BATTLE_SIZE , 5 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -288,6 +290,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Bat";
+		battleName = " Bat";
 		configName = "bat";
 
 		break;
@@ -374,8 +377,6 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		attackAnim3.PushBack({ 4 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 3 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 2 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 1 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-		attackAnim3.PushBack({ 0 * BATTLE_SIZE , 12 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
 		attackAnim3.PushBack({ 7 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		attackAnim3.PushBack({ 6 * BATTLE_SIZE , 8 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -398,7 +399,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		hitAnim.PushBack({ 5 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 		hitAnim.PushBack({ 4 * BATTLE_SIZE , 14 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 
-		hitAnim.loop = true;
+		hitAnim.loop = false;
 		hitAnim.speed = 0.01f;
 
 		dieAnim.PushBack({ 7 * BATTLE_SIZE , 15 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
@@ -415,6 +416,7 @@ NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(
 		currentAnimation = &idleAnimL;
 
 		name = "Skeleton";
+		battleName = " Skelet.";
 		configName = "skeleton";
 
 		break;
@@ -448,27 +450,75 @@ bool NormalEnemy::Start()
 	case NormalEnemyType::FLYING_EYE:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
-
-		stats = new Stats(1, 10, 10, 4, 5, 18);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	case NormalEnemyType::BAT:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
-		stats = new Stats(1, 5, 10, 2, 2, 27);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	case NormalEnemyType::SKELETON:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
 
-		/*stats = new Stats(1, 15, 6, 5, 1, 10);*/
-		stats = new Stats(1, 15, 15, 5, 1, 18);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	default:
-		break;
+		break;	
+
+	
 	}
 
 	return true;

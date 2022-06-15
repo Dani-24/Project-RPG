@@ -34,7 +34,11 @@ enum class NPCType
 	TREE,
 	RIP,
 	RIP_2,
-	RIP_3
+	RIP_3,
+	VALION,
+	RAYLA,
+	DHION,
+	TRUCK
 
 };
 

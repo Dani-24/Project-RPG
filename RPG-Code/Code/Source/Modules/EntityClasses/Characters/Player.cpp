@@ -18,6 +18,8 @@
 #include "QuestManager.h"
 
 #include <time.h>
+#include "BossEnemy.h"
+#include "VisualEffects.h";
 
 Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 {
@@ -129,11 +131,22 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleBattleM.loop = true;
 	idleBattleM.speed = 0.015f;
 
+	runM.PushBack({ 0 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 1 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 2 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 3 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 4 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 5 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 6 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.PushBack({ 7 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runM.loop = true;
+	runM.speed = 0.015f;
+
 	hitM.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitM.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitM.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitM.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-	hitM.loop = true;
+	hitM.loop = false;
 	hitM.speed = 0.006f;
 
 	//----------------------------------------------------------------------------------Battle Female------------------------------------
@@ -248,13 +261,157 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	idleBattleF.loop = true;
 	idleBattleF.speed = 0.015f;
 
+	runF.PushBack({ 0 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 1 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 2 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 3 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 4 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 5 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 6 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.PushBack({ 7 * BATTLE_SIZE , 6 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
+	runF.loop = true;
+	runF.speed = 0.015f;
+
 	hitF.PushBack({ 0 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitF.PushBack({ 1 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitF.PushBack({ 2 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
 	hitF.PushBack({ 3 * BATTLE_SIZE , 7 * BATTLE_SIZE , BATTLE_SIZE , BATTLE_SIZE });
-	hitF.loop = true;
+	hitF.loop = false;
 	hitF.speed = 0.006f;
 
+	// Helicopter Animations
+
+	Animation* susAnim = &heliWalkUpAnim;
+
+	susAnim->PushBack({ 0, 64*3, 107, 64 });
+	susAnim->PushBack({ 107, 64*3, 107, 64 });
+	susAnim->PushBack({ 107*2, 64*3, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkDownAnim;
+
+	susAnim->PushBack({ 0, 0, 107, 64 });
+	susAnim->PushBack({ 107, 0, 107, 64 });
+	susAnim->PushBack({ 107 *2, 0, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkLeftAnim;
+
+	susAnim->PushBack({ 0, 64, 107, 64 });
+	susAnim->PushBack({ 107, 64, 107, 64 });
+	susAnim->PushBack({ 107 *2, 64, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliWalkRightAnim;
+
+	susAnim->PushBack({ 0, 64*2, 107, 64 });
+	susAnim->PushBack({ 107, 64*2, 107, 64 });
+	susAnim->PushBack({ 107 *2, 64*2, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleUp;
+
+	susAnim->PushBack({ 0, 64*3, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleDown;
+
+	susAnim->PushBack({ 0, 0, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleR;
+
+	susAnim->PushBack({ 0, 64*2, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliIdleL;
+
+	susAnim->PushBack({ 0, 64, 107, 64 });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliBattleIdle;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliAttack;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = &heliProtect;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = &butMostImportantlyHeliHit;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = true;
+	susAnim->speed = 0.006f;
+
+	susAnim = &andThenHeliDies;
+
+	susAnim->PushBack({ 0 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 1 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 2 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 3 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 4 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 5 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 6 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 7 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 8 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->PushBack({ 9 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
+	susAnim->loop = false;
+	susAnim->speed = 0.006f;
+
+	susAnim = nullptr;
+	delete susAnim;
 
 	currentAnimation = &idleAnimR; //player start with idle anim
 
@@ -278,8 +435,6 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 
 	interactionButtonJustSpace.PushBack({ 83, 41, 36, 16 });
 	interactionButtonJustSpace.loop = false;
-
-
 }
 
 // Destructor
@@ -306,18 +461,24 @@ bool Player::Start()
 	LOG("start Player");
 	bool ret = true;
 
-	erectionFx = app->audio->LoadFx(electionfxChar);
-	walkFx = app->audio->LoadFx(WalkfxChar);
+	erectionFx = app->audio->LoadFx(electionfxChar.GetString());
+	walkFx = app->audio->LoadFx(WalkfxChar.GetString());
 
-	PlayerMTex = app->tex->Load(MaleChar);
-	PlayerFTex = app->tex->Load(FemaleChar);
+	PlayerMTex = app->tex->Load(MaleChar.GetString());
+	PlayerFTex = app->tex->Load(FemaleChar.GetString());
 	BattleMTex = app->tex->Load("Assets/sprites/MainCh/MainChM/Combat/m_battle_spritesheet.png");
 	/*BattleFTex = app->tex->Load("Assets/sprites/main_ch/mainChF/battle/fBattlesprite.png");*/
 	BattleFTex = app->tex->Load("Assets/sprites/MainCh/MainChF/Combat/f_battle_spritesheet.png");
-	interactionButton = app->tex->Load(interactionButtonChar);
+	interactionButton = app->tex->Load(interactionButtonChar.GetString());
 
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
 	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");
+
+	// Helicopter
+
+	HeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/heliSprite.png");
+	BattleHeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/battle.png");
+	helicopter_character_face_gui = app->tex->Load("Assets/sprites/MainCh/helicopter/gui_face_heli.png");
 
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
@@ -333,19 +494,29 @@ bool Player::Start()
 	timeWalkingVer = 0;
 	timeWalkingHor = 0;
 
+	entityTalking = nullptr;
+
+	valionDefeated = false;
+	raylaDefeated = false;
+	dhionDefeated = false;
+
+	autoTalk = false;
+	battleSet = false;
+
+	srand(SDL_GetTicks());
+
 	return ret;
 }
 
 bool Player::PreUpdate()
 {
 	// DEBUG PLAYER POSITION
-	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
-		LOG("position x %d y %d", position.x, position.y);
+	if (app->scene->debugMODE) {
+		if (app->input->GetKey(SDL_SCANCODE_P) == KEY_REPEAT) {
+			LOG("position x %d y %d", position.x, position.y);
+		}
 	}
-	
-	
-	//if (app->scene->godmode) stats->SetStats();	
-	
+
 	// Show GUI if player isn't moving
 	if (toggleGui == true && app->stages->actualStage != StageIndex::INTRODUCTION) {
 		if (lastFramePos == position) {
@@ -361,11 +532,17 @@ bool Player::PreUpdate()
 		lastFramePos = position;
 	}
 
-	if (PlayerErection == true) {
+	switch (PlayerErection)
+	{
+	case 1:
 		spriteFace = male_character_face_gui;
-	}
-	else {
+		break;
+	case 2:
 		spriteFace = female_character_face_gui;
+		break;
+	case 3:
+		spriteFace = helicopter_character_face_gui;
+		break;
 	}
 
 	return true;
@@ -378,21 +555,31 @@ bool Player::Update(float dt) {
 	if (!pad.r3 && !pad.l3)_wait = true;
 	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
-		if ((app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) || pad.l3 && _wait && !PlayerErection && app->stages->actualStage==StageIndex::INTRODUCTION) {
-			if (PlayerErection != true) {
-				PlayerErection = true;
-				name = "Rhen";
-				app->audio->PlayFx(erectionFx);
-			}	
-			app->stages->elect = true;
-			_wait = false;
-		}
-		if ((app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) || pad.l3 && _wait && PlayerErection && app->stages->actualStage == StageIndex::INTRODUCTION) {
-			if (PlayerErection != false) {
-				PlayerErection = false;
-				name = "Briar";
-				app->audio->PlayFx(erectionFx);
+		if ((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) || pad.l3 && _wait && app->stages->actualStage==StageIndex::INTRODUCTION) {
+			if (PlayerErection < 3) {
+				PlayerErection++;
 			}
+			else {
+				PlayerErection = 1;
+			}
+
+			switch (PlayerErection)
+			{
+			case 1:
+				name = "Rhen";
+				currentAnimation = &idleAnimDown;
+				break;
+			case 2:
+				name = "Briar";
+				currentAnimation = &idleAnimDown;
+				break;
+			case 3:
+				name = "Hellie";
+				currentAnimation = &heliIdleDown;
+				break;
+			}
+
+			app->audio->PlayFx(erectionFx);
 			app->stages->elect = true;
 			_wait = false;
 		}
@@ -404,6 +591,10 @@ bool Player::Update(float dt) {
 
 	baseCollider->rect.x = position.x + colRightDistance;
 	baseCollider->rect.y = position.y + colDownDistance;
+
+	if (visualeffectCooldown > 0) {
+		visualeffectCooldown--;
+	}
 
 	return ret;
 }
@@ -442,25 +633,32 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT)speed = 0.28 * dt;
+	GamePad& pad = app->input->pads[0];
+	if (!pad.a && !pad.b) _wait = true;
+
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT || pad.r2)speed = 0.28 * dt;
 	else if(app->scene->godmode)speed = 0.35 * dt;
 	else speed = 0.2 * dt;
 	
-	GamePad& pad = app->input->pads[0];
-
+	
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.left_y < -0.5f || pad.up) {
 		
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
-				timeWalkingHor++;
-				timeWalkingVer++;
-				if (currentAnimation != &walkAnimL) {
-					currentAnimation = &walkAnimL;
+
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimL) {
+						currentAnimation = &walkAnimL;
+
+					}
+				}
+				else {
+					currentAnimation = &heliWalkLeftAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -468,14 +666,37 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV W
+			else {
+					position.y -= speed;
+					if (PlayerErection != 3) {
+						if (currentAnimation != &walkAnimUp) {
+							currentAnimation = &walkAnimUp;
+						}
+					}
+					else {
+						currentAnimation = &heliWalkUpAnim;
+					}
+
+					if (walkFxCooldown < 0) {
+						app->audio->PlayFx(walkFx);
+						walkFxCooldown = cooldown;
+					}
+				
+			}
 		}
-		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+		
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
-				timeWalkingHor++;
-				timeWalkingVer++;
-				if (currentAnimation != &walkAnimR) {
-					currentAnimation = &walkAnimR;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimR) {
+						currentAnimation = &walkAnimR;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkRightAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -483,13 +704,38 @@ void Player::MovementPlayer(float dt) {
 					walkFxCooldown = cooldown;
 				}
 			}
+			//MOV W
+			else {
+					position.y -= speed;
+					if (PlayerErection != 3) {
+						if (currentAnimation != &walkAnimUp) {
+							currentAnimation = &walkAnimUp;
+						}
+					}
+					else {
+						currentAnimation = &heliWalkUpAnim;
+					}
+
+					if (walkFxCooldown < 0) {
+						app->audio->PlayFx(walkFx);
+						walkFxCooldown = cooldown;
+					}
+				
+			}
 		}
+		//MOV W
 		else {
 			position.y -= speed;
 			timeWalkingVer++;
 			timeWalkingHor = 0;
-			if (currentAnimation != &walkAnimUp) {
-				currentAnimation = &walkAnimUp;
+
+			if (PlayerErection != 3) {
+				if (currentAnimation != &walkAnimUp) {
+					currentAnimation = &walkAnimUp;
+				}
+			}
+			else {
+				currentAnimation = &heliWalkUpAnim;
 			}
 
 			if (walkFxCooldown < 0) {
@@ -498,14 +744,38 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+	else if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.left_y > 0.5f || pad.down) {
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+			//MOV A
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
 				timeWalkingHor++;
 				timeWalkingVer++;
-				if (currentAnimation != &walkAnimL) {
-					currentAnimation = &walkAnimL;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimL) {
+						currentAnimation = &walkAnimL;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkLeftAnim;
+				}
+
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
+			//MOV S
+			else {
+				position.y += speed;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimDown) {
+						currentAnimation = &walkAnimDown;
+					}
+				}
+				else {
+					currentAnimation = &heliIdleDown;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -514,13 +784,37 @@ void Player::MovementPlayer(float dt) {
 				}
 			}
 		}
-		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+		else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
 				timeWalkingHor++;
 				timeWalkingVer++;
-				if (currentAnimation != &walkAnimR) {
-					currentAnimation = &walkAnimR;
+
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimR) {
+						currentAnimation = &walkAnimR;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkRightAnim;
+				}
+
+				if (walkFxCooldown < 0) {
+					app->audio->PlayFx(walkFx);
+					walkFxCooldown = cooldown;
+				}
+			}
+			//MOV S
+			else {
+				position.y += speed;
+				if (PlayerErection != 3) {
+					if (currentAnimation != &walkAnimDown) {
+						currentAnimation = &walkAnimDown;
+					}
+				}
+				else {
+					currentAnimation = &heliWalkDownAnim;
 				}
 
 				if (walkFxCooldown < 0) {
@@ -529,11 +823,19 @@ void Player::MovementPlayer(float dt) {
 				}
 			}
 		}
+		//MOV S
 		else {
 			position.y += speed;
 			timeWalkingVer++;
-			if (currentAnimation != &walkAnimDown) {
-				currentAnimation = &walkAnimDown;
+			timeWalkingHor = 0;
+
+			if (PlayerErection != 3) {
+				if (currentAnimation != &walkAnimDown) {
+					currentAnimation = &walkAnimDown;
+				}
+			}
+			else {
+				currentAnimation = &heliWalkDownAnim;
 			}
 
 			if (walkFxCooldown < 0) {
@@ -542,11 +844,18 @@ void Player::MovementPlayer(float dt) {
 			}
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.left_x < -0.5f || pad.left) {
 		position.x -= speed;
+		timeWalkingVer = 0;
 		timeWalkingHor++;
-		if (currentAnimation != &walkAnimL) {
-			currentAnimation = &walkAnimL;
+
+		if (PlayerErection != 3) {
+			if (currentAnimation != &walkAnimL) {
+				currentAnimation = &walkAnimL;
+			}
+		}
+		else {
+			currentAnimation = &heliWalkLeftAnim;
 		}
 
 		if (walkFxCooldown < 0) {
@@ -554,11 +863,18 @@ void Player::MovementPlayer(float dt) {
 			walkFxCooldown = cooldown;
 		}
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.left_x > 0.5f || pad.right) {
 		position.x += speed;
+		timeWalkingVer = 0;
 		timeWalkingHor++;
-		if (currentAnimation != &walkAnimR) {
-			currentAnimation = &walkAnimR;
+
+		if (PlayerErection != 3) {
+			if (currentAnimation != &walkAnimR) {
+				currentAnimation = &walkAnimR;
+			}
+		}
+		else {
+			currentAnimation = &heliWalkRightAnim;
 		}
 
 		if (walkFxCooldown < 0) {
@@ -579,6 +895,19 @@ void Player::MovementPlayer(float dt) {
 		else if (currentAnimation == &walkAnimDown) {
 			currentAnimation = &idleAnimDown;
 		}
+		else if (currentAnimation == &heliWalkDownAnim) {
+			currentAnimation = &heliIdleDown;
+		}
+		else if (currentAnimation == &heliWalkUpAnim) {
+			currentAnimation = &heliIdleUp;
+		}
+		else if (currentAnimation == &heliWalkRightAnim) {
+			currentAnimation = &heliIdleR;
+		}
+		else if (currentAnimation == &heliWalkLeftAnim) {
+			currentAnimation = &heliIdleL;
+		}
+
 		timeWalkingHor = 0;
 		timeWalkingVer = 0;
 	}
@@ -636,38 +965,48 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 		{
 			if (normalEnemyInList->data->activeOnStage == app->stages->actualStage) {
 				if (normalEnemyInList->data->GetCollider() != nullptr) {
-					if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false) {
-
+					if (normalEnemyInList->data->GetCollider() == col2 && app->battle->isEnabled() == false && battleSet == false) {
+						battleSet = true;
 						app->battle->entitiesInBattle[0] = this;
 						app->battle->entitiesInBattle[4] = normalEnemyInList->data;
 
 						int alliesCount = 1;
 						int enemiesCount = 1;
 
+						srand(time(NULL));
+
+						int enemySpawnChance[3] = { 0,0,0 };
+						enemySpawnChance[0] = (rand() % 100);
+						enemySpawnChance[1] = (rand() % 100);
+						enemySpawnChance[2] = (rand() % 100);
+
+						int enemyType[3] = { 0,0,0 };
+						enemyType[0] = (rand() % 3);
+						enemyType[1] = (rand() % 3);
+						enemyType[2] = (rand() % 3);
+
 						for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
 							if (app->stages->partyListPtr->At(i) != nullptr) {
 								app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
 								alliesCount++;
-								srand(time(NULL));
-								int enemySpawnChance = (rand() % 100);
+								
 
-								if (enemySpawnChance >= 25) {
-									srand(time(NULL));
-									int enemyType = (rand() % 3);
-									if (enemyType == 0) {
+								if (enemySpawnChance[i-1] >= 25) {
+									
+									if (enemyType[i-1] == 0) {
 										NormalEnemy* bat = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, 0, 0);
 										bat->onlyInBattle = true;
 										app->scene->normalEnemyList.add(bat);
 										app->battle->entitiesInBattle[4 + enemiesCount] = bat;
 									}
-									else if (enemyType == 1) {
+									else if (enemyType[i - 1] == 1) {
 
 										NormalEnemy* flyingEye = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::FLYING_EYE, 0, 0);
 										flyingEye->onlyInBattle = true;
 										app->scene->normalEnemyList.add(flyingEye);
 										app->battle->entitiesInBattle[4 + enemiesCount] = flyingEye;
 									}
-									else if (enemyType == 2) {
+									else if (enemyType[i - 1] == 2) {
 										NormalEnemy* skeleton = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::SKELETON, 0, 0);
 										skeleton->onlyInBattle = true;
 										app->scene->normalEnemyList.add(skeleton);
@@ -676,30 +1015,61 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 									}
 
 									enemiesCount++;
-
-
-
-
 								}
 							}
 						}
-
-						
-
-
-
-
-
-
-
 						//app->battle->normalEnemyInBattle = normalEnemyInList->data;
 						//app->battle->CurrentEnemyType = EnemyInBattleType::NORMAL;
-						app->battle->Enable();
+
+						if (visualeffectCooldown > 0) {
+							//visualeffectCooldown--;
+						}
+						else {
+							visualeffectCooldown = 300;
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+						}
 					}
 				}
 			}
-			
-			
+		}
+
+		// Collision with instant NPCs
+		for (ListItem<NPC*>* InstantNPCInList = app->stages->npcListPtr->start; InstantNPCInList != NULL; InstantNPCInList = InstantNPCInList->next)
+		{
+			if (InstantNPCInList->data->activeOnStage == app->stages->actualStage && app->stages->playerPtr != nullptr && InstantNPCInList->data->baseCollider->type == Collider::Type::INSTANT && InstantNPCInList->data->npcID == 69) 
+			{
+				if (app->battle->isEnabled() == false) {
+					app->battle->entitiesInBattle[0] = this;
+
+					int alliesCount = 1;
+
+					for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+						if (app->stages->partyListPtr->At(i) != nullptr) {
+							app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+							alliesCount++;
+						}
+					}
+
+					BossEnemy* theAmazingTruckKun = (BossEnemy*)app->entities->CreateEntity(BossType::TRUCK);
+					app->scene->bossList.add(theAmazingTruckKun);
+					app->battle->entitiesInBattle[4] = theAmazingTruckKun;
+
+					visualeffectCooldown = 300;
+					int trans = rand() % 2;
+					if (trans == 0) {
+						app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+					}
+					else {
+						app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+					}
+				}
+			}
 		}
 
 		//Collision with entrance
@@ -766,22 +1136,43 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Floor2Key == true) {
 									LOG("Loading floor 4 map");
 									tower2Pos = { position.x, position.y + tower2PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_2);
 								}
 								break;
-							case StageIndex::TOWER_4:
+							case StageIndex::TOWER_FINAL_BOSS:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 
 								break;
 							case StageIndex::TOWER_3:
 								if (Key1 == true && Key2 == true && Key3 == true) {
 									LOG("Loading floor 3 map");
 									tower4Pos = { position.x, position.y + tower4PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 								}
+								break;
+							case StageIndex::TOWER_BOSS_1:
+
+								LOG("Loading boss floor 1 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+
+								break;
+							case StageIndex::TOWER_BOSS_2:
+
+								LOG("Loading boss floor 2 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+
+								break;
+							case StageIndex::TOWER_BOSS_3:
+
+								LOG("Loading boss floor 3 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_FINAL_BOSS);
+
 								break;
 							}
 
@@ -837,14 +1228,14 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_1);
 
 								break;
-							case StageIndex::TOWER_4:
+							case StageIndex::TOWER_FINAL_BOSS:
 
 								LOG("Loading floor 2 map");
 								tower3Pos = { position.x, position.y - tower3PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 
 								break;
 							case StageIndex::TOWER_3:
@@ -852,8 +1243,29 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Key1 == true && Key2 == true && Key3 == true) {
 									LOG("Loading floor 3 map");
 									tower4Pos = { position.x, position.y + tower4PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 								}
+
+								break;
+							case StageIndex::TOWER_BOSS_1:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
+
+								break;
+							case StageIndex::TOWER_BOSS_2:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+
+								break;
+							case StageIndex::TOWER_BOSS_3:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 
 								break;
 							}
@@ -903,11 +1315,33 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Key1 == true && Key2 == true && Key3 == true) {
 									LOG("Loading floor 3 map");
 									tower4Pos = { position.x, position.y + tower4PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 								}
 
 								break;
+							case StageIndex::TOWER_BOSS_1:
+
+								LOG("Loading floor 1 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+
+								break;
+							case StageIndex::TOWER_BOSS_2:
+
+								LOG("Loading floor 1 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
+
+								break;
+							case StageIndex::TOWER_BOSS_3:
+
+								LOG("Loading floor 1 map");
+								tower0Pos = { position.x, position.y + tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_FINAL_BOSS);
+
+								break;
 							}
+
 
 							break;
 						case 3:
@@ -946,14 +1380,14 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Floor1Key == true) {
 									LOG("Loading floor 2 map");
 									tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_1);
 								}
 								break;
 							case StageIndex::TOWER_2:
 
 								LOG("Loading floor 1 map");
 								tower2Pos = { position.x, position.y - tower2PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_1);
 
 								break;
 							case StageIndex::TOWER_3:
@@ -961,9 +1395,27 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Key1 == true && Key2 == true && Key3 == true) {
 									LOG("Loading floor 3 map");
 									tower4Pos = { position.x, position.y + tower4PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_4);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_3);
 								}
 
+								break;
+							case StageIndex::TOWER_BOSS_1:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_1);
+								break;
+							case StageIndex::TOWER_BOSS_2:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								break;
+							case StageIndex::TOWER_BOSS_3:
+
+								LOG("Loading town map");
+								tower0Pos = { position.x, position.y - tower0PosYAxisfix };
+								app->fade->DoFadeToBlack(StageIndex::TOWER_3);
 								break;
 							}
 							
@@ -983,14 +1435,14 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 								if (Floor1Key == true) {
 									LOG("Loading floor 2 map");
 									tower1Pos = { position.x, position.y + tower1PosYAxisfix };
-									app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+									app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_1);
 								}
 								break;
 							case StageIndex::TOWER_3:
 
 								LOG("Loading floor 2 map");
 								tower4Pos = { position.x, position.y - tower4PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_2);
 								break;
 							}
 
@@ -1010,7 +1462,7 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 								LOG("Loading floor 2 map");
 								tower4Pos = { position.x, position.y - tower4PosYAxisfix };
-								app->fade->DoFadeToBlack(StageIndex::TOWER_2);
+								app->fade->DoFadeToBlack(StageIndex::TOWER_BOSS_2);
 							}
 							break;
 					}
@@ -1035,7 +1487,13 @@ void Player::OnCollision(Collider* col1, Collider* col2) {
 
 							if (!pad.a) wait = true;
 
-							if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.a && wait == true) {
+							if (autoTalk == true) {
+								entityTalking = entityInList->data;
+								app->questManager->CheckQuest(entityInList->data->npcID);
+								autoTalk = false;
+							}else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_REPEAT || pad.a && wait == true) {
+
+								entityTalking = entityInList->data;
 								app->questManager->CheckQuest(entityInList->data->npcID);
 								/*switch (entityInList->data->npcID)
 								{

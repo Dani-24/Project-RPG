@@ -30,11 +30,12 @@ class QuestManager;
 class EnemyMovement;
 class PauseMenu;
 class Shop;
-
+class ModuleParticles;
 class Camera;
 class FadeToBlack;
 class Pathfinder;
 class ModuleQFonts;
+class ModuleAssetsManager;
 
 class Stages;
 class Battle;
@@ -43,6 +44,9 @@ class Collisions;
 class DialogSystem;
 class Inventory;
 class StatsMenu;
+class QuestMenu;
+
+class VisualEffects;
 
 class App
 {
@@ -126,6 +130,9 @@ public:
 	Camera* camera;
 	PauseMenu* pauseM;
 	Shop* shop;
+	ModuleParticles* particlesM;
+
+	ModuleAssetsManager* assman;
 
 	ModuleQFonts* font;
 	FadeToBlack* fade;
@@ -135,6 +142,10 @@ public:
 	DialogSystem* dialogs;
 	Inventory* inventory;
 	StatsMenu* stmen;
+	QuestMenu* questMenu;
+
+	VisualEffects* visualEffects;
+
 private:
 
 	int argc;

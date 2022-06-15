@@ -29,7 +29,8 @@ public:
 	QuestType questType;
 	QuestState State;
 	const char* questName; //Name of the quest
-	const char* questDescription; //A text to descrive the quest
+	const char* questNumber; //Name of the quest
+	const char* questDescription;; //A text to descrive the quest
 	int QuestId; //Number of the quest
 	int NPCId; //Npc that give you the quest
 	int QuestGold; //Gold reward
@@ -38,6 +39,9 @@ public:
 	bool QuestLastChain;
 	int QuestChainId; //chain id
 	int QuestInChainId; //in chain number
+	bool toPrint;
+	bool toPrintC;
+	bool printed;
 
 	int objectiveNum;
 
@@ -47,13 +51,16 @@ public:
 	const char* activeDialog[DIALOG_LENGHT] = { "quest in process" };
 	const char* completedDialog[DIALOG_LENGHT] = { "take reward" };
 
+	bool completedAnimation = true;
+
 public:
 	Quest()
 	{
 		questType = QuestType::INTERACT;
 		State = QuestState::AVAILABLE;
 		questName = "Default Name";
-		questDescription = "Do something";
+		questDescription = "Haz algo";
+		questNumber = "Quest 0";
 		QuestId = 0;
 		NPCId = 0;
 		QuestGold = 0;
@@ -62,6 +69,9 @@ public:
 		QuestLastChain = false;
 		QuestChainId = 0;
 		QuestInChainId = 0;
+		toPrint = false;
+		toPrintC = false;
+		printed = false;
 
 		objectiveNum = 0;
 
@@ -69,12 +79,13 @@ public:
 
 	}
 
-	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
-		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT])
+	Quest(QuestType qtype, QuestState qState, int ID, int NPCid, const char* name, const char* number, const char* description, int Gold, int XP, int objective_NPCid, int ChainId, int inChainId, bool LastInChain,
+		const char* available[DIALOG_LENGHT], const char* active[DIALOG_LENGHT], const char* completed[DIALOG_LENGHT], bool print, bool printC)
 	{
 		questType = qtype;
 		State = qState;
 		questName = name;
+		questNumber = number;
 		questDescription = description;
 		QuestId = ID;
 		NPCId = NPCid;
@@ -86,6 +97,8 @@ public:
 			QuestChain = true;
 		}
 		QuestLastChain = LastInChain;
+		toPrint = print;
+		toPrintC = printC;
 
 
 		switch (qtype) {
@@ -146,7 +159,7 @@ public:
 
 public:
 
-	List<Quest*> questList;
+	List<Quest*> questList, questToPrintList;
 	bool q2 = false;
 };
 

@@ -60,7 +60,7 @@ public:
 		idleAnimR,
 		idleAnimL,
 		idleAnimUp,
-		idleAnimDown, 
+		idleAnimDown,
 		idleBattleM,
 		attackM,
 		protectM,
@@ -72,7 +72,24 @@ public:
 		attackChainF,
 		protectF,
 		hitF,
-		dieF;
+		dieF,
+		runM,
+		runF;
+
+	Animation
+		heliWalkUpAnim,
+		heliWalkDownAnim,
+		heliWalkLeftAnim,
+		heliWalkRightAnim,
+		heliIdleUp,
+		heliIdleDown,
+		heliIdleR,
+		heliIdleL,
+		heliBattleIdle,
+		heliAttack,
+		heliProtect,
+		butMostImportantlyHeliHit,
+		andThenHeliDies;
 
 	int erectionFx;
 
@@ -88,17 +105,20 @@ public:
 	SDL_Texture* BattleMTex = nullptr;
 	SDL_Texture* BattleFTex = nullptr;
 
-	SDL_Texture* male_character_face_gui;
-	SDL_Texture* female_character_face_gui;
+	SDL_Texture* HeliTex, * BattleHeliTex;
+
+	SDL_Texture	* male_character_face_gui,
+				* female_character_face_gui,
+				* helicopter_character_face_gui;
 
 	// Current Sprite
-	bool PlayerErection = true;
+	int PlayerErection = 1;
 
-	const char* MaleChar;
-	const char* FemaleChar;
-	const char* electionfxChar;
-	const char* WalkfxChar;
-	const char* interactionButtonChar;
+	SString MaleChar;
+	SString FemaleChar;
+	SString electionfxChar;
+	SString WalkfxChar;
+	SString interactionButtonChar;
 	
 	bool canMove;
 
@@ -142,6 +162,9 @@ public:
 	bool Key2 = false;
 	bool Key3 = false;
 	//bool Floor3Key = false;
+
+	Entity *entityTalking;
+
 private:
 	int townPosYAxisfix = 5;
 	int tower0PosYAxisfix = 5;
@@ -158,6 +181,8 @@ private:
 	bool printInteractionButt = false;
 	//variable para que no pete con mando
 	bool wait;
+
+	int visualeffectCooldown = 0;
 
 public: // DIALOGS
 
@@ -241,7 +266,50 @@ public: // DIALOGS
 	"Its a tombstone"
 	};
 
-	void Interact(NPCType, const char* [DIALOG_LENGHT]);
+	bool valionDefeated;
+	bool raylaDefeated;
+	bool dhionDefeated;
 
+	//VALION
+	const char* ValionDialog[DIALOG_LENGHT] = {
+	"Wow, I was starting to get bored",
+	"it's been a long time since anyone came here",
+	"i was starting to get bored"
+	};
+
+	const char* ValionDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bro"
+	};
+
+	//RAYLA
+	const char* RaylaDialog[DIALOG_LENGHT] = {
+	"Do you think you are very strong?",
+	"You will have defeated Valion",
+	"something that no one had achieved for a long time",
+	"but you will not go beyond this room"
+	};
+
+	const char* RaylaDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bro"
+	};
+
+	//DHION
+	const char* DhionDialog[DIALOG_LENGHT] = {
+	"I see your strength",
+	"but it's nothing compared to mine",
+	"you can't win"
+	};
+
+	const char* DhionDialog2[DIALOG_LENGHT] = {
+	"You defeated me!",
+	"Now I'm your bro"
+	};
+
+	bool autoTalk;
+
+	void Interact(NPCType, const char* [DIALOG_LENGHT]);
+	bool battleSet;
 };
 #endif !__PLAYER_H__

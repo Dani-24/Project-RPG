@@ -6,13 +6,19 @@
 #include "Animation.h"
 #include "Usable.h"
 #include "Item.h"
+#include "EasingFunctions.h"
 
+struct G_Pos
+{
+	iPoint G_Position;
+};
 struct SDL_Texture;
 class Player;
 class Cock;
 class Barkeeper;
 class NPC;
 class NormalEnemy;
+class BossEnemy;
 class Party;
 class Character;
 class Item;
@@ -38,6 +44,9 @@ public:
 	// Called each loop iteration
 	bool Update(float dt);
 
+	//In casr of adding new char in good mode fix it
+	void FixAdd(int i, int x, int y);
+
 	// Called before all Updates
 	bool PostUpdate();
 
@@ -47,6 +56,16 @@ public:
 	// Define multiple Gui Event methods
 	bool OnGuiMouseClickEvent(GuiControl* control);
 
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
+
+	float EaseInBetweenPointsX(iPoint posA, iPoint posB);
+
+	void setLvl(NormalEnemy* enemy, int level);
+
+	// Load / Save
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&)const;
+
 public:
 	//Draws character bars on gui
 	void ShowGUI();
@@ -55,6 +74,15 @@ public:
 	bool AddItem(UsableType type);
 
 private:
+
+	SString CharRest;
+	SString	_CharRest;
+	SString	CharBackTex;
+	SString	_CharBackTex;
+	SString	CharLoc;
+	SString	CharFxBack;
+	SString	CharFxLoad;
+	SString	CharFxSave;
 
 	float fpsdt;
 	//variables de interfaz
@@ -69,14 +97,19 @@ public:
 	Player* player = nullptr;
 	List<NPC*> npcList;
 	List<NormalEnemy*> normalEnemyList;
+	List<BossEnemy*> bossList;
 	List<Character*> partyList;
 	List<Item*> itemList;
+	List<StageIndex> allStages;
+	ListItem<StageIndex>* stageSwap;
 	
 	int backFx, loadFx, saveFx;
 	char lifeTextUI[100] = { "\0" };
 	char currentPlace_UI[100] = { "\0" };
 
+	SDL_Texture* mini_map;
 	SDL_Texture* characterBG;
+
 
 	bool playloading = false;
 
@@ -93,6 +126,10 @@ public:
 	SDL_Texture* locationUI;
 	bool showLocation = true;
 
+	bool ch1 = false;
+	bool ch2 = false;
+	bool ch3 = false;
+	bool _wait;
 private: // Hacer listas esta sobrevalorado supongo:
 
 	// Normal Enemies
@@ -139,6 +176,43 @@ private: // Hacer listas esta sobrevalorado supongo:
 	iPoint eyePosT3_3 = { 366, 350 };
 
 	iPoint skeletonPosT3_3 = { 1127, 1045 };
+
+	public:
+	// Just a counter to limit the DEBUG stage change listItem causing crash at start
+	int delayForCrashUwU = 60;
+
+	bool debugMODE = false;
+
+	int debugMessagesCooldown = 120;
+	int showDebug = debugMessagesCooldown, showGod = debugMessagesCooldown,
+		dontShowDebug = 0, dontShowGod = 0;
+
+	int joinCooldown = 300;
+	int join1 = debugMessagesCooldown, join2 = debugMessagesCooldown, join3 = debugMessagesCooldown;
+
+	SDL_Texture* join1T,* join2T,* join3T;
+
+	int joinFx;
+
+	G_Pos G_pos;
+
+	iPoint G_pointA;
+	iPoint G_pointB;
+
+	int G_iterations;
+	int G_total_iterations;
+	bool G_easing_active;
+	EasingFunctions G_Efunction;
+
+	G_Pos G_pos2;
+
+	iPoint G_pointA2;
+	iPoint G_pointB2;
+
+	int G_iterations2;
+	int G_total_iterations2;
+
+
 };
 
 #endif // __SCENE_H__

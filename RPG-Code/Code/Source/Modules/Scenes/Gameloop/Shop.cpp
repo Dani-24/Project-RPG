@@ -49,6 +49,9 @@ bool Shop::Awake(pugi::xml_node& config)
 	LOG("Starting Shop");
 	bool ret = true;
 
+	uiChar = config.child("uishop").attribute("path").as_string();
+	itmChar = config.child("itm2").attribute("path").as_string();
+
 	return ret;
 
 }
@@ -59,8 +62,8 @@ bool Shop::Start() {
 	int a = -app->camera->GetPos().y / 2;
 	int b = -app->camera->GetPos().x / 2+65;
 
-	ShopTex = app->tex->Load("Assets/gui/inventory/ui_shop.png");
-	ItemTex = app->tex->Load("Assets/items/items2.png");
+	ShopTex = app->tex->Load(uiChar.GetString());
+	ItemTex = app->tex->Load(itmChar.GetString());
 	app->scene->player->canMove = false;
 
 	//Buttons
@@ -95,9 +98,11 @@ bool Shop::Update(float dt) {
 		app->shop->Disable();
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN) {//adds money
-		app->scene->player->PlayerMoney+= 10;
-		LOG("%d", app->scene->player->PlayerMoney);
+	if (app->scene->godmode) {
+		if (app->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN) {//adds money
+			app->scene->player->PlayerMoney += 10;
+			LOG("%d", app->scene->player->PlayerMoney);
+		}
 	}
 
 	int y = -app->camera->GetPos().y / 2;
@@ -495,19 +500,19 @@ bool Shop::OnGuiMouseClickEvent(GuiControl* control) {
 		if (control->id == 262)
 		{
 			//Moneyy
-			if (ShopItem == 1 || ShopItem == 2 ) {
+			if (ShopItem == 1 || ShopItem == 2 || ShopItem == 25) {
 				CheckMoney(app->scene->player->PlayerMoney, 20);
 			}
 			if ( ShopItem == 3 || ShopItem == 4) {
 				CheckMoney(app->scene->player->PlayerMoney, 30);
 			}
-			if (ShopItem == 13 || ShopItem == 5) {
+			if (ShopItem == 27 || ShopItem == 5) {
 				CheckMoney(app->scene->player->PlayerMoney, 40);
 			}
-			if (ShopItem == 6 || ShopItem == 25) {
+			if (ShopItem == 13 || ShopItem == 26 || ShopItem == 6 || ShopItem == 7) {
 				CheckMoney(app->scene->player->PlayerMoney, 50);
 			}
-			if (ShopItem == 26 || ShopItem == 14 || ShopItem == 7) {
+			if (ShopItem == 14) {
 				CheckMoney(app->scene->player->PlayerMoney, 80);
 			}
 			if (ShopItem == 37) {
@@ -590,6 +595,9 @@ bool Shop::CleanUp() {
 	Item2Btn->state = GuiControlState::DISABLED;
 	Item3Btn->state = GuiControlState::DISABLED;
 	Item4Btn->state = GuiControlState::DISABLED;
+	Item5Btn->state = GuiControlState::DISABLED;
+	Item6Btn->state = GuiControlState::DISABLED;
+	Item7Btn->state = GuiControlState::DISABLED;
 	WantToBuy->state = GuiControlState::DISABLED;
 
 	app->tex->UnLoad(ShopTex);

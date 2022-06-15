@@ -32,6 +32,11 @@ public:
 
 	SDL_Texture* buttonTexture;
 	Animation buttonIddle, buttonPressed, *buttonAnim;
+
+private:
+	float xd = 0;
+	int cont = 0;
+	bool xp = true;
 };
 
 #endif // __GUIBUTTON_H__

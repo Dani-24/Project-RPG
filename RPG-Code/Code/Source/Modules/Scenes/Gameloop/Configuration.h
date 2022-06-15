@@ -4,13 +4,18 @@
 #include "Module.h"
 #include "Animation.h"
 #include "GuiButton.h"
+#include "GuiSliders.h"
+#include "EasingFunctions.h"
 
 #include "App.h"
 
 #include "SDL/include/SDL_rect.h"
 
 struct SDL_Texture;
-
+struct C_Pos
+{
+	iPoint Position;
+};
 
 class Configuration : public Module
 {
@@ -36,6 +41,10 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	float EaseInBetweenPoints(iPoint posA, iPoint posB);
+
+	float EaseOutBetweenPoints(iPoint posA, iPoint posB);
+
 	// Called before quitting
 	bool CleanUp();
 
@@ -55,6 +64,35 @@ private:
 	GuiButton* back;//back to the last screen
 	
 	
+	List<GuiButton*> conb;
+
+	int xt=460, yt=-15;
+
+	void GampadControl();
+
+	// anim
+
+	C_Pos C_pos;
+
+	iPoint C_pointA;
+	iPoint C_pointB;
+
+	int C_iterations;
+	int C_total_iterations;
+	bool C_easing_active;
+	EasingFunctions C_Efunction;
+
+	C_Pos C_pos_out;
+
+	iPoint C_pointA_out;
+	iPoint C_pointB_out;
+
+	int C_iterations_out;
+	int C_total_iterations_out;
+	bool C_easing_active_out;
+
+	bool _wait, wait;
+	int ab;
 
 public:
 	bool pause;

@@ -14,6 +14,8 @@
 #include "App.h"
 #include "Scene.h"
 
+#include "VisualEffects.h"
+
 QuestManager::QuestManager(App* application, bool start_enabled) : Module(application, start_enabled)
 {
 	name.Create("QuestManager");
@@ -34,6 +36,36 @@ bool QuestManager::Start()
 	/*Quest* quest1 = new Quest();
 	questList.add(quest1);*/
 
+	const char* availableQ32[DIALOG_LENGHT] = {
+	"Do you know the way",
+	"Go to the tower",
+	"Someone is waiting in the 4rth floor"
+	};
+	const char* activeQ3[DIALOG_LENGHT] = {
+	"..."
+	};
+	const char* completeQ3[DIALOG_LENGHT] = {
+	"...",
+	"Welcome adventurer",
+	"you have defeated de 4 first floors",
+	"Congratulations!!!,",
+	"Now, you have to wait to unlock next levels",
+	"Thank you so much for helping us,"
+	"Take a beer camarada"
+	};
+
+	const char* descriptionQ1[DIALOG_LENGHT] = {
+	"Go through all the tower", 
+	"to defeat Camion-kun"
+	};
+
+
+	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Complete the Tower", "Quest 1", "pasate la torre", 0, 0, 0, 0, 0, false, availableQ32, activeQ3, completeQ3, true, true);
+
+	//Quest* quest3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 5, 0, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
+
+	questList.add(quest3_1);
+	questToPrintList.add(quest3_1);
 	
 	const char* available[DIALOG_LENGHT] = { 
 	"Good morning camarada",
@@ -46,7 +78,7 @@ bool QuestManager::Start()
 	"please, talk with the barkeeper" };
 	const char* completed[DIALOG_LENGHT] = {
 	"Hello"};
-	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "La llegada al nuevo mundo", "Investiga el pueblo", 20, 20, 3, 1, 1, false,available,active,completed );
+	Quest* quest1_1 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 1, 1, "The new world", "Quest 2", "Investiga el pueblo", 0, 0, 3, 1, 1, false,available,active,completed, true, false);
 	questList.add(quest1_1);
 
 	const char* completed3[DIALOG_LENGHT] = {
@@ -68,10 +100,10 @@ bool QuestManager::Start()
 	"poyo",
 	"Everybody dies in the first two levels",
 	"poyo",
-	"Become more strong, you don't have any chances now",
+	"Become stronger, you don't have any chances now",
 	"poyo" };
 
-	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "La llegada al nuevo mundo", "Busca a Emilio en la torre", 20, 20, 5, 1, 2, false, completed3, active2, completed2);
+	Quest* quest1_2 = new Quest(QuestType::INTERACT, QuestState::AVAILABLE, 2, 3, "The new world", "Quest 2", "Busca a Emilio en la torre", 40, 40, 5, 1, 2, false, completed3, active2, completed2, true, true);
 	questList.add(quest1_2);
 
 	const char* availableQ2[DIALOG_LENGHT] = {
@@ -99,7 +131,7 @@ bool QuestManager::Start()
 	"I can see in your face you're now more stronger",
 	"Go talk to Emilio and tell him that you trained here."
 	};
-	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 3, 1, 3, false, availableQ2, activeQ2, completeQ2);
+	Quest* quest2_1 = new Quest(QuestType::KILL, QuestState::DISABLED, 3, 4, "Becoming Stronger", "Quest 3", "Maybe you can train in the Dojo", 0, 0, 3, 1, 3, false, availableQ2, activeQ2, completeQ2, true, false);
 	questList.add(quest2_1);
 
 	const char* availableQ2_2[DIALOG_LENGHT] = {
@@ -120,35 +152,10 @@ bool QuestManager::Start()
 	"But please, don't die.",
 	"poyo"
 	};
-	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Maybe you can train in the Dojo", 40, 40, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2);
+	Quest* quest2_2 = new Quest(QuestType::INTERACT, QuestState::DISABLED, 4, 4, "Becoming Stronger", "Quest 3", "Maybe you can train in the Dojo", 80, 80, 5, 1, 4, true, availableQ2_2, activeQ2_2, completeQ2_2, true, true);
 	questList.add(quest2_2);
 
-	const char* availableQ32[DIALOG_LENGHT] = {
-	"Do you know the way",
-	"Go to the tower",
-	"Someone is waiting in the 4rth floor"
-	};
-	const char* activeQ3[DIALOG_LENGHT] = {
-	"..."
-	};
-	const char* completeQ3[DIALOG_LENGHT] = {
-	"...",
-	"Welcome adventurer",
-	"you have defeated de 4 first floors",
-	"Congratulations!!!,",
-	"Now, you have to wait to unlock next levels",
-	"Thank you so much for helping us,"
-	"Take a beer camarada"
-	};
-
-
-	Quest* quest3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 0, 5, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
-
-	/*Quest* quest3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 5, 0, "Pasate la torre al nivel 4", "pasate la torre", 30, 30, 3, 0, 0, false, available, active, completed);
-
-	questList.add(quest3_1);*/
-
-	Quest* questFloor1 = new Quest(QuestType::KILL, QuestState::ACTIVE, 6, 0, "Lvl1", "mata a todos los enemigos", 0, 0, 8, 0, 0, false, available, active, completed);
+	Quest* questFloor1 = new Quest(QuestType::KILL, QuestState::ACTIVE, 6, 0, "Lvl1", "lvl1", "mata a todos los enemigos", 0, 0, 8, 0, 0, false, available, active, completed, false, false);
 	questList.add(questFloor1);
 
 
@@ -167,19 +174,19 @@ bool QuestManager::Start()
 	"You visit my dead friend, you can pass."
 	};
 		
-	Quest* questFloor2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 7, 9, "Lvl2", "??", 0, 0, 10, 0, 0, false, availablefloor2, activefloor2, completedFloor2);
+	Quest* questFloor2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 7, 9, "Lvl2", "lvl2", "??", 0, 0, 10, 0, 0, false, availablefloor2, activefloor2, completedFloor2, false, false);
 	questList.add(questFloor2);
 
 	const char* completedFloor3[DIALOG_LENGHT] = {
 	"There is a key fragment on the tombstone"
 	};
-	Quest* questFloor3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 8, 0, "Lvl2", "??", 0, 0, 11, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	Quest* questFloor3_1 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 8, 0, "Lvl2", "lvl2", "??", 0, 0, 11, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_1);
 
-	Quest* questFloor3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 9, 0, "Lvl2", "??", 0, 0, 12, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	Quest* questFloor3_2 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 9, 0, "Lvl2", "lvl2", "??", 0, 0, 12, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_2);
 
-	Quest* questFloor3_3 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 10, 0, "Lvl2", "??", 0, 0, 13, 0, 0, false, availablefloor2, activefloor2, completedFloor3);
+	Quest* questFloor3_3 = new Quest(QuestType::INTERACT, QuestState::ACTIVE, 10, 0, "Lvl2", "lvl2", "??", 0, 0, 13, 0, 0, false, availablefloor2, activefloor2, completedFloor3, false, false);
 	questList.add(questFloor3_3);
 
 
@@ -241,6 +248,13 @@ bool QuestManager::Update(float dt)
 				app->scene->player->TowerKey = true;
 			}
 		}*/
+
+		if (QuestInList->data->State == QuestState::COMPLETED) {
+			if (QuestInList->data->completedAnimation) {
+				QuestInList->data->completedAnimation = !QuestInList->data->completedAnimation;
+				app->visualEffects->DisplayEffect(Effects::QUESTCOMPLETED);
+			}
+		}
 	}
 
 	return ret;
@@ -283,6 +297,7 @@ void QuestManager::CheckQuest(int NPCid)
 				{
 					n = true;
 					QuestInList->data->State = QuestState::COMPLETED;
+					
 					InteractComplete(QuestInList->data->QuestId);
 				}
 				/*else {
@@ -337,6 +352,30 @@ void QuestManager::CheckQuest(int NPCid)
 		case 13:
 			app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 			break;
+		case 14:
+			if (app->scene->player->valionDefeated == false) {
+				app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog2);
+			}
+			break;
+		case 15:
+			if (app->scene->player->raylaDefeated == false) {
+				app->scene->player->Interact(NPCType::RAYLA, app->scene->player->RaylaDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::RAYLA, app->scene->player->RaylaDialog2);
+			}
+			break;
+		case 16:
+			if (app->scene->player->dhionDefeated == false) {
+				app->scene->player->Interact(NPCType::DHION, app->scene->player->DhionDialog);
+			}
+			else {
+				app->scene->player->Interact(NPCType::DHION, app->scene->player->DhionDialog2);
+			}
+			break;
 		default:
 			break;
 		}
@@ -386,6 +425,9 @@ void QuestManager::InteractComplete(int id){
 			break;
 		case 13:
 			app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+			break;
+		case 14:
+			app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 			break;
 		default:
 			break;
@@ -461,6 +503,9 @@ void QuestManager::CheckState(int Id)
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
 					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, app->scene->player->ValionDialog);
+					break;
 				default:
 					break;
 				}
@@ -504,11 +549,17 @@ void QuestManager::CheckState(int Id)
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
 					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
+					break;
 				default:
 					break;
 				}
 				CheckChain(QuestInList->data->QuestId);
 				QuestInList->data->State = QuestState::ACTIVE;
+				if (QuestInList->data->toPrint == true) {
+					questToPrintList.add(QuestInList->data);
+				}
 				break;
 			case QuestState::ACTIVE:
 				switch (QuestInList->data->NPCId)
@@ -548,6 +599,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -591,6 +645,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, QuestInList->data->completedDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;
@@ -643,6 +700,9 @@ void QuestManager::CheckState(int Id)
 					break;
 				case 13:
 					app->scene->player->Interact(NPCType::RIP_3, app->scene->player->RipDialog);
+					break;
+				case 14:
+					app->scene->player->Interact(NPCType::VALION, QuestInList->data->completedDialog);
 					break;
 				default:
 					break;

@@ -12,26 +12,31 @@
 	<titleScene />
 	<battle />
 	<stages />
+	<moduleparticles />
 	<scene />
 	<map />
 	<EntityManager>
-		<playerpos x="478" y="222" />
-		<actualStage stage="4" />
+		<playerpos x="950" y="1600" />
+		<actualStage stage="2" />
 		<stats />
+		<Saves save1="false" save2="false" save3="false" />
 	</EntityManager>
 	<pauseMenu />
 	<conf />
 	<inventory />
 	<stmen />
+	<questMenu />
 	<shop />
+	<assman />
 	<guiManager />
 	<fonts />
 	<dialogSystem />
 	<QuestManager />
 	<collisions />
 	<fade />
+	<:anonymous />
 	<camera>
-		<camera x="-307" y="-93" />
+		<camera x="-1299" y="-2849" />
 	</camera>
 	<renderer />
 </save_state>

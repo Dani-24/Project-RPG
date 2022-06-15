@@ -7,6 +7,7 @@
 #include "SDL/include/SDL_render.h"
 
 #include "Logo.h"
+#include "VisualEffects.h"
 
 FadeToBlack::FadeToBlack(App* application, bool start_enabled) : Module(application, start_enabled)
 {
@@ -79,8 +80,8 @@ bool FadeToBlack::PostUpdate()
 
 	// Draw Loading text
 	if (app->logoScene->isEnabled() == false) {	// Desactivado en el logo pa q quede bonico
-		app->font->DrawText("Loading . . .", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 110,
-			-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 25);
+		app->font->DrawText("Loading", -app->camera->GetPos().x / app->win->GetScale() + app->win->GetWidth() / 2 - 140,
+			-app->camera->GetPos().y / app->win->GetScale() + app->win->GetHeight() / 2 - 40);
 	}
 
 	return true;
@@ -101,6 +102,8 @@ bool FadeToBlack::DoFadeToBlack(Module* moduleToDisable, Module* moduleToEnable,
 
 		fading = true;
 
+		app->visualEffects->DisplayEffect(Effects::LOADING);
+
 		ret = true;
 	}
 	return ret;
@@ -120,6 +123,8 @@ bool FadeToBlack::DoFadeToBlack(float frames)
 		this->moduleToEnable = nullptr;
 
 		fading = true;
+
+		app->visualEffects->DisplayEffect(Effects::LOADING);
 
 		ret = true;
 	}
@@ -144,6 +149,8 @@ bool FadeToBlack::DoFadeToBlack(StageIndex stage, float frames)
 		changeStage = true;
 
 		stageToChange = stage;
+
+		app->visualEffects->DisplayEffect(Effects::LOADING);
 
 		ret = true;
 	}

@@ -7,6 +7,14 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Player.h"
+#include "Battle.h"
+
+#include "Entity.h"
+#include "DynamicEntity.h"
+#include "Enemy.h"
+#include "BossEnemy.h"
+
+#include "VisualEffects.h"
 
 DialogSystem::DialogSystem(App* application, bool start_enabled) : Module(application, start_enabled) {
 	name.Create("dialogSystem");
@@ -24,6 +32,7 @@ bool DialogSystem::Start() {
 
 	dialogueBox = app->tex->Load("Assets/gui/dialogue_box.png");
 	_waitpad = false;
+
 	return true;
 }
 
@@ -99,6 +108,15 @@ bool DialogSystem::PostUpdate() {
 					case NPCType::RIP_3:
 						app->font->DrawTextDelayed("Tombstone:", x + 150, y + 5, { 41, 2, 9 });
 						break;
+					case NPCType::VALION:
+						app->font->DrawTextDelayed("Valion:", x + 150, y + 5, { 0, 0, 0 });
+						break;
+					case NPCType::RAYLA:
+						app->font->DrawTextDelayed("Rayla:", x + 150, y + 5, { 0, 0, 0 });
+						break;
+					case NPCType::DHION:
+						app->font->DrawTextDelayed("Dhion:", x + 150, y + 5, { 0, 0, 0 });
+						break;
 					default:
 						break;
 					}
@@ -123,6 +141,142 @@ bool DialogSystem::PostUpdate() {
 			dialoging = false;
 			dialogList.clear();
 			app->scene->player->toggleGui = true;
+			if (app->scene->player->entityTalking->name != nullptr) {
+				if (app->scene->player->entityTalking->name == std::string("Valion NPC")) {
+					if (app->scene->player->valionDefeated == false) {
+						if (app->battle->isEnabled() == false) {
+
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilValion = (BossEnemy*)app->entities->CreateEntity(BossType::VALION);
+							app->scene->bossList.add(EvilValion);
+							app->battle->entitiesInBattle[4] = EvilValion;
+
+							int alliesCount = 1;
+							int enemiesCount = 1;
+
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
+
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+						}
+					}
+					else {
+						app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+						app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+						int newX = 80;
+						int newY = 130 - 50;
+						app->scene->godmode = false;
+						if (app->scene->partyList.At(1) == nullptr) {
+							app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+						}
+						else {
+							app->scene->partyList.del(app->scene->partyList.At(1));
+							app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
+						}
+					}
+					
+				}
+				if (app->scene->player->entityTalking->name == std::string("Rayla NPC")) {
+					if (app->battle->isEnabled() == false) {
+						if (app->scene->player->raylaDefeated == false) {
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilRayla = (BossEnemy*)app->entities->CreateEntity(BossType::RAYLA);
+							app->scene->bossList.add(EvilRayla);
+							app->battle->entitiesInBattle[4] = EvilRayla;
+
+							int alliesCount = 1;
+							int enemiesCount = 1;
+
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
+
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+						}
+						else {
+							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+							app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+							int newX = -200;
+							int newY = 120 - 50;
+							app->scene->godmode = false;
+							if (app->scene->partyList.At(2) == nullptr) {
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+							else {
+								app->scene->partyList.del(app->scene->partyList.At(2));
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+						}
+					}
+				}
+
+				if (app->scene->player->entityTalking->name == std::string("Dhion NPC")) {
+					if (app->battle->isEnabled() == false) {
+						if (app->scene->player->dhionDefeated == false) {
+							app->battle->entitiesInBattle[0] = app->scene->player;
+							BossEnemy* EvilDhion = (BossEnemy*)app->entities->CreateEntity(BossType::DHION);
+							app->scene->bossList.add(EvilDhion);
+							app->battle->entitiesInBattle[4] = EvilDhion;
+
+							int alliesCount = 1;
+							int enemiesCount = 1;
+
+							for (int i = 1; i < app->stages->partyListPtr->count(); i++) {
+								if (app->stages->partyListPtr->At(i) != nullptr) {
+									app->battle->entitiesInBattle[alliesCount] = app->stages->partyListPtr->At(i)->data;
+									alliesCount++;
+								}
+							}
+
+							int trans = rand() % 2;
+							if (trans == 0) {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION1);
+							}
+							else {
+								app->visualEffects->DisplayEffect(Effects::TRANSITION2);
+							}
+
+						}
+						else {
+							app->scene->npcList.del(app->scene->npcList.At(app->scene->npcList.find((NPC*)app->scene->player->entityTalking)));
+							app->entities->DestroyEntity(app->scene->player->entityTalking);
+
+							int newX = 200;
+							int newY = 0 - 50;
+							app->scene->godmode = false;
+							if (app->scene->partyList.At(3) == nullptr) {
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
+							}
+							else {
+								app->scene->partyList.del(app->scene->partyList.At(3));
+								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
+							}
+						}
+					}
+				}
+			}
+			app->scene->player->entityTalking = nullptr;
 		}
 	}
 
@@ -166,6 +320,16 @@ void DialogSystem::CreateDialog(NPCType charaType, const char* text[DIALOG_LENGH
 		break;
 	case NPCType::EMILIO:
 		currentChara = app->tex->Load("Assets/sprites/faces/emilio.png");
+		break;
+	case NPCType::VALION:
+		currentChara = app->tex->Load("Assets/sprites/faces/wizard.png");
+		break;
+	case NPCType::RAYLA:
+		currentChara = app->tex->Load("Assets/sprites/faces/archer.png");
+		break;
+	case NPCType::DHION:
+		currentChara = app->tex->Load("Assets/sprites/faces/lancer.png");
+		break;
 	default:
 		break;
 	}
