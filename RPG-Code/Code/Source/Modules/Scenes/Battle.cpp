@@ -801,43 +801,67 @@ bool Battle::Update(float dt)
 		//}
 			switch (skill) {
 			case 110:
-				EscudoS_a.Update(dt);		
+				if (app->battle->battlePhase == BattlePhase::DEFENDING) {
+					EscudoS_a.Update(dt);
+				}
 				break;
 			case 111:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				EspadaS_a.Update(dt);
+				}
 				break;
 			case 112:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				AquaE_a.Update(dt);
+				}
 				break;
 
 			case 120:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				Pedrada_a.Update(dt);
+				}
 				break;
 			case 121:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				Cataclismo_a.Update(dt);
+				}
 				break;
 			case 122:
+				if (app->battle->battlePhase == BattlePhase::DEFENDING) {
 				Ciervo_a.Update(dt);
+				}
 				break;
 
 			case 130:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				FlechaT_a.Update(dt);
+				}
 				break;
 			case 131:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				FlechaAcido_a.Update(dt);
+				}
 				break;
 			case 132:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				FlechaS_a.Update(dt);
+				}
 				break;
 
 			case 140:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				Juicio_a.Update(dt);
+				}
 				break;
 			case 141:
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
 				HalconElectro_a.Update(dt);
+				}
 				break;
 			case 142:
-				TripleL_a.Update(dt);
+				if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+					TripleL_a.Update(dt);
+				}
 				break;
 
 			default:
