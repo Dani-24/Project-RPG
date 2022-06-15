@@ -2529,7 +2529,6 @@ bool Battle::PostUpdate()
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
-
 					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
 					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
@@ -3387,7 +3386,11 @@ bool Battle::Escape() {
 		ret = false;
 	}
 	
-	if (entitiesInBattle[4]->name == "Truck-kun") {
+	if (entitiesInBattle[4]->name == "Truck-kun" || entitiesInBattle[4]->name == "Valion" || entitiesInBattle[4]->name == "Rayla" ||entitiesInBattle[4]->name == "Dhion") {
+		ret = false;
+	}
+
+	if (actualTurnEntity->activeOnStage == StageIndex::DOJO) {
 		ret = false;
 	}
 
@@ -3828,10 +3831,24 @@ bool Battle::CleanUp()
 					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
 				}
 			}
+
+			entitiesInBattle[4]->isAlive = true;
+			
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = app->stages->normalEnemyListPtr->start;
+				for (NormalEnemyInList = app->stages->normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data == entitiesInBattle[4]) {
+						NormalEnemyInList->data->chasePlayer = false;
+					}
+				}
+			
 			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 			//Take back enemy animation
 			entitiesInBattle[4]->currentAnimation = entitiesInBattle[4]->mapAnimation;
+
+			
 
 
 			//Take back player position

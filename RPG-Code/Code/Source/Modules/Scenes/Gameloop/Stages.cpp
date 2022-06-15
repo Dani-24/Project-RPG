@@ -87,6 +87,9 @@ bool Stages::Start()
 	_wait = false;
 	elect = true;
 
+	stopFollow = false;
+	timeFollow = 0;
+
 	srand(SDL_GetTicks());
 
 	return true;
@@ -163,7 +166,7 @@ bool Stages::Update(float dt)
 {
 	// Movimiento enemigos en el mapa
 
-	if (!app->scene->godmode)
+	if (!app->scene->godmode || stopFollow ==false)
 	{
 		if (actualStage != StageIndex::NONE) {
 			if (normalEnemyListPtr != nullptr && !app->battle->isEnabled()) {
