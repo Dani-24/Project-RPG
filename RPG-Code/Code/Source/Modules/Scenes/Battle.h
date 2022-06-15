@@ -123,7 +123,7 @@ private:
 
 
 	List<GuiButton*> selCH;
-	ListItem<GuiButton*>* CH;
+	List<GuiButton*>* CH;
 
 	List<GuiButton*> selVL;
 	ListItem<GuiButton*>* VL;
@@ -140,7 +140,7 @@ private:
 
 	bool _wait, wait;
 
-	bool gamepad1 = false, gamepad2 = false, gamepad3 = false;
+	
 
 	int uplimSL , dowlimSL = 0;
 
@@ -157,6 +157,7 @@ private:
 	Animation dojoAnim;
 
 public:
+	bool gamepad1 = false, gamepad2 = false, gamepad3 = false;
 
 	BattlePhase battlePhase;
 

@@ -1013,7 +1013,7 @@ bool Battle::Update(float dt)
 							enemyButton4->state = GuiControlState::NORMAL;
 						}
 					}
-					gamepad3 = true; 
+					
 					
 				}
 
@@ -2529,6 +2529,7 @@ bool Battle::PostUpdate()
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
 
+
 					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
 					sprintf_s(nameChar, 50, "%s's health:", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
@@ -3386,7 +3387,7 @@ bool Battle::Escape() {
 		ret = false;
 	}
 	
-	if (entitiesInBattle[4]->name == "Truck-kun" || entitiesInBattle[4]->name == "Valion" || entitiesInBattle[4]->name == "Rayla" ||entitiesInBattle[4]->name == "Dhion") {
+	if (entitiesInBattle[4]->name == "Truck-kun" || entitiesInBattle[4]->name == "Valion" || entitiesInBattle[4]->name == "Rayla" || entitiesInBattle[4]->name == "Dhion") {
 		ret = false;
 	}
 
@@ -3833,22 +3834,19 @@ bool Battle::CleanUp()
 			}
 
 			entitiesInBattle[4]->isAlive = true;
-			
-				ListItem<NormalEnemy*>* NormalEnemyInList;
-				NormalEnemyInList = app->stages->normalEnemyListPtr->start;
-				for (NormalEnemyInList = app->stages->normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
-				{
-					if (NormalEnemyInList->data == entitiesInBattle[4]) {
-						NormalEnemyInList->data->chasePlayer = false;
-					}
+
+			ListItem<NormalEnemy*>* NormalEnemyInList;
+			NormalEnemyInList = app->stages->normalEnemyListPtr->start;
+			for (NormalEnemyInList = app->stages->normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+			{
+				if (NormalEnemyInList->data == entitiesInBattle[4]) {
+					NormalEnemyInList->data->chasePlayer = false;
 				}
-			
+			}
 			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 			//Take back enemy animation
 			entitiesInBattle[4]->currentAnimation = entitiesInBattle[4]->mapAnimation;
-
-			
 
 
 			//Take back player position
@@ -3896,6 +3894,7 @@ bool Battle::CleanUp()
 					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
 				}
 			}
+			
 			app->stages->playerPtr->winCount += 1;
 			//Take back player position
 			app->stages->playerPtr->position = app->stages->playerPtr->mapPosition;
@@ -3971,8 +3970,9 @@ void Battle::GampadControl()
 					t = NULL;
 					t = think.start;
 					t->data->state = GuiControlState::FOCUSED;
-					
+					TK = 0;
 					app->guiManager->keyb = true;
+
 				}
 			}
 		/*}*/
@@ -3995,7 +3995,7 @@ void Battle::GampadControl()
 					if (!pad.left && !pad.right) wait = true;
 
 					if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
-						if (t != think.end && TK != uplimSL)
+						if (t != think.end /*&& TK != uplimSL*/)
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = t->next;
@@ -4013,12 +4013,13 @@ void Battle::GampadControl()
 						wait = false;
 					}
 					if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
-						if (t != think.start && TK != dowlimSL)
+						if (t != think.start /*&& TK != dowlimSL*/)
 						{
 							t->data->state = GuiControlState::NORMAL;
+							TK--;
 							t = t->prev;
 							t->data->state = GuiControlState::FOCUSED;
-							TK--;
+							
 						}
 						else
 						{
@@ -4049,6 +4050,7 @@ void Battle::GampadControl()
 					if (actualTurnEntity == entitiesInBattle[2]) uplimSL = selRAY.count(), t = selRAY.start;
 					if (actualTurnEntity == entitiesInBattle[3]) uplimSL = selDH.count(), t = selDH.start;
 					t->data->state = GuiControlState::FOCUSED;
+					TK = 0;
 					app->guiManager->keyb = true;
 				}
 			}
@@ -4065,6 +4067,7 @@ void Battle::GampadControl()
 						t->data->state = GuiControlState::NORMAL;
 						t->data->NotifyObserver();
 						_wait = false;
+
 					}
 
 					//AAAAAAA
@@ -4075,9 +4078,11 @@ void Battle::GampadControl()
 						if (t != think.end &&TK!=uplimSL)
 						{
 							t->data->state = GuiControlState::NORMAL;
+							TK++;
 							t = t->next;
 							t->data->state = GuiControlState::FOCUSED;
-							TK++;
+							
+							
 						}
 						/*else
 						{
@@ -4090,10 +4095,11 @@ void Battle::GampadControl()
 					if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
 						if (t != think.start && TK !=dowlimSL)
 						{
-							t->data->state = GuiControlState::NORMAL;
-							t = t->prev;
-							t->data->state = GuiControlState::FOCUSED;
+							choos.At(TK)->data->state = GuiControlState::NORMAL;
+							
 							TK--;
+							choos.At(TK)->data->state = GuiControlState::FOCUSED;
+							
 						}
 						/*else
 						{
@@ -4121,25 +4127,35 @@ void Battle::GampadControl()
 					if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
 						app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
 					{
-						t = NULL;
+						
+						/*t = NULL;
 						t = choos.start;
-						uplimSL = choos.count();
-						t->data->state = GuiControlState::FOCUSED;
-						app->guiManager->keyb = true;
+						CH = choos.;*/
+						/*choos.At(TK)->data*/
+						if (!gamepad3)
+						{
+							uplimSL = choos.count() - 1;
+							TK = 0;
+							choos.At(TK)->data->state = GuiControlState::FOCUSED;
+							app->guiManager->keyb = true;
+							gamepad3 = true;
+						}
 					}
 				}
-				/*}*/
-				if (t != nullptr)
-				{
-					if (t->data->state == GuiControlState::FOCUSED) {
+				LOG("%d", TK);
+				LOG("%d", uplimSL);
+				/*if (choos.At(TK) != nullptr)
+				{*/
+
+					if (choos.At(TK)->data->state == GuiControlState::FOCUSED) {
 
 						if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || pad.a && _wait)
 						{
 
-							t->data->state = GuiControlState::PRESSED;
-							t->data->state = GuiControlState::FOCUSED;
-							t->data->state = GuiControlState::NORMAL;
-							t->data->NotifyObserver();
+							choos.At(TK)->data->state = GuiControlState::PRESSED;
+							choos.At(TK)->data->state = GuiControlState::FOCUSED;
+							choos.At(TK)->data->state = GuiControlState::NORMAL;
+							choos.At(TK)->data->NotifyObserver();
 							_wait = false;
 						}
 
@@ -4148,41 +4164,45 @@ void Battle::GampadControl()
 
 						if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
 
-							if (t != think.end && TK != uplimSL)
+							if (/*t != think.end &&*/ TK != uplimSL)
 							{
-								t->data->state = GuiControlState::NORMAL;
-								t = t->next;
-								t->data->state = GuiControlState::FOCUSED;
-								TK++;
+								choos.At(TK)->data->state = GuiControlState::NORMAL;
+								//t = t->next;
+								TK+=1;
+								choos.At(TK)->data->state = GuiControlState::FOCUSED;
+								
 							}
-							/*else
+							else
 							{
-								t->data->state = GuiControlState::NORMAL;
-								t = think.start;
-								t->data->state = GuiControlState::FOCUSED;
-							}*/
+								choos.At(TK)->data->state = GuiControlState::NORMAL;
+								//t = t->next;
+								TK =dowlimSL;
+								choos.At(TK)->data->state = GuiControlState::FOCUSED;
+							}
 							wait = false;
 						}
 						if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
-							if (t != think.start && TK != dowlimSL)
+							if (/*t != think.start &&*/ TK != dowlimSL)
 							{
-								t->data->state = GuiControlState::NORMAL;
-								t = t->prev;
-								t->data->state = GuiControlState::FOCUSED;
+								choos.At(TK)->data->state = GuiControlState::NORMAL;
+								/*t = t->prev;*/
 								TK--;
+								choos.At(TK)->data->state = GuiControlState::FOCUSED;
+								
 							}
-							/*else
+							else
 							{
-								t->data->state = GuiControlState::NORMAL;
-								t = think.end;
-								t->data->state = GuiControlState::FOCUSED;
+								choos.At(TK)->data->state = GuiControlState::NORMAL;
+								/*t = t->prev;*/
+								TK=uplimSL;
+								choos.At(TK)->data->state = GuiControlState::FOCUSED;
 
-							}*/
+							}
 							wait = false;
 						}
 
 					}
-				}
+				//}
 			
 
 		}

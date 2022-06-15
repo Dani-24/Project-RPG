@@ -587,7 +587,9 @@ void Inventory::AddStats(Character* character, Usable* item) {
 
 		addExp = 100;
 
-		character->stats->exp += addExp;
+		//character->stats->exp += addExp;
+		for (int i = 0; i < app->scene->partyList.count(); i++)
+			app->scene->partyList.At(i)->data->stats->lvlup(addExp);
 
 		break;
 	case UsableType::MEAT:

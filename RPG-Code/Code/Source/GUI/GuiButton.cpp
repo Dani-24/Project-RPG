@@ -8,7 +8,7 @@
 #include "GuiManager.h"
 #include "Camera.h"
 #include "ModuleQFonts.h"
-
+#include "Battle.h"
 GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, bool autoDraw) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
@@ -63,6 +63,7 @@ bool GuiButton::Update(float dt)
 			{
 				NotifyObserver();
 			}
+			if(app->battle->isEnabled())app->battle->gamepad3 = false, app->battle->gamepad2=false, app->battle->gamepad1=false;
 		}
 		else 
 			if(!app->guiManager->keyb) state = GuiControlState::NORMAL;
@@ -167,7 +168,7 @@ bool GuiButton::Draw(Render* render)
 			//render->DrawRectangle({bounds.x-100,bounds.y,bounds.w,bounds.h}, 255, 255, 255, 100);
 			render->DrawTexture(app->guiManager->selector, bounds.x - 15 - xd, bounds.y + bounds.h/2-6 );
 			
-			LOG("%f", xd);
+	//		LOG("%f", xd);
 
 		} break;
 
