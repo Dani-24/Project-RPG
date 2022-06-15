@@ -238,6 +238,7 @@ bool Scene::Start()
 		normalEnemyList.add(batT1);
 		batT1->activeOnStage = StageIndex::TOWER_1;
 
+
 		NormalEnemy* batT1_2 = (NormalEnemy*)app->entities->CreateEntity(NormalEnemyType::BAT, batPosT1_2.x, batPosT1_2.y);
 		batT1_2->chasePlayer = true;
 		normalEnemyList.add(batT1_2);

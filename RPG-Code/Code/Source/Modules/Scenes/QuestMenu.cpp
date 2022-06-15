@@ -154,7 +154,15 @@ bool QuestMenu::PostUpdate()
 			
 			if (app->questManager->questToPrintList.At(i)->data->toPrint == true) {
 				if (app->questManager->questToPrintList.At(i)->data->State == QuestState::ACTIVE) {
-					app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
+					if (app->questManager->questToPrintList.At(i)->data->QuestId == 4) {
+						if (app->questManager->questToPrintList.At(i - 1)->data->State == QuestState::FINISHED) {
+							app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
+						}
+					}
+					else {
+						app->font->DrawText(app->questManager->questToPrintList.At(i)->data->questNumber, x + 85, y + 103 + i * 50);
+					}
+					
 				}
 				
 			}
@@ -249,9 +257,9 @@ void QuestMenu::Quests()
 		app->font->DrawText("the dojo and become more", x + 290, y + 140);
 		app->font->DrawText("stronger.", x + 290, y + 163);
 	case 4:
-		app->font->DrawText("Go tell master Luca", x + 290, y + 117);
-		app->font->DrawText("you have defeat all the ", x + 290, y + 140);
-		app->font->DrawText("enemies of the dojo.", x + 290, y + 163);
+		app->font->DrawText("Beat the 3 enemies of", x + 290, y + 117);
+		app->font->DrawText("the dojo and become more", x + 290, y + 140);
+		app->font->DrawText("stronger.", x + 290, y + 163);
 		break;
 	default:
 		break;

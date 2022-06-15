@@ -60,6 +60,8 @@ public:
 
 	float EaseInBetweenPointsX(iPoint posA, iPoint posB);
 
+	void setLvl(NormalEnemy* enemy, int level);
+
 	// Load / Save
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&)const;

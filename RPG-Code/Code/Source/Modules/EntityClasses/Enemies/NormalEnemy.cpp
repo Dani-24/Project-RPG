@@ -6,6 +6,7 @@
 #include "NormalEnemy.h"
 #include "Scene.h"
 #include "PauseMenu.h"
+#include "Stages.h"
 
 NormalEnemy::NormalEnemy(NormalEnemyType normalEnemyType, int x, int y) : Enemy(EnemyType::NORMAL)
 {
@@ -449,27 +450,66 @@ bool NormalEnemy::Start()
 	case NormalEnemyType::FLYING_EYE:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
-
-		stats = new Stats(1, 10, 10, 4, 5, 18);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	case NormalEnemyType::BAT:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/bat/bat.png");
 
-		stats = new Stats(1, 5, 10, 2, 2, 27);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	case NormalEnemyType::SKELETON:
 
 		spriteTex = app->tex->Load("Assets/sprites/enemies/skeleton/skeletonSprite.png");
 
-		/*stats = new Stats(1, 15, 6, 5, 1, 10);*/
-		stats = new Stats(1, 15, 15, 5, 1, 18);
+		switch (activeOnStage) {
+		case StageIndex::DOJO:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_1:
+			stats = new Stats(4, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_2:
+			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		default:
+			stats = new Stats(1, 10, 5, 5, 5, 18);
+			break;
+		}
 
 		break;
 	default:
-		break;
+		break;	
+
+	
 	}
 
 	return true;

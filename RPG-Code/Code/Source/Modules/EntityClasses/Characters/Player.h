@@ -273,7 +273,7 @@ public: // DIALOGS
 	//VALION
 	const char* ValionDialog[DIALOG_LENGHT] = {
 	"Wow, I was starting to get bored",
-	"it's been a long time since anyone came here"
+	"it's been a long time since anyone came here",
 	"i was starting to get bored"
 	};
 
