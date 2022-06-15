@@ -204,6 +204,9 @@ private:
 	int fxCar1, fxCar2, fxCar3, fxCar4;
 
 	int timeSkill;
+
+	bool stopFollow;
+	int timeFollow;
 };
 
 #endif // __STAGES_H__

@@ -568,25 +568,56 @@ bool Battle::Start()
 	selDH.add(normalAttackButton);
 
 	playerSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 110, " Shield", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	
 	playerSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 111, " Sword", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	
 	playerSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 112, " Aqua", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	if(app->scene->partyList.At(0)->data->stats->level >= 3)selCH.add(playerSpecialButton1);
+	if(app->scene->partyList.At(0)->data->stats->level >= 6)selCH.add(playerSpecialButton2);
+	if(app->scene->partyList.At(0)->data->stats->level >= 10)selCH.add(playerSpecialButton3);
 
+
+	
 	valionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 120, " Stoned ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	valionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 121, " Catacl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	valionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 122, "  Deer ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	
+	if (app->scene->partyList.count()>1)
+	{
+		if (app->scene->partyList.At(1)->data->stats->level >= 3)selVL.add(valionSpecialButton1);
+		if (app->scene->partyList.At(1)->data->stats->level >= 6)selVL.add(valionSpecialButton2);
+		if (app->scene->partyList.At(1)->data->stats->level >= 10)selVL.add(valionSpecialButton3);
+	}
 
 	raylaSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 130, "   Log  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	raylaSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 131, " Acid  ", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	raylaSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 132, " Sacred", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	
+	if (app->scene->partyList.count() > 2)
+	{
+		if (app->scene->partyList.At(2)->data->stats->level >= 3)selRAY.add(raylaSpecialButton1);
+		if (app->scene->partyList.At(2)->data->stats->level >= 6)selRAY.add(raylaSpecialButton2);
+		if (app->scene->partyList.At(2)->data->stats->level >= 10)selRAY.add(raylaSpecialButton3);
+	}
+
 
 	dhionSpecialButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 140, " Judge", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	dhionSpecialButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 141, " Electro", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
 	dhionSpecialButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 142, "  Expl.", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
+	
+	if (app->scene->partyList.count() > 3)
+	{
+		if (app->scene->partyList.At(3)->data->stats->level >= 3)selDH.add(dhionSpecialButton1);
+		if (app->scene->partyList.At(3)->data->stats->level >= 6)selDH.add(dhionSpecialButton2);
+		if (app->scene->partyList.At(3)->data->stats->level >= 10)selDH.add(dhionSpecialButton3);
+	}
+
+
 
 	//Enemy 1
 	if (entitiesInBattle[4] == nullptr) {
 		enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-		choos.add(enemyButton1);
+		//choos.add(enemyButton1);
 	}
 	else if (entitiesInBattle[4]->isAlive == false) {
 		enemyButton1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 150, "Enemy1", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
@@ -600,7 +631,7 @@ bool Battle::Start()
 	//Enemy 2
 	if (entitiesInBattle[5] == nullptr) {
 		enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 151, "Enemy2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE ,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-		choos.add(enemyButton2);
+		//choos.add(enemyButton2);
 	}
 	else if (entitiesInBattle[5]->isAlive == false) {
 		enemyButton2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 151, "Enemy2", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W + BUTTONS_SPACE_HOR + LATERAL_MOVE ,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
@@ -614,7 +645,7 @@ bool Battle::Start()
 	//Enemy 3
 	if (entitiesInBattle[6] == nullptr) {
 		enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 152, "Enemy3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-		choos.add(enemyButton3);
+		//choos.add(enemyButton3);
 	}
 	else if (entitiesInBattle[6]->isAlive == false) {
 		enemyButton3 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 152, "Enemy3", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 2 + BUTTONS_SPACE_HOR * 2 + LATERAL_MOVE,app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
@@ -628,7 +659,7 @@ bool Battle::Start()
 	//Enemy 4
 	if (entitiesInBattle[7] == nullptr) {
 		enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 153, "Enemy4", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
-		choos.add(enemyButton4);
+		//choos.add(enemyButton4);
 	}
 	else if (entitiesInBattle[7]->isAlive == false) {
 		enemyButton4 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 153, "Enemy4", { app->win->GetWidth() / 2 / 2 - (BUTTONS_W * NUM_BUTTONS + BUTTONS_SPACE_HOR * 3) / 2 + BUTTONS_W * 3 + BUTTONS_SPACE_HOR * 3 + LATERAL_MOVE, app->win->GetHeight() / 2 - BUTTONS_BOTTOM_SPACE , BUTTONS_W, BUTTONS_H }, this, true);
@@ -657,44 +688,56 @@ bool Battle::PreUpdate()
 
 void Battle::skillsup()
 {
-	for (int e = 0; e >= selCH.count(); e++)
+
+	for (int e = 0; e < selCH.count(); e++)
 	{
 		if (app->scene->partyList.count() > 0)
 		{
-			if (app->scene->partyList.At(0)->data->stats->level >= 3 && selCH.At(e)->data != playerSpecialButton1)
+			bool lvl = false;
+			if (app->scene->partyList.At(0)->data->stats->level >= 3 )
 			{
-				selCH.add(playerSpecialButton1);
+				ListItem<GuiButton*>* BUTInList;
+				BUTInList = selCH.start;
+				for (BUTInList = selCH.start; BUTInList != NULL ; BUTInList = BUTInList->next)
+				{
+					if (BUTInList->data->id == playerSpecialButton1->id && !lvl) {
+
+						selCH.add(playerSpecialButton1);
+						lvl = true;
+					}
+				}
 			}
-			if (app->scene->partyList.At(0)->data->stats->level >= 6 && selCH.At(e)->data != playerSpecialButton2)
+			if (app->scene->partyList.At(0)->data->stats->level >= 6 && selCH.At(e)->data->id != playerSpecialButton2->id)
 			{
 				selCH.add(playerSpecialButton2);
 			}
-			if (app->scene->partyList.At(0)->data->stats->level >= 10 && selCH.At(e)->data != playerSpecialButton3)
+			if (app->scene->partyList.At(0)->data->stats->level >= 10 && selCH.At(e)->data->id != playerSpecialButton3->id)
 			{
 				selCH.add(playerSpecialButton3);
 			}
+
 		}
 	}
 
-	for (int e = selVL.count(); e >=0 ; e--)
+	for (int e =0; e < selVL.count(); e++)
 	{
 		if (app->scene->partyList.count() > 1)
 		{
-			if (app->scene->partyList.At(1)->data->stats->level >= 3 && selVL.At(e)->data != playerSpecialButton1)
+			if (app->scene->partyList.At(1)->data->stats->level >= 3 && selVL.At(e)->data->id != playerSpecialButton1->id)
 			{
 				selCH.add(valionSpecialButton1);
 			}
-			if (app->scene->partyList.At(1)->data->stats->level >= 6 && selVL.At(e)->data != playerSpecialButton2)
+			if (app->scene->partyList.At(1)->data->stats->level >= 6 && selVL.At(e)->data->id != playerSpecialButton2->id)
 			{
 				selCH.add(valionSpecialButton2);
 			}
-			if (app->scene->partyList.At(1)->data->stats->level >= 10 && selVL.At(e)->data != playerSpecialButton3)
+			if (app->scene->partyList.At(1)->data->stats->level >= 10 && selVL.At(e)->data->id != playerSpecialButton3->id)
 			{
 				selCH.add(valionSpecialButton3);
 			}
 		}
 	}
-	for (int e = selRAY.count(); e >= 0; e--)
+	for (int e =0 ; e < selRAY.count(); e++)
 	{
 		if (app->scene->partyList.count() > 2)
 		{
@@ -712,7 +755,7 @@ void Battle::skillsup()
 			}
 		}
 	}
-	for (int e = selDH.count(); e >= 0; e--)
+	for (int e = 0; e < selDH.count(); e++)
 	{
 		if (app->scene->partyList.count() > 3)
 		{
@@ -735,7 +778,7 @@ void Battle::skillsup()
 bool Battle::Update(float dt)
 {	
 	localdt = dt;
-	skillsup();
+	//skillsup();
 	if (battlePause == false) {
 
 		//if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
@@ -971,7 +1014,7 @@ bool Battle::Update(float dt)
 						}
 					}
 					gamepad3 = true; 
-					t = think.start;
+					
 				}
 
 				if (targetEntity != nullptr) {
@@ -2432,9 +2475,12 @@ bool Battle::PostUpdate()
 			else {
 				sprintf_s(rewardChar, 150, "All the team members receive %i EXP and %i gold!", expCount, goldCount);
 				app->font->DrawTextDelayed(rewardChar, 10, 25);
+				for (int i = 0; i < app->scene->partyList.count(); i++) {
+					app->scene->partyList.At(i)->data->stats->lvlup(expCount);
+				}
 				break;
 			}
-
+			
 		case BattlePhase::LOOT:
 			if (hasChangedPhase == true) {
 				app->font->CleanFonts();
@@ -2482,7 +2528,6 @@ bool Battle::PostUpdate()
 
 				}
 				else if (entitiesInBattle[i]->stats->health <= 5) {
-
 
 					sprintf_s(lifeChar, 50, "%s's health: %2d", entitiesInBattle[i]->name, (int)entitiesInBattle[i]->stats->health);
 					app->font->DrawText(lifeChar, 10 * app->win->GetScale(), (app->win->GetHeight() / 2 - 30 - LIFE_DISTANCE * (3 - i)) * app->win->GetScale(), { 180,0,0 }, false, 1);
@@ -3210,7 +3255,7 @@ void Battle::Attack(DynamicEntity *target) {
 				goldCount += 10;
 				app->scene->player->PlayerMoney += 10;
 			}
-			if (!app->scene->godmode) {
+			/*if (!app->scene->godmode) {
 				for (int i = 0; i < app->scene->partyList.count(); i++) {
 					if (target->name == "Bat")
 					{
@@ -3242,7 +3287,7 @@ void Battle::Attack(DynamicEntity *target) {
 						app->scene->partyList.At(i)->data->stats->lvlup(100);
 					}
 				}
-			}
+			}*/
 
 			if (target->name != "Valion" && target->name != "Rayla" && target->name != "Dhion" && target->name != "Truck-kun") {
 				optionPercent = 0;
@@ -3341,7 +3386,11 @@ bool Battle::Escape() {
 		ret = false;
 	}
 	
-	if (entitiesInBattle[4]->name == "Truck-kun") {
+	if (entitiesInBattle[4]->name == "Truck-kun" || entitiesInBattle[4]->name == "Valion" || entitiesInBattle[4]->name == "Rayla" ||entitiesInBattle[4]->name == "Dhion") {
+		ret = false;
+	}
+
+	if (actualTurnEntity->activeOnStage == StageIndex::DOJO) {
 		ret = false;
 	}
 
@@ -3782,10 +3831,24 @@ bool Battle::CleanUp()
 					app->scene->normalEnemyList.del(app->scene->normalEnemyList.At(app->scene->normalEnemyList.find((NormalEnemy*)entitiesInBattle[i])));
 				}
 			}
+
+			entitiesInBattle[4]->isAlive = true;
+			
+				ListItem<NormalEnemy*>* NormalEnemyInList;
+				NormalEnemyInList = app->stages->normalEnemyListPtr->start;
+				for (NormalEnemyInList = app->stages->normalEnemyListPtr->start; NormalEnemyInList != NULL; NormalEnemyInList = NormalEnemyInList->next)
+				{
+					if (NormalEnemyInList->data == entitiesInBattle[4]) {
+						NormalEnemyInList->data->chasePlayer = false;
+					}
+				}
+			
 			//Take back enemy position
 			entitiesInBattle[4]->position = entitiesInBattle[4]->mapPosition;
 			//Take back enemy animation
 			entitiesInBattle[4]->currentAnimation = entitiesInBattle[4]->mapAnimation;
+
+			
 
 
 			//Take back player position
@@ -3905,6 +3968,7 @@ void Battle::GampadControl()
 				if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
 					app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
 				{
+					t = NULL;
 					t = think.start;
 					t->data->state = GuiControlState::FOCUSED;
 					
@@ -3931,37 +3995,37 @@ void Battle::GampadControl()
 					if (!pad.left && !pad.right) wait = true;
 
 					if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
-						if (t != think.end)
+						if (t != think.end && TK != uplimSL)
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = t->next;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK++;
 						}
 						else
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = think.start;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK = dowlimSL;
 
 						}
 						wait = false;
 					}
 					if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
-						if (t != think.start)
+						if (t != think.start && TK != dowlimSL)
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = t->prev;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK--;
 						}
 						else
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = think.end;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK = uplimSL;
 						}
 						wait = false;
 					}
@@ -3973,12 +4037,13 @@ void Battle::GampadControl()
 		{
 			/*if (!gamepad1)
 			{*/
+			LOG("%d", selCH.count());
 			if (normalAttackButton->state == GuiControlState::NORMAL)
 			{
 				if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
 					app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
 				{
-					
+					t = NULL;
 					if (actualTurnEntity == entitiesInBattle[0]) uplimSL = selCH.count(), t = selCH.start;
 					if (actualTurnEntity == entitiesInBattle[1]) uplimSL = selVL.count(), t = selVL.start;
 					if (actualTurnEntity == entitiesInBattle[2]) uplimSL = selRAY.count(), t = selRAY.start;
@@ -4007,36 +4072,36 @@ void Battle::GampadControl()
 
 					if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
 
-						if (t != think.end &&t->next!=nullptr)
+						if (t != think.end &&TK!=uplimSL)
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = t->next;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK++;
 						}
-						else
+						/*else
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = think.start;
 							t->data->state = GuiControlState::FOCUSED;
-						}
+						}*/
 						wait = false;
 					}
 					if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
-						if (t != think.start && t->prev!=nullptr)
+						if (t != think.start && TK !=dowlimSL)
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = t->prev;
 							t->data->state = GuiControlState::FOCUSED;
-
+							TK--;
 						}
-						else
+						/*else
 						{
 							t->data->state = GuiControlState::NORMAL;
 							t = think.end;
 							t->data->state = GuiControlState::FOCUSED;
 
-						}
+						}*/
 						wait = false;
 					}
 
@@ -4047,7 +4112,7 @@ void Battle::GampadControl()
 
 		case (BattlePhase::SELECTING):
 		{
-			
+			LOG("%d", choos.count());
 				/*if (!gamepad1)
 				{*/
 				if (enemyButton1->state == GuiControlState::NORMAL|| enemyButton2->state == GuiControlState::NORMAL || enemyButton3->state == GuiControlState::NORMAL 
@@ -4056,9 +4121,9 @@ void Battle::GampadControl()
 					if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_DOWN) ||
 						app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.right || pad.left || pad.up || pad.down)
 					{
-
-						 uplimSL = selCH.count(), t = choos.start;
-						
+						t = NULL;
+						t = choos.start;
+						uplimSL = choos.count();
 						t->data->state = GuiControlState::FOCUSED;
 						app->guiManager->keyb = true;
 					}
@@ -4083,36 +4148,36 @@ void Battle::GampadControl()
 
 						if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.right && wait == true) {
 
-							if (t != think.end && t->next != nullptr)
+							if (t != think.end && TK != uplimSL)
 							{
 								t->data->state = GuiControlState::NORMAL;
 								t = t->next;
 								t->data->state = GuiControlState::FOCUSED;
-
+								TK++;
 							}
-							else
+							/*else
 							{
 								t->data->state = GuiControlState::NORMAL;
 								t = think.start;
 								t->data->state = GuiControlState::FOCUSED;
-							}
+							}*/
 							wait = false;
 						}
 						if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.left && wait == true) {
-							if (t != think.start && t->prev != nullptr)
+							if (t != think.start && TK != dowlimSL)
 							{
 								t->data->state = GuiControlState::NORMAL;
 								t = t->prev;
 								t->data->state = GuiControlState::FOCUSED;
-
+								TK--;
 							}
-							else
+							/*else
 							{
 								t->data->state = GuiControlState::NORMAL;
 								t = think.end;
 								t->data->state = GuiControlState::FOCUSED;
 
-							}
+							}*/
 							wait = false;
 						}
 

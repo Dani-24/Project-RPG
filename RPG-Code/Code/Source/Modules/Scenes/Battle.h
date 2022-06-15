@@ -144,6 +144,11 @@ private:
 
 	int uplimSL , dowlimSL = 0;
 
+	bool p3, p6, p10,
+		v3, v6, v10,
+		v;
+
+
 	int TK, SL, CA;
 	SDL_Texture* playerBattleSprite;
 	Animation playerBattleAnimation;
