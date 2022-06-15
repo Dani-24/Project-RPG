@@ -1353,46 +1353,68 @@ bool Stages::PostUpdate()
 
 		switch (app->battle->skill) {
 		case 110:
-			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS,  app->win->GetWidth() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().w / 2, app->win->GetHeight() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().h/2, &app->battle->EscudoS_a.GetCurrentFrame(),4,false);
+			if (app->battle->battlePhase == BattlePhase::DEFENDING) {
+				app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, app->win->GetWidth() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().w / 2, app->win->GetHeight() / 2 / 2 - app->battle->EscudoS_a.GetCurrentFrame().h / 2, &app->battle->EscudoS_a.GetCurrentFrame(), 4, false);
+			}
 			break;
 		case 111:
-			app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 950, 50, &app->battle->EspadaS_a.GetCurrentFrame(), 3, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->FlechaS_EspadaS_EscudoS, 950, 50, &app->battle->EspadaS_a.GetCurrentFrame(), 3, false);
+			}
 			break;
 		case 112:
-			app->render->DrawTexture(app->battle->AquaE, 950, 130, &app->battle->AquaE_a.GetCurrentFrame(), 4, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->AquaE, 950, 130, &app->battle->AquaE_a.GetCurrentFrame(), 4, false);
+			}
 			break;
-
 		case 120:
-			app->render->DrawTexture(app->battle->Pedrada, 950, 200, &app->battle->Pedrada_a.GetCurrentFrame(), 6, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->Pedrada, 950, 200, &app->battle->Pedrada_a.GetCurrentFrame(), 6, false);
+			}
 			break;
 		case 121:
-			app->render->DrawTexture(app->battle->Cataclismo, 550, -250, &app->battle->Cataclismo_a.GetCurrentFrame(), 4, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->Cataclismo, 550, -250, &app->battle->Cataclismo_a.GetCurrentFrame(), 4, false);	
+			}
 			break;
 		case 122:
-			app->render->DrawTexture(app->battle->Ciervo, 500, 100, &app->battle->Ciervo_a.GetCurrentFrame(),3, false);
+			if (app->battle->battlePhase == BattlePhase::DEFENDING) {
+				app->render->DrawTexture(app->battle->Ciervo, 500, 100, &app->battle->Ciervo_a.GetCurrentFrame(), 3, false);
+			}
 			break;
-
 		case 130:
-			app->render->DrawTexture(app->battle->FlechaT, 50 +timeSkill, 150, &app->battle->FlechaT_a.GetCurrentFrame(), 3, false);
-			timeSkill += 1*app->battle->localdt;
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->FlechaT, 50 + timeSkill, 150, &app->battle->FlechaT_a.GetCurrentFrame(), 3, false);
+				timeSkill += 1 * app->battle->localdt;
+			}
 			break;
 		case 131:
-			app->render->DrawTexture(app->battle->FlechaAcido, 80 + timeSkill, 150, &app->battle->FlechaAcido_a.GetCurrentFrame(), 3, false);
-			timeSkill += 1 * app->battle->localdt;
+			if (app->battle->battlePhase==BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->FlechaAcido, 80 + timeSkill, 150, &app->battle->FlechaAcido_a.GetCurrentFrame(), 3, false);
+				timeSkill += 1 * app->battle->localdt;
+			}
 			break;
 		case 132:
-			app->render->DrawTexture(app->battle->FlechaS, 80 + timeSkill, 150, &app->battle->FlechaS_a.GetCurrentFrame(), 3, false);
-			timeSkill += 1 * app->battle->localdt;
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->FlechaS, 80 + timeSkill, 150, &app->battle->FlechaS_a.GetCurrentFrame(), 3, false);
+				timeSkill += 1 * app->battle->localdt;
+			}
 			break;
-
 		case 140:
-			app->render->DrawTexture(app->battle->Juicio, 700, 0, &app->battle->Juicio_a.GetCurrentFrame(), 2, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->Juicio, 700, 0, &app->battle->Juicio_a.GetCurrentFrame(), 2, false);
+			}
 			break;
 		case 141:
-			app->render->DrawTexture(app->battle->HalconElectro, 100, 100, &app->battle->HalconElectro_a.GetCurrentFrame(), 1, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->HalconElectro, -200 + timeSkill, -350, &app->battle->HalconElectro_a.GetCurrentFrame(), 7, false);
+				timeSkill += 1 * app->battle->localdt;
+			}
 			break;
 		case 142:
-			app->render->DrawTexture(app->battle->TripleL, 100, 100, &app->battle->TripleL_a.GetCurrentFrame(), 1, false);
+			if (app->battle->battlePhase == BattlePhase::ATTACKING) {
+				app->render->DrawTexture(app->battle->TripleL, 500, -50, &app->battle->TripleL_a.GetCurrentFrame(), 4, false);
+			}
 			break;
 
 		default:

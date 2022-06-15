@@ -238,32 +238,32 @@ Battle::Battle(App* application, bool start_enabled) : Module(application, start
 	HalconElectro_a.PushBack({ 180 * 3,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 4,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 5,180 * 0,180,180 });
-	HalconElectro_a.PushBack({ 180 * 6,180 * 1,180,180 });
-	HalconElectro_a.PushBack({ 180 * 7,180 * 1,180,180 });
-	HalconElectro_a.PushBack({ 180 * 8,180 * 1,180,180 });
-	HalconElectro_a.PushBack({ 180 * 9,180 * 1,180,180 });
+	HalconElectro_a.PushBack({ 180 * 6,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 7,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 8,180 * 0,180,180 });
+	HalconElectro_a.PushBack({ 180 * 9,180 * 0,180,180 });
 
+	HalconElectro_a.PushBack({ 180 * 10,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 11,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 12,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 13,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 14,180 * 0,180,180 });
 	HalconElectro_a.PushBack({ 180 * 15,180 * 0,180,180 });
-	HalconElectro_a.PushBack({ 180 * 16,180 * 0,180,180 });
 
 	HalconElectro_a.PushBack({ 180 * 100,180 * 100,180,180 });
 	HalconElectro_a.loop = false;
 	HalconElectro_a.speed = 0.015f;
 	//_____________________________
-	TripleL_a.PushBack({ 180 * 0,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 1,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 2,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 3,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 4,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 5,180 * 0,180,180 });
-	TripleL_a.PushBack({ 180 * 6,180 * 0,180,180 });
+	TripleL_a.PushBack({ 197 * 0,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 1,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 2,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 3,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 4,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 5,200 * 0,197,200 });
+	TripleL_a.PushBack({ 197 * 6,200 * 0,197,200 });
 
 
-	TripleL_a.PushBack({ 180 * 100,180 * 100,180,180 });
+	TripleL_a.PushBack({ 197 * 100,200 * 100,197,200 });
 	TripleL_a.loop = false;
 	TripleL_a.speed = 0.015f;
 	//_____________
@@ -1026,6 +1026,7 @@ bool Battle::Update(float dt)
 			case BattlePhase::OUTCOME:
 				if (cont < outcomeTime) {
 					cont += dt;
+					skill = 0;
 				}
 				//OUTCOME
 				else {
@@ -1336,7 +1337,7 @@ bool Battle::Update(float dt)
 							targetEntity = entitiesInBattle[targetNum];
 							ChangePhase(BattlePhase::ATTACKING);
 						}
-						else if (optionPercent < 85) {//85
+						else if (optionPercent < 90) {//85
 							ChangePhase(BattlePhase::DEFENDING);
 						}
 						else {
@@ -1349,6 +1350,7 @@ bool Battle::Update(float dt)
 			case BattlePhase::OUTCOME:
 				if (cont < outcomeTime) {
 					cont += dt;
+					skill = 0;
 				}
 				//OUTCOME
 				else {
@@ -2471,13 +2473,14 @@ bool Battle::PostUpdate()
 						entitiesInBattle[i]->isSelected = false;
 					}
 				}
+				for (int i = 0; i < app->scene->partyList.count(); i++) {
+					app->scene->partyList.At(i)->data->stats->lvlup(expCount);
+				}
 			}
 			else {
 				sprintf_s(rewardChar, 150, "All the team members receive %i EXP and %i gold!", expCount, goldCount);
 				app->font->DrawTextDelayed(rewardChar, 10, 25);
-				for (int i = 0; i < app->scene->partyList.count(); i++) {
-					app->scene->partyList.At(i)->data->stats->lvlup(expCount);
-				}
+				
 				break;
 			}
 			
@@ -3314,7 +3317,7 @@ void Battle::Attack(DynamicEntity *target) {
 	
 		
 	}
-	skill = 0;
+	
 }
 
 void Battle::Defense() {
