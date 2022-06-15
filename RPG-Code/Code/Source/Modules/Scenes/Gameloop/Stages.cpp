@@ -254,6 +254,9 @@ bool Stages::PostUpdate()
 {
 	bool ret = true;
 	GamePad& pad = app->input->pads[0];
+	
+	if (!pad.a && !pad.b) _wait = true;
+
 	int xm = -app->camera->GetPos().x / 2,
 		ym = -app->camera->GetPos().y / 2;
 	switch (actualStage)
@@ -1482,31 +1485,31 @@ bool Stages::PostUpdate()
 
 		break;
 	case StageIndex::TOWN:
-		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT|| pad.r1) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}
 		break;
 	case StageIndex::DOJO:
-		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT || pad.r1) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}
 		break;
 	case StageIndex::SHOP:
-		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT || pad.r1) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}
 		break;
 	case StageIndex::SHOPSUB:
-		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT || pad.r1) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}
 		break;
 	case StageIndex::TAVERN:
-		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		if (app->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT || pad.r1) {
 
 			app->render->DrawTexture(app->scene->mini_map, xm + 150, ym + 50);
 		}

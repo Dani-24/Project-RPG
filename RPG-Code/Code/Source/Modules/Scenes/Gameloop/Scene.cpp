@@ -454,7 +454,8 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	
+	GamePad& pad = app->input->pads[0];
+	if (!pad.a && !pad.b && !pad.x && !pad.y && !pad.l1) _wait = true;
 	int xt, yt;
 	//variables for textures
 	xt = -app->camera->GetPos().x / 2 + app->win->GetWidth() / 2;
@@ -603,18 +604,21 @@ bool Scene::Update(float dt)
 
 	// Inventory
 	if (app->inventory->isEnabled() == false) {
-		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN) {
+		if (app->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN || pad.x&&_wait) {
 			app->inventory->Enable();
+			_wait = false;
 		}
 	}
 	// Stats
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN || pad.y && _wait) {
 		app->stmen->Enable();
+		_wait = false;
 	}
 
 	// quests
-	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN || pad.l1 && _wait) {
 		app->questMenu->Enable();
+		_wait = false;
 	}
 
 

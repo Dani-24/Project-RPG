@@ -158,7 +158,6 @@ private:
 
 public:
 	bool gamepad1 = false, gamepad2 = false, gamepad3 = false;
-
 	BattlePhase battlePhase;
 
 	StageIndex  * battleStage;

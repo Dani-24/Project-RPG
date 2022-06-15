@@ -315,19 +315,19 @@ void StatsMenu::Statss()
 		
 		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Hellie")
 		{
-			app->font->DrawText("Atack", x + 461, y + 140 );
+			app->font->DrawText("Attack", x + 461, y + 140 );
 		}
 		else if (ch->data->name == "Valion")
 		{
-			app->font->DrawText("Atack", x + 461, y + 140 );
+			app->font->DrawText("Attack", x + 461, y + 140 );
 		}
 		else if (ch->data->name == "Rayla")
 		{
-			app->font->DrawText("Atack", x + 461, y + 140  );
+			app->font->DrawText("Attack", x + 461, y + 140  );
 		}
 		else if (ch->data->name == "Dhion")
 		{
-			app->font->DrawText("Atack", x + 461, y + 140 );
+			app->font->DrawText("Attack", x + 461, y + 140 );
 		}
 	}
 	if (ch->data->stats->level >= 3)

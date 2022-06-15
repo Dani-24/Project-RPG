@@ -633,12 +633,14 @@ bool Player::CleanUp() {
 }
 
 void Player::MovementPlayer(float dt) {
-	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT)speed = 0.28 * dt;
+	GamePad& pad = app->input->pads[0];
+	if (!pad.a && !pad.b) _wait = true;
+
+	if(app->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RCTRL) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_RSHIFT) == KEY_REPEAT || pad.r2)speed = 0.28 * dt;
 	else if(app->scene->godmode)speed = 0.35 * dt;
 	else speed = 0.2 * dt;
 	
-	GamePad& pad = app->input->pads[0];
-
+	
 	walkFxCooldown -= dt;
 	int cooldown = 450;
 

@@ -129,7 +129,7 @@ public:
 	bool ch1 = false;
 	bool ch2 = false;
 	bool ch3 = false;
-
+	bool _wait;
 private: // Hacer listas esta sobrevalorado supongo:
 
 	// Normal Enemies
