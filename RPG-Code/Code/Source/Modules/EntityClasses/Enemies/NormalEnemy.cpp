@@ -460,6 +460,9 @@ bool NormalEnemy::Start()
 		case StageIndex::TOWER_2:
 			stats = new Stats(7, 10, 5, 5, 5, 18);
 			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
+			break;
 		default:
 			stats = new Stats(1, 10, 5, 5, 5, 18);
 			break;
@@ -480,6 +483,9 @@ bool NormalEnemy::Start()
 		case StageIndex::TOWER_2:
 			stats = new Stats(7, 10, 5, 5, 5, 18);
 			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
+			break;
 		default:
 			stats = new Stats(1, 10, 5, 5, 5, 18);
 			break;
@@ -499,6 +505,9 @@ bool NormalEnemy::Start()
 			break;
 		case StageIndex::TOWER_2:
 			stats = new Stats(7, 10, 5, 5, 5, 18);
+			break;
+		case StageIndex::TOWER_3:
+			stats = new Stats(9, 10, 5, 5, 5, 18);
 			break;
 		default:
 			stats = new Stats(1, 10, 5, 5, 5, 18);
