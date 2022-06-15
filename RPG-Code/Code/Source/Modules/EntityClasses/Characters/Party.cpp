@@ -386,22 +386,37 @@ bool Party::Start()
 	case PartyType::VALION:
 
 		//stats = new Stats(1, 15, 10, 3, 10, 32);
-		stats = new Stats(1, 15, 12, 10, 15, 16);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 12, 10, 15, 16);
+		}
+		else {
+			stats = new Stats(1, 15, 12, 10, 15, 16);
+		}
+		
 		spriteTex = app->tex->Load(ValionChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/wizard_gui.png");
 		break;
 
 	case PartyType::RAYLA:
-
-		stats = new Stats(1, 15, 10, 8, 12, 28);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 10, 8, 12, 28);
+		}
+		else {
+			stats = new Stats(1, 15, 10, 8, 12, 28);
+		}
 		spriteTex = app->tex->Load(RaylaChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/archer_gui.png");
 		break;
 	case PartyType::DHION:
 
-		stats = new Stats(1, 24, 7, 12, 7, 22);
+		if (app->scene->partyList.At(0)->data->stats->level > 1) {
+			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 24, 7, 12, 7, 22);
+		}
+		else {
+			stats = new Stats(1, 24, 7, 12, 7, 22);
+		}
 		spriteTex = app->tex->Load(DhionChar);
 
 		spriteFace = app->tex->Load("Assets/sprites/faces/lancer_gui.png");

@@ -176,6 +176,7 @@ bool DialogSystem::PostUpdate() {
 
 						int newX = 80;
 						int newY = 130 - 50;
+						app->scene->godmode = false;
 						if (app->scene->partyList.At(1) == nullptr) {
 							app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::VALION, newX, newY));
 						}
@@ -218,6 +219,7 @@ bool DialogSystem::PostUpdate() {
 
 							int newX = -200;
 							int newY = 120 - 50;
+							app->scene->godmode = false;
 							if (app->scene->partyList.At(2) == nullptr) {
 								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::RAYLA, newX, newY));
 							}
@@ -262,6 +264,7 @@ bool DialogSystem::PostUpdate() {
 
 							int newX = 200;
 							int newY = 0 - 50;
+							app->scene->godmode = false;
 							if (app->scene->partyList.At(3) == nullptr) {
 								app->scene->partyList.add((Party*)app->entities->CreateEntity(PartyType::DHION, newX, newY));
 							}
