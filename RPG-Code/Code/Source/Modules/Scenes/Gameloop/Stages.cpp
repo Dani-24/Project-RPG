@@ -888,35 +888,42 @@ bool Stages::PostUpdate()
 							}
 							break;
 						}
+						//SHIELDS IN BOSSES
+						if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
+							switch (BossInList->data->bossType) {
+							case BossType::VALION:
+								if (BossInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 10, app->battle->entitiesInBattle[i]->position.y + 110, 0, 2, false);
+								}
+								break;
+							case BossType::RAYLA:
+								if (BossInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x, app->battle->entitiesInBattle[i]->position.y + 130, 0, 2, false);
+								}
+								break;
+							case BossType::DHION:
+								if (BossInList->data->isSelected == true) {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false, { 255,150,0 });
+								}
+								else {
+									app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x - 20, app->battle->entitiesInBattle[i]->position.y + 100, 0, 2, false);
+								}
+								break;
+							default:
+								
+								break;
+							}
+						}
 					}
 				}
 
-				//SHIELDS IN BOSSES
-				if (app->battle->entitiesInBattle[i]->stats->defenseBuffed == true) {
-					switch (i) {
-					//	//Player
-					//case 0:
-					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 50, app->battle->entitiesInBattle[i]->position.y + 70);
-					//	break;
-					//	//Rayla
-					//case 1:
-					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 140, app->battle->entitiesInBattle[i]->position.y + 20);
-					//	break;
-					//	//Valion
-					//case 2:
-					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w + 90, app->battle->entitiesInBattle[i]->position.y + 70);
-					//	break;
-					//	//Dhion
-					//case 3:
-					//	app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w - 130, app->battle->entitiesInBattle[i]->position.y + 130);
-					//	break;
-					default:
-						if (i != 0 && i != 1 && i != 2 && i != 3) {
-							//app->render->DrawTexture(app->battle->shield, app->battle->entitiesInBattle[i]->position.x + app->battle->entitiesInBattle[i]->currentAnimation->GetCurrentFrame().w, app->battle->entitiesInBattle[i]->position.y);
-						}
-					break;
-					}
-				}
+				
 
 				//IF THEY ARE ALLIES
 				ListItem<Character*>* CharacterInList;
