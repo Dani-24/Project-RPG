@@ -454,21 +454,21 @@ bool BossEnemy::Start()
 
 		spriteTex = app->tex->Load("Assets/sprites/characters/wizard/1bosswizardBattleSprite.png");
 
-		stats = new Stats(1, 15, 12, 10, 15, 16);
+		stats = new Stats(1, 15, 10, 5, 15, 16);
 
 		break;
 	case BossType::RAYLA:
 
 		spriteTex = app->tex->Load("Assets/sprites/characters/archer/combat/boss_a_battle_spritesheet.png");
 
-		stats = new Stats(1, 15, 10, 8, 12, 28);
+		stats = new Stats(1, 15, 12, 5, 12, 28);
 
 		break;
 	case BossType::DHION:
 
 		spriteTex = app->tex->Load("Assets/sprites/characters/lancer/combat/boss_l_battle_spritesheet.png");
 
-		stats = new Stats(1, 24, 7, 12, 7, 22);
+		stats = new Stats(1, 24, 15, 5, 7, 22);
 		break;
 	default:
 		break;

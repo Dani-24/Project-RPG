@@ -390,7 +390,7 @@ bool Party::Start()
 			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 12, 10, 15, 16);
 		}
 		else {
-			stats = new Stats(1, 15, 12, 10, 15, 16);
+			stats = new Stats(1, 15, 7, 2, 15, 16);
 		}
 		
 		spriteTex = app->tex->Load(ValionChar);
@@ -403,7 +403,7 @@ bool Party::Start()
 			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 15, 10, 8, 12, 28);
 		}
 		else {
-			stats = new Stats(1, 15, 10, 8, 12, 28);
+			stats = new Stats(1, 15, 10, 5 , 12, 28);
 		}
 		spriteTex = app->tex->Load(RaylaChar);
 
@@ -415,7 +415,7 @@ bool Party::Start()
 			stats = new Stats(app->scene->partyList.At(0)->data->stats->level - 1, 24, 7, 12, 7, 22);
 		}
 		else {
-			stats = new Stats(1, 24, 7, 12, 7, 22);
+			stats = new Stats(1, 24, 7, 5, 7, 22);
 		}
 		spriteTex = app->tex->Load(DhionChar);
 

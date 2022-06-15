@@ -452,19 +452,19 @@ bool NormalEnemy::Start()
 		spriteTex = app->tex->Load("Assets/sprites/enemies/flying_eye/eyeSprite.png");
 		switch (activeOnStage) {
 		case StageIndex::DOJO:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 7, 3, 5, 18);
 			break;
 		case StageIndex::TOWER_1:
-			stats = new Stats(4, 10, 5, 5, 5, 18);
+			stats = new Stats(4, 10, 7, 3, 5, 18);
 			break;
 		case StageIndex::TOWER_2:
-			stats = new Stats(7, 10, 5, 5, 5, 18);
+			stats = new Stats(7, 10, 7, 3, 5, 18);
 			break;
 		case StageIndex::TOWER_3:
-			stats = new Stats(9, 10, 5, 5, 5, 18);
+			stats = new Stats(9, 10, 7, 3, 5, 18);
 			break;
 		default:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 7, 3, 5, 18);
 			break;
 		}
 
@@ -475,19 +475,19 @@ bool NormalEnemy::Start()
 
 		switch (activeOnStage) {
 		case StageIndex::DOJO:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 6, 2, 5, 20);
 			break;
 		case StageIndex::TOWER_1:
-			stats = new Stats(4, 10, 5, 5, 5, 18);
+			stats = new Stats(4, 10, 6, 2, 5, 20);
 			break;
 		case StageIndex::TOWER_2:
-			stats = new Stats(7, 10, 5, 5, 5, 18);
+			stats = new Stats(7, 10, 6, 2, 5, 20);
 			break;
 		case StageIndex::TOWER_3:
-			stats = new Stats(9, 10, 5, 5, 5, 18);
+			stats = new Stats(9, 10, 6, 2, 5, 20);
 			break;
 		default:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 6, 2, 5, 20);
 			break;
 		}
 
@@ -498,19 +498,19 @@ bool NormalEnemy::Start()
 
 		switch (activeOnStage) {
 		case StageIndex::DOJO:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 8, 5, 5, 15);
 			break;
 		case StageIndex::TOWER_1:
-			stats = new Stats(4, 10, 5, 5, 5, 18);
+			stats = new Stats(4, 10, 8, 5, 5, 15);
 			break;
 		case StageIndex::TOWER_2:
-			stats = new Stats(7, 10, 5, 5, 5, 18);
+			stats = new Stats(7, 10, 8, 5, 5, 15);
 			break;
 		case StageIndex::TOWER_3:
-			stats = new Stats(9, 10, 5, 5, 5, 18);
+			stats = new Stats(9, 10, 8, 5, 5, 15);
 			break;
 		default:
-			stats = new Stats(1, 10, 5, 5, 5, 18);
+			stats = new Stats(1, 10, 8, 5, 5, 15);
 			break;
 		}
 
