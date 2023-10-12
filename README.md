@@ -34,7 +34,7 @@ Only you can discover that by exploring the tower.
 
 ## DEBUG KEYS:
 
-	TAB 		- Change Player gender
+	TAB 		- Change Player aspect
 
 	F9		- Show/Hide Colliders & Debug info
 
