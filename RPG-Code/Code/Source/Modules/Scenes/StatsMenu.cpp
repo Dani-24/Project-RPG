@@ -356,7 +356,7 @@ void StatsMenu::Statss()
 	if (ch->data->stats->level >= 6)
 	{
 
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar")
 		{
 			app->font->DrawText("Sword", x + 461, y + 190 );
 		}
@@ -376,7 +376,7 @@ void StatsMenu::Statss()
 	if (ch->data->stats->level >= 10)
 	{
 
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar")
 		{
 			app->font->DrawText("Aqua", x + 461, y + 215);
 		}

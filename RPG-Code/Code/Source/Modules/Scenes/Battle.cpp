@@ -507,9 +507,6 @@ bool Battle::Start()
 	case 2:
 		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->idleBattleF;
 		break;
-	case 3:
-		app->stages->playerPtr->currentAnimation = &app->stages->playerPtr->heliBattleIdle;
-		break;
 	}
 
 	//app->stages->playerPtr->currentAnimation->currentFrame = 1.0f;

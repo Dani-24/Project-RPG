@@ -279,140 +279,6 @@ Player::Player( int x, int y) : Character(CharacterType::PLAYER)
 	hitF.loop = false;
 	hitF.speed = 0.006f;
 
-	// Helicopter Animations
-
-	Animation* susAnim = &heliWalkUpAnim;
-
-	susAnim->PushBack({ 0, 64*3, 107, 64 });
-	susAnim->PushBack({ 107, 64*3, 107, 64 });
-	susAnim->PushBack({ 107*2, 64*3, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliWalkDownAnim;
-
-	susAnim->PushBack({ 0, 0, 107, 64 });
-	susAnim->PushBack({ 107, 0, 107, 64 });
-	susAnim->PushBack({ 107 *2, 0, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliWalkLeftAnim;
-
-	susAnim->PushBack({ 0, 64, 107, 64 });
-	susAnim->PushBack({ 107, 64, 107, 64 });
-	susAnim->PushBack({ 107 *2, 64, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliWalkRightAnim;
-
-	susAnim->PushBack({ 0, 64*2, 107, 64 });
-	susAnim->PushBack({ 107, 64*2, 107, 64 });
-	susAnim->PushBack({ 107 *2, 64*2, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliIdleUp;
-
-	susAnim->PushBack({ 0, 64*3, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliIdleDown;
-
-	susAnim->PushBack({ 0, 0, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliIdleR;
-
-	susAnim->PushBack({ 0, 64*2, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliIdleL;
-
-	susAnim->PushBack({ 0, 64, 107, 64 });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliBattleIdle;
-
-	susAnim->PushBack({ 0 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 1 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 2 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 3 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 4 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 5 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 6 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 7 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 8 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 9 * BATTLE_SIZE, 0 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliAttack;
-
-	susAnim->PushBack({ 0 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 1 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 2 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 3 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 4 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 5 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 6 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 7 * BATTLE_SIZE, 1 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->loop = false;
-	susAnim->speed = 0.006f;
-
-	susAnim = &heliProtect;
-
-	susAnim->PushBack({ 0 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 1 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 2 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 3 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 4 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 5 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 6 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 7 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 8 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 9 * BATTLE_SIZE, 2 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->loop = false;
-	susAnim->speed = 0.006f;
-
-	susAnim = &butMostImportantlyHeliHit;
-
-	susAnim->PushBack({ 0 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 1 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 2 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 3 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 4 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 5 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 6 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 7 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 8 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 9 * BATTLE_SIZE, 3 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->loop = true;
-	susAnim->speed = 0.006f;
-
-	susAnim = &andThenHeliDies;
-
-	susAnim->PushBack({ 0 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 1 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 2 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 3 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 4 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 5 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 6 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 7 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 8 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->PushBack({ 9 * BATTLE_SIZE, 4 * BATTLE_SIZE, BATTLE_SIZE, BATTLE_SIZE });
-	susAnim->loop = false;
-	susAnim->speed = 0.006f;
-
-	susAnim = nullptr;
-	delete susAnim;
-
 	currentAnimation = &idleAnimR; //player start with idle anim
 
 	name = "Rhen";
@@ -474,12 +340,6 @@ bool Player::Start()
 	male_character_face_gui = app->tex->Load("Assets/sprites/faces/mrotamasc_gui.png");
 	female_character_face_gui = app->tex->Load("Assets/sprites/faces/ProtaFem_gui.png");
 
-	// Helicopter
-
-	HeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/heliSprite.png");
-	BattleHeliTex = app->tex->Load("Assets/sprites/MainCh/helicopter/battle.png");
-	helicopter_character_face_gui = app->tex->Load("Assets/sprites/MainCh/helicopter/gui_face_heli.png");
-
 	//player start with idle anim
 	currentAnimation = &idleAnimDown;
 	PlayerErection = 1;
@@ -540,9 +400,6 @@ bool Player::PreUpdate()
 	case 2:
 		spriteFace = female_character_face_gui;
 		break;
-	case 3:
-		spriteFace = helicopter_character_face_gui;
-		break;
 	}
 
 	return true;
@@ -556,7 +413,7 @@ bool Player::Update(float dt) {
 	if (app->scene->pause == false && canMove == true && app->dialogs->dialoging == false) {
 
 		if ((app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) || pad.l3 && _wait && app->stages->actualStage==StageIndex::INTRODUCTION) {
-			if (PlayerErection < 3) {
+			if (PlayerErection < 2) {
 				PlayerErection++;
 			}
 			else {
@@ -572,10 +429,6 @@ bool Player::Update(float dt) {
 			case 2:
 				name = "Briar";
 				currentAnimation = &idleAnimDown;
-				break;
-			case 3:
-				name = "Hellie";
-				currentAnimation = &heliIdleDown;
 				break;
 			}
 
@@ -651,16 +504,10 @@ void Player::MovementPlayer(float dt) {
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x -= speed;
 
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimL) {
 						currentAnimation = &walkAnimL;
 
 					}
-				}
-				else {
-					currentAnimation = &heliWalkLeftAnim;
-				}
-
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
 					walkFxCooldown = cooldown;
@@ -669,14 +516,9 @@ void Player::MovementPlayer(float dt) {
 			//MOV W
 			else {
 					position.y -= speed;
-					if (PlayerErection != 3) {
 						if (currentAnimation != &walkAnimUp) {
 							currentAnimation = &walkAnimUp;
 						}
-					}
-					else {
-						currentAnimation = &heliWalkUpAnim;
-					}
 
 					if (walkFxCooldown < 0) {
 						app->audio->PlayFx(walkFx);
@@ -690,14 +532,9 @@ void Player::MovementPlayer(float dt) {
 			//MOV D
 			if (timeWalkingHor < timeWalkingVer) {
 				position.x += speed;
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimR) {
 						currentAnimation = &walkAnimR;
 					}
-				}
-				else {
-					currentAnimation = &heliWalkRightAnim;
-				}
 
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
@@ -707,14 +544,10 @@ void Player::MovementPlayer(float dt) {
 			//MOV W
 			else {
 					position.y -= speed;
-					if (PlayerErection != 3) {
 						if (currentAnimation != &walkAnimUp) {
 							currentAnimation = &walkAnimUp;
 						}
-					}
-					else {
-						currentAnimation = &heliWalkUpAnim;
-					}
+					
 
 					if (walkFxCooldown < 0) {
 						app->audio->PlayFx(walkFx);
@@ -729,15 +562,9 @@ void Player::MovementPlayer(float dt) {
 			timeWalkingVer++;
 			timeWalkingHor = 0;
 
-			if (PlayerErection != 3) {
 				if (currentAnimation != &walkAnimUp) {
 					currentAnimation = &walkAnimUp;
 				}
-			}
-			else {
-				currentAnimation = &heliWalkUpAnim;
-			}
-
 			if (walkFxCooldown < 0) {
 				app->audio->PlayFx(walkFx);
 				walkFxCooldown = cooldown;
@@ -752,14 +579,9 @@ void Player::MovementPlayer(float dt) {
 				position.x -= speed;
 				timeWalkingHor++;
 				timeWalkingVer++;
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimL) {
 						currentAnimation = &walkAnimL;
 					}
-				}
-				else {
-					currentAnimation = &heliWalkLeftAnim;
-				}
 
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
@@ -769,14 +591,9 @@ void Player::MovementPlayer(float dt) {
 			//MOV S
 			else {
 				position.y += speed;
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimDown) {
 						currentAnimation = &walkAnimDown;
 					}
-				}
-				else {
-					currentAnimation = &heliIdleDown;
-				}
 
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
@@ -791,14 +608,9 @@ void Player::MovementPlayer(float dt) {
 				timeWalkingHor++;
 				timeWalkingVer++;
 
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimR) {
 						currentAnimation = &walkAnimR;
 					}
-				}
-				else {
-					currentAnimation = &heliWalkRightAnim;
-				}
 
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
@@ -808,14 +620,9 @@ void Player::MovementPlayer(float dt) {
 			//MOV S
 			else {
 				position.y += speed;
-				if (PlayerErection != 3) {
 					if (currentAnimation != &walkAnimDown) {
 						currentAnimation = &walkAnimDown;
 					}
-				}
-				else {
-					currentAnimation = &heliWalkDownAnim;
-				}
 
 				if (walkFxCooldown < 0) {
 					app->audio->PlayFx(walkFx);
@@ -829,14 +636,9 @@ void Player::MovementPlayer(float dt) {
 			timeWalkingVer++;
 			timeWalkingHor = 0;
 
-			if (PlayerErection != 3) {
 				if (currentAnimation != &walkAnimDown) {
 					currentAnimation = &walkAnimDown;
 				}
-			}
-			else {
-				currentAnimation = &heliWalkDownAnim;
-			}
 
 			if (walkFxCooldown < 0) {
 				app->audio->PlayFx(walkFx);
@@ -854,10 +656,6 @@ void Player::MovementPlayer(float dt) {
 				currentAnimation = &walkAnimL;
 			}
 		}
-		else {
-			currentAnimation = &heliWalkLeftAnim;
-		}
-
 		if (walkFxCooldown < 0) {
 			app->audio->PlayFx(walkFx);
 			walkFxCooldown = cooldown;
@@ -872,9 +670,6 @@ void Player::MovementPlayer(float dt) {
 			if (currentAnimation != &walkAnimR) {
 				currentAnimation = &walkAnimR;
 			}
-		}
-		else {
-			currentAnimation = &heliWalkRightAnim;
 		}
 
 		if (walkFxCooldown < 0) {
@@ -894,18 +689,6 @@ void Player::MovementPlayer(float dt) {
 		}
 		else if (currentAnimation == &walkAnimDown) {
 			currentAnimation = &idleAnimDown;
-		}
-		else if (currentAnimation == &heliWalkDownAnim) {
-			currentAnimation = &heliIdleDown;
-		}
-		else if (currentAnimation == &heliWalkUpAnim) {
-			currentAnimation = &heliIdleUp;
-		}
-		else if (currentAnimation == &heliWalkRightAnim) {
-			currentAnimation = &heliIdleR;
-		}
-		else if (currentAnimation == &heliWalkLeftAnim) {
-			currentAnimation = &heliIdleL;
 		}
 
 		timeWalkingHor = 0;
