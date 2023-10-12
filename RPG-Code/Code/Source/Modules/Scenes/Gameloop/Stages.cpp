@@ -340,9 +340,6 @@ bool Stages::PostUpdate()
 				case 2:
 					app->font->DrawTextDelayed("OH! So you're a girl-like thing", epilogX - 40, epilogY);
 					break;
-				case 3:
-					app->font->DrawTextDelayed("OH! So you're an Apache combat Helicopter", epilogX - 65, epilogY);
-					break;
 				}
 
 				break;
@@ -505,11 +502,6 @@ bool Stages::PostUpdate()
 			case 2:
 				if (playerPtr->PlayerFTex != nullptr) {
 					app->render->DrawTexture(playerPtr->PlayerFTex, playerPtr->position.x, playerPtr->position.y, &rect);
-				}
-				break;
-			case 3:
-				if (playerPtr->HeliTex != nullptr) {
-					app->render->DrawTexture(playerPtr->HeliTex, playerPtr->position.x - 30, playerPtr->position.y + 8, &rect);
 				}
 				break;
 			}
@@ -1118,74 +1110,6 @@ bool Stages::PostUpdate()
 									}
 								}
 
-								break;
-							case 3:
-								playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
-								app->render->DrawTexture(playerPtr->BattleHeliTex, playerPtr->position.x, playerPtr->position.y, &rect, 3, false);
-
-								if (playerPtr->isAlive == false) {
-									playerPtr->currentAnimation = &playerPtr->andThenHeliDies;
-								}
-
-								if (app->battle->actualTurnEntity == partyListPtr->At(0)->data) {
-									switch (app->battle->battlePhase) {
-									case BattlePhase::THINKING:
-										playerPtr->currentAnimation = &playerPtr->heliBattleIdle;
-
-										playerPtr->heliAttack.Reset();
-										playerPtr->andThenHeliDies.Reset();
-
-										for (int i = 0; i < 8; i++) {
-											if (app->battle->entitiesInBattle[i] != nullptr) {
-												if (app->battle->entitiesInBattle[i]->isAlive == true)
-													if (app->battle->entitiesInBattle[i]->takesDamage == false) {
-														app->battle->entitiesInBattle[i]->hitAnim.Reset();
-													}
-											}
-										}
-
-										if (playerPtr->isAlive == true) {
-											if (playerPtr->PlayerErection == 1) {
-												if (playerPtr->takesDamage == false) {
-													playerPtr->hitM.Reset();
-												}
-											}
-											else if (playerPtr->PlayerErection == 2) {
-												if (playerPtr->takesDamage == false) {
-													playerPtr->hitF.Reset();
-												}
-											}
-										}
-										
-										break;
-									case BattlePhase::ATTACKING:
-										playerPtr->currentAnimation = &playerPtr->heliAttack;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(hitfx2);
-										}
-										break;
-									case BattlePhase::DEFENDING:
-										playerPtr->currentAnimation = &playerPtr->heliProtect;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(shieldfx);
-										}
-										break;
-									case BattlePhase::LOSE:
-										playerPtr->currentAnimation = &playerPtr->andThenHeliDies;
-										if (fxbool == true) {
-											fxbool = false;
-											app->audio->PlayFx(chdiefx);
-										}
-										break;
-									
-									default:
-										break;
-
-									}
-								}
-								
 								break;
 							}
 						}

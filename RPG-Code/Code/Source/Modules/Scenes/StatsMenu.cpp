@@ -71,7 +71,7 @@ bool StatsMenu::Start()
 	backButtonTexture = app->tex->Load("Assets/gui/buttons/back_text.png");
 	backButtonPressedTexture = app->tex->Load("Assets/gui/buttons/pressed_back_text.png");
 
-	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png",0);
+	gui = app->tex->Load("Assets/gui/inventory/UI_stats.png");
 
 	questsTex = app->tex->Load("Assets/gui/buttons/quest.png");
 	presQuestsTex = app->tex->Load("Assets/gui/buttons/pressed_quest.png");
@@ -356,7 +356,7 @@ void StatsMenu::Statss()
 	if (ch->data->stats->level >= 6)
 	{
 
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar")
 		{
 			app->font->DrawText("Sword", x + 461, y + 190 );
 		}
@@ -376,7 +376,7 @@ void StatsMenu::Statss()
 	if (ch->data->stats->level >= 10)
 	{
 
-		if (ch->data->name == "Rhen" || ch->data->name == "Briar" || ch->data->name == "Heli")
+		if (ch->data->name == "Rhen" || ch->data->name == "Briar")
 		{
 			app->font->DrawText("Aqua", x + 461, y + 215);
 		}

@@ -76,21 +76,6 @@ public:
 		runM,
 		runF;
 
-	Animation
-		heliWalkUpAnim,
-		heliWalkDownAnim,
-		heliWalkLeftAnim,
-		heliWalkRightAnim,
-		heliIdleUp,
-		heliIdleDown,
-		heliIdleR,
-		heliIdleL,
-		heliBattleIdle,
-		heliAttack,
-		heliProtect,
-		butMostImportantlyHeliHit,
-		andThenHeliDies;
-
 	int erectionFx;
 
 	int walkFx;
@@ -105,11 +90,8 @@ public:
 	SDL_Texture* BattleMTex = nullptr;
 	SDL_Texture* BattleFTex = nullptr;
 
-	SDL_Texture* HeliTex, * BattleHeliTex;
-
-	SDL_Texture	* male_character_face_gui,
-				* female_character_face_gui,
-				* helicopter_character_face_gui;
+	SDL_Texture* male_character_face_gui,
+		* female_character_face_gui;
 
 	// Current Sprite
 	int PlayerErection = 1;
